@@ -36,7 +36,7 @@ export const uiFeedElements: UIFeedElement[] = [
 
 const Feed: FC<Props> = ({ position }) => {
   const ref = createRef<MeshProps>();
-  const padding = 0.1;
+  const padding = 0.025;
   const elementsHeight: number[] = [];
   const [, groupPosY] = position;
 
