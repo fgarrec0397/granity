@@ -41,11 +41,11 @@ const Feed: FC<Props> = ({ position }) => {
   const [, groupPosY] = position;
 
   useEffect(() => {
-    window.addEventListener("wheel", handleScrollWheel);
+    // window.addEventListener("wheel", handleScrollWheel);
   }, []);
 
   useFrame(() => {
-    if (ref.current && ref.current?.position.y < groupPosY) {
+    if (ref.current && ref.current?.position?.y < groupPosY) {
       ref.current.position.y = groupPosY;
     }
   });
