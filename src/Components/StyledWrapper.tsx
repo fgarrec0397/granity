@@ -1,9 +1,12 @@
 import React, { FC } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
 
-interface Props {
-  as?: string;
+export interface StyledWrapperProps {
   css?: FlattenSimpleInterpolation;
+}
+
+interface Props extends StyledWrapperProps {
+  as?: string;
 }
 
 const Wrapper: FC<Props> = ({ as = "div", css, children, ...props }) => {

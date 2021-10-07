@@ -8,7 +8,7 @@ interface Props {
 
 const Suggestions: FC<Props> = ({ scale }) => {
   return (
-    <Box position={[1.1, 0, 0]} scale={scale} text="3 Hello motha fuck***" />
+    <Box position={[1, 0, 0]} scale={scale} text="3 Hello motha fuck***" />
   );
 };
 

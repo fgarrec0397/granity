@@ -10,9 +10,17 @@ const App: FC = () => {
   return (
     <ThemeProvider theme={baseTheme}>
       <Canvas dpr={[1, 2]} camera={{ fov: 30 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 5]} />
-        <pointLight position={[-10, -10, -10]} />
+        <ambientLight intensity={0.8} />
+        <pointLight intensity={0.1} />
+        <pointLight intensity={0.1} />
+        <rectAreaLight
+          width={3}
+          height={3}
+          color="white"
+          intensity={15}
+          position={[-2, 0, 5]}
+          lookAt={[0, 0, 0]}
+        />
         <Layouts />
         <OrbitControls
           addEventListener={undefined}
