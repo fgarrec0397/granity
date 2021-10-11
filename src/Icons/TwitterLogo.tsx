@@ -6,6 +6,7 @@ const TwitterLogo: FC = () => {
       viewBox="0 0 24 24"
       aria-hidden="true"
       className="r-1cvl2hr r-4qtqp9 r-yyyyoo r-16y2uox r-8kz0gk r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp"
+      width="24px"
       fill="#1DA1F2"
     >
       <g>

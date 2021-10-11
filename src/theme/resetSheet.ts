@@ -22,7 +22,7 @@ export default `
         font-size:100%;
         vertical-align:baseline;
         background:transparent;
-        font-family: 'Roboto', sans-serif;
+        font-family: TwitterChirp, sans-serif;
     }
 
     article,aside,details,figcaption,figure,

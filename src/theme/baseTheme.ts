@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 
 const greyPalette = {
-  darker: "#14171A",
+  darker: "#0f1419",
   dark: "#657786",
   light: "#AAB8C2",
   lighter: "#E1E8ED",
@@ -19,7 +19,10 @@ export default {
     secondary: "#14171A",
     error: "##f10000",
     background: "#fff",
-    text: "greyPalette.dark",
+    text: {
+      darker: greyPalette.darker,
+      main: greyPalette.dark,
+    },
     disabled: {
       lighter: greyPalette.lighter,
       main: greyPalette.dark,

@@ -1,33 +1,37 @@
-import { Vector3 } from "@react-three/fiber";
 import React, { FC } from "react";
+import { css } from "styled-components";
+import Stars from "../Icons/Stars";
 import Box from "./Box";
+import StyledWrapper, { StyledWrapperProps } from "./StyledWrapper";
+import Typography, { TypographyStyles } from "./Typography";
 
-interface Props {
-  position: Vector3;
-  scale: Vector3;
+interface FeedHeaderStyles {
+  wrapper?: StyledWrapperProps;
+  text?: TypographyStyles;
 }
 
-const topElementHeight = 0.2;
-const bottomElementHeight = 0.3;
-const padding = 0.3;
-export const feedHeaderTotalHeight =
-  topElementHeight + bottomElementHeight + padding;
+const styles: FeedHeaderStyles = {
+  wrapper: {
+    css: css`
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    `,
+  },
+  text: {
+    css: css`
+      font-weight: bold;
+    `,
+  },
+};
 
-const FeedHeader: FC<Props> = ({ position, scale }) => {
-  console.log(position, "position");
+const FeedHeader: FC = () => {
   return (
-    <>
-      <Box
-        position={0}
-        scale={[1, topElementHeight, 0.5]}
-        text="2 Hello motha fuck***"
-      />
-      <Box
-        position={[0, -padding, 0]}
-        scale={[1, bottomElementHeight, 0.5]}
-        text="2 Hello motha fuck***"
-      />
-    </>
+    <StyledWrapper {...styles.wrapper}>
+      <Typography {...styles.text}>Home</Typography>
+      <Stars />
+    </StyledWrapper>
   );
 };
 

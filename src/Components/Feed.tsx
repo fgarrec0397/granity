@@ -1,6 +1,8 @@
 import { MeshProps, useFrame, Vector3 } from "@react-three/fiber";
-import React, { FC, createRef, useEffect } from "react";
+import React, { FC, createRef, useEffect, CSSProperties } from "react";
 import Box from "./Box";
+import CreateNewTweet from "./CreateNewTweet";
+import FeedHeader from "./FeedHeader";
 
 interface Props {
   position: Vector3;
@@ -9,28 +11,35 @@ interface Props {
 interface UIFeedElement {
   id?: string;
   scale: Vector3;
+  heightPx?: number;
+  widthPx?: number;
+  padding?: string;
+  styles?: CSSProperties;
+  component: JSX.Element;
 }
+
+const feedWidthPx = 360;
 
 export const uiFeedElements: UIFeedElement[] = [
   {
     id: "feed",
-    scale: [1, 1, 0.5],
+    scale: [1, 0.15, 0.5],
+    heightPx: 51,
+    widthPx: feedWidthPx,
+    padding: "0 1em",
+    styles: {
+      display: "flex",
+      alignItems: "center",
+    },
+    component: <FeedHeader />,
   },
   {
-    id: "element01",
-    scale: [1, 0.4, 0.5],
-  },
-  {
-    id: "element02",
-    scale: [1, 0.2, 0.5],
-  },
-  {
-    id: "element03",
-    scale: [1, 0.6, 0.5],
-  },
-  {
-    id: "element03",
-    scale: [1, 0.2, 0.5],
+    id: "feed",
+    scale: [1, 0.3, 0.5],
+    heightPx: 106,
+    widthPx: feedWidthPx,
+    padding: "0.5em 1em",
+    component: <CreateNewTweet />,
   },
 ];
 
@@ -41,7 +50,7 @@ const Feed: FC<Props> = ({ position }) => {
   const [, groupPosY] = position;
 
   useEffect(() => {
-    // window.addEventListener("wheel", handleScrollWheel);
+    window.addEventListener("wheel", handleScrollWheel);
   }, []);
 
   useFrame(() => {
@@ -72,8 +81,14 @@ const Feed: FC<Props> = ({ position }) => {
             key={element.id}
             position={[0, index === 0 ? 0 : -posY, 0]}
             scale={[1, sizeY, 0.5]}
+            heightPx={element.heightPx}
+            widthPx={element.widthPx}
+            padding={element.padding}
+            styles={element.styles}
             text="2 Hello motha fuck***"
-          />
+          >
+            {element.component}
+          </Box>
         );
       })}
     </group>

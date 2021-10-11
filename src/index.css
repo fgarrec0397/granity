@@ -19,4 +19,11 @@
     height: 100%;
     background: white;
 }
+
+@font-face {
+  font-family: 'twitterchirp';
+  src: local('twitterchirp'), url(./fonts/twitterchirp.ttf) format('ttf');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
   
