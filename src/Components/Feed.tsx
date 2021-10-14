@@ -3,6 +3,7 @@ import React, { FC, createRef, useEffect, CSSProperties } from "react";
 import Box from "./Box";
 import CreateNewTweet from "./CreateNewTweet";
 import FeedHeader from "./FeedHeader";
+import TweetPost from "./TweetPost";
 
 interface Props {
   position: Vector3;
@@ -22,7 +23,7 @@ const feedWidthPx = 360;
 
 export const uiFeedElements: UIFeedElement[] = [
   {
-    id: "feed",
+    id: "feeHeader",
     scale: [1, 0.15, 0.5],
     heightPx: 51,
     widthPx: feedWidthPx,
@@ -34,12 +35,20 @@ export const uiFeedElements: UIFeedElement[] = [
     component: <FeedHeader />,
   },
   {
-    id: "feed",
+    id: "createNewTweet",
     scale: [1, 0.3, 0.5],
     heightPx: 106,
     widthPx: feedWidthPx,
     padding: "0.5em 1em",
     component: <CreateNewTweet />,
+  },
+  {
+    id: "feed",
+    scale: [1, 0.5, 0.5],
+    heightPx: 177,
+    widthPx: feedWidthPx,
+    padding: "0.5em 1em",
+    component: <TweetPost />,
   },
 ];
 
