@@ -1,24 +1,26 @@
 import { UserOutlined } from "@ant-design/icons/lib/icons";
-import { Avatar, Input } from "antd";
+import { Avatar } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
-import Emoji from "../Icons/Emoji";
-import Gif from "../Icons/GIF";
-import Medias from "../Icons/Medias";
-import Poll from "../Icons/Poll";
-import Schedule from "../Icons/Schedule";
-import baseTheme from "../theme/baseTheme";
-import Button from "./Button";
+import OfficialAccount from "../Icons/OfficialAccount";
 import StyledWrapper, { StyledWrapperProps } from "./StyledWrapper";
 import Typography, { TypographyStyles } from "./Typography";
-
-const { TextArea } = Input;
+import baseTheme from "../theme/baseTheme";
+import Reply from "../Icons/Reply";
+import Retweet from "../Icons/Retweet";
+import Like from "../Icons/Like";
+import Share from "../Icons/Share";
 
 interface TweetPostStyles {
   wrapper?: StyledWrapperProps;
   rightWrapper?: StyledWrapperProps;
   iconsWrapper?: StyledWrapperProps;
   bottomWrapper?: StyledWrapperProps;
+  postUserTitleWrapper?: StyledWrapperProps;
+  postDescription?: TypographyStyles;
+  postUserTitle?: TypographyStyles;
+  postUserUserName?: TypographyStyles;
+  postDate?: TypographyStyles;
 }
 
 const styles: TweetPostStyles = {
@@ -31,6 +33,7 @@ const styles: TweetPostStyles = {
   rightWrapper: {
     css: css`
       width: 88%;
+      margin-left: 0.75em;
 
       textarea {
         width: 100%;
@@ -42,6 +45,7 @@ const styles: TweetPostStyles = {
   },
   bottomWrapper: {
     css: css`
+      width: 80%;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -57,6 +61,51 @@ const styles: TweetPostStyles = {
       margin-left: 6px;
     `,
   },
+  postDescription: {
+    css: css`
+      font-size: 15px;
+      line-height: 1.3;
+    `,
+  },
+  postUserTitle: {
+    css: css`
+      font-size: 15px;
+      font-weight: bold;
+      margin-right: 2px;
+    `,
+  },
+  postUserTitleWrapper: {
+    css: css`
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.2em;
+    `,
+  },
+  postUserUserName: {
+    css: css`
+      font-size: 15px;
+      margin-left: 2px;
+      color: ${baseTheme.colors.text.light};
+    `,
+  },
+  postDate: {
+    css: css`
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      color: ${baseTheme.colors.text.light};
+
+      &::before {
+        content: "";
+        display: block;
+        margin: 0 5px;
+        width: 4px;
+        height: 4px;
+        background-color: ${baseTheme.colors.text.light};
+        border-radius: 100%;
+      }
+    `,
+  },
 };
 
 const TweetPost: FC = () => {
@@ -64,13 +113,24 @@ const TweetPost: FC = () => {
     <StyledWrapper {...styles.wrapper}>
       <Avatar size={40} icon={<UserOutlined />} />
       <StyledWrapper {...styles.rightWrapper}>
-        <Typography>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed ex
-          corrupti repudiandae laborum quas. Eaque quos deserunt iure eos ex,
-          necessitatibus cumque nemo facilis quas veniam, quisquam delectus qui.
-          Possimus.
+        <StyledWrapper {...styles.postUserTitleWrapper}>
+          <Typography as="p" {...styles.postUserTitle}>
+            John Doe
+          </Typography>
+          <OfficialAccount />
+          <Typography {...styles.postUserUserName}>@johnDoe</Typography>
+          <Typography {...styles.postDate}>2h</Typography>
+        </StyledWrapper>
+        <Typography as="p" {...styles.postDescription}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante
+          mauris, rhoncus id consectetur sit amet, porttitor sed augue.
         </Typography>
-        <StyledWrapper {...styles.bottomWrapper}>bottom wrapper</StyledWrapper>
+        <StyledWrapper {...styles.bottomWrapper}>
+          <Reply />
+          <Retweet />
+          <Like />
+          <Share />
+        </StyledWrapper>
       </StyledWrapper>
     </StyledWrapper>
   );

@@ -1,5 +1,5 @@
 import { UserOutlined } from "@ant-design/icons/lib/icons";
-import { Avatar, Input } from "antd";
+import { Avatar } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
 import Emoji from "../Icons/Emoji";
@@ -7,12 +7,9 @@ import Gif from "../Icons/GIF";
 import Medias from "../Icons/Medias";
 import Poll from "../Icons/Poll";
 import Schedule from "../Icons/Schedule";
-import baseTheme from "../theme/baseTheme";
 import Button from "./Button";
 import StyledWrapper, { StyledWrapperProps } from "./StyledWrapper";
-import Typography, { TypographyStyles } from "./Typography";
-
-const { TextArea } = Input;
+import Textarea from "./Textarea";
 
 interface FeedHeaderStyles {
   wrapper?: StyledWrapperProps;
@@ -64,12 +61,7 @@ const CreateNewTweet: FC = () => {
     <StyledWrapper {...styles.wrapper}>
       <Avatar size={40} icon={<UserOutlined />} />
       <StyledWrapper {...styles.inputWrapper}>
-        <TextArea
-          size="large"
-          autoSize
-          bordered={false}
-          placeholder="What's happening?"
-        />
+        <Textarea />
         <StyledWrapper {...styles.bottomWrapper}>
           <StyledWrapper {...styles.iconsWrapper}>
             <Medias />
