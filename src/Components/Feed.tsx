@@ -52,27 +52,11 @@ export const uiFeedElements: UIFeedElement[] = [
   },
   {
     id: "feed",
-    scale: [1, 0.45, 0.5],
-    heightPx: 160,
+    scale: [1, 0.9, 0.5],
+    heightPx: 324,
     widthPx: feedWidthPx,
     padding: "0.75em 1em",
-    component: <TweetPost />,
-  },
-  {
-    id: "feed",
-    scale: [1, 0.45, 0.5],
-    heightPx: 160,
-    widthPx: feedWidthPx,
-    padding: "0.75em 1em",
-    component: <TweetPost />,
-  },
-  {
-    id: "feed",
-    scale: [1, 0.45, 0.5],
-    heightPx: 160,
-    widthPx: feedWidthPx,
-    padding: "0.75em 1em",
-    component: <TweetPost />,
+    component: <TweetPost hasImage />,
   },
 ];
 

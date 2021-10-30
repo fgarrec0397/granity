@@ -11,6 +11,10 @@ import Retweet from "../Icons/Retweet";
 import Like from "../Icons/Like";
 import Share from "../Icons/Share";
 
+interface Props {
+  hasImage?: boolean;
+}
+
 interface TweetPostStyles {
   wrapper?: StyledWrapperProps;
   rightWrapper?: StyledWrapperProps;
@@ -21,6 +25,7 @@ interface TweetPostStyles {
   postUserTitle?: TypographyStyles;
   postUserUserName?: TypographyStyles;
   postDate?: TypographyStyles;
+  imageWrapper?: StyledWrapperProps;
 }
 
 const styles: TweetPostStyles = {
@@ -106,9 +111,14 @@ const styles: TweetPostStyles = {
       }
     `,
   },
+  imageWrapper: {
+    css: css`
+      margin-top: 0.25em;
+    `,
+  },
 };
 
-const TweetPost: FC = () => {
+const TweetPost: FC<Props> = ({ hasImage }) => {
   return (
     <StyledWrapper {...styles.wrapper}>
       <Avatar size={40} icon={<UserOutlined />} />
@@ -125,6 +135,15 @@ const TweetPost: FC = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante
           mauris, rhoncus id consectetur sit amet, porttitor sed augue.
         </Typography>
+        {hasImage ? (
+          <StyledWrapper {...styles.imageWrapper}>
+            <img
+              src="https://picsum.photos/500/280"
+              alt="bla"
+              style={{ maxWidth: "100%", borderRadius: "11px" }}
+            />
+          </StyledWrapper>
+        ) : null}
         <StyledWrapper {...styles.bottomWrapper}>
           <Reply />
           <Retweet />
