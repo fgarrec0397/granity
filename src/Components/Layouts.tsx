@@ -12,7 +12,10 @@ const Layouts: FC = () => {
     <>
       <SideMenu scale={[0.75, sideElementScaleY, 0.5]} />
       <Feed position={[0, feedPostionY, 0]} />
-      <Suggestions scale={[0.75, sideElementScaleY, 0.5]} />
+      <Suggestions
+        scale={[0.75, sideElementScaleY, 0.5]}
+        position={[1, feedPostionY, 0]}
+      />
     </>
   );
 };

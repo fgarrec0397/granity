@@ -22,12 +22,12 @@ const App: FC = () => {
           lookAt={[0, 0, 0]}
         />
         <Layouts />
-        {/* <OrbitControls
+        <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
-        /> */}
+        />
       </Canvas>
       <GlobalStyle />
     </ThemeProvider>

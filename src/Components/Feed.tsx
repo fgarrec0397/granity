@@ -67,7 +67,7 @@ const Feed: FC<Props> = ({ position }) => {
   const [, groupPosY] = position;
 
   useEffect(() => {
-    window.addEventListener("wheel", handleScrollWheel);
+    // window.addEventListener("wheel", handleScrollWheel);
   }, []);
 
   useFrame(() => {
