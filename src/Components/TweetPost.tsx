@@ -10,6 +10,7 @@ import Reply from "../Icons/Reply";
 import Retweet from "../Icons/Retweet";
 import Like from "../Icons/Like";
 import Share from "../Icons/Share";
+import { dotBeforeStyles } from "../theme/mixins";
 
 interface Props {
   hasImage?: boolean;
@@ -100,15 +101,7 @@ const styles: TweetPostStyles = {
       font-size: 15px;
       color: ${baseTheme.colors.text.light};
 
-      &::before {
-        content: "";
-        display: block;
-        margin: 0 5px;
-        width: 4px;
-        height: 4px;
-        background-color: ${baseTheme.colors.text.light};
-        border-radius: 100%;
-      }
+      ${dotBeforeStyles()}
     `,
   },
   imageWrapper: {
