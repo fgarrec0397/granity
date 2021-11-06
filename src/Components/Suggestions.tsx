@@ -176,11 +176,12 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
         </StyledWrapper>
       </Box>
       <Box
-        position={[0, -(0.75 + 1.1 / 2 + 0.15 / 2 + 0.025 * 2), 0]} // fix this
-        scale={[0.75, 0.75, 0.5]}
+        position={[0, -(1.1 / 2 + 1.1 + 0.15), 0]} // fix this
+        scale={[0.75, 1.1, 0.5]}
         heightPx={0}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
+        color="red"
         styles={{
           display: "flex",
           alignItems: "center",

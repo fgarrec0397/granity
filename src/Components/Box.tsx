@@ -9,15 +9,28 @@ export interface BoxProps extends MeshProps {
   heightPx?: number;
   widthPx?: number;
   padding?: string;
+  color?: string;
   styles?: CSSProperties;
 }
 
 const Box: FC<BoxProps> = forwardRef(
-  ({ scale, position, heightPx, widthPx, padding, styles, children }, ref) => {
+  (
+    {
+      color = "white",
+      scale,
+      position,
+      heightPx,
+      widthPx,
+      padding,
+      styles,
+      children,
+    },
+    ref
+  ) => {
     return (
       <mesh ref={ref} scale={scale} position={position}>
         <boxGeometry />
-        <meshStandardMaterial color="white" roughness={0.5} metalness={0.5} />
+        <meshStandardMaterial color={color} roughness={0.5} metalness={0.5} />
         <Html distanceFactor={1.1} position={[0, 0, 0.51]} transform sprite>
           <div
             style={{
