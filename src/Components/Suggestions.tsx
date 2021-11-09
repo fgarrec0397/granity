@@ -1,6 +1,6 @@
 import { Html, RoundedBox } from "@react-three/drei";
 import { Vector3 } from "@react-three/fiber";
-import { Input } from "antd";
+import { Avatar, Input } from "antd";
 import React, { FC } from "react";
 import styled, { css } from "styled-components";
 import Box from "./Box";
@@ -27,6 +27,7 @@ interface SuggestionsStyles {
   newsType?: TypographyStyles;
   newsTitle?: TypographyStyles;
   showMoreLink?: LinkStyles;
+  followWrapper?: StyledWrapperProps;
 }
 
 const styles: SuggestionsStyles = {
@@ -92,6 +93,12 @@ const styles: SuggestionsStyles = {
     css: css`
       color: ${baseTheme.colors.primary};
       font-size: 14px;
+    `,
+  },
+  followWrapper: {
+    css: css`
+      display: flex;
+      align-items: center;
     `,
   },
 };
@@ -176,48 +183,28 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
         </StyledWrapper>
       </Box>
       <Box
-        position={[0, -(1.1 / 2 + 1.1 + 0.15), 0]} // fix this
-        scale={[0.75, 1.1, 0.5]}
-        heightPx={0}
+        position={[0, -(0.75 / 2 + 1.1 + 0.15), 0]} // fix this
+        scale={[0.75, 0.75, 0.5]}
+        heightPx={270}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
-        color="red"
         styles={{
           display: "flex",
           alignItems: "center",
         }}
         text="2 Hello motha fuck***"
       >
-        {/* <StyledWrapper {...styles.suggestionsWrapper}>
+        <StyledWrapper {...styles.suggestionsWrapper}>
           <Typography as="h2" {...styles.suggestionsTitle}>
-            What's happening
+            Who to follow
           </Typography>
           <StyledWrapper {...styles.newsWrapper}>
             <StyledWrapper {...styles.newsItem}>
               <StyledWrapper {...styles.newsCategoryWrapper}>
-                <Typography {...styles.newsCategory}>NHL</Typography>
-                <Typography {...styles.newsType}>Trending</Typography>
+                <StyledWrapper {...styles.followWrapper}>
+                  <Avatar />
+                </StyledWrapper>
               </StyledWrapper>
-              <Typography {...styles.newsTitle}>Jack Campbell</Typography>
-            </StyledWrapper>
-            <StyledWrapper {...styles.newsItem}>
-              <StyledWrapper {...styles.newsCategoryWrapper}>
-                <Typography {...styles.newsCategory}>Video game</Typography>
-                <Typography {...styles.newsType}>Trending</Typography>
-              </StyledWrapper>
-              <Typography {...styles.newsTitle}>
-                Animal Crossing: New Horizons 2.0 is out now
-              </Typography>
-              <Typography {...styles.newsCategory}>1.2k Tweets</Typography>
-            </StyledWrapper>
-            <StyledWrapper {...styles.newsItem}>
-              <StyledWrapper {...styles.newsCategoryWrapper}>
-                <Typography {...styles.newsCategory}>Television</Typography>
-                <Typography {...styles.newsType}>21 minutes ago</Typography>
-              </StyledWrapper>
-              <Typography {...styles.newsTitle}>
-                Law & Order: Organized Crime airing on NBC
-              </Typography>
             </StyledWrapper>
             <StyledWrapper {...styles.newsItem}>
               <Link to="/" {...styles.showMoreLink}>
@@ -225,12 +212,10 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
               </Link>
             </StyledWrapper>
           </StyledWrapper>
-        </StyledWrapper> */}
+        </StyledWrapper>
       </Box>
     </group>
   );
 };
 
 export default Suggestions;
-
-// <Box position={[1, 0, 0]} scale={scale} text="3 Hello motha fuck***" />
