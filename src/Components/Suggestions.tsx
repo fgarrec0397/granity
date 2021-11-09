@@ -10,6 +10,8 @@ import Typography, { TypographyStyles } from "./Typography";
 import { dotBeforeStyles } from "../theme/mixins";
 import baseTheme from "../theme/baseTheme";
 import Link, { LinkStyles } from "./Link";
+import OfficialAccount from "../Icons/OfficialAccount";
+import Button, { ButtonStyles } from "./Button";
 
 interface Props {
   scale: Vector3;
@@ -28,6 +30,10 @@ interface SuggestionsStyles {
   newsTitle?: TypographyStyles;
   showMoreLink?: LinkStyles;
   followWrapper?: StyledWrapperProps;
+  nameWrapper?: StyledWrapperProps;
+  followName?: TypographyStyles;
+  followUserName?: TypographyStyles;
+  followButton?: ButtonStyles;
 }
 
 const styles: SuggestionsStyles = {
@@ -99,6 +105,39 @@ const styles: SuggestionsStyles = {
     css: css`
       display: flex;
       align-items: center;
+    `,
+  },
+  nameWrapper: {
+    css: css`
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.25em;
+    `,
+  },
+  followName: {
+    css: css`
+      display: flex;
+      font-size: 15px;
+      font-weight: bold;
+
+      svg {
+        margin-left: 0.25em;
+      }
+    `,
+  },
+  followUserName: {
+    css: css`
+      font-size: 15px;
+      color: ${baseTheme.colors.text.light};
+    `,
+  },
+  followButton: {
+    css: css`
+      height: auto;
+      padding: 5px 10px;
+      line-height: 1;
+      background-color: #0f1419;
+      border-color: #0f1419;
     `,
   },
 };
@@ -203,6 +242,18 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
               <StyledWrapper {...styles.newsCategoryWrapper}>
                 <StyledWrapper {...styles.followWrapper}>
                   <Avatar />
+                  <StyledWrapper {...styles.nameWrapper}>
+                    <Typography {...styles.followName}>
+                      Unreal Engine
+                      <OfficialAccount />
+                    </Typography>
+                    <Typography {...styles.followUserName}>
+                      @UnrealEngine
+                    </Typography>
+                  </StyledWrapper>
+                  <Button type="primary" {...styles.followButton}>
+                    Follow
+                  </Button>
                 </StyledWrapper>
               </StyledWrapper>
             </StyledWrapper>
