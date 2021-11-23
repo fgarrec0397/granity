@@ -1,33 +1,52 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import { ThemeProvider } from "styled-components";
-import Layouts from "./Components/Layouts";
+import Layouts, { feedPostionY } from "./Components/Layouts";
+import Swarms from "./Components/Swarms";
 import GlobalStyle from "./theme/globalStyle";
 import baseTheme from "./theme/baseTheme";
+
+const Lights: FC = () => {
+  return (
+    <>
+      <ambientLight intensity={1} />
+      <directionalLight
+        intensity={2}
+        position={[2, 2, 0]}
+        color="white"
+        // distance={5}
+      />
+      <directionalLight
+        intensity={2}
+        position={[2, -2, 0]}
+        color="white"
+        // distance={5}
+      />
+      <spotLight intensity={4} position={[-5, 10, 2]} angle={0.2} castShadow />
+      <spotLight
+        intensity={2}
+        position={[-5, -10, 2]}
+        angle={-0.2}
+        castShadow
+      />
+    </>
+  );
+};
 
 const App: FC = () => {
   return (
     <ThemeProvider theme={baseTheme}>
-      <Canvas dpr={[1, 2]} camera={{ fov: 30 }}>
-        <ambientLight intensity={0.8} />
-        <pointLight intensity={0.1} />
-        <pointLight intensity={0.1} />
-        <rectAreaLight
-          width={3}
-          height={3}
-          color="white"
-          intensity={15}
-          position={[-2, 0, 5]}
-          lookAt={[0, 0, 0]}
-        />
+      <Canvas camera={{ fov: 30, position: [0, 0, 5] }}>
+        <Lights />
         <Layouts />
-        <OrbitControls
+        <Swarms />
+        {/* <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
-        />
+        /> */}
       </Canvas>
       <GlobalStyle />
     </ThemeProvider>

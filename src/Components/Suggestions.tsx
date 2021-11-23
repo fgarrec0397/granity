@@ -1,6 +1,5 @@
-import { Html, RoundedBox } from "@react-three/drei";
 import { Vector3 } from "@react-three/fiber";
-import { Avatar, Input } from "antd";
+import { Avatar } from "antd";
 import React, { FC } from "react";
 import styled, { css } from "styled-components";
 import Box from "./Box";
@@ -50,6 +49,7 @@ const styles: SuggestionsStyles = {
   },
   suggestionsWrapper: {
     css: css`
+      width: 100%;
       background-color: #f7f9f9;
       border-radius: 1em;
     `,
@@ -65,6 +65,11 @@ const styles: SuggestionsStyles = {
   newsItem: {
     css: css`
       padding: 0.75em 1em;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #ededed;
+      }
     `,
   },
   newsCategoryWrapper: {
@@ -105,6 +110,7 @@ const styles: SuggestionsStyles = {
     css: css`
       display: flex;
       align-items: center;
+      width: 100%;
     `,
   },
   nameWrapper: {
@@ -117,7 +123,7 @@ const styles: SuggestionsStyles = {
   followName: {
     css: css`
       display: flex;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: bold;
 
       svg {
@@ -127,7 +133,7 @@ const styles: SuggestionsStyles = {
   },
   followUserName: {
     css: css`
-      font-size: 15px;
+      font-size: 13px;
       color: ${baseTheme.colors.text.light};
     `,
   },
@@ -135,6 +141,7 @@ const styles: SuggestionsStyles = {
     css: css`
       height: auto;
       padding: 5px 10px;
+      margin-left: auto;
       line-height: 1;
       background-color: #0f1419;
       border-color: #0f1419;
@@ -152,15 +159,16 @@ const SearchInput = styled.input`
   }
 `;
 
-const elementsWidthPx = 269;
+const elementsWidthPx = 307;
+const scaleX = 0.85;
 
 const Suggestions: FC<Props> = ({ scale, position }) => {
   return (
     <group position={position}>
       <Box
         position={[0, 0, 0]}
-        scale={[0.75, 0.15, 0.5]}
-        heightPx={51}
+        scale={[scaleX, 0.15, 0.5]}
+        heightPx={52}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
         text="2 Hello motha fuck***"
@@ -172,8 +180,8 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
       </Box>
       <Box
         position={[0, -(1.1 / 2 + 0.15 / 2 + 0.025), 0]}
-        scale={[0.75, 1.1, 0.5]}
-        heightPx={396}
+        scale={[scaleX, 1.1, 0.5]}
+        heightPx={397}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
         styles={{
@@ -223,8 +231,8 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
       </Box>
       <Box
         position={[0, -(0.75 / 2 + 1.1 + 0.15), 0]} // fix this
-        scale={[0.75, 0.75, 0.5]}
-        heightPx={270}
+        scale={[scaleX, 0.75, 0.5]}
+        heightPx={271}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
         styles={{
@@ -249,6 +257,25 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
                     </Typography>
                     <Typography {...styles.followUserName}>
                       @UnrealEngine
+                    </Typography>
+                  </StyledWrapper>
+                  <Button type="primary" {...styles.followButton}>
+                    Follow
+                  </Button>
+                </StyledWrapper>
+              </StyledWrapper>
+            </StyledWrapper>
+            <StyledWrapper {...styles.newsItem}>
+              <StyledWrapper {...styles.newsCategoryWrapper}>
+                <StyledWrapper {...styles.followWrapper}>
+                  <Avatar />
+                  <StyledWrapper {...styles.nameWrapper}>
+                    <Typography {...styles.followName}>
+                      Fortnite
+                      <OfficialAccount />
+                    </Typography>
+                    <Typography {...styles.followUserName}>
+                      @Fortnite
                     </Typography>
                   </StyledWrapper>
                   <Button type="primary" {...styles.followButton}>

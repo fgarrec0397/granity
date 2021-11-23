@@ -19,41 +19,93 @@ interface UIFeedElement {
   component: JSX.Element;
 }
 
-const feedWidthPx = 360;
+const feedWidthPx = 453;
 
 export const uiFeedElements: UIFeedElement[] = [
   {
     id: "feeHeader",
-    scale: [1, 0.15, 0.5],
-    heightPx: 51,
+    scale: [1, 0.15, 0.25],
+    heightPx: 53,
     widthPx: feedWidthPx,
     padding: "0 1em",
     styles: {
       display: "flex",
       alignItems: "center",
+      bottom: "-1px",
     },
     component: <FeedHeader />,
   },
   {
     id: "createNewTweet",
-    scale: [1, 0.3, 0.5],
-    heightPx: 106,
+    scale: [1, 0.3, 0.25],
+    heightPx: 108,
     widthPx: feedWidthPx,
     padding: "0.5em 1em",
+    styles: {
+      top: "1px",
+    },
     component: <CreateNewTweet />,
   },
   {
     id: "feed",
-    scale: [1, 0.45, 0.5],
-    heightPx: 160,
+    scale: [1, 0.35, 0.25],
+    heightPx: 126,
     widthPx: feedWidthPx,
     padding: "0.75em 1em",
     component: <TweetPost />,
   },
   {
     id: "feed",
-    scale: [1, 0.9, 0.5],
-    heightPx: 324,
+    scale: [1, 0.9, 0.25],
+    heightPx: 325,
+    widthPx: feedWidthPx,
+    padding: "0.75em 1em",
+    component: <TweetPost hasImage />,
+  },
+  {
+    id: "feed",
+    scale: [1, 0.35, 0.25],
+    heightPx: 126,
+    widthPx: feedWidthPx,
+    padding: "0.75em 1em",
+    component: <TweetPost />,
+  },
+  {
+    id: "feed",
+    scale: [1, 0.9, 0.25],
+    heightPx: 325,
+    widthPx: feedWidthPx,
+    padding: "0.75em 1em",
+    component: <TweetPost hasImage />,
+  },
+  {
+    id: "feed",
+    scale: [1, 0.35, 0.25],
+    heightPx: 126,
+    widthPx: feedWidthPx,
+    padding: "0.75em 1em",
+    component: <TweetPost />,
+  },
+  {
+    id: "feed",
+    scale: [1, 0.9, 0.25],
+    heightPx: 325,
+    widthPx: feedWidthPx,
+    padding: "0.75em 1em",
+    component: <TweetPost hasImage />,
+  },
+  {
+    id: "feed",
+    scale: [1, 0.35, 0.25],
+    heightPx: 126,
+    widthPx: feedWidthPx,
+    padding: "0.75em 1em",
+    component: <TweetPost />,
+  },
+  {
+    id: "feed",
+    scale: [1, 0.9, 0.25],
+    heightPx: 325,
     widthPx: feedWidthPx,
     padding: "0.75em 1em",
     component: <TweetPost hasImage />,
@@ -62,12 +114,12 @@ export const uiFeedElements: UIFeedElement[] = [
 
 const Feed: FC<Props> = ({ position }) => {
   const ref = createRef<MeshProps>();
-  const padding = 0.025;
+  const padding = 0.04; // originally 0.025
   const elementsHeight: number[] = [];
   const [, groupPosY] = position;
 
   useEffect(() => {
-    // window.addEventListener("wheel", handleScrollWheel);
+    window.addEventListener("wheel", handleScrollWheel);
   }, []);
 
   useFrame(() => {
@@ -94,18 +146,20 @@ const Feed: FC<Props> = ({ position }) => {
         elementsHeight.push(sizeY);
 
         return (
-          <Box
-            key={element.id}
-            position={[0, index === 0 ? 0 : -posY, 0]}
-            scale={[1, sizeY, 0.5]}
-            heightPx={element.heightPx}
-            widthPx={element.widthPx}
-            padding={element.padding}
-            styles={element.styles}
-            text="2 Hello motha fuck***"
-          >
-            {element.component}
-          </Box>
+          <>
+            <Box
+              key={element.id}
+              position={[0, index === 0 ? 0 : -posY, 0]}
+              scale={[1.25, sizeY, 0.5]}
+              heightPx={element.heightPx}
+              widthPx={element.widthPx}
+              padding={element.padding}
+              styles={element.styles}
+              text="2 Hello motha fuck***"
+            >
+              {element.component}
+            </Box>
+          </>
         );
       })}
     </group>

@@ -8,6 +8,7 @@ import Typography, { TypographyStyles } from "./Typography";
 interface FeedHeaderStyles {
   wrapper?: StyledWrapperProps;
   text?: TypographyStyles;
+  iconWrapper?: StyledWrapperProps;
 }
 
 const styles: FeedHeaderStyles = {
@@ -24,13 +25,28 @@ const styles: FeedHeaderStyles = {
       font-weight: bold;
     `,
   },
+  iconWrapper: {
+    css: css`
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      border-radius: 100%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e9e9e9;
+      }
+    `,
+  },
 };
 
 const FeedHeader: FC = () => {
   return (
     <StyledWrapper {...styles.wrapper}>
       <Typography {...styles.text}>Home</Typography>
-      <Stars />
+      <StyledWrapper {...styles.iconWrapper}>
+        <Stars />
+      </StyledWrapper>
     </StyledWrapper>
   );
 };

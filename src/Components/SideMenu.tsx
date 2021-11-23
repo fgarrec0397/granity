@@ -29,6 +29,7 @@ interface SideMenuStyles {
   logoWrapper?: StyledWrapperProps;
   linksWrapper?: StyledWrapperProps;
   navLinkWrapper?: StyledWrapperProps;
+  selectedNavLinkWrapper?: StyledWrapperProps;
   navIconWrapper?: StyledWrapperProps;
   link?: LinkStyles;
   tweetButton?: ButtonStyles;
@@ -57,12 +58,20 @@ const styles: SideMenuStyles = {
     css: css`
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
     `,
   },
   navLinkWrapper: {
     css: css`
       display: flex;
-      padding: 12px;
+      padding: 12px 16px 12px 12px;
+    `,
+  },
+  selectedNavLinkWrapper: {
+    css: css`
+      display: flex;
+      padding: 12px 16px 12px 12px;
+      font-weight: bold;
     `,
   },
   navIconWrapper: {
@@ -91,7 +100,7 @@ const styles: SideMenuStyles = {
     css: css`
       display: flex;
       padding: 12px;
-      border-radius: 28px;
+      border-radius: 34px;
 
       &:hover {
         background-color: #e9e9e9;
@@ -116,6 +125,7 @@ const styles: SideMenuStyles = {
   userUserName: {
     css: css`
       font-size: 15px;
+      color: #818f99;
     `,
   },
 };
@@ -123,10 +133,13 @@ const styles: SideMenuStyles = {
 const SideMenu: FC<Props> = ({ scale }) => {
   return (
     <Box
-      position={[-1, 0, 0]}
+      position={[-1.15, 0, 0]}
       scale={scale}
-      heightPx={905}
-      widthPx={270}
+      heightPx={907}
+      widthPx={272}
+      styles={{
+        left: "1px",
+      }}
       text="1 Hello motha fuck***"
     >
       <StyledWrapper {...styles.wrapper}>
@@ -136,7 +149,7 @@ const SideMenu: FC<Props> = ({ scale }) => {
           </StyledWrapper>
           <StyledWrapper as="nav" {...styles.linksWrapper}>
             <Link to="/" {...styles.link}>
-              <StyledWrapper {...styles.navLinkWrapper}>
+              <StyledWrapper {...styles.selectedNavLinkWrapper}>
                 <StyledWrapper {...styles.navIconWrapper}>
                   <Home />
                 </StyledWrapper>

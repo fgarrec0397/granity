@@ -23,6 +23,8 @@
     "no-use-before-define": "off",
     "no-multi-assign": "off",
     "no-shadow": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
     "max-len": ["warn", { "code": 100 }],
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react-hooks/rules-of-hooks": "error",

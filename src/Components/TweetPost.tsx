@@ -1,7 +1,11 @@
 import { UserOutlined } from "@ant-design/icons/lib/icons";
 import { Avatar } from "antd";
 import React, { FC } from "react";
-import { css } from "styled-components";
+import {
+  css,
+  FlattenInterpolation,
+  FlattenSimpleInterpolation,
+} from "styled-components";
 import OfficialAccount from "../Icons/OfficialAccount";
 import StyledWrapper, { StyledWrapperProps } from "./StyledWrapper";
 import Typography, { TypographyStyles } from "./Typography";
@@ -21,12 +25,22 @@ interface TweetPostStyles {
   rightWrapper?: StyledWrapperProps;
   iconsWrapper?: StyledWrapperProps;
   bottomWrapper?: StyledWrapperProps;
+  bottomImageWrapper?: StyledWrapperProps;
   postUserTitleWrapper?: StyledWrapperProps;
   postDescription?: TypographyStyles;
   postUserTitle?: TypographyStyles;
   postUserUserName?: TypographyStyles;
   postDate?: TypographyStyles;
   imageWrapper?: StyledWrapperProps;
+  iconWrapper?: StyledWrapperProps;
+  actionValue?: TypographyStyles;
+}
+
+interface ActionsMappingModel {
+  [key: string]: {
+    color: string;
+    backgroundColor: string;
+  };
 }
 
 const styles: TweetPostStyles = {
@@ -40,6 +54,11 @@ const styles: TweetPostStyles = {
     css: css`
       width: 88%;
       margin-left: 0.75em;
+
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       textarea {
         width: 100%;
@@ -55,7 +74,16 @@ const styles: TweetPostStyles = {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-top: 15px;
+      margin-top: 0.75em;
+    `,
+  },
+  bottomImageWrapper: {
+    css: css`
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 0.3em;
     `,
   },
   iconsWrapper: {
@@ -69,6 +97,8 @@ const styles: TweetPostStyles = {
   },
   postDescription: {
     css: css`
+      height: 40px;
+      margin: 0.25em 0;
       font-size: 15px;
       line-height: 1.3;
     `,
@@ -104,14 +134,62 @@ const styles: TweetPostStyles = {
       ${dotBeforeStyles()}
     `,
   },
-  imageWrapper: {
+  iconWrapper: {
     css: css`
-      margin-top: 0.25em;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      border-radius: 100%;
+      transition: all 0.1s ease-in;
+    `,
+  },
+  actionValue: {
+    css: css`
+      margin-left: 7px;
     `,
   },
 };
 
+const actionsMappging: ActionsMappingModel = {
+  reply: {
+    color: "#1DA1F2",
+    backgroundColor: "#1da1f21f",
+  },
+  retweet: {
+    color: "rgb(0, 186,124)",
+    backgroundColor: "rgba(0, 186,124, 0.1)",
+  },
+  like: {
+    color: "rgb(249, 24, 186)",
+    backgroundColor: "rgba(249, 24, 186, 0.1)",
+  },
+  share: {
+    color: "#1DA1F2",
+    backgroundColor: "#1da1f21f",
+  },
+};
+
 const TweetPost: FC<Props> = ({ hasImage }) => {
+  const actionWrapper = (type: string): FlattenSimpleInterpolation => {
+    const { color, backgroundColor } = actionsMappging[type];
+    return css`
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.1s ease-in;
+
+      &:hover {
+        color: ${color};
+
+        > div {
+          background-color: ${backgroundColor};
+        }
+        svg {
+          fill: ${color};
+        }
+      }
+    `;
+  };
   return (
     <StyledWrapper {...styles.wrapper}>
       <Avatar size={40} icon={<UserOutlined />} />
@@ -126,22 +204,48 @@ const TweetPost: FC<Props> = ({ hasImage }) => {
         </StyledWrapper>
         <Typography as="p" {...styles.postDescription}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante
-          mauris, rhoncus id consectetur sit amet, porttitor sed augue.
+          mauris, rhoncus id consectetur sit.
         </Typography>
         {hasImage ? (
           <StyledWrapper {...styles.imageWrapper}>
             <img
               src="https://picsum.photos/500/280"
               alt="bla"
-              style={{ maxWidth: "100%", borderRadius: "11px" }}
+              style={{
+                maxWidth: "100%",
+                borderRadius: "11px",
+                height: "100%",
+                display: "block",
+              }}
             />
           </StyledWrapper>
         ) : null}
-        <StyledWrapper {...styles.bottomWrapper}>
-          <Reply />
-          <Retweet />
-          <Like />
-          <Share />
+        <StyledWrapper
+          {...(hasImage ? styles.bottomImageWrapper : styles.bottomWrapper)}
+        >
+          <StyledWrapper css={actionWrapper("reply")}>
+            <StyledWrapper {...styles.iconWrapper}>
+              <Reply />
+            </StyledWrapper>
+            <Typography {...styles.actionValue}>267</Typography>
+          </StyledWrapper>
+          <StyledWrapper css={actionWrapper("retweet")}>
+            <StyledWrapper {...styles.iconWrapper}>
+              <Retweet />
+            </StyledWrapper>
+            <Typography {...styles.actionValue}>84</Typography>
+          </StyledWrapper>
+          <StyledWrapper css={actionWrapper("like")}>
+            <StyledWrapper {...styles.iconWrapper}>
+              <Like />
+            </StyledWrapper>
+            <Typography {...styles.actionValue}>754</Typography>
+          </StyledWrapper>
+          <StyledWrapper css={actionWrapper("share")}>
+            <StyledWrapper {...styles.iconWrapper}>
+              <Share />
+            </StyledWrapper>
+          </StyledWrapper>
         </StyledWrapper>
       </StyledWrapper>
     </StyledWrapper>

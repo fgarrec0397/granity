@@ -15,6 +15,7 @@ interface FeedHeaderStyles {
   wrapper?: StyledWrapperProps;
   inputWrapper?: StyledWrapperProps;
   iconsWrapper?: StyledWrapperProps;
+  iconWrapper?: StyledWrapperProps;
   bottomWrapper?: StyledWrapperProps;
 }
 
@@ -42,7 +43,7 @@ const styles: FeedHeaderStyles = {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-top: 15px;
+      margin-top: 9px;
     `,
   },
   iconsWrapper: {
@@ -52,6 +53,19 @@ const styles: FeedHeaderStyles = {
       justify-content: space-around;
       margin-top: 1em;
       margin-left: 6px;
+    `,
+  },
+  iconWrapper: {
+    css: css`
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      border-radius: 100%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #1da1f21f;
+      }
     `,
   },
 };
@@ -64,11 +78,21 @@ const CreateNewTweet: FC = () => {
         <Textarea />
         <StyledWrapper {...styles.bottomWrapper}>
           <StyledWrapper {...styles.iconsWrapper}>
-            <Medias />
-            <Gif />
-            <Poll />
-            <Emoji />
-            <Schedule />
+            <StyledWrapper {...styles.iconWrapper}>
+              <Medias />
+            </StyledWrapper>
+            <StyledWrapper {...styles.iconWrapper}>
+              <Gif />
+            </StyledWrapper>
+            <StyledWrapper {...styles.iconWrapper}>
+              <Emoji />
+            </StyledWrapper>
+            <StyledWrapper {...styles.iconWrapper}>
+              <Poll />
+            </StyledWrapper>
+            <StyledWrapper {...styles.iconWrapper}>
+              <Schedule />
+            </StyledWrapper>
           </StyledWrapper>
           <Button type="primary">Tweet</Button>
         </StyledWrapper>
