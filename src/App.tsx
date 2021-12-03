@@ -1,11 +1,12 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import React, { FC, useRef } from "react";
+import { FlyControls, OrbitControls } from "@react-three/drei";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import Layouts, { feedPostionY } from "./Components/Layouts";
 import Swarms from "./Components/Swarms";
 import GlobalStyle from "./theme/globalStyle";
 import baseTheme from "./theme/baseTheme";
+import Loader from "./Components/Loader";
 
 const Lights: FC = () => {
   return (
@@ -35,19 +36,35 @@ const Lights: FC = () => {
 };
 
 const App: FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
   return (
     <ThemeProvider theme={baseTheme}>
-      <Canvas camera={{ fov: 30, position: [0, 0, 5] }}>
-        <Lights />
-        <Layouts />
-        <Swarms />
-        {/* <OrbitControls
-          addEventListener={undefined}
-          hasEventListener={undefined}
-          removeEventListener={undefined}
-          dispatchEvent={undefined}
-        /> */}
-      </Canvas>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Canvas
+          camera={{ fov: 20, zoom: 0.66, position: [0, 0, 5] }}
+          raycaster={{
+            computeOffsets: ({ clientX, clientY }: any) => ({
+              offsetX: clientX,
+              offsetY: clientY,
+            }),
+          }}
+        >
+          <Lights />
+          <Layouts />
+          <Swarms />
+          {/* @ts-ignore */}
+          {/* <FlyControls /> */}
+        </Canvas>
+      )}
       <GlobalStyle />
     </ThemeProvider>
   );

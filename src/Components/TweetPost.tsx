@@ -17,6 +17,7 @@ import Share from "../Icons/Share";
 import { dotBeforeStyles } from "../theme/mixins";
 
 interface Props {
+  avatar?: string;
   hasImage?: boolean;
 }
 
@@ -169,7 +170,7 @@ const actionsMappging: ActionsMappingModel = {
   },
 };
 
-const TweetPost: FC<Props> = ({ hasImage }) => {
+const TweetPost: FC<Props> = ({ avatar, hasImage }) => {
   const actionWrapper = (type: string): FlattenSimpleInterpolation => {
     const { color, backgroundColor } = actionsMappging[type];
     return css`
@@ -192,7 +193,7 @@ const TweetPost: FC<Props> = ({ hasImage }) => {
   };
   return (
     <StyledWrapper {...styles.wrapper}>
-      <Avatar size={40} icon={<UserOutlined />} />
+      <Avatar size={40} src={avatar} />
       <StyledWrapper {...styles.rightWrapper}>
         <StyledWrapper {...styles.postUserTitleWrapper}>
           <Typography as="p" {...styles.postUserTitle}>

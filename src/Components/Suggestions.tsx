@@ -11,6 +11,7 @@ import baseTheme from "../theme/baseTheme";
 import Link, { LinkStyles } from "./Link";
 import OfficialAccount from "../Icons/OfficialAccount";
 import Button, { ButtonStyles } from "./Button";
+import { scaleZ } from "../constants";
 
 interface Props {
   scale: Vector3;
@@ -167,7 +168,7 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
     <group position={position}>
       <Box
         position={[0, 0, 0]}
-        scale={[scaleX, 0.15, 0.5]}
+        scale={[scaleX, 0.15, scaleZ]}
         heightPx={52}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
@@ -179,8 +180,8 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
         </StyledWrapper>
       </Box>
       <Box
-        position={[0, -(1.1 / 2 + 0.15 / 2 + 0.025), 0]}
-        scale={[scaleX, 1.1, 0.5]}
+        position={[0, -(1.1 / 2 + 0.15 / 2 + 0.065), 0]}
+        scale={[scaleX, 1.1, scaleZ]}
         heightPx={397}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
@@ -230,8 +231,8 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
         </StyledWrapper>
       </Box>
       <Box
-        position={[0, -(0.75 / 2 + 1.1 + 0.15), 0]} // fix this
-        scale={[scaleX, 0.75, 0.5]}
+        position={[0, -(0.75 / 2 + 1.1 + 0.2), 0]} // fix this
+        scale={[scaleX, 0.75, scaleZ]}
         heightPx={271}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
@@ -249,7 +250,7 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
             <StyledWrapper {...styles.newsItem}>
               <StyledWrapper {...styles.newsCategoryWrapper}>
                 <StyledWrapper {...styles.followWrapper}>
-                  <Avatar />
+                  <Avatar src="https://picsum.photos/40?random=103" />
                   <StyledWrapper {...styles.nameWrapper}>
                     <Typography {...styles.followName}>
                       Unreal Engine
@@ -268,7 +269,7 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
             <StyledWrapper {...styles.newsItem}>
               <StyledWrapper {...styles.newsCategoryWrapper}>
                 <StyledWrapper {...styles.followWrapper}>
-                  <Avatar />
+                  <Avatar src="https://picsum.photos/40?random=102" />
                   <StyledWrapper {...styles.nameWrapper}>
                     <Typography {...styles.followName}>
                       Fortnite

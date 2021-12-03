@@ -17,6 +17,7 @@ import Notifications from "../Icons/Notifications";
 import Profile from "../Icons/Profile";
 import BookMarks from "../Icons/BookMarks";
 import Typography, { TypographyStyles } from "./Typography";
+import ProfilePicture from "./ProfilePicture";
 
 interface Props {
   scale: Vector3;
@@ -45,7 +46,7 @@ const styles: SideMenuStyles = {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 0 1em;
+      padding: 0 1em 0.5em;
       height: 100%;
     `,
   },
@@ -219,7 +220,7 @@ const SideMenu: FC<Props> = ({ scale }) => {
         </StyledWrapper>
         <StyledWrapper {...styles.bottomSection}>
           <StyledWrapper {...styles.userInformations}>
-            <Avatar size={40} icon={<UserOutlined />} />
+            <ProfilePicture />
             <StyledWrapper {...styles.userInformationsTextWrapper}>
               <Typography {...styles.userName}>Fabrice Garrec</Typography>
               <Typography {...styles.userUserName}>@coolDevFab</Typography>
