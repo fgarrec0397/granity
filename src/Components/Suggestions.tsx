@@ -14,7 +14,6 @@ import Button, { ButtonStyles } from "./Button";
 import { scaleZ } from "../constants";
 
 interface Props {
-  scale: Vector3;
   position: Vector3;
 }
 
@@ -163,7 +162,7 @@ const SearchInput = styled.input`
 const elementsWidthPx = 307;
 const scaleX = 0.85;
 
-const Suggestions: FC<Props> = ({ scale, position }) => {
+const Suggestions: FC<Props> = ({ position }) => {
   return (
     <group position={position}>
       <Box
@@ -231,7 +230,7 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
         </StyledWrapper>
       </Box>
       <Box
-        position={[0, -(0.75 / 2 + 1.1 + 0.2), 0]} // fix this
+        position={[0, -(0.75 / 2 + 1.1 + 0.2), 0]}
         scale={[scaleX, 0.75, scaleZ]}
         heightPx={271}
         widthPx={elementsWidthPx}
@@ -292,6 +291,21 @@ const Suggestions: FC<Props> = ({ scale, position }) => {
             </StyledWrapper>
           </StyledWrapper>
         </StyledWrapper>
+      </Box>
+      <Box
+        position={[0, -(0.75 / 2 + 1.1 + 0.2), 0]}
+        scale={[scaleX, 0.75, scaleZ]}
+        heightPx={271}
+        widthPx={elementsWidthPx}
+        padding=".4em 1em"
+        styles={{
+          display: "flex",
+          alignItems: "center",
+        }}
+        text="2 Hello motha fuck***"
+        transparent
+      >
+        test
       </Box>
     </group>
   );

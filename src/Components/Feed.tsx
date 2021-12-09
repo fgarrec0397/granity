@@ -120,25 +120,25 @@ const Feed: FC<Props> = ({ position }) => {
   const padding = 0.08; // originally 0.025
   const elementsHeight: number[] = [];
   const [, groupPosY] = position;
-  const [elRefs, setElRefs] = React.useState([]);
+  // const [elRefs, setElRefs] = React.useState([]);
 
-  React.useEffect(() => {
-    setElRefs((elements) =>
-      Array(uiFeedElements.length)
-        // @ts-ignore
-        .fill()
-        .map((_, i) => elements[i] || createRef())
-    );
-    console.log(elRefs, "elRefs");
-  }, [uiFeedElements.length]);
+  // React.useEffect(() => {
+  //   setElRefs((elements) =>
+  //     Array(uiFeedElements.length)
+  //       // @ts-ignore
+  //       .fill()
+  //       .map((_, i) => elements[i] || createRef())
+  //   );
+  //   console.log(elRefs, "elRefs");
+  // }, [uiFeedElements.length]);
 
-  React.useEffect(() => {
-    // elRefs.forEach((element: ) => {
-    //   if (element.current && element.current?.position?.y < groupPosY) {
-    //     element.current.position.y = groupPosY;
-    //   }
-    // });
-  }, [elRefs]);
+  // React.useEffect(() => {
+  //   // elRefs.forEach((element: ) => {
+  //   //   if (element.current && element.current?.position?.y < groupPosY) {
+  //   //     element.current.position.y = groupPosY;
+  //   //   }
+  //   // });
+  // }, [elRefs]);
 
   useEffect(() => {
     window.addEventListener("wheel", handleScrollWheel);
@@ -152,7 +152,7 @@ const Feed: FC<Props> = ({ position }) => {
 
   const handleScrollWheel = (event: WheelEvent): void => {
     const { deltaY } = event;
-    // if (ref.current) ref.current.position.y += deltaY / 750;
+    if (ref.current) ref.current.position.y += deltaY / 750;
   };
 
   return (
@@ -170,7 +170,6 @@ const Feed: FC<Props> = ({ position }) => {
         return (
           <>
             <Box
-              ref={elRefs[index]}
               key={element.id}
               position={[0, index === 0 ? 0 : -posY, 0]}
               scale={[1.25, sizeY, 0.25]}

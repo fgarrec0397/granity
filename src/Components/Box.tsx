@@ -13,6 +13,7 @@ export interface BoxProps extends MeshProps {
   padding?: string;
   color?: string;
   styles?: CSSProperties;
+  transparent?: boolean;
 }
 
 const Box: FC<BoxProps> = forwardRef(
@@ -25,11 +26,32 @@ const Box: FC<BoxProps> = forwardRef(
       widthPx = 0,
       padding,
       styles,
+      transparent,
       children,
     },
     ref
   ) => {
     const cube = new THREE.BoxBufferGeometry(1, 1, 1);
+
+    if (transparent) {
+      return (
+        <mesh scale={scale} position={position}>
+          <Html distanceFactor={1.1} position={[0, 0, 0.51]} transform sprite>
+            <div
+              style={{
+                position: "relative",
+                height: `${heightPx}px` || "auto",
+                width: `${widthPx}px` || "auto",
+                padding,
+                ...styles,
+              }}
+            >
+              {children}
+            </div>
+          </Html>
+        </mesh>
+      );
+    }
 
     return (
       <>
@@ -68,30 +90,6 @@ const Box: FC<BoxProps> = forwardRef(
         </mesh>
       </>
     );
-    // return (
-    // <mesh ref={ref} scale={scale} position={position}>
-    //   {/* <boxGeometry /> */}
-    //   <edgesGeometry />
-    //   <meshStandardMaterial color={color} roughness={0.75} metalness={0.75} />
-    //   {/* <lineSegments geometry={edges} renderOrder={100}>
-    //     <lineBasicMaterial color="black" />
-    //   </lineSegments> */}
-    //   <Html distanceFactor={1.1} position={[0, 0, 0.51]} transform sprite>
-    //     <div
-    //       style={{
-    //         height: `${heightPx + 2}px` || "auto",
-    //         width: `${widthPx + 2}px` || "auto",
-    //         padding,
-    //         backgroundColor: "white",
-    //         border: "1px solid #f3f3f3",
-    //         ...styles,
-    //       }}
-    //     >
-    //       {children}
-    //     </div>
-    //   </Html>
-    // </mesh>
-    // );
   }
 );
 

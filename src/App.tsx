@@ -1,8 +1,7 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-import { FlyControls, OrbitControls } from "@react-three/drei";
-import React, { FC, useEffect, useRef, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import React, { FC, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import Layouts, { feedPostionY } from "./Components/Layouts";
+import Layouts from "./Components/Layouts";
 import Swarms from "./Components/Swarms";
 import GlobalStyle from "./theme/globalStyle";
 import baseTheme from "./theme/baseTheme";
@@ -12,18 +11,8 @@ const Lights: FC = () => {
   return (
     <>
       <ambientLight intensity={1} />
-      <directionalLight
-        intensity={2}
-        position={[2, 2, 0]}
-        color="white"
-        // distance={5}
-      />
-      <directionalLight
-        intensity={2}
-        position={[2, -2, 0]}
-        color="white"
-        // distance={5}
-      />
+      <directionalLight intensity={2} position={[2, 2, 0]} color="white" />
+      <directionalLight intensity={2} position={[2, -2, 0]} color="white" />
       <spotLight intensity={4} position={[-5, 10, 2]} angle={0.2} castShadow />
       <spotLight
         intensity={2}
@@ -61,8 +50,6 @@ const App: FC = () => {
           <Lights />
           <Layouts />
           <Swarms />
-          {/* @ts-ignore */}
-          {/* <FlyControls /> */}
         </Canvas>
       )}
       <GlobalStyle />

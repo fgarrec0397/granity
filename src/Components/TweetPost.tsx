@@ -1,11 +1,6 @@
-import { UserOutlined } from "@ant-design/icons/lib/icons";
 import { Avatar } from "antd";
 import React, { FC } from "react";
-import {
-  css,
-  FlattenInterpolation,
-  FlattenSimpleInterpolation,
-} from "styled-components";
+import { css, FlattenSimpleInterpolation } from "styled-components";
 import OfficialAccount from "../Icons/OfficialAccount";
 import StyledWrapper, { StyledWrapperProps } from "./StyledWrapper";
 import Typography, { TypographyStyles } from "./Typography";

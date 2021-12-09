@@ -1,8 +1,6 @@
 import { Vector3 } from "@react-three/fiber";
 import React, { FC } from "react";
 import { css } from "styled-components";
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import Button, { ButtonStyles } from "./Button";
 import Link, { LinkStyles } from "./Link";
 import TwitterLogo from "../Icons/TwitterLogo";

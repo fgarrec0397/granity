@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { css } from "styled-components";
 import Stars from "../Icons/Stars";
-import Box from "./Box";
 import StyledWrapper, { StyledWrapperProps } from "./StyledWrapper";
 import Typography, { TypographyStyles } from "./Typography";
 
