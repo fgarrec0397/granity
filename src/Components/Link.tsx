@@ -8,6 +8,7 @@ export interface LinkStyles {
 
 export interface LinkComponents {
   to?: string;
+  target?: string;
 }
 
 type Props = LinkStyles & LinkComponents;
@@ -22,9 +23,9 @@ const LinkComponent = styled.a<LinkStyles>`
   ${(props) => props.css}
 `;
 
-const Link: FC<Props> = ({ to, css, children }) => {
+const Link: FC<Props> = ({ target, to, css, children }) => {
   return (
-    <LinkComponent href={to} css={css}>
+    <LinkComponent href={to} target={target} css={css}>
       {children}
     </LinkComponent>
   );

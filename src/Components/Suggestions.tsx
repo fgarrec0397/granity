@@ -12,6 +12,7 @@ import Link, { LinkStyles } from "./Link";
 import OfficialAccount from "../Icons/OfficialAccount";
 import Button, { ButtonStyles } from "./Button";
 import { scaleZ } from "../constants";
+import Youtube from "../Icons/Youtube";
 
 interface Props {
   position: Vector3;
@@ -33,6 +34,8 @@ interface SuggestionsStyles {
   followName?: TypographyStyles;
   followUserName?: TypographyStyles;
   followButton?: ButtonStyles;
+  copyrights?: StyledWrapperProps;
+  copyrightsLink?: LinkStyles;
 }
 
 const styles: SuggestionsStyles = {
@@ -145,6 +148,35 @@ const styles: SuggestionsStyles = {
       line-height: 1;
       background-color: #0f1419;
       border-color: #0f1419;
+    `,
+  },
+  copyrights: {
+    css: css`
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    `,
+  },
+  copyrightsLink: {
+    css: css`
+      display: flex;
+      align-items: center;
+      margin-right: 0.47em;
+      font-size: 13px;
+      color: rgb(83, 100, 113);
+
+      &::last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        color: rgb(83, 100, 113);
+        text-decoration: underline;
+      }
+
+      svg {
+        margin-right: 0.5em;
+      }
     `,
   },
 };
@@ -293,8 +325,8 @@ const Suggestions: FC<Props> = ({ position }) => {
         </StyledWrapper>
       </Box>
       <Box
-        position={[0, -(0.75 / 2 + 1.1 + 0.2), 0]}
-        scale={[scaleX, 0.75, scaleZ]}
+        position={[0, -(0.25 / 2 + 0.75 + 1.1 + 0.2), 0]}
+        scale={[scaleX, 0.25, scaleZ]}
         heightPx={271}
         widthPx={elementsWidthPx}
         padding=".4em 1em"
@@ -305,7 +337,34 @@ const Suggestions: FC<Props> = ({ position }) => {
         text="2 Hello motha fuck***"
         transparent
       >
-        test
+        <StyledWrapper {...styles.copyrights}>
+          <Link
+            to="https://www.youtube.com/channel/UCqJuUbjvSD6fcXpaBLaQPcg"
+            target="_blank"
+            {...styles.copyrightsLink}
+          >
+            <Youtube />
+            Subscribe
+          </Link>
+          <Link to="/" {...styles.copyrightsLink}>
+            Terms of Service
+          </Link>
+          <Link to="/" {...styles.copyrightsLink}>
+            Privacy Policy
+          </Link>
+          <Link to="/" {...styles.copyrightsLink}>
+            Cookie Policy
+          </Link>
+          <Link to="/" {...styles.copyrightsLink}>
+            Ads info
+          </Link>
+          <Link to="/" {...styles.copyrightsLink}>
+            More
+          </Link>
+          <Link to="/" {...styles.copyrightsLink}>
+            © 2021 Twitter, Inc.
+          </Link>
+        </StyledWrapper>
       </Box>
     </group>
   );
