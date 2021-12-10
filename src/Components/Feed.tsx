@@ -158,6 +158,7 @@ const Feed: FC<Props> = ({ position }) => {
   return (
     <group ref={ref} position={position}>
       {uiFeedElements.map((element, index) => {
+        const key = `${element.id}-index`;
         const [, sizeY] = element.scale;
         const totalElementsHeight = elementsHeight.reduce(
           (acc, curr) => acc + curr + padding,
@@ -170,7 +171,7 @@ const Feed: FC<Props> = ({ position }) => {
         return (
           <>
             <Box
-              key={element.id}
+              key={key}
               position={[0, index === 0 ? 0 : -posY, 0]}
               scale={[1.25, sizeY, 0.25]}
               heightPx={element.heightPx}

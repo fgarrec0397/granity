@@ -73,6 +73,10 @@ const styles: SuggestionsStyles = {
       &:hover {
         background-color: #ededed;
       }
+
+      &:last-child {
+        border-radius: 0 0 1em 1em;
+      }
     `,
   },
   newsCategoryWrapper: {
