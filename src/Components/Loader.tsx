@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { css } from "styled-components";
-import StyledWrapper, { StyledWrapperProps } from "./StyledWrapper";
+import StyledWrapper, { StyledWrapperProps } from "./Html/StyledWrapper";
 
 export interface LoaderStyles {
   wrapper?: StyledWrapperProps;
@@ -49,7 +49,7 @@ const Loader: FC = () => {
             fill="none"
             r="14"
             strokeWidth="4"
-            style={{ stroke: "rgb(29, 155, 240)", opacity: "0.2" }}
+            style={{ stroke: "rgb(204, 0, 0)", opacity: "0.2" }}
           />
           <circle
             cx="16"
@@ -58,7 +58,7 @@ const Loader: FC = () => {
             r="14"
             strokeWidth="4"
             style={{
-              stroke: "rgb(29, 155, 240)",
+              stroke: "rgb(204, 0, 0)",
               strokeDasharray: "80",
               strokeDashoffset: "60",
             }}

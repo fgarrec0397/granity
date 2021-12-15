@@ -1,31 +1,17 @@
-import { Canvas } from "@react-three/fiber";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import Layouts from "./Components/Layouts";
-import Swarms from "./Components/Swarms";
+import { notification } from "antd";
 import GlobalStyle from "./theme/globalStyle";
 import baseTheme from "./theme/baseTheme";
 import Loader from "./Components/Loader";
-
-const Lights: FC = () => {
-  return (
-    <>
-      <ambientLight intensity={1} />
-      <directionalLight intensity={2} position={[2, 2, 0]} color="white" />
-      <directionalLight intensity={2} position={[2, -2, 0]} color="white" />
-      <spotLight intensity={4} position={[-5, 10, 2]} angle={0.2} castShadow />
-      <spotLight
-        intensity={2}
-        position={[-5, -10, 2]}
-        angle={-0.2}
-        castShadow
-      />
-    </>
-  );
-};
+import Canvas from "./Components/Elements/Canvas";
+import EditorContextProvider, {
+  EditorContext,
+} from "./context/EditorContextProvider";
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditor, setIsEditor] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -33,25 +19,35 @@ const App: FC = () => {
     }, 1000);
   }, []);
 
+  useEffect(() => {
+    const handleKeyUp = (event: KeyboardEvent): void => {
+      if (event.code === "KeyE") {
+        setIsEditor((prevIsEditor) => !prevIsEditor);
+      }
+    };
+    document.addEventListener("keyup", handleKeyUp);
+  }, []);
+
+  useEffect(() => {
+    if (isEditor) {
+      document.exitPointerLock();
+      notification.open({
+        message: "Edit mode",
+        description: "You entered in edit mode",
+      });
+    } else {
+      notification.open({
+        message: "Normal mode",
+        description: "You entered in normal mode",
+      });
+    }
+  }, [isEditor]);
+
   return (
     <ThemeProvider theme={baseTheme}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Canvas
-          camera={{ fov: 20, zoom: 0.66, position: [0, 0, 5] }}
-          raycaster={{
-            computeOffsets: ({ clientX, clientY }: any) => ({
-              offsetX: clientX,
-              offsetY: clientY,
-            }),
-          }}
-        >
-          <Lights />
-          <Layouts />
-          <Swarms />
-        </Canvas>
-      )}
+      <EditorContextProvider value={{ isEditor }}>
+        {isLoading ? <Loader /> : <Canvas editorContextValue={{ isEditor }} />}
+      </EditorContextProvider>
       <GlobalStyle />
     </ThemeProvider>
   );
