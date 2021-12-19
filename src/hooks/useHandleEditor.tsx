@@ -2,7 +2,7 @@ import { notification } from "antd";
 import { useEffect, useState } from "react";
 
 export default (): boolean => {
-  const [isEditor, setIsEditor] = useState<boolean>(false);
+  const [isEditor, setIsEditor] = useState<boolean>(true);
 
   useEffect(() => {
     const handleKeyUp = (event: KeyboardEvent): void => {

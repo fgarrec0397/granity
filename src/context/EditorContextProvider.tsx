@@ -1,3 +1,5 @@
+// @ts-ignore
+import * as THREE from "three";
 import { Vector3 } from "@react-three/fiber";
 import React, {
   FC,
@@ -11,6 +13,7 @@ import React, {
 export interface EditorElementSelected {
   id: string;
   name: string;
+  geometryRef: React.MutableRefObject<THREE.Object3D>;
   position: [number, number, number];
   scale: [number, number, number];
   rotation: [number, number, number];
@@ -23,7 +26,7 @@ export interface EditorContextModel {
   hasEditorOpened?: boolean;
   isEditing?: boolean;
   setIsEditing?: (() => void) | Dispatch<SetStateAction<boolean>>;
-  currentElement?: any;
+  currentElement?: EditorElementSelected;
   setCurrentElement?: (() => void) | Dispatch<SetStateAction<any>>;
   currentMode?: ModesAvailable;
   setCurrentMode?: (() => void) | Dispatch<SetStateAction<ModesAvailable>>;

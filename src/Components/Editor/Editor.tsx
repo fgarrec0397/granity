@@ -28,7 +28,7 @@ const Editor: FC = () => {
   if (isEditor) {
     return (
       <StyledWrapper {...styles.wrapper}>
-        <EditorFeedback />
+        {/* <EditorFeedback /> */}
         <EditorModeSelector />
       </StyledWrapper>
     );
