@@ -33,6 +33,7 @@
     "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
     "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-comment": "off",

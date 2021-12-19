@@ -1,0 +1,94 @@
+import { Card, Descriptions } from "antd";
+import React, { FC, useContext } from "react";
+import { css } from "styled-components";
+import { EditorContext } from "../../context/EditorContextProvider";
+import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
+
+interface EditorFeedbackStyles {
+  wrapper?: StyledWrapperProps;
+}
+
+const styles: EditorFeedbackStyles = {
+  wrapper: {
+    css: css`
+      max-width: 300px;
+      user-select: none;
+    `,
+  },
+};
+
+const EditorFeedback: FC = () => {
+  const { currentElement } = useContext(EditorContext);
+
+  return (
+    <StyledWrapper {...styles.wrapper}>
+      <Card size="small" title={`Current Element - ${currentElement.name}`}>
+        <Descriptions>
+          <Descriptions.Item
+            label="Position"
+            labelStyle={{
+              fontWeight: "bold",
+            }}
+            contentStyle={{
+              flexDirection: "column",
+            }}
+          >
+            <span>
+              <i>X:</i> {currentElement.position[0].toFixed(3)}
+            </span>
+            <span>
+              <i>Y:</i> {currentElement.position[1].toFixed(3)}
+            </span>
+            <span>
+              <i>Z:</i> {currentElement.position[2].toFixed(3)}
+            </span>
+          </Descriptions.Item>
+        </Descriptions>
+        <Descriptions>
+          <Descriptions.Item
+            label="Rotation"
+            labelStyle={{
+              fontWeight: "bold",
+            }}
+            contentStyle={{
+              flexDirection: "column",
+            }}
+          >
+            <span>
+              <i>X:</i> {currentElement.rotation[0].toFixed(3)}
+            </span>
+            <span>
+              <i>Y:</i> {currentElement.rotation[1].toFixed(3)}
+            </span>
+            <span>
+              <i>Z:</i> {currentElement.rotation[2].toFixed(3)}
+            </span>
+          </Descriptions.Item>
+        </Descriptions>
+        <Descriptions>
+          <Descriptions.Item
+            label="Scale"
+            labelStyle={{
+              fontWeight: "bold",
+            }}
+            contentStyle={{
+              flexDirection: "column",
+            }}
+          >
+            <span>
+              <i>X:</i> {currentElement.scale[0].toFixed(3)}
+            </span>
+            <span>
+              <i>Y:</i> {currentElement.scale[1].toFixed(3)}
+            </span>
+            <span>
+              <i>Z:</i> {currentElement.scale[2].toFixed(3)}
+            </span>
+          </Descriptions.Item>
+        </Descriptions>
+      </Card>
+    </StyledWrapper>
+  );
+};
+
+export default EditorFeedback;

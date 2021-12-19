@@ -58,7 +58,7 @@ const usePlayerControls = (): Movements => {
   return movement;
 };
 
-const Player: FC = (props) => {
+const PlayerCamera: FC = (props) => {
   const [ref, api] = useSphere(() => ({
     mass: 1,
     type: "Dynamic",
@@ -98,4 +98,4 @@ const Player: FC = (props) => {
   );
 };
 
-export default Player;
+export default PlayerCamera;
