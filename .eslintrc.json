@@ -25,6 +25,7 @@
     "no-shadow": "off",
     "no-param-reassign": "off",
     "no-plusplus": "off",
+    "consistent-return": "off",
     "max-len": ["off", { "code": 100 }],
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react-hooks/rules-of-hooks": "error",

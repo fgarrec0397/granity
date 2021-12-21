@@ -1,5 +1,5 @@
 import { Card, Descriptions } from "antd";
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { css } from "styled-components";
 import { EditorContext } from "../../context/EditorContextProvider";
 import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
@@ -19,12 +19,22 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-  const { currentElement } = useContext(EditorContext);
+  const { currentElementInformations } = useContext(EditorContext);
 
-  if (currentElement) {
+  useEffect(() => {
+    console.log(
+      currentElementInformations,
+      "currentElementInformations from feedback"
+    );
+  }, [currentElementInformations]);
+
+  if (currentElementInformations) {
     return (
       <StyledWrapper {...styles.wrapper}>
-        <Card size="small" title={`Current Element - ${currentElement.name}`}>
+        <Card
+          size="small"
+          title={`Current Element - ${currentElementInformations.name}`}
+        >
           <Descriptions>
             <Descriptions.Item
               label="Position"
@@ -36,13 +46,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElement.position[0].toFixed(3)}
+                <i>X:</i> {currentElementInformations.position[0].toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElement.position[1].toFixed(3)}
+                <i>Y:</i> {currentElementInformations.position[1].toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElement.position[2].toFixed(3)}
+                <i>Z:</i> {currentElementInformations.position[2].toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>
@@ -57,13 +67,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElement.rotation[0].toFixed(3)}
+                <i>X:</i> {currentElementInformations.rotation[0].toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElement.rotation[1].toFixed(3)}
+                <i>Y:</i> {currentElementInformations.rotation[1].toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElement.rotation[2].toFixed(3)}
+                <i>Z:</i> {currentElementInformations.rotation[2].toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>
@@ -78,13 +88,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElement.scale[0].toFixed(3)}
+                <i>X:</i> {currentElementInformations.scale[0].toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElement.scale[1].toFixed(3)}
+                <i>Y:</i> {currentElementInformations.scale[1].toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElement.scale[2].toFixed(3)}
+                <i>Z:</i> {currentElementInformations.scale[2].toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>

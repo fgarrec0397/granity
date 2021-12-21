@@ -1,6 +1,5 @@
 // @ts-ignore
 import * as THREE from "three";
-import { Vector3 } from "@react-three/fiber";
 import React, {
   FC,
   createContext,
@@ -10,10 +9,9 @@ import React, {
   useEffect,
 } from "react";
 
-export interface EditorElementSelected {
+export interface CurrentElementInformations {
   id: string;
   name: string;
-  geometryRef: React.MutableRefObject<THREE.Object3D>;
   position: [number, number, number];
   scale: [number, number, number];
   rotation: [number, number, number];
@@ -26,8 +24,10 @@ export interface EditorContextModel {
   hasEditorOpened?: boolean;
   isEditing?: boolean;
   setIsEditing?: (() => void) | Dispatch<SetStateAction<boolean>>;
-  currentElement?: EditorElementSelected;
-  setCurrentElement?: (() => void) | Dispatch<SetStateAction<any>>;
+  currentElement?: THREE.Mesh;
+  setCurrentElement?: (() => void) | Dispatch<SetStateAction<THREE.Mesh>>;
+  currentElementInformations?: any;
+  setCurrentElementInformations?: any;
   currentMode?: ModesAvailable;
   setCurrentMode?: (() => void) | Dispatch<SetStateAction<ModesAvailable>>;
 }
@@ -51,7 +51,9 @@ const EditorContextProvider: FC<Props> = ({
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [currentElement, setCurrentElement] = useState<any>();
+  const [currentElement, setCurrentElement] = useState<THREE.Mesh>();
+  const [currentElementInformations, setCurrentElementInformations] =
+    useState<any>();
   const [currentMode, setCurrentMode] = useState<ModesAvailable>("translate");
   const providerValue: EditorContextModel = {
     isEditing,
@@ -60,12 +62,14 @@ const EditorContextProvider: FC<Props> = ({
     setCurrentElement,
     currentMode,
     setCurrentMode,
+    currentElementInformations,
+    setCurrentElementInformations,
     ...value,
   };
 
   useEffect(() => {
     if (getContext) getContext(providerValue);
-  }, [currentElement]);
+  }, [currentElementInformations]);
 
   return (
     <EditorContext.Provider value={providerValue}>

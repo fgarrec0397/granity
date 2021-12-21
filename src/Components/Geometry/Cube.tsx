@@ -1,22 +1,23 @@
+// @ts-ignore
+import * as THREE from "three";
 import { useBox } from "@react-three/cannon";
-import React, { FC } from "react";
+import React, { FC, useContext, useRef } from "react";
 import EditableMesh from "../Editor/EditableMesh";
-import EditorGeometryWrapper from "../Editor/EditorGeometryWrapper";
+import { EditorContext } from "../../context/EditorContextProvider";
 
 const Cube: FC = () => {
-  const [ref] = useBox(() => ({
+  const name = "cube1";
+  const ref = useRef<THREE.Mesh>();
+  const { isEditor } = useContext(EditorContext);
+  const [physicRef] = useBox(() => ({
     mass: 1,
     position: [0, 20, 0],
   }));
 
   return (
-    <>
-      <EditorGeometryWrapper>
-        <EditableMesh geometryRef={ref} name="cube1">
-          <boxGeometry attach="geometry" args={[10, 10]} />
-        </EditableMesh>
-      </EditorGeometryWrapper>
-    </>
+    <EditableMesh geometryRef={isEditor ? ref : physicRef} name={name}>
+      <boxGeometry attach="geometry" args={[10, 10]} />
+    </EditableMesh>
   );
 };
 

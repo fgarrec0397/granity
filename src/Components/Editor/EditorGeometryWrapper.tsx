@@ -2,10 +2,19 @@ import { TransformControls, TransformControlsProps } from "@react-three/drei";
 import React, { FC, useContext, useEffect, useRef } from "react";
 import { EditorContext } from "../../context/EditorContextProvider";
 
-const EditorGeometryWrapper: FC = ({ children }) => {
+interface Props {
+  name: string;
+}
+
+const EditorGeometryWrapper: FC<Props> = ({ name, children }) => {
   const transformRef = useRef<TransformControlsProps>();
-  const { isEditor, setIsEditing, setCurrentElement, currentMode } =
-    useContext(EditorContext);
+  const {
+    isEditor,
+    setIsEditing,
+    setCurrentElement,
+    currentMode,
+    currentElement,
+  } = useContext(EditorContext);
 
   useEffect(() => {
     if (transformRef.current) {
@@ -64,11 +73,17 @@ const EditorGeometryWrapper: FC = ({ children }) => {
     }
   }, [currentMode]);
 
+  // useEffect(() => {
+  //   if (currentElement) {
+  //     console.log(currentElement, "currentElement");
+  //   }
+  // }, [currentElement]);
+
   return (
     <>
       {/* @ts-ignore */}
-      {/* <TransformControls ref={transformRef}>{children}</TransformControls> */}
-      {children}
+      <TransformControls ref={transformRef}>{children}</TransformControls>
+      {/* {children} */}
     </>
   );
 };

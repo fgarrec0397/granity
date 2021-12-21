@@ -1,22 +1,20 @@
 // @ts-ignore
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-import {
-  PointerLockControls,
-  OrbitControls,
-  TransformControls,
-} from "@react-three/drei";
-import React, { FC, useContext, useEffect, useState } from "react";
+// @ts-ignore
+import { PointerLockControls, OrbitControls } from "@react-three/drei";
+import React, { FC, useContext, useEffect, useRef, useState } from "react";
+import TransformControls from "../RawThreeJs/TransformControls";
 import PlayerCamera from "./PlayerCamera";
 import { EditorContext } from "../../context/EditorContextProvider";
-import useControlTransform from "../../hooks/useControlTransform";
 
 const CameraControls: FC = () => {
   const [hasEditorOpened, setHasEditorOpened] = useState(false);
-  const { isEditor, isEditing, currentElement } = useContext(EditorContext);
-  const camera = useThree((state) => state.camera);
-  const scene = useThree((state) => state.scene);
-  const transformRef = useControlTransform();
+  const { isEditor, isEditing } = useContext(EditorContext);
+  const { camera } = useThree((state) => ({
+    camera: state.camera,
+    scene: state.scene,
+  }));
 
   useFrame(() => {
     if (isEditor && !hasEditorOpened) {
@@ -26,32 +24,17 @@ const CameraControls: FC = () => {
     }
   });
 
-  useEffect(() => {
-    if (currentElement) {
-      console.log(currentElement.geometryRef, "currentElement.geometryRef");
-    }
-  }, [currentElement]);
-
   return (
     <>
       {isEditor ? (
         <>
-          {currentElement?.geometryRef.current ? (
-            /* @ts-ignore */
-            <TransformControls
-              ref={transformRef}
-              /* @ts-ignore */
-              object={currentElement.geometryRef.current}
-              // mode={modes[snap.mode]}
-            />
-          ) : (
-            /* @ts-ignore */
-            <OrbitControls
-            // enablePan={!isEditing}
-            // enableZoom={!isEditing}
-            // enableRotate={!isEditing}
-            />
-          )}
+          <TransformControls />
+          {/* @ts-ignore */}
+          <OrbitControls
+            enablePan={!isEditing}
+            enableZoom={!isEditing}
+            enableRotate={!isEditing}
+          />
         </>
       ) : (
         <>
