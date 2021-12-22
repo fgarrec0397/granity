@@ -21,7 +21,7 @@ const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
   const handleOnPointerOver = (): void => setHover(true);
   const handleOnPointerOut = (): void => setHover(false);
   const handleOnClick = (event: any): void => {
-    if (setCurrentElement) {
+    if (setCurrentElement && setCurrentElementInformations) {
       setCurrentElement(event.eventObject);
       setCurrentElementInformations(
         mapCurrentElementToCurrentElementInformations(event.eventObject)

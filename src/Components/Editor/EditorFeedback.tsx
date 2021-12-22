@@ -21,13 +21,6 @@ const styles: EditorFeedbackStyles = {
 const EditorFeedback: FC = () => {
   const { currentElementInformations } = useContext(EditorContext);
 
-  useEffect(() => {
-    console.log(
-      currentElementInformations,
-      "currentElementInformations from feedback"
-    );
-  }, [currentElementInformations]);
-
   if (currentElementInformations) {
     return (
       <StyledWrapper {...styles.wrapper}>

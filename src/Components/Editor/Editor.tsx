@@ -3,17 +3,29 @@ import { css } from "styled-components";
 import { EditorContext } from "../../context/EditorContextProvider";
 import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
 import EditorFeedback from "./EditorFeedback";
+import EditorGeometryMenu from "./EditorGeometryMenu";
 import EditorModeSelector from "./EditorModeSelector";
 
 interface EditorStyles {
-  wrapper?: StyledWrapperProps;
+  topWrapper?: StyledWrapperProps;
+  bottomWrapper?: StyledWrapperProps;
 }
 
 const styles: EditorStyles = {
-  wrapper: {
+  topWrapper: {
     css: css`
       position: absolute;
       top: 1em;
+      left: 1em;
+      display: flex;
+      align-items: flex-start;
+      user-select: none;
+    `,
+  },
+  bottomWrapper: {
+    css: css`
+      position: absolute;
+      bottom: 1em;
       left: 1em;
       display: flex;
       align-items: flex-start;
@@ -27,10 +39,15 @@ const Editor: FC = () => {
 
   if (isEditor) {
     return (
-      <StyledWrapper {...styles.wrapper}>
-        <EditorFeedback />
-        <EditorModeSelector />
-      </StyledWrapper>
+      <>
+        <StyledWrapper {...styles.topWrapper}>
+          <EditorFeedback />
+          <EditorModeSelector />
+        </StyledWrapper>
+        <StyledWrapper {...styles.bottomWrapper}>
+          <EditorGeometryMenu />
+        </StyledWrapper>
+      </>
     );
   }
   return null;

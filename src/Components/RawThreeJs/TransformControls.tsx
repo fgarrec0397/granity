@@ -36,6 +36,7 @@ const TransformControlsComponent: FC = ({ children }) => {
       scene.add(transformC);
       setTransformControl(transformC);
     }
+
     return () => {
       if (transformControl) {
         scene.remove(transformControl);

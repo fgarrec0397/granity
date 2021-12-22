@@ -8,6 +8,7 @@ import React, {
   SetStateAction,
   useEffect,
 } from "react";
+import { GeometryElementDefinition } from "../Components/Editor/GeometryInstantiator";
 
 export interface CurrentElementInformations {
   id: string;
@@ -26,15 +27,16 @@ export interface EditorContextModel {
   setIsEditing?: (() => void) | Dispatch<SetStateAction<boolean>>;
   currentElement?: THREE.Mesh;
   setCurrentElement?: (() => void) | Dispatch<SetStateAction<THREE.Mesh>>;
-  currentElementInformations?: any;
-  setCurrentElementInformations?: any;
+  currentElementInformations?: CurrentElementInformations;
+  setCurrentElementInformations?: Dispatch<
+    SetStateAction<CurrentElementInformations | undefined>
+  >;
   currentMode?: ModesAvailable;
   setCurrentMode?: (() => void) | Dispatch<SetStateAction<ModesAvailable>>;
-}
-
-interface Props {
-  value?: EditorContextModel;
-  getContext?: (context: EditorContextModel) => void;
+  elementsOnScene?: GeometryElementDefinition[] | [];
+  setElementsOnScene?:
+    | (() => void)
+    | Dispatch<SetStateAction<GeometryElementDefinition[] | []>>;
 }
 
 export const defaultContext: EditorContextModel = {
@@ -45,6 +47,11 @@ export const defaultContext: EditorContextModel = {
 
 export const EditorContext = createContext<EditorContextModel>(defaultContext);
 
+interface Props {
+  value?: EditorContextModel;
+  getContext?: (context: EditorContextModel) => void;
+}
+
 const EditorContextProvider: FC<Props> = ({
   value = defaultContext,
   getContext,
@@ -53,8 +60,12 @@ const EditorContextProvider: FC<Props> = ({
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [currentElement, setCurrentElement] = useState<THREE.Mesh>();
   const [currentElementInformations, setCurrentElementInformations] =
-    useState<any>();
+    useState<CurrentElementInformations>();
   const [currentMode, setCurrentMode] = useState<ModesAvailable>("translate");
+  const [elementsOnScene, setElementsOnScene] = useState<
+    GeometryElementDefinition[]
+  >([]);
+
   const providerValue: EditorContextModel = {
     isEditing,
     setIsEditing,
@@ -64,6 +75,8 @@ const EditorContextProvider: FC<Props> = ({
     setCurrentMode,
     currentElementInformations,
     setCurrentElementInformations,
+    elementsOnScene,
+    setElementsOnScene,
     ...value,
   };
 
