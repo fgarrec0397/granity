@@ -3,15 +3,11 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 import { useThree } from "@react-three/fiber";
 import React, { FC, useContext, useEffect, useState } from "react";
 import { EditorContext } from "../../context/EditorContextProvider";
-import mapCurrentElementToCurrentElementInformations from "../../utils/mapCurrentElementToCurrentElementInformations";
+import mapMeshToCurrentElement from "../../utils/mapMeshToCurrentElement";
 
 const TransformControlsComponent: FC = ({ children }) => {
-  const {
-    currentElement,
-    setCurrentElementInformations,
-    setIsEditing,
-    currentMode,
-  } = useContext(EditorContext);
+  const { currentElement, setCurrentElement, setIsEditing, currentMode } =
+    useContext(EditorContext);
   const { camera, gl, scene } = useThree();
   const [transformControl, setTransformControl] = useState<TransformControls>();
 
@@ -19,7 +15,7 @@ const TransformControlsComponent: FC = ({ children }) => {
     if (!transformControl && currentElement) {
       const transformC = new TransformControls(camera, gl.domElement);
 
-      transformC.attach(currentElement);
+      transformC.attach(currentElement.mesh);
       transformC.setMode(currentMode);
 
       transformC.addEventListener("dragging-changed", ({ value }: any) => {
@@ -27,10 +23,8 @@ const TransformControlsComponent: FC = ({ children }) => {
       });
 
       transformC.addEventListener("objectChange", () => {
-        if (setCurrentElementInformations)
-          setCurrentElementInformations(
-            mapCurrentElementToCurrentElementInformations(currentElement)
-          );
+        if (setCurrentElement)
+          setCurrentElement(mapMeshToCurrentElement(currentElement.mesh));
       });
 
       scene.add(transformC);

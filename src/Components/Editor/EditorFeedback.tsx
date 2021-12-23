@@ -19,15 +19,12 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-  const { currentElementInformations } = useContext(EditorContext);
+  const { currentElement } = useContext(EditorContext);
 
-  if (currentElementInformations) {
+  if (currentElement) {
     return (
       <StyledWrapper {...styles.wrapper}>
-        <Card
-          size="small"
-          title={`Current Element - ${currentElementInformations.name}`}
-        >
+        <Card size="small" title={`Current Element - ${currentElement.name}`}>
           <Descriptions>
             <Descriptions.Item
               label="Position"
@@ -39,13 +36,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElementInformations.position[0].toFixed(3)}
+                <i>X:</i> {currentElement.position[0].toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElementInformations.position[1].toFixed(3)}
+                <i>Y:</i> {currentElement.position[1].toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElementInformations.position[2].toFixed(3)}
+                <i>Z:</i> {currentElement.position[2].toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>
@@ -60,13 +57,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElementInformations.rotation[0].toFixed(3)}
+                <i>X:</i> {currentElement.rotation[0].toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElementInformations.rotation[1].toFixed(3)}
+                <i>Y:</i> {currentElement.rotation[1].toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElementInformations.rotation[2].toFixed(3)}
+                <i>Z:</i> {currentElement.rotation[2].toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>
@@ -81,13 +78,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElementInformations.scale[0].toFixed(3)}
+                <i>X:</i> {currentElement.scale[0].toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElementInformations.scale[1].toFixed(3)}
+                <i>Y:</i> {currentElement.scale[1].toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElementInformations.scale[2].toFixed(3)}
+                <i>Z:</i> {currentElement.scale[2].toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>

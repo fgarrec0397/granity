@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { MeshProps } from "@react-three/fiber";
 import React, { FC, useContext, RefObject, useState } from "react";
 import { EditorContext } from "../../context/EditorContextProvider";
-import mapCurrentElementToCurrentElementInformations from "../../utils/mapCurrentElementToCurrentElementInformations";
+import mapMeshToCurrentElement from "../../utils/mapMeshToCurrentElement";
 
 interface Props extends MeshProps {
   geometryRef?: RefObject<THREE.Object3D>;
@@ -11,21 +11,14 @@ interface Props extends MeshProps {
 
 const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
   const [hovered, setHover] = useState(false);
-  const {
-    isEditor,
-    setCurrentElement,
-    setCurrentElementInformations,
-    currentElement,
-  } = useContext(EditorContext);
+  const { isEditor, setCurrentElement, currentElement } =
+    useContext(EditorContext);
 
   const handleOnPointerOver = (): void => setHover(true);
   const handleOnPointerOut = (): void => setHover(false);
   const handleOnClick = (event: any): void => {
-    if (setCurrentElement && setCurrentElementInformations) {
-      setCurrentElement(event.eventObject);
-      setCurrentElementInformations(
-        mapCurrentElementToCurrentElementInformations(event.eventObject)
-      );
+    if (setCurrentElement) {
+      setCurrentElement(mapMeshToCurrentElement(event.eventObject));
     }
   };
 

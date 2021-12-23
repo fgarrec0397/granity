@@ -26,12 +26,11 @@ export interface EditorContextModel {
   hasEditorOpened?: boolean;
   isEditing?: boolean;
   setIsEditing?: (() => void) | Dispatch<SetStateAction<boolean>>;
-  currentElement?: THREE.Mesh;
-  setCurrentElement?: (() => void) | Dispatch<SetStateAction<THREE.Mesh>>;
+  currentElement?: CurrentElementInformations;
+  setCurrentElement?:
+    | (() => void)
+    | Dispatch<SetStateAction<CurrentElementInformations | undefined>>;
   currentElementInformations?: CurrentElementInformations;
-  setCurrentElementInformations?: Dispatch<
-    SetStateAction<CurrentElementInformations | undefined>
-  >;
   currentMode?: ModesAvailable;
   setCurrentMode?: (() => void) | Dispatch<SetStateAction<ModesAvailable>>;
   elementsOnScene?: GeometryElementDefinition[] | [];
@@ -60,8 +59,6 @@ const EditorContextProvider: FC<Props> = ({
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [currentElement, setCurrentElement] = useState<THREE.Mesh>();
-  const [currentElementInformations, setCurrentElementInformations] =
-    useState<CurrentElementInformations>();
   const [currentMode, setCurrentMode] = useState<ModesAvailable>("translate");
   const [elementsOnScene, setElementsOnScene] = useState<
     GeometryElementDefinition[]
@@ -74,8 +71,6 @@ const EditorContextProvider: FC<Props> = ({
     setCurrentMode,
     currentElement,
     setCurrentElement,
-    currentElementInformations,
-    setCurrentElementInformations,
     elementsOnScene,
     setElementsOnScene,
     ...value,
@@ -83,7 +78,7 @@ const EditorContextProvider: FC<Props> = ({
 
   useEffect(() => {
     if (getContext) getContext(providerValue);
-  }, [currentElementInformations]);
+  }, [currentElement, elementsOnScene]);
 
   return (
     <EditorContext.Provider value={providerValue}>
