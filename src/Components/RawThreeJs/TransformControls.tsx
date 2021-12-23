@@ -12,7 +12,6 @@ const TransformControlsComponent: FC = ({ children }) => {
   const [transformControl, setTransformControl] = useState<TransformControls>();
 
   useEffect(() => {
-    console.log(currentElement, "currentElement from transform controls");
     if (!transformControl && currentElement) {
       const transformC = new TransformControls(camera, gl.domElement);
 

@@ -4,6 +4,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { useSphere } from "@react-three/cannon";
 import { useThree, useFrame } from "@react-three/fiber";
 import { initialPlayerPos } from "../../constants";
+import User from "../../Icons/User";
 
 interface Movements {
   forward: boolean;
@@ -68,6 +69,7 @@ const PlayerCamera: FC = (props) => {
   const { forward, backward, left, right, jump } = usePlayerControls();
   const { camera } = useThree();
   const velocity = useRef([0, 0, 0]);
+
   useEffect(
     () =>
       api.velocity.subscribe((v) => {
@@ -75,6 +77,7 @@ const PlayerCamera: FC = (props) => {
       }),
     []
   );
+
   useFrame(() => {
     ref.current.getWorldPosition(camera.position);
     frontVector.set(0, 0, Number(backward) - Number(forward));
@@ -94,6 +97,8 @@ const PlayerCamera: FC = (props) => {
   return (
     <>
       <mesh ref={ref} />
+      {/* <User />
+      </mesh> */}
     </>
   );
 };
