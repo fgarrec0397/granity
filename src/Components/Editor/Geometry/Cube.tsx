@@ -2,15 +2,11 @@
 import * as THREE from "three";
 import { useBox } from "@react-three/cannon";
 import React, { FC, useContext, useRef } from "react";
-import EditableMesh from "../Editor/EditableMesh";
-import { EditorContext } from "../../context/EditorContextProvider";
+import EditableMesh from "../EditableMesh";
+import { EditorContext } from "../../../context/EditorContextProvider";
+import { GeometryProps } from "./types";
 
-export interface CubeGeometryProps {
-  name: string;
-}
-
-const Cube: FC<CubeGeometryProps> = () => {
-  const name = "cube1";
+const Cube: FC<GeometryProps> = ({ name }) => {
   const ref = useRef<THREE.Mesh>();
   const { isEditor } = useContext(EditorContext);
   const [physicRef] = useBox(() => ({

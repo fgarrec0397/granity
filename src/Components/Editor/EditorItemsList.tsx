@@ -6,8 +6,8 @@ const EditorItemsList: FC = () => {
   const { currentElement, elementsOnScene } = useContext(EditorContext);
 
   useEffect(() => {
-    console.log(elementsOnScene, "elementsOnScene");
-    console.log(currentElement, "currentElement");
+    // console.log(elementsOnScene, "elementsOnScene");
+    // console.log(currentElement, "currentElement");
   }, [elementsOnScene]);
 
   return (

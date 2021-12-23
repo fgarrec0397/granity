@@ -2,10 +2,11 @@
 import * as THREE from "three";
 import { usePlane } from "@react-three/cannon";
 import React, { FC, useContext, useRef } from "react";
-import EditableMesh from "../Editor/EditableMesh";
-import { EditorContext } from "../../context/EditorContextProvider";
+import EditableMesh from "../EditableMesh";
+import { EditorContext } from "../../../context/EditorContextProvider";
+import { GeometryProps } from "./types";
 
-const Plane: FC = () => {
+const Plane: FC<GeometryProps> = () => {
   const name = "plane1";
   const { isEditor } = useContext(EditorContext);
   const ref = useRef<THREE.Mesh>();

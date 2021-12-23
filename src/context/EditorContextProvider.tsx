@@ -26,13 +26,12 @@ export interface EditorContextModel {
   hasEditorOpened?: boolean;
   isEditing?: boolean;
   setIsEditing?: (() => void) | Dispatch<SetStateAction<boolean>>;
+  currentMode?: ModesAvailable;
+  setCurrentMode?: (() => void) | Dispatch<SetStateAction<ModesAvailable>>;
   currentElement?: CurrentElementInformations;
   setCurrentElement?:
     | (() => void)
     | Dispatch<SetStateAction<CurrentElementInformations | undefined>>;
-  currentElementInformations?: CurrentElementInformations;
-  currentMode?: ModesAvailable;
-  setCurrentMode?: (() => void) | Dispatch<SetStateAction<ModesAvailable>>;
   elementsOnScene?: GeometryElementDefinition[] | [];
   setElementsOnScene?:
     | (() => void)
@@ -78,7 +77,7 @@ const EditorContextProvider: FC<Props> = ({
 
   useEffect(() => {
     if (getContext) getContext(providerValue);
-  }, [currentElement, elementsOnScene]);
+  }, [currentElement, elementsOnScene, value.isEditor]);
 
   return (
     <EditorContext.Provider value={providerValue}>

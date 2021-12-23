@@ -1,5 +1,7 @@
 import React, { FC } from "react";
-import Cube, { CubeGeometryProps } from "../Geometry/Cube";
+import Cube from "./Geometry/Cube";
+import Plane from "./Geometry/Plane";
+import { GeometryProps } from "./Geometry/types";
 
 export interface GeometryElementDefinition {
   uid: string;
@@ -8,11 +10,12 @@ export interface GeometryElementDefinition {
 }
 
 interface ComponentsElements {
-  [key: string]: FC<CubeGeometryProps>;
+  [key: string]: FC<GeometryProps>;
 }
 
 const Components: ComponentsElements = {
   cube: Cube,
+  plane: Plane,
 };
 
 export default ({

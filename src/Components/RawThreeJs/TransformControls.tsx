@@ -12,6 +12,7 @@ const TransformControlsComponent: FC = ({ children }) => {
   const [transformControl, setTransformControl] = useState<TransformControls>();
 
   useEffect(() => {
+    console.log(currentElement, "currentElement from transform controls");
     if (!transformControl && currentElement) {
       const transformC = new TransformControls(camera, gl.domElement);
 
@@ -37,7 +38,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         setTransformControl(undefined);
       }
     };
-  }, [transformControl, camera, scene, gl, currentElement]);
+  }, [transformControl, camera, scene, gl, currentElement?.mesh]);
 
   useEffect(() => {
     if (transformControl) {

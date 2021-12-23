@@ -26,12 +26,6 @@ const styles: EditorFeedbackStyles = {
 const EditorGeometryMenu: FC = () => {
   const { elementsOnScene, setElementsOnScene } = useContext(EditorContext);
 
-  useEffect(() => {
-    if (elementsOnScene?.length) {
-      console.log(elementsOnScene[elementsOnScene.length - 1]);
-    }
-  }, [elementsOnScene?.length]);
-
   const handleOnClick = (component: string): void => {
     const possiblyElementsOnScene = elementsOnScene || [];
     if (setElementsOnScene) {
@@ -63,7 +57,11 @@ const EditorGeometryMenu: FC = () => {
       >
         + Cube
       </Button>
-      <Button type="dashed" style={styles.buttonsStyle}>
+      <Button
+        type="dashed"
+        onClick={() => handleOnClick("plane")}
+        style={styles.buttonsStyle}
+      >
         + Plane
       </Button>
     </StyledWrapper>
