@@ -1,13 +1,14 @@
 import React, { FC } from "react";
-import Cube from "../Geometry/Cube";
+import Cube, { CubeGeometryProps } from "../Geometry/Cube";
 
 export interface GeometryElementDefinition {
   uid: string;
   component: string;
+  name: string;
 }
 
 interface ComponentsElements {
-  [key: string]: FC;
+  [key: string]: FC<CubeGeometryProps>;
 }
 
 const Components: ComponentsElements = {
@@ -17,10 +18,12 @@ const Components: ComponentsElements = {
 export default ({
   component,
   uid,
+  name,
 }: GeometryElementDefinition): React.ReactNode => {
   if (typeof Components[component] !== "undefined") {
     return React.createElement(Components[component], {
       key: uid,
+      name,
     });
   }
 

@@ -5,7 +5,11 @@ import React, { FC, useContext, useRef } from "react";
 import EditableMesh from "../Editor/EditableMesh";
 import { EditorContext } from "../../context/EditorContextProvider";
 
-const Cube: FC = () => {
+export interface CubeGeometryProps {
+  name: string;
+}
+
+const Cube: FC<CubeGeometryProps> = () => {
   const name = "cube1";
   const ref = useRef<THREE.Mesh>();
   const { isEditor } = useContext(EditorContext);
@@ -16,7 +20,7 @@ const Cube: FC = () => {
 
   return (
     <EditableMesh geometryRef={isEditor ? ref : physicRef} name={name}>
-      <boxGeometry attach="geometry" args={[10, 10]} />
+      <boxGeometry attach="geometry" args={[10, 10, 10]} />
     </EditableMesh>
   );
 };

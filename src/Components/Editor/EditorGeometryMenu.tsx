@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { css } from "styled-components";
 import { EditorContext } from "../../context/EditorContextProvider";
 import uidGenerator from "../../utils/uidGenerator";
@@ -26,16 +26,29 @@ const styles: EditorFeedbackStyles = {
 const EditorGeometryMenu: FC = () => {
   const { elementsOnScene, setElementsOnScene } = useContext(EditorContext);
 
+  useEffect(() => {
+    if (elementsOnScene?.length) {
+      console.log(elementsOnScene[elementsOnScene.length - 1]);
+    }
+  }, [elementsOnScene?.length]);
+
   const handleOnClick = (component: string): void => {
     const possiblyElementsOnScene = elementsOnScene || [];
     if (setElementsOnScene) {
+      const numberOfElementsByType = possiblyElementsOnScene.filter(
+        (x) => x.component === component
+      ).length;
       const uid = uidGenerator();
+      const name = `${component}${
+        numberOfElementsByType < 10 ? "0" : null
+      }${numberOfElementsByType}`;
 
       setElementsOnScene([
         ...possiblyElementsOnScene,
         {
           uid,
           component,
+          name,
         },
       ]);
     }

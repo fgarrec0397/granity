@@ -4,10 +4,12 @@ import { EditorContext } from "../../context/EditorContextProvider";
 import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
 import EditorFeedback from "./EditorFeedback";
 import EditorGeometryMenu from "./EditorGeometryMenu";
+import EditorItemsList from "./EditorItemsList";
 import EditorModeSelector from "./EditorModeSelector";
 
 interface EditorStyles {
   topWrapper?: StyledWrapperProps;
+  rightWrapper?: StyledWrapperProps;
   bottomWrapper?: StyledWrapperProps;
 }
 
@@ -18,6 +20,17 @@ const styles: EditorStyles = {
       top: 1em;
       left: 1em;
       display: flex;
+      align-items: flex-start;
+      user-select: none;
+    `,
+  },
+  rightWrapper: {
+    css: css`
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      display: flex;
+      flex-direction: column;
       align-items: flex-start;
       user-select: none;
     `,
@@ -43,6 +56,9 @@ const Editor: FC = () => {
         <StyledWrapper {...styles.topWrapper}>
           <EditorFeedback />
           <EditorModeSelector />
+        </StyledWrapper>
+        <StyledWrapper {...styles.rightWrapper}>
+          <EditorItemsList />
         </StyledWrapper>
         <StyledWrapper {...styles.bottomWrapper}>
           <EditorGeometryMenu />

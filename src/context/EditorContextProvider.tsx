@@ -16,6 +16,7 @@ export interface CurrentElementInformations {
   position: [number, number, number];
   scale: [number, number, number];
   rotation: [number, number, number];
+  mesh: THREE.Mesh;
 }
 
 export type ModesAvailable = "translate" | "rotate" | "scale";
@@ -69,10 +70,10 @@ const EditorContextProvider: FC<Props> = ({
   const providerValue: EditorContextModel = {
     isEditing,
     setIsEditing,
-    currentElement,
-    setCurrentElement,
     currentMode,
     setCurrentMode,
+    currentElement,
+    setCurrentElement,
     currentElementInformations,
     setCurrentElementInformations,
     elementsOnScene,
