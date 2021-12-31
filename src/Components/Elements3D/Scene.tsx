@@ -1,5 +1,7 @@
+// @ts-ignore
+import * as THREE from "three";
 import { Physics } from "@react-three/cannon";
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useRef } from "react";
 import Lights from "./Lights";
 import CameraControls from "./CameraControls";
 import GeometryInstantiator from "../Editor/GeometryInstantiator";
@@ -10,7 +12,7 @@ const Scene: FC = () => {
 
   return (
     <>
-      <Lights />
+      {/* <Lights /> */}
       <Physics>
         {elementsOnScene?.map((block) => GeometryInstantiator(block))}
         <CameraControls />

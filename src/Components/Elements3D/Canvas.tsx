@@ -1,5 +1,8 @@
+// @ts-ignore
+import * as THREE from "three";
+import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import EditorContextProvider, {
   EditorContextModel,
 } from "../../context/EditorContextProvider";
@@ -18,8 +21,7 @@ const CanvasComponent: FC<Props> = ({ editorContextValue }) => {
 
   return (
     <>
-      <Canvas camera={{ fov: 45 }}>
-        {/* Make a bridge to pass the Canvas */}
+      <Canvas camera={{ fov: 25 }}>
         <EditorContextProvider
           value={editorContextValue}
           getContext={handleGetContext}

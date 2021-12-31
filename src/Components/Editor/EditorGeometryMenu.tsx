@@ -1,5 +1,5 @@
-import { Button } from "antd";
-import React, { FC, useContext, useEffect } from "react";
+import { Button, Dropdown, Menu } from "antd";
+import React, { FC, useContext } from "react";
 import { css } from "styled-components";
 import { EditorContext } from "../../context/EditorContextProvider";
 import uidGenerator from "../../utils/uidGenerator";
@@ -9,6 +9,8 @@ interface EditorFeedbackStyles {
   wrapper?: StyledWrapperProps;
   buttonsStyle?: React.CSSProperties;
 }
+
+const lightTypes = ["directionalLight", "spotLight", "pointLight"];
 
 const styles: EditorFeedbackStyles = {
   wrapper: {
@@ -26,8 +28,10 @@ const styles: EditorFeedbackStyles = {
 const EditorGeometryMenu: FC = () => {
   const { elementsOnScene, setElementsOnScene } = useContext(EditorContext);
 
-  const handleOnClick = (component: string): void => {
+  const handleOnClick = (component: string, ...args: string[]): void => {
+    const [lightType] = args;
     const possiblyElementsOnScene = elementsOnScene || [];
+
     if (setElementsOnScene) {
       const numberOfElementsByType = possiblyElementsOnScene.filter(
         (x) => x.component === component
@@ -43,10 +47,24 @@ const EditorGeometryMenu: FC = () => {
           uid,
           component,
           name,
+          type: lightType,
         },
       ]);
     }
   };
+
+  const menu = (
+    <Menu>
+      {lightTypes.map((lightType) => (
+        <Menu.Item
+          key={lightType}
+          onClick={() => handleOnClick("light", lightType)}
+        >
+          {lightType}
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
 
   return (
     <StyledWrapper {...styles.wrapper}>
@@ -64,6 +82,11 @@ const EditorGeometryMenu: FC = () => {
       >
         + Plane
       </Button>
+      <Dropdown overlay={menu} placement="topLeft">
+        <Button type="dashed" style={styles.buttonsStyle}>
+          + Light
+        </Button>
+      </Dropdown>
     </StyledWrapper>
   );
 };

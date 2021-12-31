@@ -31,8 +31,7 @@ const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
       {...meshProps}
     >
       {children}
-      <meshBasicMaterial
-        attach="material"
+      <meshStandardMaterial
         color={
           (hovered || currentElement?.name === meshProps.name) && isEditor
             ? "#c9c9f5"
