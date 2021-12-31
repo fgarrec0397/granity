@@ -1,7 +1,7 @@
 import { Card, Descriptions } from "antd";
-import React, { FC, useContext, useEffect } from "react";
+import React, { FC } from "react";
 import { css } from "styled-components";
-import { EditorContext } from "../../context/EditorContextProvider";
+import useEditorContext from "../../hooks/Editor/useEditorContext";
 import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
 
 interface EditorFeedbackStyles {
@@ -19,7 +19,7 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-  const { currentElement } = useContext(EditorContext);
+  const { currentElement } = useEditorContext();
 
   if (currentElement) {
     return (

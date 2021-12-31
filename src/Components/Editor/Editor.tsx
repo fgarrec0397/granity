@@ -1,6 +1,6 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { css } from "styled-components";
-import { EditorContext } from "../../context/EditorContextProvider";
+import useEditorContext from "../../hooks/Editor/useEditorContext";
 import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
 import EditorFeedback from "./EditorFeedback";
 import EditorGeometryMenu from "./EditorGeometryMenu";
@@ -48,7 +48,7 @@ const styles: EditorStyles = {
 };
 
 const Editor: FC = () => {
-  const { isEditor } = useContext(EditorContext);
+  const { isEditor } = useEditorContext();
 
   if (isEditor) {
     return (

@@ -1,10 +1,8 @@
 import { Card, Select } from "antd";
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { css } from "styled-components";
-import {
-  EditorContext,
-  ModesAvailable,
-} from "../../context/EditorContextProvider";
+import { ModesAvailable } from "../../context/EditorContextProvider";
+import useEditorContext from "../../hooks/Editor/useEditorContext";
 import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
 
 const { Option } = Select;
@@ -24,7 +22,7 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorModeSelector: FC = () => {
-  const { setCurrentMode } = useContext(EditorContext);
+  const { setCurrentMode } = useEditorContext();
 
   const handleChange = (value: ModesAvailable): void => {
     if (setCurrentMode) setCurrentMode(value);

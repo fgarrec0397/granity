@@ -1,14 +1,11 @@
-// @ts-ignore
-import * as THREE from "three";
 import { Physics } from "@react-three/cannon";
-import React, { FC, useContext, useRef } from "react";
-import Lights from "./Lights";
+import React, { FC } from "react";
 import CameraControls from "./CameraControls";
 import GeometryInstantiator from "../Editor/GeometryInstantiator";
-import { EditorContext } from "../../context/EditorContextProvider";
+import useEditorContext from "../../hooks/Editor/useEditorContext";
 
 const Scene: FC = () => {
-  const { elementsOnScene } = useContext(EditorContext);
+  const { elementsOnScene } = useEditorContext();
 
   return (
     <>

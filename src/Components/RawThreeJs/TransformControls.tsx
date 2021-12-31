@@ -1,13 +1,13 @@
 // @ts-ignore
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 import { useThree } from "@react-three/fiber";
-import React, { FC, useContext, useEffect, useState } from "react";
-import { EditorContext } from "../../context/EditorContextProvider";
+import React, { FC, useEffect, useState } from "react";
 import mapMeshToCurrentElement from "../../utils/mapMeshToCurrentElement";
+import useEditorContext from "../../hooks/Editor/useEditorContext";
 
 const TransformControlsComponent: FC = ({ children }) => {
   const { currentElement, setCurrentElement, setIsEditing, currentMode } =
-    useContext(EditorContext);
+    useEditorContext();
   const { camera, gl, scene } = useThree();
   const [transformControl, setTransformControl] = useState<TransformControls>();
 

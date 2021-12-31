@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useHelper } from "@react-three/drei";
 import React, { FC, useRef } from "react";
 import { GeometryProps } from "../types";
-import useSetCurrentElement from "../../../../hooks/useSetCurrentElement";
+import useSetCurrentElement from "../../../../hooks/Editor/useSetCurrentElement";
 
 interface LightsTypeHelpers {
   [key: string]: any;

@@ -1,7 +1,7 @@
 import { Button, Dropdown, Menu } from "antd";
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { css } from "styled-components";
-import { EditorContext } from "../../context/EditorContextProvider";
+import useEditorContext from "../../hooks/Editor/useEditorContext";
 import uidGenerator from "../../utils/uidGenerator";
 import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
 
@@ -26,7 +26,7 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorGeometryMenu: FC = () => {
-  const { elementsOnScene, setElementsOnScene } = useContext(EditorContext);
+  const { elementsOnScene, setElementsOnScene } = useEditorContext();
 
   const handleOnClick = (component: string, ...args: string[]): void => {
     const [lightType] = args;

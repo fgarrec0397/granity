@@ -1,9 +1,9 @@
 // @ts-ignore
 import * as THREE from "three";
 import { MeshProps } from "@react-three/fiber";
-import React, { FC, useContext, RefObject, useState } from "react";
-import { EditorContext } from "../../context/EditorContextProvider";
+import React, { FC, RefObject, useState } from "react";
 import mapMeshToCurrentElement from "../../utils/mapMeshToCurrentElement";
+import useEditorContext from "../../hooks/Editor/useEditorContext";
 
 interface Props extends MeshProps {
   geometryRef?: RefObject<THREE.Object3D>;
@@ -11,8 +11,7 @@ interface Props extends MeshProps {
 
 const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
   const [hovered, setHover] = useState(false);
-  const { isEditor, setCurrentElement, currentElement } =
-    useContext(EditorContext);
+  const { isEditor, setCurrentElement, currentElement } = useEditorContext();
 
   const handleOnPointerOver = (): void => setHover(true);
   const handleOnPointerOut = (): void => setHover(false);

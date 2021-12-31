@@ -1,14 +1,14 @@
 // @ts-ignore
 import * as THREE from "three";
 import { usePlane } from "@react-three/cannon";
-import React, { FC, useContext, useRef } from "react";
+import React, { FC, useRef } from "react";
 import { GeometryProps } from "../types";
-import { EditorContext } from "../../../../context/EditorContextProvider";
 import EditableMesh from "../../EditableMesh";
+import useEditorContext from "../../../../hooks/Editor/useEditorContext";
 
 const Plane: FC<GeometryProps> = () => {
   const name = "plane1";
-  const { isEditor } = useContext(EditorContext);
+  const { isEditor } = useEditorContext();
   const ref = useRef<THREE.Mesh>();
   const [physicRef] = usePlane(() => ({
     rotation: [-Math.PI / 2, 0, 0],
