@@ -1,7 +1,6 @@
 // @ts-ignore
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-// @ts-ignore
 import { PointerLockControls, OrbitControls } from "@react-three/drei";
 import React, { FC, useState } from "react";
 import TransformControls from "../RawThreeJs/TransformControls";

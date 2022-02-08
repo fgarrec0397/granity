@@ -1,10 +1,10 @@
+// @ts-ignore
+import * as THREE from "three";
 import { Html } from "@react-three/drei";
 import { MeshProps, Vector3 } from "@react-three/fiber";
 import React, { CSSProperties, FC, forwardRef } from "react";
-// @ts-ignore
-import * as THREE from "three";
 
-export interface BoxProps extends MeshProps {
+export interface HTMLBoxProps extends MeshProps {
   position: Vector3;
   scale: Vector3;
   text: string;
@@ -16,7 +16,7 @@ export interface BoxProps extends MeshProps {
   transparent?: boolean;
 }
 
-const Box: FC<BoxProps> = forwardRef(
+const HTMLBox: FC<HTMLBoxProps> = forwardRef(
   (
     {
       color = "white",
@@ -93,4 +93,4 @@ const Box: FC<BoxProps> = forwardRef(
   }
 );
 
-export default Box;
+export default HTMLBox;

@@ -6,6 +6,7 @@ import EditorFeedback from "./EditorFeedback";
 import EditorGeometryMenu from "./EditorGeometryMenu";
 import EditorItemsList from "./EditorItemsList";
 import EditorModeSelector from "./EditorModeSelector";
+import SaveButton from "./SaveButton";
 
 interface EditorStyles {
   topWrapper?: StyledWrapperProps;
@@ -62,6 +63,7 @@ const Editor: FC = () => {
         </StyledWrapper>
         <StyledWrapper {...styles.bottomWrapper}>
           <EditorGeometryMenu />
+          <SaveButton />
         </StyledWrapper>
       </>
     );

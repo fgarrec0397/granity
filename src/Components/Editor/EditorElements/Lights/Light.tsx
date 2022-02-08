@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useHelper } from "@react-three/drei";
 import React, { FC, useRef } from "react";
 import { GeometryProps } from "../types";
-import useSetCurrentElement from "../../../../hooks/Editor/useSetCurrentElement";
+import useSetCurrentElement from "../../../../hooks/Editor/useCurrentElement";
 
 interface LightsTypeHelpers {
   [key: string]: any;
@@ -17,8 +17,10 @@ const helpers: LightsTypeHelpers = {
 
 const Light: FC<GeometryProps> = ({ type, ...lightProps }) => {
   const ref = useRef<THREE.Mesh>();
-  const setCurrentElement = useSetCurrentElement();
+  const { currentElement, setCurrentElement } = useSetCurrentElement();
   const LightComponent: any = type;
+
+  console.log(currentElement, "currentElement");
 
   useHelper(ref, helpers[type], 1, "teal");
 
@@ -29,7 +31,6 @@ const Light: FC<GeometryProps> = ({ type, ...lightProps }) => {
   return (
     <mesh onClick={handleOnClick} {...lightProps}>
       <boxGeometry attach="geometry" args={[1, 1, 1]} />
-      {/* Make the light follows the cube movement */}
       <LightComponent ref={ref} />
     </mesh>
   );

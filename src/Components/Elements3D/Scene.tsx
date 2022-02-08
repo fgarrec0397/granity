@@ -3,13 +3,14 @@ import React, { FC } from "react";
 import CameraControls from "./CameraControls";
 import GeometryInstantiator from "../Editor/GeometryInstantiator";
 import useEditorContext from "../../hooks/Editor/useEditorContext";
+import Lights from "./Lights";
 
 const Scene: FC = () => {
   const { elementsOnScene } = useEditorContext();
 
   return (
     <>
-      {/* <Lights /> */}
+      <Lights />
       <Physics>
         {elementsOnScene?.map((block) => GeometryInstantiator(block))}
         <CameraControls />
