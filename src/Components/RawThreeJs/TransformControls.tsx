@@ -41,6 +41,12 @@ const TransformControlsComponent: FC = ({ children }) => {
 
   useEffect(() => {
     if (transformControl) {
+      transformControl.detach();
+    }
+  }, [currentElement?.id]);
+
+  useEffect(() => {
+    if (transformControl) {
       transformControl.setMode(currentMode);
     }
   }, [currentMode]);

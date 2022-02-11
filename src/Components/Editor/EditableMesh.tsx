@@ -16,11 +16,11 @@ const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
 
   useEffect(() => {
     window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mouseup", onMouseUp);
 
     return () => {
       window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
     };
   }, []);
 
@@ -30,7 +30,7 @@ const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
     // TODO ---> mouse hover effect
   };
 
-  const onMouseDown = (event: MouseEvent): void => {
+  const onMouseUp = (event: MouseEvent): void => {
     event.preventDefault();
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
