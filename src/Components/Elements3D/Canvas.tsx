@@ -1,8 +1,5 @@
-// @ts-ignore
-import * as THREE from "three";
-import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useState } from "react";
 import EditorContextProvider, {
   EditorContextModel,
 } from "../../context/EditorContextProvider";

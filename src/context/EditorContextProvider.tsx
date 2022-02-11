@@ -13,9 +13,9 @@ import { GeometryElementDefinition } from "../Components/Editor/GeometryInstanti
 export interface CurrentElementInformations {
   id: string;
   name: string;
-  position: [number, number, number];
-  scale: [number, number, number];
-  rotation: [number, number, number];
+  position: THREE.Vector3;
+  scale: THREE.Vector3;
+  rotation: THREE.Vector3;
   mesh: THREE.Mesh;
 }
 
