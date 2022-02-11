@@ -9,26 +9,43 @@ interface Props extends MeshProps {
   geometryRef?: RefObject<THREE.Object3D>;
 }
 
+let previousHoveredObj: any;
+
 const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
   const [hovered, setHover] = useState(false);
   const { isEditor, setCurrentElement, currentElement } = useEditorContext();
   const { mouse, camera, raycaster, scene } = useThree();
 
   useEffect(() => {
-    window.addEventListener("pointermove", onPointerMove);
+    // window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("mouseup", onMouseUp);
 
     return () => {
-      window.removeEventListener("pointermove", onPointerMove);
+      // window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("mouseup", onMouseUp);
     };
   }, []);
 
-  const onPointerMove = (event: MouseEvent): void => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    // TODO ---> mouse hover effect
-  };
+  // // Not sure to keep this code and continue with the OOTB hover handler
+  // const onPointerMove = (event: MouseEvent): void => {
+  //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  //   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  //   raycaster.setFromCamera(mouse, camera);
+
+  //   const intersects = raycaster.intersectObjects(scene.children);
+
+  //   if (intersects.length > 0) {
+  //     const [closestMesh] = intersects.sort((x: any) => x.distance);
+  //     previousHoveredObj = closestMesh;
+  //     closestMesh.object.material.color.set(0x6b6be4);
+  //     console.log(closestMesh);
+  //     if (closestMesh.object.uuid === previousHoveredObj?.object.uuid) {
+  //       previousHoveredObj?.object.material.color.set(0xffffff);
+  //     }
+  //   } else {
+  //     previousHoveredObj?.object.material.color.set(0xffffff);
+  //   }
+  // };
 
   const onMouseUp = (event: MouseEvent): void => {
     event.preventDefault();
@@ -43,7 +60,6 @@ const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
       if (setCurrentElement)
         setCurrentElement(mapMeshToCurrentElement(closestMesh.object));
     }
-    // continue here ---> Verify why 2 objects move when they superpose
   };
 
   const handleOnPointerOver = (): void => setHover(true);
@@ -60,7 +76,7 @@ const EditableMesh: FC<Props> = ({ geometryRef, children, ...meshProps }) => {
       <meshStandardMaterial
         color={
           (hovered || currentElement?.name === meshProps.name) && isEditor
-            ? "#c9c9f5"
+            ? "#9797ee"
             : "white"
         }
       />
