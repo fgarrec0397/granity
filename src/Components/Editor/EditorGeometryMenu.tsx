@@ -29,14 +29,13 @@ const EditorGeometryMenu: FC = () => {
   const { elementsOnScene, setElementsOnScene } = useEditorContext();
 
   const handleOnClick = (component: string, ...args: string[]): void => {
-    const [lightType] = args;
     const possiblyElementsOnScene = elementsOnScene || [];
 
     if (setElementsOnScene) {
       const numberOfElementsByType = possiblyElementsOnScene.filter(
         (x) => x.component === component
       ).length;
-      const uid = uidGenerator();
+      const id = uidGenerator();
       const name = `${component}${
         numberOfElementsByType < 10 ? "0" : null
       }${numberOfElementsByType}`;
@@ -44,10 +43,9 @@ const EditorGeometryMenu: FC = () => {
       setElementsOnScene([
         ...possiblyElementsOnScene,
         {
-          uid,
+          id,
           component,
           name,
-          type: lightType,
         },
       ]);
     }

@@ -1,14 +1,14 @@
 // @ts-ignore
 import * as THREE from "three";
 import React, { FC, useRef } from "react";
-import { GeometryProps } from "../types";
+import { GeometryBoxProps } from "../types";
 import EditableMesh from "../../EditableMesh";
 
-const Cube: FC<GeometryProps> = ({ name }) => {
+const Cube: FC<GeometryBoxProps> = ({ name, component }) => {
   const ref = useRef<THREE.Mesh>();
 
   return (
-    <EditableMesh geometryRef={ref} name={name}>
+    <EditableMesh geometryRef={ref} name={name} component={component}>
       <boxGeometry attach="geometry" args={[10, 10, 10]} />
     </EditableMesh>
   );

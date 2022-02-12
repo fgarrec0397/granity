@@ -22,6 +22,7 @@ const EditorFeedback: FC = () => {
   const { currentElement } = useEditorContext();
 
   if (currentElement) {
+    console.log(currentElement, "currentElement");
     return (
       <StyledWrapper {...styles.wrapper}>
         <Card size="small" title={`Current Element - ${currentElement.name}`}>
@@ -36,13 +37,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElement.position[0].toFixed(3)}
+                <i>X:</i> {currentElement.mesh?.position.x.toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElement.position[1].toFixed(3)}
+                <i>Y:</i> {currentElement.mesh?.position.y.toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElement.position[2].toFixed(3)}
+                <i>Z:</i> {currentElement.mesh?.position.z.toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>
@@ -57,13 +58,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElement.rotation[0].toFixed(3)}
+                <i>X:</i> {currentElement.mesh?.rotation.x.toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElement.rotation[1].toFixed(3)}
+                <i>Y:</i> {currentElement.mesh?.rotation.y.toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElement.rotation[2].toFixed(3)}
+                <i>Z:</i> {currentElement.mesh?.rotation.z.toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>
@@ -78,13 +79,13 @@ const EditorFeedback: FC = () => {
               }}
             >
               <span>
-                <i>X:</i> {currentElement.scale[0].toFixed(3)}
+                <i>X:</i> {currentElement.mesh?.scale.x.toFixed(3)}
               </span>
               <span>
-                <i>Y:</i> {currentElement.scale[1].toFixed(3)}
+                <i>Y:</i> {currentElement.mesh?.scale.y.toFixed(3)}
               </span>
               <span>
-                <i>Z:</i> {currentElement.scale[2].toFixed(3)}
+                <i>Z:</i> {currentElement.mesh?.scale.z.toFixed(3)}
               </span>
             </Descriptions.Item>
           </Descriptions>

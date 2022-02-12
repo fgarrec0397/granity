@@ -8,15 +8,12 @@ import React, {
   SetStateAction,
   useEffect,
 } from "react";
-import { GeometryElementDefinition } from "../Components/Editor/GeometryInstantiator";
 
-export interface CurrentElementInformations {
+export interface SceneElementInformations {
   id: string;
   name: string;
-  position: THREE.Vector3;
-  scale: THREE.Vector3;
-  rotation: THREE.Vector3;
-  mesh: THREE.Mesh;
+  component: string;
+  mesh?: THREE.Mesh;
 }
 
 export type ModesAvailable = "translate" | "rotate" | "scale";
@@ -28,14 +25,14 @@ export interface EditorContextModel {
   setIsEditing?: (() => void) | Dispatch<SetStateAction<boolean>>;
   currentMode?: ModesAvailable;
   setCurrentMode?: (() => void) | Dispatch<SetStateAction<ModesAvailable>>;
-  currentElement?: CurrentElementInformations;
+  currentElement?: SceneElementInformations;
   setCurrentElement?:
     | (() => void)
-    | Dispatch<SetStateAction<CurrentElementInformations | undefined>>;
-  elementsOnScene?: GeometryElementDefinition[] | [];
+    | Dispatch<SetStateAction<SceneElementInformations | undefined>>;
+  elementsOnScene?: SceneElementInformations[] | [];
   setElementsOnScene?:
     | (() => void)
-    | Dispatch<SetStateAction<GeometryElementDefinition[] | []>>;
+    | Dispatch<SetStateAction<SceneElementInformations[] | []>>;
 }
 
 export const defaultContext: EditorContextModel = {
@@ -60,7 +57,7 @@ const EditorContextProvider: FC<Props> = ({
   const [currentElement, setCurrentElement] = useState<THREE.Mesh>();
   const [currentMode, setCurrentMode] = useState<ModesAvailable>("translate");
   const [elementsOnScene, setElementsOnScene] = useState<
-    GeometryElementDefinition[]
+    SceneElementInformations[]
   >([]);
 
   const providerValue: EditorContextModel = {

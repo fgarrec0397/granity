@@ -1,11 +1,11 @@
 // @ts-ignore
 import * as THREE from "three";
-import { CurrentElementInformations } from "../../context/EditorContextProvider";
+import { SceneElementInformations } from "../../context/EditorContextProvider";
 import mapMeshToCurrentElement from "../../utils/mapMeshToCurrentElement";
 import useEditorContext from "./useEditorContext";
 
 interface CustomHookReturnType {
-  currentElement: CurrentElementInformations | undefined;
+  currentElement: SceneElementInformations | undefined;
   setCurrentElement: (mesh: THREE.Mesh) => void;
 }
 

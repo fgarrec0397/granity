@@ -1,5 +1,8 @@
-import { LightProps } from "@react-three/fiber";
-
-export interface GeometryProps extends LightProps {
+export interface GeometryProps {
   name: string;
+  component: string;
 }
+
+export type GeometryBoxProps = GeometryProps;
+
+export type GeometryPlaneProps = GeometryProps;

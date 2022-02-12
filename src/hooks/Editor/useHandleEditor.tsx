@@ -11,6 +11,10 @@ export default (): boolean => {
       }
     };
     document.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      document.removeEventListener("keyup", handleKeyUp);
+    };
   }, []);
 
   useEffect(() => {
