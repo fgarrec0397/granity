@@ -22,7 +22,6 @@ const EditorFeedback: FC = () => {
   const { currentElement } = useEditorContext();
 
   if (currentElement) {
-    console.log(currentElement, "currentElement");
     return (
       <StyledWrapper {...styles.wrapper}>
         <Card size="small" title={`Current Element - ${currentElement.name}`}>

@@ -4,12 +4,6 @@ import Cube from "./EditorElements/Geometry/Cube";
 import Plane from "./EditorElements/Geometry/Plane";
 import { GeometryProps } from "./EditorElements/types";
 
-// export interface GeometryElementDefinition {
-//   id: string;
-//   component: string;
-//   name: string;
-// }
-
 interface ComponentsElements {
   [key: string]: FC<GeometryProps>;
 }

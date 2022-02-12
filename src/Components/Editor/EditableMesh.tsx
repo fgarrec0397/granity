@@ -10,6 +10,9 @@ interface Props extends MeshProps {
   component: string;
 }
 
+const hoveredColor = "#bdbdf5";
+const selectedColor = "#9797ee";
+
 const EditableMesh: FC<Props> = ({
   geometryRef,
   component,
@@ -65,7 +68,7 @@ const EditableMesh: FC<Props> = ({
       <meshStandardMaterial
         color={
           (hovered || currentElement?.name === meshProps.name) && isEditor
-            ? "#9797ee"
+            ? hoveredColor
             : "white"
         }
       />

@@ -5,27 +5,45 @@ import GeometryInstantiator from "../Editor/GeometryInstantiator";
 import useEditorContext from "../../hooks/Editor/useEditorContext";
 import Lights from "./Lights";
 import { SceneElementInformations } from "../../context/EditorContextProvider";
+import uidGenerator from "../../utils/uidGenerator";
 
 const Scene: FC = () => {
-  const { elementsOnScene, currentElement } = useEditorContext();
+  const { elementsOnScene, currentElement, setElementsOnScene } =
+    useEditorContext();
   const [copiedElement, setCopiedElement] =
     useState<SceneElementInformations>();
-  useEffect(() => {
-    const handleKeyUp = (event: KeyboardEvent): void => {
-      if (event.ctrlKey && event.code === "KeyC") {
-        if (currentElement !== undefined) {
-          setCopiedElement(currentElement);
-        }
-      } else if (event.ctrlKey && event.code === "KeyV") {
-        // setElementsOnScene()
-      }
-    };
-    document.addEventListener("keyup", handleKeyUp);
 
-    return () => {
-      document.removeEventListener("keyup", handleKeyUp);
-    };
-  }, []);
+  useEffect(() => {
+    document.addEventListener("keyup", handleKeyUp);
+  }, [currentElement]);
+
+  const handleKeyUp = (event: KeyboardEvent): void => {
+    if (event.ctrlKey && event.code === "KeyC") {
+      if (currentElement) {
+        setCopiedElement(currentElement);
+      }
+    } else if (event.ctrlKey && event.code === "KeyV") {
+      if (setElementsOnScene && copiedElement !== undefined) {
+        const possiblyElementsOnScene = elementsOnScene || [];
+        const numberOfElementsByType = possiblyElementsOnScene.filter(
+          (x) => x.component === copiedElement.component
+        ).length;
+        const id = uidGenerator();
+        const name = `${copiedElement.component}${
+          numberOfElementsByType < 10 ? "0" : null
+        }${numberOfElementsByType}`;
+
+        setElementsOnScene([
+          ...possiblyElementsOnScene,
+          {
+            ...copiedElement,
+            id,
+            name,
+          },
+        ]);
+      }
+    }
+  };
 
   return (
     <>
