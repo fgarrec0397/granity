@@ -1,0 +1,59 @@
+├── api
+│   ├── apiHandler.js
+│   ├── articleApi.js
+│   ├── categoryApi.js
+│   └── userApi.js
+├── scene
+│   ├── SceneController.jsx
+│   ├── Scene.jsx
+│   └── state
+│       ├── sceneActions.js
+│       └── sceneReducer.js
+├── editor
+│   ├── EditorController.jsx
+│   ├── Editor.jsx
+│   ├── state
+│   |    ├── editorActions.js
+│   |    └── editorReducer.js
+│   └── components
+│       ├── EditorMenu.jsx
+│       └── EditorModeSelector.jsx
+├── game
+│   ├── GameController.jsx
+│   ├── Game.jsx
+│   ├── state
+│   |    ├── gameActions.js
+│   |    └── gameReducer.js
+│   └── components
+│       ├── GameMenu.jsx
+│       └── EditorModeSelector.jsx
+├── player
+│   ├── PlayerController.jsx
+│   ├── Player.jsx
+│   ├── state
+│   |    ├── playerActions.js
+│   |    └── playerReducer.js
+│   └── components
+│       ├── PlayerMovement.jsx
+│       └── PlayerInterractions.jsx
+├── otherGameFeatures
+│   ├── OtherGameFeaturesController.jsx
+│   ├── OtherGameFeatures.jsx
+│   ├── state
+│   |    ├── otherGameFeaturesActions.js
+│   |    └── otherGameFeaturesReducer.js
+│   └── components
+│       └── OtherGameFeaturesComponents.jsx
+├── common
+│   └── state
+│       ├── commonActions.js
+│       └── commonReducers.js
+├── index.js
+├── middleware.js
+├── routes.js
+├── store.js
+└── user
+    ├── authUtils.js
+    └── state
+        ├── userActions.js
+        └── userReducer.js
