@@ -1,13 +1,14 @@
 import { notification } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useIsEditor from "./useIsEditor";
 
 export default (): boolean => {
-  const [isEditor, setIsEditor] = useState<boolean>(true);
+  const { isEditor, setIsEditor } = useIsEditor();
 
   useEffect(() => {
     const handleKeyUp = (event: KeyboardEvent): void => {
       if (event.code === "KeyE") {
-        setIsEditor((prevIsEditor) => !prevIsEditor);
+        setIsEditor();
       }
     };
     document.addEventListener("keyup", handleKeyUp);

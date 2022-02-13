@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useAppSelector } from "../../store/hooks";
 import Editor from "./Editor";
 import useEditorContext from "./state/hooks/useEditorContext";
 

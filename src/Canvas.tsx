@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import React, { FC, useState } from "react";
 import EditorController from "./Scene/_Editor/EditorController";
+import StoreProvider from "./store/StoreProvider";
 import EditorContextProvider, {
   EditorContextModel,
 } from "./Scene/_Editor/state/EditorContextProvider";
@@ -19,12 +20,14 @@ const CanvasComponent: FC<Props> = ({ editorContextValue }) => {
   return (
     <>
       <Canvas camera={{ fov: 25 }}>
-        <EditorContextProvider
-          value={editorContextValue}
-          getContext={handleGetContext}
-        >
-          <SceneController />
-        </EditorContextProvider>
+        <StoreProvider>
+          <EditorContextProvider
+            value={editorContextValue}
+            getContext={handleGetContext}
+          >
+            <SceneController />
+          </EditorContextProvider>
+        </StoreProvider>
       </Canvas>
       <EditorContextProvider value={currentContext}>
         <EditorController />

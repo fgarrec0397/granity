@@ -5,6 +5,8 @@ import StyledWrapper, {
   StyledWrapperProps,
 } from "../../../common/components/Html/StyledWrapper";
 import uidGenerator from "../../../common/utils/uidGenerator";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { setIsEditor } from "../state/editorReducer";
 import useEditorContext from "../state/hooks/useEditorContext";
 
 interface EditorFeedbackStyles {
@@ -29,6 +31,9 @@ const styles: EditorFeedbackStyles = {
 
 const EditorGeometryMenu: FC = () => {
   const { elementsOnScene, setElementsOnScene } = useEditorContext();
+  const editor = useAppSelector((state) => state.editor);
+  const dispatch = useAppDispatch();
+  console.log(editor, "editor from geometry menu");
 
   const handleOnClick = (component: string): void => {
     const possiblyElementsOnScene = elementsOnScene || [];

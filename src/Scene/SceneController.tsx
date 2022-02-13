@@ -1,6 +1,7 @@
 import { Physics } from "@react-three/cannon";
 import CameraControls from "camera-controls";
 import React, { FC, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import uidGenerator from "../common/utils/uidGenerator";
 import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
 import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
@@ -8,6 +9,7 @@ import { GeometryProps } from "./_Editor/components/EditorElements/types";
 import { SceneElementInformations } from "./_Editor/state/EditorContextProvider";
 import useEditorContext from "./_Editor/state/hooks/useEditorContext";
 import Scene from "./Scene";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 interface ComponentsElements {
   [key: string]: FC<GeometryProps>;
@@ -45,6 +47,7 @@ const SceneController: FC = () => {
     useEditorContext();
   const [copiedElement, setCopiedElement] =
     useState<SceneElementInformations>();
+  const editor = useAppSelector((state) => state.editor);
 
   useEffect(() => {
     document.addEventListener("keyup", handleKeyUp);
