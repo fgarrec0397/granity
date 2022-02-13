@@ -1,9 +1,9 @@
 import { Canvas } from "@react-three/fiber";
 import React, { FC, useState } from "react";
-import EditorController from "./Scene/Editor/EditorController";
+import EditorController from "./Scene/_Editor/EditorController";
 import EditorContextProvider, {
   EditorContextModel,
-} from "./Scene/Editor/state/EditorContextProvider";
+} from "./Scene/_Editor/state/EditorContextProvider";
 import SceneController from "./Scene/SceneController";
 
 interface Props {

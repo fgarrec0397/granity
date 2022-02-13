@@ -1,12 +1,12 @@
 import { Physics } from "@react-three/cannon";
 import CameraControls from "camera-controls";
 import React, { FC, useEffect, useState } from "react";
-import uidGenerator from "../utils/uidGenerator";
-import Cube from "./Editor/components/EditorElements/Geometry/Cube";
-import Plane from "./Editor/components/EditorElements/Geometry/Plane";
-import { GeometryProps } from "./Editor/components/EditorElements/types";
-import { SceneElementInformations } from "./Editor/state/EditorContextProvider";
-import useEditorContext from "./Editor/state/hooks/useEditorContext";
+import uidGenerator from "../common/utils/uidGenerator";
+import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
+import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
+import { GeometryProps } from "./_Editor/components/EditorElements/types";
+import { SceneElementInformations } from "./_Editor/state/EditorContextProvider";
+import useEditorContext from "./_Editor/state/hooks/useEditorContext";
 import Scene from "./Scene";
 
 interface ComponentsElements {

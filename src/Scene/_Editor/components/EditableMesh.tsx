@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { MeshProps, ThreeEvent, useThree } from "@react-three/fiber";
 import React, { FC, RefObject, useEffect, useState } from "react";
-import mapMeshToCurrentElement from "../../../utils/mapMeshToCurrentElement";
+import mapMeshToCurrentElement from "../../../common/utils/mapMeshToCurrentElement";
 import useEditorContext from "../state/hooks/useEditorContext";
 
 interface Props extends MeshProps {

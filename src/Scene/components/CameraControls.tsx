@@ -3,9 +3,9 @@ import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { PointerLockControls, OrbitControls } from "@react-three/drei";
 import React, { FC, useState } from "react";
-import TransformControls from "../RawThreeJs/TransformControls";
+import useEditorContext from "../_Editor/state/hooks/useEditorContext";
+import TransformControls from "./TransformControls";
 import PlayerCamera from "./PlayerCamera";
-import useEditorContext from "../../Scene/Editor/state/hooks/useEditorContext";
 
 const CameraControls: FC = () => {
   const [hasEditorOpened, setHasEditorOpened] = useState(false);

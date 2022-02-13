@@ -4,7 +4,7 @@ import { css } from "styled-components";
 import StyledWrapper, {
   StyledWrapperProps,
 } from "../../../Components/Html/StyledWrapper";
-import uidGenerator from "../../../utils/uidGenerator";
+import uidGenerator from "../../../common/utils/uidGenerator";
 import useEditorContext from "../state/hooks/useEditorContext";
 
 interface EditorFeedbackStyles {

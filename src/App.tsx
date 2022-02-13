@@ -6,8 +6,8 @@ import baseTheme from "./theme/baseTheme";
 import Loader from "./Components/Loader";
 import Canvas from "./Canvas";
 import { store } from "./store";
-import EditorContextProvider from "./Scene/Editor/state/EditorContextProvider";
-import useHandleEditor from "./Scene/Editor/state/hooks/useHandleEditor";
+import EditorContextProvider from "./Scene/_Editor/state/EditorContextProvider";
+import useHandleEditor from "./Scene/_Editor/state/hooks/useHandleEditor";
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
