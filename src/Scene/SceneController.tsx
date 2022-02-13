@@ -1,13 +1,40 @@
 import { Physics } from "@react-three/cannon";
+import CameraControls from "camera-controls";
 import React, { FC, useEffect, useState } from "react";
-import CameraControls from "./CameraControls";
-import GeometryInstantiator from "../Editor/GeometryInstantiator";
-import useEditorContext from "../../hooks/Editor/useEditorContext";
-import Lights from "./Lights";
-import { SceneElementInformations } from "../../context/EditorContextProvider";
-import uidGenerator from "../../utils/uidGenerator";
+import uidGenerator from "../utils/uidGenerator";
+import Cube from "./Editor/components/EditorElements/Geometry/Cube";
+import Plane from "./Editor/components/EditorElements/Geometry/Plane";
+import { GeometryProps } from "./Editor/components/EditorElements/types";
+import { SceneElementInformations } from "./Editor/state/EditorContextProvider";
+import useEditorContext from "./Editor/state/hooks/useEditorContext";
+import Scene from "./Scene";
 
-const Scene: FC = () => {
+interface ComponentsElements {
+  [key: string]: FC<GeometryProps>;
+}
+
+const Components: ComponentsElements = {
+  cube: Cube,
+  plane: Plane,
+};
+
+const GeometryInstantiator = ({
+  component,
+  id,
+  name,
+}: SceneElementInformations): React.ReactNode => {
+  if (typeof Components[component] !== "undefined") {
+    return React.createElement(Components[component], {
+      key: id,
+      component,
+      name,
+    });
+  }
+
+  return null;
+};
+
+const SceneController: FC = () => {
   const { elementsOnScene, currentElement, setElementsOnScene } =
     useEditorContext();
   const [copiedElement, setCopiedElement] =
@@ -46,14 +73,10 @@ const Scene: FC = () => {
   };
 
   return (
-    <>
-      <Lights />
-      <Physics>
-        {elementsOnScene?.map((block) => GeometryInstantiator(block))}
-        <CameraControls />
-      </Physics>
-    </>
+    <Scene>
+      {elementsOnScene?.map((block: any) => GeometryInstantiator(block))}
+    </Scene>
   );
 };
 
-export default Scene;
+export default SceneController;

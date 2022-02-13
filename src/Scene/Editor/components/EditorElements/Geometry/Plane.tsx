@@ -4,7 +4,7 @@ import { usePlane } from "@react-three/cannon";
 import React, { FC, useRef } from "react";
 import { GeometryPlaneProps } from "../types";
 import EditableMesh from "../../EditableMesh";
-import useEditorContext from "../../../../hooks/Editor/useEditorContext";
+import useEditorContext from "../../../state/hooks/useEditorContext";
 
 const Plane: FC<GeometryPlaneProps> = ({ component }) => {
   const name = "plane1";

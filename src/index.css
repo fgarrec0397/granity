@@ -1,29 +1,28 @@
 * {
-	box-sizing: border-box;
-}
-  
-  html,
-  body,
-  #root {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-  
-  body {
-	  background: white;
+  box-sizing: border-box;
 }
 
-  .ant-layout {
-    height: 100%;
-    background: white;
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: white;
+}
+
+.ant-layout {
+  height: 100%;
+  background: white;
 }
 
 @font-face {
-  font-family: 'twitterchirp';
-  src: local('twitterchirp'), url(./fonts/twitterchirp.ttf) format('ttf');
+  font-family: "twitterchirp";
+  /* src: local('twitterchirp'), url(./fonts/twitterchirp.ttf) format('ttf'); */
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
-  

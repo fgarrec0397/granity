@@ -1,12 +1,17 @@
 import React, { FC } from "react";
 import { css } from "styled-components";
-import useEditorContext from "../../hooks/Editor/useEditorContext";
-import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
-import EditorFeedback from "./EditorFeedback";
-import EditorGeometryMenu from "./EditorGeometryMenu";
-import EditorItemsList from "./EditorItemsList";
-import EditorModeSelector from "./EditorModeSelector";
-import SaveButton from "./SaveButton";
+import StyledWrapper, {
+  StyledWrapperProps,
+} from "../../Components/Html/StyledWrapper";
+import EditorFeedback from "./components/EditorFeedback";
+import EditorGeometryMenu from "./components/EditorGeometryMenu";
+import EditorItemsList from "./components/EditorItemsList";
+import EditorModeSelector from "./components/EditorModeSelector";
+import SaveButton from "./components/EditorSaveButton";
+
+interface Props {
+  isEditor: boolean;
+}
 
 interface EditorStyles {
   topWrapper?: StyledWrapperProps;
@@ -48,9 +53,7 @@ const styles: EditorStyles = {
   },
 };
 
-const Editor: FC = () => {
-  const { isEditor } = useEditorContext();
-
+const Editor: FC<Props> = ({ isEditor }) => {
   if (isEditor) {
     return (
       <>

@@ -4,10 +4,10 @@ import { Provider } from "react-redux";
 import GlobalStyle from "./theme/globalStyle";
 import baseTheme from "./theme/baseTheme";
 import Loader from "./Components/Loader";
-import Canvas from "./Components/Elements3D/Canvas";
-import EditorContextProvider from "./context/EditorContextProvider";
-import useHandleEditor from "./hooks/Editor/useHandleEditor";
+import Canvas from "./Canvas";
 import { store } from "./store";
+import EditorContextProvider from "./Scene/Editor/state/EditorContextProvider";
+import useHandleEditor from "./Scene/Editor/state/hooks/useHandleEditor";
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);

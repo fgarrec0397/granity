@@ -1,9 +1,11 @@
 import { Card, Select } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
-import { ModesAvailable } from "../../context/EditorContextProvider";
-import useEditorContext from "../../hooks/Editor/useEditorContext";
-import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
+import StyledWrapper, {
+  StyledWrapperProps,
+} from "../../../Components/Html/StyledWrapper";
+import { ModesAvailable } from "../state/EditorContextProvider";
+import useEditorContext from "../state/hooks/useEditorContext";
 
 const { Option } = Select;
 

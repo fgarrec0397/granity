@@ -1,9 +1,11 @@
 import { Button, Dropdown, Menu } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
-import useEditorContext from "../../hooks/Editor/useEditorContext";
-import uidGenerator from "../../utils/uidGenerator";
-import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
+import StyledWrapper, {
+  StyledWrapperProps,
+} from "../../../Components/Html/StyledWrapper";
+import uidGenerator from "../../../utils/uidGenerator";
+import useEditorContext from "../state/hooks/useEditorContext";
 
 interface EditorFeedbackStyles {
   wrapper?: StyledWrapperProps;
@@ -28,7 +30,7 @@ const styles: EditorFeedbackStyles = {
 const EditorGeometryMenu: FC = () => {
   const { elementsOnScene, setElementsOnScene } = useEditorContext();
 
-  const handleOnClick = (component: string, ...args: string[]): void => {
+  const handleOnClick = (component: string): void => {
     const possiblyElementsOnScene = elementsOnScene || [];
 
     if (setElementsOnScene) {
@@ -51,18 +53,19 @@ const EditorGeometryMenu: FC = () => {
     }
   };
 
-  const menu = (
-    <Menu>
-      {lightTypes.map((lightType) => (
-        <Menu.Item
-          key={lightType}
-          onClick={() => handleOnClick("light", lightType)}
-        >
-          {lightType}
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
+  /** Will be used when light will be implemented */
+  // const menu = (
+  //   <Menu>
+  //     {lightTypes.map((lightType) => (
+  //       <Menu.Item
+  //         key={lightType}
+  //         onClick={() => handleOnClick("light", lightType)}
+  //       >
+  //         {lightType}
+  //       </Menu.Item>
+  //     ))}
+  //   </Menu>
+  // );
 
   return (
     <StyledWrapper {...styles.wrapper}>
@@ -80,11 +83,13 @@ const EditorGeometryMenu: FC = () => {
       >
         + Plane
       </Button>
+      {/* 
+      /** Will be used when light will be implemented
       <Dropdown overlay={menu} placement="topLeft">
         <Button type="dashed" style={styles.buttonsStyle}>
           + Light
         </Button>
-      </Dropdown>
+      </Dropdown> */}
     </StyledWrapper>
   );
 };

@@ -3,7 +3,7 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 import { useThree } from "@react-three/fiber";
 import React, { FC, useEffect, useState } from "react";
 import mapMeshToCurrentElement from "../../utils/mapMeshToCurrentElement";
-import useEditorContext from "../../hooks/Editor/useEditorContext";
+import useEditorContext from "../../Scene/Editor/state/hooks/useEditorContext";
 
 const TransformControlsComponent: FC = ({ children }) => {
   const { currentElement, setCurrentElement, setIsEditing, currentMode } =

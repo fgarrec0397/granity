@@ -1,8 +1,10 @@
 import { Card, Descriptions } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
-import useEditorContext from "../../hooks/Editor/useEditorContext";
-import StyledWrapper, { StyledWrapperProps } from "../Html/StyledWrapper";
+import StyledWrapper, {
+  StyledWrapperProps,
+} from "../../../Components/Html/StyledWrapper";
+import useEditorContext from "../state/hooks/useEditorContext";
 
 interface EditorFeedbackStyles {
   wrapper?: StyledWrapperProps;

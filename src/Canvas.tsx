@@ -1,10 +1,10 @@
 import { Canvas } from "@react-three/fiber";
 import React, { FC, useState } from "react";
+import EditorController from "./Scene/Editor/EditorController";
 import EditorContextProvider, {
   EditorContextModel,
-} from "../../context/EditorContextProvider";
-import Editor from "../Editor/Editor";
-import Scene from "./Scene";
+} from "./Scene/Editor/state/EditorContextProvider";
+import SceneController from "./Scene/SceneController";
 
 interface Props {
   editorContextValue: EditorContextModel;
@@ -23,11 +23,11 @@ const CanvasComponent: FC<Props> = ({ editorContextValue }) => {
           value={editorContextValue}
           getContext={handleGetContext}
         >
-          <Scene />
+          <SceneController />
         </EditorContextProvider>
       </Canvas>
       <EditorContextProvider value={currentContext}>
-        <Editor />
+        <EditorController />
       </EditorContextProvider>
     </>
   );
