@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
 import GlobalStyle from "./theme/globalStyle";
 import baseTheme from "./theme/baseTheme";
-import Loader from "./Components/Loader";
+import Loader from "./common/components/Loader";
 import Canvas from "./Canvas";
 import { store } from "./store";
 import EditorContextProvider from "./Scene/_Editor/state/EditorContextProvider";

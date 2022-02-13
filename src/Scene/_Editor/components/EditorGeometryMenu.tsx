@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { css } from "styled-components";
 import StyledWrapper, {
   StyledWrapperProps,
-} from "../../../Components/Html/StyledWrapper";
+} from "../../../common/components/Html/StyledWrapper";
 import uidGenerator from "../../../common/utils/uidGenerator";
 import useEditorContext from "../state/hooks/useEditorContext";
 
