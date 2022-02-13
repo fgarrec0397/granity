@@ -26,8 +26,8 @@ export const sceneSlice = createSlice({
         setIsEditor: (state) => {
             state.isEditor = !state.isEditor;
         },
-        setIsEditing: (state) => {
-            state.isEditing = !state.isEditor;
+        setIsEditing: (state, action: PayloadAction<boolean>) => {
+            state.isEditing = action.payload;
         },
         setHasEditorOpened: (state) => {
             state.isEditing = !state.isEditor;

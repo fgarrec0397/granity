@@ -5,5 +5,8 @@ export default () => {
     const dispatch = useAppDispatch();
     const { isEditing } = useAppSelector((state) => state.editor);
 
-    return { isEditing, setIsEditing: () => dispatch(setIsEditing()) };
+    return {
+        isEditing,
+        setIsEditing: (value: boolean) => dispatch(setIsEditing(value)),
+    };
 };

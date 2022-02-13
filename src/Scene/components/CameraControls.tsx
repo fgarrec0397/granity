@@ -24,7 +24,7 @@ const CameraControls: FC = () => {
             camera.lookAt(10, 10, 10);
         }
     });
-
+    console.log(isEditing, "isEditing in camera controls");
     return (
         <>
             {isEditor ? (
