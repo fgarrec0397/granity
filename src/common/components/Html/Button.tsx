@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
 
 export interface ButtonStyles {
-  css?: FlattenSimpleInterpolation;
+    css?: FlattenSimpleInterpolation;
 }
 
 export type ButtonComponents = ButtonProps;
@@ -11,17 +11,17 @@ export type ButtonComponents = ButtonProps;
 type Props = ButtonStyles & ButtonComponents;
 
 const StyledButton = styled(LibButton)<ButtonStyles>`
-  font-weight: bold;
+    font-weight: bold;
 
-  ${(props) => props.css}
+    ${(props) => props.css}
 `;
 
 const Button: FC<Props> = ({ css, children, ...props }) => {
-  return (
-    <StyledButton shape="round" css={css} {...props}>
-      {children}
-    </StyledButton>
-  );
+    return (
+        <StyledButton shape="round" css={css} {...props}>
+            {children}
+        </StyledButton>
+    );
 };
 
 export default Button;

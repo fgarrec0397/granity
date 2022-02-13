@@ -1,8 +1,8 @@
-import { Canvas } from "@react-three/fiber"
-import React, { FC } from "react"
-import EditorController from "./Scene/_Editor/EditorController"
-import StoreProvider from "./store/StoreProvider"
-import SceneController from "./Scene/SceneController"
+import { Canvas } from "@react-three/fiber";
+import React, { FC } from "react";
+import EditorController from "./Scene/_Editor/EditorController";
+import StoreProvider from "./store/StoreProvider";
+import SceneController from "./Scene/SceneController";
 
 const CanvasComponent: FC = () => {
     return (
@@ -14,7 +14,7 @@ const CanvasComponent: FC = () => {
             </Canvas>
             <EditorController />
         </>
-    )
-}
+    );
+};
 
-export default CanvasComponent
+export default CanvasComponent;

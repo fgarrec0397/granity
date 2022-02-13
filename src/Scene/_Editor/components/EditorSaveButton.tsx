@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 const SaveButton: FC = () => {
-  return <></>;
+    return <></>;
 };
 
 export default SaveButton;

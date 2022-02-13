@@ -3,11 +3,12 @@ import { setCurrentMode } from "../editorReducer";
 import { ModesAvailable } from "../types";
 
 export default () => {
-  const dispatch = useAppDispatch();
-  const { currentMode } = useAppSelector((state) => state.editor);
+    const dispatch = useAppDispatch();
+    const { currentMode } = useAppSelector((state) => state.editor);
 
-  return {
-    currentMode,
-    setCurrentMode: (mode: ModesAvailable) => dispatch(setCurrentMode(mode)),
-  };
+    return {
+        currentMode,
+        setCurrentMode: (mode: ModesAvailable) =>
+            dispatch(setCurrentMode(mode)),
+    };
 };

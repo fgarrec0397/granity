@@ -4,15 +4,15 @@ import CameraControls from "./components/CameraControls";
 import Lights from "./components/Lights";
 
 const Scene: FC = ({ children }) => {
-  return (
-    <>
-      <Lights />
-      <Physics>
-        {children}
-        <CameraControls />
-      </Physics>
-    </>
-  );
+    return (
+        <>
+            <Lights />
+            <Physics>
+                {children}
+                <CameraControls />
+            </Physics>
+        </>
+    );
 };
 
 export default Scene;

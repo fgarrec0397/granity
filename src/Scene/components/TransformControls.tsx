@@ -8,53 +8,54 @@ import useCurrentMode from "../_Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../_Editor/state/hooks/useIsEditing";
 
 const TransformControlsComponent: FC = ({ children }) => {
-  const { currentElement, setCurrentElement } = useCurrentElement();
-  const { currentMode } = useCurrentMode();
-  const { setIsEditing } = useIsEditing();
-  const { camera, gl, scene } = useThree();
-  const [transformControl, setTransformControl] = useState<TransformControls>();
+    const { currentElement, setCurrentElement } = useCurrentElement();
+    const { currentMode } = useCurrentMode();
+    const { setIsEditing } = useIsEditing();
+    const { camera, gl, scene } = useThree();
+    const [transformControl, setTransformControl] =
+        useState<TransformControls>();
 
-  useEffect(() => {
-    if (!transformControl && currentElement) {
-      const transformC = new TransformControls(camera, gl.domElement);
+    useEffect(() => {
+        if (!transformControl && currentElement) {
+            const transformC = new TransformControls(camera, gl.domElement);
 
-      transformC.attach(currentElement.mesh);
-      transformC.setMode(currentMode);
+            transformC.attach(currentElement.mesh);
+            transformC.setMode(currentMode);
 
-      transformC.addEventListener("dragging-changed", () => {
-        setIsEditing();
-      });
+            transformC.addEventListener("dragging-changed", () => {
+                setIsEditing();
+            });
 
-      transformC.addEventListener("objectChange", () => {
-        // Choose between "objectChange" and "dragging-changed"
-        setCurrentElement(mapMeshToCurrentElement(currentElement.mesh));
-      });
+            transformC.addEventListener("objectChange", () => {
+                // Choose between "objectChange" and "dragging-changed"
+                setCurrentElement(mapMeshToCurrentElement(currentElement.mesh));
+            });
 
-      scene.add(transformC);
-      setTransformControl(transformC);
-    }
+            scene.add(transformC);
+            setTransformControl(transformC);
+        }
 
-    return () => {
-      if (transformControl) {
-        scene.remove(transformControl);
-        setTransformControl(undefined);
-      }
-    };
-  }, [transformControl, camera, scene, gl, currentElement?.mesh]);
+        return () => {
+            if (transformControl) {
+                scene.remove(transformControl);
+                setTransformControl(undefined);
+            }
+        };
+    }, [transformControl, camera, scene, gl, currentElement?.mesh]);
 
-  useEffect(() => {
-    if (transformControl) {
-      transformControl.detach();
-    }
-  }, [currentElement?.id]);
+    useEffect(() => {
+        if (transformControl) {
+            transformControl.detach();
+        }
+    }, [currentElement?.id]);
 
-  useEffect(() => {
-    if (transformControl) {
-      transformControl.setMode(currentMode);
-    }
-  }, [currentMode]);
+    useEffect(() => {
+        if (transformControl) {
+            transformControl.setMode(currentMode);
+        }
+    }, [currentMode]);
 
-  return <>{children}</>;
+    return <>{children}</>;
 };
 
 export default TransformControlsComponent;

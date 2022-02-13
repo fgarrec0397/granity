@@ -1,20 +1,20 @@
-import React, { FC, useEffect, useState } from "react"
-import Loader from "./common/components/Loader"
-import Canvas from "./Canvas"
-import useHandleEditor from "./Scene/_Editor/state/hooks/useHandleEditor"
+import React, { FC, useEffect, useState } from "react";
+import Loader from "./common/components/Loader";
+import Canvas from "./Canvas";
+import useHandleEditor from "./Scene/_Editor/state/hooks/useHandleEditor";
 
 const App: FC = () => {
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         setTimeout(() => {
-            setIsLoading(false)
-        }, 1000)
-    }, [])
+            setIsLoading(false);
+        }, 1000);
+    }, []);
 
-    useHandleEditor()
+    useHandleEditor();
 
-    return isLoading ? <Loader /> : <Canvas />
-}
+    return isLoading ? <Loader /> : <Canvas />;
+};
 
-export default App
+export default App;

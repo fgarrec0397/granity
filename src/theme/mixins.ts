@@ -1,5 +1,5 @@
-import { css, FlattenSimpleInterpolation } from "styled-components"
-import baseTheme from "./baseTheme"
+import { css, FlattenSimpleInterpolation } from "styled-components";
+import baseTheme from "./baseTheme";
 
 export const dotBeforeStyles = (): FlattenSimpleInterpolation => {
     return css`
@@ -14,5 +14,5 @@ export const dotBeforeStyles = (): FlattenSimpleInterpolation => {
             background-color: ${baseTheme.colors.text.light};
             border-radius: 100%;
         }
-    `
-}
+    `;
+};
