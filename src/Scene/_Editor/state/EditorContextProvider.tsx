@@ -13,6 +13,9 @@ export interface SceneElementInformations {
   id: string;
   name: string;
   component: string;
+  position?: THREE.Vector3;
+  rotation?: THREE.Vector3;
+  scale?: THREE.Vector3;
   mesh?: THREE.Mesh;
 }
 

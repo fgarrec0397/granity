@@ -41,7 +41,7 @@ const EditorGeometryMenu: FC = () => {
       const name = `${component}${
         numberOfElementsByType < 10 ? "0" : null
       }${numberOfElementsByType}`;
-
+      // TODO - Be able to pass default position
       setElementsOnScene([
         ...possiblyElementsOnScene,
         {

@@ -31,6 +31,10 @@ const EditableMesh: FC<Props> = ({
     };
   }, []);
 
+  useEffect(() => {
+    console.log(currentElement, "currentElement");
+  }, [currentElement]);
+
   const onMouseUp = (event: MouseEvent): void => {
     event.preventDefault();
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;

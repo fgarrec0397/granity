@@ -22,12 +22,18 @@ const GeometryInstantiator = ({
   component,
   id,
   name,
+  position,
+  rotation,
+  scale,
 }: SceneElementInformations): React.ReactNode => {
   if (typeof Components[component] !== "undefined") {
     return React.createElement(Components[component], {
       key: id,
       component,
       name,
+      position,
+      rotation,
+      scale,
     });
   }
 
