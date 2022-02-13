@@ -1,5 +1,6 @@
 import { Physics } from "@react-three/cannon";
 import React, { FC } from "react";
+import CameraControls from "../Components/Elements3D/CameraControls";
 import Lights from "../Components/Elements3D/Lights";
 
 const Scene: FC = ({ children }) => {
@@ -8,7 +9,7 @@ const Scene: FC = ({ children }) => {
       <Lights />
       <Physics>
         {children}
-        {/* <CameraControls /> TODO - fix the import */}
+        <CameraControls />
       </Physics>
     </>
   );
