@@ -3,7 +3,8 @@ import * as THREE from "three";
 import { MeshProps, ThreeEvent, useThree } from "@react-three/fiber";
 import React, { FC, RefObject, useEffect, useState } from "react";
 import mapMeshToCurrentElement from "../../../common/utils/mapMeshToCurrentElement";
-import useEditorContext from "../state/hooks/useEditorContext";
+import useCurrentElement from "../state/hooks/useCurrentElement";
+import useIsEditor from "../state/hooks/useIsEditor";
 
 interface Props extends MeshProps {
   geometryRef?: RefObject<THREE.Object3D>;
@@ -11,7 +12,6 @@ interface Props extends MeshProps {
 }
 
 const hoveredColor = "#bdbdf5";
-const selectedColor = "#9797ee";
 
 const EditableMesh: FC<Props> = ({
   geometryRef,
@@ -20,7 +20,8 @@ const EditableMesh: FC<Props> = ({
   ...meshProps
 }) => {
   const [hovered, setHover] = useState(false);
-  const { isEditor, setCurrentElement, currentElement } = useEditorContext();
+  const { currentElement, setCurrentElement } = useCurrentElement();
+  const { isEditor } = useIsEditor();
   const { mouse, camera, raycaster, scene } = useThree();
 
   useEffect(() => {
@@ -30,10 +31,6 @@ const EditableMesh: FC<Props> = ({
       window.removeEventListener("mouseup", onMouseUp);
     };
   }, []);
-
-  useEffect(() => {
-    console.log(currentElement, "currentElement");
-  }, [currentElement]);
 
   const onMouseUp = (event: MouseEvent): void => {
     event.preventDefault();
@@ -45,10 +42,7 @@ const EditableMesh: FC<Props> = ({
 
     if (intersects.length > 0) {
       const [closestMesh] = intersects.sort((x: any) => x.distance);
-      if (setCurrentElement)
-        setCurrentElement(
-          mapMeshToCurrentElement(closestMesh.object, component)
-        );
+      setCurrentElement(mapMeshToCurrentElement(closestMesh.object, component));
     }
   };
 

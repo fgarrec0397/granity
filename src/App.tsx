@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import Loader from "./common/components/Loader";
 import Canvas from "./Canvas";
-import EditorContextProvider from "./Scene/_Editor/state/EditorContextProvider";
 import useHandleEditor from "./Scene/_Editor/state/hooks/useHandleEditor";
 
 const App: FC = () => {
@@ -13,13 +12,9 @@ const App: FC = () => {
     }, 1000);
   }, []);
 
-  const isEditor = useHandleEditor();
+  useHandleEditor();
 
-  return (
-    <EditorContextProvider value={{ isEditor }}>
-      {isLoading ? <Loader /> : <Canvas editorContextValue={{ isEditor }} />}
-    </EditorContextProvider>
-  );
+  return isLoading ? <Loader /> : <Canvas />;
 };
 
 export default App;

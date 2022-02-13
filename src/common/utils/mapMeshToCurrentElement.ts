@@ -1,6 +1,6 @@
 // @ts-ignore
 import THREE from "three";
-import { SceneElementInformations } from "../../Scene/_Editor/state/EditorContextProvider";
+import { SceneElementInformations } from "../../Scene/_Editor/state/types";
 
 export default (
   mesh: THREE.Mesh,

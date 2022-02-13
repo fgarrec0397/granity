@@ -3,13 +3,15 @@ import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { PointerLockControls, OrbitControls } from "@react-three/drei";
 import React, { FC, useState } from "react";
-import useEditorContext from "../_Editor/state/hooks/useEditorContext";
 import TransformControls from "./TransformControls";
 import PlayerCamera from "./PlayerCamera";
+import useIsEditor from "../_Editor/state/hooks/useIsEditor";
+import useIsEditing from "../_Editor/state/hooks/useIsEditing";
 
 const CameraControls: FC = () => {
   const [hasEditorOpened, setHasEditorOpened] = useState(false);
-  const { isEditor, isEditing } = useEditorContext();
+  const { isEditor } = useIsEditor();
+  const { isEditing } = useIsEditing();
   const { camera } = useThree((state) => ({
     camera: state.camera,
     scene: state.scene,

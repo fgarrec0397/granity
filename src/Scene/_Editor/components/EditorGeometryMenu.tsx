@@ -1,20 +1,16 @@
-import { Button, Dropdown, Menu } from "antd";
+import { Button } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
 import StyledWrapper, {
   StyledWrapperProps,
 } from "../../../common/components/Html/StyledWrapper";
 import uidGenerator from "../../../common/utils/uidGenerator";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { setIsEditor } from "../state/editorReducer";
-import useEditorContext from "../state/hooks/useEditorContext";
+import useElementsOnScene from "../state/hooks/useElementsOnScene";
 
 interface EditorFeedbackStyles {
   wrapper?: StyledWrapperProps;
   buttonsStyle?: React.CSSProperties;
 }
-
-const lightTypes = ["directionalLight", "spotLight", "pointLight"];
 
 const styles: EditorFeedbackStyles = {
   wrapper: {
@@ -30,32 +26,25 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorGeometryMenu: FC = () => {
-  const { elementsOnScene, setElementsOnScene } = useEditorContext();
-  const editor = useAppSelector((state) => state.editor);
-  const dispatch = useAppDispatch();
-  console.log(editor, "editor from geometry menu");
+  const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
 
   const handleOnClick = (component: string): void => {
     const possiblyElementsOnScene = elementsOnScene || [];
 
-    if (setElementsOnScene) {
-      const numberOfElementsByType = possiblyElementsOnScene.filter(
-        (x) => x.component === component
-      ).length;
-      const id = uidGenerator();
-      const name = `${component}${
-        numberOfElementsByType < 10 ? "0" : null
-      }${numberOfElementsByType}`;
-      // TODO - Be able to pass default position
-      setElementsOnScene([
-        ...possiblyElementsOnScene,
-        {
-          id,
-          component,
-          name,
-        },
-      ]);
-    }
+    const numberOfElementsByType = possiblyElementsOnScene.filter(
+      (x) => x.component === component
+    ).length;
+    const id = uidGenerator();
+    const name = `${component}${
+      numberOfElementsByType < 10 ? "0" : null
+    }${numberOfElementsByType}`;
+    // TODO - Be able to pass default position
+
+    setElementsOnScene({
+      id,
+      component,
+      name,
+    });
   };
 
   /** Will be used when light will be implemented */

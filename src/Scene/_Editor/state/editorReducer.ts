@@ -20,17 +20,17 @@ const initialState: EditorState = {
 };
 
 export const sceneSlice = createSlice({
-  name: "scene",
+  name: "editor",
   initialState,
   reducers: {
     setIsEditor: (state) => {
       state.isEditor = !state.isEditor;
     },
-    setIsEditing: (state, action: PayloadAction<boolean>) => {
-      state.isEditing = action.payload;
+    setIsEditing: (state) => {
+      state.isEditing = !state.isEditor;
     },
-    setHasEditorOpened: (state, action: PayloadAction<boolean>) => {
-      state.isEditing = action.payload;
+    setHasEditorOpened: (state) => {
+      state.isEditing = !state.isEditor;
     },
     setCurrentMode: (state, action: PayloadAction<ModesAvailable>) => {
       state.currentMode = action.payload;

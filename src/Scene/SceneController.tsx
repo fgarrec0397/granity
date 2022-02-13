@@ -1,15 +1,12 @@
-import { Physics } from "@react-three/cannon";
-import CameraControls from "camera-controls";
 import React, { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import uidGenerator from "../common/utils/uidGenerator";
 import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
 import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
 import { GeometryProps } from "./_Editor/components/EditorElements/types";
-import { SceneElementInformations } from "./_Editor/state/EditorContextProvider";
-import useEditorContext from "./_Editor/state/hooks/useEditorContext";
 import Scene from "./Scene";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import useElementsOnScene from "./_Editor/state/hooks/useElementsOnScene";
+import { SceneElementInformations } from "./_Editor/state/types";
+import useCurrentElement from "./_Editor/state/hooks/useCurrentElement";
 
 interface ComponentsElements {
   [key: string]: FC<GeometryProps>;
@@ -43,11 +40,10 @@ const GeometryInstantiator = ({
 };
 
 const SceneController: FC = () => {
-  const { elementsOnScene, currentElement, setElementsOnScene } =
-    useEditorContext();
+  const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
+  const { currentElement } = useCurrentElement();
   const [copiedElement, setCopiedElement] =
     useState<SceneElementInformations>();
-  const editor = useAppSelector((state) => state.editor);
 
   useEffect(() => {
     document.addEventListener("keyup", handleKeyUp);
@@ -59,7 +55,7 @@ const SceneController: FC = () => {
         setCopiedElement(currentElement);
       }
     } else if (event.ctrlKey && event.code === "KeyV") {
-      if (setElementsOnScene && copiedElement !== undefined) {
+      if (copiedElement !== undefined) {
         const possiblyElementsOnScene = elementsOnScene || [];
         const numberOfElementsByType = possiblyElementsOnScene.filter(
           (x) => x.component === copiedElement.component
@@ -69,14 +65,11 @@ const SceneController: FC = () => {
           numberOfElementsByType < 10 ? "0" : null
         }${numberOfElementsByType}`;
 
-        setElementsOnScene([
-          ...possiblyElementsOnScene,
-          {
-            ...copiedElement,
-            id,
-            name,
-          },
-        ]);
+        setElementsOnScene({
+          ...copiedElement,
+          id,
+          name,
+        });
       }
     }
   };

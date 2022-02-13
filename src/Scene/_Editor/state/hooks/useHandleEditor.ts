@@ -2,7 +2,7 @@ import { notification } from "antd";
 import { useEffect } from "react";
 import useIsEditor from "./useIsEditor";
 
-export default (): boolean => {
+export default () => {
   const { isEditor, setIsEditor } = useIsEditor();
 
   useEffect(() => {
@@ -32,6 +32,4 @@ export default (): boolean => {
       });
     }
   }, [isEditor]);
-
-  return isEditor;
 };

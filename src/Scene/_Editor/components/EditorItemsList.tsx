@@ -1,9 +1,9 @@
 import { Card, List } from "antd";
 import React, { FC } from "react";
-import useEditorContext from "../state/hooks/useEditorContext";
+import useElementsOnScene from "../state/hooks/useElementsOnScene";
 
 const EditorItemsList: FC = () => {
-  const { elementsOnScene } = useEditorContext();
+  const { elementsOnScene } = useElementsOnScene();
 
   return (
     <Card size="small" title="Elements on scene">

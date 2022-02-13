@@ -4,8 +4,8 @@ import { css } from "styled-components";
 import StyledWrapper, {
   StyledWrapperProps,
 } from "../../../common/components/Html/StyledWrapper";
-import { ModesAvailable } from "../state/EditorContextProvider";
-import useEditorContext from "../state/hooks/useEditorContext";
+import useCurrentMode from "../state/hooks/useCurrentMode";
+import { ModesAvailable } from "../state/types";
 
 const { Option } = Select;
 
@@ -24,17 +24,17 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorModeSelector: FC = () => {
-  const { setCurrentMode } = useEditorContext();
+  const { setCurrentMode } = useCurrentMode();
 
   const handleChange = (value: ModesAvailable): void => {
-    if (setCurrentMode) setCurrentMode(value);
+    setCurrentMode(value);
   };
 
   return (
     <StyledWrapper {...styles.wrapper}>
       <Card size="small" title="Mode" style={{ width: 300 }}>
         <Select
-          defaultValue="translate"
+          defaultValue={ModesAvailable.Translate}
           style={{ width: 120 }}
           onChange={handleChange}
         >

@@ -12,7 +12,6 @@ const Cube: FC<GeometryBoxProps> = ({
   scale,
 }) => {
   const ref = useRef<THREE.Mesh>();
-  // console.log(ref, "geometryRef");
 
   return (
     <EditableMesh geometryRef={ref} name={name} component={component}>

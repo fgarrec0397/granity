@@ -4,7 +4,7 @@ import { css } from "styled-components";
 import StyledWrapper, {
   StyledWrapperProps,
 } from "../../../common/components/Html/StyledWrapper";
-import useEditorContext from "../state/hooks/useEditorContext";
+import useCurrentElement from "../state/hooks/useCurrentElement";
 
 interface EditorFeedbackStyles {
   wrapper?: StyledWrapperProps;
@@ -21,7 +21,7 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-  const { currentElement } = useEditorContext();
+  const { currentElement } = useCurrentElement();
 
   if (currentElement) {
     return (

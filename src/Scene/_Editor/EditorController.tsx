@@ -1,10 +1,9 @@
 import React, { FC } from "react";
-import { useAppSelector } from "../../store/hooks";
 import Editor from "./Editor";
-import useEditorContext from "./state/hooks/useEditorContext";
+import useIsEditor from "./state/hooks/useIsEditor";
 
 const EditorController: FC = () => {
-  const { isEditor } = useEditorContext();
+  const { isEditor } = useIsEditor();
   return <Editor isEditor={isEditor} />;
 };
 
