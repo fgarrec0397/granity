@@ -3,10 +3,10 @@ import sceneReducer from "../Scene/state/sceneReducer";
 import editorReducer from "../Scene/_Editor/state/editorReducer";
 
 export const store = configureStore({
-  reducer: {
-    scene: sceneReducer,
-    editor: editorReducer,
-  },
+    reducer: {
+        scene: sceneReducer,
+        editor: editorReducer,
+    },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

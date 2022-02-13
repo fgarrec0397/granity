@@ -6,4 +6,5 @@ export default () => {
   const { isEditor } = useAppSelector((state) => state.editor);
 
   return { isEditor, setIsEditor: () => dispatch(setIsEditor()) };
+  // eslint-disable-next-line prettier/prettier
 };
