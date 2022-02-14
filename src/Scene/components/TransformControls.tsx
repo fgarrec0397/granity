@@ -31,7 +31,7 @@ const TransformControlsComponent: FC = ({ children }) => {
 
             transformC.addEventListener("objectChange", () => {
                 // Choose between "objectChange" and "dragging-changed"
-                // setCurrentElement(mapMeshToCurrentElement(currentElement.mesh));
+                setCurrentElement(mapMeshToCurrentElement(currentElement.mesh));
             });
 
             scene.add(transformC);
