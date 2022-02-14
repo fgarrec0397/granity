@@ -10,10 +10,10 @@ export default (
     return {
         id: mesh?.uuid,
         name: mesh?.geometry.type,
-        position: [mesh?.position.x, mesh?.position.y, mesh?.position.z],
-        rotation: [mesh?.rotation.x, mesh?.rotation.y, mesh?.rotation.z],
-        scale: [mesh?.scale.x, mesh?.scale.y, mesh?.scale.z],
+        position: mesh?.position,
+        rotation: mesh?.rotation,
+        scale: mesh?.scale,
         component,
-        mesh,
+        mesh, // TODO -- Delete this when getMesh will be implemented
     };
 };

@@ -5,6 +5,7 @@ import { GeometryBoxProps } from "../types";
 import EditableMesh from "../../EditableMesh";
 
 const Cube: FC<GeometryBoxProps> = ({
+    id,
     name,
     component,
     position,
@@ -12,9 +13,14 @@ const Cube: FC<GeometryBoxProps> = ({
     scale,
 }) => {
     const ref = useRef<THREE.Mesh>();
-
+    console.log(ref, "geometryRef");
     return (
-        <EditableMesh geometryRef={ref} name={name} component={component}>
+        <EditableMesh
+            geometryRef={ref}
+            uuid={id}
+            name={name}
+            component={component}
+        >
             <boxGeometry attach="geometry" args={[10, 10, 10]} />
         </EditableMesh>
     );

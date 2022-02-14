@@ -28,6 +28,7 @@ const GeometryInstantiator = ({
     if (typeof Components[component] !== "undefined") {
         return React.createElement(Components[component], {
             key: id,
+            id,
             component,
             name,
             position,
@@ -73,6 +74,14 @@ const SceneController: FC = () => {
             }
         }
     };
+
+    useEffect(() => {
+        console.log(elementsOnScene, "elementsOnScene");
+    }, [elementsOnScene]);
+
+    useEffect(() => {
+        console.log(currentElement, "currentElement");
+    }, [currentElement]);
 
     return (
         <Scene>

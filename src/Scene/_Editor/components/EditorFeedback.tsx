@@ -41,16 +41,16 @@ const EditorFeedback: FC = () => {
                             }}
                         >
                             <span>
-                                <i>X:</i>{" "}
-                                {currentElement.mesh?.position.x.toFixed(3)}
+                                <i>X:</i>
+                                {currentElement.position.x.toFixed(3)}
                             </span>
                             <span>
-                                <i>Y:</i>{" "}
-                                {currentElement.mesh?.position.y.toFixed(3)}
+                                <i>Y:</i>
+                                {currentElement.position.y.toFixed(3)}
                             </span>
                             <span>
-                                <i>Z:</i>{" "}
-                                {currentElement.mesh?.position.z.toFixed(3)}
+                                <i>Z:</i>
+                                {currentElement.position.z.toFixed(3)}
                             </span>
                         </Descriptions.Item>
                     </Descriptions>
@@ -65,16 +65,16 @@ const EditorFeedback: FC = () => {
                             }}
                         >
                             <span>
-                                <i>X:</i>{" "}
-                                {currentElement.mesh?.rotation.x.toFixed(3)}
+                                <i>X:</i>
+                                {currentElement.rotation.x.toFixed(3)}
                             </span>
                             <span>
-                                <i>Y:</i>{" "}
-                                {currentElement.mesh?.rotation.y.toFixed(3)}
+                                <i>Y:</i>
+                                {currentElement.rotation.y.toFixed(3)}
                             </span>
                             <span>
-                                <i>Z:</i>{" "}
-                                {currentElement.mesh?.rotation.z.toFixed(3)}
+                                <i>Z:</i>
+                                {currentElement.rotation.z.toFixed(3)}
                             </span>
                         </Descriptions.Item>
                     </Descriptions>
@@ -89,16 +89,16 @@ const EditorFeedback: FC = () => {
                             }}
                         >
                             <span>
-                                <i>X:</i>{" "}
-                                {currentElement.mesh?.scale.x.toFixed(3)}
+                                <i>X:</i>
+                                {currentElement.scale.x.toFixed(3)}
                             </span>
                             <span>
-                                <i>Y:</i>{" "}
-                                {currentElement.mesh?.scale.y.toFixed(3)}
+                                <i>Y:</i>
+                                {currentElement.scale.y.toFixed(3)}
                             </span>
                             <span>
-                                <i>Z:</i>{" "}
-                                {currentElement.mesh?.scale.z.toFixed(3)}
+                                <i>Z:</i>
+                                {currentElement.scale.z.toFixed(3)}
                             </span>
                         </Descriptions.Item>
                     </Descriptions>

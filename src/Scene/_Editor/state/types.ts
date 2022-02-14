@@ -14,5 +14,5 @@ export interface SceneElementInformations {
     position?: THREE.Vector3;
     rotation?: THREE.Vector3;
     scale?: THREE.Vector3;
-    mesh?: THREE.Mesh;
+    mesh?: THREE.Mesh; // TODO -- Delete this when getMesh will be implemented
 }

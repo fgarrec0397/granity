@@ -1,4 +1,5 @@
 export interface GeometryProps {
+    id: string;
     name: string;
     component: string;
     position: string;
