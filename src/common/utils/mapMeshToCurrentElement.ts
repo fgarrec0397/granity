@@ -1,12 +1,12 @@
 // @ts-ignore
 import THREE from "three";
-import { SceneElementInformations } from "../../Scene/_Editor/state/types";
+import { SceneElement } from "../../Scene/_Editor/state/types";
 
 export default (
     mesh: THREE.Mesh,
     component = ""
     // updateOptions?: string[]
-): SceneElementInformations => {
+): SceneElement => {
     return {
         id: mesh?.uuid,
         name: mesh?.geometry.type,

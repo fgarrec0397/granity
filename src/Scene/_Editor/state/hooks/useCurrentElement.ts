@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { setCurrentElement } from "../editorReducer";
-import { SceneElementInformations } from "../types";
+import { SceneElement } from "../types";
 
 export default () => {
     const dispatch = useAppDispatch();
@@ -8,7 +8,7 @@ export default () => {
 
     return {
         currentElement,
-        setCurrentElement: (element: SceneElementInformations) =>
+        setCurrentElement: (element: SceneElement) =>
             dispatch(setCurrentElement(element)),
     };
 };

@@ -5,7 +5,7 @@ import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
 import { GeometryProps } from "./_Editor/components/EditorElements/types";
 import Scene from "./Scene";
 import useElementsOnScene from "./_Editor/state/hooks/useElementsOnScene";
-import { SceneElementInformations } from "./_Editor/state/types";
+import { SceneElement } from "./_Editor/state/types";
 import useCurrentElement from "./_Editor/state/hooks/useCurrentElement";
 
 interface ComponentsElements {
@@ -17,14 +17,14 @@ const Components: ComponentsElements = {
     plane: Plane,
 };
 
-const GeometryInstantiator = ({
+const InstantiateElement = ({
     component,
     id,
     name,
     position,
     rotation,
     scale,
-}: SceneElementInformations): React.ReactNode => {
+}: SceneElement): React.ReactNode => {
     if (typeof Components[component] !== "undefined") {
         return React.createElement(Components[component], {
             key: id,
@@ -43,11 +43,14 @@ const GeometryInstantiator = ({
 const SceneController: FC = () => {
     const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
     const { currentElement } = useCurrentElement();
-    const [copiedElement, setCopiedElement] =
-        useState<SceneElementInformations>();
+    const [copiedElement, setCopiedElement] = useState<SceneElement>();
 
     useEffect(() => {
-        document.addEventListener("keyup", handleKeyUp);
+        window.addEventListener("keyup", handleKeyUp);
+
+        return () => {
+            window.removeEventListener("keyup", handleKeyUp);
+        };
     }, [currentElement]);
 
     const handleKeyUp = (event: KeyboardEvent): void => {
@@ -57,35 +60,16 @@ const SceneController: FC = () => {
             }
         } else if (event.ctrlKey && event.code === "KeyV") {
             if (copiedElement !== undefined) {
-                const possiblyElementsOnScene = elementsOnScene || [];
-                const numberOfElementsByType = possiblyElementsOnScene.filter(
-                    (x) => x.component === copiedElement.component
-                ).length;
-                const id = uidGenerator();
-                const name = `${copiedElement.component}${
-                    numberOfElementsByType < 10 ? "0" : null
-                }${numberOfElementsByType}`;
-
-                setElementsOnScene({
-                    ...copiedElement,
-                    id,
-                    name,
-                });
+                setElementsOnScene(copiedElement);
             }
         }
     };
 
-    useEffect(() => {
-        console.log(elementsOnScene, "elementsOnScene");
-    }, [elementsOnScene]);
-
-    useEffect(() => {
-        console.log(currentElement, "currentElement");
-    }, [currentElement]);
-
     return (
         <Scene>
-            {elementsOnScene?.map((block: any) => GeometryInstantiator(block))}
+            {elementsOnScene?.map((element: SceneElement) =>
+                InstantiateElement(element)
+            )}
         </Scene>
     );
 };

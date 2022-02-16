@@ -7,7 +7,7 @@ export enum ModesAvailable {
     Scale = "scale",
 }
 
-export interface SceneElementInformations {
+export interface SceneElement {
     id: string;
     name: string;
     component: string;

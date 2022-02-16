@@ -1,11 +1,6 @@
-export interface GeometryProps {
-    id: string;
-    name: string;
-    component: string;
-    position: string;
-    rotation: string;
-    scale: string;
-}
+import { SceneElement } from "../../state/types";
+
+export type GeometryProps = SceneElement;
 
 export type GeometryBoxProps = GeometryProps;
 

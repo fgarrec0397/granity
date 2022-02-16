@@ -5,6 +5,7 @@ import StyledWrapper, {
     StyledWrapperProps,
 } from "../../../common/components/Html/StyledWrapper";
 import uidGenerator from "../../../common/utils/uidGenerator";
+import useAddElement from "../state/hooks/useAddElement";
 import useElementsOnScene from "../state/hooks/useElementsOnScene";
 
 interface EditorFeedbackStyles {
@@ -26,40 +27,11 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorGeometryMenu: FC = () => {
-    const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
+    const addElement = useAddElement();
 
     const handleOnClick = (component: string): void => {
-        const possiblyElementsOnScene = elementsOnScene || [];
-
-        const numberOfElementsByType = possiblyElementsOnScene.filter(
-            (x) => x.component === component
-        ).length;
-        const id = uidGenerator();
-        const name = `${component}${
-            numberOfElementsByType < 10 ? "0" : null
-        }${numberOfElementsByType}`;
-        // TODO - Be able to pass default position
-
-        setElementsOnScene({
-            id,
-            component,
-            name,
-        });
+        addElement(component);
     };
-
-    /** Will be used when light will be implemented */
-    // const menu = (
-    //   <Menu>
-    //     {lightTypes.map((lightType) => (
-    //       <Menu.Item
-    //         key={lightType}
-    //         onClick={() => handleOnClick("light", lightType)}
-    //       >
-    //         {lightType}
-    //       </Menu.Item>
-    //     ))}
-    //   </Menu>
-    // );
 
     return (
         <StyledWrapper {...styles.wrapper}>
@@ -77,13 +49,6 @@ const EditorGeometryMenu: FC = () => {
             >
                 + Plane
             </Button>
-            {/* 
-      /** Will be used when light will be implemented
-      <Dropdown overlay={menu} placement="topLeft">
-        <Button type="dashed" style={styles.buttonsStyle}>
-          + Light
-        </Button>
-      </Dropdown> */}
         </StyledWrapper>
     );
 };

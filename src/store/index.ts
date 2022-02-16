@@ -7,6 +7,10 @@ export const store = configureStore({
         scene: sceneReducer,
         editor: editorReducer,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false, // Todo - Temporary
+        }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

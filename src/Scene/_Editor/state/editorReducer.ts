@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ModesAvailable, SceneElementInformations } from "./types";
+import { ModesAvailable, SceneElement } from "./types";
 
 export interface EditorState {
     isEditor: boolean;
     hasEditorOpened: boolean;
     isEditing: boolean;
     currentMode: ModesAvailable;
-    currentElement: SceneElementInformations | null;
-    elementsOnScene: SceneElementInformations[] | [];
+    currentElement: SceneElement | null;
+    elementsOnScene: SceneElement[] | [];
 }
 
 const initialState: EditorState = {
@@ -35,16 +35,10 @@ export const sceneSlice = createSlice({
         setCurrentMode: (state, action: PayloadAction<ModesAvailable>) => {
             state.currentMode = action.payload;
         },
-        setCurrentElement: (
-            state,
-            action: PayloadAction<SceneElementInformations>
-        ) => {
+        setCurrentElement: (state, action: PayloadAction<SceneElement>) => {
             state.currentElement = action.payload;
         },
-        setElementsOnScene: (
-            state,
-            action: PayloadAction<SceneElementInformations[]>
-        ) => {
+        setElementsOnScene: (state, action: PayloadAction<SceneElement[]>) => {
             state.elementsOnScene = action.payload;
         },
     },

@@ -17,20 +17,20 @@ const TransformControlsComponent: FC = ({ children }) => {
     const [transformControl, setTransformControl] =
         useState<TransformControls>();
 
-    const getMesh = (id: string) => {
-        // elementsOnScene.find((x) => x.id === id);
-        // TODO -- continue here: Match the mesh with the given id
-        console.log(scene, "scene");
-        const clone = scene.clone();
-        clone.traverse((object: any) => {
-            console.log(object, "object");
-        });
-    };
+    // const getMesh = (id: string) => {
+    //     // elementsOnScene.find((x) => x.id === id);
+    //     // TODO -- continue here: Match the mesh with the given id
+    //     console.log(scene, "scene");
+    //     const clone = scene.clone();
+    //     clone.traverse((object: any) => {
+    //         console.log(object, "object");
+    //     });
+    // };
 
     useEffect(() => {
         if (!transformControl && currentElement) {
             const transformC = new TransformControls(camera, gl.domElement);
-            console.log(getMesh(currentElement.id));
+            // console.log(getMesh(currentElement.id));
             transformC.attach(currentElement.mesh);
             transformC.setMode(currentMode);
 
