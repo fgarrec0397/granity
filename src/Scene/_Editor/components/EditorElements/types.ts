@@ -1,6 +1,8 @@
 import { SceneElement } from "../../state/types";
 
-export type GeometryProps = SceneElement;
+export interface GeometryProps {
+    sceneElement: SceneElement;
+}
 
 export type GeometryBoxProps = GeometryProps;
 

@@ -6,7 +6,7 @@ import { GeometryPlaneProps } from "../types";
 import EditableMesh from "../../EditableMesh";
 import useIsEditor from "../../../state/hooks/useIsEditor";
 
-const Plane: FC<GeometryPlaneProps> = ({ component }) => {
+const Plane: FC<GeometryPlaneProps> = ({ sceneElement }) => {
     const name = "plane1";
     const { isEditor } = useIsEditor();
     const ref = useRef<THREE.Mesh>();
@@ -19,7 +19,7 @@ const Plane: FC<GeometryPlaneProps> = ({ component }) => {
             geometryRef={isEditor ? ref : physicRef}
             rotation={[-Math.PI / 2, 0, 0]}
             name={name}
-            component={component}
+            sceneElement={sceneElement}
         >
             <planeGeometry attach="geometry" args={[10, 10]} />
         </EditableMesh>

@@ -5,15 +5,16 @@ import React, { FC, RefObject, useEffect, useState } from "react";
 import mapMeshToCurrentElement from "../../../common/utils/mapMeshToCurrentElement";
 import useCurrentElement from "../state/hooks/useCurrentElement";
 import useIsEditor from "../state/hooks/useIsEditor";
+import { SceneElement } from "../state/types";
 
 interface Props extends MeshProps {
     geometryRef?: RefObject<THREE.Object3D>;
-    component: string;
+    sceneElement: SceneElement;
 }
 
 const hoveredColor = "#bdbdf5";
 
-const EditableMesh: FC<Props> = ({ geometryRef, component, children, ...meshProps }) => {
+const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children, ...meshProps }) => {
     const [hovered, setHover] = useState(false);
     const { currentElement, setCurrentElement } = useCurrentElement();
     const { isEditor } = useIsEditor();
@@ -37,7 +38,7 @@ const EditableMesh: FC<Props> = ({ geometryRef, component, children, ...meshProp
 
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
-            setCurrentElement(mapMeshToCurrentElement(closestMesh.object, component));
+            setCurrentElement(mapMeshToCurrentElement(closestMesh.object, sceneElement.component));
         }
     };
 
@@ -45,9 +46,17 @@ const EditableMesh: FC<Props> = ({ geometryRef, component, children, ...meshProp
         event.stopPropagation();
         setHover(true);
     };
+
     const handleOnPointerOut = (event: ThreeEvent<PointerEvent>): void => {
         event.stopPropagation();
         setHover(false);
+    };
+
+    const removeIdFromSceneElement = () => {
+        const copyElement = { ...sceneElement };
+        delete copyElement.id;
+
+        return copyElement;
     };
 
     return (
@@ -55,7 +64,7 @@ const EditableMesh: FC<Props> = ({ geometryRef, component, children, ...meshProp
             ref={geometryRef}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
-            {...meshProps}
+            {...removeIdFromSceneElement()}
         >
             {children}
             <meshStandardMaterial

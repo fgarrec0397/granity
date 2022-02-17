@@ -8,7 +8,7 @@ export enum ModesAvailable {
 }
 
 export interface SceneElement {
-    id: string;
+    id?: string;
     name: string;
     component: string;
     position?: THREE.Vector3;

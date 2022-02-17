@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-import uidGenerator from "../common/utils/uidGenerator";
 import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
 import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
 import { GeometryProps } from "./_Editor/components/EditorElements/types";
@@ -17,23 +16,11 @@ const Components: ComponentsElements = {
     plane: Plane,
 };
 
-const InstantiateElement = ({
-    component,
-    id,
-    name,
-    position,
-    rotation,
-    scale,
-}: SceneElement): React.ReactNode => {
-    if (typeof Components[component] !== "undefined") {
-        return React.createElement(Components[component], {
-            key: id,
-            id,
-            component,
-            name,
-            position,
-            rotation,
-            scale,
+const InstantiateElement = (element: SceneElement): React.ReactNode => {
+    if (typeof Components[element.component] !== "undefined") {
+        return React.createElement(Components[element.component], {
+            key: element.id,
+            sceneElement: element,
         });
     }
 
@@ -51,16 +38,14 @@ const SceneController: FC = () => {
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
         };
-    }, [currentElement, copiedElement]);
+    }, [currentElement, copiedElement, elementsOnScene]);
 
     const handleKeyUp = (event: KeyboardEvent): void => {
         if (event.ctrlKey && event.code === "KeyC") {
-            console.log(currentElement, "currentElement on KeyC");
             if (currentElement) {
                 setCopiedElement(currentElement);
             }
         } else if (event.ctrlKey && event.code === "KeyV") {
-            console.log(copiedElement, "copiedElement on KeyV");
             if (copiedElement !== undefined) {
                 setElementsOnScene(copiedElement);
             }

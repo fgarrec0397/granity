@@ -33,7 +33,7 @@ class ElementService {
     updateElementsWith(newElement: SceneElement): SceneElement[] {
         const elements = this.getElements();
         const element = this.prepareElement(newElement);
-        console.log(element, "element to add");
+
         return [...elements, element];
     }
 }
