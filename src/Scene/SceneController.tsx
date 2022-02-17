@@ -51,14 +51,16 @@ const SceneController: FC = () => {
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
         };
-    }, [currentElement]);
+    }, [currentElement, copiedElement]);
 
     const handleKeyUp = (event: KeyboardEvent): void => {
         if (event.ctrlKey && event.code === "KeyC") {
+            console.log(currentElement, "currentElement on KeyC");
             if (currentElement) {
                 setCopiedElement(currentElement);
             }
         } else if (event.ctrlKey && event.code === "KeyV") {
+            console.log(copiedElement, "copiedElement on KeyV");
             if (copiedElement !== undefined) {
                 setElementsOnScene(copiedElement);
             }
@@ -67,9 +69,7 @@ const SceneController: FC = () => {
 
     return (
         <Scene>
-            {elementsOnScene?.map((element: SceneElement) =>
-                InstantiateElement(element)
-            )}
+            {elementsOnScene?.map((element: SceneElement) => InstantiateElement(element))}
         </Scene>
     );
 };

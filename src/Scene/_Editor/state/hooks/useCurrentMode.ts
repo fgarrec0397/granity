@@ -8,7 +8,6 @@ export default () => {
 
     return {
         currentMode,
-        setCurrentMode: (mode: ModesAvailable) =>
-            dispatch(setCurrentMode(mode)),
+        setCurrentMode: (mode: ModesAvailable) => dispatch(setCurrentMode(mode)),
     };
 };

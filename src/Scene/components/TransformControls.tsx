@@ -14,8 +14,7 @@ const TransformControlsComponent: FC = ({ children }) => {
     const { elementsOnScene } = useElementsOnScene();
     const { setIsEditing } = useIsEditing();
     const { camera, gl, scene } = useThree();
-    const [transformControl, setTransformControl] =
-        useState<TransformControls>();
+    const [transformControl, setTransformControl] = useState<TransformControls>();
 
     // const getMesh = (id: string) => {
     //     // elementsOnScene.find((x) => x.id === id);
@@ -34,12 +33,9 @@ const TransformControlsComponent: FC = ({ children }) => {
             transformC.attach(currentElement.mesh);
             transformC.setMode(currentMode);
 
-            transformC.addEventListener(
-                "dragging-changed",
-                ({ value }: any) => {
-                    setIsEditing(value);
-                }
-            );
+            transformC.addEventListener("dragging-changed", ({ value }: any) => {
+                setIsEditing(value);
+            });
 
             transformC.addEventListener("objectChange", () => {
                 // Choose between "objectChange" and "dragging-changed"

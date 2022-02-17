@@ -1,35 +1,20 @@
-import uidGenerator from "../../../../common/utils/uidGenerator";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { useAppDispatch, useAppSelector, useAppState } from "../../../../store/hooks";
 import { setElementsOnScene } from "../editorReducer";
 import { SceneElement } from "../types";
+import ElementsService from "../ElementsService";
 
 export default () => {
     const dispatch = useAppDispatch();
+    const appState = useAppState();
     const { elementsOnScene } = useAppSelector((state) => state.editor);
 
     return {
         elementsOnScene,
         setElementsOnScene: (newElement: SceneElement) => {
-            // TODO - Be able to pass default position
-            const possiblyElementsOnScene = elementsOnScene || [];
-            const numberOfElementsByType = possiblyElementsOnScene.filter(
-                (x) => x.component === newElement.component
-            ).length;
-            const id = uidGenerator();
-            const name = `${newElement.component}${
-                numberOfElementsByType < 10 ? "0" : null
-            }${numberOfElementsByType}`;
+            const elementsService = new ElementsService(appState);
+            const elements = elementsService.updateElementsWith(newElement);
 
-            dispatch(
-                setElementsOnScene([
-                    ...elementsOnScene,
-                    {
-                        ...newElement,
-                        id,
-                        name,
-                    },
-                ])
-            );
+            dispatch(setElementsOnScene(elements));
         },
     };
 };

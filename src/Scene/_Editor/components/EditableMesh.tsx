@@ -13,12 +13,7 @@ interface Props extends MeshProps {
 
 const hoveredColor = "#bdbdf5";
 
-const EditableMesh: FC<Props> = ({
-    geometryRef,
-    component,
-    children,
-    ...meshProps
-}) => {
+const EditableMesh: FC<Props> = ({ geometryRef, component, children, ...meshProps }) => {
     const [hovered, setHover] = useState(false);
     const { currentElement, setCurrentElement } = useCurrentElement();
     const { isEditor } = useIsEditor();
@@ -42,9 +37,7 @@ const EditableMesh: FC<Props> = ({
 
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
-            setCurrentElement(
-                mapMeshToCurrentElement(closestMesh.object, component)
-            );
+            setCurrentElement(mapMeshToCurrentElement(closestMesh.object, component));
         }
     };
 
@@ -67,8 +60,7 @@ const EditableMesh: FC<Props> = ({
             {children}
             <meshStandardMaterial
                 color={
-                    (hovered || currentElement?.name === meshProps.name) &&
-                    isEditor
+                    (hovered || currentElement?.name === meshProps.name) && isEditor
                         ? hoveredColor
                         : "white"
                 }

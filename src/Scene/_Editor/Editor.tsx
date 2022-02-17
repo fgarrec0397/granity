@@ -1,8 +1,6 @@
 import React, { FC } from "react";
 import { css } from "styled-components";
-import StyledWrapper, {
-    StyledWrapperProps,
-} from "../../common/components/Html/StyledWrapper";
+import StyledWrapper, { StyledWrapperProps } from "../../common/components/Html/StyledWrapper";
 import EditorFeedback from "./components/EditorFeedback";
 import EditorGeometryMenu from "./components/EditorGeometryMenu";
 import EditorItemsList from "./components/EditorItemsList";

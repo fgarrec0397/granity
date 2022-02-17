@@ -39,6 +39,7 @@ export const sceneSlice = createSlice({
             state.currentElement = action.payload;
         },
         setElementsOnScene: (state, action: PayloadAction<SceneElement[]>) => {
+            console.log(action.payload, "action.payload");
             state.elementsOnScene = action.payload;
         },
     },

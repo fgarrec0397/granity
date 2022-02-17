@@ -1,9 +1,7 @@
 import { Button } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
-import StyledWrapper, {
-    StyledWrapperProps,
-} from "../../../common/components/Html/StyledWrapper";
+import StyledWrapper, { StyledWrapperProps } from "../../../common/components/Html/StyledWrapper";
 import uidGenerator from "../../../common/utils/uidGenerator";
 import useAddElement from "../state/hooks/useAddElement";
 import useElementsOnScene from "../state/hooks/useElementsOnScene";
@@ -35,11 +33,7 @@ const EditorGeometryMenu: FC = () => {
 
     return (
         <StyledWrapper {...styles.wrapper}>
-            <Button
-                type="dashed"
-                onClick={() => handleOnClick("cube")}
-                style={styles.buttonsStyle}
-            >
+            <Button type="dashed" onClick={() => handleOnClick("cube")} style={styles.buttonsStyle}>
                 + Cube
             </Button>
             <Button

@@ -8,7 +8,6 @@ export default () => {
 
     return {
         currentElement,
-        setCurrentElement: (element: SceneElement) =>
-            dispatch(setCurrentElement(element)),
+        setCurrentElement: (element: SceneElement) => dispatch(setCurrentElement(element)),
     };
 };

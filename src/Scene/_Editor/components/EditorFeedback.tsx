@@ -1,9 +1,7 @@
 import { Card, Descriptions } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
-import StyledWrapper, {
-    StyledWrapperProps,
-} from "../../../common/components/Html/StyledWrapper";
+import StyledWrapper, { StyledWrapperProps } from "../../../common/components/Html/StyledWrapper";
 import useCurrentElement from "../state/hooks/useCurrentElement";
 
 interface EditorFeedbackStyles {
@@ -26,10 +24,7 @@ const EditorFeedback: FC = () => {
     if (currentElement) {
         return (
             <StyledWrapper {...styles.wrapper}>
-                <Card
-                    size="small"
-                    title={`Current Element - ${currentElement.name}`}
-                >
+                <Card size="small" title={`Current Element - ${currentElement.name}`}>
                     <Descriptions>
                         <Descriptions.Item
                             label="Position"
