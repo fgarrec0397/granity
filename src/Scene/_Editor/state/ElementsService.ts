@@ -1,14 +1,8 @@
 import uidGenerator from "../../../common/utils/uidGenerator";
-import { AppState } from "../../../store";
+import AppService from "../../../app/AppService";
 import { SceneElement } from "./types";
 
-class ElementService {
-    state: AppState;
-
-    constructor(state: AppState) {
-        this.state = state;
-    }
-
+class ElementService extends AppService {
     getElements(): SceneElement[] {
         return this.state.editor.elementsOnScene || [];
     }

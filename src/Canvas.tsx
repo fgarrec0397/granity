@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import React, { FC } from "react";
 import EditorController from "./Scene/_Editor/EditorController";
-import StoreProvider from "./store/StoreProvider";
+import StoreProvider from "./app/StoreProvider";
 import SceneController from "./Scene/SceneController";
 
 const CanvasComponent: FC = () => {

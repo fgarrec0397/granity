@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { setIsEditor } from "../editorReducer";
 
 export default () => {
