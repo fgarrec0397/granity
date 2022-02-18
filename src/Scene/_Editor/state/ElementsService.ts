@@ -30,6 +30,15 @@ class ElementService extends AppService {
 
         return [...elements, element];
     }
+
+    removeElement(element: SceneElement): SceneElement[] {
+        const elements = this.getElements();
+        const filteredElements = elements.filter((x) => x.id !== element.id);
+        // console.log(element, "element");
+        // console.log(elements, "elements");
+        // console.log(filteredElements, "filteredElements");
+        return filteredElements;
+    }
 }
 
 export default ElementService;

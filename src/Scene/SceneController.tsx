@@ -6,6 +6,7 @@ import Scene from "./Scene";
 import useElementsOnScene from "./_Editor/state/hooks/useElementsOnScene";
 import { SceneElement } from "./_Editor/state/types";
 import useCurrentElement from "./_Editor/state/hooks/useCurrentElement";
+import useRemoveElement from "./_Editor/state/hooks/useRemoveElement";
 
 interface ComponentsElements {
     [key: string]: FC<GeometryProps>;
@@ -28,6 +29,7 @@ const InstantiateElement = (element: SceneElement): React.ReactNode => {
 };
 
 const SceneController: FC = () => {
+    const removeElement = useRemoveElement();
     const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
     const { currentElement } = useCurrentElement();
     const [copiedElement, setCopiedElement] = useState<SceneElement>();
@@ -49,8 +51,20 @@ const SceneController: FC = () => {
             if (copiedElement !== undefined) {
                 setElementsOnScene(copiedElement);
             }
+        } else if (event.code === "Delete") {
+            if (currentElement) {
+                removeElement(currentElement);
+            }
         }
     };
+
+    useEffect(() => {
+        console.log(elementsOnScene, "elementsOnScene");
+    }, [elementsOnScene]);
+
+    useEffect(() => {
+        console.log(currentElement, "currentElement");
+    }, [currentElement]);
 
     return (
         <Scene>
