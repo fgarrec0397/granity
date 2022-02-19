@@ -10,7 +10,7 @@ export interface EditorState {
 }
 
 const initialState: EditorState = {
-    isEditor: false,
+    isEditor: true,
     hasEditorOpened: false,
     isEditing: false,
     currentMode: ModesAvailable.Translate,

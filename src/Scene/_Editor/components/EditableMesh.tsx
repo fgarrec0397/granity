@@ -61,15 +61,19 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
 
     const onMouseUp = (event: MouseEvent): void => {
         event.preventDefault();
+
+        const isMultipleSelect = event.ctrlKey;
+
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
         raycaster.setFromCamera(mouse, camera);
 
         const intersects = raycaster.intersectObjects(scene.children);
 
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
-            setCurrentElement(closestMesh.object.uuid);
+            setCurrentElement(closestMesh.object.uuid, isMultipleSelect);
         }
     };
 

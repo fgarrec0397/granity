@@ -10,13 +10,17 @@ export default () => {
 
     return {
         currentElement,
-        setCurrentElement: (elementId: string) => {
+        setCurrentElement: (elementId: string, isMultipleSelect: boolean) => {
             const updatedElements = elementsOnScene.map((x) => {
                 if (x.meshuuid === elementId) {
                     return {
                         ...x,
                         isSelected: true,
                     };
+                }
+
+                if (isMultipleSelect) {
+                    return x;
                 }
 
                 return {
