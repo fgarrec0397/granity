@@ -1,13 +1,16 @@
-import useElementsOnScene from "./useElementsOnScene";
+import { useDispatch } from "react-redux";
+import { ServicesTypes } from "../../../../app/ServicesFactory";
+import useServicesFactory from "../../../../app/useServicesFactory";
+import { addElementOnScene } from "../editorReducer";
+import { SceneElement } from "../types";
 
 export default () => {
-    const { setElementsOnScene } = useElementsOnScene();
+    const dispatch = useDispatch();
+    const elementsService = useServicesFactory(ServicesTypes.ElementsService);
 
-    return (componentName: string) => {
-        setElementsOnScene({
-            id: "",
-            component: componentName,
-            name: "",
-        });
+    return (componentName: string, defaultProperties?: any) => {
+        const element = elementsService.createNewElement(componentName, defaultProperties);
+
+        dispatch(addElementOnScene(element));
     };
 };

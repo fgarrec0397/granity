@@ -2,9 +2,7 @@ import { Button } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../../common/components/Html/StyledWrapper";
-import uidGenerator from "../../../common/utils/uidGenerator";
 import useAddElement from "../state/hooks/useAddElement";
-import useElementsOnScene from "../state/hooks/useElementsOnScene";
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;

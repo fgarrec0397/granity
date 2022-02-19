@@ -1,13 +1,45 @@
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { setCurrentElement } from "../editorReducer";
-import { SceneElement } from "../types";
+import { setElementsOnScene } from "../editorReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
-    const { currentElement } = useAppSelector((state) => state.editor);
+    const currentElement = useAppSelector((state) => {
+        return state.editor.elementsOnScene.find((x) => x.isSelected);
+    });
+    const { elementsOnScene } = useAppSelector((state) => state.editor);
 
     return {
         currentElement,
-        setCurrentElement: (element: SceneElement) => dispatch(setCurrentElement(element)),
+        setCurrentElement: (elementId: string) => {
+            const updatedElements = elementsOnScene.map((x) => {
+                if (x.meshuuid === elementId) {
+                    return {
+                        ...x,
+                        isSelected: true,
+                    };
+                }
+
+                return {
+                    ...x,
+                    isSelected: false,
+                };
+            });
+
+            dispatch(setElementsOnScene(updatedElements));
+        },
+        updateCurrentElement: (properties: any) => {
+            const updatedElements = elementsOnScene.map((x) => {
+                if (x.isSelected) {
+                    return {
+                        ...x,
+                        ...properties,
+                    };
+                }
+
+                return x;
+            });
+
+            dispatch(setElementsOnScene(updatedElements));
+        },
     };
 };

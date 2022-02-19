@@ -1,11 +1,12 @@
 // @ts-ignore
 import * as THREE from "three";
 import { MeshProps, ThreeEvent, useThree } from "@react-three/fiber";
-import React, { FC, RefObject, useEffect, useState } from "react";
-import mapMeshToCurrentElement from "../../../common/utils/mapMeshToCurrentElement";
+import React, { FC, RefObject, useContext, useEffect, useState } from "react";
 import useCurrentElement from "../state/hooks/useCurrentElement";
 import useIsEditor from "../state/hooks/useIsEditor";
 import { SceneElement } from "../state/types";
+import useElementsOnScene from "../state/hooks/useElementsOnScene";
+import { MeshContext } from "../../state/MeshContextProvider";
 
 interface Props extends MeshProps {
     geometryRef?: RefObject<THREE.Object3D>;
@@ -14,11 +15,18 @@ interface Props extends MeshProps {
 
 const hoveredColor = "#bdbdf5";
 
-const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children, ...meshProps }) => {
+const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
+    const { meshes, setMeshes } = useContext(MeshContext);
     const [hovered, setHover] = useState(false);
     const { currentElement, setCurrentElement } = useCurrentElement();
+    const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
     const { isEditor } = useIsEditor();
     const { mouse, camera, raycaster, scene } = useThree();
+
+    /**
+     * Initialize mouse event to select mesh.
+     * Updated each time elementsOnScene is modified to keep the state up to date
+     */
 
     useEffect(() => {
         window.addEventListener("mouseup", onMouseUp);
@@ -26,7 +34,30 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children, ...meshP
         return () => {
             window.removeEventListener("mouseup", onMouseUp);
         };
-    }, []);
+    }, [elementsOnScene, currentElement]);
+
+    /**
+     * Bind the mesh id to the scene element
+     */
+
+    useEffect(() => {
+        if (geometryRef?.current.uuid) {
+            if (setMeshes) setMeshes([...meshes, geometryRef?.current]);
+
+            const element = {
+                ...sceneElement,
+                meshuuid: geometryRef.current?.uuid,
+                meshId: geometryRef.current?.id,
+            };
+
+            setElementsOnScene(element);
+        }
+    }, [geometryRef?.current?.uuid]);
+
+    /**
+     * Raycast the closest element and select it as the current element
+     * @param event
+     */
 
     const onMouseUp = (event: MouseEvent): void => {
         event.preventDefault();
@@ -38,7 +69,7 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children, ...meshP
 
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
-            setCurrentElement(mapMeshToCurrentElement(closestMesh.object, sceneElement.component));
+            setCurrentElement(closestMesh.object.uuid);
         }
     };
 
@@ -53,8 +84,12 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children, ...meshP
     };
 
     const removeIdFromSceneElement = () => {
-        const copyElement = { ...sceneElement };
+        const copyElement = { ...sceneElement } as any;
         delete copyElement.id;
+        delete copyElement.component;
+        delete copyElement.mesh;
+        delete copyElement.rotation;
+        // delete copyElement.scale;
 
         return copyElement;
     };
@@ -67,13 +102,7 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children, ...meshP
             {...removeIdFromSceneElement()}
         >
             {children}
-            <meshStandardMaterial
-                color={
-                    (hovered || currentElement?.name === meshProps.name) && isEditor
-                        ? hoveredColor
-                        : "white"
-                }
-            />
+            <meshStandardMaterial color={hovered && isEditor ? hoveredColor : "white"} />
         </mesh>
     );
 };

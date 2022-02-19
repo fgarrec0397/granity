@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
+import { useThree } from "@react-three/fiber";
 import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
 import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
 import { GeometryProps } from "./_Editor/components/EditorElements/types";
@@ -7,6 +8,8 @@ import useElementsOnScene from "./_Editor/state/hooks/useElementsOnScene";
 import { SceneElement } from "./_Editor/state/types";
 import useCurrentElement from "./_Editor/state/hooks/useCurrentElement";
 import useRemoveElement from "./_Editor/state/hooks/useRemoveElement";
+import { MeshContext } from "./state/MeshContextProvider";
+import useAddElement from "./_Editor/state/hooks/useAddElement";
 
 interface ComponentsElements {
     [key: string]: FC<GeometryProps>;
@@ -29,8 +32,11 @@ const InstantiateElement = (element: SceneElement): React.ReactNode => {
 };
 
 const SceneController: FC = () => {
+    const { meshes } = useContext(MeshContext);
+    const { camera, gl, scene } = useThree();
     const removeElement = useRemoveElement();
     const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
+    const addElement = useAddElement();
     const { currentElement } = useCurrentElement();
     const [copiedElement, setCopiedElement] = useState<SceneElement>();
 
@@ -49,7 +55,11 @@ const SceneController: FC = () => {
             }
         } else if (event.ctrlKey && event.code === "KeyV") {
             if (copiedElement !== undefined) {
-                setElementsOnScene(copiedElement);
+                addElement(copiedElement.component, {
+                    position: copiedElement.position,
+                    rotation: copiedElement.rotation,
+                    scale: copiedElement.scale,
+                });
             }
         } else if (event.code === "Delete") {
             if (currentElement) {
@@ -57,14 +67,6 @@ const SceneController: FC = () => {
             }
         }
     };
-
-    useEffect(() => {
-        console.log(elementsOnScene, "elementsOnScene");
-    }, [elementsOnScene]);
-
-    useEffect(() => {
-        console.log(currentElement, "currentElement");
-    }, [currentElement]);
 
     return (
         <Scene>

@@ -24,8 +24,11 @@ class ServicesFactory implements IServicesFactory {
                 service = new ElementService(this.state);
 
                 return service;
+
             default:
-                break;
+                service = new ElementService(this.state);
+
+                return service;
         }
     }
 }

@@ -1,14 +1,15 @@
 // @ts-ignore
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 import { useThree } from "@react-three/fiber";
-import React, { FC, useEffect, useState } from "react";
-import mapMeshToCurrentElement from "../../common/utils/mapMeshToCurrentElement";
+import React, { FC, useContext, useEffect, useState } from "react";
 import useCurrentElement from "../_Editor/state/hooks/useCurrentElement";
 import useCurrentMode from "../_Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../_Editor/state/hooks/useIsEditing";
+import { MeshContext } from "../state/MeshContextProvider";
 
 const TransformControlsComponent: FC = ({ children }) => {
-    const { currentElement, setCurrentElement } = useCurrentElement();
+    const { meshes } = useContext(MeshContext);
+    const { currentElement, updateCurrentElement } = useCurrentElement();
     const { currentMode } = useCurrentMode();
     const { setIsEditing } = useIsEditing();
     const { camera, gl, scene } = useThree();
@@ -17,8 +18,9 @@ const TransformControlsComponent: FC = ({ children }) => {
     useEffect(() => {
         if (!transformControl && currentElement) {
             const transformC = new TransformControls(camera, gl.domElement);
+            const mesh = meshes.find((x) => x.uuid === currentElement?.meshuuid);
 
-            transformC.attach(currentElement.mesh);
+            transformC.attach(mesh);
             transformC.setMode(currentMode);
 
             transformC.addEventListener("dragging-changed", ({ value }: any) => {
@@ -26,7 +28,11 @@ const TransformControlsComponent: FC = ({ children }) => {
             });
 
             transformC.addEventListener("objectChange", () => {
-                setCurrentElement(mapMeshToCurrentElement(currentElement.mesh));
+                updateCurrentElement({
+                    position: mesh.position,
+                    rotation: mesh.rotation,
+                    scale: mesh.scale,
+                });
             });
 
             scene.add(transformC);
@@ -39,7 +45,7 @@ const TransformControlsComponent: FC = ({ children }) => {
                 setTransformControl(undefined);
             }
         };
-    }, [transformControl, camera, scene, gl, currentElement?.mesh]);
+    }, [transformControl, camera, scene, gl, currentElement?.meshId]);
 
     useEffect(() => {
         if (transformControl) {

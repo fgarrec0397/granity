@@ -6,7 +6,6 @@ export interface EditorState {
     hasEditorOpened: boolean;
     isEditing: boolean;
     currentMode: ModesAvailable;
-    currentElement: SceneElement | null;
     elementsOnScene: SceneElement[] | [];
 }
 
@@ -15,7 +14,6 @@ const initialState: EditorState = {
     hasEditorOpened: false,
     isEditing: false,
     currentMode: ModesAvailable.Translate,
-    currentElement: null,
     elementsOnScene: [],
 };
 
@@ -35,8 +33,8 @@ export const sceneSlice = createSlice({
         setCurrentMode: (state, action: PayloadAction<ModesAvailable>) => {
             state.currentMode = action.payload;
         },
-        setCurrentElement: (state, action: PayloadAction<SceneElement>) => {
-            state.currentElement = action.payload;
+        addElementOnScene: (state, action: PayloadAction<SceneElement>) => {
+            state.elementsOnScene = [...state.elementsOnScene, action.payload];
         },
         setElementsOnScene: (state, action: PayloadAction<SceneElement[]>) => {
             state.elementsOnScene = action.payload;
@@ -49,7 +47,7 @@ export const {
     setIsEditing,
     setHasEditorOpened,
     setCurrentMode,
-    setCurrentElement,
+    addElementOnScene,
     setElementsOnScene,
 } = sceneSlice.actions;
 

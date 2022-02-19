@@ -11,7 +11,6 @@ export default () => {
     return (element: SceneElement) => {
         const elements = elementsService?.removeElement(element) || [];
 
-        // TODO -- doesnt delete item from scene
         dispatch(setElementsOnScene(elements));
     };
 };

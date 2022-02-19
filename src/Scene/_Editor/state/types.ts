@@ -8,11 +8,14 @@ export enum ModesAvailable {
 }
 
 export interface SceneElement {
-    id?: string;
+    id: string;
+    meshuuid: string;
+    meshId: string;
     name: string;
     component: string;
-    position?: THREE.Vector3;
-    rotation?: THREE.Vector3;
-    scale?: THREE.Vector3;
-    mesh?: THREE.Mesh; // TODO -- Delete this when getMesh will be implemented
+    isSelected: boolean;
+    position: THREE.Vector3;
+    rotation: THREE.Vector3;
+    scale: THREE.Vector3;
+    // TODO - Will need to add mesh here
 }
