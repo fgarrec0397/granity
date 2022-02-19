@@ -73,6 +73,21 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
         }
     };
 
+    /**
+     * Remove unwanted property of the scene element object.
+     * @returns a copy of a scene element object without readyonly properties
+     */
+
+    const removeIdFromSceneElement = () => {
+        const copyElement = { ...sceneElement } as any;
+        delete copyElement.id;
+        delete copyElement.component;
+        delete copyElement.mesh;
+        delete copyElement.rotation; // TODO - make sure we can pass this property without fucking the apps
+
+        return copyElement;
+    };
+
     const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
         event.stopPropagation();
         setHover(true);
@@ -81,17 +96,6 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
     const handleOnPointerOut = (event: ThreeEvent<PointerEvent>): void => {
         event.stopPropagation();
         setHover(false);
-    };
-
-    const removeIdFromSceneElement = () => {
-        const copyElement = { ...sceneElement } as any;
-        delete copyElement.id;
-        delete copyElement.component;
-        delete copyElement.mesh;
-        delete copyElement.rotation;
-        // delete copyElement.scale;
-
-        return copyElement;
     };
 
     return (

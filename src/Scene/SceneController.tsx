@@ -1,5 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from "react";
-import { useThree } from "@react-three/fiber";
+import React, { FC, useEffect, useState } from "react";
 import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
 import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
 import { GeometryProps } from "./_Editor/components/EditorElements/types";
@@ -8,7 +7,6 @@ import useElementsOnScene from "./_Editor/state/hooks/useElementsOnScene";
 import { SceneElement } from "./_Editor/state/types";
 import useCurrentElement from "./_Editor/state/hooks/useCurrentElement";
 import useRemoveElement from "./_Editor/state/hooks/useRemoveElement";
-import { MeshContext } from "./state/MeshContextProvider";
 import useAddElement from "./_Editor/state/hooks/useAddElement";
 
 interface ComponentsElements {
@@ -32,10 +30,8 @@ const InstantiateElement = (element: SceneElement): React.ReactNode => {
 };
 
 const SceneController: FC = () => {
-    const { meshes } = useContext(MeshContext);
-    const { camera, gl, scene } = useThree();
     const removeElement = useRemoveElement();
-    const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
+    const { elementsOnScene } = useElementsOnScene();
     const addElement = useAddElement();
     const { currentElement } = useCurrentElement();
     const [copiedElement, setCopiedElement] = useState<SceneElement>();
