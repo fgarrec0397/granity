@@ -17,6 +17,10 @@ const TransformControlsComponent: FC = ({ children }) => {
     const { camera, gl, scene } = useThree();
     const [transformControl, setTransformControl] = useState<TransformControls>();
 
+    useEffect(() => {
+        console.log(scene.children);
+    }, [scene.children.length]);
+
     /**
      * Instantiate TransformControls class, attach a mesh and add it to the scene
      */

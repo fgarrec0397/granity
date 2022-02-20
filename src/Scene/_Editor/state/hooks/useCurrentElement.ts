@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { setElementsOnScene } from "../editorReducer";
+import { setElementsOnScene, setIsMultipleSelect } from "../editorReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
@@ -8,9 +8,26 @@ export default () => {
     });
     const { elementsOnScene } = useAppSelector((state) => state.editor);
 
+    const detectMultipleSelection = () => {
+        const arrayOfSelect = [];
+        elementsOnScene.forEach((x) => {
+            if (x.isSelected) {
+                arrayOfSelect.push(x);
+            }
+        });
+        // Dispatch an event to the store redux
+        if (arrayOfSelect.length > 1) {
+            dispatch(setIsMultipleSelect(true));
+        } else {
+            dispatch(setIsMultipleSelect(false));
+        }
+        // console.log(arrayOfSelect.length, "items selected");
+    };
+
     return {
         currentElement,
         setCurrentElement: (elementId: string, isMultipleSelect: boolean) => {
+            detectMultipleSelection();
             const updatedElements = elementsOnScene.map((x) => {
                 if (x.meshuuid === elementId) {
                     return {

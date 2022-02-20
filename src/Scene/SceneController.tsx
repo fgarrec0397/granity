@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
+import { useThree } from "@react-three/fiber";
 import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
 import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
 import { GeometryProps } from "./_Editor/components/EditorElements/types";
@@ -34,6 +35,7 @@ const SceneController: FC = () => {
     const { elementsOnScene } = useElementsOnScene();
     const addElement = useAddElement();
     const { currentElement } = useCurrentElement();
+    const { scene } = useThree();
     const [copiedElement, setCopiedElement] = useState<SceneElement>();
 
     useEffect(() => {
@@ -63,6 +65,10 @@ const SceneController: FC = () => {
             }
         }
     };
+
+    useEffect(() => {
+        console.log(currentElement, "currentElement");
+    }, [currentElement]);
 
     return (
         <Scene>
