@@ -17,5 +17,5 @@ export interface SceneElement {
     position: THREE.Vector3;
     rotation: THREE.Vector3;
     scale: THREE.Vector3;
-    // TODO - Will need to add mesh here
+    groupId?: string;
 }

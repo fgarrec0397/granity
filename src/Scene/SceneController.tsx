@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-import { useThree } from "@react-three/fiber";
 import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
 import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
 import { GeometryProps } from "./_Editor/components/EditorElements/types";
@@ -9,6 +8,7 @@ import { SceneElement } from "./_Editor/state/types";
 import useCurrentElement from "./_Editor/state/hooks/useCurrentElement";
 import useRemoveElement from "./_Editor/state/hooks/useRemoveElement";
 import useAddElement from "./_Editor/state/hooks/useAddElement";
+import Group from "./_Editor/components/EditorElements/Geometry/Group";
 
 interface ComponentsElements {
     [key: string]: FC<GeometryProps>;
@@ -17,6 +17,7 @@ interface ComponentsElements {
 const Components: ComponentsElements = {
     cube: Cube,
     plane: Plane,
+    group: Group,
 };
 
 const InstantiateElement = (element: SceneElement): React.ReactNode => {
@@ -35,8 +36,11 @@ const SceneController: FC = () => {
     const { elementsOnScene } = useElementsOnScene();
     const addElement = useAddElement();
     const { currentElement } = useCurrentElement();
-    const { scene } = useThree();
     const [copiedElement, setCopiedElement] = useState<SceneElement>();
+
+    useEffect(() => {
+        console.log(elementsOnScene, "elementsOnScene");
+    }, [elementsOnScene]);
 
     useEffect(() => {
         window.addEventListener("keyup", handleKeyUp);
@@ -65,10 +69,6 @@ const SceneController: FC = () => {
             }
         }
     };
-
-    useEffect(() => {
-        console.log(currentElement, "currentElement");
-    }, [currentElement]);
 
     return (
         <Scene>

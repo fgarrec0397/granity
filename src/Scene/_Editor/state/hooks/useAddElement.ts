@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { ServicesTypes } from "../../../../app/ServicesFactory";
 import useServicesFactory from "../../../../app/useServicesFactory";
 import { addElementOnScene } from "../editorReducer";
-import { SceneElement } from "../types";
 
 export default () => {
     const dispatch = useDispatch();

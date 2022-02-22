@@ -1,12 +1,11 @@
 // @ts-ignore
 import * as THREE from "three";
 import { MeshProps, ThreeEvent, useThree } from "@react-three/fiber";
-import React, { FC, RefObject, useContext, useEffect, useState } from "react";
+import React, { FC, RefObject, useEffect, useState } from "react";
 import useCurrentElement from "../state/hooks/useCurrentElement";
 import useIsEditor from "../state/hooks/useIsEditor";
 import { SceneElement } from "../state/types";
 import useElementsOnScene from "../state/hooks/useElementsOnScene";
-import { MeshContext } from "../../state/MeshContextProvider";
 
 interface Props extends MeshProps {
     geometryRef?: RefObject<THREE.Object3D>;
@@ -16,9 +15,8 @@ interface Props extends MeshProps {
 const hoveredColor = "#bdbdf5";
 
 const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
-    const { meshes, setMeshes } = useContext(MeshContext);
     const [hovered, setHover] = useState(false);
-    const { currentElement, setCurrentElement } = useCurrentElement();
+    const { currentElement, currentElements, setCurrentElement } = useCurrentElement();
     const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
     const { isEditor } = useIsEditor();
     const { mouse, camera, raycaster, scene } = useThree();
@@ -28,13 +26,13 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
      * Updated each time elementsOnScene is modified to keep the state up to date
      */
 
-    useEffect(() => {
-        window.addEventListener("mouseup", onMouseUp);
+    // useEffect(() => {
+    //     window.addEventListener("mouseup", onMouseUp);
 
-        return () => {
-            window.removeEventListener("mouseup", onMouseUp);
-        };
-    }, [elementsOnScene, currentElement]);
+    //     return () => {
+    //         window.removeEventListener("mouseup", onMouseUp);
+    //     };
+    // }, [elementsOnScene, currentElement, currentElements.length]);
 
     /**
      * Bind the mesh id to the scene element
@@ -42,8 +40,6 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
 
     useEffect(() => {
         if (geometryRef?.current.uuid) {
-            if (setMeshes) setMeshes([...meshes, geometryRef?.current]);
-
             const element = {
                 ...sceneElement,
                 meshuuid: geometryRef.current?.uuid,
@@ -59,23 +55,25 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
      * @param event
      */
 
-    const onMouseUp = (event: MouseEvent): void => {
-        event.preventDefault();
+    // const onMouseUp = (event: MouseEvent): void => {
+    //     event.preventDefault();
 
-        const isMultipleSelect = event.ctrlKey;
+    //     const isMultipleSelect = event.ctrlKey;
 
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        raycaster.setFromCamera(mouse, camera);
+    //     raycaster.setFromCamera(mouse, camera);
+    //     console.log(scene.children, "scene.children from editable");
+    //     const intersects = raycaster.intersectObjects(scene.children);
 
-        const intersects = raycaster.intersectObjects(scene.children);
-
-        if (intersects.length > 0) {
-            const [closestMesh] = intersects.sort((x: any) => x.distance);
-            setCurrentElement(closestMesh.object.uuid, isMultipleSelect);
-        }
-    };
+    //     console.log(intersects, "intersects");
+    //     if (intersects.length > 0) {
+    //         const [closestMesh] = intersects.sort((x: any) => x.distance);
+    //         console.log(closestMesh, "closestMesh");
+    //         setCurrentElement(closestMesh.object.uuid, isMultipleSelect);
+    //     }
+    // };
 
     /**
      * Remove unwanted property of the scene element object.
