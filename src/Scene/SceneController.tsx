@@ -39,10 +39,6 @@ const SceneController: FC = () => {
     const [copiedElement, setCopiedElement] = useState<SceneElement>();
 
     useEffect(() => {
-        console.log(elementsOnScene, "elementsOnScene");
-    }, [elementsOnScene]);
-
-    useEffect(() => {
         window.addEventListener("keyup", handleKeyUp);
 
         return () => {

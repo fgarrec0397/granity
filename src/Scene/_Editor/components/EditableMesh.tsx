@@ -1,8 +1,7 @@
 // @ts-ignore
 import * as THREE from "three";
-import { MeshProps, ThreeEvent, useThree } from "@react-three/fiber";
+import { MeshProps, ThreeEvent } from "@react-three/fiber";
 import React, { FC, RefObject, useEffect, useState } from "react";
-import useCurrentElement from "../state/hooks/useCurrentElement";
 import useIsEditor from "../state/hooks/useIsEditor";
 import { SceneElement } from "../state/types";
 import useElementsOnScene from "../state/hooks/useElementsOnScene";
@@ -16,23 +15,8 @@ const hoveredColor = "#bdbdf5";
 
 const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
     const [hovered, setHover] = useState(false);
-    const { currentElement, currentElements, setCurrentElement } = useCurrentElement();
-    const { elementsOnScene, setElementsOnScene } = useElementsOnScene();
+    const { setElementsOnScene } = useElementsOnScene();
     const { isEditor } = useIsEditor();
-    const { mouse, camera, raycaster, scene } = useThree();
-
-    /**
-     * Initialize mouse event to select mesh.
-     * Updated each time elementsOnScene is modified to keep the state up to date
-     */
-
-    // useEffect(() => {
-    //     window.addEventListener("mouseup", onMouseUp);
-
-    //     return () => {
-    //         window.removeEventListener("mouseup", onMouseUp);
-    //     };
-    // }, [elementsOnScene, currentElement, currentElements.length]);
 
     /**
      * Bind the mesh id to the scene element
@@ -54,26 +38,6 @@ const EditableMesh: FC<Props> = ({ geometryRef, sceneElement, children }) => {
      * Raycast the closest element and select it as the current element
      * @param event
      */
-
-    // const onMouseUp = (event: MouseEvent): void => {
-    //     event.preventDefault();
-
-    //     const isMultipleSelect = event.ctrlKey;
-
-    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    //     raycaster.setFromCamera(mouse, camera);
-    //     console.log(scene.children, "scene.children from editable");
-    //     const intersects = raycaster.intersectObjects(scene.children);
-
-    //     console.log(intersects, "intersects");
-    //     if (intersects.length > 0) {
-    //         const [closestMesh] = intersects.sort((x: any) => x.distance);
-    //         console.log(closestMesh, "closestMesh");
-    //         setCurrentElement(closestMesh.object.uuid, isMultipleSelect);
-    //     }
-    // };
 
     /**
      * Remove unwanted property of the scene element object.

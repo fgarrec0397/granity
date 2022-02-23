@@ -22,7 +22,6 @@ export default () => {
     const id = uidGenerator();
 
     return (group: THREE.Mesh, elementsToGroup: SceneElement[]) => {
-        console.log("in grouping hook");
         addElement("group", {
             id,
             meshuuid: group.uuid,
@@ -40,8 +39,6 @@ export default () => {
                 ...x,
                 groupId: group.uuid,
             };
-
-            console.log(element, "element that is groupped");
 
             setElementsOnScene(element);
         });

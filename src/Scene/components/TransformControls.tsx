@@ -14,11 +14,33 @@ const TransformControlsComponent: FC = ({ children }) => {
         useCurrentElement();
     const { elementsOnScene } = useElementsOnScene();
     const { currentMode } = useCurrentMode();
-    const { setIsEditing } = useIsEditing();
+    const { setIsEditing, isEditing } = useIsEditing();
     const { mouse, camera, raycaster, scene, gl } = useThree();
     const [transformControl, setTransformControl] = useState<TransformControls>();
     const [stateMesh, setStateMesh] = useState<THREE.Mesh>();
     const [temporaryGroup, setTemporaryGroup] = useState<THREE.Group>();
+
+    /**
+     * Instantiate TransformControls class, attach a mesh and add it to the scene
+     */
+
+    useEffect(() => {
+        if (!transformControl && stateMesh) {
+            const transformC = new TransformControls(camera, gl.domElement);
+            transformC.attach(stateMesh);
+            transformC.setMode(currentMode);
+
+            scene.add(transformC);
+            setTransformControl(transformC);
+        }
+
+        return () => {
+            if (transformControl) {
+                scene.remove(transformControl);
+                setTransformControl(undefined);
+            }
+        };
+    }, [transformControl, camera, scene, gl, stateMesh]);
 
     useEffect(() => {
         window.addEventListener("mouseup", onMouseUp);
@@ -50,28 +72,6 @@ const TransformControlsComponent: FC = ({ children }) => {
 
         setStateMesh(mesh);
     }, [currentElement?.meshId, currentElements.length]);
-
-    /**
-     * Instantiate TransformControls class, attach a mesh and add it to the scene
-     */
-
-    useEffect(() => {
-        if (!transformControl && stateMesh) {
-            const transformC = new TransformControls(camera, gl.domElement);
-            transformC.attach(stateMesh);
-            transformC.setMode(currentMode);
-
-            scene.add(transformC);
-            setTransformControl(transformC);
-        }
-
-        return () => {
-            if (transformControl) {
-                scene.remove(transformControl);
-                setTransformControl(undefined);
-            }
-        };
-    }, [transformControl, camera, scene, gl, stateMesh]);
 
     /**
      * Initialize events on transformControls.
@@ -128,12 +128,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
             setCurrentElement(closestMesh.object.uuid, isMultipleSelect);
-        } else if (temporaryGroup) {
-            console.log(transformControl.object, "transformControl.object");
-
-            // TODO - Probleme here
-
-            // transformControl.detach();
+        } else if (temporaryGroup && !isEditing) {
             const grouppedMeshes: any = [];
 
             temporaryGroup.children.forEach((child: any) => {
@@ -144,10 +139,9 @@ const TransformControlsComponent: FC = ({ children }) => {
             });
 
             grouppedMeshes.forEach((mesh: any) => {
-                scene.add(mesh);
+                scene.attach(mesh);
             });
 
-            // TODO -- Maybe check to move this code
             setTemporaryGroup(undefined);
             scene.remove(temporaryGroup);
         }
@@ -177,10 +171,6 @@ const TransformControlsComponent: FC = ({ children }) => {
             });
         }
     };
-
-    useEffect(() => {
-        console.log(scene.children, "scene");
-    }, [scene.children.length]);
 
     return <>{children}</>;
 };
