@@ -1,24 +1,19 @@
-// @ts-ignore
-import * as THREE from "three";
-// @ts-ignore
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 import { useThree } from "@react-three/fiber";
 import React, { FC, useEffect, useState } from "react";
-import useCurrentElement from "../_Editor/state/hooks/useCurrentElement";
+import { Group, Object3D } from "three";
+import useCurrentElement from "../_Editor/state/hooks/useCurrentObjects";
 import useCurrentMode from "../_Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../_Editor/state/hooks/useIsEditing";
-import useElementsOnScene from "../_Editor/state/hooks/useElementsOnScene";
 
 const TransformControlsComponent: FC = ({ children }) => {
-    const { currentElement, currentElements, updateCurrentElement, setCurrentElement } =
-        useCurrentElement();
-    const { elementsOnScene } = useElementsOnScene();
+    const { currentObjects, setCurrentObjects } = useCurrentElement();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
     const { mouse, camera, raycaster, scene, gl } = useThree();
     const [transformControl, setTransformControl] = useState<TransformControls>();
-    const [stateMesh, setStateMesh] = useState<THREE.Mesh>();
-    const [temporaryGroup, setTemporaryGroup] = useState<THREE.Group>();
+    const [stateMesh, setStateMesh] = useState<Object3D>();
+    const [temporaryGroup, setTemporaryGroup] = useState<Group>();
 
     /**
      * Instantiate TransformControls class, attach a mesh and add it to the scene
@@ -48,30 +43,23 @@ const TransformControlsComponent: FC = ({ children }) => {
         return () => {
             window.removeEventListener("mouseup", onMouseUp);
         };
-    }, [elementsOnScene, currentElements.length, temporaryGroup]);
+    }, [scene.children.length, currentObjects.length, temporaryGroup]);
 
     useEffect(() => {
-        let mesh = scene.children.find((x: any) => x.uuid === currentElement?.meshuuid);
+        if (currentObjects.length > 1 && transformControl) {
+            const group = new Group();
 
-        if (currentElements.length > 1) {
-            const group = new THREE.Group();
-            const meshesToGroup = scene.children.filter((x: any) => {
-                return currentElements.some((y) => x.uuid === y.meshuuid);
-            });
-
-            meshesToGroup.forEach((x: any) => {
+            currentObjects.forEach((x) => {
                 group.add(x);
             });
 
             setTemporaryGroup(group);
-
             scene.add(group);
-            mesh = group;
-            transformControl.attach(mesh);
+            setStateMesh(group);
+        } else {
+            setStateMesh(currentObjects[0]);
         }
-
-        setStateMesh(mesh);
-    }, [currentElement?.meshId, currentElements.length]);
+    }, [currentObjects]);
 
     /**
      * Initialize events on transformControls.
@@ -86,7 +74,7 @@ const TransformControlsComponent: FC = ({ children }) => {
             transformControl?.removeEventListener("dragging-changed", onDraggingChangedHandler);
             transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
         };
-    }, [transformControl, currentElement?.meshId, elementsOnScene]);
+    }, [transformControl, currentObjects.length]);
 
     /**
      * Detach the transformControl whenever the current element change
@@ -96,7 +84,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         if (transformControl) {
             transformControl.detach();
         }
-    }, [currentElement?.id, temporaryGroup]);
+    }, [currentObjects.length, currentObjects[0]?.id, temporaryGroup]);
 
     /**
      * Update the transformControl mode when the currentMode changes
@@ -127,7 +115,7 @@ const TransformControlsComponent: FC = ({ children }) => {
 
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
-            setCurrentElement(closestMesh.object.uuid, isMultipleSelect);
+            setCurrentObjects(closestMesh.object.uuid, isMultipleSelect);
         } else if (temporaryGroup && !isEditing) {
             const grouppedMeshes: any = [];
 
@@ -161,15 +149,14 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
 
     const onObjectChangeHandler = () => {
-        const mesh = scene.children.find((x: any) => x.uuid === currentElement?.meshuuid);
-
-        if (mesh) {
-            updateCurrentElement({
-                position: mesh.position,
-                rotation: mesh.rotation,
-                scale: mesh.scale,
-            });
-        }
+        // const mesh = scene.children.find((x: any) => x.uuid === currentElement?.meshuuid);
+        // if (mesh) {
+        //     updateCurrentElement({
+        //         position: mesh.position,
+        //         rotation: mesh.rotation,
+        //         scale: mesh.scale,
+        //     });
+        // }
     };
 
     return <>{children}</>;

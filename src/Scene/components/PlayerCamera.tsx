@@ -1,4 +1,3 @@
-// @ts-ignore
 import * as THREE from "three";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useSphere } from "@react-three/cannon";
@@ -78,7 +77,7 @@ const PlayerCamera: FC = (props) => {
     );
 
     useFrame(() => {
-        ref.current.getWorldPosition(camera.position);
+        ref.current?.getWorldPosition(camera.position);
         frontVector.set(0, 0, Number(backward) - Number(forward));
         sideVector.set(Number(left) - Number(right), 0, 0);
         direction

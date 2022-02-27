@@ -1,42 +1,26 @@
-import React, { FC, useEffect, useState } from "react";
-import Cube from "./_Editor/components/EditorElements/Geometry/Cube";
-import Plane from "./_Editor/components/EditorElements/Geometry/Plane";
-import { GeometryProps } from "./_Editor/components/EditorElements/types";
+import React, { FC, useContext, useEffect, useState } from "react";
+import { useThree } from "@react-three/fiber";
+import { Object3D } from "three";
 import Scene from "./Scene";
-import useElementsOnScene from "./_Editor/state/hooks/useElementsOnScene";
-import { SceneElement } from "./_Editor/state/types";
-import useCurrentElement from "./_Editor/state/hooks/useCurrentElement";
-import useRemoveElement from "./_Editor/state/hooks/useRemoveElement";
-import useAddElement from "./_Editor/state/hooks/useAddElement";
-import Group from "./_Editor/components/EditorElements/Geometry/Group";
+import useCurrentElement from "./_Editor/state/hooks/useCurrentObjects";
+import uidGenerator from "../common/utils/uidGenerator";
+import useSceneObjects from "./_Editor/state/hooks/useSceneObjects";
+import EditableModeler from "./_Editor/components/EditableModeler";
+import { IEditableProxy, EditableProxyContext } from "./_Editor/state/EditableProxyProvider";
 
-interface ComponentsElements {
-    [key: string]: FC<GeometryProps>;
-}
-
-const Components: ComponentsElements = {
-    cube: Cube,
-    plane: Plane,
-    group: Group,
-};
-
-const InstantiateElement = (element: SceneElement): React.ReactNode => {
-    if (typeof Components[element.component] !== "undefined") {
-        return React.createElement(Components[element.component], {
-            key: element.id,
-            sceneElement: element,
-        });
-    }
-
-    return null;
+const InstantiateObject = (editable: IEditableProxy): React.ReactNode => {
+    return React.createElement(EditableModeler, {
+        key: editable.name,
+        editable,
+    });
 };
 
 const SceneController: FC = () => {
-    const removeElement = useRemoveElement();
-    const { elementsOnScene } = useElementsOnScene();
-    const addElement = useAddElement();
-    const { currentElement } = useCurrentElement();
-    const [copiedElement, setCopiedElement] = useState<SceneElement>();
+    const { objects } = useSceneObjects();
+    const { scene } = useThree();
+    const { editableProxies } = useContext(EditableProxyContext);
+    const { currentObjects, removeCurrentObjects } = useCurrentElement();
+    const [copiedObjects, setCopiedObjects] = useState<Object3D[]>([]);
 
     useEffect(() => {
         window.addEventListener("keyup", handleKeyUp);
@@ -44,32 +28,34 @@ const SceneController: FC = () => {
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
         };
-    }, [currentElement, copiedElement, elementsOnScene]);
+    }, [currentObjects.length, copiedObjects, objects]);
 
     const handleKeyUp = (event: KeyboardEvent): void => {
         if (event.ctrlKey && event.code === "KeyC") {
-            if (currentElement) {
-                setCopiedElement(currentElement);
+            if (currentObjects.length > 0) {
+                setCopiedObjects(currentObjects);
             }
         } else if (event.ctrlKey && event.code === "KeyV") {
-            if (copiedElement !== undefined) {
-                addElement(copiedElement.component, {
-                    position: copiedElement.position,
-                    rotation: copiedElement.rotation,
-                    scale: copiedElement.scale,
+            if (copiedObjects.length > 0) {
+                copiedObjects.forEach((x) => {
+                    const clonedObject = x.clone();
+                    clonedObject.name = uidGenerator();
+
+                    scene.add(clonedObject);
                 });
             }
         } else if (event.code === "Delete") {
-            if (currentElement) {
-                removeElement(currentElement);
+            if (currentObjects.length > 0) {
+                removeCurrentObjects();
+                currentObjects.forEach((x) => {
+                    scene.remove(x);
+                });
             }
         }
     };
 
     return (
-        <Scene>
-            {elementsOnScene?.map((element: SceneElement) => InstantiateElement(element))}
-        </Scene>
+        <Scene> {editableProxies.map((editableProxy) => InstantiateObject(editableProxy))} </Scene>
     );
 };
 

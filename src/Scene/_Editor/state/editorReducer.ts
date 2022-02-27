@@ -6,8 +6,9 @@ export interface EditorState {
     hasEditorOpened: boolean;
     isEditing: boolean;
     isMultipleSelect: boolean;
+    selected: string[];
     currentMode: ModesAvailable;
-    elementsOnScene: SceneElement[] | [];
+    elementsOnScene: SceneElement[];
 }
 
 const initialState: EditorState = {
@@ -17,6 +18,7 @@ const initialState: EditorState = {
     isMultipleSelect: false,
     currentMode: ModesAvailable.Translate,
     elementsOnScene: [],
+    selected: [],
 };
 
 export const sceneSlice = createSlice({
@@ -44,6 +46,18 @@ export const sceneSlice = createSlice({
         setElementsOnScene: (state, action: PayloadAction<SceneElement[]>) => {
             state.elementsOnScene = action.payload;
         },
+        removeSelected: (state) => {
+            state.selected = [];
+        },
+        setSelected: (
+            state,
+            action: PayloadAction<{ newSelectedId: string; isMultipleSelect?: boolean }>
+        ) => {
+            const newSelectedIdArray = action.payload.isMultipleSelect
+                ? [...state.selected, action.payload.newSelectedId]
+                : [action.payload.newSelectedId];
+            state.selected = newSelectedIdArray;
+        },
     },
 });
 
@@ -55,6 +69,8 @@ export const {
     setCurrentMode,
     addElementOnScene,
     setElementsOnScene,
+    setSelected,
+    removeSelected,
 } = sceneSlice.actions;
 
 export default sceneSlice.reducer;

@@ -2,7 +2,7 @@ import { Card, Descriptions } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../../common/components/Html/StyledWrapper";
-import useCurrentElement from "../state/hooks/useCurrentElement";
+import useCurrentElement from "../state/hooks/useCurrentObjects";
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;
@@ -19,12 +19,12 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-    const { currentElement } = useCurrentElement();
+    // const { currentElement } = useCurrentElement();
 
-    if (currentElement) {
-        return (
-            <StyledWrapper {...styles.wrapper}>
-                <Card size="small" title={`Current Element - ${currentElement.name}`}>
+    // if (currentElement) {
+    return (
+        <StyledWrapper {...styles.wrapper}>
+            {/* <Card size="small" title={`Current Element - ${currentElement.name}`}>
                     <Descriptions>
                         <Descriptions.Item
                             label="Position"
@@ -97,12 +97,12 @@ const EditorFeedback: FC = () => {
                             </span>
                         </Descriptions.Item>
                     </Descriptions>
-                </Card>
-            </StyledWrapper>
-        );
-    }
+                </Card> */}
+        </StyledWrapper>
+    );
+    // }
 
-    return null;
+    // return null;
 };
 
 export default EditorFeedback;
