@@ -1,21 +1,20 @@
 import { Card, List } from "antd";
 import React, { FC } from "react";
-import useSceneObjects from "../state/hooks/useSceneObjects";
+import useEditableProxies from "../state/hooks/useEditableProxies";
 
 const EditorItemsList: FC = () => {
-    // const { objects } = useSceneObjects();
-    // return (
-    //     <Card size="small" title="Elements on scene">
-    //         <List
-    //             size="small"
-    //             bordered
-    //             dataSource={objects}
-    //             renderItem={(item) => <List.Item>{item.name}</List.Item>}
-    //         />
-    //     </Card>
-    // );
+    const { editableProxies } = useEditableProxies();
 
-    return null;
+    return (
+        <Card size="small" title="Elements on scene">
+            <List
+                size="small"
+                bordered
+                dataSource={editableProxies}
+                renderItem={(item) => <List.Item>{item.name}</List.Item>}
+            />
+        </Card>
+    );
 };
 
 export default EditorItemsList;

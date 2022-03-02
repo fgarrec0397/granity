@@ -1,9 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from "react";
-import { useThree } from "@react-three/fiber";
 import { Object3D } from "three";
 import Scene from "./Scene";
-import useCurrentElement from "./_Editor/state/hooks/useCurrentObjects";
-import uidGenerator from "../common/utils/uidGenerator";
+import useCurrentObjects from "./_Editor/state/hooks/useCurrentObjects";
 import useSceneObjects from "./_Editor/state/hooks/useSceneObjects";
 import EditableModeler from "./_Editor/components/EditableModeler";
 import { IEditableProxy, EditableProxyContext } from "./_Editor/state/EditableProxyProvider";
@@ -16,10 +14,9 @@ const InstantiateObject = (editable: IEditableProxy): React.ReactNode => {
 };
 
 const SceneController: FC = () => {
-    const { objects } = useSceneObjects();
-    const { scene } = useThree();
+    const { objects, addObjectOnScene } = useSceneObjects();
     const { editableProxies } = useContext(EditableProxyContext);
-    const { currentObjects, removeCurrentObjects } = useCurrentElement();
+    const { currentObjects, removeCurrentObjects } = useCurrentObjects();
     const [copiedObjects, setCopiedObjects] = useState<Object3D[]>([]);
 
     useEffect(() => {
@@ -30,6 +27,10 @@ const SceneController: FC = () => {
         };
     }, [currentObjects.length, copiedObjects, objects]);
 
+    useEffect(() => {
+        console.log(objects, "objects");
+    }, [objects]);
+
     const handleKeyUp = (event: KeyboardEvent): void => {
         if (event.ctrlKey && event.code === "KeyC") {
             if (currentObjects.length > 0) {
@@ -39,17 +40,12 @@ const SceneController: FC = () => {
             if (copiedObjects.length > 0) {
                 copiedObjects.forEach((x) => {
                     const clonedObject = x.clone();
-                    clonedObject.name = uidGenerator();
-
-                    scene.add(clonedObject);
+                    addObjectOnScene(clonedObject);
                 });
             }
         } else if (event.code === "Delete") {
             if (currentObjects.length > 0) {
                 removeCurrentObjects();
-                currentObjects.forEach((x) => {
-                    scene.remove(x);
-                });
             }
         }
     };

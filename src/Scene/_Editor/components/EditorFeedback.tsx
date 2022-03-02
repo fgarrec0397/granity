@@ -2,7 +2,7 @@ import { Card, Descriptions } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../../common/components/Html/StyledWrapper";
-import useCurrentElement from "../state/hooks/useCurrentObjects";
+import useEditableProxies from "../state/hooks/useEditableProxies";
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;
@@ -19,90 +19,96 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-    // const { currentElement } = useCurrentElement();
+    const { currentProxy } = useEditableProxies();
 
-    // if (currentElement) {
-    return (
-        <StyledWrapper {...styles.wrapper}>
-            {/* <Card size="small" title={`Current Element - ${currentElement.name}`}>
+    if (currentProxy) {
+        return (
+            <StyledWrapper {...styles.wrapper}>
+                <Card size="small" title={`Current Element - ${currentProxy.name}`}>
                     <Descriptions>
-                        <Descriptions.Item
-                            label="Position"
-                            labelStyle={{
-                                fontWeight: "bold",
-                            }}
-                            contentStyle={{
-                                flexDirection: "column",
-                            }}
-                        >
-                            <span>
-                                <i>X:</i>
-                                {currentElement.position.x.toFixed(3)}
-                            </span>
-                            <span>
-                                <i>Y:</i>
-                                {currentElement.position.y.toFixed(3)}
-                            </span>
-                            <span>
-                                <i>Z:</i>
-                                {currentElement.position.z.toFixed(3)}
-                            </span>
-                        </Descriptions.Item>
+                        {currentProxy.position !== undefined && (
+                            <Descriptions.Item
+                                label="Position"
+                                labelStyle={{
+                                    fontWeight: "bold",
+                                }}
+                                contentStyle={{
+                                    flexDirection: "column",
+                                }}
+                            >
+                                <span>
+                                    <i>X:</i>
+                                    {currentProxy.position[0].toFixed(3)}
+                                </span>
+                                <span>
+                                    <i>Y:</i>
+                                    {currentProxy.position[1].toFixed(3)}
+                                </span>
+                                <span>
+                                    <i>Z:</i>
+                                    {currentProxy.position[2].toFixed(3)}
+                                </span>
+                            </Descriptions.Item>
+                        )}
                     </Descriptions>
                     <Descriptions>
-                        <Descriptions.Item
-                            label="Rotation"
-                            labelStyle={{
-                                fontWeight: "bold",
-                            }}
-                            contentStyle={{
-                                flexDirection: "column",
-                            }}
-                        >
-                            <span>
-                                <i>X:</i>
-                                {currentElement.rotation.x.toFixed(3)}
-                            </span>
-                            <span>
-                                <i>Y:</i>
-                                {currentElement.rotation.y.toFixed(3)}
-                            </span>
-                            <span>
-                                <i>Z:</i>
-                                {currentElement.rotation.z.toFixed(3)}
-                            </span>
-                        </Descriptions.Item>
+                        {currentProxy.rotation !== undefined && (
+                            <Descriptions.Item
+                                label="Rotation"
+                                labelStyle={{
+                                    fontWeight: "bold",
+                                }}
+                                contentStyle={{
+                                    flexDirection: "column",
+                                }}
+                            >
+                                <span>
+                                    <i>X:</i>
+                                    {currentProxy.rotation[0].toFixed(3)}
+                                </span>
+                                <span>
+                                    <i>Y:</i>
+                                    {currentProxy.rotation[1].toFixed(3)}
+                                </span>
+                                <span>
+                                    <i>Z:</i>
+                                    {currentProxy.rotation[2].toFixed(3)}
+                                </span>
+                            </Descriptions.Item>
+                        )}
                     </Descriptions>
                     <Descriptions>
-                        <Descriptions.Item
-                            label="Scale"
-                            labelStyle={{
-                                fontWeight: "bold",
-                            }}
-                            contentStyle={{
-                                flexDirection: "column",
-                            }}
-                        >
-                            <span>
-                                <i>X:</i>
-                                {currentElement.scale.x.toFixed(3)}
-                            </span>
-                            <span>
-                                <i>Y:</i>
-                                {currentElement.scale.y.toFixed(3)}
-                            </span>
-                            <span>
-                                <i>Z:</i>
-                                {currentElement.scale.z.toFixed(3)}
-                            </span>
-                        </Descriptions.Item>
+                        {currentProxy.scale !== undefined && (
+                            <Descriptions.Item
+                                label="Scale"
+                                labelStyle={{
+                                    fontWeight: "bold",
+                                }}
+                                contentStyle={{
+                                    flexDirection: "column",
+                                }}
+                            >
+                                <span>
+                                    <i>X:</i>
+                                    {currentProxy.scale[0].toFixed(3)}
+                                </span>
+                                <span>
+                                    <i>Y:</i>
+                                    {currentProxy.scale[1].toFixed(3)}
+                                </span>
+                                <span>
+                                    <i>Z:</i>
+                                    {currentProxy.scale[2].toFixed(3)}
+                                </span>
+                            </Descriptions.Item>
+                        )}
                     </Descriptions>
-                </Card> */}
-        </StyledWrapper>
-    );
-    // }
+                </Card>
+            </StyledWrapper>
+        );
+    }
 
-    // return null;
+    return null;
 };
 
 export default EditorFeedback;

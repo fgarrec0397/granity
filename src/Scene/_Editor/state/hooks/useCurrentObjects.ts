@@ -7,7 +7,7 @@ import useSceneObjects from "./useSceneObjects";
 export default () => {
     const dispatch = useAppDispatch();
     const { selected } = useAppSelector((x) => x.editor);
-    const { objects, getObjectById } = useSceneObjects();
+    const { objects, getObjectById, removeObjectsArrayFromScene } = useSceneObjects();
     const [currentObjectsState, setCurrentObjectsState] = useState<Object3D[]>([]);
 
     useEffect(() => {
@@ -29,6 +29,7 @@ export default () => {
             }
         },
         removeCurrentObjects: () => {
+            removeObjectsArrayFromScene(currentObjectsState);
             dispatch(removeSelected());
         },
     };

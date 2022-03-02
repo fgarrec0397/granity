@@ -2,12 +2,16 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 import { useThree } from "@react-three/fiber";
 import React, { FC, useEffect, useState } from "react";
 import { Group, Object3D } from "three";
+import { meshBounds } from "@react-three/drei";
 import useCurrentElement from "../_Editor/state/hooks/useCurrentObjects";
 import useCurrentMode from "../_Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../_Editor/state/hooks/useIsEditing";
+import useCurrentProxy from "../_Editor/state/hooks/useEditableProxies";
+import serializeVector3 from "../../common/utils/serializeVector3";
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { currentObjects, setCurrentObjects } = useCurrentElement();
+    const { updateCurrentProxy } = useCurrentProxy();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
     const { mouse, camera, raycaster, scene, gl } = useThree();
@@ -149,14 +153,15 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
 
     const onObjectChangeHandler = () => {
-        // const mesh = scene.children.find((x: any) => x.uuid === currentElement?.meshuuid);
-        // if (mesh) {
-        //     updateCurrentElement({
-        //         position: mesh.position,
-        //         rotation: mesh.rotation,
-        //         scale: mesh.scale,
-        //     });
-        // }
+        if (stateMesh) {
+            updateCurrentProxy({
+                name: stateMesh.name,
+                type: "to be determined",
+                position: serializeVector3(stateMesh.position),
+                rotation: serializeVector3(stateMesh.rotation),
+                scale: serializeVector3(stateMesh.scale),
+            });
+        }
     };
 
     return <>{children}</>;

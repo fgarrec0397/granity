@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ModesAvailable, SceneElement } from "./types";
+import { IEditableProxy } from "./EditableProxyProvider";
+import { ModesAvailable } from "./types";
+
+type PlainEditableProxy = Omit<IEditableProxy, "object">;
+// type CurrentEditableProxyProperties = Pick<IEditableProxy, "position" | "rotation" | "scale">;
 
 export interface EditorState {
     isEditor: boolean;
@@ -8,7 +12,7 @@ export interface EditorState {
     isMultipleSelect: boolean;
     selected: string[];
     currentMode: ModesAvailable;
-    elementsOnScene: SceneElement[];
+    currentProxy: PlainEditableProxy | null;
 }
 
 const initialState: EditorState = {
@@ -17,8 +21,9 @@ const initialState: EditorState = {
     isEditing: false,
     isMultipleSelect: false,
     currentMode: ModesAvailable.Translate,
-    elementsOnScene: [],
     selected: [],
+    // TODO -- setup interface with this object in the state
+    currentProxy: null,
 };
 
 export const sceneSlice = createSlice({
@@ -40,11 +45,8 @@ export const sceneSlice = createSlice({
         setCurrentMode: (state, action: PayloadAction<ModesAvailable>) => {
             state.currentMode = action.payload;
         },
-        addElementOnScene: (state, action: PayloadAction<SceneElement>) => {
-            state.elementsOnScene = [...state.elementsOnScene, action.payload];
-        },
-        setElementsOnScene: (state, action: PayloadAction<SceneElement[]>) => {
-            state.elementsOnScene = action.payload;
+        setCurrentProxy: (state, action: PayloadAction<PlainEditableProxy>) => {
+            state.currentProxy = action.payload;
         },
         removeSelected: (state) => {
             state.selected = [];
@@ -67,9 +69,8 @@ export const {
     setHasEditorOpened,
     setIsMultipleSelect,
     setCurrentMode,
-    addElementOnScene,
-    setElementsOnScene,
     setSelected,
+    setCurrentProxy,
     removeSelected,
 } = sceneSlice.actions;
 

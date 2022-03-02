@@ -13,8 +13,6 @@ const EditableProxy: FC<Props> = ({ editable }) => {
     const [hovered, setHover] = useState(false);
     const { isEditor } = useIsEditor();
 
-    console.log(editable, "editable from EditableModeler");
-
     const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
         event.stopPropagation();
         setHover(true);

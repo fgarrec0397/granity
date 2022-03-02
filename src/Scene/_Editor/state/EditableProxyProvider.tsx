@@ -4,7 +4,10 @@ import { Object3D } from "three";
 export interface IEditableProxy {
     name: string;
     type: string;
-    // object: Object3D;
+    position?: [number, number, number];
+    rotation?: [number, number, number];
+    scale?: [number, number, number];
+    object?: Object3D;
 }
 
 export interface EditableProxyContextModel {
