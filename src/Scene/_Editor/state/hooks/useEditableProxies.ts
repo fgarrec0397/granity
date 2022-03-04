@@ -11,7 +11,7 @@ export default () => {
     return {
         currentProxy,
         editableProxies,
-        addEditableProxy: (type: string) => {
+        addEditableProxy: (type: string, ...properties: any[]) => {
             const name = `${type} ${editableProxies.length}`;
 
             setEditableProxies([
@@ -25,10 +25,8 @@ export default () => {
         updateCurrentProxy: (editableProxy: IEditableProxy) => {
             dispatch(setCurrentProxy(editableProxy));
         },
-        removeProxy: (editableProxy: IEditableProxy) => {
-            const updatedEditableProxies = editableProxies.filter(
-                (x) => x.name === editableProxy.name
-            );
+        removeProxy: (name: string) => {
+            const updatedEditableProxies = editableProxies.filter((x) => x.name === name);
             setEditableProxies(updatedEditableProxies);
         },
     };

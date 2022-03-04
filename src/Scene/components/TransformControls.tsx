@@ -2,7 +2,6 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 import { useThree } from "@react-three/fiber";
 import React, { FC, useEffect, useState } from "react";
 import { Group, Object3D } from "three";
-import { meshBounds } from "@react-three/drei";
 import useCurrentElement from "../_Editor/state/hooks/useCurrentObjects";
 import useCurrentMode from "../_Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../_Editor/state/hooks/useIsEditing";

@@ -23,9 +23,16 @@ const EditableProxy: FC<Props> = ({ editable }) => {
         setHover(false);
     };
 
+    const meshProps = () => {
+        const editableProps = editable;
+        delete editable.object;
+
+        return editableProps;
+    };
+
     return (
-        <mesh scale={[1, 1, 1]} position={[0, 0, 0]}>
-            <boxGeometry />
+        <mesh scale={[1, 1, 1]} position={[0, 0, 0]} {...meshProps()}>
+            <editable.type />
             <meshStandardMaterial color="white" />
         </mesh>
     );

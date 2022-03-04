@@ -40,7 +40,7 @@ const SceneController: FC = () => {
             if (copiedObjects.length > 0) {
                 copiedObjects.forEach((x) => {
                     const clonedObject = x.clone();
-                    addObjectOnScene(clonedObject);
+                    addObjectOnScene(clonedObject); // TODO -- replace by addEditableProxy
                 });
             }
         } else if (event.code === "Delete") {

@@ -33,7 +33,11 @@ const EditorGeometryMenu: FC = () => {
 
     return (
         <StyledWrapper {...styles.wrapper}>
-            <Button type="dashed" onClick={() => handleOnClick("cube")} style={styles.buttonsStyle}>
+            <Button
+                type="dashed"
+                onClick={() => handleOnClick("BoxGeometry")}
+                style={styles.buttonsStyle}
+            >
                 + Cube
             </Button>
             <Button
