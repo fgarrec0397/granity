@@ -1,10 +1,11 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Object3D } from "three";
 import Scene from "./Scene";
 import useCurrentObjects from "./_Editor/state/hooks/useCurrentObjects";
 import useSceneObjects from "./_Editor/state/hooks/useSceneObjects";
 import EditableModeler from "./_Editor/components/EditableModeler";
-import { IEditableProxy, EditableProxyContext } from "./_Editor/state/EditableProxyProvider";
+import { IEditableProxy } from "./_Editor/state/EditableProxyProvider";
+import useEditableProxies from "./_Editor/state/hooks/useEditableProxies";
 
 const InstantiateObject = (editable: IEditableProxy): React.ReactNode => {
     return React.createElement(EditableModeler, {
@@ -14,8 +15,8 @@ const InstantiateObject = (editable: IEditableProxy): React.ReactNode => {
 };
 
 const SceneController: FC = () => {
-    const { objects, addObjectOnScene } = useSceneObjects();
-    const { editableProxies } = useContext(EditableProxyContext);
+    const { objects, copyObject } = useSceneObjects();
+    const { editableProxies } = useEditableProxies();
     const { currentObjects, removeCurrentObjects } = useCurrentObjects();
     const [copiedObjects, setCopiedObjects] = useState<Object3D[]>([]);
 
@@ -25,11 +26,7 @@ const SceneController: FC = () => {
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
         };
-    }, [currentObjects.length, copiedObjects, objects]);
-
-    useEffect(() => {
-        console.log(objects, "objects");
-    }, [objects]);
+    }, [currentObjects.length, currentObjects[0]?.id, copiedObjects, objects]);
 
     const handleKeyUp = (event: KeyboardEvent): void => {
         if (event.ctrlKey && event.code === "KeyC") {
@@ -39,8 +36,7 @@ const SceneController: FC = () => {
         } else if (event.ctrlKey && event.code === "KeyV") {
             if (copiedObjects.length > 0) {
                 copiedObjects.forEach((x) => {
-                    const clonedObject = x.clone();
-                    addObjectOnScene(clonedObject); // TODO -- replace by addEditableProxy
+                    copyObject(x);
                 });
             }
         } else if (event.code === "Delete") {

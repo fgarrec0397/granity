@@ -11,16 +11,22 @@ export default () => {
     return {
         currentProxy,
         editableProxies,
-        addEditableProxy: (type: string, ...properties: any[]) => {
+        addEditableProxy: (
+            type: string,
+            additionalProperties?: Pick<IEditableProxy, "position" | "rotation" | "scale">
+        ) => {
             const name = `${type} ${editableProxies.length}`;
 
-            setEditableProxies([
-                ...editableProxies,
-                {
-                    name,
-                    type,
-                },
-            ]);
+            const newEditable: IEditableProxy = {
+                name,
+                type,
+                position: [0, 0, 0],
+                rotation: [0, 0, 0],
+                scale: [1, 1, 1],
+                ...additionalProperties,
+            };
+
+            setEditableProxies([...editableProxies, newEditable]);
         },
         updateCurrentProxy: (editableProxy: IEditableProxy) => {
             dispatch(setCurrentProxy(editableProxy));

@@ -1,8 +1,9 @@
 import { useThree } from "@react-three/fiber";
-import { useContext, useEffect, useState } from "react";
-import { Object3D } from "three";
+import { useEffect, useState } from "react";
+import { Mesh, Object3D } from "three";
+import serializeVector3 from "../../../../common/utils/serializeVector3";
 import uidGenerator from "../../../../common/utils/uidGenerator";
-import { EditableProxyContext } from "../EditableProxyProvider";
+import { IEditableProxy } from "../EditableProxyProvider";
 import useEditableProxies from "./useEditableProxies";
 
 export interface ObjectDefinition {
@@ -19,15 +20,30 @@ export default () => {
         setObjects(scene.children);
     }, [scene.children.length]);
 
+    const addObjectOnScene = (
+        object: Object3D,
+        additionalProperties?: Pick<IEditableProxy, "type" | "position" | "rotation" | "scale">
+    ) => {
+        object.name = uidGenerator();
+        addEditableProxy(object.type, additionalProperties);
+    };
+
     return {
         objects,
+        addObjectOnScene,
         getObjectById: (id: string | number) => {
             return scene.children.find((x) => id === x.uuid || id === x.id);
         },
-        addObjectOnScene: (object: Object3D) => {
-            object.name = uidGenerator();
-            addEditableProxy(object.type);
-            scene.add(object);
+        copyObject: (object: Object3D) => {
+            const clonedObject = object.clone();
+            const { type } = (clonedObject as Mesh).geometry;
+
+            addObjectOnScene(clonedObject, {
+                type,
+                position: serializeVector3(clonedObject.position),
+                rotation: serializeVector3(clonedObject.rotation),
+                scale: serializeVector3(clonedObject.scale),
+            });
         },
         removeObjectFromScene: (object: Object3D) => {
             removeProxy(object.name);

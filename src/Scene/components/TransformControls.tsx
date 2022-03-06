@@ -1,7 +1,7 @@
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 import { useThree } from "@react-three/fiber";
 import React, { FC, useEffect, useState } from "react";
-import { Group, Object3D } from "three";
+import { Group, Mesh, Object3D } from "three";
 import useCurrentElement from "../_Editor/state/hooks/useCurrentObjects";
 import useCurrentMode from "../_Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../_Editor/state/hooks/useIsEditing";
@@ -155,7 +155,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         if (stateMesh) {
             updateCurrentProxy({
                 name: stateMesh.name,
-                type: "to be determined",
+                type: stateMesh.type,
                 position: serializeVector3(stateMesh.position),
                 rotation: serializeVector3(stateMesh.rotation),
                 scale: serializeVector3(stateMesh.scale),

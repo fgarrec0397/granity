@@ -1,5 +1,5 @@
 import React, { FC, createContext, useState, Dispatch, SetStateAction } from "react";
-import { Object3D } from "three";
+import { Mesh } from "three";
 
 export interface IEditableProxy {
     name: string;
@@ -7,7 +7,7 @@ export interface IEditableProxy {
     position?: [number, number, number];
     rotation?: [number, number, number];
     scale?: [number, number, number];
-    object?: Object3D;
+    object?: Mesh;
 }
 
 export interface EditableProxyContextModel {
