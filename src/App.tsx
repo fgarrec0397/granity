@@ -3,7 +3,7 @@ import Loader from "./common/components/Loader";
 import Canvas from "./Canvas";
 import useHandleEditor from "./Scene/_Editor/state/hooks/useHandleEditor";
 
-// Test 3
+// Test 4
 const App: FC = () => {
     const [isLoading, setIsLoading] = useState(true);
 
