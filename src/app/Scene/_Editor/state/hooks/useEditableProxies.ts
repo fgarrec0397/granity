@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks";
 import { EditableProxyContext, IEditableProxy } from "../EditableProxyProvider";
 import { setCurrentProxy } from "../editorReducer";
 

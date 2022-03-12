@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks";
 import { setCurrentMode } from "../editorReducer";
 import { ModesAvailable } from "../types";
 

@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
 import "antd/dist/antd.css";
-import StoreProvider from "./app/StoreProvider";
-import EditableProxyProvider from "./Scene/_Editor/state/EditableProxyProvider";
+import StoreProvider from "./App/StoreProvider";
+import EditableProxyProvider from "./App/Scene/_Editor/state/EditableProxyProvider";
 
 ReactDOM.render(
     <React.StrictMode>
