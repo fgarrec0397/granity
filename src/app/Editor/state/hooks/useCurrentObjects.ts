@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Mesh, Object3D } from "three";
-import { useAppDispatch, useAppSelector } from "../../../Core/hooks";
+import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { removeSelected, setSelected } from "../editorReducer";
 import useSceneObjects from "./useSceneObjects";
 

@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../../Core/hooks";
+import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { setIsEditor } from "../editorReducer";
 
 export default () => {
@@ -6,5 +6,4 @@ export default () => {
     const { isEditor } = useAppSelector((state) => state.editor);
 
     return { isEditor, setIsEditor: () => dispatch(setIsEditor()) };
-    // eslint-disable-next-line prettier/prettier
 };
