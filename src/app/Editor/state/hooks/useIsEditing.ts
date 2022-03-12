@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../../../hooks";
+import { useAppDispatch, useAppSelector } from "../../../Core/hooks";
 import { setIsEditing } from "../editorReducer";
 
 export default () => {

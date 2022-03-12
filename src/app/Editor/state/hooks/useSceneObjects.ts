@@ -1,8 +1,8 @@
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import { Mesh, Object3D } from "three";
-import serializeVector3 from "../../../../common/utils/serializeVector3";
-import uidGenerator from "../../../../common/utils/uidGenerator";
+import serializeVector3 from "../../../Common/utils/serializeVector3";
+import uidGenerator from "../../../Common/utils/uidGenerator";
 import { IEditableProxy } from "../EditableProxyProvider";
 import useEditableProxies from "./useEditableProxies";
 

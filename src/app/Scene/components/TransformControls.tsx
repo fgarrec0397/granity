@@ -2,11 +2,11 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 import { useThree } from "@react-three/fiber";
 import React, { FC, useEffect, useState } from "react";
 import { Group, Mesh, Object3D } from "three";
-import useCurrentElement from "../_Editor/state/hooks/useCurrentObjects";
-import useCurrentMode from "../_Editor/state/hooks/useCurrentMode";
-import useIsEditing from "../_Editor/state/hooks/useIsEditing";
-import useCurrentProxy from "../_Editor/state/hooks/useEditableProxies";
-import serializeVector3 from "../../common/utils/serializeVector3";
+import useCurrentElement from "../../Editor/state/hooks/useCurrentObjects";
+import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
+import useIsEditing from "../../Editor/state/hooks/useIsEditing";
+import useCurrentProxy from "../../Editor/state/hooks/useEditableProxies";
+import serializeVector3 from "../../Common/utils/serializeVector3";
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { currentObjects, setCurrentObjects } = useCurrentElement();
