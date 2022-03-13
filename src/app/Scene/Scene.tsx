@@ -3,22 +3,12 @@ import { Object3D } from "three";
 import { Physics } from "@react-three/cannon";
 import useCurrentObjects from "../Editor/state/hooks/useCurrentObjects";
 import useSceneObjects from "../Editor/state/hooks/useSceneObjects";
-import EditableModeler from "../Editor/components/EditableModeler";
-import { IEditableProxy } from "../Editor/state/EditableProxyProvider";
-import useEditableProxies from "../Editor/state/hooks/useEditableProxies";
 import Lights from "./components/Lights";
 import CameraControls from "./components/CameraControls";
+import Widgets from "../Core/_Widgets/Widgets";
 
-const InstantiateObject = (editable: IEditableProxy): React.ReactNode => {
-    return React.createElement(EditableModeler, {
-        key: editable.name,
-        editable,
-    });
-};
-
-const SceneController: FC = () => {
+const Scene: FC = () => {
     const { objects, copyObject } = useSceneObjects();
-    const { editableProxies } = useEditableProxies();
     const { currentObjects, removeCurrentObjects } = useCurrentObjects();
     const [copiedObjects, setCopiedObjects] = useState<Object3D[]>([]);
 
@@ -54,9 +44,9 @@ const SceneController: FC = () => {
         <>
             <Lights />
             <CameraControls />
-            {editableProxies.map((editableProxy) => InstantiateObject(editableProxy))}{" "}
+            <Widgets />
         </>
     );
 };
 
-export default SceneController;
+export default Scene;
