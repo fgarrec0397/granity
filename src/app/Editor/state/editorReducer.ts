@@ -3,7 +3,6 @@ import { IEditableProxy } from "./EditableProxyProvider";
 import { ModesAvailable } from "./types";
 
 type PlainEditableProxy = Omit<IEditableProxy, "object">;
-// type CurrentEditableProxyProperties = Pick<IEditableProxy, "position" | "rotation" | "scale">;
 
 export interface EditorState {
     isEditor: boolean;

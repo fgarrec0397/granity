@@ -1,4 +1,3 @@
-// @ts-ignore
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { PointerLockControls, OrbitControls } from "@react-three/drei";

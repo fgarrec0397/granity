@@ -1,3 +1,5 @@
-import widgets from "../../extractor";
+// import widgets from "../../extractor";
 
-console.log(widgets, "widgets"); // not showing
+export const test = "test";
+
+// console.log(widgets, "widgets"); // not showing

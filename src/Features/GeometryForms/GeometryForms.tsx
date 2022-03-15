@@ -42,4 +42,25 @@ const GeometryForms: FC<Props> = ({ editable }) => {
 
 export const widget = {
     component: GeometryForms,
+    reducer: null,
+    widgetDefinition: {
+        name: "Geometry",
+        options: [
+            {
+                name: "form",
+                displayName: "Form",
+                fieldType: "Select",
+                selectOptions: [
+                    {
+                        value: "BoxGeometry",
+                        name: "Cube",
+                    },
+                    {
+                        value: "PlaneGeometry",
+                        name: "Plane",
+                    },
+                ],
+            },
+        ],
+    },
 };
