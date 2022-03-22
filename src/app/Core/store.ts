@@ -24,8 +24,6 @@ export type InjectableStore = Store<State, MyAction> & {
     asyncReducers?: Partial<ReducersMapObject<State, MyAction>>;
 };
 
-// const featuresReducer = (state: FeaturesState = {}, action: MyAction): FeaturesState => state;
-
 /**
  * mapping of State properties to their reducers
  */

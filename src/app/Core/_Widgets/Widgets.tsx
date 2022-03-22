@@ -5,6 +5,8 @@ import useEditableProxies from "../../Editor/state/hooks/useEditableProxies";
 // import widgets from "../../extractor";
 
 const InstantiateObject = (editable: IEditableProxy): React.ReactNode => {
+    console.log(editable, "editable");
+
     return React.createElement(EditableModeler, {
         key: editable.name,
         editable,
