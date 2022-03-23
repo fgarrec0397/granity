@@ -1,14 +1,16 @@
 import { MeshProps, ThreeEvent } from "@react-three/fiber";
 import React, { FC, useState } from "react";
-import { IEditableProxy } from "../../App/Editor/state/EditableProxyProvider";
+import { IWidget } from "../../App/Core/_Widgets/typings";
 
-interface Props extends MeshProps {
-    editable: IEditableProxy;
+export interface GeometryFormsProps extends MeshProps {
+    geometryFormsProps: string;
 }
+
+type OwnProps = GeometryFormsProps;
 
 const hoveredColor = "#bdbdf5";
 
-const GeometryForms: FC<Props> = ({ editable }) => {
+const GeometryForms: FC<OwnProps> = ({ geometryFormsProps = "" }) => {
     const [hovered, setHover] = useState(false);
 
     const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
@@ -21,26 +23,15 @@ const GeometryForms: FC<Props> = ({ editable }) => {
         setHover(false);
     };
 
-    const meshProps = () => {
-        const editableProps = editable;
-        delete editable.object;
-
-        return editableProps;
-    };
-
     return (
-        <mesh
-            {...meshProps()}
-            onPointerOver={handleOnPointerOver}
-            onPointerOut={handleOnPointerOut}
-        >
+        <mesh onPointerOver={handleOnPointerOver} onPointerOut={handleOnPointerOut}>
             <boxGeometry />
             <meshStandardMaterial color={hovered ? hoveredColor : "white"} />
         </mesh>
     );
 };
 
-export const widget = {
+export const widget: IWidget = {
     component: GeometryForms,
     reducer: null,
     widgetDefinition: {

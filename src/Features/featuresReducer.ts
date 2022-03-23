@@ -1,11 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { preparedReducer } from "./collector";
-import { TextState } from "./Text/state/textReducer";
-import { TextState2 } from "./Text2/state/textReducer";
+import { MapPropertiesToNonNullable } from "../App/Common/utils/typings";
+import { FeaturesState, preparedReducer } from "./collector";
 
-export interface FeaturesState {
-    textState: TextState;
-    textState2: TextState2;
-}
+type PreparedReducer = MapPropertiesToNonNullable<typeof preparedReducer>;
 
-export default combineReducers<FeaturesState>(preparedReducer);
+export default combineReducers<FeaturesState>(preparedReducer as PreparedReducer);

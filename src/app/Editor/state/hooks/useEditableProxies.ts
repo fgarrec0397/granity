@@ -11,10 +11,6 @@ export default () => {
     return {
         currentProxy,
         editableProxies,
-        addWidget: (widget: any) => {
-            // TODO -- Use IEditableProxy for widgets
-            setEditableProxies([...editableProxies, widget]);
-        },
         addEditableProxy: (
             type: string,
             additionalProperties?: Pick<IEditableProxy, "position" | "rotation" | "scale">

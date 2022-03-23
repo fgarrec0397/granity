@@ -1,9 +1,10 @@
-import { Button, Card, Col, Modal, Row } from "antd";
-import React, { FC, CSSProperties, useState, MouseEventHandler } from "react";
+import { Button, Col, Modal, Row } from "antd";
+import React, { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import useEditableProxies from "../state/hooks/useEditableProxies";
 import widgets from "../../../Features/collector";
+import useWidgets from "../state/hooks/useWidgets";
+import { IWidget } from "../../Core/_Widgets/typings";
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;
@@ -23,40 +24,49 @@ const styles: EditorFeedbackStyles = {
     },
 };
 
-const gridStyle: CSSProperties = {
-    width: "25%",
-    textAlign: "center",
-};
-
 const EditorGeometryMenu: FC = () => {
-    const { addEditableProxy } = useEditableProxies();
+    const { addWidget } = useWidgets();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const showModal = () => {
+    const handleOnClick = (widget: IWidget): void => {
+        addWidget(widget);
+        closeModalHandler();
+    };
+
+    const openModalHandler = () => {
         setIsModalVisible(true);
     };
-
-    const handleOnClick = (widget: any): void => {
-        addEditableProxy(widget);
+    const closeModalHandler = () => {
+        setIsModalVisible(false);
     };
 
-    console.log(widgets, "widgets");
-
     return (
-        <StyledWrapper {...styles.wrapper}>
-            <Button type="dashed" onClick={showModal} style={styles.buttonsStyle}>
-                + Widget
-            </Button>
-            <Modal title="Widgets" visible={isModalVisible} width={1000} footer={[]}>
-                <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                    {widgets.map((widget) => (
-                        <Col className="gutter-row" span={6} onClick={() => handleOnClick(widget)}>
-                            {widget.widgetDefinition.name}
-                        </Col>
-                    ))}
-                </Row>
-            </Modal>
-            {/* <Button
+        <StrictMode>
+            <StyledWrapper {...styles.wrapper}>
+                <Button type="dashed" onClick={openModalHandler} style={styles.buttonsStyle}>
+                    + Widget
+                </Button>
+                <Modal
+                    title="Widgets"
+                    visible={isModalVisible}
+                    onCancel={closeModalHandler}
+                    width={1000}
+                    footer={[]}
+                >
+                    <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                        {widgets.map((widget, index) => {
+                            const key = `${index}-${widget.widgetDefinition.name}`;
+                            return (
+                                <Col key={key} className="gutter-row" span={6}>
+                                    <Button type="link" onClick={() => handleOnClick(widget)}>
+                                        {widget.widgetDefinition.name}
+                                    </Button>
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                </Modal>
+                {/* <Button
                 type="dashed"
                 onClick={() => handleOnClick("BoxGeometry")}
                 style={styles.buttonsStyle}
@@ -70,7 +80,8 @@ const EditorGeometryMenu: FC = () => {
             >
                 + Plane
             </Button> */}
-        </StyledWrapper>
+            </StyledWrapper>
+        </StrictMode>
     );
 };
 

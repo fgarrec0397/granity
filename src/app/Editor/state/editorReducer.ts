@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IWidget } from "../../Core/_Widgets/typings";
 import { IEditableProxy } from "./EditableProxyProvider";
 import { ModesAvailable } from "./types";
 
 type PlainEditableProxy = Omit<IEditableProxy, "object">;
+type PlainWidget = Omit<IWidget, "component">;
 
 export interface EditorState {
     isEditor: boolean;
@@ -12,6 +14,7 @@ export interface EditorState {
     selected: string[];
     currentMode: ModesAvailable;
     currentProxy: PlainEditableProxy | null;
+    currentWidget: PlainWidget | null;
 }
 
 const initialState: EditorState = {
@@ -23,6 +26,7 @@ const initialState: EditorState = {
     selected: [],
     // TODO -- setup interface with this object in the state
     currentProxy: null,
+    currentWidget: null,
 };
 
 export const sceneSlice = createSlice({
@@ -46,6 +50,9 @@ export const sceneSlice = createSlice({
         },
         setCurrentProxy: (state, action: PayloadAction<PlainEditableProxy>) => {
             state.currentProxy = action.payload;
+        },
+        setCurrentWidget: (state, action: PayloadAction<PlainWidget>) => {
+            state.currentWidget = action.payload;
         },
         removeSelected: (state) => {
             state.selected = [];
@@ -71,6 +78,7 @@ export const {
     setSelected,
     setCurrentProxy,
     removeSelected,
+    setCurrentWidget,
 } = sceneSlice.actions;
 
 export default sceneSlice.reducer;

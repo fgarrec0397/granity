@@ -1,22 +1,20 @@
 import React, { FC } from "react";
-import EditableModeler from "../../Editor/components/EditableModeler";
-import { IEditableProxy } from "../../Editor/state/EditableProxyProvider";
-import useEditableProxies from "../../Editor/state/hooks/useEditableProxies";
-// import widgets from "../../extractor";
+import useWidgets from "../../Editor/state/hooks/useWidgets";
+import { IWidget } from "./typings";
 
-const InstantiateObject = (editable: IEditableProxy): React.ReactNode => {
-    console.log(editable, "editable");
+const InstantiateObject = (widget: IWidget): React.ReactNode => {
+    const widgetProps = {} as any;
 
-    return React.createElement(EditableModeler, {
-        key: editable.name,
-        editable,
+    return React.createElement(widget.component, {
+        key: widget.widgetDefinition.name,
+        ...widgetProps,
     });
 };
 
 const Widgets: FC = () => {
-    const { editableProxies } = useEditableProxies();
-    // console.log(widgets, "widgets from Widgets");
-    return <>{editableProxies.map((editableProxy) => InstantiateObject(editableProxy))}</>;
+    const { widgets } = useWidgets();
+
+    return <>{widgets.map((widget) => InstantiateObject(widget))}</>;
 };
 
 export default Widgets;

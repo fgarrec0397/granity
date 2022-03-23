@@ -1,5 +1,6 @@
 import { Html } from "@react-three/drei";
 import React, { FC } from "react";
+import { IWidget } from "../../App/Core/_Widgets/typings";
 import textReducer from "./state/textReducer";
 
 const Text: FC = () => {
@@ -14,7 +15,7 @@ const Text: FC = () => {
     );
 };
 
-export const widget = {
+export const widget: IWidget = {
     component: Text,
     reducer: textReducer,
     widgetDefinition: {
@@ -23,7 +24,7 @@ export const widget = {
             {
                 name: "text",
                 displayName: "Text",
-                fieldType: "TextField",
+                fieldType: "Text",
             },
         ],
     },
