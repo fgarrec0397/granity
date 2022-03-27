@@ -36,6 +36,7 @@ const EditorGeometryMenu: FC = () => {
     const openModalHandler = () => {
         setIsModalVisible(true);
     };
+
     const closeModalHandler = () => {
         setIsModalVisible(false);
     };
@@ -66,20 +67,6 @@ const EditorGeometryMenu: FC = () => {
                         })}
                     </Row>
                 </Modal>
-                {/* <Button
-                type="dashed"
-                onClick={() => handleOnClick("BoxGeometry")}
-                style={styles.buttonsStyle}
-            >
-                + Cube
-            </Button>
-            <Button
-                type="dashed"
-                onClick={() => handleOnClick("plane")}
-                style={styles.buttonsStyle}
-            >
-                + Plane
-            </Button> */}
             </StyledWrapper>
         </StrictMode>
     );

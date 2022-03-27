@@ -24,6 +24,7 @@ export interface WidgetBaseOptions {
     displayName: string;
     fieldType: FieldType;
     selectOptions?: SelectOptions[];
+    defaultValue: string | number; // TODO - Readjust that in order to match the field type
 }
 
 /**
@@ -47,8 +48,8 @@ type FeaturesUnionsTypes = UnionOfProperties<FeaturesState>;
 /**
  * Widget object that is exported from all widgets objects
  */
-export interface IWidget {
-    component: FC<FeaturesWidgetsProps>;
+export interface IWidget<Props = FeaturesWidgetsProps> {
+    component: FC<Props>;
     reducer: Reducer<FeaturesUnionsTypes, AnyAction> | null;
     widgetDefinition: WidgetDefinition;
 }

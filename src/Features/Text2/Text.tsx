@@ -25,6 +25,7 @@ export const widget: IWidget = {
                 name: "text",
                 displayName: "Text",
                 fieldType: "Text",
+                defaultValue: "Test default value",
             },
         ],
     },

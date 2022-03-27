@@ -2,13 +2,14 @@ import geometryForms from "./GeometryForms";
 import { GeometryFormsProps } from "./GeometryForms/GeometryForms";
 import text from "./Text";
 import { TextState } from "./Text/state/textReducer";
+import { TextProps } from "./Text/Text";
 import text2 from "./Text2";
 import { TextState2 } from "./Text2/state/textReducer";
 
 /**
  * Add your Widgets Props here as union types
  */
-export type FeaturesWidgetsProps = GeometryFormsProps;
+export type FeaturesWidgetsProps = GeometryFormsProps & TextProps;
 
 /**
  * Add your Widgets reducers state here

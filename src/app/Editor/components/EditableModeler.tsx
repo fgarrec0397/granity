@@ -21,19 +21,8 @@ const EditableProxy: FC<Props> = ({ editable }) => {
         setHover(false);
     };
 
-    const meshProps = () => {
-        const editableProps = editable;
-        delete editable.object;
-
-        return editableProps;
-    };
-
     return (
-        <mesh
-            {...meshProps()}
-            onPointerOver={handleOnPointerOver}
-            onPointerOut={handleOnPointerOut}
-        >
+        <mesh onPointerOver={handleOnPointerOver} onPointerOut={handleOnPointerOut}>
             <boxGeometry />
             <meshStandardMaterial color={hovered ? hoveredColor : "white"} />
         </mesh>
