@@ -1,5 +1,5 @@
 import React, { FC, createContext, useState, Dispatch, SetStateAction } from "react";
-import { IWidget } from "../../Core/_Widgets/typings";
+import { IWidget } from "../../Core/_Widgets/types";
 
 export interface WidgetContextModel {
     widgets: IWidget[] | [];

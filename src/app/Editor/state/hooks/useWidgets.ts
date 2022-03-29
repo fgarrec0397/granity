@@ -1,6 +1,6 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
-import { IWidget } from "../../../Core/_Widgets/typings";
+import { IWidget, WidgetSceneObject } from "../../../Core/_Widgets/types";
 import { setCurrentWidget } from "../editorReducer";
 import { WidgetsContext } from "../WidgetsProvider";
 
@@ -9,20 +9,20 @@ export default () => {
     const { currentWidget } = useAppSelector((state) => state.editor);
     const { widgets, setWidgets } = useContext(WidgetsContext);
 
-    useEffect(() => {
-        console.log(widgets, "widgets");
-    }, [widgets.length]);
     return {
         currentWidget,
         widgets,
         addWidget: (widget: IWidget) => {
-            console.log(widget, "addWidget");
-
-            // TODO -- Use IEditableProxy for widgets
             setWidgets([...widgets, widget]);
         },
-        updateCurrentProxy: (widget: IWidget) => {
+        updateCurrentWidget: (widget: WidgetSceneObject) => {
             dispatch(setCurrentWidget(widget));
+        },
+        removeWidget: (name: string) => {
+            const updatedWidgets = widgets.filter(
+                ({ widgetDefinition }) => widgetDefinition.name === name
+            );
+            setWidgets(updatedWidgets);
         },
     };
 };

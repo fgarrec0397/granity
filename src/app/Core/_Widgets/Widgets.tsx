@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import { FeaturesWidgetsProps } from "../../../Features/collector";
 import useWidgets from "../../Editor/state/hooks/useWidgets";
-import { IWidget } from "./typings";
+import WidgetRenderer from "./components/WidgetRenderer";
+import { IWidget } from "./types";
 
 const InstantiateObject = (widget: IWidget): React.ReactNode => {
     const getWidgetProps = (): FeaturesWidgetsProps[] | undefined => {
@@ -15,8 +16,9 @@ const InstantiateObject = (widget: IWidget): React.ReactNode => {
     const widgetProps = getWidgetProps() || [];
     const props = Object.assign({}, ...widgetProps) as FeaturesWidgetsProps;
 
-    return React.createElement(widget.component, {
+    return React.createElement(WidgetRenderer, {
         key: widget.widgetDefinition.name,
+        component: widget.component,
         ...props,
     });
 };

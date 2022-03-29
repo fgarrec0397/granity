@@ -58,14 +58,12 @@ const usePlayerControls = (): Movements => {
 };
 
 const PlayerCamera: FC = (props) => {
-    console.log(props, "props");
     const [ref, api] = useSphere(() => ({
         mass: 1,
         type: "Dynamic",
         position: initialPlayerPos,
         ...props,
     }));
-    console.log(ref, "ref");
 
     const { forward, backward, left, right, jump } = usePlayerControls();
     const { camera } = useThree();

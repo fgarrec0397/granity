@@ -9,11 +9,7 @@ export default () => {
     const { currentObjects, removeCurrentObjects } = useCurrentObjects();
     const [copiedObjects, setCopiedObjects] = useState<Object3D[]>([]);
 
-    useHandleEditor(); // TODO -- see why it doesnt workd
-
-    useEffect(() => {
-        console.log(objects, "objects");
-    }, [objects.length]);
+    useHandleEditor();
 
     useEffect(() => {
         window.addEventListener("keyup", handleKeyUp);

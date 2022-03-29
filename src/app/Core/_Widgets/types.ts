@@ -53,3 +53,12 @@ export interface IWidget<Props = FeaturesWidgetsProps> {
     reducer: Reducer<FeaturesUnionsTypes, AnyAction> | null;
     widgetDefinition: WidgetDefinition;
 }
+
+/**
+ * Informations of a widget object on the scene
+ */
+export type WidgetSceneObject = {
+    position?: [number, number, number];
+    rotation?: [number, number, number];
+    scale?: [number, number, number];
+};

@@ -1,34 +1,33 @@
-import { ThreeEvent } from "@react-three/fiber";
-import React, { FC, useState } from "react";
-import { IWidget } from "../../App/Core/_Widgets/typings";
+import React, { FC } from "react";
+import { IWidget } from "../../App/Core/_Widgets/types";
+import { EditableWidget } from "../../App/Editor/types";
 
-export interface GeometryFormsProps {
+export interface GeometryFormsProps extends EditableWidget {
     shape: string;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const hoveredColor = "#bdbdf5";
-
-const GeometryForms: FC<OwnProps> = ({ shape }) => {
-    const [hovered, setHover] = useState(false);
+const GeometryForms: FC<OwnProps> = ({ shape, hovered }) => {
     const GeometryComponent = shape;
 
-    const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
-        event.stopPropagation();
-        setHover(true);
-    };
-
-    const handleOnPointerOut = (event: ThreeEvent<PointerEvent>): void => {
-        event.stopPropagation();
-        setHover(false);
-    };
-
+    // return (
+    //     <mesh name="GeometryForms1" position={[1, 1, 1]}>
+    //         <GeometryComponent />
+    //         <meshStandardMaterial color={hovered ? "#bdbdf5" : "white"} />
+    //     </mesh>
+    // );
     return (
-        <mesh onPointerOver={handleOnPointerOver} onPointerOut={handleOnPointerOut}>
-            <GeometryComponent />
-            <meshStandardMaterial color={hovered ? hoveredColor : "white"} />
-        </mesh>
+        <group name="group">
+            <mesh name="GeometryForms1" position={[1, 1, 1]}>
+                <GeometryComponent />
+                <meshStandardMaterial color={hovered ? "#bdbdf5" : "white"} />
+            </mesh>
+            <mesh name="GeometryForms2" position={[2, 2, 2]}>
+                <GeometryComponent />
+                <meshStandardMaterial color={hovered ? "#bdbdf5" : "white"} />
+            </mesh>
+        </group>
     );
 };
 

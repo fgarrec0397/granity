@@ -1,17 +1,19 @@
 import { Card, List } from "antd";
 import React, { FC } from "react";
-import useEditableProxies from "../state/hooks/useEditableProxies";
+import useWidgets from "../state/hooks/useWidgets";
 
 const EditorItemsList: FC = () => {
-    const { editableProxies } = useEditableProxies();
+    const { widgets } = useWidgets();
 
     return (
         <Card size="small" title="Elements on scene">
             <List
                 size="small"
                 bordered
-                dataSource={editableProxies}
-                renderItem={(item) => <List.Item>{item.name}</List.Item>}
+                dataSource={widgets}
+                renderItem={({ widgetDefinition }) => (
+                    <List.Item>{widgetDefinition.name}</List.Item>
+                )}
             />
         </Card>
     );

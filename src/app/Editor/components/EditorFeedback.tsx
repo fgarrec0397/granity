@@ -2,7 +2,8 @@ import { Card, Descriptions } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import useEditableProxies from "../state/hooks/useEditableProxies";
+import useWidgets from "../state/hooks/useWidgets";
+// import useEditableProxies from "../state/hooks/useEditableProxies";
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;
@@ -19,14 +20,14 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-    const { currentProxy } = useEditableProxies();
+    const { currentWidget } = useWidgets();
 
-    if (currentProxy) {
+    if (currentWidget) {
         return (
             <StyledWrapper {...styles.wrapper}>
-                <Card size="small" title={`Current Element - ${currentProxy.name}`}>
+                <Card size="small" title="Current Element - Widget name not supported yet">
                     <Descriptions>
-                        {currentProxy.position !== undefined && (
+                        {currentWidget.position !== undefined && (
                             <Descriptions.Item
                                 label="Position"
                                 labelStyle={{
@@ -38,21 +39,21 @@ const EditorFeedback: FC = () => {
                             >
                                 <span>
                                     <i>X:</i>
-                                    {currentProxy.position[0].toFixed(3)}
+                                    {currentWidget.position[0].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Y:</i>
-                                    {currentProxy.position[1].toFixed(3)}
+                                    {currentWidget.position[1].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Z:</i>
-                                    {currentProxy.position[2].toFixed(3)}
+                                    {currentWidget.position[2].toFixed(3)}
                                 </span>
                             </Descriptions.Item>
                         )}
                     </Descriptions>
                     <Descriptions>
-                        {currentProxy.rotation !== undefined && (
+                        {currentWidget.rotation !== undefined && (
                             <Descriptions.Item
                                 label="Rotation"
                                 labelStyle={{
@@ -64,21 +65,21 @@ const EditorFeedback: FC = () => {
                             >
                                 <span>
                                     <i>X:</i>
-                                    {currentProxy.rotation[0].toFixed(3)}
+                                    {currentWidget.rotation[0].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Y:</i>
-                                    {currentProxy.rotation[1].toFixed(3)}
+                                    {currentWidget.rotation[1].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Z:</i>
-                                    {currentProxy.rotation[2].toFixed(3)}
+                                    {currentWidget.rotation[2].toFixed(3)}
                                 </span>
                             </Descriptions.Item>
                         )}
                     </Descriptions>
                     <Descriptions>
-                        {currentProxy.scale !== undefined && (
+                        {currentWidget.scale !== undefined && (
                             <Descriptions.Item
                                 label="Scale"
                                 labelStyle={{
@@ -90,15 +91,15 @@ const EditorFeedback: FC = () => {
                             >
                                 <span>
                                     <i>X:</i>
-                                    {currentProxy.scale[0].toFixed(3)}
+                                    {currentWidget.scale[0].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Y:</i>
-                                    {currentProxy.scale[1].toFixed(3)}
+                                    {currentWidget.scale[1].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Z:</i>
-                                    {currentProxy.scale[2].toFixed(3)}
+                                    {currentWidget.scale[2].toFixed(3)}
                                 </span>
                             </Descriptions.Item>
                         )}

@@ -2,15 +2,15 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 import { useThree } from "@react-three/fiber";
 import React, { FC, useEffect, useState } from "react";
 import { Group, Object3D } from "three";
-import useCurrentElement from "../../Editor/state/hooks/useCurrentObjects";
+import useCurrentObjects from "../../Editor/state/hooks/useCurrentObjects";
 import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
-import useCurrentProxy from "../../Editor/state/hooks/useEditableProxies";
 import serializeVector3 from "../../Common/utils/serializeVector3";
+import useWidgets from "../../Editor/state/hooks/useWidgets";
 
 const TransformControlsComponent: FC = ({ children }) => {
-    const { currentObjects, setCurrentObjects } = useCurrentElement();
-    const { updateCurrentProxy } = useCurrentProxy();
+    const { currentObjects, setCurrentObjects } = useCurrentObjects();
+    const { updateCurrentWidget } = useWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
     const { mouse, camera, raycaster, scene, gl } = useThree();
@@ -21,7 +21,6 @@ const TransformControlsComponent: FC = ({ children }) => {
     /**
      * Instantiate TransformControls class, attach a mesh and add it to the scene
      */
-
     useEffect(() => {
         if (!transformControl && stateMesh) {
             const transformC = new TransformControls(camera, gl.domElement);
@@ -41,14 +40,6 @@ const TransformControlsComponent: FC = ({ children }) => {
     }, [transformControl, camera, scene, gl, stateMesh]);
 
     useEffect(() => {
-        window.addEventListener("mouseup", onMouseUp);
-
-        return () => {
-            window.removeEventListener("mouseup", onMouseUp);
-        };
-    }, [scene.children.length, currentObjects.length, temporaryGroup]);
-
-    useEffect(() => {
         if (currentObjects.length > 1 && transformControl) {
             const group = new Group();
 
@@ -65,10 +56,20 @@ const TransformControlsComponent: FC = ({ children }) => {
     }, [currentObjects]);
 
     /**
+     * Initialize mouse up events
+     */
+    useEffect(() => {
+        window.addEventListener("mouseup", onMouseUp);
+
+        return () => {
+            window.removeEventListener("mouseup", onMouseUp);
+        };
+    }, [scene.children.length, currentObjects.length, temporaryGroup]);
+
+    /**
      * Initialize events on transformControls.
      * Updated each time elementsOnScene is modified to keep the state updated
      */
-
     useEffect(() => {
         transformControl?.addEventListener("dragging-changed", onDraggingChangedHandler);
         transformControl?.addEventListener("objectChange", onObjectChangeHandler);
@@ -82,7 +83,6 @@ const TransformControlsComponent: FC = ({ children }) => {
     /**
      * Detach the transformControl whenever the current element change
      */
-
     useEffect(() => {
         if (transformControl) {
             transformControl.detach();
@@ -92,7 +92,6 @@ const TransformControlsComponent: FC = ({ children }) => {
     /**
      * Update the transformControl mode when the currentMode changes
      */
-
     useEffect(() => {
         if (transformControl) {
             transformControl.setMode(currentMode);
@@ -103,33 +102,39 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Raycast the closest element and select it as the current element
      * @param event
      */
-
     const onMouseUp = (event: MouseEvent): void => {
         event.preventDefault();
 
         const isMultipleSelect = event.ctrlKey;
 
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
         raycaster.setFromCamera(mouse, camera);
 
-        const intersects = raycaster.intersectObjects([...scene.children]);
+        const intersects = raycaster.intersectObjects(scene.children, true);
 
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
-            setCurrentObjects(closestMesh.object.uuid, isMultipleSelect);
-        } else if (temporaryGroup && !isEditing) {
-            const grouppedMeshes: any = [];
+            let mesh: Object3D | undefined;
 
-            temporaryGroup.children.forEach((child: any) => {
+            closestMesh.object.traverseAncestors((object) => {
+                if (object.name === "WidgetRenderer") {
+                    mesh = object;
+                }
+            });
+
+            if (mesh) {
+                setCurrentObjects(mesh.uuid, isMultipleSelect);
+            }
+        } else if (temporaryGroup && !isEditing) {
+            const grouppedMeshes: Object3D[] = [];
+
+            temporaryGroup.children.forEach((child) => {
                 if (child) {
                     grouppedMeshes.push(child);
                     scene.remove(child);
                 }
             });
 
-            grouppedMeshes.forEach((mesh: any) => {
+            grouppedMeshes.forEach((mesh) => {
                 scene.attach(mesh);
             });
 
@@ -142,7 +147,6 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Change isEditing value based on the dragging-changed event
      * @param event
      */
-
     const onDraggingChangedHandler = ({ value }: any) => {
         setIsEditing(value);
     };
@@ -150,12 +154,9 @@ const TransformControlsComponent: FC = ({ children }) => {
     /**
      * Update the currentElement based on the mesh properties
      */
-
     const onObjectChangeHandler = () => {
         if (stateMesh) {
-            updateCurrentProxy({
-                name: stateMesh.name,
-                type: stateMesh.type,
+            updateCurrentWidget({
                 position: serializeVector3(stateMesh.position),
                 rotation: serializeVector3(stateMesh.rotation),
                 scale: serializeVector3(stateMesh.scale),

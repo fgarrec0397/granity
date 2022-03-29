@@ -4,7 +4,7 @@ import { Mesh, Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { IEditableProxy } from "../EditableProxyProvider";
-import useEditableProxies from "./useEditableProxies";
+import useWidgets from "./useWidgets";
 
 export interface ObjectDefinition {
     name: string;
@@ -13,7 +13,7 @@ export interface ObjectDefinition {
 
 export default () => {
     const { scene } = useThree();
-    const { addEditableProxy, removeProxy } = useEditableProxies();
+    const { addWidget, removeWidget } = useWidgets();
     const [objects, setObjects] = useState<Object3D[]>([]);
 
     useEffect(() => {
@@ -24,8 +24,7 @@ export default () => {
         object: Object3D,
         additionalProperties?: Pick<IEditableProxy, "type" | "position" | "rotation" | "scale">
     ) => {
-        object.name = uidGenerator();
-        addEditableProxy(object.type, additionalProperties);
+        console.warn("addObjectOnScene doesnt work for now");
     };
 
     return {
@@ -46,12 +45,12 @@ export default () => {
             });
         },
         removeObjectFromScene: (object: Object3D) => {
-            removeProxy(object.name);
+            removeWidget(object.name);
             scene.remove(object);
         },
         removeObjectsArrayFromScene: (objectsArray: Object3D[]) => {
             objectsArray.forEach((x) => {
-                removeProxy(x.name);
+                removeWidget(x.name);
                 scene.remove(x);
             });
         },
