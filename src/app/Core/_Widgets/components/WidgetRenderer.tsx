@@ -4,6 +4,7 @@ import { FeaturesWidgetsProps } from "../../../../Features/collector";
 
 type Props<T = FeaturesWidgetsProps> = T & {
     component: FC<T>;
+    name: string;
 };
 
 const WidgetRenderer: FC<Props> = ({ component, ...componentProps }) => {
@@ -22,7 +23,7 @@ const WidgetRenderer: FC<Props> = ({ component, ...componentProps }) => {
 
     return (
         <group
-            name="WidgetRenderer"
+            name="WidgetRenderer" // FIXME -- Should be unique
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
         >

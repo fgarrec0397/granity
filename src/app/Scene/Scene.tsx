@@ -7,6 +7,7 @@ import useKeyboardControls from "../Core/hooks/useKeyboardControls";
 
 const Scene: FC = () => {
     useKeyboardControls();
+
     return (
         <Physics>
             <Lights />
