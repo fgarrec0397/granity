@@ -23,6 +23,8 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     useEffect(() => {
         if (!transformControl && stateMesh) {
+            // FIXME - stateMesh or currentObjects are different from the scene here
+            console.log(stateMesh, "stateMesh");
             const transformC = new TransformControls(camera, gl.domElement);
             transformC.attach(stateMesh);
             transformC.setMode(currentMode);
@@ -51,6 +53,8 @@ const TransformControlsComponent: FC = ({ children }) => {
             scene.add(group);
             setStateMesh(group);
         } else {
+            console.log(currentObjects[0], "currentObjects[0] before setStateMesh");
+
             setStateMesh(currentObjects[0]);
         }
     }, [currentObjects]);
@@ -116,13 +120,15 @@ const TransformControlsComponent: FC = ({ children }) => {
             let mesh: Object3D | undefined;
 
             closestMesh.object.traverseAncestors((object) => {
-                if (object.name === "WidgetRenderer") {
+                if (object.name.startsWith("WidgetRenderer")) {
                     mesh = object;
                 }
             });
 
+            console.log(mesh, "mesh");
+
             if (mesh) {
-                setCurrentObjects(mesh.uuid, isMultipleSelect);
+                setCurrentObjects(mesh.name, isMultipleSelect);
             }
         } else if (temporaryGroup && !isEditing) {
             const grouppedMeshes: Object3D[] = [];

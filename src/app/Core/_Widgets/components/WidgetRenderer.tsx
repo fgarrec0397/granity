@@ -1,5 +1,5 @@
 import { ThreeEvent } from "@react-three/fiber";
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import { FeaturesWidgetsProps } from "../../../../Features/collector";
 
 type Props<T = FeaturesWidgetsProps> = T & {
@@ -7,10 +7,11 @@ type Props<T = FeaturesWidgetsProps> = T & {
     name: string;
 };
 
-const WidgetRenderer: FC<Props> = ({ component, ...componentProps }) => {
+const WidgetRenderer: FC<Props> = ({ component, name, ...componentProps }) => {
     const Component = component;
+    const ref = useRef();
     const [hovered, setHover] = useState(false);
-
+    console.log(ref, "ref");
     const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
         event.stopPropagation();
         setHover(true);
@@ -23,7 +24,8 @@ const WidgetRenderer: FC<Props> = ({ component, ...componentProps }) => {
 
     return (
         <group
-            name="WidgetRenderer" // FIXME -- Should be unique
+            ref={ref}
+            name={name}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
         >

@@ -12,8 +12,9 @@ export default () => {
 
     useEffect(() => {
         // TODO -- Check an optimized version to get the currents elements ---> O(n) instead of O(n^2)
+        console.log(objects, "objects in useCurrentObject");
         const currentObjects = objects.filter((x) => {
-            return selected.indexOf(x.uuid) !== -1;
+            return selected.indexOf(x.name) !== -1;
         });
 
         setCurrentObjectsState(currentObjects);
@@ -21,11 +22,11 @@ export default () => {
 
     return {
         currentObjects: currentObjectsState,
-        setCurrentObjects: (uuid: string, isMultipleSelect = false) => {
-            const newSelected = getObjectById(uuid);
-
+        setCurrentObjects: (uniqueName: string, isMultipleSelect = false) => {
+            const newSelected = getObjectById(uniqueName);
+            console.log({ newSelected, uniqueName }, "newSelected");
             if (newSelected) {
-                dispatch(setSelected({ newSelectedId: newSelected.uuid, isMultipleSelect }));
+                dispatch(setSelected({ newSelectedId: newSelected.name, isMultipleSelect }));
             }
         },
         removeCurrentObjects: () => {

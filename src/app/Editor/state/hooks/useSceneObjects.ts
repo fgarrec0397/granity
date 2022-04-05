@@ -28,10 +28,15 @@ export default () => {
     };
 
     return {
-        objects,
+        objects: scene.children,
         addObjectOnScene,
-        getObjectById: (id: string | number) => {
-            return scene.children.find((x) => id === x.uuid || id === x.id);
+        getObjectById: (uniqueIdentifier: string | number) => {
+            return scene.children.find(
+                (x) =>
+                    uniqueIdentifier === x.uuid ||
+                    uniqueIdentifier === x.id ||
+                    uniqueIdentifier === x.name
+            );
         },
         copyObject: (object: Object3D) => {
             const clonedObject = object.clone();

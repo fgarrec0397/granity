@@ -5,7 +5,7 @@ import useWidgets from "../../Editor/state/hooks/useWidgets";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { IWidget } from "./types";
 
-const InstantiateObject = (widget: IWidget): React.ReactNode => {
+const InstantiateObject = (widget: IWidget, index: number): React.ReactNode => {
     const { widgetDefinition, component } = widget;
     const getWidgetDefaultProps = (): FeaturesWidgetsProps[] | undefined => {
         const props = widgetDefinition.options?.map((x) => ({
@@ -17,6 +17,7 @@ const InstantiateObject = (widget: IWidget): React.ReactNode => {
 
     const widgetProps = getWidgetDefaultProps() || [];
     const props = Object.assign({}, ...widgetProps) as FeaturesWidgetsProps;
+    const name = `WidgetRenderer-${index}`;
 
     // TODO -- make a link between widgets object and scene objects
     // Use WidgetRendrer to structure all 3d objects
@@ -26,7 +27,7 @@ const InstantiateObject = (widget: IWidget): React.ReactNode => {
     return React.createElement(WidgetRenderer, {
         key: uidGenerator(),
         component,
-        name: widgetDefinition.name,
+        name,
         ...props,
     });
 };
@@ -34,7 +35,7 @@ const InstantiateObject = (widget: IWidget): React.ReactNode => {
 const Widgets: FC = () => {
     const { widgets } = useWidgets();
 
-    return <>{widgets.map((widget) => InstantiateObject(widget))}</>;
+    return <>{widgets.map((widget, index) => InstantiateObject(widget, index))}</>;
 };
 
 export default Widgets;
