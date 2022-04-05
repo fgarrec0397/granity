@@ -7,12 +7,7 @@ import Widgets from "../Core/_Widgets/Widgets";
 import useKeyboardControls from "../Core/hooks/useKeyboardControls";
 
 const Scene: FC = () => {
-    const { scene } = useThree();
     useKeyboardControls();
-
-    useEffect(() => {
-        console.log(scene.children, "scene.children");
-    });
 
     return (
         <Physics>

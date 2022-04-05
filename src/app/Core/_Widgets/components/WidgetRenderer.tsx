@@ -11,7 +11,7 @@ const WidgetRenderer: FC<Props> = ({ component, name, ...componentProps }) => {
     const Component = component;
     const ref = useRef();
     const [hovered, setHover] = useState(false);
-    console.log(ref, "ref");
+
     const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
         event.stopPropagation();
         setHover(true);

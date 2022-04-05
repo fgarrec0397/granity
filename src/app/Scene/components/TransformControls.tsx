@@ -24,7 +24,6 @@ const TransformControlsComponent: FC = ({ children }) => {
     useEffect(() => {
         if (!transformControl && stateMesh) {
             // FIXME - stateMesh or currentObjects are different from the scene here
-            console.log(stateMesh, "stateMesh");
             const transformC = new TransformControls(camera, gl.domElement);
             transformC.attach(stateMesh);
             transformC.setMode(currentMode);
@@ -53,8 +52,6 @@ const TransformControlsComponent: FC = ({ children }) => {
             scene.add(group);
             setStateMesh(group);
         } else {
-            console.log(currentObjects[0], "currentObjects[0] before setStateMesh");
-
             setStateMesh(currentObjects[0]);
         }
     }, [currentObjects]);
@@ -91,7 +88,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         if (transformControl) {
             transformControl.detach();
         }
-    }, [currentObjects.length, currentObjects[0]?.id, temporaryGroup]);
+    }, [currentObjects.length, currentObjects[0]?.uuid, temporaryGroup]);
 
     /**
      * Update the transformControl mode when the currentMode changes
@@ -124,8 +121,6 @@ const TransformControlsComponent: FC = ({ children }) => {
                     mesh = object;
                 }
             });
-
-            console.log(mesh, "mesh");
 
             if (mesh) {
                 setCurrentObjects(mesh.name, isMultipleSelect);
