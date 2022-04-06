@@ -73,11 +73,11 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     useEffect(() => {
         transformControl?.addEventListener("dragging-changed", onDraggingChangedHandler);
-        transformControl?.addEventListener("objectChange", onObjectChangeHandler);
+        // transformControl?.addEventListener("objectChange", onObjectChangeHandler);
 
         return () => {
             transformControl?.removeEventListener("dragging-changed", onDraggingChangedHandler);
-            transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
+            // transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
         };
     }, [transformControl, currentObjects.length]);
 
@@ -125,23 +125,24 @@ const TransformControlsComponent: FC = ({ children }) => {
             if (mesh) {
                 setCurrentObjects(mesh.name, isMultipleSelect);
             }
-        } else if (temporaryGroup && !isEditing) {
-            const grouppedMeshes: Object3D[] = [];
-
-            temporaryGroup.children.forEach((child) => {
-                if (child) {
-                    grouppedMeshes.push(child);
-                    scene.remove(child);
-                }
-            });
-
-            grouppedMeshes.forEach((mesh) => {
-                scene.attach(mesh);
-            });
-
-            setTemporaryGroup(undefined);
-            scene.remove(temporaryGroup);
         }
+        // else if (temporaryGroup && !isEditing) {
+        //     const grouppedMeshes: Object3D[] = [];
+
+        //     temporaryGroup.children.forEach((child) => {
+        //         if (child) {
+        //             grouppedMeshes.push(child);
+        //             scene.remove(child);
+        //         }
+        //     });
+
+        //     grouppedMeshes.forEach((mesh) => {
+        //         scene.attach(mesh);
+        //     });
+
+        //     setTemporaryGroup(undefined);
+        //     scene.remove(temporaryGroup);
+        // }
     };
 
     /**
@@ -155,15 +156,15 @@ const TransformControlsComponent: FC = ({ children }) => {
     /**
      * Update the currentElement based on the mesh properties
      */
-    const onObjectChangeHandler = () => {
-        if (stateMesh) {
-            updateCurrentWidget({
-                position: serializeVector3(stateMesh.position),
-                rotation: serializeVector3(stateMesh.rotation),
-                scale: serializeVector3(stateMesh.scale),
-            });
-        }
-    };
+    // const onObjectChangeHandler = () => {
+    //     if (stateMesh) {
+    //         updateCurrentWidget({
+    //             position: serializeVector3(stateMesh.position),
+    //             rotation: serializeVector3(stateMesh.rotation),
+    //             scale: serializeVector3(stateMesh.scale),
+    //         });
+    //     }
+    // };
 
     return <>{children}</>;
 };

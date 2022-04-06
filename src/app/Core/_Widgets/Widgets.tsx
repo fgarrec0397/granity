@@ -1,11 +1,28 @@
 import React, { FC } from "react";
 import { FeaturesWidgetsProps } from "../../../Features/collector";
-import uidGenerator from "../../Common/utils/uidGenerator";
 import useWidgets from "../../Editor/state/hooks/useWidgets";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { IWidget } from "./types";
 
-const InstantiateObject = (widget: IWidget, index: number): React.ReactNode => {
+interface WidgetProps {
+    widget: IWidget<FeaturesWidgetsProps>;
+    index: number;
+}
+
+const Widgets: FC = () => {
+    const { widgets } = useWidgets();
+
+    return (
+        <>
+            {widgets.map((widget, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Widget key={index} widget={widget} index={index} />
+            ))}
+        </>
+    );
+};
+
+const Widget: FC<WidgetProps> = ({ widget, index }) => {
     const { widgetDefinition, component } = widget;
     const getWidgetDefaultProps = (): FeaturesWidgetsProps[] | undefined => {
         const props = widgetDefinition.options?.map((x) => ({
@@ -19,23 +36,7 @@ const InstantiateObject = (widget: IWidget, index: number): React.ReactNode => {
     const props = Object.assign({}, ...widgetProps) as FeaturesWidgetsProps;
     const name = `WidgetRenderer-${index}`;
 
-    // TODO -- make a link between widgets object and scene objects
-    // Use WidgetRendrer to structure all 3d objects
-    // Maybe setup a library (array of IWidget) that contains all different IWidget possible to get reference later
-    // Find a unified way of syncing widgets and scene objects
-
-    return React.createElement(WidgetRenderer, {
-        key: uidGenerator(),
-        component,
-        name,
-        ...props,
-    });
-};
-
-const Widgets: FC = () => {
-    const { widgets } = useWidgets();
-
-    return <>{widgets.map((widget, index) => InstantiateObject(widget, index))}</>;
+    return <WidgetRenderer name={name} component={component} {...props} />;
 };
 
 export default Widgets;
