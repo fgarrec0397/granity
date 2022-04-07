@@ -49,6 +49,7 @@ type FeaturesUnionsTypes = UnionOfProperties<FeaturesState>;
  * Widget object that is exported from all widgets objects
  */
 export interface IWidget<Props = FeaturesWidgetsProps> {
+    id?: string;
     component: FC<Props>;
     reducer: Reducer<FeaturesUnionsTypes, AnyAction> | null;
     widgetDefinition: WidgetDefinition;

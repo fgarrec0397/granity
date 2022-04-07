@@ -3,10 +3,14 @@ import { FeaturesWidgetsProps } from "../../../Features/collector";
 import useWidgets from "../../Editor/state/hooks/useWidgets";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { IWidget } from "./types";
+import constants from "../constants";
+
+const {
+    widget: { widgetObjectsPrefix },
+} = constants;
 
 interface WidgetProps {
     widget: IWidget<FeaturesWidgetsProps>;
-    index: number;
 }
 
 const Widgets: FC = () => {
@@ -16,14 +20,14 @@ const Widgets: FC = () => {
         <>
             {widgets.map((widget, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <Widget key={index} widget={widget} index={index} />
+                <Widget key={index} widget={widget} />
             ))}
         </>
     );
 };
 
-const Widget: FC<WidgetProps> = ({ widget, index }) => {
-    const { widgetDefinition, component } = widget;
+const Widget: FC<WidgetProps> = ({ widget }) => {
+    const { id, widgetDefinition, component } = widget;
     const getWidgetDefaultProps = (): FeaturesWidgetsProps[] | undefined => {
         const props = widgetDefinition.options?.map((x) => ({
             [x.name as keyof FeaturesWidgetsProps]: x.defaultValue,
@@ -34,7 +38,7 @@ const Widget: FC<WidgetProps> = ({ widget, index }) => {
 
     const widgetProps = getWidgetDefaultProps() || [];
     const props = Object.assign({}, ...widgetProps) as FeaturesWidgetsProps;
-    const name = `WidgetRenderer-${index}`;
+    const name = `${widgetObjectsPrefix}+${widgetDefinition.name}+${id}`;
 
     return <WidgetRenderer name={name} component={component} {...props} />;
 };

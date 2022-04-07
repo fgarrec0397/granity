@@ -1,6 +1,5 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Physics } from "@react-three/cannon";
-import { useThree } from "@react-three/fiber";
 import Lights from "./components/Lights";
 import CameraControls from "./components/CameraControls";
 import Widgets from "../Core/_Widgets/Widgets";

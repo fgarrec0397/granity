@@ -7,13 +7,15 @@ import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 import serializeVector3 from "../../Common/utils/serializeVector3";
 import useWidgets from "../../Editor/state/hooks/useWidgets";
+import useWidgetsUtilities from "../../Core/_Widgets/state/hooks/useWidgetsUtilities";
 
 const TransformControlsComponent: FC = ({ children }) => {
+    const { mouse, camera, raycaster, scene, gl } = useThree();
+    const { getWidgetByMesh } = useWidgetsUtilities();
     const { currentObjects, setCurrentObjects } = useCurrentObjects();
     const { updateCurrentWidget } = useWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
-    const { mouse, camera, raycaster, scene, gl } = useThree();
     const [transformControl, setTransformControl] = useState<TransformControls>();
     const [stateMesh, setStateMesh] = useState<Object3D>();
     const [temporaryGroup, setTemporaryGroup] = useState<Group>();
@@ -73,11 +75,11 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     useEffect(() => {
         transformControl?.addEventListener("dragging-changed", onDraggingChangedHandler);
-        // transformControl?.addEventListener("objectChange", onObjectChangeHandler);
+        transformControl?.addEventListener("objectChange", onObjectChangeHandler);
 
         return () => {
             transformControl?.removeEventListener("dragging-changed", onDraggingChangedHandler);
-            // transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
+            transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
         };
     }, [transformControl, currentObjects.length]);
 
@@ -116,33 +118,36 @@ const TransformControlsComponent: FC = ({ children }) => {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
             let mesh: Object3D | undefined;
 
-            closestMesh.object.traverseAncestors((object) => {
-                if (object.name.startsWith("WidgetRenderer")) {
-                    mesh = object;
+            // closestMesh.object.traverseAncestors((object) => {
+            //     if (object.name.startsWith("WidgetRenderer")) {
+            //         mesh = object;
+            //     }
+            // });
+            console.log(closestMesh.object, "closestMesh.object");
+
+            const widget = getWidgetByMesh(closestMesh.object);
+
+            // if (widget) {
+            //     console.log(widget, "selected widget");
+            //     // setCurrentObjects(mesh.name, isMultipleSelect);
+            // }
+        } else if (temporaryGroup && !isEditing) {
+            const grouppedMeshes: Object3D[] = [];
+
+            temporaryGroup.children.forEach((child) => {
+                if (child) {
+                    grouppedMeshes.push(child);
+                    scene.remove(child);
                 }
             });
 
-            if (mesh) {
-                setCurrentObjects(mesh.name, isMultipleSelect);
-            }
+            grouppedMeshes.forEach((mesh) => {
+                scene.attach(mesh);
+            });
+
+            setTemporaryGroup(undefined);
+            scene.remove(temporaryGroup);
         }
-        // else if (temporaryGroup && !isEditing) {
-        //     const grouppedMeshes: Object3D[] = [];
-
-        //     temporaryGroup.children.forEach((child) => {
-        //         if (child) {
-        //             grouppedMeshes.push(child);
-        //             scene.remove(child);
-        //         }
-        //     });
-
-        //     grouppedMeshes.forEach((mesh) => {
-        //         scene.attach(mesh);
-        //     });
-
-        //     setTemporaryGroup(undefined);
-        //     scene.remove(temporaryGroup);
-        // }
     };
 
     /**
@@ -156,15 +161,15 @@ const TransformControlsComponent: FC = ({ children }) => {
     /**
      * Update the currentElement based on the mesh properties
      */
-    // const onObjectChangeHandler = () => {
-    //     if (stateMesh) {
-    //         updateCurrentWidget({
-    //             position: serializeVector3(stateMesh.position),
-    //             rotation: serializeVector3(stateMesh.rotation),
-    //             scale: serializeVector3(stateMesh.scale),
-    //         });
-    //     }
-    // };
+    const onObjectChangeHandler = () => {
+        if (stateMesh) {
+            updateCurrentWidget({
+                position: serializeVector3(stateMesh.position),
+                rotation: serializeVector3(stateMesh.rotation),
+                scale: serializeVector3(stateMesh.scale),
+            });
+        }
+    };
 
     return <>{children}</>;
 };
