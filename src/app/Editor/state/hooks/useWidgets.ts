@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Object3D } from "three";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
@@ -10,24 +10,24 @@ export default () => {
     const dispatch = useAppDispatch();
     const { currentWidget } = useAppSelector((state) => state.editor);
     const { widgets, setWidgets } = useContext(WidgetsContext);
-    // console.log(widgets, "widgets root");
-    const [widgetsState, setWidgetsState] = useState<IWidget[]>([]);
 
+    // Forcw rerender when widgets is updated. Should at least be for the first widget renderer
+    const [, setWidgetsState] = useState<any>([]);
     useEffect(() => {
         setWidgetsState(widgets);
     }, [widgets]);
 
     return {
         currentWidget,
-        widgets: widgetsState,
+        widgets,
         addWidget: (widget: IWidget) => {
             widget.id = uidGenerator(); // assign id on initialisation
-            setWidgets([...widgets, widget]);
+            setWidgets((oldWidgets) => [...oldWidgets, widget]);
         },
         getWidgetById: (id: string | undefined) => {
-            console.log(widgetsState, "widgetsState"); // TODO - Make sure we have widgets here
+            console.log(widgets, "widgets"); // TODO - Make sure we have widgets here
             if (id) {
-                return widgetsState.find((x) => x.id === id);
+                return widgets.find((x: any) => x.id === id);
             }
         },
         selectCurrentWidget: (widget: WidgetSceneObject) => {

@@ -13,7 +13,7 @@ const TransformControlsComponent: FC = ({ children }) => {
     const { mouse, camera, raycaster, scene, gl } = useThree();
     const { getWidgetByMesh } = useWidgetsUtilities();
     const { currentObjects, setCurrentObjects } = useCurrentObjects();
-    const { updateCurrentWidget } = useWidgets();
+    const { updateCurrentWidget, widgets } = useWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
     const [transformControl, setTransformControl] = useState<TransformControls>();
@@ -123,13 +123,16 @@ const TransformControlsComponent: FC = ({ children }) => {
             //         mesh = object;
             //     }
             // });
+            console.log(widgets, "widgets in transformcontrol");
             console.log(closestMesh.object, "closestMesh.object");
 
             const widget = getWidgetByMesh(closestMesh.object);
 
+            // TODO - With the widget found, make to apply the transformcontrol to the good mesh + set the widget as the selected widget
+
             // if (widget) {
             //     console.log(widget, "selected widget");
-            //     // setCurrentObjects(mesh.name, isMultipleSelect);
+            //     setCurrentObjects(mesh.name, isMultipleSelect);
             // }
         } else if (temporaryGroup && !isEditing) {
             const grouppedMeshes: Object3D[] = [];

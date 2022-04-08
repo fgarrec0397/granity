@@ -20,10 +20,9 @@ export default () => {
             });
 
             const widgetIdInMesh = widgetWrapperMesh?.name.split("+")[2];
-            console.log(widgetIdInMesh, "widgetIdInMesh");
-
             const widget = getWidgetById(widgetIdInMesh);
-            console.log(widget, "widget selected");
+
+            return widget; // TODO - can return widgetWrapperMesh here to make sure to have the mesh associated to this widget
         },
     };
 };
