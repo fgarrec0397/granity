@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IWidget } from "../../App/Core/_Widgets/types";
+import { IWidget } from "../../App/Widgets/types";
 import { EditableWidget } from "../../App/Editor/types";
 
 export interface GeometryFormsProps extends EditableWidget {

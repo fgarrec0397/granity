@@ -1,6 +1,6 @@
 import { ThreeEvent } from "@react-three/fiber";
 import React, { FC, useRef, useState } from "react";
-import { FeaturesWidgetsProps } from "../../../../Features/collector";
+import { FeaturesWidgetsProps } from "../../../Features/collector";
 
 type Props<T = FeaturesWidgetsProps> = T & {
     component: FC<T>;

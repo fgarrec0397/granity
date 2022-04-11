@@ -7,7 +7,7 @@ import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 import serializeVector3 from "../../Common/utils/serializeVector3";
 import useWidgets from "../../Editor/state/hooks/useWidgets";
-import useWidgetsUtilities from "../../Core/_Widgets/state/hooks/useWidgetsUtilities";
+import useWidgetsUtilities from "../../Widgets/state/hooks/useWidgetsUtilities";
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { mouse, camera, raycaster, scene, gl } = useThree();

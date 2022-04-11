@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Physics } from "@react-three/cannon";
 import Lights from "./components/Lights";
 import CameraControls from "./components/CameraControls";
-import Widgets from "../Core/_Widgets/Widgets";
+import Widgets from "../Widgets/Widgets";
 import useKeyboardControls from "../Core/hooks/useKeyboardControls";
 
 const Scene: FC = () => {

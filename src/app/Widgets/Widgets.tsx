@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import { FeaturesWidgetsProps } from "../../../Features/collector";
-import useWidgets from "../../Editor/state/hooks/useWidgets";
+import { FeaturesWidgetsProps } from "../../Features/collector";
+import useWidgets from "../Editor/state/hooks/useWidgets";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { IWidget } from "./types";
-import constants from "../constants";
+import constants from "../Core/constants";
 
 const {
     widget: { widgetObjectsPrefix },

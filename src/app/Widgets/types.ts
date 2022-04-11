@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { AnyAction, Reducer } from "redux";
-import { FeaturesWidgetsProps, FeaturesState } from "../../../Features/collector";
-import { UnionOfProperties } from "../../Common/utils/typings";
+import { FeaturesWidgetsProps, FeaturesState } from "../../Features/collector";
+import { UnionOfProperties } from "../Common/utils/typings";
 
 /**
  * Allowed Fieldtypes

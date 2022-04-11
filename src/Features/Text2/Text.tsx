@@ -1,6 +1,6 @@
 import { Html } from "@react-three/drei";
 import React, { FC } from "react";
-import { IWidget } from "../../App/Core/_Widgets/types";
+import { IWidget } from "../../App/Widgets/types";
 import textReducer from "./state/textReducer";
 
 const Text: FC = () => {

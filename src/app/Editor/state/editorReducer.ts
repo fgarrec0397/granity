@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WidgetSceneObject } from "../../Core/_Widgets/types";
+import { WidgetSceneObject } from "../../Widgets/types";
 import { ModesAvailable } from "./types";
 
 export interface EditorState {

@@ -5,12 +5,11 @@ import { ReactReduxContext } from "react-redux";
 import Loader from "./Common/components/Loader";
 import Editor from "./Editor/Editor";
 import Scene from "./Scene/Scene";
-import { EditableProxyContext } from "./Editor/state/EditableProxyProvider";
 import { WidgetsContext } from "./Editor/state/WidgetsProvider";
 
 const App: FC = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const ContextBridge = useContextBridge(EditableProxyContext, WidgetsContext, ReactReduxContext);
+    const ContextBridge = useContextBridge(WidgetsContext, ReactReduxContext);
 
     useEffect(() => {
         setTimeout(() => {

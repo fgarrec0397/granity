@@ -1,6 +1,6 @@
 import { Object3D } from "three";
-import useWidgets from "../../../../Editor/state/hooks/useWidgets";
-import constants from "../../../constants";
+import useWidgets from "../../../Editor/state/hooks/useWidgets";
+import constants from "../../../Core/constants";
 
 const {
     widget: { widgetObjectsPrefix },
