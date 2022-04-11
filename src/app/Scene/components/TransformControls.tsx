@@ -116,24 +116,13 @@ const TransformControlsComponent: FC = ({ children }) => {
 
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
-            let mesh: Object3D | undefined;
-
-            // closestMesh.object.traverseAncestors((object) => {
-            //     if (object.name.startsWith("WidgetRenderer")) {
-            //         mesh = object;
-            //     }
-            // });
-            console.log(widgets, "widgets in transformcontrol");
-            console.log(closestMesh.object, "closestMesh.object");
-
-            const widget = getWidgetByMesh(closestMesh.object);
+            const { widget, widgetMesh } = getWidgetByMesh(closestMesh.object);
 
             // TODO - With the widget found, make to apply the transformcontrol to the good mesh + set the widget as the selected widget
 
-            // if (widget) {
-            //     console.log(widget, "selected widget");
-            //     setCurrentObjects(mesh.name, isMultipleSelect);
-            // }
+            if (widgetMesh) {
+                setCurrentObjects(widgetMesh.name, isMultipleSelect);
+            }
         } else if (temporaryGroup && !isEditing) {
             const grouppedMeshes: Object3D[] = [];
 

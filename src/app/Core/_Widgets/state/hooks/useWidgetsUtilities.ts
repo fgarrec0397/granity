@@ -11,18 +11,18 @@ export default () => {
 
     return {
         getWidgetByMesh: (mesh: Object3D) => {
-            let widgetWrapperMesh: Object3D | undefined;
+            let widgetMesh: Object3D | undefined;
 
             mesh.traverseAncestors((object) => {
                 if (object.name.startsWith(widgetObjectsPrefix)) {
-                    widgetWrapperMesh = object;
+                    widgetMesh = object;
                 }
             });
 
-            const widgetIdInMesh = widgetWrapperMesh?.name.split("+")[2];
+            const widgetIdInMesh = widgetMesh?.name.split("+")[2];
             const widget = getWidgetById(widgetIdInMesh);
 
-            return widget; // TODO - can return widgetWrapperMesh here to make sure to have the mesh associated to this widget
+            return { widget, widgetMesh };
         },
     };
 };
