@@ -2,7 +2,7 @@ import { Card, Descriptions } from "antd";
 import React, { FC } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import useWidgets from "../state/hooks/useWidgets";
+import useWidgets from "../../Widgets/state/hooks/useWidgets";
 // import useEditableProxies from "../state/hooks/useEditableProxies";
 
 interface EditorFeedbackStyles {

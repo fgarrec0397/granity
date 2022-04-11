@@ -2,8 +2,8 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { Object3D } from "three";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
-import { IWidget, WidgetSceneObject } from "../../../Widgets/types";
-import { setCurrentWidget } from "../editorReducer";
+import { IWidget, WidgetSceneObject } from "../../types";
+import { setCurrentWidget } from "../../../Editor/state/editorReducer";
 import { WidgetsContext } from "../WidgetsProvider";
 
 export default () => {

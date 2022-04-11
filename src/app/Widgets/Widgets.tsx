@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { FeaturesWidgetsProps } from "../../Features/collector";
-import useWidgets from "../Editor/state/hooks/useWidgets";
+import useWidgets from "./state/hooks/useWidgets";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { IWidget } from "./types";
 import constants from "../Core/constants";

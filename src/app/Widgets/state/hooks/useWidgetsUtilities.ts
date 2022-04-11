@@ -1,5 +1,5 @@
 import { Object3D } from "three";
-import useWidgets from "../../../Editor/state/hooks/useWidgets";
+import useWidgets from "./useWidgets";
 import constants from "../../../Core/constants";
 
 const {

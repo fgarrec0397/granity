@@ -5,7 +5,7 @@ import { ReactReduxContext } from "react-redux";
 import Loader from "./Common/components/Loader";
 import Editor from "./Editor/Editor";
 import Scene from "./Scene/Scene";
-import { WidgetsContext } from "./Editor/state/WidgetsProvider";
+import { WidgetsContext } from "./Widgets/state/WidgetsProvider";
 
 const App: FC = () => {
     const [isLoading, setIsLoading] = useState(true);

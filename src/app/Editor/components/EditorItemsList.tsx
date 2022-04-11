@@ -1,6 +1,6 @@
 import { Card, List } from "antd";
 import React, { FC } from "react";
-import useWidgets from "../state/hooks/useWidgets";
+import useWidgets from "../../Widgets/state/hooks/useWidgets";
 
 const EditorItemsList: FC = () => {
     const { widgets } = useWidgets();

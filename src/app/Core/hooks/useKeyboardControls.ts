@@ -3,7 +3,7 @@ import { Object3D } from "three";
 import useCurrentObjects from "../../Editor/state/hooks/useCurrentObjects";
 import useHandleEditor from "../../Editor/state/hooks/useHandleEditor";
 import useSceneObjects from "../../Editor/state/hooks/useSceneObjects";
-import useWidgets from "../../Editor/state/hooks/useWidgets";
+import useWidgets from "../../Widgets/state/hooks/useWidgets";
 
 export default () => {
     const { objects, copyObject } = useSceneObjects();

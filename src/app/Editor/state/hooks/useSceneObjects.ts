@@ -4,7 +4,7 @@ import { Mesh, Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { IEditableProxy } from "../EditableProxyProvider";
-import useWidgets from "./useWidgets";
+import useWidgets from "../../../Widgets/state/hooks/useWidgets";
 
 export interface ObjectDefinition {
     name: string;

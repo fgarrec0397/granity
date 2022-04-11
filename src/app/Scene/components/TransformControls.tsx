@@ -6,7 +6,7 @@ import useCurrentObjects from "../../Editor/state/hooks/useCurrentObjects";
 import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 import serializeVector3 from "../../Common/utils/serializeVector3";
-import useWidgets from "../../Editor/state/hooks/useWidgets";
+import useWidgets from "../../Widgets/state/hooks/useWidgets";
 import useWidgetsUtilities from "../../Widgets/state/hooks/useWidgetsUtilities";
 
 const TransformControlsComponent: FC = ({ children }) => {
