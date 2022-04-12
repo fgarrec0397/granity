@@ -12,9 +12,11 @@ import thunk from "redux-thunk";
 import { FeaturesState } from "../../Features/collector";
 import featuresReducer from "../../Features/featuresReducer";
 import editorReducer, { EditorState } from "../Editor/state/editorReducer";
+import widgetsReducer, { WidgetsState } from "../Widgets/state/widgetsReducer";
 
 interface State {
     editor: EditorState;
+    widgets: WidgetsState;
     features: FeaturesState;
 }
 
@@ -30,6 +32,7 @@ export type InjectableStore = Store<State, MyAction> & {
  */
 const staticReducers: ReducersMapObject<State, MyAction> = {
     editor: editorReducer,
+    widgets: widgetsReducer,
     features: featuresReducer,
 };
 

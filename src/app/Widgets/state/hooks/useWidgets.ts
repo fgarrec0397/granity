@@ -1,15 +1,29 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import { Object3D } from "three";
+import { useContext, useEffect, useState } from "react";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { IWidget, WidgetSceneObject } from "../../types";
 import { setCurrentWidget } from "../../../Editor/state/editorReducer";
 import { WidgetsContext } from "../WidgetsProvider";
+import { setSelected } from "../widgetsReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
-    const { currentWidget } = useAppSelector((state) => state.editor);
+    const { selected } = useAppSelector((state) => state.widgets);
     const { widgets, setWidgets } = useContext(WidgetsContext);
+    const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
+
+    useEffect(() => {
+        // TODO -- Check an optimized version to get the currents elements ---> O(n) instead of O(n^2)
+        const currentWidgets = widgets.filter((x) => {
+            if (x.id) {
+                return selected.indexOf(x.id) !== -1;
+            }
+
+            return false;
+        });
+
+        setCurrentWidgetsState(currentWidgets);
+    }, [selected]);
 
     // Forcw rerender when widgets is updated. Should at least be for the first widget renderer
     const [, setWidgetsState] = useState<any>([]);
@@ -17,27 +31,33 @@ export default () => {
         setWidgetsState(widgets);
     }, [widgets]);
 
+    // TODO - Replace useCurrentObjects with currentWidget and delete currentObjects
+
     return {
-        currentWidget,
+        currentWidgets: currentWidgetsState,
         widgets,
         addWidget: (widget: IWidget) => {
             widget.id = uidGenerator(); // assign id on initialisation
             setWidgets((oldWidgets) => [...oldWidgets, widget]);
         },
         getWidgetById: (id: string | undefined) => {
-            console.log(widgets, "widgets"); // TODO - Make sure we have widgets here
             if (id) {
                 return widgets.find((x: any) => x.id === id);
             }
         },
-        selectCurrentWidget: (widget: WidgetSceneObject) => {
-            dispatch(setCurrentWidget(widget));
+        selectWidget: (widget: IWidget, isMultipleSelect: boolean) => {
+            // const newSelected = scene.children.find((x) => uniqueName === x.name);
+
+            if (widget.id) {
+                dispatch(setSelected({ newSelectedId: widget.id, isMultipleSelect }));
+            }
+            // dispatch(setCurrentWidget(widget));
         },
         updateCurrentWidget: (widget: WidgetSceneObject) => {
             dispatch(setCurrentWidget(widget));
         },
         removeCurrentWidget: () => {
-            console.log(currentWidget, "currentWidget");
+            console.log(currentWidgetsState, "currentWidget");
 
             // const updatedWidgets = widgets.filter(
             //     ({ widgetDefinition }) => widgetDefinition.name === name

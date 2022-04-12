@@ -20,94 +20,94 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-    const { currentWidget } = useWidgets();
+    const { currentWidgets } = useWidgets();
 
-    if (currentWidget) {
-        return (
-            <StyledWrapper {...styles.wrapper}>
-                <Card size="small" title="Current Element - Widget name not supported yet">
-                    <Descriptions>
-                        {currentWidget.position !== undefined && (
-                            <Descriptions.Item
-                                label="Position"
-                                labelStyle={{
-                                    fontWeight: "bold",
-                                }}
-                                contentStyle={{
-                                    flexDirection: "column",
-                                }}
-                            >
-                                <span>
-                                    <i>X:</i>
-                                    {currentWidget.position[0].toFixed(3)}
-                                </span>
-                                <span>
-                                    <i>Y:</i>
-                                    {currentWidget.position[1].toFixed(3)}
-                                </span>
-                                <span>
-                                    <i>Z:</i>
-                                    {currentWidget.position[2].toFixed(3)}
-                                </span>
-                            </Descriptions.Item>
-                        )}
-                    </Descriptions>
-                    <Descriptions>
-                        {currentWidget.rotation !== undefined && (
-                            <Descriptions.Item
-                                label="Rotation"
-                                labelStyle={{
-                                    fontWeight: "bold",
-                                }}
-                                contentStyle={{
-                                    flexDirection: "column",
-                                }}
-                            >
-                                <span>
-                                    <i>X:</i>
-                                    {currentWidget.rotation[0].toFixed(3)}
-                                </span>
-                                <span>
-                                    <i>Y:</i>
-                                    {currentWidget.rotation[1].toFixed(3)}
-                                </span>
-                                <span>
-                                    <i>Z:</i>
-                                    {currentWidget.rotation[2].toFixed(3)}
-                                </span>
-                            </Descriptions.Item>
-                        )}
-                    </Descriptions>
-                    <Descriptions>
-                        {currentWidget.scale !== undefined && (
-                            <Descriptions.Item
-                                label="Scale"
-                                labelStyle={{
-                                    fontWeight: "bold",
-                                }}
-                                contentStyle={{
-                                    flexDirection: "column",
-                                }}
-                            >
-                                <span>
-                                    <i>X:</i>
-                                    {currentWidget.scale[0].toFixed(3)}
-                                </span>
-                                <span>
-                                    <i>Y:</i>
-                                    {currentWidget.scale[1].toFixed(3)}
-                                </span>
-                                <span>
-                                    <i>Z:</i>
-                                    {currentWidget.scale[2].toFixed(3)}
-                                </span>
-                            </Descriptions.Item>
-                        )}
-                    </Descriptions>
-                </Card>
-            </StyledWrapper>
-        );
-    }
+    // if (currentWidget) {
+    //     return (
+    //         <StyledWrapper {...styles.wrapper}>
+    //             <Card size="small" title="Current Element - Widget name not supported yet">
+    //                 <Descriptions>
+    //                     {currentWidget.position !== undefined && (
+    //                         <Descriptions.Item
+    //                             label="Position"
+    //                             labelStyle={{
+    //                                 fontWeight: "bold",
+    //                             }}
+    //                             contentStyle={{
+    //                                 flexDirection: "column",
+    //                             }}
+    //                         >
+    //                             <span>
+    //                                 <i>X:</i>
+    //                                 {currentWidget.position[0].toFixed(3)}
+    //                             </span>
+    //                             <span>
+    //                                 <i>Y:</i>
+    //                                 {currentWidget.position[1].toFixed(3)}
+    //                             </span>
+    //                             <span>
+    //                                 <i>Z:</i>
+    //                                 {currentWidget.position[2].toFixed(3)}
+    //                             </span>
+    //                         </Descriptions.Item>
+    //                     )}
+    //                 </Descriptions>
+    //                 <Descriptions>
+    //                     {currentWidget.rotation !== undefined && (
+    //                         <Descriptions.Item
+    //                             label="Rotation"
+    //                             labelStyle={{
+    //                                 fontWeight: "bold",
+    //                             }}
+    //                             contentStyle={{
+    //                                 flexDirection: "column",
+    //                             }}
+    //                         >
+    //                             <span>
+    //                                 <i>X:</i>
+    //                                 {currentWidget.rotation[0].toFixed(3)}
+    //                             </span>
+    //                             <span>
+    //                                 <i>Y:</i>
+    //                                 {currentWidget.rotation[1].toFixed(3)}
+    //                             </span>
+    //                             <span>
+    //                                 <i>Z:</i>
+    //                                 {currentWidget.rotation[2].toFixed(3)}
+    //                             </span>
+    //                         </Descriptions.Item>
+    //                     )}
+    //                 </Descriptions>
+    //                 <Descriptions>
+    //                     {currentWidget.scale !== undefined && (
+    //                         <Descriptions.Item
+    //                             label="Scale"
+    //                             labelStyle={{
+    //                                 fontWeight: "bold",
+    //                             }}
+    //                             contentStyle={{
+    //                                 flexDirection: "column",
+    //                             }}
+    //                         >
+    //                             <span>
+    //                                 <i>X:</i>
+    //                                 {currentWidget.scale[0].toFixed(3)}
+    //                             </span>
+    //                             <span>
+    //                                 <i>Y:</i>
+    //                                 {currentWidget.scale[1].toFixed(3)}
+    //                             </span>
+    //                             <span>
+    //                                 <i>Z:</i>
+    //                                 {currentWidget.scale[2].toFixed(3)}
+    //                             </span>
+    //                         </Descriptions.Item>
+    //                     )}
+    //                 </Descriptions>
+    //             </Card>
+    //         </StyledWrapper>
+    //     );
+    // }
 
     return null;
 };

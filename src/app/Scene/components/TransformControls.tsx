@@ -8,12 +8,13 @@ import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 import serializeVector3 from "../../Common/utils/serializeVector3";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
 import useWidgetsUtilities from "../../Widgets/state/hooks/useWidgetsUtilities";
+import { WidgetSceneObject } from "../../Widgets/types";
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { mouse, camera, raycaster, scene, gl } = useThree();
-    const { getWidgetByMesh } = useWidgetsUtilities();
-    const { currentObjects, setCurrentObjects } = useCurrentObjects();
-    const { updateCurrentWidget, widgets } = useWidgets();
+    const { getWidgetByMesh, getMeshByWidget } = useWidgetsUtilities();
+    // const { currentObjects, setCurrentObjects } = useCurrentObjects();
+    const { currentWidgets, selectWidget, updateCurrentWidget } = useWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
     const [transformControl, setTransformControl] = useState<TransformControls>();
@@ -25,7 +26,6 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     useEffect(() => {
         if (!transformControl && stateMesh) {
-            // FIXME - stateMesh or currentObjects are different from the scene here
             const transformC = new TransformControls(camera, gl.domElement);
             transformC.attach(stateMesh);
             transformC.setMode(currentMode);
@@ -43,20 +43,23 @@ const TransformControlsComponent: FC = ({ children }) => {
     }, [transformControl, camera, scene, gl, stateMesh]);
 
     useEffect(() => {
-        if (currentObjects.length > 1 && transformControl) {
+        if (currentWidgets.length > 1 && transformControl) {
             const group = new Group();
 
-            currentObjects.forEach((x) => {
-                group.add(x);
+            currentWidgets.forEach((x) => {
+                const mesh = getMeshByWidget(x);
+                if (mesh) {
+                    group.add(mesh);
+                }
             });
 
             setTemporaryGroup(group);
             scene.add(group);
             setStateMesh(group);
-        } else {
-            setStateMesh(currentObjects[0]);
+        } else if (currentWidgets.length > 0) {
+            setStateMesh(getMeshByWidget(currentWidgets[0]));
         }
-    }, [currentObjects]);
+    }, [currentWidgets]);
 
     /**
      * Initialize mouse up events
@@ -67,7 +70,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         return () => {
             window.removeEventListener("mouseup", onMouseUp);
         };
-    }, [scene.children.length, currentObjects.length, temporaryGroup]);
+    }, [scene.children.length, currentWidgets.length, temporaryGroup]);
 
     /**
      * Initialize events on transformControls.
@@ -81,7 +84,7 @@ const TransformControlsComponent: FC = ({ children }) => {
             transformControl?.removeEventListener("dragging-changed", onDraggingChangedHandler);
             transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
         };
-    }, [transformControl, currentObjects.length]);
+    }, [transformControl, currentWidgets.length]);
 
     /**
      * Detach the transformControl whenever the current element change
@@ -90,7 +93,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         if (transformControl) {
             transformControl.detach();
         }
-    }, [currentObjects.length, currentObjects[0]?.uuid, temporaryGroup]);
+    }, [currentWidgets.length, currentWidgets[0]?.id, temporaryGroup]);
 
     /**
      * Update the transformControl mode when the currentMode changes
@@ -120,8 +123,8 @@ const TransformControlsComponent: FC = ({ children }) => {
 
             // TODO - With the widget found, make to apply the transformcontrol to the good mesh + set the widget as the selected widget
 
-            if (widgetMesh) {
-                setCurrentObjects(widgetMesh.name, isMultipleSelect);
+            if (widget) {
+                selectWidget(widget, isMultipleSelect); // TODO - continue here
             }
         } else if (temporaryGroup && !isEditing) {
             const grouppedMeshes: Object3D[] = [];
@@ -154,13 +157,13 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Update the currentElement based on the mesh properties
      */
     const onObjectChangeHandler = () => {
-        if (stateMesh) {
-            updateCurrentWidget({
-                position: serializeVector3(stateMesh.position),
-                rotation: serializeVector3(stateMesh.rotation),
-                scale: serializeVector3(stateMesh.scale),
-            });
-        }
+        // if (stateMesh) {
+        //     updateCurrentWidget({
+        //         position: serializeVector3(stateMesh.position),
+        //         rotation: serializeVector3(stateMesh.rotation),
+        //         scale: serializeVector3(stateMesh.scale),
+        //     });
+        // }
     };
 
     return <>{children}</>;
