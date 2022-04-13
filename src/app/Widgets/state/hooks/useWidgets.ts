@@ -25,11 +25,11 @@ export default () => {
         setCurrentWidgetsState(currentWidgets);
     }, [selected]);
 
-    // Forcw rerender when widgets is updated. Should at least be for the first widget renderer
+    // Force rerender when widgets is updated. Should at least be for the first widget renderer
     const [, setWidgetsState] = useState<any>([]);
     useEffect(() => {
         setWidgetsState(widgets);
-    }, [widgets]);
+    }, [widgets.length]);
 
     // TODO - Replace useCurrentObjects with currentWidget and delete currentObjects
 
@@ -37,8 +37,10 @@ export default () => {
         currentWidgets: currentWidgetsState,
         widgets,
         addWidget: (widget: IWidget) => {
-            widget.id = uidGenerator(); // assign id on initialisation
-            setWidgets((oldWidgets) => [...oldWidgets, widget]);
+            const newWidget = { ...widget };
+            newWidget.id = uidGenerator(); // assign id on initialisation
+
+            setWidgets([...widgets, newWidget]);
         },
         getWidgetById: (id: string | undefined) => {
             if (id) {
@@ -46,19 +48,15 @@ export default () => {
             }
         },
         selectWidget: (widget: IWidget, isMultipleSelect: boolean) => {
-            // const newSelected = scene.children.find((x) => uniqueName === x.name);
-
             if (widget.id) {
                 dispatch(setSelected({ newSelectedId: widget.id, isMultipleSelect }));
             }
-            // dispatch(setCurrentWidget(widget));
         },
         updateCurrentWidget: (widget: WidgetSceneObject) => {
             dispatch(setCurrentWidget(widget));
         },
         removeCurrentWidget: () => {
-            console.log(currentWidgetsState, "currentWidget");
-
+            // console.log(currentWidgetsState, "currentWidget");
             // const updatedWidgets = widgets.filter(
             //     ({ widgetDefinition }) => widgetDefinition.name === name
             // );

@@ -66,7 +66,6 @@ export const {
     setIsMultipleSelect,
     setCurrentMode,
     setSelected,
-    // setCurrentProxy,
     removeSelected,
     setCurrentWidget,
 } = sceneSlice.actions;

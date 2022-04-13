@@ -2,18 +2,15 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 import { useThree } from "@react-three/fiber";
 import React, { FC, useEffect, useState } from "react";
 import { Group, Object3D } from "three";
-import useCurrentObjects from "../../Editor/state/hooks/useCurrentObjects";
 import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 import serializeVector3 from "../../Common/utils/serializeVector3";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
 import useWidgetsUtilities from "../../Widgets/state/hooks/useWidgetsUtilities";
-import { WidgetSceneObject } from "../../Widgets/types";
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { mouse, camera, raycaster, scene, gl } = useThree();
     const { getWidgetByMesh, getMeshByWidget } = useWidgetsUtilities();
-    // const { currentObjects, setCurrentObjects } = useCurrentObjects();
     const { currentWidgets, selectWidget, updateCurrentWidget } = useWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
@@ -157,13 +154,14 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Update the currentElement based on the mesh properties
      */
     const onObjectChangeHandler = () => {
-        // if (stateMesh) {
-        //     updateCurrentWidget({
-        //         position: serializeVector3(stateMesh.position),
-        //         rotation: serializeVector3(stateMesh.rotation),
-        //         scale: serializeVector3(stateMesh.scale),
-        //     });
-        // }
+        if (stateMesh) {
+            updateCurrentWidget({
+                // continue here
+                position: serializeVector3(stateMesh.position),
+                rotation: serializeVector3(stateMesh.rotation),
+                scale: serializeVector3(stateMesh.scale),
+            });
+        }
     };
 
     return <>{children}</>;

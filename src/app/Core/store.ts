@@ -69,6 +69,6 @@ function createReducer(asyncReducers: Partial<ReducersMapObject<State, MyAction>
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
+/* Use throughout your app instead of plain `useDispatch` and `useSelector` */
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
