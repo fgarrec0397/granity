@@ -1,22 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WidgetSceneObject } from "../types";
+import { WidgetProperties } from "../types";
 
 export interface WidgetsState {
     selected: string[];
-    currentWidget: WidgetSceneObject | null;
+    currentWidgetProperties: WidgetProperties | null;
 }
 
 const initialState: WidgetsState = {
     selected: [],
-    currentWidget: null,
+    currentWidgetProperties: null,
 };
 
 export const sceneSlice = createSlice({
     name: "editor",
     initialState,
     reducers: {
-        setCurrentWidget: (state, action: PayloadAction<WidgetSceneObject>) => {
-            state.currentWidget = action.payload;
+        setCurrentWidgetProperties: (state, action: PayloadAction<WidgetProperties>) => {
+            state.currentWidgetProperties = action.payload;
         },
         removeSelected: (state) => {
             state.selected = [];
@@ -33,6 +33,6 @@ export const sceneSlice = createSlice({
     },
 });
 
-export const { setSelected, removeSelected, setCurrentWidget } = sceneSlice.actions;
+export const { setSelected, removeSelected, setCurrentWidgetProperties } = sceneSlice.actions;
 
 export default sceneSlice.reducer;

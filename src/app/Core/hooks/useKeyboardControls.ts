@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { Object3D } from "three";
 import useHandleEditor from "../../Editor/state/hooks/useHandleEditor";
-import useSceneObjects from "../../Editor/state/hooks/useSceneObjects";
+import useSceneWidgets from "../../Widgets/state/hooks/useSceneWidgets";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
+import { WidgetSceneObject } from "../../Widgets/types";
 
 export default () => {
-    const { objects, copyObject } = useSceneObjects();
-    const { removeCurrentWidget } = useWidgets();
-    const { removeWidget, currentWidgets } = useWidgets();
-    const [copiedObjects, setCopiedObjects] = useState<Object3D[]>([]);
+    const { currentWidgets, widgets } = useWidgets();
+    const { removeCurrentWidgets, copyWidget } = useSceneWidgets();
+    const [copiedWidgets, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
 
     useHandleEditor();
 
@@ -18,26 +17,26 @@ export default () => {
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
         };
-    }, [currentWidgets.length, currentWidgets[0]?.id, copiedObjects, objects]);
+    }, [currentWidgets.length, currentWidgets[0]?.id, currentWidgets, widgets]);
 
     const handleKeyUp = (event: KeyboardEvent): void => {
-        // if (event.ctrlKey && event.code === "KeyC") {
-        //     if (currentWidgets.length > 0) {
-        //         setCopiedObjects(currentObjects);
-        //     }
-        // } else if (event.ctrlKey && event.code === "KeyV") {
-        //     if (copiedObjects.length > 0) {
-        //         copiedObjects.forEach((x) => {
-        //             copyObject(x);
-        //         });
-        //     }
-        // } else if (event.code === "Delete") {
-        //     if (currentObjects.length > 0) {
-        //         console.log("delete");
-        //         // removeCurrentObjects();
-        //         removeCurrentWidget();
-        //         // removeWidget();
-        //     }
-        // }
+        if (event.ctrlKey && event.code === "KeyC") {
+            if (currentWidgets.length > 0) {
+                setCopiedWidgets(currentWidgets);
+            }
+        } else if (event.ctrlKey && event.code === "KeyV") {
+            if (currentWidgets.length > 0) {
+                currentWidgets.forEach((x) => {
+                    copyWidget(x);
+                });
+            }
+        } else if (event.code === "Delete") {
+            if (currentWidgets.length > 0) {
+                console.log("delete");
+                // removeCurrentObjects();
+                removeCurrentWidgets();
+                // removeWidget();
+            }
+        }
     };
 };

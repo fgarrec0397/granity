@@ -21,14 +21,18 @@ export default () => {
         getWidgetByMesh: (mesh: Object3D) => {
             let widgetMesh: Object3D | undefined;
 
-            mesh.traverseAncestors((object) => {
-                if (object.name.startsWith(widgetObjectsPrefix)) {
-                    widgetMesh = object;
-                }
-            });
+            if (mesh.name.startsWith(widgetObjectsPrefix)) {
+                widgetMesh = mesh;
+            } else {
+                mesh.traverseAncestors((object) => {
+                    if (object.name.startsWith(widgetObjectsPrefix)) {
+                        widgetMesh = object;
+                    }
+                });
+            }
 
             const widgetIdInMesh = widgetMesh?.name.split("+")[2];
-            const widget = getWidgetById(widgetIdInMesh);
+            const widget = getWidgetById(widgetIdInMesh) as IWidget;
 
             return { widget, widgetMesh };
         },

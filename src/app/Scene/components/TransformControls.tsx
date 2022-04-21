@@ -11,13 +11,16 @@ import useWidgetsUtilities from "../../Widgets/state/hooks/useWidgetsUtilities";
 const TransformControlsComponent: FC = ({ children }) => {
     const { mouse, camera, raycaster, scene, gl } = useThree();
     const { getWidgetByMesh, getMeshByWidget } = useWidgetsUtilities();
-    const { currentWidgets, selectWidget, updateCurrentWidget } = useWidgets();
+    const { currentWidgets, selectWidget, updateCurrentWidgetProperties } = useWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
     const [transformControl, setTransformControl] = useState<TransformControls>();
     const [stateMesh, setStateMesh] = useState<Object3D>();
     const [temporaryGroup, setTemporaryGroup] = useState<Group>();
 
+    useEffect(() => {
+        console.log(scene.children, "scene.children");
+    }, [scene.children.length]);
     /**
      * Instantiate TransformControls class, attach a mesh and add it to the scene
      */
@@ -116,12 +119,10 @@ const TransformControlsComponent: FC = ({ children }) => {
 
         if (intersects.length > 0) {
             const [closestMesh] = intersects.sort((x: any) => x.distance);
-            const { widget, widgetMesh } = getWidgetByMesh(closestMesh.object);
-
-            // TODO - With the widget found, make to apply the transformcontrol to the good mesh + set the widget as the selected widget
+            const { widget } = getWidgetByMesh(closestMesh.object);
 
             if (widget) {
-                selectWidget(widget, isMultipleSelect); // TODO - continue here
+                selectWidget(widget, isMultipleSelect);
             }
         } else if (temporaryGroup && !isEditing) {
             const grouppedMeshes: Object3D[] = [];
@@ -155,8 +156,7 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     const onObjectChangeHandler = () => {
         if (stateMesh) {
-            updateCurrentWidget({
-                // continue here
+            updateCurrentWidgetProperties({
                 position: serializeVector3(stateMesh.position),
                 rotation: serializeVector3(stateMesh.rotation),
                 scale: serializeVector3(stateMesh.scale),

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { FeaturesWidgetsProps } from "../../Features/collector";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { IWidget } from "./types";
@@ -10,8 +10,12 @@ interface WidgetProps {
 }
 
 const Widgets: FC = () => {
+    // TODO -- Try to change to add properties (position, rotation and scale) to the widgets in this list
     const { widgets } = useWidgets();
-    console.log(widgets, "widgets");
+
+    useEffect(() => {
+        console.log(widgets, "widgets in Widgets");
+    }, [widgets.length]);
 
     return (
         <>
@@ -24,8 +28,6 @@ const Widgets: FC = () => {
 };
 
 const Widget: FC<WidgetProps> = ({ widget }) => {
-    console.log(widget, "widget");
-
     const { getWidgetName } = useWidgetsUtilities();
     const { widgetDefinition, component } = widget;
     const getWidgetDefaultProps = (): FeaturesWidgetsProps[] | undefined => {

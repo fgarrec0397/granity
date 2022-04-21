@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
-import { IWidget, WidgetSceneObject } from "../../types";
-import { setCurrentWidget } from "../../../Editor/state/editorReducer";
+import { IWidget, WidgetProperties, WidgetSceneObject } from "../../types";
 import { WidgetsContext } from "../WidgetsProvider";
-import { setSelected } from "../widgetsReducer";
+import { setCurrentWidgetProperties, setSelected } from "../widgetsReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
@@ -31,8 +30,6 @@ export default () => {
         setWidgetsState(widgets);
     }, [widgets.length]);
 
-    // TODO - Replace useCurrentObjects with currentWidget and delete currentObjects
-
     return {
         currentWidgets: currentWidgetsState,
         widgets,
@@ -52,21 +49,8 @@ export default () => {
                 dispatch(setSelected({ newSelectedId: widget.id, isMultipleSelect }));
             }
         },
-        updateCurrentWidget: (widget: WidgetSceneObject) => {
-            dispatch(setCurrentWidget(widget));
-        },
-        removeCurrentWidget: () => {
-            // console.log(currentWidgetsState, "currentWidget");
-            // const updatedWidgets = widgets.filter(
-            //     ({ widgetDefinition }) => widgetDefinition.name === name
-            // );
-            // setWidgets(updatedWidgets);
-        },
-        removeWidget: (name: string) => {
-            const updatedWidgets = widgets.filter(
-                ({ widgetDefinition }) => widgetDefinition.name === name
-            );
-            setWidgets(updatedWidgets);
+        updateCurrentWidgetProperties: (widgetProperties: WidgetProperties) => {
+            dispatch(setCurrentWidgetProperties(widgetProperties));
         },
     };
 };
