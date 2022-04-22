@@ -32,7 +32,7 @@ export default () => {
             }
 
             const widgetIdInMesh = widgetMesh?.name.split("+")[2];
-            const widget = getWidgetById(widgetIdInMesh) as IWidget;
+            const widget = getWidgetById(widgetIdInMesh) as WidgetSceneObject;
 
             return { widget, widgetMesh };
         },

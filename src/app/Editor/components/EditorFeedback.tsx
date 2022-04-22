@@ -26,7 +26,7 @@ const EditorFeedback: FC = () => {
             <StyledWrapper {...styles.wrapper}>
                 <Card size="small" title="Current Element - Widget name not supported yet">
                     <Descriptions>
-                        {currentWidgets[0].position !== undefined && (
+                        {currentWidgets[0].properties.position !== undefined && (
                             <Descriptions.Item
                                 label="Position"
                                 labelStyle={{
@@ -38,21 +38,21 @@ const EditorFeedback: FC = () => {
                             >
                                 <span>
                                     <i>X:</i>
-                                    {currentWidgets[0].position[0].toFixed(3)}
+                                    {currentWidgets[0].properties.position[0].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Y:</i>
-                                    {currentWidgets[0].position[1].toFixed(3)}
+                                    {currentWidgets[0].properties.position[1].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Z:</i>
-                                    {currentWidgets[0].position[2].toFixed(3)}
+                                    {currentWidgets[0].properties.position[2].toFixed(3)}
                                 </span>
                             </Descriptions.Item>
                         )}
                     </Descriptions>
                     <Descriptions>
-                        {currentWidgets[0].rotation !== undefined && (
+                        {currentWidgets[0].properties.rotation !== undefined && (
                             <Descriptions.Item
                                 label="Rotation"
                                 labelStyle={{
@@ -64,21 +64,21 @@ const EditorFeedback: FC = () => {
                             >
                                 <span>
                                     <i>X:</i>
-                                    {currentWidgets[0].rotation[0].toFixed(3)}
+                                    {currentWidgets[0].properties.rotation[0].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Y:</i>
-                                    {currentWidgets[0].rotation[1].toFixed(3)}
+                                    {currentWidgets[0].properties.rotation[1].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Z:</i>
-                                    {currentWidgets[0].rotation[2].toFixed(3)}
+                                    {currentWidgets[0].properties.rotation[2].toFixed(3)}
                                 </span>
                             </Descriptions.Item>
                         )}
                     </Descriptions>
                     <Descriptions>
-                        {currentWidgets[0].scale !== undefined && (
+                        {currentWidgets[0].properties.scale !== undefined && (
                             <Descriptions.Item
                                 label="Scale"
                                 labelStyle={{
@@ -90,15 +90,15 @@ const EditorFeedback: FC = () => {
                             >
                                 <span>
                                     <i>X:</i>
-                                    {currentWidgets[0].scale[0].toFixed(3)}
+                                    {currentWidgets[0].properties.scale[0].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Y:</i>
-                                    {currentWidgets[0].scale[1].toFixed(3)}
+                                    {currentWidgets[0].properties.scale[1].toFixed(3)}
                                 </span>
                                 <span>
                                     <i>Z:</i>
-                                    {currentWidgets[0].scale[2].toFixed(3)}
+                                    {currentWidgets[0].properties.scale[2].toFixed(3)}
                                 </span>
                             </Descriptions.Item>
                         )}

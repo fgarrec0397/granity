@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from "react";
 import { FeaturesWidgetsProps } from "../../Features/collector";
 import WidgetRenderer from "./components/WidgetRenderer";
-import { IWidget } from "./types";
+import { WidgetSceneObject } from "./types";
 import useWidgets from "./state/hooks/useWidgets";
 import useWidgetsUtilities from "./state/hooks/useWidgetsUtilities";
 
 interface WidgetProps {
-    widget: IWidget<FeaturesWidgetsProps>;
+    widget: WidgetSceneObject;
 }
 
 const Widgets: FC = () => {
@@ -29,7 +29,7 @@ const Widgets: FC = () => {
 
 const Widget: FC<WidgetProps> = ({ widget }) => {
     const { getWidgetName } = useWidgetsUtilities();
-    const { widgetDefinition, component } = widget;
+    const { widgetDefinition, component, properties } = widget;
     const getWidgetDefaultProps = (): FeaturesWidgetsProps[] | undefined => {
         const props = widgetDefinition.options?.map((x) => ({
             [x.name as keyof FeaturesWidgetsProps]: x.defaultValue,
@@ -42,7 +42,7 @@ const Widget: FC<WidgetProps> = ({ widget }) => {
     const props = Object.assign({}, ...widgetProps) as FeaturesWidgetsProps;
     const name = getWidgetName(widget);
 
-    return <WidgetRenderer name={name} component={component} {...props} />;
+    return <WidgetRenderer name={name} component={component} properties={properties} {...props} />;
 };
 
 export default Widgets;

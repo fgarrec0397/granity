@@ -1,9 +1,9 @@
 import React, { FC, createContext, useState, Dispatch, SetStateAction } from "react";
-import { IWidget } from "../types";
+import { WidgetSceneObject } from "../types";
 
 export interface WidgetContextModel {
-    widgets: IWidget[] | [];
-    setWidgets: (() => void) | Dispatch<SetStateAction<IWidget[]>>;
+    widgets: WidgetSceneObject[] | [];
+    setWidgets: (() => void) | Dispatch<SetStateAction<WidgetSceneObject[]>>;
 }
 
 export const defaultContext: WidgetContextModel = {
@@ -14,7 +14,7 @@ export const defaultContext: WidgetContextModel = {
 export const WidgetsContext = createContext<WidgetContextModel>(defaultContext);
 
 const WidgetsContextProvider: FC = ({ children }) => {
-    const [widgets, setWidgets] = useState<IWidget[]>([]);
+    const [widgets, setWidgets] = useState<WidgetSceneObject[]>([]);
 
     const providerValue: WidgetContextModel = {
         widgets,

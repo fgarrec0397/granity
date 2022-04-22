@@ -1,4 +1,3 @@
-import { useThree } from "@react-three/fiber";
 import { useContext, useEffect, useState } from "react";
 import { Object3D } from "three";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
@@ -8,7 +7,6 @@ import { removeSelected } from "../widgetsReducer";
 import useWidgetsUtilities from "./useWidgetsUtilities";
 
 export default () => {
-    const { scene } = useThree();
     const [meshToRemove, setMeshToRemove] = useState<Object3D | null>(null);
     const dispatch = useAppDispatch();
     const { selected } = useAppSelector((state) => state.widgets);
@@ -17,19 +15,11 @@ export default () => {
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {
-        console.log(scene.children.length, "scene.children.length");
-    }, [scene.children.length]);
-
-    useEffect(() => {
-        console.log(meshToRemove, "meshToRemove");
-
         if (meshToRemove) {
             const { widget } = getWidgetByMesh(meshToRemove);
-            console.log(widget, "widget to remove");
 
             if (widget) {
                 const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);
-                console.log(updatedWidgets, "updatedWidgets");
 
                 setWidgets([...updatedWidgets]);
                 setMeshToRemove(null);
@@ -63,13 +53,12 @@ export default () => {
         if (mesh) {
             removeWidget(mesh);
         } else {
-            console.error("No mesh found");
+            console.error("No mesh found"); // Add UI confirmation
         }
     };
 
     const removeWidget = (mesh: Object3D) => {
         setMeshToRemove(mesh);
-        // scene.remove(mesh);
 
         dispatch(removeSelected());
     };

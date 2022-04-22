@@ -11,16 +11,13 @@ import useWidgetsUtilities from "../../Widgets/state/hooks/useWidgetsUtilities";
 const TransformControlsComponent: FC = ({ children }) => {
     const { mouse, camera, raycaster, scene, gl } = useThree();
     const { getWidgetByMesh, getMeshByWidget } = useWidgetsUtilities();
-    const { currentWidgets, selectWidget, updateCurrentWidgetProperties } = useWidgets();
+    const { currentWidgets, selectWidget, updateCurrentWidget } = useWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing, isEditing } = useIsEditing();
     const [transformControl, setTransformControl] = useState<TransformControls>();
     const [stateMesh, setStateMesh] = useState<Object3D>();
     const [temporaryGroup, setTemporaryGroup] = useState<Group>();
 
-    useEffect(() => {
-        console.log(scene.children, "scene.children");
-    }, [scene.children.length]);
     /**
      * Instantiate TransformControls class, attach a mesh and add it to the scene
      */
@@ -149,6 +146,13 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     const onDraggingChangedHandler = ({ value }: any) => {
         setIsEditing(value);
+        if (stateMesh) {
+            updateCurrentWidget({
+                position: serializeVector3(stateMesh.position),
+                rotation: serializeVector3(stateMesh.rotation),
+                scale: serializeVector3(stateMesh.scale),
+            });
+        }
     };
 
     /**
@@ -156,11 +160,14 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     const onObjectChangeHandler = () => {
         if (stateMesh) {
-            updateCurrentWidgetProperties({
-                position: serializeVector3(stateMesh.position),
-                rotation: serializeVector3(stateMesh.rotation),
-                scale: serializeVector3(stateMesh.scale),
-            });
+            updateCurrentWidget(
+                {
+                    position: serializeVector3(stateMesh.position),
+                    rotation: serializeVector3(stateMesh.rotation),
+                    scale: serializeVector3(stateMesh.scale),
+                },
+                true
+            );
         }
     };
 

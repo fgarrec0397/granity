@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
-import { IWidget, WidgetProperties, WidgetSceneObject } from "../../types";
+import { WidgetSceneObject, WidgetProperties } from "../../types";
 import { WidgetsContext } from "../WidgetsProvider";
 import { setCurrentWidgetProperties, setSelected } from "../widgetsReducer";
 
@@ -30,27 +30,46 @@ export default () => {
         setWidgetsState(widgets);
     }, [widgets.length]);
 
+    const addWidget = (widget: WidgetSceneObject) => {
+        const newWidget = { ...widget };
+        newWidget.id = uidGenerator(); // assign id on initialisation
+
+        setWidgets([...widgets, newWidget]);
+    };
+
+    const getWidgetById = (id: string | undefined) => {
+        if (id) {
+            return widgets.find((x: any) => x.id === id);
+        }
+    };
+
+    const selectWidget = (widget: WidgetSceneObject, isMultipleSelect: boolean) => {
+        if (widget.id) {
+            dispatch(setSelected({ newSelectedId: widget.id, isMultipleSelect }));
+        }
+    };
+
+    const updateCurrentWidget = (
+        widgetProperties: WidgetProperties,
+        updateOnlyProperties = false
+    ) => {
+        if (!updateOnlyProperties) {
+            const currentWidget = { ...currentWidgetsState[0] };
+            const updateWidgets = widgets.filter((x) => x.id !== currentWidget.id);
+            currentWidget.properties = widgetProperties;
+
+            setWidgets([...updateWidgets, currentWidget]);
+        }
+
+        dispatch(setCurrentWidgetProperties(widgetProperties));
+    };
+
     return {
         currentWidgets: currentWidgetsState,
         widgets,
-        addWidget: (widget: IWidget) => {
-            const newWidget = { ...widget };
-            newWidget.id = uidGenerator(); // assign id on initialisation
-
-            setWidgets([...widgets, newWidget]);
-        },
-        getWidgetById: (id: string | undefined) => {
-            if (id) {
-                return widgets.find((x: any) => x.id === id);
-            }
-        },
-        selectWidget: (widget: IWidget, isMultipleSelect: boolean) => {
-            if (widget.id) {
-                dispatch(setSelected({ newSelectedId: widget.id, isMultipleSelect }));
-            }
-        },
-        updateCurrentWidgetProperties: (widgetProperties: WidgetProperties) => {
-            dispatch(setCurrentWidgetProperties(widgetProperties));
-        },
+        addWidget,
+        getWidgetById,
+        selectWidget,
+        updateCurrentWidget,
     };
 };

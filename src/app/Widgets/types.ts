@@ -58,10 +58,10 @@ export interface IWidget<Props = FeaturesWidgetsProps> {
 /**
  * Informations of a widget object on the scene
  */
-export type WidgetSceneObject = Pick<IWidget, "id" | "widgetDefinition"> & WidgetProperties;
+export type WidgetSceneObject = Omit<IWidget, "reducer"> & { properties: WidgetProperties };
 
 export type WidgetProperties = {
-    position?: [number, number, number];
-    rotation?: [number, number, number];
-    scale?: [number, number, number];
+    position: [number, number, number];
+    rotation: [number, number, number];
+    scale: [number, number, number];
 };
