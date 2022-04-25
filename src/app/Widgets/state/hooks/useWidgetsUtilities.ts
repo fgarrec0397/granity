@@ -2,7 +2,7 @@ import { Object3D } from "three";
 import { useThree } from "@react-three/fiber";
 import useWidgets from "./useWidgets";
 import constants from "../../../Core/constants";
-import { IWidget, WidgetSceneObject } from "../../types";
+import { IWidget, SerializedWidgetSceneObject, WidgetSceneObject } from "../../types";
 
 const {
     widget: { widgetObjectsPrefix },
@@ -12,7 +12,7 @@ export default () => {
     const { scene } = useThree();
     const { getWidgetById } = useWidgets();
 
-    const getWidgetName = (widget: IWidget | WidgetSceneObject) => {
+    const getWidgetName = (widget: IWidget | WidgetSceneObject | SerializedWidgetSceneObject) => {
         return `${widgetObjectsPrefix}+${widget.widgetDefinition.name}+${widget.id}`;
     };
 
@@ -36,7 +36,7 @@ export default () => {
 
             return { widget, widgetMesh };
         },
-        getMeshByWidget: (widget: IWidget | WidgetSceneObject) => {
+        getMeshByWidget: (widget: IWidget | WidgetSceneObject | SerializedWidgetSceneObject) => {
             const meshName = getWidgetName(widget);
             return scene.getObjectByName(meshName);
         },

@@ -9,46 +9,53 @@ import useWidgetsUtilities from "./useWidgetsUtilities";
 export default () => {
     const [meshToRemove, setMeshToRemove] = useState<Object3D | null>(null);
     const dispatch = useAppDispatch();
-    const { selected } = useAppSelector((state) => state.widgets);
+    const { selected, selectedWidgets } = useAppSelector((state) => state.widgets);
     const { getMeshByWidget, getWidgetByMesh } = useWidgetsUtilities();
     const { widgets, setWidgets } = useContext(WidgetsContext);
-    const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {
-        if (meshToRemove) {
-            const { widget } = getWidgetByMesh(meshToRemove);
-
-            if (widget) {
-                const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);
-
-                setWidgets([...updatedWidgets]);
-                setMeshToRemove(null);
-            }
-        }
-    }, [meshToRemove]);
+        console.log(widgets, "widgets");
+    }, [widgets]);
 
     useEffect(() => {
-        const currentWidgets = widgets.filter((x) => {
-            if (x.id) {
-                return selected.indexOf(x.id) !== -1;
-            }
+        console.log(selectedWidgets, "selectedWidgets");
+    }, [selectedWidgets]);
 
-            return false;
-        });
+    // useEffect(() => {
+    //     if (meshToRemove) {
+    //         const { widget } = getWidgetByMesh(meshToRemove);
 
-        setCurrentWidgetsState(currentWidgets);
-    }, [selected]);
+    //         if (widget) {
+    //             const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);
+
+    //             setWidgets([...updatedWidgets]);
+    //             setMeshToRemove(null);
+    //         }
+    //     }
+    // }, [getWidgetByMesh, meshToRemove, setWidgets, widgets]);
+
+    // useEffect(() => {
+    //     const currentWidgets = widgets.filter((x) => {
+    //         if (x.id) {
+    //             return selected.indexOf(x.id) !== -1;
+    //         }
+
+    //         return false;
+    //     });
+
+    //     setCurrentWidgetsState(currentWidgets);
+    // }, [selected, widgets]);
 
     // Force rerender when widgets is updated. Should at least be for the first widget renderer
     const [, setWidgetsState] = useState<any>([]);
     useEffect(() => {
         setWidgetsState(widgets);
-    }, [widgets.length]);
+    }, [widgets, widgets.length]);
 
     const copyWidget = (widget: WidgetSceneObject) => {};
 
     const removeCurrentWidgets = () => {
-        const mesh = getMeshByWidget(currentWidgetsState[0]);
+        const mesh = getMeshByWidget(selectedWidgets[0]);
 
         if (mesh) {
             removeWidget(mesh);
@@ -58,7 +65,12 @@ export default () => {
     };
 
     const removeWidget = (mesh: Object3D) => {
-        setMeshToRemove(mesh);
+        const { widget } = getWidgetByMesh(mesh);
+
+        if (widget) {
+            const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);
+            setWidgets([...updatedWidgets]);
+        }
 
         dispatch(removeSelected());
     };

@@ -74,7 +74,7 @@ const PlayerCamera: FC = (props) => {
             api.velocity.subscribe((v) => {
                 velocity.current = v;
             }),
-        []
+        [api.velocity]
     );
 
     useFrame(() => {

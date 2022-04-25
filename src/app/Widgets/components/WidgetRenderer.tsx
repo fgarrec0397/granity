@@ -1,5 +1,5 @@
 import { ThreeEvent } from "@react-three/fiber";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { FeaturesWidgetsProps } from "../../../Features/collector";
 import { WidgetProperties } from "../types";
 
@@ -23,6 +23,10 @@ const WidgetRenderer: FC<Props> = ({ component, name, properties, ...componentPr
         event.stopPropagation();
         setHover(false);
     };
+
+    useEffect(() => {
+        console.log({ ref: ref.current, properties }, "properties");
+    }, [properties]);
 
     return (
         <group

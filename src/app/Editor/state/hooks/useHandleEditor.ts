@@ -16,7 +16,7 @@ export default () => {
         return () => {
             document.removeEventListener("keyup", handleKeyUp);
         };
-    }, []);
+    }, [setIsEditor]);
 
     useEffect(() => {
         if (isEditor) {

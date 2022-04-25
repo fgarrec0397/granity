@@ -60,6 +60,8 @@ export interface IWidget<Props = FeaturesWidgetsProps> {
  */
 export type WidgetSceneObject = Omit<IWidget, "reducer"> & { properties: WidgetProperties };
 
+export type SerializedWidgetSceneObject = Omit<WidgetSceneObject, "component">;
+
 export type WidgetProperties = {
     position: [number, number, number];
     rotation: [number, number, number];

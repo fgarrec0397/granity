@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { FeaturesWidgetsProps } from "../../Features/collector";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { WidgetSceneObject } from "./types";
@@ -10,12 +10,7 @@ interface WidgetProps {
 }
 
 const Widgets: FC = () => {
-    // TODO -- Try to change to add properties (position, rotation and scale) to the widgets in this list
     const { widgets } = useWidgets();
-
-    useEffect(() => {
-        console.log(widgets, "widgets in Widgets");
-    }, [widgets.length]);
 
     return (
         <>

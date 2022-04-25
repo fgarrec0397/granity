@@ -5,38 +5,37 @@ import useWidgets from "../../Widgets/state/hooks/useWidgets";
 import { WidgetSceneObject } from "../../Widgets/types";
 
 export default () => {
-    const { currentWidgets, widgets } = useWidgets();
+    const { currentWidgets, firstCurrentWidget, widgets } = useWidgets();
     const { removeCurrentWidgets, copyWidget } = useSceneWidgets();
     const [copiedWidgets, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
 
     useHandleEditor();
 
     useEffect(() => {
+        const handleKeyUp = (event: KeyboardEvent): void => {
+            if (event.ctrlKey && event.code === "KeyC") {
+                // if (currentWidgets.length > 0) {
+                //     setCopiedWidgets(currentWidgets);
+                // }
+            } else if (event.ctrlKey && event.code === "KeyV") {
+                if (currentWidgets.length > 0) {
+                    currentWidgets.forEach((x) => {
+                        // copyWidget(x);
+                    });
+                }
+            } else if (event.code === "Delete") {
+                if (currentWidgets.length > 0) {
+                    // removeCurrentObjects();
+                    removeCurrentWidgets();
+                    // removeWidget();
+                }
+            }
+        };
+
         window.addEventListener("keyup", handleKeyUp);
 
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
         };
-    }, [currentWidgets.length, currentWidgets[0]?.id, currentWidgets, widgets]);
-
-    const handleKeyUp = (event: KeyboardEvent): void => {
-        if (event.ctrlKey && event.code === "KeyC") {
-            if (currentWidgets.length > 0) {
-                setCopiedWidgets(currentWidgets);
-            }
-        } else if (event.ctrlKey && event.code === "KeyV") {
-            if (currentWidgets.length > 0) {
-                currentWidgets.forEach((x) => {
-                    copyWidget(x);
-                });
-            }
-        } else if (event.code === "Delete") {
-            if (currentWidgets.length > 0) {
-                console.log("delete");
-                // removeCurrentObjects();
-                removeCurrentWidgets();
-                // removeWidget();
-            }
-        }
-    };
+    }, [firstCurrentWidget?.id, currentWidgets, widgets, copyWidget, removeCurrentWidgets]);
 };
