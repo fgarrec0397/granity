@@ -37,9 +37,9 @@ const WidgetRenderer: FC<Props> = ({ component, name, properties, ...componentPr
         setHover(false);
     };
 
-    useEffect(() => {
-        console.log({ ref: ref.current, properties }, "properties");
-    }, [properties]);
+    // useEffect(() => {
+    //     console.log({ ref: ref.current, properties }, "properties");
+    // }, [properties]);
 
     return (
         <group
