@@ -1,15 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SerializedWidgetSceneObject, WidgetProperties } from "../types";
+import { WidgetProperties } from "../types";
 
 export interface WidgetsState {
     selected: string[];
-    selectedWidgets: SerializedWidgetSceneObject[];
     currentWidgetProperties: WidgetProperties | null;
 }
 
 const initialState: WidgetsState = {
     selected: [],
-    selectedWidgets: [],
     currentWidgetProperties: null,
 };
 
@@ -23,9 +21,6 @@ export const sceneSlice = createSlice({
         removeSelected: (state) => {
             state.selected = [];
         },
-        removeSelectedWidgets: (state) => {
-            state.selectedWidgets = [];
-        },
         setSelected: (
             state,
             action: PayloadAction<{ newSelectedId: string; isMultipleSelect?: boolean }>
@@ -35,18 +30,9 @@ export const sceneSlice = createSlice({
                 : [action.payload.newSelectedId];
             state.selected = newSelectedIdArray;
         },
-        setSelectedWidgets: (state, action: PayloadAction<SerializedWidgetSceneObject[]>) => {
-            state.selectedWidgets = action.payload;
-        },
     },
 });
 
-export const {
-    setSelected,
-    setSelectedWidgets,
-    removeSelected,
-    // removeSelectedWidgets,
-    setCurrentWidgetProperties,
-} = sceneSlice.actions;
+export const { setSelected, removeSelected, setCurrentWidgetProperties } = sceneSlice.actions;
 
 export default sceneSlice.reducer;

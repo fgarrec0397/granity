@@ -1,3 +1,4 @@
+import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import useHandleEditor from "../../Editor/state/hooks/useHandleEditor";
 import useSceneWidgets from "../../Widgets/state/hooks/useSceneWidgets";
@@ -5,9 +6,15 @@ import useWidgets from "../../Widgets/state/hooks/useWidgets";
 import { WidgetSceneObject } from "../../Widgets/types";
 
 export default () => {
+    const { scene } = useThree();
     const { currentWidgets, firstCurrentWidget, widgets } = useWidgets();
     const { removeCurrentWidgets, copyWidget } = useSceneWidgets();
     const [copiedWidgets, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
+
+    useEffect(() => {
+        console.log(scene.children, "scene.children");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [scene.children.length]);
 
     useHandleEditor();
 
@@ -25,9 +32,7 @@ export default () => {
                 }
             } else if (event.code === "Delete") {
                 if (currentWidgets.length > 0) {
-                    // removeCurrentObjects();
                     removeCurrentWidgets();
-                    // removeWidget();
                 }
             }
         };

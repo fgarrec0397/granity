@@ -3,14 +3,13 @@ import { Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
-import { WidgetSceneObject, WidgetProperties, SerializedWidgetSceneObject } from "../../types";
-import { getWidgetComponent, serializeSceneWidget, unSerializeSceneWidget } from "../../utilities";
+import { WidgetSceneObject, WidgetProperties } from "../../types";
 import { WidgetsContext } from "../WidgetsProvider";
-import { setCurrentWidgetProperties, setSelected, setSelectedWidgets } from "../widgetsReducer";
+import { setCurrentWidgetProperties, setSelected } from "../widgetsReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
-    const { selected, selectedWidgets } = useAppSelector((state) => state.widgets);
+    const { selected } = useAppSelector((state) => state.widgets);
     const { widgets, setWidgets } = useContext(WidgetsContext);
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
@@ -28,10 +27,10 @@ export default () => {
     }, [selected, widgets]);
 
     // Force rerender when widgets is updated. Should at least be for the first widget renderer
-    const [, setWidgetsState] = useState<any>([]);
-    useEffect(() => {
-        setWidgetsState(widgets);
-    }, [widgets, widgets.length]);
+    // const [, setWidgetsState] = useState<any>([]);
+    // useEffect(() => {
+    //     setWidgetsState(widgets);
+    // }, [widgets, widgets.length]);
 
     const addWidget = (widget: WidgetSceneObject) => {
         const newWidget = { ...widget };
@@ -48,66 +47,55 @@ export default () => {
 
     const selectWidget = (widget: WidgetSceneObject, isMultipleSelect: boolean) => {
         if (widget.id) {
-            // const currentWidgets = widgets.filter((x) => {
-            //     if (x.id) {
-            //         return selected.indexOf(x.id) !== -1;
-            //     }
-
-            //     return false;
-            // });
-            // const serializedWidget = serializeSceneWidget(widget);
-            // setCurrentWidgetsState([widget]);
-            // dispatch(setSelectedWidgets([serializedWidget]));
             dispatch(setSelected({ newSelectedId: widget.id, isMultipleSelect }));
         }
     };
 
-    const updateCurrentWidget = useCallback(
-        (widgetProperties: WidgetProperties, updateOnlyProperties = false) => {
-            if (!updateOnlyProperties) {
-                const currentWidget = { ...selectedWidgets[0] } as SerializedWidgetSceneObject;
-                const unSerializedCurrentWidget = unSerializeSceneWidget(currentWidget);
+    const updateCurrentWidget = (
+        widgetProperties: WidgetProperties,
+        updateOnlyProperties = false
+    ) => {
+        if (!updateOnlyProperties) {
+            const currentWidget = currentWidgetsState[0];
 
-                if (unSerializedCurrentWidget) {
-                    const updatedWidgets = widgets.map((x) => {
-                        if (x.id !== unSerializedCurrentWidget.id) {
-                            x.properties = widgetProperties;
-                        }
+            if (currentWidget) {
+                const updatedWidgets = widgets.map((x) => {
+                    if (x.id !== currentWidget.id) {
+                        console.log(currentWidget, "currentWidget that is updated");
 
-                        return x;
-                    });
+                        x.properties = widgetProperties;
+                    }
 
-                    unSerializedCurrentWidget.properties = widgetProperties;
-                    currentWidget.properties = widgetProperties; // maybe from here
+                    return x;
+                });
+                console.log(updatedWidgets, "updatedWidgets");
 
-                    dispatch(setSelectedWidgets([currentWidget]));
-                    setWidgets(updatedWidgets);
-                }
+                // currentWidget.properties = widgetProperties;
+                setWidgets(updatedWidgets);
             }
+        }
 
-            dispatch(setCurrentWidgetProperties(widgetProperties));
-        },
-        [dispatch, selectedWidgets, setWidgets, widgets]
-    );
+        dispatch(setCurrentWidgetProperties(widgetProperties));
+    };
 
-    const updateCurrentWidgetWithMesh = useCallback(
-        (mesh: Object3D | undefined, updateOnlyProperties = false) => {
-            if (mesh) {
-                updateCurrentWidget(
-                    {
-                        position: serializeVector3(mesh.position),
-                        rotation: serializeVector3(mesh.rotation),
-                        scale: serializeVector3(mesh.scale),
-                    },
-                    updateOnlyProperties
-                );
-            }
-        },
-        [updateCurrentWidget]
-    );
+    const updateCurrentWidgetWithMesh = (
+        mesh: Object3D | undefined,
+        updateOnlyProperties = false
+    ) => {
+        if (mesh) {
+            updateCurrentWidget(
+                {
+                    position: serializeVector3(mesh.position),
+                    rotation: serializeVector3(mesh.rotation),
+                    scale: serializeVector3(mesh.scale),
+                },
+                updateOnlyProperties
+            );
+        }
+    };
 
     return {
-        currentWidgets: selectedWidgets,
+        currentWidgets: currentWidgetsState,
         firstCurrentWidget: currentWidgetsState[0],
         widgets,
         addWidget,

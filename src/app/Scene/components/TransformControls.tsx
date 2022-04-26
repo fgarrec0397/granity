@@ -6,7 +6,6 @@ import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
 import useWidgetsUtilities from "../../Widgets/state/hooks/useWidgetsUtilities";
-import useTimer from "../../Common/hooks/useTimer";
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { mouse, camera, raycaster, scene, gl } = useThree();
@@ -18,56 +17,25 @@ const TransformControlsComponent: FC = ({ children }) => {
     const [transformControl, setTransformControl] = useState<TransformControls>();
     const [stateMesh, setStateMesh] = useState<Object3D>();
     const [temporaryGroup, setTemporaryGroup] = useState<Group>();
-    const { startTimer, stopTimer, seconds } = useTimer();
 
     useEffect(() => {
-        console.log(scene.children, "scene.children");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [scene.children.length]);
-
-    useEffect(() => {
-        console.log(stateMesh, "stateMesh");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [stateMesh]);
-
-    useEffect(() => {
-        // if (!transformControl && currentWidgets.length) {
         if (!transformControl && stateMesh) {
-            console.log("set transformcontrol");
-
             const transformC = new TransformControls(camera, gl.domElement);
-            const mesh = getMeshByWidget(currentWidgets[0]);
 
-            // if (mesh) {
-            // transformC.attach(mesh);
             transformC.attach(stateMesh);
             transformC.setMode(currentMode);
 
             scene.add(transformC);
             setTransformControl(transformC);
-            // }
         }
 
         return () => {
             if (transformControl) {
-                console.log("unmount transformcontrols");
-
                 scene.remove(transformControl);
                 setTransformControl(undefined);
             }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        transformControl,
-        camera,
-        scene,
-        gl,
-        // getMeshByWidget,
-        // currentMode,
-        // currentWidgets.length,
-        stateMesh,
-        // firstCurrentWidget?.id,
-    ]);
+    }, [transformControl, camera, scene, gl, stateMesh, currentMode]);
 
     useEffect(() => {
         if (currentWidgets.length) {
@@ -80,78 +48,53 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Initialize mouse up events
      */
     useEffect(() => {
-        const onMouseDown = (event: MouseEvent) => {
-            event.preventDefault();
-            // TODO -- Check if timer is necessary.Pay attention, it re-render each time a second is updated
-            // startTimer();
-            // TODO -- when a widget is released below another widget, it selects the above widget
-        };
-
+        // TODO -- when a widget is released below another widget, it selects the above widget
         const onMouseUp = (event: MouseEvent): void => {
             event.preventDefault();
-            // stopTimer();
 
-            if (seconds < 2) {
-                const isMultipleSelect = event.ctrlKey;
+            const isMultipleSelect = event.ctrlKey;
 
-                raycaster.setFromCamera(mouse, camera);
+            raycaster.setFromCamera(mouse, camera);
 
-                const intersects = raycaster.intersectObjects(scene.children, true);
+            const intersects = raycaster.intersectObjects(scene.children, true);
 
-                if (intersects.length > 0) {
-                    const [closestMesh] = intersects
-                        .filter((x) => x.object?.type === "Mesh")
-                        .sort((x: any) => x.distance);
+            if (intersects.length > 0) {
+                const [closestMesh] = intersects
+                    .filter((x) => x.object?.type === "Mesh")
+                    .sort((x: any) => x.distance);
 
-                    if (closestMesh) {
-                        const { widget } = getWidgetByMesh(closestMesh.object);
+                if (closestMesh) {
+                    const { widget } = getWidgetByMesh(closestMesh.object);
 
-                        if (widget) {
-                            selectWidget(widget, isMultipleSelect);
-                        }
+                    if (widget) {
+                        selectWidget(widget, isMultipleSelect);
                     }
-                } else if (temporaryGroup && !isEditing) {
-                    const grouppedMeshes: Object3D[] = [];
-
-                    temporaryGroup.children.forEach((child) => {
-                        if (child) {
-                            grouppedMeshes.push(child);
-                            scene.remove(child);
-                        }
-                    });
-
-                    grouppedMeshes.forEach((mesh) => {
-                        scene.attach(mesh);
-                    });
-
-                    setTemporaryGroup(undefined);
-                    scene.remove(temporaryGroup);
                 }
-            } else {
-                // eslint-disable-next-line no-useless-return
-                return;
+            } else if (temporaryGroup && !isEditing) {
+                const grouppedMeshes: Object3D[] = [];
+
+                temporaryGroup.children.forEach((child) => {
+                    if (child) {
+                        grouppedMeshes.push(child);
+                        scene.remove(child);
+                    }
+                });
+
+                grouppedMeshes.forEach((mesh) => {
+                    scene.attach(mesh);
+                });
+
+                setTemporaryGroup(undefined);
+                scene.remove(temporaryGroup);
             }
         };
 
         window.addEventListener("mouseup", onMouseUp);
-        window.addEventListener("mousedown", onMouseDown);
 
         return () => {
             window.removeEventListener("mouseup", onMouseUp);
-            window.removeEventListener("mousedown", onMouseDown);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        camera,
-        getWidgetByMesh,
-        isEditing,
-        mouse,
-        raycaster,
-        scene,
-        selectWidget,
-        startTimer,
-        temporaryGroup,
-    ]);
+    }, [camera, getWidgetByMesh, isEditing, mouse, raycaster, scene, selectWidget, temporaryGroup]);
 
     /**
      * Detach the transformControl whenever the current element change
@@ -169,8 +112,6 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     useEffect(() => {
         const onTransformControlMouseUp = () => {
-            // const mesh = getMeshByWidget(currentWidgets[0]);
-
             if (stateMesh) {
                 updateCurrentWidgetWithMesh(stateMesh); // the proble comes from this function
             }
@@ -181,7 +122,6 @@ const TransformControlsComponent: FC = ({ children }) => {
         };
 
         const onObjectChangeHandler = () => {
-            // const mesh = getMeshByWidget(currentWidgets[0]);
             updateCurrentWidgetWithMesh(stateMesh, true);
         };
 
@@ -194,16 +134,7 @@ const TransformControlsComponent: FC = ({ children }) => {
             transformControl?.removeEventListener("dragging-changed", onDraggingChangedHandler);
             transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        transformControl,
-        // currentWidgets.length,
-        // currentWidgets,
-        // getMeshByWidget,
-        stateMesh,
-        updateCurrentWidgetWithMesh,
-        setIsEditing,
-    ]);
+    }, [transformControl, stateMesh, updateCurrentWidgetWithMesh, setIsEditing]);
 
     return <>{children}</>;
 };
