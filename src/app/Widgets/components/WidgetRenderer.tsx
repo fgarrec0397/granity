@@ -32,7 +32,7 @@ const WidgetRenderer: FC<Props> = ({ component, name, id, ...componentProps }) =
             name={name}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
-            {...widgetsDictionary[id].properties}
+            {...widgetsDictionary[id]?.properties}
         >
             <Component {...componentProps} hovered={hovered} />
         </group>

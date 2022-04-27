@@ -19,7 +19,7 @@ export default () => {
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {
-        // TODO -- Check an optimized version to get the currents elements ---> O(n) instead of O(n^2)
+        // TODO -- Check an optimized version to get the current widgets ---> O(n) instead of O(n^2)
         const currentWidgets = widgets.filter((x) => {
             if (x.id) {
                 return selected.indexOf(x.id) !== -1;
@@ -101,7 +101,7 @@ export default () => {
 
     return {
         currentWidgets: currentWidgetsState,
-        firstCurrentWidget: currentWidgetsState[0],
+        firstCurrentWidget: currentWidgetsState[0], // TODO - Remove this
         currentWidgetProperties,
         widgets,
         addWidget,
