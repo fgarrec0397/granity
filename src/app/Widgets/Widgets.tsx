@@ -24,7 +24,7 @@ const Widgets: FC = () => {
 
 const Widget: FC<WidgetProps> = ({ widget }) => {
     const { getWidgetName } = useWidgetsUtilities();
-    const { widgetDefinition, component, properties } = widget;
+    const { widgetDefinition, component, id } = widget;
     const getWidgetDefaultProps = (): FeaturesWidgetsProps[] | undefined => {
         const props = widgetDefinition.options?.map((x) => ({
             [x.name as keyof FeaturesWidgetsProps]: x.defaultValue,
@@ -37,7 +37,11 @@ const Widget: FC<WidgetProps> = ({ widget }) => {
     const props = Object.assign({}, ...widgetProps) as FeaturesWidgetsProps;
     const name = getWidgetName(widget);
 
-    return <WidgetRenderer name={name} component={component} properties={properties} {...props} />;
+    if (id) {
+        return <WidgetRenderer id={id} name={name} component={component} {...props} />;
+    }
+
+    return null;
 };
 
 export default Widgets;

@@ -58,7 +58,9 @@ export interface IWidget<Props = FeaturesWidgetsProps> {
 /**
  * Informations of a widget object on the scene
  */
-export type WidgetSceneObject = Omit<IWidget, "reducer"> & { properties: WidgetProperties };
+export type WidgetSceneObject = Omit<IWidget, "reducer">;
+
+export type WidgetsDictionary = { [id: string]: { properties: WidgetProperties } };
 
 export type WidgetProperties = {
     position: [number, number, number];

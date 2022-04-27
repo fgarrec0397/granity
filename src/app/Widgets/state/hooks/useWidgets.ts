@@ -1,17 +1,26 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { WidgetSceneObject, WidgetProperties } from "../../types";
 import { WidgetsContext } from "../WidgetsProvider";
-import { setCurrentWidgetProperties, setSelected } from "../widgetsReducer";
+import {
+    addWidgetDictionary,
+    updateWidgetDictionary,
+    setCurrentWidgetProperties,
+    setSelected,
+} from "../widgetsReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
-    const { selected } = useAppSelector((state) => state.widgets);
+    const { selected, widgetsDictionary } = useAppSelector((state) => state.widgets);
     const { widgets, setWidgets } = useContext(WidgetsContext);
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
+
+    useEffect(() => {
+        console.log(widgetsDictionary, "widgetsDictionary");
+    }, [widgetsDictionary]);
 
     useEffect(() => {
         // TODO -- Check an optimized version to get the currents elements ---> O(n) instead of O(n^2)
@@ -36,6 +45,19 @@ export default () => {
         const newWidget = { ...widget };
         newWidget.id = uidGenerator(); // assign id on initialisation
 
+        const defaultProperties: WidgetProperties = {
+            position: [0, 0, 0],
+            rotation: [0, 0, 0],
+            scale: [1, 1, 1],
+        };
+
+        dispatch(
+            addWidgetDictionary({
+                id: newWidget.id,
+                properties: defaultProperties,
+            })
+        );
+
         setWidgets([...widgets, newWidget]);
     };
 
@@ -58,20 +80,13 @@ export default () => {
         if (!updateOnlyProperties) {
             const currentWidget = currentWidgetsState[0];
 
-            if (currentWidget) {
-                const updatedWidgets = widgets.map((x) => {
-                    if (x.id !== currentWidget.id) {
-                        console.log(currentWidget, "currentWidget that is updated");
-
-                        x.properties = widgetProperties;
-                    }
-
-                    return x;
-                });
-                console.log(updatedWidgets, "updatedWidgets");
-
-                // currentWidget.properties = widgetProperties;
-                setWidgets(updatedWidgets);
+            if (currentWidget.id) {
+                dispatch(
+                    updateWidgetDictionary({
+                        id: currentWidget.id,
+                        properties: widgetProperties,
+                    })
+                );
             }
         }
 
