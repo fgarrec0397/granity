@@ -14,13 +14,9 @@ import {
 
 export default () => {
     const dispatch = useAppDispatch();
-    const { selected, widgetsDictionary } = useAppSelector((state) => state.widgets);
+    const { selected, currentWidgetProperties } = useAppSelector((state) => state.widgets);
     const { widgets, setWidgets } = useContext(WidgetsContext);
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
-
-    useEffect(() => {
-        console.log(widgetsDictionary, "widgetsDictionary");
-    }, [widgetsDictionary]);
 
     useEffect(() => {
         // TODO -- Check an optimized version to get the currents elements ---> O(n) instead of O(n^2)
@@ -34,12 +30,6 @@ export default () => {
 
         setCurrentWidgetsState(currentWidgets);
     }, [selected, widgets]);
-
-    // Force rerender when widgets is updated. Should at least be for the first widget renderer
-    // const [, setWidgetsState] = useState<any>([]);
-    // useEffect(() => {
-    //     setWidgetsState(widgets);
-    // }, [widgets, widgets.length]);
 
     const addWidget = (widget: WidgetSceneObject) => {
         const newWidget = { ...widget };
@@ -112,6 +102,7 @@ export default () => {
     return {
         currentWidgets: currentWidgetsState,
         firstCurrentWidget: currentWidgetsState[0],
+        currentWidgetProperties,
         widgets,
         addWidget,
         getWidgetById,

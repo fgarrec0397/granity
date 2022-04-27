@@ -4,7 +4,7 @@ import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
 import widgets from "../../../Features/collector";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
-import { IWidget, WidgetSceneObject } from "../../Widgets/types";
+import { WidgetSceneObject } from "../../Widgets/types";
 import { mapIWidgetToWidgetSceneObject } from "../../Widgets/utilities";
 
 interface EditorFeedbackStyles {

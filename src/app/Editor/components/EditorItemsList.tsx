@@ -4,19 +4,19 @@ import useWidgets from "../../Widgets/state/hooks/useWidgets";
 
 const EditorItemsList: FC = () => {
     const { widgets } = useWidgets();
-    return null;
-    // return (
-    //     <Card size="small" title="Elements on scene">
-    //         <List
-    //             size="small"
-    //             bordered
-    //             dataSource={widgets}
-    //             renderItem={({ widgetDefinition }) => (
-    //                 <List.Item>{widgetDefinition.name}</List.Item>
-    //             )}
-    //         />
-    //     </Card>
-    // );
+
+    return (
+        <Card size="small" title="Elements on scene">
+            <List
+                size="small"
+                bordered
+                dataSource={widgets}
+                renderItem={({ widgetDefinition }) => (
+                    <List.Item>{widgetDefinition.name}</List.Item>
+                )}
+            />
+        </Card>
+    );
 };
 
 export default EditorItemsList;

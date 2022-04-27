@@ -3,7 +3,7 @@ import { Object3D } from "three";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { WidgetSceneObject } from "../../types";
 import { WidgetsContext } from "../WidgetsProvider";
-import { removeSelected } from "../widgetsReducer";
+import { removeSelected, removeWidgetDictionary } from "../widgetsReducer";
 import useWidgetsUtilities from "./useWidgetsUtilities";
 
 export default () => {
@@ -13,14 +13,6 @@ export default () => {
     const { getMeshByWidget, getWidgetByMesh } = useWidgetsUtilities();
     const { widgets, setWidgets } = useContext(WidgetsContext);
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
-
-    useEffect(() => {
-        console.log(widgets, "widgets");
-    }, [widgets]);
-
-    useEffect(() => {
-        console.log(selected, "selected");
-    }, [selected]);
 
     useEffect(() => {
         if (meshToRemove) {
@@ -68,9 +60,10 @@ export default () => {
     const removeWidget = (mesh: Object3D) => {
         const { widget } = getWidgetByMesh(mesh);
 
-        if (widget) {
+        if (widget.id) {
             const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);
             setWidgets([...updatedWidgets]);
+            dispatch(removeWidgetDictionary(widget.id));
         }
 
         dispatch(removeSelected());

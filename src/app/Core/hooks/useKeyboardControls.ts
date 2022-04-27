@@ -11,11 +11,6 @@ export default () => {
     const { removeCurrentWidgets, copyWidget } = useSceneWidgets();
     const [copiedWidgets, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
 
-    useEffect(() => {
-        console.log(scene.children, "scene.children");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [scene.children.length]);
-
     useHandleEditor();
 
     useEffect(() => {

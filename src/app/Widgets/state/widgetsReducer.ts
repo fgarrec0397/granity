@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Object3D } from "three";
-import serializeVector3 from "../../Common/utils/serializeVector3";
 import { WidgetProperties, WidgetsDictionary } from "../types";
-import { getWidgetIdFromName } from "../utilities";
 
 export interface WidgetsState {
     selected: string[];
@@ -48,6 +45,10 @@ export const sceneSlice = createSlice({
 
             state.widgetsDictionary[id] = { properties };
         },
+        removeWidgetDictionary: (state, action: PayloadAction<string>) => {
+            const id = action.payload;
+            delete state.widgetsDictionary[id];
+        },
         removeSelected: (state) => {
             state.selected = [];
         },
@@ -67,6 +68,7 @@ export const {
     setSelected,
     addWidgetDictionary,
     updateWidgetDictionary,
+    removeWidgetDictionary,
     removeSelected,
     setCurrentWidgetProperties,
 } = sceneSlice.actions;
