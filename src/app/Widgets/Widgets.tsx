@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { FeaturesWidgetsProps } from "../../Features/collector";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { WidgetSceneObject } from "./types";
 import useWidgets from "./state/hooks/useWidgets";

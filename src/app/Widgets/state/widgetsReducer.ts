@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WidgetOptions, WidgetOptionsValues, WidgetProperties, WidgetsDictionary } from "../types";
+import { WidgetOptionsValues, WidgetProperties, WidgetsDictionary } from "../types";
 
 export interface WidgetsState {
     selected: string[];

@@ -1,15 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { Object3D } from "three";
+import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { WidgetSceneObject } from "../../types";
 import { WidgetsContext } from "../../WidgetsProvider";
-import { removeSelected, removeWidgetDictionary } from "../widgetsReducer";
+import { addWidgetDictionary, removeSelected, removeWidgetDictionary } from "../widgetsReducer";
 import useWidgetsUtilities from "./useWidgetsUtilities";
 
 export default () => {
     const [meshToRemove, setMeshToRemove] = useState<Object3D | null>(null);
     const dispatch = useAppDispatch();
-    const { selected } = useAppSelector((state) => state.widgets);
+    const { selected, widgetsDictionary } = useAppSelector((state) => state.widgets);
     const { getMeshByWidget, getWidgetByMesh } = useWidgetsUtilities();
     const { widgets, setWidgets } = useContext(WidgetsContext);
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
@@ -45,7 +46,24 @@ export default () => {
         setWidgetsState(widgets);
     }, [widgets, widgets.length]);
 
-    const copyWidget = (widget: WidgetSceneObject) => {};
+    const copyWidget = (widget: WidgetSceneObject) => {
+        const newWidget = { ...widget };
+        const newId = uidGenerator();
+
+        newWidget.id = newId;
+
+        if (widget.id) {
+            dispatch(
+                addWidgetDictionary({
+                    id: newWidget.id,
+                    properties: widgetsDictionary[widget.id].properties,
+                    options: widgetsDictionary[widget.id].options,
+                })
+            );
+
+            setWidgets([...widgets, newWidget]);
+        }
+    };
 
     const removeCurrentWidgets = () => {
         const mesh = getMeshByWidget(currentWidgetsState[0]);
@@ -53,6 +71,7 @@ export default () => {
         if (mesh) {
             removeWidget(mesh);
         } else {
+            // eslint-disable-next-line no-console
             console.error("No mesh found"); // Add UI confirmation
         }
     };

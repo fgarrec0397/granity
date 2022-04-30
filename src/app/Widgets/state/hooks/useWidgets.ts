@@ -3,12 +3,7 @@ import { Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
-import {
-    WidgetSceneObject,
-    WidgetProperties,
-    WidgetOptions,
-    WidgetOptionsValues,
-} from "../../types";
+import { WidgetSceneObject, WidgetProperties, WidgetOptionsValues } from "../../types";
 import { WidgetsContext } from "../../WidgetsProvider";
 import {
     addWidgetDictionary,
