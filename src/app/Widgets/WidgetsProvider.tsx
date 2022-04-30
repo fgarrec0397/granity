@@ -1,5 +1,5 @@
 import React, { FC, createContext, useState, Dispatch, SetStateAction } from "react";
-import { WidgetSceneObject } from "../types";
+import { WidgetSceneObject } from "./types";
 
 export interface WidgetContextModel {
     widgets: WidgetSceneObject[] | [];

@@ -5,7 +5,7 @@ import { ReactReduxContext, useDispatch } from "react-redux";
 import Loader from "./Common/components/Loader";
 import Editor from "./Editor/Editor";
 import Scene from "./Scene/Scene";
-import { WidgetsContext } from "./Widgets/state/WidgetsProvider";
+import { WidgetsContext } from "./Widgets/WidgetsProvider";
 import { removeSelected } from "./Widgets/state/widgetsReducer";
 
 const App: FC = () => {

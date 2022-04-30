@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Object3D } from "three";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { WidgetSceneObject } from "../../types";
-import { WidgetsContext } from "../WidgetsProvider";
+import { WidgetsContext } from "../../WidgetsProvider";
 import { removeSelected, removeWidgetDictionary } from "../widgetsReducer";
 import useWidgetsUtilities from "./useWidgetsUtilities";
 

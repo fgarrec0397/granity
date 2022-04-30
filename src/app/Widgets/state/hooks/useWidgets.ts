@@ -3,8 +3,13 @@ import { Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
-import { WidgetSceneObject, WidgetProperties } from "../../types";
-import { WidgetsContext } from "../WidgetsProvider";
+import {
+    WidgetSceneObject,
+    WidgetProperties,
+    WidgetOptions,
+    WidgetOptionsValues,
+} from "../../types";
+import { WidgetsContext } from "../../WidgetsProvider";
 import {
     addWidgetDictionary,
     updateWidgetDictionary,
@@ -41,10 +46,22 @@ export default () => {
             scale: [1, 1, 1],
         };
 
+        const defaultOptions: WidgetOptionsValues | Record<string, never> = {};
+
+        if (newWidget.widgetDefinition.options?.length) {
+            for (const option of newWidget.widgetDefinition.options) {
+                defaultOptions[option.name] = {
+                    fieldType: option.fieldType,
+                    value: option.defaultValue,
+                };
+            }
+        }
+
         dispatch(
             addWidgetDictionary({
                 id: newWidget.id,
                 properties: defaultProperties,
+                options: defaultOptions,
             })
         );
 
@@ -63,6 +80,19 @@ export default () => {
         }
     };
 
+    const updateCurrentWidgetOptions = (widgetOptions: WidgetOptionsValues) => {
+        const currentWidget = currentWidgetsState[0];
+
+        if (currentWidget?.id) {
+            dispatch(
+                updateWidgetDictionary({
+                    id: currentWidget.id,
+                    options: widgetOptions,
+                })
+            );
+        }
+    };
+
     const updateCurrentWidget = (
         widgetProperties: WidgetProperties,
         updateOnlyProperties = false
@@ -70,7 +100,7 @@ export default () => {
         if (!updateOnlyProperties) {
             const currentWidget = currentWidgetsState[0];
 
-            if (currentWidget.id) {
+            if (currentWidget?.id) {
                 dispatch(
                     updateWidgetDictionary({
                         id: currentWidget.id,
@@ -109,5 +139,6 @@ export default () => {
         selectWidget,
         updateCurrentWidget,
         updateCurrentWidgetWithMesh,
+        updateCurrentWidgetOptions,
     };
 };

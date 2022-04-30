@@ -6,7 +6,10 @@ import { UnionOfProperties } from "../Common/utils/typings";
 /**
  * Allowed Fieldtypes
  */
-export type FieldType = "Text" | "Select";
+export enum FieldType {
+    Text = "Text",
+    Select = "Select",
+}
 
 /**
  * Option for Select FieldType
@@ -16,15 +19,22 @@ export interface SelectOptions {
     name: string;
 }
 
+type WidgetAdditionnalOptions = WidgetSelectionOptions;
+
+export type WidgetOptionDefaultValue = string | number; // TODO - Readjust that in order to match the field type
+
+export interface WidgetSelectionOptions {
+    selectOptions?: SelectOptions[];
+}
+
 /**
  * Base interface for option object.
  */
-export interface WidgetBaseOptions {
+export interface WidgetBaseOptions extends WidgetAdditionnalOptions {
     name: string;
     displayName: string;
     fieldType: FieldType;
-    selectOptions?: SelectOptions[];
-    defaultValue: string | number; // TODO - Readjust that in order to match the field type
+    defaultValue: WidgetOptionDefaultValue;
 }
 
 /**
@@ -60,7 +70,13 @@ export interface IWidget<Props = FeaturesWidgetsProps> {
  */
 export type WidgetSceneObject = Omit<IWidget, "reducer">;
 
-export type WidgetsDictionary = { [id: string]: { properties: WidgetProperties } };
+export type WidgetsDictionary = {
+    [id: string]: { properties: WidgetProperties; options: WidgetOptionsValues };
+};
+
+export type WidgetOptionsValues = {
+    [name: string]: { fieldType: FieldType; value: WidgetOptionDefaultValue };
+};
 
 export type WidgetProperties = {
     position: [number, number, number];

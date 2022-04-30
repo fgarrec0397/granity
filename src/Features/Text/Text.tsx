@@ -1,6 +1,6 @@
 import { Html } from "@react-three/drei";
 import React, { FC } from "react";
-import { IWidget } from "../../App/Widgets/types";
+import { FieldType, IWidget } from "../../App/Widgets/types";
 import { EditableWidget } from "../../App/Editor/types";
 import textReducer from "./state/textReducer";
 
@@ -31,7 +31,7 @@ export const widget: IWidget<TextProps> = {
             {
                 name: "text",
                 displayName: "Text",
-                fieldType: "Text",
+                fieldType: FieldType.Text,
                 defaultValue: "Test default value",
             },
         ],

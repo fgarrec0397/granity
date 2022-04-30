@@ -28,6 +28,7 @@
     "no-plusplus": "off",
     "no-useless-return": "off",
     "consistent-return": "off",
+    "no-restricted-syntax": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",

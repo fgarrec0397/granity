@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
-import WidgetsContextProvider from "./Widgets/state/WidgetsProvider";
+import WidgetsContextProvider from "./Widgets/WidgetsProvider";
 import { store } from "./Core/store";
 
 const AppProviders: FC = ({ children }) => {

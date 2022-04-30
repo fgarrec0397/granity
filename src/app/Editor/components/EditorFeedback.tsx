@@ -1,10 +1,12 @@
-import { Card, Collapse, Descriptions } from "antd";
-import React, { FC } from "react";
+import { Card, Collapse, Descriptions, Select, Typography } from "antd";
+import React, { FC, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
+import { FieldType, WidgetBaseOptions } from "../../Widgets/types";
 
 const { Panel } = Collapse;
+const { Option } = Select;
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;
@@ -21,7 +23,18 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-    const { currentWidgetProperties } = useWidgets();
+    const { currentWidgetProperties, currentWidgets, updateCurrentWidgetOptions } = useWidgets();
+    const [selectValue, setSelectValue] = useState("default");
+
+    const handleChange = (value: string, option: WidgetBaseOptions) => {
+        setSelectValue(value);
+        updateCurrentWidgetOptions({
+            [option.name]: {
+                fieldType: option.fieldType,
+                value,
+            },
+        });
+    };
 
     if (currentWidgetProperties) {
         return (
@@ -109,9 +122,37 @@ const EditorFeedback: FC = () => {
                             </Descriptions>
                         </Card>
                     </Panel>
-                    <Panel header="WidgetName: Not supported yet" key="1">
+                    <Panel header="Options" key="2">
                         <Card size="small" bordered={false} bodyStyle={{ padding: "0" }}>
-                            test
+                            {currentWidgets.length > 1 ? (
+                                <Typography>
+                                    Impossible to edit widget while more than one is selected
+                                </Typography>
+                            ) : (
+                                currentWidgets.length > 0 &&
+                                currentWidgets[0].widgetDefinition.options?.map((option) => {
+                                    if (option.fieldType === FieldType.Select) {
+                                        return (
+                                            <Select
+                                                defaultValue="default"
+                                                value={selectValue}
+                                                onChange={(value: string) =>
+                                                    handleChange(value, option)
+                                                }
+                                            >
+                                                <Option value="default">Select an option</Option>
+                                                {option.selectOptions?.map((selectionOption) => (
+                                                    <Option value={selectionOption.value}>
+                                                        {selectionOption.name}
+                                                    </Option>
+                                                ))}
+                                            </Select>
+                                        );
+                                    }
+
+                                    return null;
+                                })
+                            )}
                         </Card>
                     </Panel>
                 </Collapse>

@@ -1,10 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WidgetProperties, WidgetsDictionary } from "../types";
+import { WidgetOptions, WidgetOptionsValues, WidgetProperties, WidgetsDictionary } from "../types";
 
 export interface WidgetsState {
     selected: string[];
     widgetsDictionary: WidgetsDictionary;
     currentWidgetProperties: WidgetProperties | null;
+}
+
+interface WidgetsDictionaryItem {
+    id: string;
+    properties?: WidgetProperties;
+    options?: WidgetOptionsValues;
 }
 
 const initialState: WidgetsState = {
@@ -20,30 +26,24 @@ export const sceneSlice = createSlice({
         setCurrentWidgetProperties: (state, action: PayloadAction<WidgetProperties>) => {
             state.currentWidgetProperties = action.payload;
         },
-        addWidgetDictionary: (
-            state,
-            action: PayloadAction<{
-                id: string;
-                properties: WidgetProperties;
-            }>
-        ) => {
-            const { id, properties } = action.payload;
+        addWidgetDictionary: (state, action: PayloadAction<Required<WidgetsDictionaryItem>>) => {
+            const { id, properties, options } = action.payload;
 
             state.widgetsDictionary = {
                 ...state.widgetsDictionary,
-                [id]: { properties },
+                [id]: { properties, options },
             };
         },
-        updateWidgetDictionary: (
-            state,
-            action: PayloadAction<{
-                id: string;
-                properties: WidgetProperties;
-            }>
-        ) => {
-            const { id, properties } = action.payload;
+        updateWidgetDictionary: (state, action: PayloadAction<WidgetsDictionaryItem>) => {
+            const { id, properties, options } = action.payload;
 
-            state.widgetsDictionary[id] = { properties };
+            if (properties) {
+                state.widgetsDictionary[id].properties = properties;
+            }
+
+            if (options) {
+                state.widgetsDictionary[id].options = options;
+            }
         },
         removeWidgetDictionary: (state, action: PayloadAction<string>) => {
             const id = action.payload;

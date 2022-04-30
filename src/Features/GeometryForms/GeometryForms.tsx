@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IWidget } from "../../App/Widgets/types";
+import { FieldType, IWidget } from "../../App/Widgets/types";
 import { EditableWidget } from "../../App/Editor/types";
 
 export interface GeometryFormsProps extends EditableWidget {
@@ -28,7 +28,7 @@ export const widget: IWidget<GeometryFormsProps> = {
             {
                 name: "shape",
                 displayName: "Shape",
-                fieldType: "Select",
+                fieldType: FieldType.Select,
                 selectOptions: [
                     {
                         value: "BoxGeometry",
