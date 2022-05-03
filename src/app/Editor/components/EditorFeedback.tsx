@@ -140,7 +140,9 @@ const EditorFeedback: FC = () => {
                                                     handleChange(value, option)
                                                 }
                                             >
-                                                <Option value="default">Select an option</Option>
+                                                <Option value="default" disabled>
+                                                    Select an option
+                                                </Option>
                                                 {option.selectOptions?.map((selectionOption) => (
                                                     <Option value={selectionOption.value}>
                                                         {selectionOption.name}

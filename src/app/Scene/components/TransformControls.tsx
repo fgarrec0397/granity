@@ -113,7 +113,7 @@ const TransformControlsComponent: FC = ({ children }) => {
     useEffect(() => {
         const onTransformControlMouseUp = () => {
             if (stateMesh) {
-                updateCurrentWidgetWithMesh(stateMesh); // the proble comes from this function
+                updateCurrentWidgetWithMesh(stateMesh);
             }
         };
 

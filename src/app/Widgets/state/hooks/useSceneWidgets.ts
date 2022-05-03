@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Object3D } from "three";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { WidgetSceneObject } from "../../types";
-import { WidgetsContext } from "../../WidgetsProvider";
 import { addWidgetDictionary, removeSelected, removeWidgetDictionary } from "../widgetsReducer";
+import useWidgetsContext from "./core/useWidgetsContext";
 import useWidgetsUtilities from "./useWidgetsUtilities";
 
 export default () => {
@@ -12,7 +12,7 @@ export default () => {
     const dispatch = useAppDispatch();
     const { selected, widgetsDictionary } = useAppSelector((state) => state.widgets);
     const { getMeshByWidget, getWidgetByMesh } = useWidgetsUtilities();
-    const { widgets, setWidgets } = useContext(WidgetsContext);
+    const { widgets, setWidgets } = useWidgetsContext();
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {

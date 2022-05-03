@@ -1,16 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WidgetOptionsValues, WidgetProperties, WidgetsDictionary } from "../types";
+import {
+    WidgetOptionsValues,
+    WidgetProperties,
+    WidgetsDictionary,
+    WidgetsDictionaryItem,
+} from "../types";
 
 export interface WidgetsState {
     selected: string[];
     widgetsDictionary: WidgetsDictionary;
     currentWidgetProperties: WidgetProperties | null;
-}
-
-interface WidgetsDictionaryItem {
-    id: string;
-    properties?: WidgetProperties;
-    options?: WidgetOptionsValues;
 }
 
 const initialState: WidgetsState = {

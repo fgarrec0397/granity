@@ -1,21 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { WidgetSceneObject, WidgetProperties, WidgetOptionsValues } from "../../types";
-import { WidgetsContext } from "../../WidgetsProvider";
-import {
-    addWidgetDictionary,
-    updateWidgetDictionary,
-    setCurrentWidgetProperties,
-    setSelected,
-} from "../widgetsReducer";
+import { setSelected } from "../widgetsReducer";
+import useWidgetActions from "./core/useWidgetActions";
+import useWidgetsContext from "./core/useWidgetsContext";
 
 export default () => {
     const dispatch = useAppDispatch();
     const { selected, currentWidgetProperties } = useAppSelector((state) => state.widgets);
-    const { widgets, setWidgets } = useContext(WidgetsContext);
+    const { add, update, updateCurrentProperties } = useWidgetActions();
+    const { widgets } = useWidgetsContext();
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {
@@ -52,23 +49,16 @@ export default () => {
             }
         }
 
-        dispatch(
-            addWidgetDictionary({
-                id: newWidget.id,
-                properties: defaultProperties,
-                options: defaultOptions,
-            })
-        );
-
-        setWidgets([...widgets, newWidget]);
+        add(newWidget, defaultProperties, defaultOptions);
     };
 
     const getWidgetById = (id: string | undefined) => {
         if (id) {
-            return widgets.find((x: any) => x.id === id);
+            return widgets.find((x) => x.id === id);
         }
     };
 
+    // TODO - Wait to refactor the selection in Transformcontrols before refactoring this part.
     const selectWidget = (widget: WidgetSceneObject, isMultipleSelect: boolean) => {
         if (widget.id) {
             dispatch(setSelected({ newSelectedId: widget.id, isMultipleSelect }));
@@ -79,12 +69,7 @@ export default () => {
         const currentWidget = currentWidgetsState[0];
 
         if (currentWidget?.id) {
-            dispatch(
-                updateWidgetDictionary({
-                    id: currentWidget.id,
-                    options: widgetOptions,
-                })
-            );
+            update(currentWidget, undefined, widgetOptions);
         }
     };
 
@@ -92,20 +77,15 @@ export default () => {
         widgetProperties: WidgetProperties,
         updateOnlyProperties = false
     ) => {
-        if (!updateOnlyProperties) {
-            const currentWidget = currentWidgetsState[0];
+        const currentWidget = currentWidgetsState[0];
 
-            if (currentWidget?.id) {
-                dispatch(
-                    updateWidgetDictionary({
-                        id: currentWidget.id,
-                        properties: widgetProperties,
-                    })
-                );
+        if (currentWidget?.id) {
+            if (updateOnlyProperties) {
+                updateCurrentProperties(widgetProperties);
+            } else {
+                update(currentWidget, widgetProperties);
             }
         }
-
-        dispatch(setCurrentWidgetProperties(widgetProperties));
     };
 
     const updateCurrentWidgetWithMesh = (

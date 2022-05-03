@@ -78,6 +78,12 @@ export type WidgetOptionsValues = {
     [name: string]: { fieldType: FieldType; value: WidgetOptionDefaultValue };
 };
 
+export type WidgetsDictionaryItem = {
+    id: string;
+    properties?: WidgetProperties;
+    options?: WidgetOptionsValues;
+};
+
 export type WidgetProperties = {
     position: [number, number, number];
     rotation: [number, number, number];
