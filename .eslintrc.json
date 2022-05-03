@@ -13,6 +13,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "warnOnUnsupportedTypeScriptVersion": false,
     "ecmaFeatures": {
       "jsx": true
     },

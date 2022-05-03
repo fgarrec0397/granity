@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Physics } from "@react-three/cannon";
+import { Select } from "@react-three/drei";
 import Lights from "./components/Lights";
 import CameraControls from "./components/CameraControls";
 import Widgets from "../Widgets/Widgets";
@@ -12,6 +13,7 @@ const Scene: FC = () => {
         <Physics>
             <Lights />
             <CameraControls />
+            <Select />
             <Widgets />
         </Physics>
     );

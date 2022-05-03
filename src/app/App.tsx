@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Canvas, ThreeEvent } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { useContextBridge } from "@react-three/drei";
 import { ReactReduxContext, useDispatch } from "react-redux";
 import Loader from "./Common/components/Loader";
@@ -19,7 +19,7 @@ const App: FC = () => {
         }, 1000);
     }, []);
 
-    const onPointerMissed = (event: ThreeEvent<PointerEvent>) => {
+    const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();
         dispatch(removeSelected());
     };
