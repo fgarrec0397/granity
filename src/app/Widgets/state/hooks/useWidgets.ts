@@ -59,9 +59,9 @@ export default () => {
     };
 
     // TODO - Wait to refactor the selection in Transformcontrols before refactoring this part.
-    const selectWidget = (widget: WidgetSceneObject, isMultipleSelect: boolean) => {
+    const selectWidget = (widget: WidgetSceneObject) => {
         if (widget.id) {
-            dispatch(setSelected({ newSelectedId: widget.id, isMultipleSelect }));
+            dispatch(setSelected({ newSelectedId: widget.id }));
         }
     };
 
