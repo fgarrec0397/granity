@@ -143,11 +143,16 @@ const EditorFeedback: FC = () => {
                                                 <Option value="default" disabled>
                                                     Select an option
                                                 </Option>
-                                                {option.selectOptions?.map((selectionOption) => (
-                                                    <Option value={selectionOption.value}>
-                                                        {selectionOption.name}
-                                                    </Option>
-                                                ))}
+                                                {option.selectOptions?.map(
+                                                    (selectionOption, index) => (
+                                                        <Option
+                                                            key={index}
+                                                            value={selectionOption.value}
+                                                        >
+                                                            {selectionOption.name}
+                                                        </Option>
+                                                    )
+                                                )}
                                             </Select>
                                         );
                                     }

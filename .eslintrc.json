@@ -5,20 +5,21 @@
   },
   "extends": [
     "plugin:react/recommended",
-    "airbnb",
+    "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "prettier/prettier",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:import/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "warnOnUnsupportedTypeScriptVersion": false,
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": 12,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": ["tsconfig.json"]
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
