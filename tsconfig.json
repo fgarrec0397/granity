@@ -22,6 +22,7 @@
     "checkJs": false
   },
   "include": [
-    "src"
+    "src", 
+    "server"
   ]
 }
