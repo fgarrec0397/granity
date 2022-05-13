@@ -1,0 +1,20 @@
+{
+  "name": "react-editor",
+  "version": "0.0.1",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "scripts": {
+    "server": "cd server && npm start",
+    "client": "cd app && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/fga97/youtube-3d.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/fga97/youtube-3d#readme",
+  "devDependencies": {
+    "concurrently": "^7.1.0"
+  }
+}

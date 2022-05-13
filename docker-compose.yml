@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+    frontend:
+        container_name: awesome_web
+        build:
+            context: ./app
+            dockerfile: Dockerfile
+        environment:
+          CHOKIDAR_USEPOLLING: "true"
+        image: fgarrec0397/awesome_web:0.1
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./client:/usr/src/app
+    backend:
+        container_name: awesome_server
+        build:
+            context: ./server
+            dockerfile: Dockerfile
+        image: fgarrec0397/awesome_server:0.1
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./server:/usr/src/app

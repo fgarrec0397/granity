@@ -13,11 +13,11 @@ const App: FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const ContextBridge = useContextBridge(WidgetsContext, ReactReduxContext);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setIsLoading(false);
+    //     }, 1000);
+    // }, []);
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();
