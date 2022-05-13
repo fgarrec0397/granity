@@ -1,22 +1,18 @@
-import { MongoClient } from "mongodb";
 import express from "express";
+import dbo from "./dbConnection";
 
 const app = express();
 
-const connectionURL = "mongodb://127.0.0.1:27017";
-const databaseName = "youtube3D";
+const db = dbo.getDb();
 
-// MongoClient.connect(connectionURL, (error, client) => {
-//     if (error) {
-//         return console.log(error, "error");
-//     }
-
-//     console.log(client);
+// dbo.collection("users").insertOne({
+//     name: "fabrice",
+//     age: 24,
 // });
 
-// app.get("/", function (req, res) {
-//     res.send("Hello World");
-// });
+app.get("/", function (req, res) {
+    res.send("Hello World");
+});
 
 const port = process.env.PORT || 5000;
 
