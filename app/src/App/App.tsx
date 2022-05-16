@@ -13,11 +13,20 @@ const App: FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const ContextBridge = useContextBridge(WidgetsContext, ReactReduxContext);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setIsLoading(false);
-    //     }, 1000);
-    // }, []);
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await fetch("/");
+            console.log(data, "data");
+        };
+
+        fetchData();
+    }, []);
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();
@@ -28,7 +37,11 @@ const App: FC = () => {
         <Loader />
     ) : (
         <>
-            <Canvas camera={{ fov: 25 }} onPointerMissed={onPointerMissed}>
+            <Canvas
+                onCreated={(state) => console.log(state, "state")}
+                camera={{ fov: 25 }}
+                onPointerMissed={onPointerMissed}
+            >
                 <ContextBridge>
                     <Scene />
                 </ContextBridge>

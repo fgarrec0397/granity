@@ -1,20 +1,45 @@
-import { Db, MongoClient } from "mongodb";
+import { AnyError, Db, MongoClient } from "mongodb";
 
-const connectionURL = "mongodb://127.0.0.1:27017";
-const databaseName = "youtube3D";
+const connectionString = "mongodb://127.0.0.1:27017"; // TODO - should be stored in .env file
+
+const dbName = "test";
+// const client = new MongoClient(connectionString);
 
 let dbConnection: Db | undefined;
 
-MongoClient.connect(connectionURL, (error, client) => {
-    if (error) {
-        return console.error(error, "error");
-    }
+// Connect using MongoClient
+const mongoClient = new MongoClient(connectionString);
 
-    dbConnection = client?.db(databaseName);
+mongoClient.connect((error, client) => {
+    if (error) {
+        console.log(error, "error");
+    }
+    dbConnection = client?.db(dbName);
+    console.log(dbConnection, "db in connect");
 });
+console.log(dbConnection, "db");
 
 export default {
-    getDb: function () {
+    getDB: () => {
         return dbConnection;
     },
 };
+
+// export default {
+//     connectToServer: (callback: (error?: AnyError) => void) => {
+//         client.connect((error, db) => {
+//             if (error || !db) {
+//                 return callback(error);
+//             }
+
+//             dbConnection = db.db("sample_airbnb");
+//             console.log("Successfully connected to MongoDB.");
+
+//             return callback();
+//         });
+//     },
+
+//     getDb: () => {
+//         return dbConnection;
+//     },
+// };
