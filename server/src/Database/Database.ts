@@ -10,9 +10,12 @@ declare class MongoDbConnection {
 
 class Database implements IDatabase {
     connectionString: string;
+    test: any;
 
     constructor(connectionString: string) {
         this.connectionString = connectionString;
+        const schema = new mongoose.Schema({ sceneJsonString: "string" });
+        this.test = mongoose.model("Scene", schema);
     }
 
     connectToDatabase() {
@@ -20,17 +23,21 @@ class Database implements IDatabase {
     }
 
     insert(data: any) {
-        console.log(data, "data");
         const sceneJsonString = JSON.stringify(data);
-        console.log(typeof sceneJsonString, "typeof sceneJsonString");
-        const schema = new mongoose.Schema({ sceneJsonString: "string" });
-        const Scene = mongoose.model("Scene", schema);
+        const sceneModel = new this.test({ sceneJsonString });
 
-        const scene = new Scene({ sceneJsonString });
-        scene.save(function (err: any) {
+        // console.log(sceneModel, "sceneModel");
+        console.log(sceneJsonString, "sceneJsonString");
+
+        // const scene = new Scene({ sceneJsonString });
+        sceneModel.save(function (err: any) {
             if (err) return console.log(err, "err");
             console.log("saved");
         });
+    }
+
+    getOldest() {
+        return this.test.findOne({}, {}, { sort: { created_at: -1 } }).exec();
     }
 }
 

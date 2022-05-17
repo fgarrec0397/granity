@@ -15,6 +15,16 @@ const main = async () => {
 
     await database.connectToDatabase();
 
+    app.get("/api/scene", async (req, res) => {
+        // console.log(req.body, "req.body");
+        // console.log(res, "res");
+        const oldestScene = await database.getOldest();
+
+        console.log(oldestScene, "oldestScene");
+
+        res.send(oldestScene);
+    });
+
     app.post("/api/scene", function (req, res) {
         // console.log(req.body, "req.body");
         // console.log(res, "res");
