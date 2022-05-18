@@ -6,13 +6,13 @@ import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { WidgetSceneObject, WidgetProperties, WidgetOptionsValues } from "../../types";
 import { setSelected } from "../widgetsReducer";
 import useWidgetActions from "./core/useWidgetActions";
-import useWidgetsContext from "./core/useWidgetsContext";
+import useSceneWidgetsContext from "./core/useSceneWidgetsContext";
 
 export default () => {
     const dispatch = useAppDispatch();
     const { selected, currentWidgetProperties } = useAppSelector((state) => state.widgets);
     const { add, update, updateCurrentProperties } = useWidgetActions();
-    const { widgets } = useWidgetsContext();
+    const { widgets } = useSceneWidgetsContext();
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {

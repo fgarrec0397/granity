@@ -10,10 +10,13 @@ import useWidgets from "../Widgets/state/hooks/useWidgets";
 import useWidgetsUtilities from "../Widgets/state/hooks/useWidgetsUtilities";
 import { off, on } from "../Core/utils/events";
 import { useThree } from "@react-three/fiber";
+import { WidgetSceneObject } from "../Widgets/types";
+import useWidgetsContext from "../Widgets/state/hooks/core/useWidgetsContext";
 
 const Scene: FC = () => {
     const { scene } = useThree();
-    const { selectWidget } = useWidgets();
+    const { selectWidget, widgets } = useWidgets();
+    const widgetContext = useWidgetsContext();
     const { getWidgetByMesh } = useWidgetsUtilities();
     useKeyboardControls();
 
@@ -21,23 +24,32 @@ const Scene: FC = () => {
         const fetchScene = async () => {
             const response = await fetch("api/scene");
             const { sceneJsonString } = await response.json();
-            console.log(response, "response");
-            console.log(sceneJsonString, "sceneJsonString");
+
             try {
                 const sceneObj = JSON.parse(sceneJsonString);
                 const loader = new THREE.ObjectLoader();
                 const object = loader.parse(sceneObj);
                 scene.add(object);
-                console.log(object);
             } catch (error) {
-                console.log(error, "error");
+                console.error(error, "error");
             }
         };
 
         const handleSaveFile = async () => {
             const jsonScene = scene.toJSON();
-            console.log(jsonScene, "onClick from scene");
-            console.log(JSON.stringify(jsonScene), "JSON.stringify(jsonScene)");
+
+            type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+            type PartialBy<Type, Key extends keyof Type> = Omit<Type, Key> &
+                Partial<Pick<Type, Key>>;
+
+            const clonedWidgets: PartialBy<WidgetSceneObject, "component">[] = [...widgets];
+            const preparedWidgets = clonedWidgets.map((x) => {
+                delete x.component;
+                return x;
+            });
+            console.log(widgetContext, "widgetContext");
+            console.log(preparedWidgets, "preparedWidgets");
+
             const rawResponse = await fetch("api/scene", {
                 method: "POST",
                 headers: {
@@ -52,7 +64,7 @@ const Scene: FC = () => {
             // console.log(content, "content");
         };
 
-        fetchScene();
+        // fetchScene();
         console.log("after fetch");
 
         on("saveFile:click", handleSaveFile);
@@ -60,7 +72,7 @@ const Scene: FC = () => {
         return () => {
             off("saveFile:click", handleSaveFile);
         };
-    }, [scene]);
+    }, [scene, widgets, widgetContext]);
 
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
         if (meshArray.length) {

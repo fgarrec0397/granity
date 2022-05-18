@@ -1,12 +1,15 @@
 import React, { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
-import WidgetsContextProvider from "./Widgets/WidgetsProvider";
+import SceneWidgetsContextProvider from "./Widgets/providers/SceneWidgetsProvider";
 import { store } from "./Core/store";
+import WidgetsContextProvider from "./Widgets/providers/WidgetsProvider";
 
 const AppProviders: FC = ({ children }) => {
     return (
         <ReduxProvider store={store}>
-            <WidgetsContextProvider>{children}</WidgetsContextProvider>
+            <SceneWidgetsContextProvider>
+                <WidgetsContextProvider>{children}</WidgetsContextProvider>
+            </SceneWidgetsContextProvider>
         </ReduxProvider>
     );
 };

@@ -4,7 +4,7 @@ import uidGenerator from "../../../Common/utils/uidGenerator";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import { WidgetSceneObject } from "../../types";
 import { addWidgetDictionary, removeSelected, removeWidgetDictionary } from "../widgetsReducer";
-import useWidgetsContext from "./core/useWidgetsContext";
+import useSceneWidgetsContext from "./core/useSceneWidgetsContext";
 import useWidgetsUtilities from "./useWidgetsUtilities";
 
 export default () => {
@@ -12,7 +12,7 @@ export default () => {
     const dispatch = useAppDispatch();
     const { selected, widgetsDictionary } = useAppSelector((state) => state.widgets);
     const { getMeshByWidget, getWidgetByMesh } = useWidgetsUtilities();
-    const { widgets, setWidgets } = useWidgetsContext();
+    const { widgets, setSceneWidgets } = useSceneWidgetsContext();
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {
@@ -22,11 +22,11 @@ export default () => {
             if (widget) {
                 const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);
 
-                setWidgets([...updatedWidgets]);
+                setSceneWidgets([...updatedWidgets]);
                 setMeshToRemove(null);
             }
         }
-    }, [getWidgetByMesh, meshToRemove, setWidgets, widgets]);
+    }, [getWidgetByMesh, meshToRemove, setSceneWidgets, widgets]);
 
     useEffect(() => {
         const currentWidgets = widgets.filter((x) => {
@@ -61,7 +61,7 @@ export default () => {
                 })
             );
 
-            setWidgets([...widgets, newWidget]);
+            setSceneWidgets([...widgets, newWidget]);
         }
     };
 
@@ -81,7 +81,7 @@ export default () => {
 
         if (widget.id) {
             const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);
-            setWidgets([...updatedWidgets]);
+            setSceneWidgets([...updatedWidgets]);
             dispatch(removeWidgetDictionary(widget.id));
         }
 

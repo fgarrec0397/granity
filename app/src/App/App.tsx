@@ -5,27 +5,31 @@ import { ReactReduxContext, useDispatch } from "react-redux";
 import Loader from "./Common/components/Loader";
 import Editor from "./Editor/Editor";
 import Scene from "./Scene/Scene";
-import { WidgetsContext } from "./Widgets/WidgetsProvider";
+import { SceneWidgetsContext } from "./Widgets/providers/SceneWidgetsProvider";
 import { removeSelected } from "./Widgets/state/widgetsReducer";
+import widgets from "../Features/collector";
+import useWidgetsContext from "./Widgets/state/hooks/core/useWidgetsContext";
+import { WidgetsContext } from "./Widgets/providers/WidgetsProvider";
 
 const App: FC = () => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
-    const ContextBridge = useContextBridge(WidgetsContext, ReactReduxContext);
+    const ContextBridge = useContextBridge(SceneWidgetsContext, WidgetsContext, ReactReduxContext);
+    const { setWidgets } = useWidgetsContext();
 
+    // Fake loading. Will be a real loading when save functionality will be implemented
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
         }, 1000);
     }, []);
 
+    // Store all kind of widgets in Widgets Context API
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetch("/");
-            console.log(data, "data");
-        };
+        console.log(widgets, "widgets in App");
 
-        fetchData();
+        setWidgets(widgets);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const onPointerMissed = (event: MouseEvent) => {

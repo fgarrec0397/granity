@@ -1,9 +1,9 @@
 import { WidgetOptionsValues, WidgetProperties, WidgetSceneObject } from "../../../types";
 import useWidgetDispatch from "./useWidgetDispatch";
-import useWidgetsContext from "./useWidgetsContext";
+import useSceneWidgetsContext from "./useSceneWidgetsContext";
 
 export default () => {
-    const { widgets, setWidgets } = useWidgetsContext();
+    const { widgets, setSceneWidgets } = useSceneWidgetsContext();
     const { dispatchAddDictionary, dispatchUpdateDictionary, dispatchSetCurrentWidgetProperties } =
         useWidgetDispatch();
 
@@ -20,7 +20,7 @@ export default () => {
             });
         }
 
-        setWidgets([...widgets, newWidget]);
+        setSceneWidgets([...widgets, newWidget]);
     };
 
     const update = (
