@@ -16,29 +16,33 @@ export default () => {
         return `${widgetObjectsPrefix}+${widget.widgetDefinition.name}+${widget.id}`;
     };
 
+    const getWidgetByMesh = (mesh: Object3D) => {
+        let widgetMesh: Object3D | undefined;
+
+        if (mesh.name.startsWith(widgetObjectsPrefix)) {
+            widgetMesh = mesh;
+        } else {
+            mesh.traverseAncestors((object) => {
+                if (object.name.startsWith(widgetObjectsPrefix)) {
+                    widgetMesh = object;
+                }
+            });
+        }
+
+        const widgetIdInMesh = widgetMesh?.name.split("+")[2];
+        const widget = getWidgetById(widgetIdInMesh) as WidgetSceneObject;
+
+        return { widget, widgetMesh };
+    };
+
+    const getMeshByWidget = (widget: IWidget | WidgetSceneObject) => {
+        const meshName = getWidgetName(widget);
+        return scene.getObjectByName(meshName);
+    };
+
     return {
         getWidgetName,
-        getWidgetByMesh: (mesh: Object3D) => {
-            let widgetMesh: Object3D | undefined;
-
-            if (mesh.name.startsWith(widgetObjectsPrefix)) {
-                widgetMesh = mesh;
-            } else {
-                mesh.traverseAncestors((object) => {
-                    if (object.name.startsWith(widgetObjectsPrefix)) {
-                        widgetMesh = object;
-                    }
-                });
-            }
-
-            const widgetIdInMesh = widgetMesh?.name.split("+")[2];
-            const widget = getWidgetById(widgetIdInMesh) as WidgetSceneObject;
-
-            return { widget, widgetMesh };
-        },
-        getMeshByWidget: (widget: IWidget | WidgetSceneObject) => {
-            const meshName = getWidgetName(widget);
-            return scene.getObjectByName(meshName);
-        },
+        getWidgetByMesh,
+        getMeshByWidget,
     };
 };

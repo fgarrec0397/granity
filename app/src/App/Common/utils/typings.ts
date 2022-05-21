@@ -11,3 +11,9 @@ export type UnionOfProperties<Type> = {
 export type MapPropertiesToNonNullable<Type> = {
     [Property in keyof Type]: NonNullable<Type[Property]>;
 };
+
+/**
+ * Remove specific property from a type object or interface
+ */
+export type SetOptionalPropertyFrom<Type, Key extends keyof Type> = Omit<Type, Key> &
+    Partial<Pick<Type, Key>>;

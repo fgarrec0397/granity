@@ -4,8 +4,12 @@ import useSceneWidgetsContext from "./useSceneWidgetsContext";
 
 export default () => {
     const { widgets, setSceneWidgets } = useSceneWidgetsContext();
-    const { dispatchAddDictionary, dispatchUpdateDictionary, dispatchSetCurrentWidgetProperties } =
-        useWidgetDispatch();
+    const {
+        dispatchAddDictionary,
+        dispatchUpdateDictionary,
+        dispatchRemoveSelected,
+        dispatchSetCurrentWidgetProperties,
+    } = useWidgetDispatch();
 
     const add = (
         newWidget: WidgetSceneObject,
@@ -37,6 +41,13 @@ export default () => {
         }
     };
 
+    const remove = (widget: WidgetSceneObject) => {
+        const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);
+        setSceneWidgets([...updatedWidgets]);
+        dispatchRemoveWidgetDictionary(widget.id);
+        dispatchRemoveSelected();
+    };
+
     const updateCurrentProperties = (widgetProperties: WidgetProperties) => {
         dispatchSetCurrentWidgetProperties(widgetProperties);
     };
@@ -46,6 +57,10 @@ export default () => {
     return {
         add,
         update,
+        remove,
         updateCurrentProperties,
     };
 };
+function dispatchRemoveWidgetDictionary(id: string | undefined) {
+    throw new Error("Function not implemented.");
+}

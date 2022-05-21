@@ -34,7 +34,7 @@ const App: FC = () => {
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();
-        dispatch(removeSelected());
+        dispatch(removeSelected()); // TODO -- handle this by custom event
     };
 
     return isLoading ? (

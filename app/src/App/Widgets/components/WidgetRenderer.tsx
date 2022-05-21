@@ -3,6 +3,7 @@ import React, { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
 import { FeaturesWidgetsProps } from "../../../Features/collector";
 import { useAppSelector } from "../../Core/store";
+import useWidgetsSelector from "../state/hooks/core/useWidgetsSelector";
 
 type Props<T = FeaturesWidgetsProps> = {
     component: FC<T>;
@@ -14,7 +15,7 @@ const WidgetRenderer: FC<Props> = ({ component, name, id }) => {
     const Component = component;
     const ref = useRef<Object3D>();
     const [hovered, setHover] = useState(false);
-    const { widgetsDictionary } = useAppSelector((state) => state.widgets);
+    const { widgetsDictionary } = useWidgetsSelector();
 
     const componentProps = useCallback(() => {
         const props: any = {}; // TODO -- fix any type here

@@ -17,10 +17,16 @@ export const sceneSlice = createSlice({
     name: "editor",
     initialState,
     reducers: {
-        setCurrentWidgetProperties: (state, action: PayloadAction<WidgetProperties>) => {
+        setCurrentWidgetProperties: (
+            state: WidgetsState,
+            action: PayloadAction<WidgetProperties>
+        ) => {
             state.currentWidgetProperties = action.payload;
         },
-        addWidgetDictionary: (state, action: PayloadAction<Required<WidgetsDictionaryItem>>) => {
+        addWidgetDictionary: (
+            state: WidgetsState,
+            action: PayloadAction<Required<WidgetsDictionaryItem>>
+        ) => {
             const { id, properties, options } = action.payload;
 
             state.widgetsDictionary = {
@@ -28,7 +34,10 @@ export const sceneSlice = createSlice({
                 [id]: { properties, options },
             };
         },
-        updateWidgetDictionary: (state, action: PayloadAction<WidgetsDictionaryItem>) => {
+        updateWidgetDictionary: (
+            state: WidgetsState,
+            action: PayloadAction<WidgetsDictionaryItem>
+        ) => {
             const { id, properties, options } = action.payload;
 
             if (properties) {
@@ -39,15 +48,15 @@ export const sceneSlice = createSlice({
                 state.widgetsDictionary[id].options = options;
             }
         },
-        removeWidgetDictionary: (state, action: PayloadAction<string>) => {
+        removeWidgetDictionary: (state: WidgetsState, action: PayloadAction<string>) => {
             const id = action.payload;
             delete state.widgetsDictionary[id];
         },
-        removeSelected: (state) => {
+        removeSelected: (state: WidgetsState) => {
             state.selected = [];
         },
         setSelected: (
-            state,
+            state: WidgetsState,
             action: PayloadAction<{ newSelectedId: string; isMultipleSelect?: boolean }>
         ) => {
             const newSelectedIdArray = action.payload.isMultipleSelect

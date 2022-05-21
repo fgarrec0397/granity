@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { WidgetProperties, WidgetsDictionaryItem } from "../../../types";
 import {
     addWidgetDictionary,
+    removeSelected,
+    removeWidgetDictionary,
     setCurrentWidgetProperties,
     updateWidgetDictionary,
 } from "../../widgetsReducer";
@@ -17,9 +19,23 @@ export default () => {
         return dispatch(updateWidgetDictionary(widgetsDictionaryItem));
     };
 
+    const dispatchRemoveWidgetDictionary = (widgetId: string) => {
+        return dispatch(removeWidgetDictionary(widgetId));
+    };
+
+    const dispatchRemoveSelected = () => {
+        return dispatch(removeSelected());
+    };
+
     const dispatchSetCurrentWidgetProperties = (widgetProperties: WidgetProperties) => {
         return dispatch(setCurrentWidgetProperties(widgetProperties));
     };
 
-    return { dispatchAddDictionary, dispatchUpdateDictionary, dispatchSetCurrentWidgetProperties };
+    return {
+        dispatchAddDictionary,
+        dispatchUpdateDictionary,
+        dispatchRemoveWidgetDictionary,
+        dispatchRemoveSelected,
+        dispatchSetCurrentWidgetProperties,
+    };
 };

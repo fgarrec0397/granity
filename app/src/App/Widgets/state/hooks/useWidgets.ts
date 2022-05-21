@@ -7,12 +7,16 @@ import { WidgetSceneObject, WidgetProperties, WidgetOptionsValues } from "../../
 import { setSelected } from "../widgetsReducer";
 import useWidgetActions from "./core/useWidgetActions";
 import useSceneWidgetsContext from "./core/useSceneWidgetsContext";
+import useWidgetsSelector from "./core/useWidgetsSelector";
+import useWidgetsUtilities from "./useWidgetsUtilities";
 
 export default () => {
     const dispatch = useAppDispatch();
     const { selected, currentWidgetProperties } = useAppSelector((state) => state.widgets);
-    const { add, update, updateCurrentProperties } = useWidgetActions();
+    const { add, update, remove, updateCurrentProperties } = useWidgetActions();
     const { widgets } = useSceneWidgetsContext();
+    const { widgetsDictionary } = useWidgetsSelector();
+    const { getMeshByWidget, getWidgetByMesh } = useWidgetsUtilities();
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {
@@ -104,6 +108,40 @@ export default () => {
         }
     };
 
+    const copyWidget = (widget: WidgetSceneObject) => {
+        const newWidget = { ...widget };
+        const newId = uidGenerator();
+
+        newWidget.id = newId;
+
+        if (widget.id) {
+            add(
+                newWidget,
+                widgetsDictionary[widget.id].properties,
+                widgetsDictionary[widget.id].options
+            );
+        }
+    };
+
+    const removeCurrentWidgets = () => {
+        const mesh = getMeshByWidget(currentWidgetsState[0]);
+
+        if (mesh) {
+            removeWidget(mesh);
+        } else {
+            // eslint-disable-next-line no-console
+            console.error("No mesh found"); // Add UI confirmation
+        }
+    };
+
+    const removeWidget = (mesh: Object3D) => {
+        const { widget } = getWidgetByMesh(mesh);
+
+        if (widget.id) {
+            remove(widget);
+        }
+    };
+
     return {
         currentWidgets: currentWidgetsState,
         firstCurrentWidget: currentWidgetsState[0], // TODO - Remove this
@@ -115,5 +153,8 @@ export default () => {
         updateCurrentWidget,
         updateCurrentWidgetWithMesh,
         updateCurrentWidgetOptions,
+        copyWidget,
+        removeCurrentWidgets,
+        removeWidget,
     };
 };
