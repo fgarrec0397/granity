@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { FC, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { Physics } from "@react-three/cannon";
 import { Select } from "@react-three/drei";
 import Lights from "./components/Lights";
@@ -7,7 +7,6 @@ import CameraControls from "./components/CameraControls";
 import Widgets from "../Widgets/Widgets";
 import useKeyboardControls from "../Core/hooks/useKeyboardControls";
 import useWidgets from "../Widgets/state/hooks/useWidgets";
-import useWidgetsUtilities from "../Widgets/state/hooks/useWidgetsUtilities";
 import { off, on } from "../Core/utils/events";
 import { useThree } from "@react-three/fiber";
 import { WidgetSceneObject } from "../Widgets/types";
@@ -17,9 +16,8 @@ import { SetOptionalPropertyFrom } from "../Common/utils/typings";
 
 const Scene: FC = () => {
     const { scene } = useThree();
-    const { selectWidget, widgets } = useWidgets();
+    const { selectWidget, getWidgetByMesh, widgets, removeSelected } = useWidgets();
     const widgetContext = useWidgetsContext();
-    const { getWidgetByMesh } = useWidgetsUtilities();
     const { widgetsDictionary } = useWidgetsSelector();
 
     useKeyboardControls();
@@ -74,6 +72,12 @@ const Scene: FC = () => {
             off("saveFile:click", handleSaveFile);
         };
     }, [scene, widgets, widgetContext, widgetsDictionary]);
+
+    useEffect(() => {
+        on("onPointerMissed:removeSelected", () => {
+            removeSelected();
+        });
+    }, [removeSelected]);
 
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
         if (meshArray.length) {

@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import { FieldType, IWidget } from "../../App/Widgets/types";
+import { FC } from "react";
 import { EditableWidget } from "../../App/Editor/types";
+import { FieldType, WidgetModule } from "../../App/Widgets/types";
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
@@ -19,7 +19,7 @@ const GeometryForms: FC<OwnProps> = ({ shape, hovered }) => {
     );
 };
 
-export const widget: IWidget<GeometryFormsProps> = {
+export const widget: WidgetModule<GeometryFormsProps> = {
     component: GeometryForms,
     reducer: null,
     widgetDefinition: {

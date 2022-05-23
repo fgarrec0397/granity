@@ -1,5 +1,5 @@
 import { Card, List } from "antd";
-import React, { FC } from "react";
+import { FC } from "react";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
 
 const EditorItemsList: FC = () => {

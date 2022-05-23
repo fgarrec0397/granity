@@ -6,7 +6,6 @@ import { WidgetSceneObject } from "../../Widgets/types";
 export default () => {
     const { currentWidgets, firstCurrentWidget, removeCurrentWidgets, copyWidget, widgets } =
         useWidgets();
-    // const {  } = useSceneWidgets();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
 
     useHandleEditor();

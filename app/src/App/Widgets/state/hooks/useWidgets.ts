@@ -1,22 +1,35 @@
+import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import { Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
+import constants from "../../../Core/constants";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
-import { WidgetSceneObject, WidgetProperties, WidgetOptionsValues } from "../../types";
+import {
+    WidgetModule,
+    WidgetOptionsValues,
+    WidgetProperties,
+    WidgetSceneObject,
+} from "../../types";
+import { getWidgetName } from "../../utilities";
 import { setSelected } from "../widgetsReducer";
-import useWidgetActions from "./core/useWidgetActions";
 import useSceneWidgetsContext from "./core/useSceneWidgetsContext";
+import useWidgetActions from "./core/useWidgetActions";
+import useWidgetDispatch from "./core/useWidgetDispatch";
 import useWidgetsSelector from "./core/useWidgetsSelector";
-import useWidgetsUtilities from "./useWidgetsUtilities";
+
+const {
+    widget: { widgetObjectsPrefix },
+} = constants;
 
 export default () => {
+    const { scene } = useThree();
     const dispatch = useAppDispatch();
     const { selected, currentWidgetProperties } = useAppSelector((state) => state.widgets);
     const { add, update, remove, updateCurrentProperties } = useWidgetActions();
     const { widgets } = useSceneWidgetsContext();
     const { widgetsDictionary } = useWidgetsSelector();
-    const { getMeshByWidget, getWidgetByMesh } = useWidgetsUtilities();
+    const { dispatchRemoveSelected } = useWidgetDispatch();
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {
@@ -142,6 +155,34 @@ export default () => {
         }
     };
 
+    const removeSelected = () => {
+        dispatchRemoveSelected();
+    };
+
+    const getWidgetByMesh = (mesh: Object3D) => {
+        let widgetMesh: Object3D | undefined;
+
+        if (mesh.name.startsWith(widgetObjectsPrefix)) {
+            widgetMesh = mesh;
+        } else {
+            mesh.traverseAncestors((object) => {
+                if (object.name.startsWith(widgetObjectsPrefix)) {
+                    widgetMesh = object;
+                }
+            });
+        }
+
+        const widgetIdInMesh = widgetMesh?.name.split("+")[2];
+        const widget = getWidgetById(widgetIdInMesh) as WidgetSceneObject;
+
+        return { widget, widgetMesh };
+    };
+
+    const getMeshByWidget = (widget: WidgetModule | WidgetSceneObject) => {
+        const meshName = getWidgetName(widget);
+        return scene.getObjectByName(meshName);
+    };
+
     return {
         currentWidgets: currentWidgetsState,
         firstCurrentWidget: currentWidgetsState[0], // TODO - Remove this
@@ -156,5 +197,8 @@ export default () => {
         copyWidget,
         removeCurrentWidgets,
         removeWidget,
+        removeSelected,
+        getWidgetByMesh,
+        getMeshByWidget,
     };
 };

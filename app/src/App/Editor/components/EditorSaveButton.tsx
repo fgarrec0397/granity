@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { FC } from "react";
+import { FC } from "react";
 import { trigger } from "../../Core/utils/events";
 
 const SaveButton: FC = () => {

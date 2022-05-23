@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { AnyAction, Reducer } from "redux";
-import { FeaturesWidgetsProps, FeaturesState } from "../../Features/collector";
+import { FeaturesState, FeaturesWidgetsProps } from "../../Features/collector";
 import { UnionOfProperties } from "../Common/utils/typings";
 
 /**
@@ -58,7 +58,7 @@ type FeaturesUnionsTypes = UnionOfProperties<FeaturesState>;
 /**
  * Widget object that is exported from all widgets objects
  */
-export interface IWidget<Props = FeaturesWidgetsProps> {
+export interface WidgetModule<Props = FeaturesWidgetsProps> {
     id?: string;
     component: FC<Props>;
     reducer: Reducer<FeaturesUnionsTypes, AnyAction> | null;
@@ -68,7 +68,7 @@ export interface IWidget<Props = FeaturesWidgetsProps> {
 /**
  * Informations of a widget object on the scene
  */
-export type WidgetSceneObject = Omit<IWidget, "reducer">;
+export type WidgetSceneObject = Omit<WidgetModule, "reducer">;
 
 export type WidgetsDictionary = {
     [id: string]: { properties: WidgetProperties; options: WidgetOptionsValues };

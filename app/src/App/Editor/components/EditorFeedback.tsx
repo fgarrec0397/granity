@@ -1,5 +1,5 @@
 import { Card, Collapse, Descriptions, Select, Typography } from "antd";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";

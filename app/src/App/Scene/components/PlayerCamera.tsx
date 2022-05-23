@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useSphere } from "@react-three/cannon";
 import { useThree, useFrame } from "@react-three/fiber";
 import { initialPlayerPos } from "../../Core/constants";

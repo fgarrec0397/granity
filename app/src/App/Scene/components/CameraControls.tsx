@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { PointerLockControls, OrbitControls } from "@react-three/drei";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import TransformControls from "./TransformControls";
 import PlayerCamera from "./PlayerCamera";
 import useIsEditor from "../../Editor/state/hooks/useIsEditor";

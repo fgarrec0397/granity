@@ -1,8 +1,13 @@
 import { Object3D } from "three";
-import { IWidget, WidgetSceneObject } from "./types";
 import widgetsCollection from "../../Features/collector";
+import constants from "../Core/constants";
+import { WidgetModule, WidgetSceneObject } from "./types";
 
-export const mapIWidgetToWidgetSceneObject = (widget: IWidget) => {
+const {
+    widget: { widgetObjectsPrefix },
+} = constants;
+
+export const mapIWidgetToWidgetSceneObject = (widget: WidgetModule) => {
     const widgetSceneObject: WidgetSceneObject = {
         id: widget.id,
         component: widget.component,
@@ -18,4 +23,8 @@ export const getWidgetIdFromName = (mesh: Object3D) => {
 
 export const getWidgetComponent = (name: string) => {
     return widgetsCollection.find((x) => x.widgetDefinition.name === name)?.component;
+};
+
+export const getWidgetName = (widget: WidgetModule | WidgetSceneObject) => {
+    return `${widgetObjectsPrefix}+${widget.widgetDefinition.name}+${widget.id}`;
 };

@@ -1,5 +1,5 @@
 import { Card, Select } from "antd";
-import React, { FC } from "react";
+import { FC } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
 import useCurrentMode from "../state/hooks/useCurrentMode";

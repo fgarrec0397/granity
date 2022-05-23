@@ -21,19 +21,19 @@ export const sceneSlice = createSlice({
     name: "editor",
     initialState,
     reducers: {
-        setIsEditor: (state) => {
+        setIsEditor: (state: EditorState) => {
             state.isEditor = !state.isEditor;
         },
-        setIsEditing: (state, action: PayloadAction<boolean>) => {
+        setIsEditing: (state: EditorState, action: PayloadAction<boolean>) => {
             state.isEditing = action.payload;
         },
-        setHasEditorOpened: (state) => {
+        setHasEditorOpened: (state: EditorState) => {
             state.isEditing = !state.isEditor;
         },
-        setIsMultipleSelect: (state, action: PayloadAction<boolean>) => {
+        setIsMultipleSelect: (state: EditorState, action: PayloadAction<boolean>) => {
             state.isMultipleSelect = action.payload;
         },
-        setCurrentMode: (state, action: PayloadAction<ModesAvailable>) => {
+        setCurrentMode: (state: EditorState, action: PayloadAction<ModesAvailable>) => {
             state.currentMode = action.payload;
         },
     },

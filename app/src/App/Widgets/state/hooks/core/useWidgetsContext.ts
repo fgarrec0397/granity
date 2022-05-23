@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { WidgetsContext } from "../../../providers/WidgetsProvider";
+import { WidgetsModulesContext } from "../../../providers/WidgetsModulesProvider";
 
 export default () => {
-    return useContext(WidgetsContext);
+    return useContext(WidgetsModulesContext);
 };

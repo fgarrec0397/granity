@@ -1,5 +1,5 @@
 import { Button, Col, Modal, Row } from "antd";
-import React, { FC, StrictMode, useState } from "react";
+import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
 import widgets from "../../../Features/collector";

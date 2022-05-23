@@ -1,5 +1,5 @@
 import { Button as LibButton, ButtonProps } from "antd";
-import React, { FC } from "react";
+import  { FC } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
 
 export interface ButtonStyles {
