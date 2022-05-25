@@ -58,9 +58,7 @@ const Editor: FC = () => {
                     <EditorFeedback />
                     <EditorModeSelector />
                 </StyledWrapper>
-                <StyledWrapper {...styles.rightWrapper}>
-                    <EditorItemsList />
-                </StyledWrapper>
+                <StyledWrapper {...styles.rightWrapper}>{/* <EditorItemsList /> */}</StyledWrapper>
                 <StyledWrapper {...styles.bottomWrapper}>
                     <EditorGeometryMenu />
                     <SaveButton />

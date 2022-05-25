@@ -10,13 +10,14 @@ import useWidgets from "../Widgets/state/hooks/useWidgets";
 import { off, on } from "../Core/utils/events";
 import { useThree } from "@react-three/fiber";
 import { WidgetSceneObject } from "../Widgets/types";
-import useWidgetsContext from "../Widgets/state/hooks/core/useWidgetsContext";
+import useWidgetsContext from "../Widgets/state/hooks/core/useWidgetsModuleContext";
 import useWidgetsSelector from "../Widgets/state/hooks/core/useWidgetsSelector";
 import { SetOptionalPropertyFrom } from "../Common/utils/typings";
+import { addWidgetDictionary } from "../Widgets/state/widgetsReducer";
 
 const Scene: FC = () => {
     const { scene } = useThree();
-    const { selectWidget, getWidgetByMesh, widgets, removeSelected } = useWidgets();
+    const { addWidget, selectWidget, getWidgetByMesh, widgets, removeSelected } = useWidgets();
     const widgetContext = useWidgetsContext();
     const { widgetsDictionary } = useWidgetsSelector();
 
@@ -74,10 +75,22 @@ const Scene: FC = () => {
     }, [scene, widgets, widgetContext, widgetsDictionary]);
 
     useEffect(() => {
-        on("onPointerMissed:removeSelected", () => {
+        const handleAddWidget = ({ detail }: any) => {
+            console.log(detail, "detail");
+            addWidget(detail);
+        };
+
+        const handleRemoveSelected = () => {
             removeSelected();
-        });
-    }, [removeSelected]);
+        };
+
+        on("onClick:addWidget", handleAddWidget);
+        on("onPointerMissed:removeSelected", handleRemoveSelected);
+
+        return () => {
+            off("onPointerMissed:removeSelected", handleRemoveSelected);
+        };
+    }, [addWidget, removeSelected]);
 
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
         if (meshArray.length) {

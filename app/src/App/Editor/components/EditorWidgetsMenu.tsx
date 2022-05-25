@@ -2,8 +2,8 @@ import { Button, Col, Modal, Row } from "antd";
 import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import widgets from "../../../Features/collector";
-import useWidgets from "../../Widgets/state/hooks/useWidgets";
+import { trigger } from "../../Core/utils/events";
+import useWidgetsModuleContext from "../../Widgets/state/hooks/core/useWidgetsModuleContext";
 import { WidgetSceneObject } from "../../Widgets/types";
 import { mapIWidgetToWidgetSceneObject } from "../../Widgets/utilities";
 
@@ -26,11 +26,11 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorGeometryMenu: FC = () => {
-    const { addWidget } = useWidgets();
+    const { widgetsModules } = useWidgetsModuleContext();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleOnClick = (widget: WidgetSceneObject): void => {
-        addWidget(widget);
+        trigger("onClick:addWidget", widget);
         closeModalHandler();
     };
 
@@ -56,7 +56,7 @@ const EditorGeometryMenu: FC = () => {
                     footer={[]}
                 >
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                        {widgets.map((widget, index) => {
+                        {widgetsModules.map((widget, index) => {
                             const key = `${index}-${widget.widgetDefinition.name}`;
                             const widgetSceneObject = mapIWidgetToWidgetSceneObject(widget);
                             return (

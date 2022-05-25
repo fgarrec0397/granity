@@ -6,6 +6,7 @@ import uidGenerator from "../../../Common/utils/uidGenerator";
 import constants from "../../../Core/constants";
 import { useAppDispatch, useAppSelector } from "../../../Core/store";
 import {
+    UseWidgetsHook,
     WidgetModule,
     WidgetOptionsValues,
     WidgetProperties,
@@ -22,6 +23,7 @@ const {
     widget: { widgetObjectsPrefix },
 } = constants;
 
+// export default <T>(): UseWidgetsHook<T> => { // TODO - try to make this typing works
 export default () => {
     const { scene } = useThree();
     const dispatch = useAppDispatch();
