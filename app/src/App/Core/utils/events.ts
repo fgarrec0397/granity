@@ -1,10 +1,10 @@
 type EventListenerCallBack = (arg?: any) => void;
 
-const on = (eventType: string, listener: EventListenerCallBack) => {
+const on = (eventType: string, listener: any) => {
     document.addEventListener(eventType, listener);
 };
 
-const off = (eventType: string, listener: EventListenerCallBack) => {
+const off = (eventType: string, listener: any) => {
     document.removeEventListener(eventType, listener);
 };
 

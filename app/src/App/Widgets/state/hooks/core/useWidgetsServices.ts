@@ -9,6 +9,7 @@ export default () => {
         dispatchUpdateDictionary,
         dispatchRemoveSelected,
         dispatchSetCurrentWidgetProperties,
+        dispatchRemoveWidgetDictionary,
     } = useWidgetDispatch();
 
     const add = (
@@ -61,6 +62,3 @@ export default () => {
         updateCurrentProperties,
     };
 };
-function dispatchRemoveWidgetDictionary(id: string | undefined) {
-    throw new Error("Function not implemented.");
-}

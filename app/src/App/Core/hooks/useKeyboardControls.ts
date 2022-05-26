@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import useHandleEditor from "../../Editor/state/hooks/useHandleEditor";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
+import useWidgetsActions from "../../Widgets/state/hooks/useWidgetsActions";
 import { WidgetSceneObject } from "../../Widgets/types";
 
 export default () => {
-    const { currentWidgets, firstCurrentWidget, removeCurrentWidgets, copyWidget, widgets } =
-        useWidgets();
+    const { removeCurrentWidgets, copyWidget } = useWidgetsActions();
+    const { currentWidgets, firstCurrentWidget, widgets } = useWidgets();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
 
     useHandleEditor();

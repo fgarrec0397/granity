@@ -5,7 +5,7 @@ import { FeaturesState, FeaturesWidgetsProps } from "../../Features/collector";
 import { UnionOfProperties } from "../Common/utils/typings";
 
 /**
- * useWidgets hook type
+ * useWidgetsActions hook type
  */
 export type UseWidgetsHook<HookReturnType> = {
     // TODO -- fix this type that breaks Scene.tsx

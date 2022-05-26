@@ -1,8 +1,9 @@
 import { FC } from "react";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { WidgetSceneObject } from "./types";
-import useWidgets from "./state/hooks/useWidgets";
 import { getWidgetName } from "./utilities";
+import useWidgets from "./state/hooks/useWidgets";
+import useWidgetsConnector from "./state/hooks/useWidgetsConnector";
 
 interface WidgetProps {
     widget: WidgetSceneObject;
@@ -10,6 +11,8 @@ interface WidgetProps {
 
 const Widgets: FC = () => {
     const { widgets } = useWidgets();
+
+    useWidgetsConnector();
 
     return (
         <>

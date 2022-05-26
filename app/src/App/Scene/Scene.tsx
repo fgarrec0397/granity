@@ -6,18 +6,21 @@ import Lights from "./components/Lights";
 import CameraControls from "./components/CameraControls";
 import Widgets from "../Widgets/Widgets";
 import useKeyboardControls from "../Core/hooks/useKeyboardControls";
-import useWidgets from "../Widgets/state/hooks/useWidgets";
+import useWidgetsActions from "../Widgets/state/hooks/useWidgetsActions";
 import { off, on } from "../Core/utils/events";
 import { useThree } from "@react-three/fiber";
 import { WidgetSceneObject } from "../Widgets/types";
 import useWidgetsContext from "../Widgets/state/hooks/core/useWidgetsModuleContext";
 import useWidgetsSelector from "../Widgets/state/hooks/core/useWidgetsSelector";
 import { SetOptionalPropertyFrom } from "../Common/utils/typings";
-import { addWidgetDictionary } from "../Widgets/state/widgetsReducer";
+import useGetWidgets from "../Widgets/state/hooks/useGetWidgets";
+import useWidgets from "../Widgets/state/hooks/useWidgets";
 
 const Scene: FC = () => {
     const { scene } = useThree();
-    const { addWidget, selectWidget, getWidgetByMesh, widgets, removeSelected } = useWidgets();
+    const { addWidget, selectWidget, removeSelected } = useWidgetsActions();
+    const { getWidgetByMesh } = useGetWidgets();
+    const { widgets } = useWidgets();
     const widgetContext = useWidgetsContext();
     const { widgetsDictionary } = useWidgetsSelector();
 
@@ -95,6 +98,7 @@ const Scene: FC = () => {
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
         if (meshArray.length) {
             const { widget } = getWidgetByMesh(meshArray[0]);
+            console.log(widget, "widget");
 
             if (widget) {
                 selectWidget(widget);

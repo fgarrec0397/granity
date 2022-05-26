@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
-import { WidgetProperties, WidgetsDictionaryItem } from "../../../types";
+import { WidgetProperties, WidgetSceneObject, WidgetsDictionaryItem } from "../../../types";
 import {
     addWidgetDictionary,
     removeSelected,
     removeWidgetDictionary,
     setCurrentWidgetProperties,
+    setSelected,
     updateWidgetDictionary,
 } from "../../widgetsReducer";
 
@@ -15,12 +16,20 @@ export default () => {
         return dispatch(addWidgetDictionary(widgetsDictionaryItem));
     };
 
+    const dispatchSetSelected = (widget: WidgetSceneObject) => {
+        if (widget.id) {
+            return dispatch(setSelected({ newSelectedId: widget.id }));
+        }
+    };
+
     const dispatchUpdateDictionary = (widgetsDictionaryItem: WidgetsDictionaryItem) => {
         return dispatch(updateWidgetDictionary(widgetsDictionaryItem));
     };
 
-    const dispatchRemoveWidgetDictionary = (widgetId: string) => {
-        return dispatch(removeWidgetDictionary(widgetId));
+    const dispatchRemoveWidgetDictionary = (widgetId: string | undefined) => {
+        if (widgetId) {
+            return dispatch(removeWidgetDictionary(widgetId));
+        }
     };
 
     const dispatchRemoveSelected = () => {
@@ -33,6 +42,7 @@ export default () => {
 
     return {
         dispatchAddDictionary,
+        dispatchSetSelected,
         dispatchUpdateDictionary,
         dispatchRemoveWidgetDictionary,
         dispatchRemoveSelected,
