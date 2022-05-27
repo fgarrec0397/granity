@@ -39,7 +39,6 @@ export default () => {
         add(newWidget, defaultProperties, defaultOptions);
     };
 
-    // TODO - Wait to refactor the selection in Transformcontrols before refactoring this part.
     const selectWidget = (widget: WidgetSceneObject) => {
         dispatchSetSelected(widget);
     };

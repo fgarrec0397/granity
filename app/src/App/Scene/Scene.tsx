@@ -85,16 +85,13 @@ const Scene: FC = () => {
 
         return () => {
             off("onPointerMissed:removeSelected", handleRemoveSelected);
+            off("onClick:addWidget", handleAddWidget);
         };
     }, [addWidget, removeSelected]);
 
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
         if (meshArray.length) {
-            console.log(meshArray, "meshArray clicked");
-            console.log(selected, "selected");
-
             const { widget } = getWidgetByMesh(meshArray[0]);
-            console.log(widget, "widget clicked");
 
             if (widget) {
                 selectWidget(widget);

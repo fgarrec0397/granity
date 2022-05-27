@@ -16,14 +16,14 @@ const TransformControlsComponent: FC = ({ children }) => {
     const { currentMode } = useCurrentMode();
     const { setIsEditing } = useIsEditing();
     const [transformControl, setTransformControl] = useState<TransformControls>();
-    const [stateMesh, setStateMesh] = useState<Object3D>();
+    const [attachedMesh, setAttachedMesh] = useState<Object3D>();
     const [temporaryGroup] = useState<Group>();
 
     useEffect(() => {
-        if (!transformControl && stateMesh) {
+        if (!transformControl && attachedMesh) {
             const transformC = new TransformControls(camera, gl.domElement);
 
-            transformC.attach(stateMesh);
+            transformC.attach(attachedMesh);
             transformC.setMode(currentMode);
 
             scene.add(transformC);
@@ -36,11 +36,11 @@ const TransformControlsComponent: FC = ({ children }) => {
                 setTransformControl(undefined);
             }
         };
-    }, [transformControl, camera, scene, gl, stateMesh, currentMode]);
+    }, [transformControl, camera, scene, gl, attachedMesh, currentMode]);
 
     useEffect(() => {
         if (currentWidgets.length) {
-            setStateMesh(getMeshByWidget(currentWidgets[0]));
+            setAttachedMesh(getMeshByWidget(currentWidgets[0]));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWidgets.length, firstCurrentWidget?.id, getMeshByWidget]);
@@ -51,6 +51,7 @@ const TransformControlsComponent: FC = ({ children }) => {
     useEffect(() => {
         if (transformControl) {
             transformControl.detach();
+            setAttachedMesh(undefined);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWidgets.length, currentWidgets[0]?.id, temporaryGroup]);
@@ -61,8 +62,8 @@ const TransformControlsComponent: FC = ({ children }) => {
      */
     useEffect(() => {
         const onTransformControlMouseUp = () => {
-            if (stateMesh) {
-                updateCurrentWidgetWithMesh(stateMesh);
+            if (attachedMesh) {
+                updateCurrentWidgetWithMesh(attachedMesh);
             }
         };
 
@@ -71,7 +72,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         };
 
         const onObjectChangeHandler = () => {
-            updateCurrentWidgetWithMesh(stateMesh, true);
+            updateCurrentWidgetWithMesh(attachedMesh, true);
         };
 
         transformControl?.addEventListener("mouseUp", onTransformControlMouseUp);
@@ -83,7 +84,7 @@ const TransformControlsComponent: FC = ({ children }) => {
             transformControl?.removeEventListener("dragging-changed", onDraggingChangedHandler);
             transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
         };
-    }, [transformControl, stateMesh, updateCurrentWidgetWithMesh, setIsEditing]);
+    }, [transformControl, attachedMesh, updateCurrentWidgetWithMesh, setIsEditing]);
 
     return <>{children}</>;
 };

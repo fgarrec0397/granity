@@ -11,12 +11,12 @@ import { WidgetsModulesContext } from "./Widgets/providers/WidgetsModulesProvide
 import { trigger } from "./Core/utils/events";
 
 const App: FC = () => {
+    const { setWidgetsModules } = useWidgetsContext();
     const ContextBridge = useContextBridge(
         SceneWidgetsContext,
         WidgetsModulesContext,
         ReactReduxContext
     );
-    const { setWidgetsModules } = useWidgetsContext();
 
     // Store all kind of widgets in Widgets Context API
     useEffect(() => {
