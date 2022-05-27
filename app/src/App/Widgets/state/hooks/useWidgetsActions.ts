@@ -15,28 +15,41 @@ export default () => {
     const { dispatchSetSelected, dispatchRemoveSelected } = useWidgetDispatch();
     const { getMeshByWidget, getWidgetByMesh } = useGetWidgets();
 
-    const addWidget = (widget: WidgetSceneObject) => {
+    const addWidget = (
+        widget: WidgetSceneObject,
+        properties?: WidgetProperties,
+        options?: WidgetOptionsValues
+    ) => {
         const newWidget = { ...widget };
-        newWidget.id = uidGenerator(); // assign id on initialisation
+        let widgetProperties = properties;
+        let widgetOptions = options;
 
-        const defaultProperties: WidgetProperties = {
-            position: [0, 0, 0],
-            rotation: [0, 0, 0],
-            scale: [1, 1, 1],
-        };
+        if (!newWidget.id) {
+            newWidget.id = uidGenerator(); // assign id on initialisation
+        }
 
-        const defaultOptions: WidgetOptionsValues | Record<string, never> = {};
+        if (!widgetProperties) {
+            widgetProperties = {
+                position: [0, 0, 0],
+                rotation: [0, 0, 0],
+                scale: [1, 1, 1],
+            };
+        }
 
-        if (newWidget.widgetDefinition.options?.length) {
-            for (const option of newWidget.widgetDefinition.options) {
-                defaultOptions[option.name] = {
-                    fieldType: option.fieldType,
-                    value: option.defaultValue,
-                };
+        if (!widgetOptions) {
+            if (newWidget.widgetDefinition.options?.length) {
+                const defaultOptions: WidgetOptionsValues = {};
+                for (const option of newWidget.widgetDefinition.options) {
+                    defaultOptions[option.name] = {
+                        fieldType: option.fieldType,
+                        value: option.defaultValue,
+                    };
+                }
+                widgetOptions = defaultOptions;
             }
         }
 
-        add(newWidget, defaultProperties, defaultOptions);
+        add(newWidget, widgetProperties, widgetOptions as WidgetOptionsValues);
     };
 
     const selectWidget = (widget: WidgetSceneObject) => {

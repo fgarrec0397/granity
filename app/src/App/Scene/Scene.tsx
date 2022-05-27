@@ -15,12 +15,14 @@ import useWidgetsSelector from "../Widgets/state/hooks/core/useWidgetsSelector";
 import { SetOptionalPropertyFrom } from "../Common/utils/typings";
 import useGetWidgets from "../Widgets/state/hooks/useGetWidgets";
 import useWidgets from "../Widgets/state/hooks/useWidgets";
+import useWidgetsModules from "../Widgets/state/hooks/useWidgetsModules";
 
 const Scene: FC = () => {
     const { scene } = useThree();
     const { addWidget, selectWidget, removeSelected } = useWidgetsActions();
     const { getWidgetByMesh } = useGetWidgets();
-    const { widgets, selected } = useWidgets();
+    const { widgets } = useWidgets();
+    const { widgetsModules } = useWidgetsModules();
     const widgetContext = useWidgetsContext();
     const { widgetsDictionary } = useWidgetsSelector();
 
@@ -29,17 +31,42 @@ const Scene: FC = () => {
     useEffect(() => {
         const fetchScene = async () => {
             const response = await fetch("api/scene");
-            const { sceneJsonString } = await response.json();
 
             try {
-                const widgetsDefinitionObj = JSON.parse(sceneJsonString);
-                // const preparedWidgets = widgetsDefinitionObj.preparedWidgets.
-                // console.log(widgetsDefinitionObj, "widgetsDefinitionObj");
+                const { sceneJsonString } = await response.json();
+                const data = JSON.parse(sceneJsonString);
+                console.log(data.widgetsDictionary, "data.widgetsDictionary");
+
+                const fetchedWidgets = data.preparedWidgets.map((x: any) => {
+                    const component = widgetsModules.find(
+                        (y) => y.widgetDefinition.name === x.widgetDefinition.name
+                    )?.component;
+                    console.log(component, "component");
+
+                    return {
+                        ...x,
+                        component,
+                    };
+                });
+
+                fetchedWidgets.forEach((x: any) => {
+                    console.log(x);
+                    addWidget(
+                        x,
+                        data.widgetsDictionary[x.id].properties,
+                        data.widgetsDictionary[x.id].options
+                    );
+                });
             } catch (error) {
                 console.error(error, "error");
             }
         };
 
+        fetchScene();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [widgetsModules]);
+
+    useEffect(() => {
         const handleSaveFile = async () => {
             const clonedWidgets: SetOptionalPropertyFrom<WidgetSceneObject, "component">[] = [
                 ...widgets,
@@ -61,15 +88,15 @@ const Scene: FC = () => {
             });
 
             const content = await rawResponse.json();
+            console.log(content, "content");
         };
 
-        fetchScene();
         on("saveFile:click", handleSaveFile);
 
         return () => {
             off("saveFile:click", handleSaveFile);
         };
-    }, [scene, widgets, widgetContext, widgetsDictionary]);
+    }, [scene, widgets, widgetContext, widgetsDictionary, widgetsModules, addWidget]);
 
     useEffect(() => {
         const handleAddWidget = ({ detail }: any) => {
