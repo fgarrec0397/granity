@@ -9,7 +9,6 @@ import widgets from "../Features/collector";
 import useWidgetsContext from "./Widgets/state/hooks/core/useWidgetsModuleContext";
 import { WidgetsModulesContext } from "./Widgets/providers/WidgetsModulesProvider";
 import { trigger } from "./Core/utils/events";
-// import { trigger } from "./Core/utils/events";
 
 const App: FC = () => {
     const ContextBridge = useContextBridge(

@@ -1,10 +1,9 @@
 import { Card, Collapse, Descriptions, Select, Typography } from "antd";
-import { FC, useEffect, useLayoutEffect, useState } from "react";
+import { FC, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
 import { trigger } from "../../Core/utils/events";
 import useWidgets from "../../Widgets/state/hooks/useWidgets";
-// import useWidgetsActions from "../../Widgets/state/hooks/useWidgetsActions";
 import { FieldType, WidgetBaseOptions } from "../../Widgets/types";
 
 const { Panel } = Collapse;
@@ -25,19 +24,12 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorFeedback: FC = () => {
-    // const { updateCurrentWidgetOptions } = useWidgetsActions();
     const { currentWidgetProperties, currentWidgets } = useWidgets();
     const [selectValue, setSelectValue] = useState("default");
 
     const handleChange = (value: string, option: WidgetBaseOptions) => {
         setSelectValue(value);
         trigger("updateCurrentWidgetOptions", { value, option });
-        // updateCurrentWidgetOptions({
-        //     [option.name]: {
-        //         fieldType: option.fieldType,
-        //         value,
-        //     },
-        // });
     };
 
     if (currentWidgetProperties) {

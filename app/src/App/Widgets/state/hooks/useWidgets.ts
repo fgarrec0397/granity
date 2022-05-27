@@ -14,6 +14,7 @@ export default () => {
             if (x.id) {
                 return selected.indexOf(x.id) !== -1;
             }
+            console.log(selected, "selected");
 
             return false;
         });
@@ -26,5 +27,6 @@ export default () => {
         firstCurrentWidget: currentWidgetsState[0], // TODO - Remove this
         currentWidgetProperties,
         widgets,
+        selected,
     };
 };

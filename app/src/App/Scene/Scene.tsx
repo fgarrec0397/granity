@@ -20,7 +20,7 @@ const Scene: FC = () => {
     const { scene } = useThree();
     const { addWidget, selectWidget, removeSelected } = useWidgetsActions();
     const { getWidgetByMesh } = useGetWidgets();
-    const { widgets } = useWidgets();
+    const { widgets, selected } = useWidgets();
     const widgetContext = useWidgetsContext();
     const { widgetsDictionary } = useWidgetsSelector();
 
@@ -48,8 +48,6 @@ const Scene: FC = () => {
                 delete x.component;
                 return x;
             });
-            console.log(preparedWidgets, "preparedWidgets");
-            console.log(widgetsDictionary, "widgetsDictionary");
 
             const widgetsDefinition = { preparedWidgets, widgetsDictionary };
 
@@ -63,13 +61,9 @@ const Scene: FC = () => {
             });
 
             const content = await rawResponse.json();
-
-            console.log(content, "content");
         };
 
         fetchScene();
-        console.log("after fetch");
-
         on("saveFile:click", handleSaveFile);
 
         return () => {
@@ -79,7 +73,6 @@ const Scene: FC = () => {
 
     useEffect(() => {
         const handleAddWidget = ({ detail }: any) => {
-            console.log(detail, "detail");
             addWidget(detail);
         };
 
@@ -97,8 +90,11 @@ const Scene: FC = () => {
 
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
         if (meshArray.length) {
+            console.log(meshArray, "meshArray clicked");
+            console.log(selected, "selected");
+
             const { widget } = getWidgetByMesh(meshArray[0]);
-            console.log(widget, "widget");
+            console.log(widget, "widget clicked");
 
             if (widget) {
                 selectWidget(widget);

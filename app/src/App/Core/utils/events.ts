@@ -1,10 +1,16 @@
 type EventListenerCallBack = (arg?: any) => void;
 
-const on = (eventType: string, listener: any) => {
+const on = <ListenerType extends EventListenerCallBack>(
+    eventType: string,
+    listener: ListenerType
+) => {
     document.addEventListener(eventType, listener);
 };
 
-const off = (eventType: string, listener: any) => {
+const off = <ListenerType extends EventListenerCallBack>(
+    eventType: string,
+    listener: ListenerType
+) => {
     document.removeEventListener(eventType, listener);
 };
 
@@ -17,7 +23,7 @@ const once = (eventType: string, listener: EventListenerCallBack) => {
     on(eventType, handleEventOnce);
 };
 
-const trigger = (eventType: string, data?: any) => {
+const trigger = <DataType>(eventType: string, data?: DataType) => {
     const event = new CustomEvent(eventType, { detail: data });
     document.dispatchEvent(event);
 };
