@@ -24,22 +24,3 @@ export default {
         return dbConnection;
     },
 };
-
-// export default {
-//     connectToServer: (callback: (error?: AnyError) => void) => {
-//         client.connect((error, db) => {
-//             if (error || !db) {
-//                 return callback(error);
-//             }
-
-//             dbConnection = db.db("sample_airbnb");
-//             console.log("Successfully connected to MongoDB.");
-
-//             return callback();
-//         });
-//     },
-
-//     getDb: () => {
-//         return dbConnection;
-//     },
-// };

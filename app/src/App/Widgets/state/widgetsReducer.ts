@@ -34,6 +34,17 @@ export const sceneSlice = createSlice({
                 [id]: { properties, options },
             };
         },
+        addBatchWidgetDictionary: (
+            state: WidgetsState,
+            action: PayloadAction<Required<WidgetsDictionary>>
+        ) => {
+            const newWidgetsDictionary = action.payload;
+
+            state.widgetsDictionary = {
+                ...state.widgetsDictionary,
+                ...newWidgetsDictionary,
+            };
+        },
         updateWidgetDictionary: (
             state: WidgetsState,
             action: PayloadAction<WidgetsDictionaryItem>
@@ -70,6 +81,7 @@ export const sceneSlice = createSlice({
 export const {
     setSelected,
     addWidgetDictionary,
+    addBatchWidgetDictionary,
     updateWidgetDictionary,
     removeWidgetDictionary,
     removeSelected,

@@ -16,19 +16,14 @@ const main = async () => {
     await database.connectToDatabase();
 
     app.get("/api/scene", async (req, res) => {
-        // console.log(req.body, "req.body");
-        // console.log(res, "res");
-        const oldestScene = await database.getOldest();
-
-        console.log(oldestScene, "oldestScene");
+        const oldestScene = await database.getLatest();
 
         res.send(oldestScene);
     });
 
     app.post("/api/scene", function (req, res) {
-        // console.log(req.body, "req.body");
-        // console.log(res, "res");
         database.insert(req.body);
+        res.send(req.body);
     });
 
     app.listen(port, () => {

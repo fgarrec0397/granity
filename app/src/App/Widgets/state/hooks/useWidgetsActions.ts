@@ -1,7 +1,12 @@
 import { Object3D } from "three";
 import serializeVector3 from "../../../Common/utils/serializeVector3";
 import uidGenerator from "../../../Common/utils/uidGenerator";
-import { WidgetOptionsValues, WidgetProperties, WidgetSceneObject } from "../../types";
+import {
+    WidgetOptionsValues,
+    WidgetProperties,
+    WidgetSceneObject,
+    WidgetsDictionary,
+} from "../../types";
 import useWidgetsServices from "./core/useWidgetsServices";
 import useWidgetDispatch from "./core/useWidgetDispatch";
 import useWidgetsSelector from "./core/useWidgetsSelector";
@@ -10,7 +15,7 @@ import useWidgets from "./useWidgets";
 
 export default () => {
     const { currentWidgets } = useWidgets();
-    const { add, update, remove, updateCurrentProperties } = useWidgetsServices();
+    const { add, addBatch, update, remove, updateCurrentProperties } = useWidgetsServices();
     const { widgetsDictionary } = useWidgetsSelector();
     const { dispatchSetSelected, dispatchRemoveSelected } = useWidgetDispatch();
     const { getMeshByWidget, getWidgetByMesh } = useGetWidgets();
@@ -50,6 +55,13 @@ export default () => {
         }
 
         add(newWidget, widgetProperties, widgetOptions as WidgetOptionsValues);
+    };
+
+    const addWidgetsBatch = (
+        newWidgetsDictionary: WidgetsDictionary,
+        newWidgets: WidgetSceneObject[]
+    ) => {
+        addBatch(newWidgetsDictionary, newWidgets);
     };
 
     const selectWidget = (widget: WidgetSceneObject) => {
@@ -135,6 +147,7 @@ export default () => {
 
     return {
         addWidget,
+        addWidgetsBatch,
         selectWidget,
         updateCurrentWidget,
         updateCurrentWidgetWithMesh,

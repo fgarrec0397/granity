@@ -1,4 +1,9 @@
-import { WidgetOptionsValues, WidgetProperties, WidgetSceneObject } from "../../../types";
+import {
+    WidgetOptionsValues,
+    WidgetProperties,
+    WidgetSceneObject,
+    WidgetsDictionary,
+} from "../../../types";
 import useWidgetDispatch from "./useWidgetDispatch";
 import useSceneWidgetsContext from "./useSceneWidgetsContext";
 
@@ -6,6 +11,7 @@ export default () => {
     const { widgets, setSceneWidgets } = useSceneWidgetsContext();
     const {
         dispatchAddDictionary,
+        dispatchAddBatchDictionary,
         dispatchUpdateDictionary,
         dispatchRemoveSelected,
         dispatchSetCurrentWidgetProperties,
@@ -26,6 +32,11 @@ export default () => {
         }
 
         setSceneWidgets([...widgets, newWidget]);
+    };
+
+    const addBatch = (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObject[]) => {
+        dispatchAddBatchDictionary(newWidgetsDictionary);
+        setSceneWidgets([...widgets, ...newWidgets]);
     };
 
     const update = (
@@ -57,6 +68,7 @@ export default () => {
 
     return {
         add,
+        addBatch,
         update,
         remove,
         updateCurrentProperties,

@@ -39,6 +39,12 @@ const TransformControlsComponent: FC = ({ children }) => {
     }, [transformControl, camera, scene, gl, attachedMesh, currentMode]);
 
     useEffect(() => {
+        if (transformControl) {
+            transformControl.setMode(currentMode);
+        }
+    }, [currentMode, transformControl]);
+
+    useEffect(() => {
         if (currentWidgets.length) {
             setAttachedMesh(getMeshByWidget(currentWidgets[0]));
         }

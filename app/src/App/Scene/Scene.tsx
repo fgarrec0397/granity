@@ -19,7 +19,7 @@ import useWidgetsModules from "../Widgets/state/hooks/useWidgetsModules";
 
 const Scene: FC = () => {
     const { scene } = useThree();
-    const { addWidget, selectWidget, removeSelected } = useWidgetsActions();
+    const { addWidget, addWidgetsBatch, selectWidget, removeSelected } = useWidgetsActions();
     const { getWidgetByMesh } = useGetWidgets();
     const { widgets } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
@@ -35,13 +35,11 @@ const Scene: FC = () => {
             try {
                 const { sceneJsonString } = await response.json();
                 const data = JSON.parse(sceneJsonString);
-                console.log(data.widgetsDictionary, "data.widgetsDictionary");
 
                 const fetchedWidgets = data.preparedWidgets.map((x: any) => {
                     const component = widgetsModules.find(
                         (y) => y.widgetDefinition.name === x.widgetDefinition.name
                     )?.component;
-                    console.log(component, "component");
 
                     return {
                         ...x,
@@ -49,14 +47,7 @@ const Scene: FC = () => {
                     };
                 });
 
-                fetchedWidgets.forEach((x: any) => {
-                    console.log(x);
-                    addWidget(
-                        x,
-                        data.widgetsDictionary[x.id].properties,
-                        data.widgetsDictionary[x.id].options
-                    );
-                });
+                addWidgetsBatch(data.widgetsDictionary, fetchedWidgets);
             } catch (error) {
                 console.error(error, "error");
             }
@@ -72,8 +63,9 @@ const Scene: FC = () => {
                 ...widgets,
             ];
             const preparedWidgets = clonedWidgets.map((x) => {
-                delete x.component;
-                return x;
+                const clonedWidget = { ...x };
+                delete clonedWidget.component; // Problem here
+                return clonedWidget;
             });
 
             const widgetsDefinition = { preparedWidgets, widgetsDictionary };
@@ -87,8 +79,11 @@ const Scene: FC = () => {
                 body: JSON.stringify(widgetsDefinition),
             });
 
-            const content = await rawResponse.json();
-            console.log(content, "content");
+            try {
+                const data = await rawResponse.json();
+            } catch (error) {
+                console.error(error, "error");
+            }
         };
 
         on("saveFile:click", handleSaveFile);
@@ -96,7 +91,7 @@ const Scene: FC = () => {
         return () => {
             off("saveFile:click", handleSaveFile);
         };
-    }, [scene, widgets, widgetContext, widgetsDictionary, widgetsModules, addWidget]);
+    }, [scene, widgets, widgetContext, widgetsDictionary, widgetsModules, addWidgetsBatch]);
 
     useEffect(() => {
         const handleAddWidget = ({ detail }: any) => {

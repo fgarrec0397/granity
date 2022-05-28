@@ -1,6 +1,12 @@
 import { useDispatch } from "react-redux";
-import { WidgetProperties, WidgetSceneObject, WidgetsDictionaryItem } from "../../../types";
 import {
+    WidgetProperties,
+    WidgetSceneObject,
+    WidgetsDictionary,
+    WidgetsDictionaryItem,
+} from "../../../types";
+import {
+    addBatchWidgetDictionary,
     addWidgetDictionary,
     removeSelected,
     removeWidgetDictionary,
@@ -14,6 +20,10 @@ export default () => {
 
     const dispatchAddDictionary = (widgetsDictionaryItem: Required<WidgetsDictionaryItem>) => {
         return dispatch(addWidgetDictionary(widgetsDictionaryItem));
+    };
+
+    const dispatchAddBatchDictionary = (widgetsDictionary: Required<WidgetsDictionary>) => {
+        return dispatch(addBatchWidgetDictionary(widgetsDictionary));
     };
 
     const dispatchSetSelected = (widget: WidgetSceneObject) => {
@@ -42,6 +52,7 @@ export default () => {
 
     return {
         dispatchAddDictionary,
+        dispatchAddBatchDictionary,
         dispatchSetSelected,
         dispatchUpdateDictionary,
         dispatchRemoveWidgetDictionary,
