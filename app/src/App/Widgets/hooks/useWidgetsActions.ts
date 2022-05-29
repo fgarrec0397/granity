@@ -65,7 +65,11 @@ export default () => {
     };
 
     const selectWidget = (widget: WidgetSceneObject) => {
-        dispatchSetSelected(widget);
+        if (widget.id) {
+            const widgetProperties = widgetsDictionary[widget.id].properties;
+            updateCurrentWidget(widgetProperties);
+            dispatchSetSelected(widget);
+        }
     };
 
     const updateCurrentWidgetOptions = (widgetOptions: WidgetOptionsValues) => {

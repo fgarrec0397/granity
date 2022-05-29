@@ -27,7 +27,6 @@ const Widgets: FC = () => {
 const Widget: FC<WidgetProps> = ({ widget }) => {
     const { component, id } = widget;
     const name = getWidgetName(widget);
-    console.log(component, "component in Widgets");
 
     if (id) {
         return <WidgetRenderer id={id} name={name} component={component} />;
