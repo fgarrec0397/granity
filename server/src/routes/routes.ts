@@ -1,8 +1,12 @@
 import express from "express";
-import saveRoutes from "./saveRoute";
+import sceneRoutes from "./sceneRoutes";
 
 const routes = () => {
-    return saveRoutes();
+    const router = express.Router();
+
+    router.use("/scene", sceneRoutes());
+
+    return router;
 };
 
 export default routes;

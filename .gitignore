@@ -1,1 +1,10 @@
+# global
 node_modules
+
+# app
+app/node_modules
+
+# server
+server/node_modules
+server/.env
+server/src/logs.log

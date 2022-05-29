@@ -1,34 +1,43 @@
+import path from "path";
 import mongoose from "mongoose";
+import winston from "winston";
+import "dotenv/config";
 
-interface IDatabase {
-    connectionString: string;
-}
+const connectionString = process.env.CONNECTION_STRING || "";
 
-class Database implements IDatabase {
-    connectionString: string;
-    test: any;
+class Database {
+    private readonly _logger: winston.Logger;
+    private static _instance: Database;
 
-    constructor(connectionString: string) {
-        this.connectionString = connectionString;
-        const schema = new mongoose.Schema({ sceneJsonString: "string" }, { timestamps: true });
-        this.test = mongoose.model("Scene", schema);
-    }
-
-    connectToDatabase() {
-        return mongoose.connect(this.connectionString);
-    }
-
-    insert(data: any) {
-        const sceneJsonString = JSON.stringify(data);
-        const sceneModel = new this.test({ sceneJsonString });
-
-        sceneModel.save(function (err: any) {
-            if (err) return console.log(err, "err");
+    private constructor() {
+        this._logger = winston.createLogger({
+            level: "info",
+            format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+            transports: [
+                new winston.transports.Console(),
+                new winston.transports.File({
+                    filename: path.join(__dirname, "../logs.log"),
+                    level: "info",
+                }),
+            ],
         });
+
+        mongoose
+            .connect(connectionString)
+            .catch((e: Error) => this._logger.error(`MongoDB connection failed with error: ${e}`));
     }
 
-    getLatest() {
-        return this.test.findOne({}, {}, { sort: { createdAt: -1 } }).exec();
+    static getInstance() {
+        if (this._instance) {
+            return this._instance;
+        }
+
+        this._instance = new Database();
+        return this._instance;
+    }
+
+    public get logger() {
+        return this._logger;
     }
 }
 
