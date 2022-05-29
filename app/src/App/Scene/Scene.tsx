@@ -6,16 +6,15 @@ import Lights from "./components/Lights";
 import CameraControls from "./components/CameraControls";
 import Widgets from "../Widgets/Widgets";
 import useKeyboardControls from "../Core/hooks/useKeyboardControls";
-import useWidgetsActions from "../Widgets/state/hooks/useWidgetsActions";
+import useWidgetsActions from "../Widgets/hooks/useWidgetsActions";
 import { off, on } from "../Core/utils/events";
 import { useThree } from "@react-three/fiber";
-import { WidgetSceneObject } from "../Widgets/types";
-import useWidgetsContext from "../Widgets/state/hooks/core/useWidgetsModuleContext";
-import useWidgetsSelector from "../Widgets/state/hooks/core/useWidgetsSelector";
-import { SetOptionalPropertyFrom } from "../Common/utils/typings";
-import useGetWidgets from "../Widgets/state/hooks/useGetWidgets";
-import useWidgets from "../Widgets/state/hooks/useWidgets";
-import useWidgetsModules from "../Widgets/state/hooks/useWidgetsModules";
+import useWidgetsContext from "../Widgets/hooks/core/useWidgetsModuleContext";
+import useWidgetsSelector from "../Widgets/hooks/core/useWidgetsSelector";
+import useGetWidgets from "../Widgets/hooks/useGetWidgets";
+import useWidgets from "../Widgets/hooks/useWidgets";
+import useWidgetsModules from "../Widgets/hooks/useWidgetsModules";
+import { saveScene, fetchScene } from "./services";
 
 const Scene: FC = () => {
     const { scene } = useThree();
@@ -29,13 +28,8 @@ const Scene: FC = () => {
     useKeyboardControls();
 
     useEffect(() => {
-        const fetchScene = async () => {
-            const response = await fetch("api/scene");
-
-            try {
-                const { sceneJsonString } = await response.json();
-                const data = JSON.parse(sceneJsonString);
-
+        const handleFetchScene = async () => {
+            await fetchScene((data: any) => {
                 const fetchedWidgets = data.preparedWidgets.map((x: any) => {
                     const component = widgetsModules.find(
                         (y) => y.widgetDefinition.name === x.widgetDefinition.name
@@ -48,42 +42,16 @@ const Scene: FC = () => {
                 });
 
                 addWidgetsBatch(data.widgetsDictionary, fetchedWidgets);
-            } catch (error) {
-                console.error(error, "error");
-            }
+            });
         };
 
-        fetchScene();
+        handleFetchScene();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [widgetsModules]);
 
     useEffect(() => {
         const handleSaveFile = async () => {
-            const clonedWidgets: SetOptionalPropertyFrom<WidgetSceneObject, "component">[] = [
-                ...widgets,
-            ];
-            const preparedWidgets = clonedWidgets.map((x) => {
-                const clonedWidget = { ...x };
-                delete clonedWidget.component; // Problem here
-                return clonedWidget;
-            });
-
-            const widgetsDefinition = { preparedWidgets, widgetsDictionary };
-
-            const rawResponse = await fetch("api/scene", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(widgetsDefinition),
-            });
-
-            try {
-                const data = await rawResponse.json();
-            } catch (error) {
-                console.error(error, "error");
-            }
+            await saveScene({ widgets, widgetsDictionary });
         };
 
         on("saveFile:click", handleSaveFile);

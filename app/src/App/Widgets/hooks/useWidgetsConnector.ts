@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { off, on } from "../../../Core/utils/events";
+import { off, on } from "../../Core/utils/events";
 import useWidgetsActions from "./useWidgetsActions";
 
 export default () => {

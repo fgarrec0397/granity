@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useHandleEditor from "../../Editor/state/hooks/useHandleEditor";
-import useWidgets from "../../Widgets/state/hooks/useWidgets";
-import useWidgetsActions from "../../Widgets/state/hooks/useWidgetsActions";
+import useWidgets from "../../Widgets/hooks/useWidgets";
+import useWidgetsActions from "../../Widgets/hooks/useWidgetsActions";
 import { WidgetSceneObject } from "../../Widgets/types";
 
 export default () => {

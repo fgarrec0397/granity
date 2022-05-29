@@ -6,7 +6,7 @@ import Editor from "./Editor/Editor";
 import Scene from "./Scene/Scene";
 import { SceneWidgetsContext } from "./Widgets/providers/SceneWidgetsProvider";
 import widgets from "../Features/collector";
-import useWidgetsContext from "./Widgets/state/hooks/core/useWidgetsModuleContext";
+import useWidgetsContext from "./Widgets/hooks/core/useWidgetsModuleContext";
 import { WidgetsModulesContext } from "./Widgets/providers/WidgetsModulesProvider";
 import { trigger } from "./Core/utils/events";
 

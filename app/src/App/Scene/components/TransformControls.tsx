@@ -4,9 +4,9 @@ import { Group, Object3D } from "three";
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
-import useGetWidgets from "../../Widgets/state/hooks/useGetWidgets";
-import useWidgets from "../../Widgets/state/hooks/useWidgets";
-import useWidgetsActions from "../../Widgets/state/hooks/useWidgetsActions";
+import useGetWidgets from "../../Widgets/hooks/useGetWidgets";
+import useWidgets from "../../Widgets/hooks/useWidgets";
+import useWidgetsActions from "../../Widgets/hooks/useWidgetsActions";
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { camera, scene, gl } = useThree();

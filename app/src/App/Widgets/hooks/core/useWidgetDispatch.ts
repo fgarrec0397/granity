@@ -4,7 +4,7 @@ import {
     WidgetSceneObject,
     WidgetsDictionary,
     WidgetsDictionaryItem,
-} from "../../../types";
+} from "../../types";
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
@@ -13,7 +13,7 @@ import {
     setCurrentWidgetProperties,
     setSelected,
     updateWidgetDictionary,
-} from "../../widgetsReducer";
+} from "../../state/widgetsReducer";
 
 export default () => {
     const dispatch = useDispatch();

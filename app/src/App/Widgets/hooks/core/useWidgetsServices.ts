@@ -3,7 +3,7 @@ import {
     WidgetProperties,
     WidgetSceneObject,
     WidgetsDictionary,
-} from "../../../types";
+} from "../../types";
 import useWidgetDispatch from "./useWidgetDispatch";
 import useSceneWidgetsContext from "./useSceneWidgetsContext";
 

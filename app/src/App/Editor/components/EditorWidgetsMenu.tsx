@@ -3,7 +3,7 @@ import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
 import { trigger } from "../../Core/utils/events";
-import useWidgetsModuleContext from "../../Widgets/state/hooks/core/useWidgetsModuleContext";
+import useWidgetsModuleContext from "../../Widgets/hooks/core/useWidgetsModuleContext";
 import { WidgetSceneObject } from "../../Widgets/types";
 import { mapIWidgetToWidgetSceneObject } from "../../Widgets/utilities";
 

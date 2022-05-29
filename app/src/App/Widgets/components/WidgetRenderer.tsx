@@ -2,7 +2,7 @@ import { ThreeEvent } from "@react-three/fiber";
 import { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
 import { FeaturesWidgetsProps } from "../../../Features/collector";
-import useWidgetsSelector from "../state/hooks/core/useWidgetsSelector";
+import useWidgetsSelector from "../hooks/core/useWidgetsSelector";
 
 type Props<T = FeaturesWidgetsProps> = {
     component: FC<T>;

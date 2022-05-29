@@ -1,12 +1,12 @@
 import { Object3D } from "three";
-import serializeVector3 from "../../../Common/utils/serializeVector3";
-import uidGenerator from "../../../Common/utils/uidGenerator";
+import serializeVector3 from "../../Common/utils/serializeVector3";
+import uidGenerator from "../../Common/utils/uidGenerator";
 import {
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
     WidgetsDictionary,
-} from "../../types";
+} from "../types";
 import useWidgetsServices from "./core/useWidgetsServices";
 import useWidgetDispatch from "./core/useWidgetDispatch";
 import useWidgetsSelector from "./core/useWidgetsSelector";
