@@ -15,6 +15,7 @@ import useGetWidgets from "../Widgets/hooks/useGetWidgets";
 import useWidgets from "../Widgets/hooks/useWidgets";
 import useWidgetsModules from "../Widgets/hooks/useWidgetsModules";
 import { saveScene, fetchScene } from "./services";
+import useIsEditor from "../Editor/state/hooks/useIsEditor";
 
 const Scene: FC = () => {
     const { scene } = useThree();
@@ -24,6 +25,7 @@ const Scene: FC = () => {
     const { widgetsModules } = useWidgetsModules();
     const widgetContext = useWidgetsContext();
     const { widgetsDictionary } = useWidgetsSelector();
+    const { isEditor } = useIsEditor();
 
     useKeyboardControls();
 
@@ -90,7 +92,7 @@ const Scene: FC = () => {
     };
 
     return (
-        <Physics>
+        <Physics isPaused={isEditor}>
             <Lights />
             <CameraControls />
             <Select box multiple onChange={onSelectMesh} filter={(items) => items}>

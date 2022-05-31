@@ -3,30 +3,28 @@ import { FC } from "react";
 import { EditableWidget } from "../../App/Editor/types";
 import { FieldType, WidgetModule } from "../../App/Widgets/types";
 
-export interface GeometryFormsProps extends EditableWidget {
+export interface PlayerProps extends EditableWidget {
     shape: string;
 }
 
-type OwnProps = GeometryFormsProps;
+type OwnProps = PlayerProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, hovered }) => {
-    const GeometryComponent = shape;
-    const [ref] = useBox(() => ({ mass: 1, type: "Static" }));
+const Player: FC<OwnProps> = ({ hovered }) => {
+    const [ref] = useBox(() => ({ mass: 1, type: "Dynamic" }));
 
     return (
-        <mesh ref={ref} name="GeometryForms1" position={[0, 0, 0]}>
-            <GeometryComponent />
-            <meshStandardMaterial color={"blue"} />
-            {/* <meshStandardMaterial color={hovered ? "#bdbdf5" : "white"} /> */}
+        <mesh ref={ref} name="Player1" position={[0, 0, 0]}>
+            <boxGeometry />
+            <meshStandardMaterial color={"red"} />
         </mesh>
     );
 };
 
-export const widget: WidgetModule<GeometryFormsProps> = {
-    component: GeometryForms,
+export const widget: WidgetModule<PlayerProps> = {
+    component: Player,
     reducer: null,
     widgetDefinition: {
-        name: "Geometry",
+        name: "Player",
         options: [
             {
                 name: "shape",

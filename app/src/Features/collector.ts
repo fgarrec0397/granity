@@ -1,5 +1,7 @@
 import geometryForms from "./GeometryForms";
 import { GeometryFormsProps } from "./GeometryForms/GeometryForms";
+import player from "./Player";
+import { PlayerProps } from "./Player/Player";
 import text from "./Text";
 import { TextState } from "./Text/state/textReducer";
 import { TextProps } from "./Text/Text";
@@ -9,7 +11,7 @@ import { TextState2 } from "./Text2/state/textReducer";
 /**
  * Add your Widgets Props here as union types
  */
-export type FeaturesWidgetsProps = GeometryFormsProps & TextProps;
+export type FeaturesWidgetsProps = GeometryFormsProps & TextProps & PlayerProps;
 
 /**
  * Add your Widgets reducers state here
@@ -28,4 +30,4 @@ export const preparedReducer = {
     textState2: text2.reducer,
 };
 
-export default [geometryForms, text, text2];
+export default [geometryForms, text, text2, player];
