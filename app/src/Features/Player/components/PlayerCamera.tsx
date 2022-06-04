@@ -1,8 +1,11 @@
 import * as THREE from "three";
 import { FC, useEffect, useRef, useState } from "react";
-import { useSphere } from "@react-three/cannon";
+import { Triplet, useSphere } from "@react-three/cannon";
 import { useThree, useFrame } from "@react-three/fiber";
-import { initialPlayerPos } from "../../Core/constants";
+
+export interface PlayerCameraProps {
+    initialPlayerPos?: Triplet;
+}
 
 interface Movements {
     forward: boolean;
@@ -57,7 +60,7 @@ const usePlayerControls = (): Movements => {
     return movement;
 };
 
-const PlayerCamera: FC = (props) => {
+const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => {
     const [ref, api] = useSphere(() => ({
         mass: 1,
         type: "Dynamic",

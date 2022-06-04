@@ -66,8 +66,9 @@ export default () => {
 
     const selectWidget = (widget: WidgetSceneObject) => {
         if (widget.id) {
-            const widgetProperties = widgetsDictionary[widget.id].properties;
-            updateCurrentWidget(widgetProperties);
+            // TODO -- Fix this bug (it gives the wrong properties to the next selected widget)
+            // const widgetProperties = widgetsDictionary[widget.id].properties;
+            // updateCurrentWidget(widgetProperties);
             dispatchSetSelected(widget);
         }
     };

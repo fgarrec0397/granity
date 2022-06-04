@@ -3,7 +3,6 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { PointerLockControls, OrbitControls } from "@react-three/drei";
 import { FC, useState } from "react";
 import TransformControls from "./TransformControls";
-import PlayerCamera from "./PlayerCamera";
 import useIsEditor from "../../Editor/state/hooks/useIsEditor";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 
@@ -29,7 +28,6 @@ const CameraControls: FC = () => {
             {isEditor ? (
                 <>
                     <TransformControls />
-                    {/* @ts-ignore */}
                     <OrbitControls
                         enablePan={!isEditing}
                         enableZoom={!isEditing}
@@ -37,11 +35,7 @@ const CameraControls: FC = () => {
                     />
                 </>
             ) : (
-                <>
-                    <PlayerCamera />
-                    {/* @ts-ignore */}
-                    <PointerLockControls />
-                </>
+                <PointerLockControls />
             )}
         </>
     );

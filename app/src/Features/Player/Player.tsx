@@ -1,23 +1,14 @@
-import { useBox } from "@react-three/cannon";
 import { FC } from "react";
 import { EditableWidget } from "../../App/Editor/types";
-import { FieldType, WidgetModule } from "../../App/Widgets/types";
+import { WidgetModule } from "../../App/Widgets/types";
+import PlayerCamera from "./components/PlayerCamera";
 
-export interface PlayerProps extends EditableWidget {
-    shape: string;
-}
+export type PlayerProps = EditableWidget;
 
 type OwnProps = PlayerProps;
 
-const Player: FC<OwnProps> = ({ hovered }) => {
-    const [ref] = useBox(() => ({ mass: 1, type: "Dynamic" }));
-
-    return (
-        <mesh ref={ref} name="Player1" position={[0, 0, 0]}>
-            <boxGeometry />
-            <meshStandardMaterial color={"red"} />
-        </mesh>
-    );
+const Player: FC<OwnProps> = () => {
+    return <PlayerCamera />;
 };
 
 export const widget: WidgetModule<PlayerProps> = {
@@ -25,23 +16,5 @@ export const widget: WidgetModule<PlayerProps> = {
     reducer: null,
     widgetDefinition: {
         name: "Player",
-        options: [
-            {
-                name: "shape",
-                displayName: "Shape",
-                fieldType: FieldType.Select,
-                selectOptions: [
-                    {
-                        value: "BoxGeometry",
-                        name: "Cube",
-                    },
-                    {
-                        value: "PlaneGeometry",
-                        name: "Plane",
-                    },
-                ],
-                defaultValue: "BoxGeometry",
-            },
-        ],
     },
 };

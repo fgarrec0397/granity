@@ -3,6 +3,7 @@ import { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
 import { FeaturesWidgetsProps } from "../../../Features/collector";
 import useWidgetsSelector from "../hooks/core/useWidgetsSelector";
+import { populateWidgetProperties } from "../utilities";
 
 type Props<T = FeaturesWidgetsProps> = {
     component: FC<T>;
@@ -17,15 +18,9 @@ const WidgetRenderer: FC<Props> = ({ component, name, id }) => {
     const { widgetsDictionary } = useWidgetsSelector();
 
     const componentProps = useCallback(() => {
-        const props: any = {}; // TODO -- fix any type here
-
-        for (const option in widgetsDictionary[id]?.options) {
-            if ({}.hasOwnProperty.call(widgetsDictionary[id]?.options, option)) {
-                props[option] = widgetsDictionary[id].options[option].value;
-            }
-        }
-
-        return props;
+        return {
+            ...populateWidgetProperties(id, widgetsDictionary),
+        };
     }, [id, widgetsDictionary]);
 
     const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
