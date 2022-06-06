@@ -1,3 +1,4 @@
+import cameras from "./Cameras";
 import geometryForms from "./GeometryForms";
 import { GeometryFormsProps } from "./GeometryForms/GeometryForms";
 import player from "./Player";
@@ -30,4 +31,4 @@ export const preparedReducer = {
     textState2: text2.reducer,
 };
 
-export default [geometryForms, text, text2, player];
+export default [geometryForms, text, text2, player, cameras];
