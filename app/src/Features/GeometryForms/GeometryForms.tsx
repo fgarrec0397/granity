@@ -13,7 +13,8 @@ const GeometryForms: FC<OwnProps> = ({ shape, hovered }) => {
     return (
         <mesh name="GeometryForms1" position={[0, 0, 0]}>
             <GeometryComponent />
-            <meshStandardMaterial color={hovered ? "#bdbdf5" : "white"} />
+            {/* <meshStandardMaterial color={hovered ? "#bdbdf5" : "white"} /> */}
+            <meshStandardMaterial color={"blue"} />
         </mesh>
     );
 };

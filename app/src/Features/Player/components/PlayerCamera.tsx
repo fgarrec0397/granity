@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { FC, useEffect, useRef, useState } from "react";
 import { Triplet, useSphere } from "@react-three/cannon";
-import { useThree, useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 
 export interface PlayerCameraProps {
     initialPlayerPos?: Triplet;
@@ -70,6 +70,7 @@ const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => 
 
     const { forward, backward, left, right, jump } = usePlayerControls();
     const { camera } = useThree();
+
     const velocity = useRef([0, 0, 0]);
 
     useEffect(

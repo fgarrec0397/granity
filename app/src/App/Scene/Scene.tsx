@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { FC, useEffect } from "react";
 import { Physics } from "@react-three/cannon";
-import { Select } from "@react-three/drei";
+import { PerspectiveCamera, Select } from "@react-three/drei";
 import Lights from "./components/Lights";
 import CameraControls from "./components/CameraControls";
 import Widgets from "../Widgets/Widgets";
@@ -18,7 +18,8 @@ import { saveScene, fetchScene } from "./services";
 import useIsEditor from "../Editor/state/hooks/useIsEditor";
 
 const Scene: FC = () => {
-    const { scene } = useThree();
+    const three = useThree();
+    const { scene } = three;
     const { addWidget, addWidgetsBatch, selectWidget, removeSelected } = useWidgetsActions();
     const { getWidgetByMesh } = useGetWidgets();
     const { widgets } = useWidgets();
@@ -92,13 +93,23 @@ const Scene: FC = () => {
     };
 
     return (
-        <Physics isPaused={isEditor}>
-            <Lights />
-            <CameraControls />
-            <Select box multiple onChange={onSelectMesh} filter={(items) => items}>
+        <>
+            <Physics isPaused={isEditor}>
+                <PerspectiveCamera scale={[0.5, 0.5, 0.5]} position={[0.5, 0.5, 0.5]} />
+                <PerspectiveCamera scale={[1, 1, 1]} position={[1, 1, 1]} />
+                <Lights />
+                <CameraControls />
+                <Select box multiple onChange={onSelectMesh} filter={(items) => items}>
+                    <Widgets />
+                </Select>
+            </Physics>
+            {/* <ScenePreview /> */}
+            {/* <ScenePreview>
+                <PerspectiveCamera />
+                <Lights />
                 <Widgets />
-            </Select>
-        </Physics>
+            </ScenePreview> */}
+        </>
     );
 };
 

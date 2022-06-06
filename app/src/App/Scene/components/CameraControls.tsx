@@ -1,42 +1,12 @@
-import * as THREE from "three";
-import { useFrame, useThree } from "@react-three/fiber";
-import { PointerLockControls, OrbitControls } from "@react-three/drei";
-import { FC, useState } from "react";
-import TransformControls from "./TransformControls";
-import useIsEditor from "../../Editor/state/hooks/useIsEditor";
-import useIsEditing from "../../Editor/state/hooks/useIsEditing";
+import { FC } from "react";
+import GameCamera from "./GameCamera";
+import EditorCamera from "./EditorCamera";
 
 const CameraControls: FC = () => {
-    const [hasEditorOpened, setHasEditorOpened] = useState(false);
-    const { isEditor } = useIsEditor();
-    const { isEditing } = useIsEditing();
-    const { camera } = useThree((state) => ({
-        camera: state.camera,
-        scene: state.scene,
-    }));
-
-    useFrame(() => {
-        if (isEditor && !hasEditorOpened) {
-            setHasEditorOpened(true);
-            camera.translateOnAxis(new THREE.Vector3(10, 10, 10), 1);
-            camera.lookAt(10, 10, 10);
-        }
-    });
-
     return (
         <>
-            {isEditor ? (
-                <>
-                    <TransformControls />
-                    <OrbitControls
-                        enablePan={!isEditing}
-                        enableZoom={!isEditing}
-                        enableRotate={!isEditing}
-                    />
-                </>
-            ) : (
-                <PointerLockControls />
-            )}
+            <EditorCamera />
+            <GameCamera />
         </>
     );
 };
