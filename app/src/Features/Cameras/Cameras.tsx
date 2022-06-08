@@ -1,9 +1,10 @@
 import { PerspectiveCamera, useHelper } from "@react-three/drei";
-import { Camera, useThree } from "@react-three/fiber";
+import { useThree } from "@react-three/fiber";
 import { FC, useEffect, useRef } from "react";
 import { CameraHelper } from "three";
-import useIsEditor from "../../App/Editor/state/hooks/useIsEditor";
 import { EditableWidget } from "../../App/Editor/types";
+// import GameCamera from "../../App/Scene/components/GameCamera";
+import useCamerasContext from "../../App/Scene/hooks/core/useCamerasContext";
 import { WidgetModule } from "../../App/Widgets/types";
 
 export type CamerasProps = EditableWidget;
@@ -11,27 +12,19 @@ export type CamerasProps = EditableWidget;
 type OwnProps = CamerasProps;
 
 const Cameras: FC<OwnProps> = () => {
-    const { isEditor } = useIsEditor();
-    const camera = useRef<any>();
-    const setThree = useThree(({ set }) => set);
+    const { cameras, setCameras } = useCamerasContext();
+    const three = useThree((state) => ({
+        set: state.set,
+        camera: state.camera,
+    }));
+    const cameraRef = useRef(three.camera);
     useEffect(() => {
-        setTimeout(() => {
-            if (camera !== null && camera.current) {
-                setThree(() => ({
-                    camera: camera.current,
-                }));
-            }
-        }, 1000);
-    }, [setThree]);
+        setCameras([...cameras, { cameraRef }]);
+    }, [cameras, setCameras]);
 
-    useHelper(camera, CameraHelper);
-
-    return (
-        <mesh scale={[0.25, 0.25, 0.25]}>
-            <boxGeometry />
-            <PerspectiveCamera ref={camera} />
-        </mesh>
-    );
+    useHelper(cameraRef, CameraHelper);
+    return null;
+    // return <GameCamera />;
 };
 
 export const widget: WidgetModule<CamerasProps> = {

@@ -95,20 +95,12 @@ const Scene: FC = () => {
     return (
         <>
             <Physics isPaused={isEditor}>
-                <PerspectiveCamera scale={[0.5, 0.5, 0.5]} position={[0.5, 0.5, 0.5]} />
-                <PerspectiveCamera scale={[1, 1, 1]} position={[1, 1, 1]} />
                 <Lights />
                 <CameraControls />
                 <Select box multiple onChange={onSelectMesh} filter={(items) => items}>
                     <Widgets />
                 </Select>
             </Physics>
-            {/* <ScenePreview /> */}
-            {/* <ScenePreview>
-                <PerspectiveCamera />
-                <Lights />
-                <Widgets />
-            </ScenePreview> */}
         </>
     );
 };

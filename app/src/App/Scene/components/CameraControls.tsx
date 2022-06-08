@@ -1,12 +1,12 @@
 import { FC } from "react";
-import GameCamera from "./GameCamera";
+// import GameCamera from "./GameCamera";
 import EditorCamera from "./EditorCamera";
 
 const CameraControls: FC = () => {
     return (
         <>
             <EditorCamera />
-            <GameCamera />
+            {/* <GameCamera /> */}
         </>
     );
 };

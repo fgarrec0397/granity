@@ -9,10 +9,12 @@ import widgets from "../Features/collector";
 import useWidgetsContext from "./Widgets/hooks/core/useWidgetsModuleContext";
 import { WidgetsModulesContext } from "./Widgets/providers/WidgetsModulesProvider";
 import { trigger } from "./Core/utils/events";
+import { CamerasContext } from "./Scene/providers/CamerasContextProvider";
 
 const App: FC = () => {
     const { setWidgetsModules } = useWidgetsContext();
     const ContextBridge = useContextBridge(
+        CamerasContext,
         SceneWidgetsContext,
         WidgetsModulesContext,
         ReactReduxContext

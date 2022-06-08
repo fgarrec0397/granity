@@ -134,7 +134,7 @@ export default () => {
             removeWidget(mesh);
         } else {
             // eslint-disable-next-line no-console
-            console.error("No mesh found"); // Add UI confirmation
+            console.error("No mesh found"); // TODO -- Add UI confirmation
         }
     };
 
