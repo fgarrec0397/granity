@@ -1,13 +1,14 @@
-import { OrbitControls, PerspectiveCamera, TransformControls } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { useThree, useFrame } from "@react-three/fiber";
 import { FC, useRef, useState, useEffect } from "react";
 import { Vector3 } from "three";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 import useIsEditor from "../../Editor/state/hooks/useIsEditor";
-// import useCamerasContext from "../hooks/core/useCamerasContext";
+import useCameras from "../hooks/useCameras";
+import TransformControls from "./TransformControls";
 
 const EditorCamera: FC = () => {
-    // const { cameras, setCameras } = useCamerasContext();
+    const { addCamera } = useCameras();
     const [hasEditorOpened, setHasEditorOpened] = useState(false);
     const { isEditor } = useIsEditor();
     const { isEditing } = useIsEditing();
@@ -15,11 +16,11 @@ const EditorCamera: FC = () => {
         camera: state.camera,
         scene: state.scene,
     }));
-    // const cameraRef = useRef(camera);
+    const cameraRef = useRef(camera);
 
-    // useEffect(() => {
-    //     setCameras([...cameras, { ref: cameraRef }]);
-    // }, [cameras, setCameras]);
+    useEffect(() => {
+        addCamera({ cameraRef });
+    }, [addCamera]);
 
     useFrame(() => {
         if (isEditor && !hasEditorOpened) {
@@ -31,7 +32,7 @@ const EditorCamera: FC = () => {
 
     return (
         <>
-            <PerspectiveCamera makeDefault={isEditor} />
+            <PerspectiveCamera />
             {isEditor && (
                 <>
                     <TransformControls />
