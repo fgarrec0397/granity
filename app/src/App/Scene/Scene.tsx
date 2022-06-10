@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { FC, useEffect } from "react";
 import { Physics } from "@react-three/cannon";
-import { PerspectiveCamera, Select } from "@react-three/drei";
+import { Select } from "@react-three/drei";
 import Lights from "./components/Lights";
 import CameraControls from "./components/CameraControls";
 import Widgets from "../Widgets/Widgets";
@@ -16,11 +16,9 @@ import useWidgets from "../Widgets/hooks/useWidgets";
 import useWidgetsModules from "../Widgets/hooks/useWidgetsModules";
 import { saveScene, fetchScene } from "./services";
 import useIsEditor from "../Editor/state/hooks/useIsEditor";
-import useCameras from "./hooks/useCameras";
 
 const Scene: FC = () => {
     const { scene } = useThree();
-    const { cameras } = useCameras();
     const { addWidget, addWidgetsBatch, selectWidget, removeSelected } = useWidgetsActions();
     const { getWidgetByMesh } = useGetWidgets();
     const { widgets } = useWidgets();
@@ -84,8 +82,6 @@ const Scene: FC = () => {
     }, [addWidget, removeSelected]);
 
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
-        console.log(meshArray, "meshArray");
-
         if (meshArray.length) {
             const { widget } = getWidgetByMesh(meshArray[0]);
 
