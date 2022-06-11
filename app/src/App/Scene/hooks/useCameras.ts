@@ -11,8 +11,8 @@ export default () => {
     const { cameras, setCameras } = useCamerasContext();
 
     const addCamera = useCallback(
-        (cameraRef: SceneCamera) => {
-            setCameras((prevCameras) => [...prevCameras, cameraRef]);
+        (camera: SceneCamera) => {
+            setCameras((prevCameras) => [...prevCameras, camera]);
         },
         [setCameras]
     );
