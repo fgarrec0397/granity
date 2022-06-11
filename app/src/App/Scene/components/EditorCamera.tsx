@@ -23,7 +23,7 @@ const EditorCamera: FC = () => {
 
     useEffect(() => {
         if (cameraRef.current) {
-            setCamera(cameraRef);
+            setCamera({ cameraRef });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cameraRef]);
@@ -38,7 +38,7 @@ const EditorCamera: FC = () => {
 
     return (
         <>
-            <orthographicCamera ref={cameraRef} />
+            <perspectiveCamera ref={cameraRef} />
             {isEditor && (
                 <>
                     <TransformControls />

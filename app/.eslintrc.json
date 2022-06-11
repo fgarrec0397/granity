@@ -56,6 +56,7 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/member-ordering": "error",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "import/prefer-default-export": "off",
     "import/extensions": [
       "error",

@@ -1,6 +1,7 @@
 import { useThree } from "@react-three/fiber";
 import { useCallback } from "react";
 import { SceneCamera } from "../types";
+import getCameraRef from "../utilities/getCameraRef";
 import useCamerasContext from "./core/useCamerasContext";
 import useCamerasUtilities from "./useCamerasUtilities";
 
@@ -17,9 +18,11 @@ export default () => {
     );
 
     const setCamera = useCallback(
-        (camera: any) => {
-            if (camera.current) {
-                setThree({ camera: camera.current });
+        (camera: SceneCamera) => {
+            const cameraRef = getCameraRef(camera);
+
+            if (cameraRef.current) {
+                setThree({ camera: cameraRef.current });
             }
         },
         [setThree]
