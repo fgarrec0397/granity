@@ -1,27 +1,7 @@
 import { FC } from "react";
 import { AnyAction, Reducer } from "redux";
-import { Object3D } from "three";
 import { FeaturesState, FeaturesWidgetsProps } from "../../Features/collector";
 import { UnionOfProperties } from "../Common/utils/typings";
-
-/**
- * useWidgetsActions hook type
- */
-export type UseWidgetsHook<HookReturnType> = {
-    // TODO -- fix this type that breaks Scene.tsx
-    [property: string]:
-        | HookReturnType
-        | WidgetSceneObject[]
-        | WidgetSceneObject
-        | WidgetProperties
-        | ((widget: WidgetSceneObject) => void)
-        | ((id: string) => void)
-        | ((widgetProperties: WidgetProperties, updateOnlyProperties?: boolean) => void)
-        | ((mesh: Object3D | undefined, updateOnlyProperties?: boolean) => void)
-        | ((widgetOptions: WidgetOptionsValues) => void)
-        | ((mesh: Object3D) => void)
-        | null;
-};
 
 /**
  * Allowed Fieldtypes
