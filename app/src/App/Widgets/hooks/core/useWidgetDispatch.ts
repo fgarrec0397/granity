@@ -14,6 +14,7 @@ import {
     setSelected,
     updateWidgetDictionary,
 } from "../../state/widgetsReducer";
+import { useCallback } from "react";
 
 export default () => {
     const dispatch = useDispatch();
@@ -22,9 +23,12 @@ export default () => {
         return dispatch(addWidgetDictionary(widgetsDictionaryItem));
     };
 
-    const dispatchAddBatchDictionary = (widgetsDictionary: Required<WidgetsDictionary>) => {
-        return dispatch(addBatchWidgetDictionary(widgetsDictionary));
-    };
+    const dispatchAddBatchDictionary = useCallback(
+        (widgetsDictionary: Required<WidgetsDictionary>) => {
+            return dispatch(addBatchWidgetDictionary(widgetsDictionary));
+        },
+        [dispatch]
+    );
 
     const dispatchSetSelected = (widget: WidgetSceneObject) => {
         if (widget.id) {

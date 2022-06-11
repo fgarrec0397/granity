@@ -1,7 +1,7 @@
 import { FC } from "react";
-import useIsEditor from "../../App/Editor/state/hooks/useIsEditor";
-import { EditableWidget } from "../../App/Editor/types";
-import { WidgetModule } from "../../App/Widgets/types";
+import useIsEditor from "../../../App/Editor/state/hooks/useIsEditor";
+import { EditableWidget } from "../../../App/Editor/types";
+import { WidgetModule } from "../../../App/Widgets/types";
 import PlayerCamera from "./components/PlayerCamera";
 
 export type PlayerProps = EditableWidget;

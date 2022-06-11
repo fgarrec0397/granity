@@ -2,8 +2,8 @@ import { PointerLockControls, useHelper } from "@react-three/drei";
 import { Camera } from "@react-three/fiber";
 import { FC, useEffect, useRef } from "react";
 import { CameraHelper } from "three";
-import useIsEditor from "../../Editor/state/hooks/useIsEditor";
-import useCameras from "../hooks/useCameras";
+import useIsEditor from "../../../App/Editor/state/hooks/useIsEditor";
+import useCameras from "../../../App/Scene/hooks/useCameras";
 
 const GameCamera: FC = () => {
     const { addCamera } = useCameras();

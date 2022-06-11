@@ -25,8 +25,7 @@ const EditorCamera: FC = () => {
         if (cameraRef.current) {
             setCamera({ cameraRef });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cameraRef]);
+    }, [cameraRef, setCamera]);
 
     useFrame(() => {
         if (isEditor && !hasEditorOpened) {

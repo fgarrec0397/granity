@@ -3,7 +3,6 @@ import { FC, useEffect } from "react";
 import { Physics } from "@react-three/cannon";
 import { Select } from "@react-three/drei";
 import Lights from "./components/Lights";
-import CameraControls from "./components/CameraControls";
 import Widgets from "../Widgets/Widgets";
 import useKeyboardControls from "../Core/hooks/useKeyboardControls";
 import useWidgetsActions from "../Widgets/hooks/useWidgetsActions";
@@ -16,6 +15,7 @@ import useWidgets from "../Widgets/hooks/useWidgets";
 import useWidgetsModules from "../Widgets/hooks/useWidgetsModules";
 import { saveScene, fetchScene } from "./services";
 import useIsEditor from "../Editor/state/hooks/useIsEditor";
+import SceneDefaultCamera from "./components/SceneDefaultCamera";
 
 const Scene: FC = () => {
     const { scene } = useThree();
@@ -48,8 +48,7 @@ const Scene: FC = () => {
         };
 
         handleFetchScene();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [widgetsModules]);
+    }, [addWidgetsBatch, widgetsModules]);
 
     useEffect(() => {
         const handleSaveFile = async () => {
@@ -95,7 +94,7 @@ const Scene: FC = () => {
         <>
             <Physics isPaused={isEditor}>
                 <Lights />
-                <CameraControls />
+                <SceneDefaultCamera />
                 <Select box multiple onChange={onSelectMesh}>
                     <Widgets />
                 </Select>

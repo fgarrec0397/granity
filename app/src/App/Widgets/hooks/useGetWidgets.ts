@@ -1,4 +1,5 @@
 import { useThree } from "@react-three/fiber";
+import { useCallback } from "react";
 import { Object3D } from "three";
 import constants from "../../Core/constants";
 import { WidgetModule, WidgetSceneObject } from "../types";
@@ -38,10 +39,13 @@ export default () => {
         return { widget, widgetMesh };
     };
 
-    const getMeshByWidget = (widget: WidgetModule | WidgetSceneObject) => {
-        const meshName = getWidgetName(widget);
-        return scene.getObjectByName(meshName);
-    };
+    const getMeshByWidget = useCallback(
+        (widget: WidgetModule | WidgetSceneObject) => {
+            const meshName = getWidgetName(widget);
+            return scene.getObjectByName(meshName);
+        },
+        [scene]
+    );
 
     return {
         getWidgetById,

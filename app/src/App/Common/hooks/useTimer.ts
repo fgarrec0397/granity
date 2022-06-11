@@ -24,8 +24,7 @@ export default () => {
                 clearInterval(intervalId);
             }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isStart]);
+    }, [intervalId, isStart]);
 
     const startTimer = () => {
         setIsStart(true);

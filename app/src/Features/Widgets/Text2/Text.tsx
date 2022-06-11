@@ -1,32 +1,25 @@
 import { Html } from "@react-three/drei";
 import { FC } from "react";
-import { EditableWidget } from "../../App/Editor/types";
-import { FieldType, WidgetModule } from "../../App/Widgets/types";
+import { FieldType, WidgetModule } from "../../../App/Widgets/types";
 import textReducer from "./state/textReducer";
 
-export interface TextProps extends EditableWidget {
-    text: string;
-}
-
-type OwnProps = TextProps;
-
-const Text: FC<OwnProps> = ({ text }) => {
+const Text: FC = () => {
     return (
         <mesh>
             <Html>
                 <div>
-                    <p>{text}</p>
+                    <p>Text 2</p>
                 </div>
             </Html>
         </mesh>
     );
 };
 
-export const widget: WidgetModule<TextProps> = {
+export const widget: WidgetModule = {
     component: Text,
     reducer: textReducer,
     widgetDefinition: {
-        name: "Text",
+        name: "Text2",
         options: [
             {
                 name: "text",

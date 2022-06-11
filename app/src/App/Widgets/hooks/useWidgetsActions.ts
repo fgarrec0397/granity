@@ -12,6 +12,7 @@ import useWidgetDispatch from "./core/useWidgetDispatch";
 import useWidgetsSelector from "./core/useWidgetsSelector";
 import useGetWidgets from "./useGetWidgets";
 import useWidgets from "./useWidgets";
+import { useCallback } from "react";
 
 export default () => {
     const { currentWidgets } = useWidgets();
@@ -57,12 +58,12 @@ export default () => {
         add(newWidget, widgetProperties, widgetOptions as WidgetOptionsValues);
     };
 
-    const addWidgetsBatch = (
-        newWidgetsDictionary: WidgetsDictionary,
-        newWidgets: WidgetSceneObject[]
-    ) => {
-        addBatch(newWidgetsDictionary, newWidgets);
-    };
+    const addWidgetsBatch = useCallback(
+        (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObject[]) => {
+            addBatch(newWidgetsDictionary, newWidgets);
+        },
+        [addBatch]
+    );
 
     const selectWidget = (widget: WidgetSceneObject) => {
         if (widget.id) {

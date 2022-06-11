@@ -10,9 +10,10 @@ import useWidgetsContext from "./Widgets/hooks/core/useWidgetsModuleContext";
 import { WidgetsModulesContext } from "./Widgets/providers/WidgetsModulesProvider";
 import { trigger } from "./Core/utils/events";
 import { CamerasContext } from "./Scene/providers/CamerasContextProvider";
+import useWidgetsModules from "./Widgets/hooks/useWidgetsModules";
 
 const App: FC = () => {
-    const { setWidgetsModules } = useWidgetsContext();
+    const { initWidgetsModules } = useWidgetsModules();
     const ContextBridge = useContextBridge(
         CamerasContext,
         SceneWidgetsContext,
@@ -22,9 +23,8 @@ const App: FC = () => {
 
     // Store all kind of widgets in Widgets Context API
     useEffect(() => {
-        setWidgetsModules(widgets);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        initWidgetsModules(widgets);
+    }, [initWidgetsModules]);
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();

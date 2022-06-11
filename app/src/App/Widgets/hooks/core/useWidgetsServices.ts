@@ -6,6 +6,7 @@ import {
 } from "../../types";
 import useWidgetDispatch from "./useWidgetDispatch";
 import useSceneWidgetsContext from "./useSceneWidgetsContext";
+import { useCallback } from "react";
 
 export default () => {
     const { widgets, setSceneWidgets } = useSceneWidgetsContext();
@@ -18,26 +19,32 @@ export default () => {
         dispatchRemoveWidgetDictionary,
     } = useWidgetDispatch();
 
-    const add = (
-        newWidget: WidgetSceneObject,
-        properties: WidgetProperties,
-        options: WidgetOptionsValues
-    ) => {
-        if (newWidget.id) {
-            dispatchAddDictionary({
-                id: newWidget.id,
-                properties,
-                options,
-            });
-        }
+    const add = useCallback(
+        (
+            newWidget: WidgetSceneObject,
+            properties: WidgetProperties,
+            options: WidgetOptionsValues
+        ) => {
+            if (newWidget.id) {
+                dispatchAddDictionary({
+                    id: newWidget.id,
+                    properties,
+                    options,
+                });
+            }
 
-        setSceneWidgets([...widgets, newWidget]);
-    };
+            setSceneWidgets((prevWidgets) => [...prevWidgets, newWidget]);
+        },
+        [dispatchAddDictionary, setSceneWidgets]
+    );
 
-    const addBatch = (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObject[]) => {
-        dispatchAddBatchDictionary(newWidgetsDictionary);
-        setSceneWidgets([...widgets, ...newWidgets]);
-    };
+    const addBatch = useCallback(
+        (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObject[]) => {
+            dispatchAddBatchDictionary(newWidgetsDictionary);
+            setSceneWidgets((prevWidgets) => [...prevWidgets, ...newWidgets]);
+        },
+        [dispatchAddBatchDictionary, setSceneWidgets]
+    );
 
     const update = (
         widget: WidgetSceneObject,

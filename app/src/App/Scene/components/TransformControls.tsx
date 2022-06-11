@@ -1,7 +1,8 @@
 import { useThree } from "@react-three/fiber";
 import { FC, useEffect, useState } from "react";
-import { Group, Object3D } from "three";
+import { Object3D } from "three";
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
+import usePrevious from "../../Common/hooks/usePrevious";
 import useCurrentMode from "../../Editor/state/hooks/useCurrentMode";
 import useIsEditing from "../../Editor/state/hooks/useIsEditing";
 import useGetWidgets from "../../Widgets/hooks/useGetWidgets";
@@ -17,7 +18,7 @@ const TransformControlsComponent: FC = ({ children }) => {
     const { setIsEditing } = useIsEditing();
     const [transformControl, setTransformControl] = useState<TransformControls>();
     const [attachedMesh, setAttachedMesh] = useState<Object3D>();
-    const [temporaryGroup] = useState<Group>();
+    const previousCurrentWidgets = usePrevious(currentWidgets);
 
     useEffect(() => {
         if (!transformControl && attachedMesh) {
@@ -38,6 +39,22 @@ const TransformControlsComponent: FC = ({ children }) => {
         };
     }, [transformControl, camera, scene, gl, attachedMesh, currentMode]);
 
+    /**
+     * Detach the transformControl whenever the current element change
+     */
+    useEffect(() => {
+        if (transformControl && previousCurrentWidgets !== currentWidgets) {
+            transformControl.detach();
+            setAttachedMesh(undefined);
+        }
+    }, [
+        currentWidgets,
+        currentWidgets.length,
+        firstCurrentWidget?.id,
+        previousCurrentWidgets,
+        transformControl,
+    ]);
+
     useEffect(() => {
         if (transformControl) {
             transformControl.setMode(currentMode);
@@ -48,19 +65,7 @@ const TransformControlsComponent: FC = ({ children }) => {
         if (currentWidgets.length) {
             setAttachedMesh(getMeshByWidget(currentWidgets[0]));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentWidgets.length, firstCurrentWidget?.id, getMeshByWidget]);
-
-    /**
-     * Detach the transformControl whenever the current element change
-     */
-    useEffect(() => {
-        if (transformControl) {
-            transformControl.detach();
-            setAttachedMesh(undefined);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentWidgets.length, currentWidgets[0]?.id, temporaryGroup]);
+    }, [currentWidgets, currentWidgets.length, firstCurrentWidget?.id, getMeshByWidget]);
 
     /**
      * Initialize events on transformControls.

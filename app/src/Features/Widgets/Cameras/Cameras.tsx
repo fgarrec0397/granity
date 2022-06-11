@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { EditableWidget } from "../../App/Editor/types";
-import GameCamera from "../../App/Scene/components/GameCamera";
-import { WidgetModule } from "../../App/Widgets/types";
+import { EditableWidget } from "../../../App/Editor/types";
+import { WidgetModule } from "../../../App/Widgets/types";
+import GameCamera from "../../Components/Cameras/GameCamera";
 
 export type CamerasProps = EditableWidget;
 
