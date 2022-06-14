@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { FC, useEffect, useRef, useState } from "react";
 import { Triplet, useSphere } from "@react-three/cannon";
 import { useFrame, useThree } from "@react-three/fiber";
+import { PointerLockControls } from "@react-three/drei";
 
 export interface PlayerCameraProps {
     initialPlayerPos?: Triplet;
@@ -62,9 +63,9 @@ const usePlayerControls = (): Movements => {
 
 const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => {
     const [ref, api] = useSphere(() => ({
-        mass: 1,
+        mass: 0,
         type: "Dynamic",
-        position: initialPlayerPos,
+        // position: initialPlayerPos,
         ...props,
     }));
 
@@ -100,6 +101,7 @@ const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => 
     return (
         <>
             <mesh ref={ref} />
+            <PointerLockControls />
         </>
     );
 };

@@ -58,6 +58,8 @@ const EditorGeometryMenu: FC = () => {
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                         {widgetsModules.map((widget, index) => {
                             const key = `${index}-${widget.widgetDefinition.name}`;
+                            // console.log(widget, "widget");
+
                             const widgetSceneObject = mapIWidgetToWidgetSceneObject(widget);
                             return (
                                 <Col key={key} className="gutter-row" span={6}>

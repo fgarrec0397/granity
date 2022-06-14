@@ -22,10 +22,10 @@ const Cameras: FC<OwnProps> = () => {
 
     return (
         <>
-            <mesh scale={[0.25, 0.25, 0.25]}>
+            <perspectiveCamera ref={cameraRef} />;
+            {/* <mesh scale={[0.25, 0.25, 0.25]}>
                 <boxGeometry />
-                <perspectiveCamera ref={cameraRef} />
-            </mesh>
+            </mesh> */}
         </>
     );
 };
@@ -33,6 +33,13 @@ const Cameras: FC<OwnProps> = () => {
 export const widget: WidgetModule<CamerasProps> = {
     component: Cameras,
     reducer: null,
+    editorOptions: {
+        meshHolder: (
+            <mesh scale={[0.25, 0.25, 0.25]}>
+                <boxGeometry />
+            </mesh>
+        ),
+    },
     widgetDefinition: {
         name: "Cameras",
     },

@@ -1,5 +1,6 @@
 import { SetOptionalPropertyFrom } from "../Common/utils/typings";
 import { WidgetSceneObject, WidgetsDictionary } from "../Widgets/types";
+import { serializeWidgets } from "./utilities/serializer";
 
 type SaveSceneServiceParameter = {
     widgets: WidgetSceneObject[];
@@ -9,13 +10,9 @@ type SaveSceneServiceParameter = {
 export const saveScene = async ({ widgets, widgetsDictionary }: SaveSceneServiceParameter) => {
     const clonedWidgets: SetOptionalPropertyFrom<WidgetSceneObject, "component">[] = [...widgets];
 
-    const preparedWidgets = clonedWidgets.map((x) => {
-        const clonedWidget = { ...x };
-        delete clonedWidget.component;
-        return clonedWidget;
-    });
+    const serializedWidgets = serializeWidgets(clonedWidgets);
 
-    const widgetsDefinition = { preparedWidgets, widgetsDictionary };
+    const widgetsDefinition = { serializedWidgets, widgetsDictionary };
 
     const rawResponse = await fetch("api/scene", {
         method: "POST",

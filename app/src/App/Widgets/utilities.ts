@@ -12,6 +12,7 @@ export const mapIWidgetToWidgetSceneObject = (widget: WidgetModule) => {
         id: widget.id,
         component: widget.component,
         widgetDefinition: widget.widgetDefinition,
+        editorOptions: widget.editorOptions,
     };
 
     return widgetSceneObject;

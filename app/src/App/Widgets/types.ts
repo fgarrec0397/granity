@@ -1,5 +1,6 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { AnyAction, Reducer } from "redux";
+import { Object3D } from "three";
 import { FeaturesState, FeaturesWidgetsProps } from "../../Features/collector";
 import { UnionOfProperties } from "../Common/utils/typings";
 
@@ -51,6 +52,14 @@ export interface WidgetDefinition {
 }
 
 /**
+ * Widget options to set in the editor
+ */
+
+export type WidgetEditorOptions = {
+    meshHolder?: ReactNode | Object3D;
+};
+
+/**
  * All Features reducers destructured as union types
  */
 type FeaturesUnionsTypes = UnionOfProperties<FeaturesState>;
@@ -62,6 +71,7 @@ export interface WidgetModule<Props = FeaturesWidgetsProps> {
     id?: string;
     component: FC<Props>;
     reducer: Reducer<FeaturesUnionsTypes, AnyAction> | null;
+    editorOptions?: WidgetEditorOptions;
     widgetDefinition: WidgetDefinition;
 }
 

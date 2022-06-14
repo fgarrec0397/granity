@@ -42,6 +42,7 @@ const Scene: FC = () => {
                         component,
                     };
                 });
+                console.log(fetchedWidgets, "fetchedWidgets");
 
                 addWidgetsBatch(data.widgetsDictionary, fetchedWidgets);
             });
@@ -52,6 +53,8 @@ const Scene: FC = () => {
 
     useEffect(() => {
         const handleSaveFile = async () => {
+            console.log({ widgets, widgetsDictionary });
+
             await saveScene({ widgets, widgetsDictionary });
         };
 
@@ -81,6 +84,8 @@ const Scene: FC = () => {
     }, [addWidget, removeSelected]);
 
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
+        console.log(meshArray, "meshArray");
+
         if (meshArray.length) {
             const { widget } = getWidgetByMesh(meshArray[0]);
 

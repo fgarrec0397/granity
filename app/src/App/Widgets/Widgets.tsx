@@ -1,7 +1,6 @@
 import { FC } from "react";
 import WidgetRenderer from "./components/WidgetRenderer";
 import { WidgetSceneObject } from "./types";
-import { getWidgetName } from "./utilities";
 import useWidgets from "./hooks/useWidgets";
 import useWidgetsConnector from "./hooks/useWidgetsConnector";
 
@@ -25,11 +24,10 @@ const Widgets: FC = () => {
 };
 
 const Widget: FC<WidgetProps> = ({ widget }) => {
-    const { component, id } = widget;
-    const name = getWidgetName(widget);
+    const { id } = widget;
 
     if (id) {
-        return <WidgetRenderer id={id} name={name} component={component} />;
+        return <WidgetRenderer widget={widget} />;
     }
 
     return null;
