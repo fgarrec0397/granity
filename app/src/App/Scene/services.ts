@@ -37,6 +37,7 @@ export const fetchScene = async (successCallBack: FetchSuccessCallBack) => {
 
     try {
         const { sceneJsonString } = await response.json();
+
         const data = JSON.parse(sceneJsonString);
 
         successCallBack(data);

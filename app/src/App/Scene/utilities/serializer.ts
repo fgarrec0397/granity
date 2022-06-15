@@ -1,6 +1,6 @@
 import { SetOptionalPropertyFrom } from "../../Common/utils/typings";
 import { WidgetEditorOptions, WidgetSceneObject } from "../../Widgets/types";
-import { serializeComponent } from "../../Core/utils/componentSerializer";
+import { serialize } from "../../Core/utils/componentSerializer";
 
 export const serializeWidgets = (
     widgets: SetOptionalPropertyFrom<WidgetSceneObject, "component">[]
@@ -19,9 +19,11 @@ export const serializeWidgets = (
 };
 
 export const serializeEditorOptions = ({ meshHolder }: WidgetEditorOptions) => {
-    const serializedMeshHolder = serializeComponent(meshHolder);
+    if (meshHolder) {
+        const serializedMeshHolder = serialize(meshHolder as JSX.Element);
 
-    return {
-        meshHolder: serializedMeshHolder,
-    };
+        return {
+            meshHolder: serializedMeshHolder,
+        };
+    }
 };

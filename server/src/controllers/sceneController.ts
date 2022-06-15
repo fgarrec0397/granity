@@ -7,6 +7,14 @@ const model = mongoose.model("Scene", schema);
 export const getScene = async (req: Request, res: Response) => {
     const oldestScene = await model.findOne({}, {}, { sort: { createdAt: -1 } }).exec();
 
+    if (oldestScene == null) {
+        res.send({
+            sceneJsonString: "",
+        });
+
+        return;
+    }
+
     res.send(oldestScene);
 };
 

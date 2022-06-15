@@ -2,7 +2,8 @@
  * React-Serialize utility re-written in TypeScript
  * Originally created by @pravdomil (https://github.com/pravdomil/react-serialize)
  */
-import { Component, ComponentType, createElement, ReactElement, ReactNode } from "react";
+
+import * as React from "react";
 
 type ObjectType = {
     [index: string]: any;
@@ -14,24 +15,25 @@ type DeserializableComponent = {
 };
 
 type ReviverOptions = {
-    type: string | ComponentType;
+    type: string | React.ComponentType;
     props: { children: DeserializableComponent[] & ObjectType };
     key: string | number;
-    components: { [type: string]: ComponentType };
+    components: { [type: string]: React.ComponentType };
 };
 
 type DeserializationOpts = {
-    components?: { [type: string]: ComponentType };
+    components?: { [type: string]: React.ComponentType };
     reviver?: (args: ReviverOptions) => ReviverOptions;
 };
 
-const deserializeElement = <T extends ReactElement<any>>(
+// @ts-ignore
+function deserializeElement(
     element: DeserializableComponent[] | DeserializableComponent | string | null,
     options: DeserializationOpts = {},
     key?: string | number
-): T | string | null | undefined => {
-    let { components = {} } = options;
-    const { reviver } = options;
+) {
+    // eslint-disable-next-line prefer-const
+    let { components = {}, reviver } = options;
 
     if (typeof element !== "object") {
         return element;
@@ -42,30 +44,31 @@ const deserializeElement = <T extends ReactElement<any>>(
     }
 
     if (element instanceof Array) {
-        return element.map((el, i) => deserializeElement(el, options, i)) as any;
+        return element.map((el, i) => deserializeElement(el, options, i));
     }
 
-    let { props } = element as DeserializableComponent;
+    let { props } = element;
     const elementType = element.type;
 
     if (typeof elementType !== "string") {
         throw new Error("Deserialization error: element type must be string");
     }
 
-    let type: string | ComponentType = components[elementType] || elementType.toLowerCase();
+    let type = components[elementType] || elementType;
 
     if (props.children) {
-        props = { ...props, children: deserializeElement(props.children, options) as any };
+        props = { ...props, children: deserializeElement(props.children, options) };
     }
 
-    if (reviver && key) {
+    if (reviver) {
+        // @ts-ignore
         ({ type, props, key, components } = reviver({ type, props, key, components }));
     }
 
-    createElement(type, { ...props, key });
-};
+    return React.createElement(type, { ...props, key });
+}
 
-export const serializeComponent = <T extends Component | JSX.Element | ReactNode>(component: T) => {
+export const serialize = <T extends React.Component | JSX.Element>(component: T) => {
     // eslint-disable-next-line @typescript-eslint/ban-types
     const getName = (value: string | Function) => {
         if (typeof value === "string") {
@@ -75,7 +78,6 @@ export const serializeComponent = <T extends Component | JSX.Element | ReactNode
         }
         return value;
     };
-
     const replacer = (key: string, value: any) => {
         switch (key) {
             case "type":
@@ -93,11 +95,15 @@ export const serializeComponent = <T extends Component | JSX.Element | ReactNode
     return JSON.stringify(component, replacer);
 };
 
-export const deserialize = <T extends ReactElement<any>>(
-    serializedComponent: string,
+export const deserialize = <T extends React.ReactElement<any>>(
+    serializedComponent: DeserializableComponent | string,
     options?: DeserializationOpts
 ): T => {
-    const componentData = JSON.parse(serializedComponent);
+    let componentData = serializedComponent;
+
+    if (typeof serializedComponent === "string") {
+        componentData = JSON.parse(serializedComponent);
+    }
 
     return deserializeElement(componentData, options) as T;
 };

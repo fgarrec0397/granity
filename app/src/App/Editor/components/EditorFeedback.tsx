@@ -1,4 +1,4 @@
-import { Card, Collapse, Descriptions, Select, Typography } from "antd";
+import { Card, Collapse, Descriptions, Input, Select, Typography } from "antd";
 import { FC, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
@@ -127,6 +127,16 @@ const EditorFeedback: FC = () => {
                             ) : (
                                 currentWidgets.length > 0 &&
                                 currentWidgets[0].widgetDefinition.options?.map((option) => {
+                                    if (option.fieldType === FieldType.Text) {
+                                        return (
+                                            <Input
+                                                addonBefore="test"
+                                                placeholder="Basic usage"
+                                                // value
+                                            />
+                                        );
+                                    }
+
                                     if (option.fieldType === FieldType.Select) {
                                         return (
                                             <Select

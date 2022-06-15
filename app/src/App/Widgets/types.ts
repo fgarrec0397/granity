@@ -9,6 +9,7 @@ import { UnionOfProperties } from "../Common/utils/typings";
  */
 export enum FieldType {
     Text = "Text",
+    Number = "Number",
     Select = "Select",
 }
 
@@ -35,6 +36,7 @@ export interface WidgetBaseOptions extends WidgetAdditionnalOptions {
     name: string;
     displayName: string;
     fieldType: FieldType;
+    isVisible?: (options: WidgetBaseOptions[]) => boolean;
     defaultValue: WidgetOptionDefaultValue;
 }
 

@@ -4,7 +4,7 @@ import { Camera } from "@react-three/fiber";
 import { CameraHelper } from "three";
 import { EditableWidget } from "../../../App/Editor/types";
 import useCameras from "../../../App/Scene/hooks/useCameras";
-import { WidgetModule } from "../../../App/Widgets/types";
+import { FieldType, WidgetModule } from "../../../App/Widgets/types";
 
 export type CamerasProps = EditableWidget;
 
@@ -20,14 +20,7 @@ const Cameras: FC<OwnProps> = () => {
 
     useHelper(cameraRef, CameraHelper);
 
-    return (
-        <>
-            <perspectiveCamera ref={cameraRef} />;
-            {/* <mesh scale={[0.25, 0.25, 0.25]}>
-                <boxGeometry />
-            </mesh> */}
-        </>
-    );
+    return <perspectiveCamera ref={cameraRef} />;
 };
 
 export const widget: WidgetModule<CamerasProps> = {
@@ -37,10 +30,51 @@ export const widget: WidgetModule<CamerasProps> = {
         meshHolder: (
             <mesh scale={[0.25, 0.25, 0.25]}>
                 <boxGeometry />
+                <meshBasicMaterial visible={false} />
             </mesh>
         ),
     },
     widgetDefinition: {
         name: "Cameras",
+        options: [
+            {
+                name: "cameraType",
+                displayName: "Type of Camera",
+                fieldType: FieldType.Select,
+                selectOptions: [
+                    {
+                        value: "perspective",
+                        name: "Perspective",
+                    },
+                    {
+                        value: "orthographic",
+                        name: "Orthographic",
+                    },
+                ],
+                defaultValue: "perspective",
+            },
+            {
+                name: "test",
+                displayName: "Test Multiple options",
+                fieldType: FieldType.Select,
+                selectOptions: [
+                    {
+                        value: "Test1",
+                        name: "Test1",
+                    },
+                    {
+                        value: "Test2",
+                        name: "Test2",
+                    },
+                ],
+                defaultValue: "perspective",
+            },
+            {
+                name: "fieldOfView",
+                displayName: "Field of View",
+                fieldType: FieldType.Number,
+                defaultValue: 50,
+            },
+        ],
     },
 };

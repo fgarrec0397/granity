@@ -47,8 +47,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
             onPointerOut={handleOnPointerOut}
             {...widgetsDictionary[id!]?.properties}
         >
-            {/* {meshHolder} */}
-            {/* <meshBasicMaterial visible={false} /> */}
+            {meshHolder}
 
             <Component {...componentProps()} hovered={hovered} />
         </mesh>

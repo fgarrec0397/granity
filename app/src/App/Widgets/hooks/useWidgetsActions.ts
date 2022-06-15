@@ -60,6 +60,8 @@ export default () => {
 
     const addWidgetsBatch = useCallback(
         (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObject[]) => {
+            console.log(newWidgets, "newWidgets");
+
             addBatch(newWidgetsDictionary, newWidgets);
         },
         [addBatch]

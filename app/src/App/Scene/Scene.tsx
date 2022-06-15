@@ -16,6 +16,8 @@ import useWidgetsModules from "../Widgets/hooks/useWidgetsModules";
 import { saveScene, fetchScene } from "./services";
 import useIsEditor from "../Editor/state/hooks/useIsEditor";
 import SceneDefaultCamera from "./components/SceneDefaultCamera";
+import { deserialize } from "../Core/utils/componentSerializer";
+// import { deserialize } from "v8";
 
 const Scene: FC = () => {
     const { scene } = useThree();
@@ -32,17 +34,18 @@ const Scene: FC = () => {
     useEffect(() => {
         const handleFetchScene = async () => {
             await fetchScene((data: any) => {
-                const fetchedWidgets = data.preparedWidgets.map((x: any) => {
+                const fetchedWidgets = data.serializedWidgets.map((x: any) => {
                     const component = widgetsModules.find(
                         (y) => y.widgetDefinition.name === x.widgetDefinition.name
                     )?.component;
+
+                    x.editorOptions.meshHolder = deserialize(x.editorOptions.meshHolder);
 
                     return {
                         ...x,
                         component,
                     };
                 });
-                console.log(fetchedWidgets, "fetchedWidgets");
 
                 addWidgetsBatch(data.widgetsDictionary, fetchedWidgets);
             });
@@ -53,8 +56,6 @@ const Scene: FC = () => {
 
     useEffect(() => {
         const handleSaveFile = async () => {
-            console.log({ widgets, widgetsDictionary });
-
             await saveScene({ widgets, widgetsDictionary });
         };
 
@@ -84,8 +85,6 @@ const Scene: FC = () => {
     }, [addWidget, removeSelected]);
 
     const onSelectMesh = (meshArray: THREE.Object3D[]) => {
-        console.log(meshArray, "meshArray");
-
         if (meshArray.length) {
             const { widget } = getWidgetByMesh(meshArray[0]);
 
