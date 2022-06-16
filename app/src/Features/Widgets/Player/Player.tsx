@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { useHelper } from "@react-three/drei";
+import { FC, useRef } from "react";
 import { BoxHelper } from "three";
 import useIsEditor from "../../../App/Editor/state/hooks/useIsEditor";
 import { EditableWidget } from "../../../App/Editor/types";
@@ -10,9 +11,18 @@ export type PlayerProps = EditableWidget;
 type OwnProps = PlayerProps;
 
 const Player: FC<OwnProps> = () => {
+    const ref = useRef();
     const { isEditor } = useIsEditor();
 
-    return <>{!isEditor && <PlayerCamera initialPlayerPos={[0, 0, 0]} />}</>;
+    useHelper(isEditor && ref, BoxHelper, "red");
+
+    return (
+        <mesh ref={ref} scale={[0.25, 0.25, 0.25]}>
+            <boxGeometry />
+            <meshBasicMaterial visible={false} />
+            {!isEditor && <PlayerCamera initialPlayerPos={[0, 0, 0]} />}
+        </mesh>
+    );
 };
 
 export const widget: WidgetModule<PlayerProps> = {
@@ -20,9 +30,9 @@ export const widget: WidgetModule<PlayerProps> = {
     reducer: null,
     editorOptions: {
         meshHolder: (
-            <mesh name="GeometryForms1" position={[0, 0, 0]}>
-                <sphereGeometry />
-                <meshStandardMaterial color={"red"} />
+            <mesh scale={[0.25, 0.25, 0.25]}>
+                <boxGeometry />
+                <meshBasicMaterial visible={false} />
             </mesh>
         ),
     },

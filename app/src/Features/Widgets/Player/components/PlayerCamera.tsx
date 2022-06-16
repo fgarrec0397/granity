@@ -3,6 +3,8 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Triplet, useSphere } from "@react-three/cannon";
 import { useFrame, useThree } from "@react-three/fiber";
 import { PointerLockControls } from "@react-three/drei";
+import useCameras from "../../../../App/Scene/hooks/useCameras";
+import useIsEditor from "../../../../App/Editor/state/hooks/useIsEditor";
 
 export interface PlayerCameraProps {
     initialPlayerPos?: Triplet;
@@ -69,10 +71,19 @@ const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => 
         ...props,
     }));
 
+    const { isEditor } = useIsEditor();
+    const { setCamera } = useCameras();
     const { forward, backward, left, right, jump } = usePlayerControls();
     const { camera } = useThree();
 
+    const cameraRef = useRef();
     const velocity = useRef([0, 0, 0]);
+
+    useEffect(() => {
+        if (isEditor) {
+            setCamera({ cameraRef });
+        }
+    }, [setCamera, isEditor]);
 
     useEffect(
         () =>
@@ -101,6 +112,7 @@ const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => 
     return (
         <>
             <mesh ref={ref} />
+            <perspectiveCamera ref={cameraRef} />
             <PointerLockControls />
         </>
     );

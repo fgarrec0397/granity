@@ -39,7 +39,9 @@ const Scene: FC = () => {
                         (y) => y.widgetDefinition.name === x.widgetDefinition.name
                     )?.component;
 
-                    x.editorOptions.meshHolder = deserialize(x.editorOptions.meshHolder);
+                    if (x.editorOptions?.meshHolder) {
+                        x.editorOptions.meshHolder = deserialize(x.editorOptions.meshHolder);
+                    }
 
                     return {
                         ...x,
