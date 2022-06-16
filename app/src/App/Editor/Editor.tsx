@@ -6,7 +6,7 @@ import EditorItemsList from "./components/EditorItemsList";
 import EditorModeSelector from "./components/EditorModeSelector";
 import SaveButton from "./components/EditorSaveButton";
 import EditorGeometryMenu from "./components/EditorWidgetsMenu";
-import useIsEditor from "./state/hooks/useIsEditor";
+import useIsEditor from "./hooks/useIsEditor";
 
 interface EditorStyles {
     topWrapper?: StyledWrapperProps;

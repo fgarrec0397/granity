@@ -1,6 +1,6 @@
 import { Html } from "@react-three/drei";
 import { FC } from "react";
-import { EditableWidget } from "../../../App/Editor/types";
+import { EditableWidget } from "../../../App/Editor/editorTypes";
 import { FieldType, WidgetModule } from "../../../App/Widgets/types";
 import textReducer from "./state/textReducer";
 

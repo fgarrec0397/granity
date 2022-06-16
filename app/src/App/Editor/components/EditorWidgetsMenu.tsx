@@ -2,10 +2,10 @@ import { Button, Col, Modal, Row } from "antd";
 import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import { trigger } from "../../Core/utils/events";
+import { trigger } from "../../Core/utilities/events";
 import useWidgetsModuleContext from "../../Widgets/hooks/core/useWidgetsModuleContext";
 import { WidgetSceneObject } from "../../Widgets/types";
-import { mapIWidgetToWidgetSceneObject } from "../../Widgets/utilities";
+import { mapWidgetModuleToWidgetSceneObject } from "../../Widgets/utilities";
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;
@@ -59,7 +59,7 @@ const EditorGeometryMenu: FC = () => {
                         {widgetsModules.map((widget, index) => {
                             const key = `${index}-${widget.widgetDefinition.name}`;
 
-                            const widgetSceneObject = mapIWidgetToWidgetSceneObject(widget);
+                            const widgetSceneObject = mapWidgetModuleToWidgetSceneObject(widget);
                             return (
                                 <Col key={key} className="gutter-row" span={6}>
                                     <Button

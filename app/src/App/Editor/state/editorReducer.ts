@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ModesAvailable } from "./types";
+import { ModesAvailable } from "../editorTypes";
 
 export interface EditorState {
     isEditor: boolean;

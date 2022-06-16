@@ -6,18 +6,17 @@ import Lights from "./components/Lights";
 import Widgets from "../Widgets/Widgets";
 import useKeyboardControls from "../Core/hooks/useKeyboardControls";
 import useWidgetsActions from "../Widgets/hooks/useWidgetsActions";
-import { off, on } from "../Core/utils/events";
+import { off, on } from "../Core/utilities/events";
 import { useThree } from "@react-three/fiber";
 import useWidgetsContext from "../Widgets/hooks/core/useWidgetsModuleContext";
 import useWidgetsSelector from "../Widgets/hooks/core/useWidgetsSelector";
 import useGetWidgets from "../Widgets/hooks/useGetWidgets";
 import useWidgets from "../Widgets/hooks/useWidgets";
-import useWidgetsModules from "../Widgets/hooks/useWidgetsModules";
+import useWidgetsModules from "../Widgets/hooks/useInitWidgetsModules";
 import { saveScene, fetchScene } from "./services";
-import useIsEditor from "../Editor/state/hooks/useIsEditor";
+import useIsEditor from "../Editor/hooks/useIsEditor";
 import SceneDefaultCamera from "./components/SceneDefaultCamera";
-import { deserialize } from "../Core/utils/componentSerializer";
-// import { deserialize } from "v8";
+import { deserialize } from "../Core/utilities/componentSerializer";
 
 const Scene: FC = () => {
     const { scene } = useThree();

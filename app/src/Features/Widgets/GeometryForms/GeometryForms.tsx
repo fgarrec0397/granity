@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { EditableWidget } from "../../../App/Editor/types";
+import { EditableWidget } from "../../../App/Editor/editorTypes";
 import { FieldType, WidgetModule } from "../../../App/Widgets/types";
 
 export interface GeometryFormsProps extends EditableWidget {

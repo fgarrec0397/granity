@@ -1,6 +1,7 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { WidgetModule } from "../types";
 import useWidgetsModuleContext from "./core/useWidgetsModuleContext";
+import widgetsM from "../../../Features/collector";
 
 export default () => {
     const { widgetsModules, setWidgetsModules } = useWidgetsModuleContext();
@@ -12,5 +13,9 @@ export default () => {
         [setWidgetsModules]
     );
 
-    return { widgetsModules, initWidgetsModules };
+    useEffect(() => {
+        initWidgetsModules(widgetsM);
+    }, [initWidgetsModules]);
+
+    return { widgetsModules };
 };

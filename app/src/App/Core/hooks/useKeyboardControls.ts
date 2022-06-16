@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useHandleEditor from "../../Editor/state/hooks/useHandleEditor";
+import useHandleEditor from "../../Editor/hooks/useHandleEditor";
 import useCameras from "../../Scene/hooks/useCameras";
 import useWidgets from "../../Widgets/hooks/useWidgets";
 import useWidgetsActions from "../../Widgets/hooks/useWidgetsActions";

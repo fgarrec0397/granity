@@ -2,7 +2,7 @@ import { Card, Collapse, Descriptions, Input, Select, Typography } from "antd";
 import { FC, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import { trigger } from "../../Core/utils/events";
+import { trigger } from "../../Core/utilities/events";
 import useWidgets from "../../Widgets/hooks/useWidgets";
 import { FieldType, WidgetBaseOptions } from "../../Widgets/types";
 

@@ -1,4 +1,4 @@
-import { SetOptionalPropertyFrom } from "../Common/utils/typings";
+import { SetOptionalPropertyFrom } from "../Common/appTypes";
 import { WidgetSceneObject, WidgetsDictionary } from "../Widgets/types";
 import { serializeWidgets } from "./utilities/serializer";
 

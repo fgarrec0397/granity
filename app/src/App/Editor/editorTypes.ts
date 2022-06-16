@@ -4,3 +4,9 @@
 export interface EditableWidget {
     hovered: boolean;
 }
+
+export enum ModesAvailable {
+    Translate = "translate",
+    Rotate = "rotate",
+    Scale = "scale",
+}

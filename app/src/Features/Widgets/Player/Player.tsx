@@ -1,8 +1,8 @@
 import { useHelper } from "@react-three/drei";
 import { FC, useRef } from "react";
 import { BoxHelper } from "three";
-import useIsEditor from "../../../App/Editor/state/hooks/useIsEditor";
-import { EditableWidget } from "../../../App/Editor/types";
+import useIsEditor from "../../../App/Editor/hooks/useIsEditor";
+import { EditableWidget } from "../../../App/Editor/editorTypes";
 import { WidgetModule } from "../../../App/Widgets/types";
 import PlayerCamera from "./components/PlayerCamera";
 

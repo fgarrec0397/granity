@@ -1,7 +1,7 @@
 import { ThreeEvent } from "@react-three/fiber";
 import { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
-import useIsEditor from "../../Editor/state/hooks/useIsEditor";
+import useIsEditor from "../../Editor/hooks/useIsEditor";
 import useWidgetsSelector from "../hooks/core/useWidgetsSelector";
 import { WidgetSceneObject } from "../types";
 import { getWidgetName, populateWidgetProperties } from "../utilities";
