@@ -6,6 +6,7 @@
   "proxy": "http://localhost:5000",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@craco/craco": "^6.4.3",
     "@react-spring/three": "^9.4.4",
     "@react-three/cannon": "^6.3.0",
     "@react-three/drei": "9.1.3",

@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "paths": {
+      "@app/*": ["App/*"],
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,6 +26,6 @@
     "checkJs": false
   },
   "include": [
-    "src"
+    "src",
   ]
 }
