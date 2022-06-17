@@ -2,9 +2,9 @@ import { useHelper } from "@react-three/drei";
 import { FC, useEffect, useRef } from "react";
 import { Camera } from "@react-three/fiber";
 import { CameraHelper } from "three";
-import { EditableWidget } from "../../../App/Editor/editorTypes";
-import useCameras from "../../../App/Scene/hooks/useCameras";
-import { FieldType, WidgetModule } from "@app/Widgets/types";
+import { EditableWidget } from "@editor/editorTypes";
+import useCameras from "@scene/hooks/useCameras";
+import { FieldType, WidgetModule } from "@widgets/types";
 
 export type CamerasProps = EditableWidget;
 
