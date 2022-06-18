@@ -1,12 +1,15 @@
 import { FC } from "react";
 import { css } from "styled-components";
-import StyledWrapper, { StyledWrapperProps } from "../Common/components/Html/StyledWrapper";
-import EditorFeedback from "./components/EditorFeedback";
-import EditorItemsList from "./components/EditorItemsList";
-import EditorModeSelector from "./components/EditorModeSelector";
-import SaveButton from "./components/EditorSaveButton";
-import EditorGeometryMenu from "./components/EditorWidgetsMenu";
+import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
 import useIsEditor from "./hooks/useIsEditor";
+
+import {
+    EditorFeedback,
+    EditorItemsList,
+    EditorModeSelector,
+    EditorSaveButton,
+    EditorWidgetsMenu,
+} from "./components";
 
 interface EditorStyles {
     topWrapper?: StyledWrapperProps;
@@ -65,8 +68,8 @@ const Editor: FC = () => {
                     <ScenePreview />
                 </StyledWrapper> */}
                 <StyledWrapper {...styles.bottomWrapper}>
-                    <EditorGeometryMenu />
-                    <SaveButton />
+                    <EditorWidgetsMenu />
+                    <EditorSaveButton />
                 </StyledWrapper>
             </>
         );

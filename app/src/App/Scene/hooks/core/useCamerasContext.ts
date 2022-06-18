@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CamerasContext } from "../../providers/CamerasContextProvider";
+import { CamerasContext } from "@scene/providers/CamerasContextProvider";
 
 export default () => {
     return useContext(CamerasContext);

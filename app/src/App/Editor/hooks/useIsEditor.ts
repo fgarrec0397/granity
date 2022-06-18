@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../../Core/store";
-import { setIsEditor } from "../state/editorReducer";
+import { useAppDispatch, useAppSelector } from "@core/store";
+import { setIsEditor } from "@editor/state/editorReducer";
 
 export default () => {
     const dispatch = useAppDispatch();

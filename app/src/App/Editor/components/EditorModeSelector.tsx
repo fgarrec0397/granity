@@ -1,9 +1,9 @@
 import { Card, Select } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
-import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import { ModesAvailable } from "../editorTypes";
-import useCurrentMode from "../hooks/useCurrentMode";
+import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
+import { ModesAvailable } from "@editor/editorTypes";
+import useCurrentMode from "@editor/hooks/useCurrentMode";
 
 const { Option } = Select;
 

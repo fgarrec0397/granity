@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
-import SceneWidgetsContextProvider from "./Widgets/providers/SceneWidgetsProvider";
+import SceneWidgetsContextProvider from "@widgets/providers/SceneWidgetsProvider";
 import { store } from "./Core/store";
-import WidgetsModulesContextProvider from "./Widgets/providers/WidgetsModulesProvider";
-import CamerasContextProvider from "./Scene/providers/CamerasContextProvider";
+import WidgetsModulesContextProvider from "@widgets/providers/WidgetsModulesProvider";
+import CamerasContextProvider from "@scene/providers/CamerasContextProvider";
 
 const AppProviders: FC = ({ children }) => {
     return (

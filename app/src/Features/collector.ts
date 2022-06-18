@@ -1,13 +1,13 @@
-import cameras from "./Widgets/Cameras";
-import geometryForms from "./Widgets/GeometryForms";
-import { GeometryFormsProps } from "./Widgets/GeometryForms/GeometryForms";
-import player from "./Widgets/Player";
-import { PlayerProps } from "./Widgets/Player/Player";
-import text from "./Widgets/Text";
-import { TextState } from "./Widgets/Text/state/textReducer";
-import { TextProps } from "./Widgets/Text/Text";
-import text2 from "./Widgets/Text2";
-import { TextState2 } from "./Widgets/Text2/state/textReducer";
+import cameras from "@widgets/Cameras";
+import geometryForms from "@widgets/GeometryForms";
+import { GeometryFormsProps } from "@widgets/GeometryForms/GeometryForms";
+import player from "@widgets/Player";
+import { PlayerProps } from "@widgets/Player/Player";
+import text from "@widgets/Text";
+import { TextState } from "@widgets/Text/state/textReducer";
+import { TextProps } from "@widgets/Text/Text";
+import text2 from "@widgets/Text2";
+import { TextState2 } from "@widgets/Text2/state/textReducer";
 
 /**
  * Add your Widgets Props here as union types

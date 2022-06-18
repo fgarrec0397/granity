@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { FC } from "react";
-import { trigger } from "../../Core/utilities/events";
+import { trigger } from "@core/utilities/events";
 
 const SaveButton: FC = () => {
     const onSaveFileHanlder = () => {

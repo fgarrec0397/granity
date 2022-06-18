@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import useHandleEditor from "../../Editor/hooks/useHandleEditor";
-import useCameras from "../../Scene/hooks/useCameras";
-import useWidgets from "../../Widgets/hooks/useWidgets";
-import useWidgetsActions from "../../Widgets/hooks/useWidgetsActions";
-import { WidgetSceneObject } from "../../Widgets/types";
+import useHandleEditor from "@editor/hooks/useHandleEditor";
+import useCameras from "@scene/hooks/useCameras";
+import useWidgets from "@widgets/hooks/useWidgets";
+import useWidgetsActions from "@widgets/hooks/useWidgetsActions";
+import { WidgetSceneObject } from "@widgets/types";
 
 export default () => {
     const { setNextCamera, setPrevCamera } = useCameras();

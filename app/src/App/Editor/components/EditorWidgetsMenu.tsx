@@ -1,11 +1,11 @@
 import { Button, Col, Modal, Row } from "antd";
 import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
-import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import { trigger } from "../../Core/utilities/events";
-import useWidgetsModuleContext from "../../Widgets/hooks/core/useWidgetsModuleContext";
-import { WidgetSceneObject } from "../../Widgets/types";
-import { mapWidgetModuleToWidgetSceneObject } from "../../Widgets/utilities";
+import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
+import { trigger } from "@core/utilities/events";
+import useWidgetsModuleContext from "@widgets/hooks/core/useWidgetsModuleContext";
+import { WidgetSceneObject } from "@widgets/types";
+import { mapWidgetModuleToWidgetSceneObject } from "@widgets/utilities";
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;

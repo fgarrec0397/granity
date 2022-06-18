@@ -9,10 +9,10 @@ import {
     AnyAction,
 } from "redux";
 import thunk from "redux-thunk";
-import { FeaturesState } from "../../Features/collector";
-import featuresReducer from "../../Features/featuresReducer";
-import editorReducer, { EditorState } from "../Editor/state/editorReducer";
-import widgetsReducer, { WidgetsState } from "../Widgets/state/widgetsReducer";
+import { FeaturesState } from "@features/collector";
+import featuresReducer from "@features/featuresReducer";
+import editorReducer, { EditorState } from "@editor/state/editorReducer";
+import widgetsReducer, { WidgetsState } from "@widgets/state/widgetsReducer";
 
 interface State {
     editor: EditorState;

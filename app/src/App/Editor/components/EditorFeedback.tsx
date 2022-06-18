@@ -1,10 +1,10 @@
 import { Card, Collapse, Descriptions, Input, Select, Typography } from "antd";
 import { FC, useState } from "react";
 import { css } from "styled-components";
-import StyledWrapper, { StyledWrapperProps } from "../../Common/components/Html/StyledWrapper";
-import { trigger } from "../../Core/utilities/events";
-import useWidgets from "../../Widgets/hooks/useWidgets";
-import { FieldType, WidgetBaseOptions } from "../../Widgets/types";
+import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
+import { trigger } from "@core/utilities/events";
+import useWidgets from "@widgets/hooks/useWidgets";
+import { FieldType, WidgetBaseOptions } from "@widgets/types";
 
 const { Panel } = Collapse;
 const { Option } = Select;

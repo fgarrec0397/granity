@@ -1,7 +1,7 @@
 import { useThree } from "@react-three/fiber";
 import { useCallback } from "react";
-import { SceneCamera } from "../types";
-import getCameraRef from "../utilities/getCameraRef";
+import { SceneCamera } from "@scene/types";
+import getCameraRef from "@scene/utilities/getCameraRef";
 import useCamerasContext from "./core/useCamerasContext";
 import useCamerasUtilities from "./useCamerasUtilities";
 

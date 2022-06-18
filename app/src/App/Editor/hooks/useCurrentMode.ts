@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from "../../Core/store";
+import { useAppDispatch, useAppSelector } from "@core/store";
 import { setCurrentMode } from "../state/editorReducer";
-import { ModesAvailable } from "../editorTypes";
+import { ModesAvailable } from "@editor/editorTypes";
 
 export default () => {
     const dispatch = useAppDispatch();

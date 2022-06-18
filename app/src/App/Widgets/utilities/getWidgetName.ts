@@ -1,5 +1,5 @@
 import { WidgetModule, WidgetSceneObject } from "../types";
-import constants from "../../Core/constants";
+import constants from "@core/constants";
 
 const {
     widget: { widgetObjectsPrefix },

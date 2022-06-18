@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@app/*": ["App/*"],
+            "@common/*": ["App/Common/*"],
+            "@core/*": ["App/Core/*"],
+            "@editor/*": ["App/Editor/*"],
+            "@scene/*": ["App/Scene/*"],
+            "@widgets/*": ["App/Widgets/*"],
+            "@features/*": ["Features/*"],
+        },
+    }
+}

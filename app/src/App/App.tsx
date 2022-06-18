@@ -2,13 +2,14 @@ import { FC } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useContextBridge } from "@react-three/drei";
 import { ReactReduxContext } from "react-redux";
-import Editor from "./Editor/Editor";
-import Scene from "./Scene/Scene";
-import { SceneWidgetsContext } from "./Widgets/providers/SceneWidgetsProvider";
-import { WidgetsModulesContext } from "./Widgets/providers/WidgetsModulesProvider";
-import { trigger } from "./Core/utilities/events";
-import { CamerasContext } from "./Scene/providers/CamerasContextProvider";
-import useInitWidgetsModules from "./Widgets/hooks/useInitWidgetsModules";
+import Editor from "@editor/Editor";
+import Scene from "@scene/Scene";
+import { SceneWidgetsContext } from "@widgets/providers/SceneWidgetsProvider";
+import { WidgetsModulesContext } from "@widgets/providers/WidgetsModulesProvider";
+// import { trigger } from "@core/utilities/events";
+import { trigger } from "@core/utilities/events";
+import { CamerasContext } from "@scene/providers/CamerasContextProvider";
+import useInitWidgetsModules from "@widgets/hooks/useInitWidgetsModules";
 
 const App: FC = () => {
     const ContextBridge = useContextBridge(

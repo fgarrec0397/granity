@@ -1,21 +1,12 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "baseUrl": "./src",
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "paths": {
-      "@app/*": ["App/*"],
-      "@common/*": ["App/Common/*"],
-      "@core/*": ["App/Core/*"],
-      "@editor/*": ["App/Editor/*"],
-      "@scene/*": ["App/Scene/*"],
-      "@widgets/*": ["App/Widgets/*"],
-      "@features/*": ["App/Features/*"],
-    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -32,6 +23,6 @@
     "checkJs": false
   },
   "include": [
-    "src",
+    "src"
   ]
 }

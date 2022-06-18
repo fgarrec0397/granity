@@ -1,6 +1,6 @@
 import { Object3D } from "three";
-import serializeVector3 from "../../Common/utilities/serializeVector3";
-import uidGenerator from "../../Common/utilities/uidGenerator";
+import serializeVector3 from "@common/utilities/serializeVector3";
+import uidGenerator from "@common/utilities/uidGenerator";
 import {
     WidgetOptionsValues,
     WidgetProperties,

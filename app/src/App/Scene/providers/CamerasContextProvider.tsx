@@ -1,5 +1,5 @@
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
-import { SceneCamera } from "../types";
+import { SceneCamera } from "@scene/types";
 
 export interface CamerasContextModel {
     cameras: SceneCamera[];

@@ -1,7 +1,7 @@
 import { useThree } from "@react-three/fiber";
 import { useCallback } from "react";
 import { Object3D } from "three";
-import constants from "../../Core/constants";
+import constants from "@core/constants";
 import { WidgetModule, WidgetSceneObject } from "../types";
 import { getWidgetName } from "../utilities";
 import useSceneWidgetsContext from "./core/useSceneWidgetsContext";
