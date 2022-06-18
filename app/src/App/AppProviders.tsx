@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import SceneWidgetsContextProvider from "@widgets/providers/SceneWidgetsProvider";
-import { store } from "./Core/store";
+import { store } from "@core/store";
 import WidgetsModulesContextProvider from "@widgets/providers/WidgetsModulesProvider";
 import CamerasContextProvider from "@scene/providers/CamerasContextProvider";
 

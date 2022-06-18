@@ -6,8 +6,7 @@ import Editor from "@editor/Editor";
 import Scene from "@scene/Scene";
 import { SceneWidgetsContext } from "@widgets/providers/SceneWidgetsProvider";
 import { WidgetsModulesContext } from "@widgets/providers/WidgetsModulesProvider";
-// import { trigger } from "@core/utilities/events";
-import { trigger } from "@core/utilities/events";
+import { events } from "@core/utilities";
 import { CamerasContext } from "@scene/providers/CamerasContextProvider";
 import useInitWidgetsModules from "@widgets/hooks/useInitWidgetsModules";
 
@@ -24,7 +23,7 @@ const App: FC = () => {
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();
-        trigger("onPointerMissed:removeSelected");
+        events.trigger("onPointerMissed:removeSelected"); // TODO -- refactor events system to avoid naming confusion
     };
 
     return (

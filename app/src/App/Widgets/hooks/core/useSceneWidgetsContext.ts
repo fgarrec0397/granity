@@ -1,4 +1,4 @@
 import { useContext } from "react";
-import { SceneWidgetsContext } from "../../providers/SceneWidgetsProvider";
+import { SceneWidgetsContext } from "@widgets/providers/SceneWidgetsProvider";
 
 export default () => useContext(SceneWidgetsContext);

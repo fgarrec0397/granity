@@ -1,5 +1,5 @@
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
-import { WidgetSceneObject } from "../types";
+import { WidgetSceneObject } from "../widgetsTypes";
 
 export interface SceneWidgetDefinitionContextModel {
     widgets: WidgetSceneObject[] | [];

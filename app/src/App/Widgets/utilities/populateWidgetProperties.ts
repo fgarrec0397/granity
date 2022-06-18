@@ -1,4 +1,4 @@
-import { WidgetsDictionary } from "../types";
+import { WidgetsDictionary } from "@app/Widgets/widgetsTypes";
 
 export default (widgetId: string, widgetsDictionary: WidgetsDictionary) => {
     const props: any = {}; // TODO -- fix any type here

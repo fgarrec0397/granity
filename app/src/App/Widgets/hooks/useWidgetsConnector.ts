@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { off, on } from "@core/utilities/events";
+import { events } from "@core/utilities";
 import useWidgetsActions from "./useWidgetsActions";
 
 export default () => {
@@ -15,10 +15,10 @@ export default () => {
             });
         };
 
-        on("updateCurrentWidgetOptions", handleUpdateCurrentWidgetOptions);
+        events.on("updateCurrentWidgetOptions", handleUpdateCurrentWidgetOptions);
 
         return () => {
-            off("updateCurrentWidgetOptions", handleUpdateCurrentWidgetOptions);
+            events.off("updateCurrentWidgetOptions", handleUpdateCurrentWidgetOptions);
         };
     }, [updateCurrentWidgetOptions]);
 };

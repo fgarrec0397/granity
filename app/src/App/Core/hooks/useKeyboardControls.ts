@@ -3,7 +3,7 @@ import useHandleEditor from "@editor/hooks/useHandleEditor";
 import useCameras from "@scene/hooks/useCameras";
 import useWidgets from "@widgets/hooks/useWidgets";
 import useWidgetsActions from "@widgets/hooks/useWidgetsActions";
-import { WidgetSceneObject } from "@widgets/types";
+import { WidgetSceneObject } from "@app/Widgets/widgetsTypes";
 
 export default () => {
     const { setNextCamera, setPrevCamera } = useCameras();

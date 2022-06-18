@@ -1,4 +1,4 @@
-import { WidgetModule, WidgetSceneObject } from "../types";
+import { WidgetModule, WidgetSceneObject } from "@app/Widgets/widgetsTypes";
 import constants from "@core/constants";
 
 const {

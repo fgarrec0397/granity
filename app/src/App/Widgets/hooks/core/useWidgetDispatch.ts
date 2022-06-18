@@ -4,7 +4,7 @@ import {
     WidgetSceneObject,
     WidgetsDictionary,
     WidgetsDictionaryItem,
-} from "../../types";
+} from "@app/Widgets/widgetsTypes";
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
@@ -13,7 +13,7 @@ import {
     setCurrentWidgetProperties,
     setSelected,
     updateWidgetDictionary,
-} from "../../state/widgetsReducer";
+} from "@widgets/state/widgetsReducer";
 import { useCallback } from "react";
 
 export default () => {

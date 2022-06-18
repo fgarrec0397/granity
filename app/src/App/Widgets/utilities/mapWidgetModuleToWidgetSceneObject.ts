@@ -1,4 +1,4 @@
-import { WidgetModule, WidgetSceneObject } from "../types";
+import { WidgetModule, WidgetSceneObject } from "@app/Widgets/widgetsTypes";
 
 export default (widget: WidgetModule) => {
     const widgetSceneObject: WidgetSceneObject = {

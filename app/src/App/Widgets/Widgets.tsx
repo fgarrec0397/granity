@@ -1,6 +1,6 @@
 import { FC } from "react";
 import WidgetRenderer from "./components/WidgetRenderer";
-import { WidgetSceneObject } from "./types";
+import { WidgetSceneObject } from "./widgetsTypes";
 import useWidgets from "./hooks/useWidgets";
 import useWidgetsConnector from "./hooks/useWidgetsConnector";
 

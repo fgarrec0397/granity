@@ -1,15 +1,12 @@
 import { Object3D } from "three";
-import serializeVector3 from "@common/utilities/serializeVector3";
-import uidGenerator from "@common/utilities/uidGenerator";
+import { serializeVector3, uidGenerator } from "@common/utilities";
 import {
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
     WidgetsDictionary,
-} from "../types";
-import useWidgetsServices from "./core/useWidgetsServices";
-import useWidgetDispatch from "./core/useWidgetDispatch";
-import useWidgetsSelector from "./core/useWidgetsSelector";
+} from "@app/Widgets/widgetsTypes";
+import { useWidgetsServices, useWidgetDispatch, useWidgetsSelector } from "./core";
 import useGetWidgets from "./useGetWidgets";
 import useWidgets from "./useWidgets";
 import { useCallback } from "react";
