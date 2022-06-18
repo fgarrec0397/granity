@@ -4,6 +4,12 @@
   "private": true,
   "type": "module",
   "proxy": "http://localhost:5000",
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.4.3",
@@ -36,12 +42,6 @@
     "typescript": "^4.6.4",
     "web-vitals": "^1.1.2",
     "zustand": "^3.7.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [

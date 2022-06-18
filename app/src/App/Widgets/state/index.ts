@@ -1,1 +1,1 @@
-export * as widgetsReducer from "@widgetsReducer";
+export * as widgetsReducer from "./widgetsReducer";
