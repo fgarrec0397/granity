@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import {
     WidgetProperties,
     WidgetSceneObject,
@@ -15,9 +14,10 @@ import {
     updateWidgetDictionary,
 } from "@widgets/state/widgetsReducer";
 import { useCallback } from "react";
+import { useAppDispatch } from "@app/Core/store";
 
 export default () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const dispatchAddDictionary = (widgetsDictionaryItem: Required<WidgetsDictionaryItem>) => {
         return dispatch(addWidgetDictionary(widgetsDictionaryItem));
