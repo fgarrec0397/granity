@@ -3,9 +3,9 @@ import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
 import { trigger } from "@core/utilities/events";
-import useWidgetsModuleContext from "@widgets/hooks/core/useWidgetsModuleContext";
-import { WidgetSceneObject } from "@widgets/widgetsTypes";
-import { mapWidgetModuleToWidgetSceneObject } from "@widgets/utilities";
+import useWidgetsModuleContext from "@widgets/_actions/_data/hooks/useWidgetsModuleContext";
+import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
+import { mapWidgetModuleToWidgetSceneObject } from "@widgets/_actions/utilities";
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;

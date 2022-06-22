@@ -12,7 +12,7 @@ import thunk from "redux-thunk";
 import { FeaturesState } from "@features/collector";
 import featuresReducer from "@features/featuresReducer";
 import editorReducer, { EditorState } from "@editor/state/editorReducer";
-import widgetsReducer, { WidgetsState } from "@widgets/state/widgetsReducer";
+import widgetsReducer, { WidgetsState } from "@widgets/_actions/_data/state/widgetsReducer";
 
 interface State {
     editor: EditorState;

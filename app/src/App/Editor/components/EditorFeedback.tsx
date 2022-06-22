@@ -3,8 +3,8 @@ import { FC, useState } from "react";
 import { css } from "styled-components";
 import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
 import { trigger } from "@core/utilities/events";
-import useWidgets from "@widgets/hooks/useWidgets";
-import { FieldType, WidgetBaseOptions } from "@widgets/widgetsTypes";
+import useWidgets from "@widgets/_actions/hooks/useWidgets";
+import { FieldType, WidgetBaseOptions } from "@widgets/_actions/widgetsTypes";
 
 const { Panel } = Collapse;
 const { Option } = Select;

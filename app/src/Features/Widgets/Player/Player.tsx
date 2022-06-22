@@ -3,7 +3,7 @@ import { FC, useRef } from "react";
 import { BoxHelper } from "three";
 import useIsEditor from "@editor/hooks/useIsEditor";
 import { EditableWidget } from "@editor/editorTypes";
-import { WidgetModule } from "@widgets/widgetsTypes";
+import { WidgetModule } from "@widgets/_actions/widgetsTypes";
 import PlayerCamera from "./components/PlayerCamera";
 
 export type PlayerProps = EditableWidget;
