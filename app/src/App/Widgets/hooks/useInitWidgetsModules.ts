@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { WidgetModule } from "@app/Widgets/widgetsTypes";
+import { WidgetModule } from "@widgets/widgetsTypes";
 import { useWidgetsModuleContext } from "./core";
 import widgetsM from "@features/collector";
 

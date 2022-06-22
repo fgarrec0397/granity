@@ -3,7 +3,7 @@ import {
     WidgetSceneObject,
     WidgetsDictionary,
     WidgetsDictionaryItem,
-} from "@app/Widgets/widgetsTypes";
+} from "@widgets/widgetsTypes";
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
@@ -14,7 +14,7 @@ import {
     updateWidgetDictionary,
 } from "@widgets/state/widgetsReducer";
 import { useCallback } from "react";
-import { useAppDispatch } from "@app/Core/store";
+import { useAppDispatch } from "@core/store";
 
 export default () => {
     const dispatch = useAppDispatch();

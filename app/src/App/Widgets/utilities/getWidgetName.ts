@@ -1,9 +1,7 @@
-import { WidgetModule, WidgetSceneObject } from "@app/Widgets/widgetsTypes";
-import constants from "@core/constants";
+import { WidgetModule, WidgetSceneObject } from "@widgets/widgetsTypes";
+import widgetsConstants from "@widgets/widgetsConstants";
 
-const {
-    widget: { widgetObjectsPrefix },
-} = constants;
+const { widgetObjectsPrefix } = widgetsConstants;
 
 export default (widget: WidgetModule | WidgetSceneObject) => {
     return `${widgetObjectsPrefix}+${widget.widgetDefinition.name}+${widget.id}`;

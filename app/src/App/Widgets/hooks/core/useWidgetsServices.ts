@@ -3,7 +3,7 @@ import {
     WidgetProperties,
     WidgetSceneObject,
     WidgetsDictionary,
-} from "@app/Widgets/widgetsTypes";
+} from "@widgets/widgetsTypes";
 import useWidgetDispatch from "./useWidgetDispatch";
 import useSceneWidgetsContext from "./useSceneWidgetsContext";
 import { useCallback } from "react";

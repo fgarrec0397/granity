@@ -1,5 +1,5 @@
-import { SetOptionalPropertyFrom } from "@app/Common/commonTypes";
-import { WidgetSceneObject, WidgetsDictionary } from "@app/Widgets/widgetsTypes";
+import { SetOptionalPropertyFrom } from "@common/commonTypes";
+import { WidgetSceneObject, WidgetsDictionary } from "@widgets/widgetsTypes";
 import { serializeWidgets } from "./utilities/serializer";
 
 type SaveSceneServiceParameter = {

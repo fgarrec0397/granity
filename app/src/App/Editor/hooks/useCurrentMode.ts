@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@core/store";
-import { setCurrentMode } from "../state/editorReducer";
+import { setCurrentMode } from "@editor/state/editorReducer";
 import { ModesAvailable } from "@editor/editorTypes";
 
 export default () => {

@@ -3,7 +3,7 @@ import { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
 import useIsEditor from "@editor/hooks/useIsEditor";
 import useWidgetsSelector from "@widgets/hooks/core/useWidgetsSelector";
-import { WidgetSceneObject } from "@app/Widgets/widgetsTypes";
+import { WidgetSceneObject } from "@widgets/widgetsTypes";
 import { getWidgetName, populateWidgetProperties } from "@widgets/utilities";
 
 type Props = {

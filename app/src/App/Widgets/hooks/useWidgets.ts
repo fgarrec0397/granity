@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { WidgetSceneObject } from "@app/Widgets/widgetsTypes";
+import { WidgetSceneObject } from "@widgets/widgetsTypes";
 import { useSceneWidgetsContext, useWidgetsSelector } from "./core";
 
 export default () => {

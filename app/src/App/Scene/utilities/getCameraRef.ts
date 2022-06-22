@@ -1,4 +1,4 @@
-import { SceneCamera } from "@app/Scene/sceneTypes";
+import { SceneCamera } from "@scene/sceneTypes";
 
 export default (camera: SceneCamera) => {
     const { cameraRef } = camera;

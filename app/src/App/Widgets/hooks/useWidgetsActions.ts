@@ -5,7 +5,7 @@ import {
     WidgetProperties,
     WidgetSceneObject,
     WidgetsDictionary,
-} from "@app/Widgets/widgetsTypes";
+} from "@widgets/widgetsTypes";
 import { useWidgetsServices, useWidgetDispatch, useWidgetsSelector } from "./core";
 import useGetWidgets from "./useGetWidgets";
 import useWidgets from "./useWidgets";
