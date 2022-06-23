@@ -3,7 +3,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import SceneWidgetsContextProvider from "@widgets/_actions/_data/providers/SceneWidgetsProvider";
 import { store } from "@core/store";
 import WidgetsModulesContextProvider from "@widgets/_actions/_data/providers/WidgetsModulesProvider";
-import CamerasContextProvider from "@scene/providers/CamerasContextProvider";
+import CamerasContextProvider from "@scene/_actions/_data/providers/CamerasContextProvider";
 
 const AppProviders: FC = ({ children }) => {
     return (

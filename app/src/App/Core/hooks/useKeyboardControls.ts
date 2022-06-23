@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useHandleEditor from "@editor/hooks/useHandleEditor";
-import useCameras from "@scene/hooks/useCameras";
+import useHandleEditor from "@app/Editor/_actions/hooks/useHandleEditor";
+import useCameras from "@scene/_actions/hooks/useCameras";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
 import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";

@@ -14,7 +14,7 @@ import useGetWidgets from "@widgets/_actions/hooks/useGetWidgets";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@widgets/_actions/hooks/useInitWidgetsModules";
 import { saveScene, fetchScene } from "./_actions/_data/services"; // TODO need services. Should not be imported straight from _data
-import useIsEditor from "@editor/hooks/useIsEditor";
+import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
 import SceneDefaultCamera from "./components/SceneDefaultCamera";
 import { deserialize } from "@core/utilities/componentSerializer";
 

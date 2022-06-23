@@ -1,1 +1,1 @@
-//
+import scene from "./Scene";

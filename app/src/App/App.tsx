@@ -7,7 +7,7 @@ import Scene from "@scene/Scene";
 import { SceneWidgetsContext } from "@widgets/_actions/_data/providers/SceneWidgetsProvider";
 import { WidgetsModulesContext } from "@widgets/_actions/_data/providers/WidgetsModulesProvider";
 import { events } from "@core/utilities";
-import { CamerasContext } from "@scene/providers/CamerasContextProvider";
+import { CamerasContext } from "@scene/_actions/_data/providers/CamerasContextProvider";
 import useInitWidgetsModules from "@widgets/_actions/hooks/useInitWidgetsModules";
 
 const App: FC = () => {
