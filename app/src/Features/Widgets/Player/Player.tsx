@@ -1,9 +1,10 @@
+import { EditableWidget } from "@app/Editor/_actions/editorTypes";
+import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
 import { useHelper } from "@react-three/drei";
+import { WidgetModule } from "@widgets/_actions/widgetsTypes";
 import { FC, useRef } from "react";
 import { BoxHelper } from "three";
-import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
-import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import { WidgetModule } from "@widgets/_actions/widgetsTypes";
+
 import PlayerCamera from "./components/PlayerCamera";
 
 export type PlayerProps = EditableWidget;

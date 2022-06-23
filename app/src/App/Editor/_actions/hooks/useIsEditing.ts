@@ -1,5 +1,5 @@
-import useEditorSelector from "../_data/hooks/useEditorSelector";
 import useDispatchEditor from "../_data/hooks/useEditorDispatch";
+import useEditorSelector from "../_data/hooks/useEditorSelector";
 
 export default () => {
     const { isEditing } = useEditorSelector();

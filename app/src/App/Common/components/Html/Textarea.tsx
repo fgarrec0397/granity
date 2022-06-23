@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import  { FC } from "react";
+import { FC } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
 
 const { TextArea } = Input;
@@ -18,12 +18,7 @@ const StyledTextArea = styled(TextArea)<TextareaStyles>`
 
 const TextAreaComponent: FC<Props> = () => {
     return (
-        <StyledTextArea
-            size="large"
-            autoSize
-            bordered={false}
-            placeholder="What's happening?"
-        />
+        <StyledTextArea size="large" autoSize bordered={false} placeholder="What's happening?" />
     );
 };
 

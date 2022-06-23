@@ -1,5 +1,6 @@
-import  { FC } from "react";
+import { FC } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
+
 import baseTheme from "../../../../theme/baseTheme";
 
 export interface LinkStyles {

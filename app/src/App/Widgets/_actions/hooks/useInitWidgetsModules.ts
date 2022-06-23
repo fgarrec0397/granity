@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from "react";
-import { WidgetModule } from "../widgetsTypes";
-import { useWidgetsModuleContext } from "../_data/hooks";
+
 import { rawWidgetsModules } from "../../widgetsImports";
+import { useWidgetsModuleContext } from "../_data/hooks";
+import { WidgetModule } from "../widgetsTypes";
 
 export default () => {
     const { widgetsModules, setWidgetsModules } = useWidgetsModuleContext();

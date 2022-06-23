@@ -1,18 +1,18 @@
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import {
-    Store,
-    createStore,
-    combineReducers,
-    ReducersMapObject,
-    Reducer,
-    applyMiddleware,
-    AnyAction,
-} from "redux";
-import thunk from "redux-thunk";
+import editorReducer, { EditorState } from "@app/Editor/_actions/_data/state/editorReducer";
 import { FeaturesState } from "@features/collector";
 import featuresReducer from "@features/featuresReducer";
-import editorReducer, { EditorState } from "@app/Editor/_actions/_data/state/editorReducer";
 import widgetsReducer, { WidgetsState } from "@widgets/_actions/_data/state/widgetsReducer";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import {
+    AnyAction,
+    applyMiddleware,
+    combineReducers,
+    createStore,
+    Reducer,
+    ReducersMapObject,
+    Store,
+} from "redux";
+import thunk from "redux-thunk";
 
 interface State {
     editor: EditorState;

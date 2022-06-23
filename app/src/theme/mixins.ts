@@ -1,4 +1,5 @@
 import { css, FlattenSimpleInterpolation } from "styled-components";
+
 import baseTheme from "./baseTheme";
 
 export const dotBeforeStyles = (): FlattenSimpleInterpolation => {

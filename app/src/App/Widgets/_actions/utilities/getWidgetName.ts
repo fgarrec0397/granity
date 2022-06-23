@@ -1,5 +1,5 @@
-import { WidgetModule, WidgetSceneObject } from "../widgetsTypes";
 import widgetsConstants from "../widgetsConstants";
+import { WidgetModule, WidgetSceneObject } from "../widgetsTypes";
 
 const { widgetObjectsPrefix } = widgetsConstants;
 

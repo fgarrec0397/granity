@@ -1,13 +1,13 @@
-import { useThree } from "@react-three/fiber";
-import { FC, useEffect, useState } from "react";
-import { Object3D } from "three";
-import { TransformControls } from "three/examples/jsm/controls/TransformControls";
-import usePrevious from "@common/hooks/usePrevious";
 import useCurrentMode from "@app/Editor/_actions/hooks/useCurrentMode";
 import useIsEditing from "@app/Editor/_actions/hooks/useIsEditing";
+import usePrevious from "@common/hooks/usePrevious";
+import { useThree } from "@react-three/fiber";
 import useGetWidgets from "@widgets/_actions/hooks/useGetWidgets";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
+import { FC, useEffect, useState } from "react";
+import { Object3D } from "three";
+import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { camera, scene, gl } = useThree();

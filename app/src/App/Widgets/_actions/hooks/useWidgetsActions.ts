@@ -1,15 +1,16 @@
-import { Object3D } from "three";
 import { serializeVector3, uidGenerator } from "@common/utilities";
+import { useCallback } from "react";
+import { Object3D } from "three";
+
+import { useWidgetDispatch, useWidgetsSelector, useWidgetsServices } from "../_data/hooks";
 import {
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
     WidgetsDictionary,
 } from "../widgetsTypes";
-import { useWidgetsServices, useWidgetDispatch, useWidgetsSelector } from "../_data/hooks";
 import useGetWidgets from "./useGetWidgets";
 import useWidgets from "./useWidgets";
-import { useCallback } from "react";
 
 export default () => {
     const { currentWidgets } = useWidgets();

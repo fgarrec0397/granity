@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
-import resetSheet from "./resetSheet";
+
 import baseTheme from "./baseTheme";
+import resetSheet from "./resetSheet";
 
 export default createGlobalStyle`
 	${resetSheet}

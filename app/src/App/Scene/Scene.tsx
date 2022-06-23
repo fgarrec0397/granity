@@ -1,22 +1,23 @@
-import * as THREE from "three";
-import { FC, useEffect } from "react";
+import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
+import useKeyboardControls from "@core/hooks/useKeyboardControls";
+import { deserialize } from "@core/utilities/componentSerializer";
+import { off, on } from "@core/utilities/events";
 import { Physics } from "@react-three/cannon";
 import { Select } from "@react-three/drei";
-import Lights from "./components/Lights";
-import Widgets from "@widgets/Widgets";
-import useKeyboardControls from "@core/hooks/useKeyboardControls";
-import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
-import { off, on } from "@core/utilities/events";
 import { useThree } from "@react-three/fiber";
 import useWidgetsContext from "@widgets/_actions/_data/hooks/useWidgetsModuleContext"; // TODO -- Should not be imported straight from _data
 import useWidgetsSelector from "@widgets/_actions/_data/hooks/useWidgetsSelector"; // TODO -- Should not be imported straight from _data
 import useGetWidgets from "@widgets/_actions/hooks/useGetWidgets";
-import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@widgets/_actions/hooks/useInitWidgetsModules";
-import { saveScene, fetchScene } from "./_actions/_data/services"; // TODO need services. Should not be imported straight from _data
-import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
+import useWidgets from "@widgets/_actions/hooks/useWidgets";
+import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
+import Widgets from "@widgets/Widgets";
+import { FC, useEffect } from "react";
+import * as THREE from "three";
+
+import { fetchScene, saveScene } from "./_actions/_data/services"; // TODO need services. Should not be imported straight from _data
+import Lights from "./components/Lights";
 import SceneDefaultCamera from "./components/SceneDefaultCamera";
-import { deserialize } from "@core/utilities/componentSerializer";
 
 const Scene: FC = () => {
     const { scene } = useThree();

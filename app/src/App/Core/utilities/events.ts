@@ -28,4 +28,4 @@ const trigger = <DataType>(eventType: string, data?: DataType) => {
     document.dispatchEvent(event);
 };
 
-export { on, once, off, trigger };
+export { off, on, once, trigger };

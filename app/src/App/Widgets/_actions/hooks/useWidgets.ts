@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { WidgetSceneObject } from "../widgetsTypes";
+
 import { useSceneWidgetsContext, useWidgetsSelector } from "../_data/hooks";
+import { WidgetSceneObject } from "../widgetsTypes";
 
 export default () => {
     const { currentWidgetProperties, selected } = useWidgetsSelector();

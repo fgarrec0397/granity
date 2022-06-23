@@ -21,7 +21,7 @@
     "sourceType": "module",
     "project": ["tsconfig.json"]
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "simple-import-sort"],
   "rules": {
     "no-use-before-define": "off",
     "no-multi-assign": "off",
@@ -38,6 +38,8 @@
       "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
       "allowSeparatedGroups": false
     }],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",

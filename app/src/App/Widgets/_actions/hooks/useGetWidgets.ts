@@ -1,10 +1,11 @@
 import { useThree } from "@react-three/fiber";
 import { useCallback } from "react";
 import { Object3D } from "three";
+
+import { useSceneWidgetsContext } from "../_data/hooks";
+import { getWidgetName } from "../utilities";
 import widgetsConstants from "../widgetsConstants";
 import { WidgetModule, WidgetSceneObject } from "../widgetsTypes";
-import { getWidgetName } from "../utilities";
-import { useSceneWidgetsContext } from "../_data/hooks";
 
 const { widgetObjectsPrefix } = widgetsConstants;
 

@@ -1,8 +1,8 @@
+import { UnionOfProperties } from "@common/commonTypes";
+import { FeaturesState, FeaturesWidgetsProps } from "@features/collector";
 import { FC, ReactNode } from "react";
 import { AnyAction, Reducer } from "redux";
 import { Object3D } from "three";
-import { FeaturesState, FeaturesWidgetsProps } from "@features/collector";
-import { UnionOfProperties } from "@common/commonTypes";
 
 /**
  * Allowed Fieldtypes

@@ -1,10 +1,10 @@
-import * as THREE from "three";
-import { FC, useEffect, useRef, useState } from "react";
-import { Triplet, useSphere } from "@react-three/cannon";
-import { useFrame, useThree } from "@react-three/fiber";
-import { PointerLockControls } from "@react-three/drei";
-import useCameras from "@scene/_actions/hooks/useCameras";
 import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
+import { Triplet, useSphere } from "@react-three/cannon";
+import { PointerLockControls } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import useCameras from "@scene/_actions/hooks/useCameras";
+import { FC, useEffect, useRef, useState } from "react";
+import * as THREE from "three";
 
 export interface PlayerCameraProps {
     initialPlayerPos?: Triplet;

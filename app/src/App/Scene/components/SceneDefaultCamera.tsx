@@ -1,10 +1,11 @@
-import { OrbitControls } from "@react-three/drei";
-import { useThree, useFrame } from "@react-three/fiber";
-import { FC, useRef, useState, useEffect } from "react";
-import { Vector3 } from "three";
 import useIsEditing from "@app/Editor/_actions/hooks/useIsEditing";
 import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
+import { OrbitControls } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
 import useCameras from "@scene/_actions/hooks/useCameras";
+import { FC, useEffect, useRef, useState } from "react";
+import { Vector3 } from "three";
+
 import TransformControls from "./TransformControls";
 
 const EditorCamera: FC = () => {

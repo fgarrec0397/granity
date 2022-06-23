@@ -1,5 +1,5 @@
-import { MutableRefObject } from "react";
 import { Camera } from "@react-three/fiber";
+import { MutableRefObject } from "react";
 
 export type SceneCameraRef = MutableRefObject<
     | (Camera & {

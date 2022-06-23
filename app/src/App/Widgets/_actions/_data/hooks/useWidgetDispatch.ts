@@ -1,3 +1,6 @@
+import { useAppDispatch } from "@core/store";
+import { useCallback } from "react";
+
 import {
     WidgetProperties,
     WidgetSceneObject,
@@ -13,8 +16,6 @@ import {
     setSelected,
     updateWidgetDictionary,
 } from "../state/widgetsReducer";
-import { useCallback } from "react";
-import { useAppDispatch } from "@core/store";
 
 export default () => {
     const dispatch = useAppDispatch();

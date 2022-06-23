@@ -1,8 +1,8 @@
+import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
 import { FC } from "react";
 import { css } from "styled-components";
-import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
-import useIsEditor from "./_actions/hooks/useIsEditor";
 
+import useIsEditor from "./_actions/hooks/useIsEditor";
 import {
     EditorFeedback,
     EditorItemsList,

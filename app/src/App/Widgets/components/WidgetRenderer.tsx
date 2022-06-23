@@ -1,10 +1,10 @@
+import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
 import { ThreeEvent } from "@react-three/fiber";
+import useWidgetsSelector from "@widgets/_actions/_data/hooks/useWidgetsSelector";
+import { getWidgetName, populateWidgetProperties } from "@widgets/_actions/utilities";
+import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
 import { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
-import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
-import useWidgetsSelector from "@widgets/_actions/_data/hooks/useWidgetsSelector";
-import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
-import { getWidgetName, populateWidgetProperties } from "@widgets/_actions/utilities";
 
 type Props = {
     widget: WidgetSceneObject;

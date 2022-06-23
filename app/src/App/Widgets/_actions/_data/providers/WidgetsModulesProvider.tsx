@@ -1,4 +1,5 @@
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
+
 import { WidgetModule } from "../../widgetsTypes";
 
 export interface WidgetModuleContextModel {

@@ -1,12 +1,13 @@
+import { useCallback } from "react";
+
 import {
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
     WidgetsDictionary,
 } from "../../widgetsTypes";
-import useWidgetDispatch from "./useWidgetDispatch";
 import useSceneWidgetsContext from "./useSceneWidgetsContext";
-import { useCallback } from "react";
+import useWidgetDispatch from "./useWidgetDispatch";
 
 export default () => {
     const { widgets, setSceneWidgets } = useSceneWidgetsContext();

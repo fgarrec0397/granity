@@ -1,5 +1,6 @@
-import { useEffect } from "react";
 import { events } from "@core/utilities";
+import { useEffect } from "react";
+
 import useWidgetsActions from "./useWidgetsActions";
 
 export default () => {
