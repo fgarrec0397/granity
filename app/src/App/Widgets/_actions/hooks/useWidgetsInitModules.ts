@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from "react";
 
 import { rawWidgetsModules } from "../../widgetsImports";
-import { useWidgetsModuleContext } from "../_data/hooks";
 import { WidgetModule } from "../widgetsTypes";
+import useWidgetsModules from "./useWidgetsModules";
 
 export default () => {
-    const { widgetsModules, setWidgetsModules } = useWidgetsModuleContext();
+    const { setWidgetsModules } = useWidgetsModules();
 
     const initWidgetsModules = useCallback(
         (widgets: WidgetModule[]) => {
@@ -17,6 +17,4 @@ export default () => {
     useEffect(() => {
         initWidgetsModules(rawWidgetsModules);
     }, [initWidgetsModules]);
-
-    return { widgetsModules };
 };

@@ -1,10 +1,11 @@
 import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
 import { ThreeEvent } from "@react-three/fiber";
-import useWidgetsSelector from "@widgets/_actions/_data/hooks/useWidgetsSelector";
 import { getWidgetName, populateWidgetProperties } from "@widgets/_actions/utilities";
 import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
 import { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
+
+import { useWidgets } from "../_actions/hooks";
 
 type Props = {
     widget: WidgetSceneObject;
@@ -15,7 +16,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
     const Component = component;
     const ref = useRef<Object3D>();
     const [hovered, setHover] = useState(false);
-    const { widgetsDictionary } = useWidgetsSelector();
+    const { widgetsDictionary } = useWidgets();
     const name = getWidgetName(widget);
     const { isEditor } = useIsEditor();
 

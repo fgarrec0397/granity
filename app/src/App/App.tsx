@@ -1,3 +1,4 @@
+import useWidgetsInitModules from "@app/Widgets/_actions/hooks/useWidgetsInitModules";
 import { events } from "@core/utilities";
 import Editor from "@editor/Editor";
 import { useContextBridge } from "@react-three/drei";
@@ -6,7 +7,6 @@ import { CamerasContext } from "@scene/_actions/_data/providers/CamerasContextPr
 import Scene from "@scene/Scene";
 import { SceneWidgetsContext } from "@widgets/_actions/_data/providers/SceneWidgetsProvider";
 import { WidgetsModulesContext } from "@widgets/_actions/_data/providers/WidgetsModulesProvider";
-import useInitWidgetsModules from "@widgets/_actions/hooks/useInitWidgetsModules";
 import { FC } from "react";
 import { ReactReduxContext } from "react-redux";
 
@@ -19,11 +19,11 @@ const App: FC = () => {
     );
 
     // Store all kind of widgets in Widgets Context API
-    useInitWidgetsModules();
+    useWidgetsInitModules();
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();
-        events.trigger("onPointerMissed:removeSelected"); // TODO -- refactor events system to avoid naming confusion
+        events.trigger("removeSelected"); // TODO -- refactor events system to avoid naming confusion
     };
 
     return (

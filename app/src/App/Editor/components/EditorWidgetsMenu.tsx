@@ -30,7 +30,7 @@ const EditorGeometryMenu: FC = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleOnClick = (widget: WidgetSceneObject): void => {
-        trigger("onClick:addWidget", widget);
+        trigger("addWidget", widget);
         closeModalHandler();
     };
 

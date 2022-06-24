@@ -4,7 +4,7 @@ import { useSceneWidgetsContext, useWidgetsSelector } from "../_data/hooks";
 import { WidgetSceneObject } from "../widgetsTypes";
 
 export default () => {
-    const { currentWidgetProperties, selected } = useWidgetsSelector();
+    const { currentWidgetProperties, selected, widgetsDictionary } = useWidgetsSelector();
     const { widgets } = useSceneWidgetsContext();
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
@@ -26,6 +26,7 @@ export default () => {
         firstCurrentWidget: currentWidgetsState[0], // TODO - Remove this
         currentWidgetProperties,
         widgets,
+        widgetsDictionary,
         selected,
     };
 };
