@@ -1,5 +1,8 @@
-import { BaseApiParameter } from "@app/Core/coreTypes";
-import { WidgetSceneObject, WidgetsDictionary } from "@app/Widgets/_actions/widgetsTypes";
+import {
+    SerializedWidgetSceneObject,
+    WidgetSceneObject,
+    WidgetsDictionary,
+} from "@app/Widgets/_actions/widgetsTypes";
 import { Camera } from "@react-three/fiber";
 import { MutableRefObject } from "react";
 
@@ -19,17 +22,12 @@ export type SceneCamera = {
  * Scene Services Parameters
  */
 
-// export type SceneServiceParameter<> = BaseApiParameter<> & {
-//     widgets: WidgetSceneObject[];
-//     widgetsDictionary: WidgetsDictionary;
-// };
-
 export type SaveSceneServiceParameter = {
     widgets: WidgetSceneObject[];
     widgetsDictionary: WidgetsDictionary;
 };
 
-export type GetSceneResponseData = {
-    widgets: WidgetSceneObject[];
+export type SceneApiResponseResult = {
+    serializedWidgets: SerializedWidgetSceneObject[];
     widgetsDictionary: WidgetsDictionary;
 };

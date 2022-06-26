@@ -1,7 +1,7 @@
 import { SetOptionalPropertyFrom } from "@common/commonTypes";
 import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
 
-import { GetSceneResponseData, SaveSceneServiceParameter } from "../sceneTypes";
+import { SaveSceneServiceParameter, SceneApiResponseResult } from "../sceneTypes";
 import { serializer } from "../utilities";
 
 export const saveScene = async ({ widgets, widgetsDictionary }: SaveSceneServiceParameter) => {
@@ -27,7 +27,7 @@ export const saveScene = async ({ widgets, widgetsDictionary }: SaveSceneService
     }
 };
 
-type FetchSuccessCallBack = (data: GetSceneResponseData) => void;
+type FetchSuccessCallBack = (data: SceneApiResponseResult) => void;
 
 export const fetchScene = async (successCallBack: FetchSuccessCallBack) => {
     const response = await fetch("api/scene");
@@ -35,7 +35,7 @@ export const fetchScene = async (successCallBack: FetchSuccessCallBack) => {
     try {
         const { sceneJsonString } = await response.json();
 
-        const data = JSON.parse(sceneJsonString);
+        const data = JSON.parse(sceneJsonString) as SceneApiResponseResult;
 
         successCallBack(data);
     } catch (error) {

@@ -82,6 +82,16 @@ export interface WidgetModule<Props = FeaturesWidgetsProps> {
  */
 export type WidgetSceneObject = Omit<WidgetModule, "reducer">;
 
+/**
+ * A serialized version of WidgetSceneObject type
+ */
+export type SerializedWidgetSceneObject = Omit<WidgetSceneObject, "component" | "meshHolder"> & {
+    meshHolder: string;
+};
+
+/**
+ * A dictionary containing editable informations about a WidgetSceneObject
+ */
 export type WidgetsDictionary = {
     [id: string]: { properties: WidgetProperties; options: WidgetOptionsValues };
 };
