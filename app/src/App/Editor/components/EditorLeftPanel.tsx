@@ -1,0 +1,47 @@
+import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
+import useWidgets from "@widgets/_actions/hooks/useWidgets";
+import { Collapse } from "antd";
+import { FC } from "react";
+import { css } from "styled-components";
+
+import EditorFeedback from "./EditorFeedback";
+import EditorOptions from "./EditorOptions";
+
+const { Panel } = Collapse;
+
+interface EditorFeedbackStyles {
+    wrapper?: StyledWrapperProps;
+}
+
+const styles: EditorFeedbackStyles = {
+    wrapper: {
+        css: css`
+            margin-right: 0.5em;
+            width: 300px;
+            user-select: none;
+        `,
+    },
+};
+
+const EditorLeftPanel: FC = () => {
+    const { currentWidgetProperties } = useWidgets();
+
+    if (currentWidgetProperties) {
+        return (
+            <StyledWrapper {...styles.wrapper}>
+                <Collapse defaultActiveKey={["1"]}>
+                    <Panel header="WidgetName: Not supported yet" key="1">
+                        <EditorFeedback />
+                    </Panel>
+                    <Panel header="Options" key="2">
+                        <EditorOptions />
+                    </Panel>
+                </Collapse>
+            </StyledWrapper>
+        );
+    }
+
+    return null;
+};
+
+export default EditorLeftPanel;

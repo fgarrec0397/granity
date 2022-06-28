@@ -4,8 +4,8 @@ import { css } from "styled-components";
 
 import useIsEditor from "./_actions/hooks/useIsEditor";
 import {
-    EditorFeedback,
     EditorItemsList,
+    EditorLeftPanel,
     EditorModeSelector,
     EditorSaveButton,
     EditorWidgetsMenu,
@@ -58,7 +58,7 @@ const Editor: FC = () => {
         return (
             <>
                 <StyledWrapper {...styles.topWrapper}>
-                    <EditorFeedback />
+                    <EditorLeftPanel />
                     <EditorModeSelector />
                 </StyledWrapper>
                 <StyledWrapper {...styles.rightWrapper}>

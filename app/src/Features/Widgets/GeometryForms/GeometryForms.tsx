@@ -26,6 +26,12 @@ export const widget: WidgetModule<GeometryFormsProps> = {
         name: "Geometry",
         options: [
             {
+                name: "color",
+                displayName: "Color",
+                fieldType: FieldType.Text,
+                defaultValue: "white",
+            },
+            {
                 name: "shape",
                 displayName: "Shape",
                 fieldType: FieldType.Select,
