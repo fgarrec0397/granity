@@ -68,6 +68,8 @@ export default () => {
             // TODO -- Fix this bug (it gives the wrong properties to the next selected widget)
             // const widgetProperties = widgetsDictionary[widget.id].properties;
             // updateCurrentWidget(widgetProperties);
+            // const mesh = getMeshByWidget(widget);
+
             dispatchSetSelected(widget);
         }
     };
@@ -80,36 +82,35 @@ export default () => {
         }
     };
 
-    const updateCurrentWidget = (
-        widgetProperties: WidgetProperties,
-        updateOnlyProperties = false
-    ) => {
-        const currentWidget = currentWidgets[0];
+    const updateCurrentWidget = useCallback(
+        (widgetProperties: WidgetProperties, updateOnlyProperties = false) => {
+            const currentWidget = currentWidgets[0];
 
-        if (currentWidget?.id) {
-            if (updateOnlyProperties) {
-                updateCurrentProperties(widgetProperties);
-            } else {
-                update(currentWidget, widgetProperties);
+            if (currentWidget?.id) {
+                if (updateOnlyProperties) {
+                    updateCurrentProperties(widgetProperties);
+                } else {
+                    update(currentWidget, widgetProperties);
+                }
             }
-        }
-    };
+        },
+        [currentWidgets, update, updateCurrentProperties]
+    );
 
-    const updateCurrentWidgetWithMesh = (
-        mesh: Object3D | undefined,
-        updateOnlyProperties = false
-    ) => {
-        if (mesh) {
-            updateCurrentWidget(
-                {
+    const updateCurrentWidgetWithMesh = useCallback(
+        (mesh: Object3D | undefined, updateOnlyProperties = false) => {
+            if (mesh) {
+                const widgetProperties = {
                     position: serializeVector3(mesh.position),
                     rotation: serializeVector3(mesh.rotation),
                     scale: serializeVector3(mesh.scale),
-                },
-                updateOnlyProperties
-            );
-        }
-    };
+                };
+
+                updateCurrentWidget(widgetProperties, updateOnlyProperties);
+            }
+        },
+        [updateCurrentWidget]
+    );
 
     const copyWidget = (widget: WidgetSceneObject) => {
         const newWidget = { ...widget };

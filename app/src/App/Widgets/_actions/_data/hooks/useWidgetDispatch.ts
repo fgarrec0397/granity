@@ -37,9 +37,12 @@ export default () => {
         }
     };
 
-    const dispatchUpdateDictionary = (widgetsDictionaryItem: WidgetsDictionaryItem) => {
-        return dispatch(updateWidgetDictionary(widgetsDictionaryItem));
-    };
+    const dispatchUpdateDictionary = useCallback(
+        (widgetsDictionaryItem: WidgetsDictionaryItem) => {
+            return dispatch(updateWidgetDictionary(widgetsDictionaryItem));
+        },
+        [dispatch]
+    );
 
     const dispatchRemoveWidgetDictionary = (widgetId: string | undefined) => {
         if (widgetId) {

@@ -1,3 +1,4 @@
+import { trigger } from "@app/Core/utilities/events";
 import { useEffect, useState } from "react";
 
 import { useSceneWidgetsContext, useWidgetsSelector } from "../_data/hooks";
@@ -20,6 +21,10 @@ export default () => {
 
         setCurrentWidgetsState(currentWidgets);
     }, [selected, widgets]);
+
+    useEffect(() => {
+        trigger("updateCurrentWidgetWithMesh", { updateOnlyProperties: true });
+    }, [currentWidgetsState]);
 
     return {
         currentWidgets: currentWidgetsState,

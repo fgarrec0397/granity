@@ -3,9 +3,9 @@ import { Card, Descriptions } from "antd";
 import { FC } from "react";
 
 const EditorFeedback: FC = () => {
-    const { currentWidgetProperties } = useWidgets();
+    const { currentWidgets, currentWidgetProperties } = useWidgets();
 
-    if (currentWidgetProperties) {
+    if (currentWidgets[0] && currentWidgetProperties) {
         return (
             <Card size="small" bordered={false} bodyStyle={{ padding: "0" }}>
                 <Descriptions>

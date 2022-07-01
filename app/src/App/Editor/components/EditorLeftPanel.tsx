@@ -24,9 +24,9 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorLeftPanel: FC = () => {
-    const { currentWidgetProperties } = useWidgets();
+    const { currentWidgets } = useWidgets();
 
-    if (currentWidgetProperties) {
+    if (currentWidgets[0]) {
         return (
             <StyledWrapper {...styles.wrapper}>
                 <Collapse defaultActiveKey={["1"]}>
