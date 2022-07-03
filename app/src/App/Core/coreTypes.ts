@@ -18,16 +18,17 @@ export type KeyboardKeys = KeyboardApp<Array<KeyboardKeysItem>>;
 export type KeyboardKeysItem = {
     name: string;
     code: string;
-    ctrlKey?: boolean;
-    shiftKey?: boolean;
+    ctrlKey: boolean;
+    shiftKey: boolean;
 };
 
 export type KeyboardMappings = KeyboardApp<KeyMappings>;
 
 export type KeyMappings = {
-    [key: typeof keyboardMappings.editor[number]["name"]]: (event: KeyboardEvent) => boolean;
+    [key: typeof keyboardMappings.editor[number]["name"]]: {
+        value: boolean;
+        reference: (event: KeyboardEvent) => boolean;
+    };
 };
 
-export type KeyboardMappingHandler = (
-    keyMapping: KeyboardMappings
-) => (event: KeyboardEvent) => void;
+export type KeyboardMappingHandler = (keyMapping: KeyboardMappings) => void;

@@ -53,7 +53,7 @@ const usePlayerControls = (): Movements => {
             setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: false }));
 
         document.addEventListener("keydown", handleKeyDown);
-        document.addEventListener("keyup", handleKeyUp);
+        document.addEventListener("keyup", handleKeyUp); // TODO -- Handle game key bindings
 
         return () => {
             document.removeEventListener("keydown", handleKeyDown);

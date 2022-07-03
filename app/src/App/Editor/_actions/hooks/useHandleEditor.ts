@@ -4,20 +4,7 @@ import { useEffect } from "react";
 import useIsEditor from "./useIsEditor";
 
 export default () => {
-    const { isEditor, setIsEditor } = useIsEditor();
-
-    // useEffect(() => {
-    //     const handleKeyUp = (event: KeyboardEvent): void => {
-    //         if (event.code === "KeyE") {
-    //             setIsEditor();
-    //         }
-    //     };
-    //     document.addEventListener("keyup", handleKeyUp);
-
-    //     return () => {
-    //         document.removeEventListener("keyup", handleKeyUp);
-    //     };
-    // }, [setIsEditor]);
+    const { isEditor } = useIsEditor();
 
     useEffect(() => {
         if (isEditor) {
