@@ -1,4 +1,4 @@
-import { deserialize } from "@app/Core/utilities/componentSerializer";
+import { deserialize } from "@app/Core/_actions/utilities/componentSerializer";
 import { useWidgetsActions, useWidgetsModules } from "@app/Widgets/_actions/hooks";
 import { WidgetSceneObject } from "@app/Widgets/_actions/widgetsTypes";
 import { useEffect } from "react";

@@ -57,7 +57,10 @@ export const sceneSlice = createSlice({
             }
 
             if (options) {
-                state.widgetsDictionary[id].options = options;
+                state.widgetsDictionary[id].options = {
+                    ...state.widgetsDictionary[id].options,
+                    ...options,
+                };
             }
         },
         removeWidgetDictionary: (state: WidgetsState, action: PayloadAction<string>) => {

@@ -1,5 +1,5 @@
+import useKeyboardControls from "@app/Core/_actions/hooks/useKeyboardControls";
 import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
-import useKeyboardControls from "@core/hooks/useKeyboardControls";
 import { Physics } from "@react-three/cannon";
 import Widgets from "@widgets/Widgets";
 import { FC } from "react";

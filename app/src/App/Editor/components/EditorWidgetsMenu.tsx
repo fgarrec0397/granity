@@ -1,5 +1,5 @@
+import { trigger } from "@app/Core/_actions/utilities/events";
 import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
-import { trigger } from "@core/utilities/events";
 import useWidgetsModuleContext from "@widgets/_actions/_data/hooks/useWidgetsModuleContext";
 import { mapWidgetModuleToWidgetSceneObject } from "@widgets/_actions/utilities";
 import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";

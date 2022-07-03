@@ -1,4 +1,4 @@
-import { off, on } from "@app/Core/utilities/events";
+import { off, on } from "@app/Core/_actions/utilities/events";
 import { useEffect } from "react";
 
 import { useWidgetsActions } from "./_actions/hooks";

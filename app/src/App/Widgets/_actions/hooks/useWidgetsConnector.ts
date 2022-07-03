@@ -1,4 +1,4 @@
-import { events } from "@core/utilities";
+import { events } from "@app/Core/_actions/utilities";
 import { useEffect } from "react";
 
 import useGetWidgets from "./useGetWidgets";

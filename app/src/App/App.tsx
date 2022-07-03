@@ -1,5 +1,5 @@
+import { events } from "@app/Core/_actions/utilities";
 import useWidgetsInitModules from "@app/Widgets/_actions/hooks/useWidgetsInitModules";
-import { events } from "@core/utilities";
 import Editor from "@editor/Editor";
 import { useContextBridge } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";

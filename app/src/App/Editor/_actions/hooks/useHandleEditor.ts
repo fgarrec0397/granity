@@ -6,18 +6,18 @@ import useIsEditor from "./useIsEditor";
 export default () => {
     const { isEditor, setIsEditor } = useIsEditor();
 
-    useEffect(() => {
-        const handleKeyUp = (event: KeyboardEvent): void => {
-            if (event.code === "KeyE") {
-                setIsEditor();
-            }
-        };
-        document.addEventListener("keyup", handleKeyUp);
+    // useEffect(() => {
+    //     const handleKeyUp = (event: KeyboardEvent): void => {
+    //         if (event.code === "KeyE") {
+    //             setIsEditor();
+    //         }
+    //     };
+    //     document.addEventListener("keyup", handleKeyUp);
 
-        return () => {
-            document.removeEventListener("keyup", handleKeyUp);
-        };
-    }, [setIsEditor]);
+    //     return () => {
+    //         document.removeEventListener("keyup", handleKeyUp);
+    //     };
+    // }, [setIsEditor]);
 
     useEffect(() => {
         if (isEditor) {

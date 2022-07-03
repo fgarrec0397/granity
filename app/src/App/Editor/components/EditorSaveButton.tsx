@@ -1,4 +1,4 @@
-import { trigger } from "@core/utilities/events";
+import { trigger } from "@app/Core/_actions/utilities/events";
 import { Button } from "antd";
 import { FC } from "react";
 

@@ -72,8 +72,6 @@ export default () => {
         dispatchSetCurrentWidgetProperties(widgetProperties);
     };
 
-    // - Remove
-
     return {
         add,
         addBatch,

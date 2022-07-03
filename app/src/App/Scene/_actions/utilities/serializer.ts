@@ -1,5 +1,5 @@
+import { serialize } from "@app/Core/_actions/utilities/componentSerializer";
 import { SetOptionalPropertyFrom } from "@common/commonTypes";
-import { serialize } from "@core/utilities/componentSerializer";
 import { WidgetEditorOptions, WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
 
 export const serializeWidgets = (

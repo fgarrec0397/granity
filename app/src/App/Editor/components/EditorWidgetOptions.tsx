@@ -1,4 +1,4 @@
-import { trigger } from "@core/utilities/events";
+import { trigger } from "@app/Core/_actions/utilities/events";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import { FieldType, WidgetBaseOptions } from "@widgets/_actions/widgetsTypes";
 import { Card, Input, InputNumber, Select, Typography } from "antd";
@@ -6,17 +6,18 @@ import { FC, useState } from "react";
 
 const { Option } = Select;
 
-const EditorOptions: FC = () => {
+const EditorWidgetOptions: FC = () => {
     const { currentWidgets } = useWidgets();
     const [selectValue, setSelectValue] = useState("default");
+    const [inputValue, setInputValue] = useState("default");
 
-    const handleChange = (value: string, option: WidgetBaseOptions) => {
+    const handleSelectChange = (value: string, option: WidgetBaseOptions) => {
         setSelectValue(value);
         trigger("updateCurrentWidgetOptions", { value, option });
     };
 
     const handleInputChange = (value: string, option: WidgetBaseOptions) => {
-        setSelectValue(value);
+        setInputValue(value);
         trigger("updateCurrentWidgetOptions", { value, option });
     };
 
@@ -32,6 +33,7 @@ const EditorOptions: FC = () => {
                             <Input
                                 placeholder={option.displayName}
                                 onChange={(event) => handleInputChange(event.target.value, option)}
+                                value={inputValue}
                             />
                         );
                     }
@@ -40,7 +42,7 @@ const EditorOptions: FC = () => {
                         return (
                             <InputNumber
                                 placeholder={option.displayName}
-                                onChange={(value: string) => handleChange(value, option)}
+                                onChange={(value: string) => handleSelectChange(value, option)}
                             />
                         );
                     }
@@ -50,7 +52,7 @@ const EditorOptions: FC = () => {
                             <Select
                                 defaultValue="default"
                                 value={selectValue}
-                                onChange={(value: string) => handleChange(value, option)}
+                                onChange={(value: string) => handleSelectChange(value, option)}
                             >
                                 <Option value="default" disabled>
                                     Select an option
@@ -71,4 +73,4 @@ const EditorOptions: FC = () => {
     );
 };
 
-export default EditorOptions;
+export default EditorWidgetOptions;

@@ -4,17 +4,19 @@ import { FC } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
+    color: string;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, hovered }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, hovered }) => {
     const GeometryComponent = shape;
+
     return (
         <mesh name="GeometryForms1" position={[0, 0, 0]}>
             <GeometryComponent />
             {/* <meshStandardMaterial color={hovered ? "#bdbdf5" : "white"} /> */}
-            <meshStandardMaterial color={"blue"} />
+            <meshStandardMaterial color={color} />
         </mesh>
     );
 };

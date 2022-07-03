@@ -5,7 +5,7 @@ import { FC } from "react";
 import { css } from "styled-components";
 
 import EditorFeedback from "./EditorFeedback";
-import EditorOptions from "./EditorOptions";
+import EditorWidgetOptions from "./EditorWidgetOptions";
 
 const { Panel } = Collapse;
 
@@ -34,7 +34,7 @@ const EditorLeftPanel: FC = () => {
                         <EditorFeedback />
                     </Panel>
                     <Panel header="Options" key="2">
-                        <EditorOptions />
+                        <EditorWidgetOptions />
                     </Panel>
                 </Collapse>
             </StyledWrapper>

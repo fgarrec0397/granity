@@ -1,4 +1,4 @@
-import { trigger } from "@app/Core/utilities/events";
+import { trigger } from "@app/Core/_actions/utilities/events";
 import { useEffect, useState } from "react";
 
 import { useSceneWidgetsContext, useWidgetsSelector } from "../_data/hooks";
