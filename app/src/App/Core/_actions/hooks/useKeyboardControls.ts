@@ -6,7 +6,6 @@ import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
 import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
 import { useEffect, useState } from "react";
 
-// import { getEditorKeyControl, KeyboardMappings } from "../../configs/keyboardMappings";
 import useKeyboardMappings from "./useKeyboardMappings";
 
 export default () => {
@@ -20,8 +19,6 @@ export default () => {
     useKeyboardMappings(
         (keyMapping: KeyboardMappings) => {
             return (event: KeyboardEvent) => {
-                // console.log(keyMapping.editor.copyWidget(event), "keyMapping.editor.copyWidget");
-
                 if (keyMapping.editor.copyWidget(event)) {
                     console.log("copy");
 
@@ -29,6 +26,8 @@ export default () => {
                         setCopiedWidgets(currentWidgets);
                     }
                 } else if (event.ctrlKey && event.code === "KeyV") {
+                    console.log("paste");
+
                     if (currentWidgets.length > 0) {
                         currentWidgets.forEach((x) => {
                             copyWidget(x);
@@ -43,14 +42,6 @@ export default () => {
         },
         [firstCurrentWidget?.id, currentWidgets, widgets, copyWidget, removeCurrentWidgets]
     );
-
-    // useEffect(() => {
-    //     const handleKeyUp = window.addEventListener("keyup", handleKeyUp);
-
-    //     return () => {
-    //         window.removeEventListener("keyup", handleKeyUp);
-    //     };
-    // }, [firstCurrentWidget?.id, currentWidgets, widgets, copyWidget, removeCurrentWidgets]);
 
     useEffect(() => {
         const handleKeyUp = (event: KeyboardEvent) => {

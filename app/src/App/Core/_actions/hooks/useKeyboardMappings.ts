@@ -1,42 +1,36 @@
 import keyboardMappings from "@app/Core/configs/keyboardMappings";
 import { KeyboardMappingHandler, KeyboardMappings } from "@app/Core/coreTypes";
-import { DependencyList, useEffect, useState } from "react";
+import { DependencyList, useCallback, useEffect, useMemo } from "react";
 
-const callAllFunctions = (keyMapped: KeyboardMappings, event: KeyboardEvent) => {
-    Object.values(keyMapped.editor).map((value) => {
-        if (typeof value === "function") {
-            value(event);
-        }
-    });
+export default (handler: KeyboardMappingHandler, dependencies: DependencyList) => {
+    const handlerCallback = useCallback(handler, [handler, ...dependencies]);
 
-    return keyMapped;
-};
-
-const test = (): KeyboardMappings => {
-    const newMapping: KeyboardMappings = {
-        editor: {},
-        game: {},
-    };
-    keyboardMappings.editor.forEach((x) => {
-        newMapping.editor[x.name] = (event: KeyboardEvent) => {
-            const hasCtrlKey = x.ctrlKey ? event.ctrlKey : true;
-            const hasShifKey = x.shiftKey ? event.shiftKey : true;
-
-            return hasCtrlKey && hasShifKey && event.code === x.code;
+    const keysMapping = useMemo((): KeyboardMappings => {
+        const newMapping: KeyboardMappings = {
+            editor: {},
+            game: {},
         };
-    });
-    console.log(newMapping, "newMapping");
+        keyboardMappings.editor.forEach((x) => {
+            newMapping.editor[x.name] = (event: KeyboardEvent) => {
+                const hasCtrlKey = x.ctrlKey ? event.ctrlKey : true;
+                const hasShifKey = x.shiftKey ? event.shiftKey : true;
 
-    return newMapping;
-};
+                return hasCtrlKey && hasShifKey && event.code === x.code;
+            };
+        });
 
-export default (handler: KeyboardMappingHandler, dependencies?: DependencyList | undefined) => {
+        return newMapping;
+    }, []);
+
     useEffect(() => {
-        window.addEventListener("keyup", (event) => handler(test())(event));
+        const onKeyUpHandler = (event: KeyboardEvent) => {
+            handlerCallback(keysMapping)(event);
+        };
+
+        window.addEventListener("keyup", onKeyUpHandler);
 
         return () => {
-            window.removeEventListener("keyup", (event) => handler(test())(event));
+            window.removeEventListener("keyup", onKeyUpHandler);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, dependencies);
+    }, [handlerCallback, keysMapping]);
 };
