@@ -26,6 +26,12 @@ export default () => {
         trigger("updateCurrentWidgetWithMesh", { updateOnlyProperties: true });
     }, [currentWidgetsState]);
 
+    const getWidgetDictionaryFromWidget = (widgetId: string | undefined) => {
+        if (widgetId) {
+            return widgetsDictionary[widgetId];
+        }
+    };
+
     return {
         currentWidgets: currentWidgetsState,
         firstCurrentWidget: currentWidgetsState[0], // TODO - Remove this
@@ -33,5 +39,6 @@ export default () => {
         widgets,
         widgetsDictionary,
         selected,
+        getWidgetDictionaryFromWidget,
     };
 };

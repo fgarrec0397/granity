@@ -1,22 +1,26 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
+import { Html } from "@react-three/drei";
 import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
-import { FC } from "react";
+import { FC, useRef, useState } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
+    numberOfItems: number;
     shape: string;
     color: string;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, hovered }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, numberOfItems, hovered }) => {
     const GeometryComponent = shape;
 
     return (
         <mesh name="GeometryForms1" position={[0, 0, 0]}>
             <GeometryComponent />
-            {/* <meshStandardMaterial color={hovered ? "#bdbdf5" : "white"} /> */}
             <meshStandardMaterial color={color} />
+            <Html>
+                <h2>{numberOfItems}</h2>
+            </Html>
         </mesh>
     );
 };
@@ -34,10 +38,10 @@ export const widget: WidgetModule<GeometryFormsProps> = {
                 defaultValue: "white",
             },
             {
-                name: "number",
+                name: "numberOfItems",
                 displayName: "Number",
                 fieldType: FieldType.Number,
-                defaultValue: 0,
+                defaultValue: 1,
             },
             {
                 name: "shape",

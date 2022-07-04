@@ -1,15 +1,24 @@
 import { trigger } from "@app/Core/_actions/utilities/events";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
-import { FieldType, WidgetBaseOptions } from "@widgets/_actions/widgetsTypes";
+import { FieldType, WidgetBaseOptions, WidgetOptionsValues } from "@widgets/_actions/widgetsTypes";
 import { Card, Input, InputNumber, Select, Typography } from "antd";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 const { Option } = Select;
 
 const EditorWidgetOptions: FC = () => {
-    const { currentWidgets } = useWidgets();
+    const { currentWidgets, getWidgetDictionaryFromWidget } = useWidgets();
+    const [optionsValues, setOptionsValues] = useState<WidgetOptionsValues>();
     const [selectValue, setSelectValue] = useState("default");
     const [inputValue, setInputValue] = useState("default");
+
+    useEffect(() => {
+        const options = getWidgetDictionaryFromWidget(currentWidgets[0]?.id)?.options;
+        setOptionsValues(options);
+        console.log(options, "options");
+    }, [currentWidgets, getWidgetDictionaryFromWidget]);
+
+    // Add input number useState + make sure if there is more than one same type input it still work
 
     const handleSelectChange = (value: string, option: WidgetBaseOptions) => {
         setSelectValue(value);
@@ -20,6 +29,12 @@ const EditorWidgetOptions: FC = () => {
         setInputValue(value);
         trigger("updateCurrentWidgetOptions", { value, option });
     };
+
+    // function onChange(index, event) {
+    //     const newValues = [...values];
+    //     newValues[index] = event.target.value;
+    //     setValues(newValues);
+    //   }
 
     return (
         <Card size="small" bordered={false} bodyStyle={{ padding: "0" }}>

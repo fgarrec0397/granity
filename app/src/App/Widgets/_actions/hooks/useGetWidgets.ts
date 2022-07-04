@@ -1,16 +1,16 @@
 import { useThree } from "@react-three/fiber";
 import { Object3D } from "three";
 
-import { useSceneWidgetsContext } from "../_data/hooks";
 import { getWidgetName } from "../utilities";
 import widgetsConstants from "../widgetsConstants";
 import { WidgetModule, WidgetSceneObject } from "../widgetsTypes";
+import useWidgets from "./useWidgets";
 
 const { widgetObjectsPrefix } = widgetsConstants;
 
 export default () => {
     const { scene } = useThree();
-    const { widgets } = useSceneWidgetsContext();
+    const { widgets } = useWidgets();
 
     const getWidgetById = (id: string | undefined) => {
         if (id) {
@@ -41,6 +41,7 @@ export default () => {
         const meshName = getWidgetName(widget);
         return scene.getObjectByName(meshName);
     };
+
     return {
         getWidgetById,
         getWidgetByMesh,

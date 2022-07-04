@@ -16,7 +16,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
     const Component = component;
     const ref = useRef<Object3D>();
     const [hovered, setHover] = useState(false);
-    const { widgetsDictionary } = useWidgets();
+    const { widgetsDictionary, getWidgetDictionaryFromWidget } = useWidgets();
     const name = getWidgetName(widget);
     const { isEditor } = useIsEditor();
 
@@ -46,7 +46,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
             name={name}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
-            {...widgetsDictionary[id!]?.properties}
+            {...getWidgetDictionaryFromWidget(id!)?.properties}
         >
             {meshHolder}
 
