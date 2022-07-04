@@ -9,9 +9,9 @@ export interface TypographyComponent {
     as?: string;
 }
 
-type Props = TypographyComponent & TypographyStyles;
+export type TypographyProps = TypographyComponent & TypographyStyles;
 
-const Typography: FC<Props> = ({ as = "span", css, children, ...props }) => {
+const Typography: FC<TypographyProps> = ({ as = "span", css, children, ...props }) => {
     const AsComponent: any = as;
     return (
         <AsComponent css={css} {...props}>
