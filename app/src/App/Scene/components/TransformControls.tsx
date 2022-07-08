@@ -5,6 +5,7 @@ import { useThree } from "@react-three/fiber";
 import useGetWidgets from "@widgets/_actions/hooks/useGetWidgets";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
+import isEqual from "lodash/isEqual";
 import { FC, useEffect, useState } from "react";
 import { Object3D } from "three";
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
@@ -19,6 +20,7 @@ const TransformControlsComponent: FC = ({ children }) => {
     const [transformControl, setTransformControl] = useState<TransformControls>();
     const [attachedMesh, setAttachedMesh] = useState<Object3D>();
     const previousCurrentWidgets = usePrevious(currentWidgets);
+    const previousCurrentMode = usePrevious(currentMode);
 
     useEffect(() => {
         if (!transformControl && attachedMesh) {
@@ -43,7 +45,7 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Detach the transformControl whenever the current element change
      */
     useEffect(() => {
-        if (transformControl && previousCurrentWidgets !== currentWidgets) {
+        if (transformControl && !isEqual(previousCurrentWidgets, currentWidgets)) {
             transformControl.detach();
             setAttachedMesh(undefined);
         }
@@ -56,10 +58,10 @@ const TransformControlsComponent: FC = ({ children }) => {
     ]);
 
     useEffect(() => {
-        if (transformControl) {
+        if (transformControl && currentMode !== previousCurrentMode) {
             transformControl.setMode(currentMode);
         }
-    }, [currentMode, transformControl]);
+    }, [currentMode, previousCurrentMode, transformControl]);
 
     useEffect(() => {
         if (currentWidgets.length) {
