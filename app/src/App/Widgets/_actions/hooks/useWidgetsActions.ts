@@ -1,9 +1,14 @@
-import { serializeVector3, uidGenerator } from "@common/utilities";
+import { uidGenerator } from "@common/utilities";
 import { useCallback } from "react";
 import { Object3D } from "three";
 
 import { useWidgetDispatch, useWidgetsSelector, useWidgetsServices } from "../_data/hooks";
 import {
+    buildWidgetDictionaryItem,
+    buildWidgetDictionaryProperties,
+} from "../utilities/buildWidgetDictionaryItem";
+import {
+    SerializedWidgetSceneObject,
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
@@ -53,58 +58,79 @@ export default () => {
             }
         }
 
-        add(newWidget, widgetProperties, widgetOptions as WidgetOptionsValues);
+        const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget);
+
+        add(newWidget, widgetDictionaryItem);
     };
 
     const addWidgetsBatch = useCallback(
         (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObject[]) => {
-            addBatch(newWidgetsDictionary, newWidgets);
+            addBatch(newWidgets, newWidgetsDictionary);
         },
         [addBatch]
     );
 
     const selectWidget = (widget: WidgetSceneObject) => {
         if (widget.id) {
-            // TODO -- Fix this bug (it gives the wrong properties to the next selected widget)
-            // const widgetProperties = widgetsDictionary[widget.id].properties;
-            // updateCurrentWidget(widgetProperties);
-            // const mesh = getMeshByWidget(widget);
-
             dispatchSetSelected(widget);
         }
     };
 
-    const updateCurrentWidgetOptions = (widgetOptions: WidgetOptionsValues) => {
-        const currentWidget = currentWidgets[0];
-
-        if (currentWidget?.id) {
-            update(currentWidget, undefined, widgetOptions);
-        }
-    };
-
-    const updateCurrentWidget = useCallback(
-        (widgetProperties: WidgetProperties, updateOnlyProperties = false) => {
-            const currentWidget = currentWidgets[0];
-
-            if (currentWidget?.id) {
-                if (updateOnlyProperties) {
+    const updateWidget = useCallback(
+        (
+            widget: WidgetSceneObject,
+            widgetProperties?: WidgetProperties,
+            updateOnlyProperties?: boolean
+        ) => {
+            if (widget?.id) {
+                if (updateOnlyProperties && widgetProperties) {
                     updateCurrentProperties(widgetProperties);
                 } else {
-                    update(currentWidget, widgetProperties);
+                    update(widget, widgetProperties);
                 }
             }
         },
-        [currentWidgets, update, updateCurrentProperties]
+        [update, updateCurrentProperties]
+    );
+
+    const updateWidgetOptions = useCallback(
+        (
+            widget: WidgetSceneObject | SerializedWidgetSceneObject,
+            widgetOptions: WidgetOptionsValues
+        ) => {
+            if (widget?.id) {
+                update(widget as WidgetSceneObject, undefined, widgetOptions);
+            }
+        },
+        [update]
+    );
+
+    const updateCurrentWidgetOptions = useCallback(
+        (widgetOptions: WidgetOptionsValues) => {
+            const currentWidget = currentWidgets[0];
+
+            if (currentWidget?.id) {
+                updateWidgetOptions(currentWidget, widgetOptions);
+            }
+        },
+        [currentWidgets, updateWidgetOptions]
+    );
+
+    const updateCurrentWidget = useCallback(
+        (widgetProperties: WidgetProperties, updateOnlyProperties?: boolean) => {
+            const currentWidget = currentWidgets[0];
+
+            if (currentWidget?.id) {
+                updateWidget(currentWidget, widgetProperties, updateOnlyProperties);
+            }
+        },
+        [currentWidgets, updateWidget]
     );
 
     const updateCurrentWidgetWithMesh = useCallback(
-        (mesh: Object3D | undefined, updateOnlyProperties = false) => {
+        (mesh: Object3D | undefined, updateOnlyProperties?: boolean) => {
             if (mesh) {
-                const widgetProperties = {
-                    position: serializeVector3(mesh.position),
-                    rotation: serializeVector3(mesh.rotation),
-                    scale: serializeVector3(mesh.scale),
-                };
+                const widgetProperties = buildWidgetDictionaryProperties(mesh);
 
                 updateCurrentWidget(widgetProperties, updateOnlyProperties);
             }
@@ -119,11 +145,15 @@ export default () => {
         newWidget.id = newId;
 
         if (widget.id) {
-            add(
-                newWidget,
-                widgetsDictionary[widget.id].properties,
-                widgetsDictionary[widget.id].options
-            );
+            const properties = widgetsDictionary[widget.id].properties;
+            const options = widgetsDictionary[widget.id].options;
+
+            const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget, {
+                properties,
+                options,
+            });
+
+            add(newWidget, widgetDictionaryItem);
         }
     };
 
@@ -154,9 +184,11 @@ export default () => {
         addWidget,
         addWidgetsBatch,
         selectWidget,
+        updateWidget,
+        updateWidgetOptions,
+        updateCurrentWidgetOptions,
         updateCurrentWidget,
         updateCurrentWidgetWithMesh,
-        updateCurrentWidgetOptions,
         copyWidget,
         removeCurrentWidgets,
         removeWidget,

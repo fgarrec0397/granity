@@ -1,16 +1,19 @@
 import { useCallback } from "react";
 
+import { useWidgets } from "../../hooks";
 import {
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
     WidgetsDictionary,
+    WidgetsDictionaryItem,
 } from "../../widgetsTypes";
 import useSceneWidgetsContext from "./useSceneWidgetsContext";
 import useWidgetDispatch from "./useWidgetDispatch";
 
 export default () => {
     const { widgets, setSceneWidgets } = useSceneWidgetsContext();
+    const { widgetsDictionary } = useWidgets();
     const {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
@@ -21,17 +24,11 @@ export default () => {
     } = useWidgetDispatch();
 
     const add = useCallback(
-        (
-            newWidget: WidgetSceneObject,
-            properties: WidgetProperties,
-            options: WidgetOptionsValues
-        ) => {
+        (newWidget: WidgetSceneObject, newWidgetsDictionaryItem: WidgetsDictionaryItem) => {
             if (newWidget.id) {
-                dispatchAddDictionary({
-                    id: newWidget.id,
-                    properties,
-                    options,
-                });
+                const requiredWidgetDictionaryItem =
+                    newWidgetsDictionaryItem as Required<WidgetsDictionaryItem>;
+                dispatchAddDictionary(requiredWidgetDictionaryItem);
             }
 
             setSceneWidgets((prevWidgets) => [...prevWidgets, newWidget]);
@@ -40,26 +37,37 @@ export default () => {
     );
 
     const addBatch = useCallback(
-        (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObject[]) => {
+        (newWidgets: WidgetSceneObject[], newWidgetsDictionary: WidgetsDictionary) => {
             dispatchAddBatchDictionary(newWidgetsDictionary);
             setSceneWidgets((prevWidgets) => [...prevWidgets, ...newWidgets]);
         },
         [dispatchAddBatchDictionary, setSceneWidgets]
     );
 
-    const update = (
-        widget: WidgetSceneObject,
-        widgetProperties?: WidgetProperties,
-        widgetOptions?: WidgetOptionsValues
-    ) => {
-        if (widget.id) {
-            dispatchUpdateDictionary({
-                id: widget.id,
-                options: widgetOptions,
-                properties: widgetProperties,
-            });
-        }
-    };
+    const update = useCallback(
+        (
+            widget: WidgetSceneObject,
+            widgetProperties?: WidgetProperties,
+            widgetOptions?: WidgetOptionsValues
+        ) => {
+            if (widget.id) {
+                console.log({
+                    id: widget.id,
+                    options: widgetOptions,
+                    properties: widgetProperties,
+                });
+
+                console.log(widgetsDictionary, "widgetsDictionary");
+
+                dispatchUpdateDictionary({
+                    id: widget.id,
+                    options: widgetOptions,
+                    properties: widgetProperties,
+                });
+            }
+        },
+        [dispatchUpdateDictionary, widgetsDictionary]
+    );
 
     const remove = (widget: WidgetSceneObject) => {
         const updatedWidgets = widgets.filter(({ id }) => id !== widget.id);

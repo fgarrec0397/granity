@@ -6,14 +6,26 @@ import { SerializedWidgetSceneObject, WidgetSceneObject } from "../widgetsTypes"
 export default () => {
     const { widgetsModules, setWidgetsModules } = useWidgetsModuleContext();
 
-    const getComponentFromModules = useCallback(
+    const getWidgetModuleFromWidgetScene = useCallback(
         (widget: WidgetSceneObject | SerializedWidgetSceneObject) => {
             return widgetsModules.find(
                 (x) => x.widgetDefinition.name === widget.widgetDefinition.name
-            )?.component;
+            );
         },
         [widgetsModules]
     );
 
-    return { widgetsModules, setWidgetsModules, getComponentFromModules };
+    const getSceneWidgetComponentFromModules = useCallback(
+        (widget: WidgetSceneObject | SerializedWidgetSceneObject) => {
+            return getWidgetModuleFromWidgetScene(widget)?.component;
+        },
+        [getWidgetModuleFromWidgetScene]
+    );
+
+    return {
+        widgetsModules,
+        setWidgetsModules,
+        getSceneWidgetComponentFromModules,
+        getWidgetModuleFromWidgetScene,
+    };
 };

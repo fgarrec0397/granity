@@ -64,7 +64,7 @@ const EditorWidgetOptions: FC = () => {
                                 <Input
                                     placeholder={option.displayName}
                                     onChange={(event) => handleChange(event.target.value, option)}
-                                    value={optionsValues ? optionsValues[option.name].value : ""}
+                                    value={optionsValues ? optionsValues[option.name]?.value : ""}
                                 />
                             </StyledWrapper>
                         );
@@ -81,7 +81,7 @@ const EditorWidgetOptions: FC = () => {
                                     onChange={(value: number) => handleChange(value, option)}
                                     value={
                                         optionsValues
-                                            ? (optionsValues[option.name].value as number)
+                                            ? (optionsValues[option.name]?.value as number)
                                             : 0
                                     }
                                     style={{ width: "100%" }}
@@ -100,7 +100,7 @@ const EditorWidgetOptions: FC = () => {
                                     defaultValue="default"
                                     value={
                                         optionsValues
-                                            ? (optionsValues[option.name].value as string)
+                                            ? (optionsValues[option.name]?.value as string)
                                             : ""
                                     }
                                     onChange={(value: string) => handleChange(value, option)}

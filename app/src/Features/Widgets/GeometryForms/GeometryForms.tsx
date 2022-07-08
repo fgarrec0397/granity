@@ -7,11 +7,12 @@ export interface GeometryFormsProps extends EditableWidget {
     number: number;
     shape: string;
     color: string;
+    color2: string;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, number }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, color2, number }) => {
     const GeometryComponent = shape;
 
     return (
@@ -32,13 +33,19 @@ export const widget: WidgetModule<GeometryFormsProps> = {
         name: "Geometry",
         options: [
             {
+                name: "color2",
+                displayName: "Color 2",
+                fieldType: FieldType.Text,
+                defaultValue: "blue",
+            },
+            {
                 name: "color",
                 displayName: "Color",
                 fieldType: FieldType.Text,
                 defaultValue: "white",
             },
             {
-                name: "numberOfItems",
+                name: "number",
                 displayName: "Number",
                 fieldType: FieldType.Number,
                 defaultValue: 1,
