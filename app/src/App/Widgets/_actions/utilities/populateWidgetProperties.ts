@@ -1,7 +1,7 @@
 import { WidgetsDictionary } from "../widgetsTypes";
 
 export default (widgetId: string, widgetsDictionary: WidgetsDictionary) => {
-    const props: any = {}; // TODO -- fix any type here
+    const props: any = {};
 
     for (const option in widgetsDictionary[widgetId]?.options) {
         if ({}.hasOwnProperty.call(widgetsDictionary[widgetId]?.options, option)) {

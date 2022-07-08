@@ -7,12 +7,11 @@ export interface GeometryFormsProps extends EditableWidget {
     number: number;
     shape: string;
     color: string;
-    color2: string;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, color2, number }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, number }) => {
     const GeometryComponent = shape;
 
     return (

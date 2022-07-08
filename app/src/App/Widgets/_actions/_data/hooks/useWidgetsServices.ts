@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 
-import { useWidgets } from "../../hooks";
 import {
     WidgetOptionsValues,
     WidgetProperties,
@@ -13,7 +12,6 @@ import useWidgetDispatch from "./useWidgetDispatch";
 
 export default () => {
     const { widgets, setSceneWidgets } = useSceneWidgetsContext();
-    const { widgetsDictionary } = useWidgets();
     const {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
@@ -51,14 +49,6 @@ export default () => {
             widgetOptions?: WidgetOptionsValues
         ) => {
             if (widget.id) {
-                console.log({
-                    id: widget.id,
-                    options: widgetOptions,
-                    properties: widgetProperties,
-                });
-
-                console.log(widgetsDictionary, "widgetsDictionary");
-
                 dispatchUpdateDictionary({
                     id: widget.id,
                     options: widgetOptions,
@@ -66,7 +56,7 @@ export default () => {
                 });
             }
         },
-        [dispatchUpdateDictionary, widgetsDictionary]
+        [dispatchUpdateDictionary]
     );
 
     const remove = (widget: WidgetSceneObject) => {

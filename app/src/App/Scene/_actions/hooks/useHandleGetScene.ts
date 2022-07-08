@@ -1,21 +1,7 @@
 import { deserialize } from "@app/Core/_actions/utilities/componentSerializer";
 import { useWidgetsActions, useWidgetsModules } from "@app/Widgets/_actions/hooks";
-import {
-    buildWidgetDictionaryOptions,
-    buildWidgetsDictionary,
-} from "@app/Widgets/_actions/utilities/buildWidgetDictionaryItem";
+import { buildWidgetsDictionary } from "@app/Widgets/_actions/utilities/buildWidgetDictionaryItem";
 import { WidgetSceneObject } from "@app/Widgets/_actions/widgetsTypes";
-import difference from "lodash/difference";
-// import { differenceBy } from "lodash";
-import differenceBy from "lodash/differenceBy";
-import findKey from "lodash/findKey";
-import intersectionBy from "lodash/intersectionBy";
-import isEqual from "lodash/isEqual";
-import isMatch from "lodash/isMatch";
-import merge from "lodash/merge";
-import mergeWith from "lodash/mergeWith";
-import pullAll from "lodash/pullAll";
-import unionWith from "lodash/unionWith";
 import { useEffect } from "react";
 
 import { fetchScene } from "../_data/services";
@@ -53,6 +39,8 @@ export default () => {
                     } as WidgetSceneObject;
                 });
 
+                // TODO -- Break this down into reusable code
+
                 const mergedWidgetDictionary = buildWidgetsDictionary(deserializedWidgets);
 
                 Object.keys(mergedWidgetDictionary).forEach((dictionaryItemKey) => {
@@ -81,6 +69,5 @@ export default () => {
         widgetsModules,
         getSceneWidgetComponentFromModules,
         getWidgetModuleFromWidgetScene,
-        // updateWidgetOptions,
     ]);
 };
