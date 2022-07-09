@@ -27,17 +27,6 @@ const TransformControlsComponent: FC = ({ children }) => {
     );
 
     /**
-     * Add TransformControls on the scene and remove it when it unmounted
-     */
-    useEffect(() => {
-        scene.add(transformControls);
-
-        return () => {
-            scene.remove(transformControls);
-        };
-    }, [scene, meshToAttach, transformControls]);
-
-    /**
      * Attach the selected mesh on the scene to TransformControls
      * Whenever it is unmounted, it detach all attached meshes
      */
@@ -48,6 +37,17 @@ const TransformControlsComponent: FC = ({ children }) => {
 
         return () => {
             transformControls.detach();
+        };
+    }, [scene, meshToAttach, transformControls]);
+
+    /**
+     * Add TransformControls on the scene and remove it when it unmounted
+     */
+    useEffect(() => {
+        scene.add(transformControls);
+
+        return () => {
+            scene.remove(transformControls);
         };
     }, [scene, meshToAttach, transformControls]);
 
@@ -64,19 +64,21 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Update the current the mesh to be attached to TransformControls when it changes
      */
     useEffect(() => {
-        if (currentWidgets.length && !isEqual(currentWidgets, previousCurrentWidgets)) {
+        if (
+            currentWidgets.length &&
+            (!previousCurrentWidgets || !isEqual(currentWidgets, previousCurrentWidgets))
+        ) {
             setMeshToAttach(getMeshByWidget(currentWidgets[0]));
-        }
-
-        return () => {
+        } else if (!currentWidgets.length) {
             setMeshToAttach(undefined);
-        };
+        }
     }, [
         currentWidgets,
         currentWidgets.length,
-        firstCurrentWidget.id,
+        firstCurrentWidget?.id,
         getMeshByWidget,
         previousCurrentWidgets,
+        transformControls,
     ]);
 
     /**
