@@ -3,6 +3,7 @@ import geometryForms from "@features/Widgets/GeometryForms";
 import { GeometryFormsProps } from "@features/Widgets/GeometryForms/GeometryForms";
 import player from "@features/Widgets/Player";
 import { PlayerProps } from "@features/Widgets/Player/Player";
+import terrain from "@features/Widgets/Terrain";
 import text from "@features/Widgets/Text";
 import { TextState } from "@features/Widgets/Text/state/textReducer";
 import { TextProps } from "@features/Widgets/Text/Text";
@@ -31,4 +32,4 @@ export const preparedReducer = {
     textState2: text2.reducer,
 };
 
-export default [geometryForms, text, text2, player, cameras];
+export default [geometryForms, terrain, text, text2, player, cameras];

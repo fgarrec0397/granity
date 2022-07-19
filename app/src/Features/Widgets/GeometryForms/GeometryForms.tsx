@@ -1,6 +1,8 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
+import { useBox } from "@react-three/cannon";
 import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
-import { FC } from "react";
+import { FC, useRef } from "react";
+import { Mesh } from "three";
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
@@ -11,9 +13,18 @@ type OwnProps = GeometryFormsProps;
 
 const GeometryForms: FC<OwnProps> = ({ shape, color }) => {
     const GeometryComponent = shape;
+    // const [ref] = useBox(() => ({ mass: 1, position: [0, 0, 0], type: "Kinematic" }));
+    // const [ref, api] = useBox(
+    //     () => ({
+    //         position: [0, 0, 0],
+    //     }),
+    //     useRef<Mesh>(null)
+    // );
+
+    // TODO -- Test at the root of the widget in WidgetRenderer
 
     return (
-        <mesh name="GeometryForms1" position={[0, 0, 0]}>
+        <mesh position={[0, 0, 0]}>
             <GeometryComponent />
             <meshStandardMaterial color={color} />
         </mesh>

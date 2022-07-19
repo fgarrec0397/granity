@@ -1,6 +1,6 @@
 import useKeyboardControls from "@app/Core/_actions/hooks/useKeyboardControls";
 import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
-import { Physics } from "@react-three/cannon";
+import { Debug, Physics } from "@react-three/cannon";
 import Widgets from "@widgets/Widgets";
 import { FC } from "react";
 
@@ -20,10 +20,12 @@ const Scene: FC = () => {
 
     return (
         <>
-            <Physics isPaused={isEditor}>
-                <Lights />
-                <SceneDefaultCamera />
-                <Widgets />
+            <Physics isPaused={isEditor} gravity={[0, -30, 0]}>
+                <Debug color="black" scale={1.1}>
+                    <Lights />
+                    <SceneDefaultCamera />
+                    <Widgets />
+                </Debug>
             </Physics>
         </>
     );

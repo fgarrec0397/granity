@@ -6,6 +6,7 @@ import { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
 
 import { useWidgets } from "../_actions/hooks";
+import usePhysic from "../_actions/hooks/usePhysic";
 
 type Props = {
     widget: WidgetSceneObject;
@@ -14,11 +15,12 @@ type Props = {
 const WidgetRenderer: FC<Props> = ({ widget }) => {
     const { component, id, editorOptions } = widget;
     const Component = component;
-    const ref = useRef<Object3D>();
+    // const ref = useRef<Object3D>();
     const [hovered, setHover] = useState(false);
     const { widgetsDictionary, getWidgetDictionaryFromWidget } = useWidgets();
     const name = getWidgetName(widget);
     const { isEditor } = useIsEditor();
+    // const physic = usePhysic(); // TODO -- return the ref from this hook
 
     const componentProps = useCallback(() => {
         return {
@@ -42,7 +44,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
 
     return (
         <mesh
-            ref={ref}
+            // ref={ref}
             name={name}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
