@@ -5,7 +5,7 @@ import { FC } from "react";
 import { css } from "styled-components";
 
 import EditorFeedback from "./EditorFeedback";
-import EditorWidgetOptions from "./EditorWidgetOptions";
+import EditorWidgetOptions from "./EditorWidgetOptions/EditorWidgetOptions";
 
 const { Panel } = Collapse;
 

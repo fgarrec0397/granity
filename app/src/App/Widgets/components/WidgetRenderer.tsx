@@ -20,7 +20,9 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
     const { widgetsDictionary, getWidgetDictionaryFromWidget } = useWidgets();
     const name = getWidgetName(widget);
     const { isEditor } = useIsEditor();
-    // const physic = usePhysic(); // TODO -- return the ref from this hook
+
+    // const physicType =
+    const physic = usePhysic("Box", () => ({ mass: 1, position: [10, 0, 0], type: "Dynamic" })); // TODO -- return the ref from this hook
 
     const componentProps = useCallback(() => {
         return {

@@ -34,7 +34,7 @@ export default () => {
 
     return {
         currentWidgets: currentWidgetsState,
-        firstCurrentWidget: currentWidgetsState[0], // TODO - Remove this
+        firstCurrentWidget: currentWidgetsState[0],
         currentWidgetProperties,
         widgets,
         widgetsDictionary,

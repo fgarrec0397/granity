@@ -7,8 +7,6 @@ import terrain from "@features/Widgets/Terrain";
 import text from "@features/Widgets/Text";
 import { TextState } from "@features/Widgets/Text/state/textReducer";
 import { TextProps } from "@features/Widgets/Text/Text";
-import text2 from "@features/Widgets/Text2";
-import { TextState2 } from "@features/Widgets/Text2/state/textReducer";
 
 /**
  * Add your Widgets Props here as union types
@@ -20,7 +18,6 @@ export type FeaturesWidgetsProps = GeometryFormsProps & TextProps & PlayerProps;
  */
 export interface FeaturesState {
     textState: TextState;
-    textState2: TextState2;
 }
 
 /**
@@ -29,7 +26,6 @@ export interface FeaturesState {
  */
 export const preparedReducer = {
     textState: text.reducer,
-    textState2: text2.reducer,
 };
 
-export default [geometryForms, terrain, text, text2, player, cameras];
+export default [geometryForms, terrain, text, player, cameras];

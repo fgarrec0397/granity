@@ -46,10 +46,17 @@ export interface WidgetBaseOptions extends WidgetAdditionnalOptions {
 export type WidgetOptions = WidgetBaseOptions;
 
 /**
+ * All physic options allowed for the widget in the editor
+ */
+export type WidgetPhysicOptions = WidgetOptions;
+
+/**
  * Widget object definition. This information is displayed in the editor
  */
 export interface WidgetDefinition {
     name: string;
+    hasPhysic?: boolean;
+    physic?: WidgetPhysicOptions[];
     options?: WidgetOptions[];
 }
 

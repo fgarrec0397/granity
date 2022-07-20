@@ -18,10 +18,17 @@ export default () => {
                 const deserializedWidgets = data.serializedWidgets.map((x) => {
                     const component = getSceneWidgetComponentFromModules(x);
                     const widgetModule = getWidgetModuleFromWidgetScene(x);
+                    console.log(widgetModule, "widgetModule");
+
                     const widgetModuleOptions = [
                         ...(widgetModule?.widgetDefinition?.options || []),
                     ];
                     const sceneWidgetOptions = [...(x?.widgetDefinition?.options || [])];
+
+                    Object.assign(x, {
+                        ...widgetModule,
+                        editorOptions: x.editorOptions,
+                    });
 
                     // Replace saved widget definitions options with local widget definitions options
                     if (sceneWidgetOptions.length && widgetModuleOptions.length) {

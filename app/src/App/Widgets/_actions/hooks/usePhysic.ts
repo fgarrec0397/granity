@@ -1,13 +1,27 @@
-import { Api, BodyShapeType, useBox } from "@react-three/cannon";
+import {
+    Api,
+    BodyProps,
+    BodyShapeType,
+    BoxProps,
+    PlaneProps,
+    useBox,
+    usePlane,
+} from "@react-three/cannon";
 import { Object3D } from "three";
 
 type PhysicTypes = {
     [Property in BodyShapeType]?: Api<Object3D<Event>>;
+} & {
+    Void?: null;
 };
 
-export default (physicTypes: BodyShapeType) => {
+type GetByIndex<T extends BodyProps> = (index: number) => T;
+
+export default <P extends BodyProps>(physicTypes: BodyShapeType, fn: GetByIndex<P>) => {
     const physic = {
-        Box: useBox(() => ({ mass: 1, position: [10, 0, 0], type: "Dynamic" })),
+        Box: useBox(fn as GetByIndex<BoxProps>),
+        Plane: usePlane(fn as GetByIndex<PlaneProps>),
+        Void: null,
     } as PhysicTypes;
 
     return physic[physicTypes] as PhysicTypes;
