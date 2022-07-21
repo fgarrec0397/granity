@@ -1,7 +1,7 @@
 import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
 import { ThreeEvent } from "@react-three/fiber";
 import { getWidgetName, populateWidgetProperties } from "@widgets/_actions/utilities";
-import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
+import { WidgetPhysicOptions, WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
 import { FC, useCallback, useRef, useState } from "react";
 import { Object3D } from "three";
 
@@ -13,16 +13,22 @@ type Props = {
 };
 
 const WidgetRenderer: FC<Props> = ({ widget }) => {
-    const { component, id, editorOptions } = widget;
+    const {
+        component,
+        id,
+        editorOptions,
+        widgetDefinition: { physic },
+    } = widget;
     const Component = component;
-    // const ref = useRef<Object3D>();
     const [hovered, setHover] = useState(false);
     const { widgetsDictionary, getWidgetDictionaryFromWidget } = useWidgets();
     const name = getWidgetName(widget);
     const { isEditor } = useIsEditor();
 
-    // const physicType =
-    const physic = usePhysic("Box", () => ({ mass: 1, position: [10, 0, 0], type: "Dynamic" })); // TODO -- return the ref from this hook
+    console.log(widget, "widget");
+
+    const { shape } = physic as WidgetPhysicOptions;
+    const [ref] = usePhysic(shape || "Void", () => ({ mass: 1, type: "Dynamic" })); // TODO -- putting dynamic config here makes an error
 
     const componentProps = useCallback(() => {
         return {
@@ -44,9 +50,11 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
         <>{isEditor && editorOptions?.meshHolder ? editorOptions?.meshHolder : null}</>
     );
 
+    console.log(componentProps(), "componentProps");
+
     return (
         <mesh
-            // ref={ref}
+            ref={ref}
             name={name}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}

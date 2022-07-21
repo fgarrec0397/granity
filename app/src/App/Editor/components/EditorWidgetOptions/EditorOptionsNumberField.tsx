@@ -1,7 +1,7 @@
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import Typography, { TypographyStyles } from "@app/Common/components/Html/Typography";
 import { FieldType, WidgetBaseOptions } from "@widgets/_actions/widgetsTypes";
-import { Input, InputNumber } from "antd";
+import { InputNumber } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
 
@@ -36,7 +36,7 @@ const EditorOptionsNumberField: FC<Props> = ({ option }) => {
         updateOptionsValues(value, option);
     };
 
-    if (option.fieldType === FieldType.Text) {
+    if (option.fieldType === FieldType.Number) {
         return (
             <StyledWrapper {...styles.inputsWrapper}>
                 <Typography as="label" {...styles.label}>

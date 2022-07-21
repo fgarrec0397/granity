@@ -5,14 +5,12 @@ import { FC } from "react";
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
     color: string;
-    number: number;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, number }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color }) => {
     const GeometryComponent = shape;
-    console.log(number, "number");
 
     return (
         <mesh position={[0, 0, 0]}>
@@ -27,7 +25,11 @@ export const widget: WidgetModule<GeometryFormsProps> = {
     reducer: null,
     widgetDefinition: {
         name: "Geometry",
-        hasPhysic: true,
+        physic: {
+            shape: "Box",
+            type: "Dynamic",
+            mass: 1,
+        },
         options: [
             {
                 name: "color",
