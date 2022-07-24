@@ -1,5 +1,5 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import { useBody, useBox } from "@react-three/cannon";
+import { useBox } from "@react-three/cannon";
 import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
 import { FC } from "react";
 
@@ -10,7 +10,7 @@ export interface GeometryFormsProps extends EditableWidget {
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, position, rotation, scale }) => {
     const GeometryComponent = shape;
 
     const [ref] = useBox(() => ({

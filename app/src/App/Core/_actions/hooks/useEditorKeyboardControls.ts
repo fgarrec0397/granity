@@ -1,6 +1,5 @@
 import { KeyboardMappings } from "@app/Core/coreTypes";
 import { useIsEditor } from "@app/Editor/_actions/hooks";
-import useHandleEditor from "@app/Editor/_actions/hooks/useHandleEditor";
 import useCameras from "@scene/_actions/hooks/useCameras";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
@@ -15,8 +14,6 @@ export default () => {
     const { removeCurrentWidgets, copyWidget } = useWidgetsActions();
     const { currentWidgets, firstCurrentWidget, widgets } = useWidgets();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
-
-    useHandleEditor();
 
     useKeyboardMappings(
         (keyMapping: KeyboardMappings) => {

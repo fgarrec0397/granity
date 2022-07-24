@@ -176,6 +176,14 @@ export default () => {
         }
     };
 
+    // const removeWidgetsBatch = (meshs: Object3D[]) => {
+    //     const { widget } = getWidgetByMesh(mesh);
+
+    //     if (widget.id) {
+    //         remove(widget);
+    //     }
+    // };
+
     const removeSelected = () => {
         dispatchRemoveSelected();
     };

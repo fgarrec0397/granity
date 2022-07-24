@@ -18,7 +18,6 @@ export default () => {
                 const deserializedWidgets = data.serializedWidgets.map((x) => {
                     const component = getSceneWidgetComponentFromModules(x);
                     const widgetModule = getWidgetModuleFromWidgetScene(x);
-                    console.log(widgetModule, "widgetModule");
 
                     const widgetModuleOptions = [
                         ...(widgetModule?.widgetDefinition?.options || []),

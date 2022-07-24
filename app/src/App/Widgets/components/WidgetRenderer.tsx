@@ -54,17 +54,26 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
 
     console.log(componentProps(), "componentProps");
 
+    const widgetProperties = getWidgetDictionaryFromWidget(id!)?.properties;
+
     return (
         <mesh
             // ref={ref}
             name={name}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
-            {...getWidgetDictionaryFromWidget(id!)?.properties}
+            // {...widgetProperties}
         >
             {meshHolder}
 
-            <Component {...componentProps()} hovered={hovered} />
+            {/* TODO -- make sure types is working properly and pass position, rotation and scale to widgets */}
+            <Component
+                {...componentProps()}
+                hovered={hovered}
+                position={widgetProperties?.position}
+                rotation={widgetProperties?.rotation}
+                scale={widgetProperties?.scale}
+            />
         </mesh>
     );
 };
