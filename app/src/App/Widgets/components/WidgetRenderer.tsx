@@ -27,8 +27,10 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
 
     console.log(widget, "widget");
 
-    const { shape } = physic as WidgetPhysicOptions;
-    const [ref] = usePhysic(shape || "Void", () => ({ mass: 1, type: "Dynamic" })); // TODO -- putting dynamic config here makes an error
+    const { shape, type, mass } = physic as WidgetPhysicOptions;
+    console.log(shape, "shape");
+
+    // const [ref] = usePhysic(shape || "Void", () => ({ mass, type })); // TODO -- putting dynamic config here makes an error
 
     const componentProps = useCallback(() => {
         return {
@@ -54,7 +56,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
 
     return (
         <mesh
-            ref={ref}
+            // ref={ref}
             name={name}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}

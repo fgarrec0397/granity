@@ -9,17 +9,13 @@ export type TerrainProps = EditableWidget;
 type OwnProps = TerrainProps;
 
 const Terrain: FC<OwnProps> = () => {
-    // const [ref] = usePlane(
-    //     () => ({
-    //         rotation: [-Math.PI / 2, 0, 0],
-    //         position: [0, 0, 0],
-    //     }),
-    //     useRef<Mesh>(null)
-    // );
+    const [ref] = usePlane(() => ({
+        rotation: [-Math.PI / 2, 0, 0],
+    }));
 
     return (
-        <mesh>
-            <planeBufferGeometry args={[5, 5]} />
+        <mesh ref={ref}>
+            <planeBufferGeometry />
             <meshStandardMaterial color="white" />
         </mesh>
     );
@@ -30,5 +26,10 @@ export const widget: WidgetModule<TerrainProps> = {
     reducer: null,
     widgetDefinition: {
         name: "Terrain",
+        physic: {
+            shape: "Plane",
+            type: "Dynamic",
+            mass: 0,
+        },
     },
 };
