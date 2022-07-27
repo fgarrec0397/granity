@@ -60,9 +60,6 @@ const EditorUI: FC = () => {
             <StyledWrapper {...styles.rightWrapper}>
                 <EditorItemsList />
             </StyledWrapper>
-            {/* <StyledWrapper {...styles.rightWrapper}>
-                    <ScenePreview />
-                </StyledWrapper> */}
             <StyledWrapper {...styles.bottomWrapper}>
                 <EditorWidgetsMenu />
                 <EditorSaveButton />

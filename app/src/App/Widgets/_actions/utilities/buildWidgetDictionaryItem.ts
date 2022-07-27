@@ -7,6 +7,7 @@ import {
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
+    WidgetSceneObjects,
     WidgetsDictionary,
     WidgetsDictionaryItem,
 } from "../widgetsTypes";
@@ -17,17 +18,17 @@ type WidgetsDictionaryBuilderOptions = {
     options?: WidgetOptionsValues;
 };
 
-export const buildWidgetsDictionary = (widgets: WidgetSceneObject[]) => {
+export const buildWidgetsDictionary = (widgets: WidgetSceneObjects) => {
     const widgetsDictionary: WidgetsDictionary = {};
 
-    widgets.forEach((widget) => {
-        const dictionaryItem = buildWidgetDictionaryItem(widget);
+    for (const key in widgets) {
+        const dictionaryItem = buildWidgetDictionaryItem(widgets[key]);
 
         widgetsDictionary[dictionaryItem.id] = {
             properties: dictionaryItem.properties!,
             options: dictionaryItem.options!,
         };
-    });
+    }
 
     return widgetsDictionary;
 };

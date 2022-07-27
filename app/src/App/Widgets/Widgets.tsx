@@ -38,9 +38,9 @@ const Widgets: FC = () => {
 
     return (
         <Select box multiple onChange={onSelectMesh}>
-            {widgets.map((widget, index) => (
+            {Object.keys(widgets).map((widgetId, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <Widget key={index} widget={widget} />
+                <Widget key={index} widget={widgets[widgetId]} />
             ))}
         </Select>
     );

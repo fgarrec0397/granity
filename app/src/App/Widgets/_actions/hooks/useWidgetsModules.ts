@@ -17,7 +17,7 @@ export default () => {
 
     const getSceneWidgetComponentFromModules = useCallback(
         (widget: WidgetSceneObject | SerializedWidgetSceneObject) => {
-            return getWidgetModuleFromWidgetScene(widget)?.component;
+            return getWidgetModuleFromWidgetScene(widget)!.component;
         },
         [getWidgetModuleFromWidgetScene]
     );

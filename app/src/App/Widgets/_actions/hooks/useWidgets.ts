@@ -11,13 +11,16 @@ export default () => {
 
     useEffect(() => {
         // TODO -- Check an optimized version to get the current widgets ---> O(n) instead of O(n^2)
-        const currentWidgets = widgets.filter((x) => {
-            if (x.id) {
-                return selected.indexOf(x.id) !== -1;
-            }
+        const currentWidgets = Object.keys(widgets)
+            .filter((x) => {
+                const widget = widgets[x];
 
-            return false;
-        });
+                if (widget.id) {
+                    return selected.indexOf(widget.id) !== -1;
+                }
+                return false;
+            })
+            .map((x) => widgets[x]);
 
         setCurrentWidgetsState(currentWidgets);
     }, [selected, widgets]);

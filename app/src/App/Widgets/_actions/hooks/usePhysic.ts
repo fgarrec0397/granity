@@ -26,7 +26,6 @@ export default <P extends BodyProps>(
         Plane: usePlane(fn as GetByIndex<PlaneProps>),
         Void: [null],
     } as PhysicShape;
-    console.log(physicTypes, "physicTypes");
 
     return physic[physicTypes] as Api<Object3D<Event>>;
 };

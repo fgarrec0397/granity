@@ -78,7 +78,6 @@ type FeaturesUnionsTypes = UnionOfProperties<FeaturesState>;
  * Widget object that is exported from all widgets objects
  */
 export interface WidgetModule<Props = FeaturesWidgetsProps> {
-    id?: string;
     component: FC<Props>;
     reducer: Reducer<FeaturesUnionsTypes, AnyAction> | null;
     editorOptions?: WidgetEditorOptions;
@@ -88,12 +87,34 @@ export interface WidgetModule<Props = FeaturesWidgetsProps> {
 /**
  * Informations of a widget object on the scene
  */
-export type WidgetSceneObject = Omit<WidgetModule, "reducer">;
+export type WidgetSceneObject<Props = FeaturesWidgetsProps> = Omit<
+    WidgetModule<Props>,
+    "reducer"
+> & {
+    id: string;
+};
+
+/**
+ * A dictionary containing informations about all WidgetSceneObjects
+ */
+export type WidgetSceneObjects<Props = FeaturesWidgetsProps> = {
+    [id: string]: WidgetSceneObject<Props>;
+};
+
+/**
+ * A serialized dictionary containing informations about all WidgetSceneObjects
+ */
+export type SerializedWidgetSceneObjects<Props = FeaturesWidgetsProps> = {
+    [id: string]: SerializedWidgetSceneObject<Props>;
+};
 
 /**
  * A serialized version of WidgetSceneObject type
  */
-export type SerializedWidgetSceneObject = Omit<WidgetSceneObject, "component" | "meshHolder"> & {
+export type SerializedWidgetSceneObject<Props = FeaturesWidgetsProps> = Omit<
+    WidgetSceneObject<Props>,
+    "component" | "meshHolder"
+> & {
     meshHolder: string;
 };
 
