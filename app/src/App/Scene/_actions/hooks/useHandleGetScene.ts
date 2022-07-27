@@ -1,7 +1,7 @@
 import { deserialize } from "@app/Core/_actions/utilities/componentSerializer";
 import { useWidgetsActions, useWidgetsModules } from "@app/Widgets/_actions/hooks";
 import { buildWidgetsDictionary } from "@app/Widgets/_actions/utilities/buildWidgetDictionaryItem";
-import { WidgetSceneObject } from "@app/Widgets/_actions/widgetsTypes";
+import { WidgetSceneObjects } from "@app/Widgets/_actions/widgetsTypes";
 import { useEffect } from "react";
 
 import { fetchScene } from "../_data/services";
@@ -15,31 +15,41 @@ export default () => {
     useEffect(() => {
         const handleFetchScene = async () => {
             await fetchScene((data: SceneApiResponseResult) => {
-                const deserializedWidgets = data.serializedWidgets.map((x) => {
-                    const component = getSceneWidgetComponentFromModules(x);
-                    const widgetModule = getWidgetModuleFromWidgetScene(x);
+                const deserializedWidgets: WidgetSceneObjects = {};
+
+                for (const key in data.serializedWidgets) {
+                    const widget = data.serializedWidgets[key];
+
+                    const component = getSceneWidgetComponentFromModules(widget);
+                    const widgetModule = getWidgetModuleFromWidgetScene(widget);
+
                     const widgetModuleOptions = [
                         ...(widgetModule?.widgetDefinition?.options || []),
                     ];
-                    const sceneWidgetOptions = [...(x?.widgetDefinition?.options || [])];
+                    const sceneWidgetOptions = [...(widget?.widgetDefinition?.options || [])];
+
+                    Object.assign(widget, {
+                        ...widgetModule,
+                        editorOptions: widget.editorOptions,
+                    });
 
                     // Replace saved widget definitions options with local widget definitions options
                     if (sceneWidgetOptions.length && widgetModuleOptions.length) {
-                        x.widgetDefinition.options = widgetModuleOptions;
+                        widget.widgetDefinition.options = widgetModuleOptions;
                     }
 
                     // Unserialize meshHolder component
-                    if (x.editorOptions?.meshHolder) {
-                        x.editorOptions.meshHolder = deserialize(
-                            x.editorOptions.meshHolder as string
+                    if (widget.editorOptions?.meshHolder) {
+                        widget.editorOptions.meshHolder = deserialize(
+                            widget.editorOptions.meshHolder as string
                         );
                     }
 
-                    return {
-                        ...x,
+                    deserializedWidgets[widget.id] = {
+                        ...widget,
                         component,
-                    } as WidgetSceneObject;
-                });
+                    };
+                }
 
                 const mergedWidgetDictionary = buildWidgetsDictionary(deserializedWidgets);
 

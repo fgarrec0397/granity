@@ -1,6 +1,5 @@
 import { events } from "@app/Core/_actions/utilities";
 import useWidgetsInitModules from "@app/Widgets/_actions/hooks/useWidgetsInitModules";
-import Editor from "@editor/Editor";
 import { useContextBridge } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { CamerasContext } from "@scene/_actions/_data/providers/CamerasContextProvider";
@@ -9,6 +8,8 @@ import { SceneWidgetsContext } from "@widgets/_actions/_data/providers/SceneWidg
 import { WidgetsModulesContext } from "@widgets/_actions/_data/providers/WidgetsModulesProvider";
 import { FC } from "react";
 import { ReactReduxContext } from "react-redux";
+
+import UI from "./UI/UI";
 
 const App: FC = () => {
     const ContextBridge = useContextBridge(
@@ -33,7 +34,7 @@ const App: FC = () => {
                     <Scene />
                 </ContextBridge>
             </Canvas>
-            <Editor />
+            <UI />
         </>
     );
 };

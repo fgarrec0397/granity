@@ -5,7 +5,8 @@ import { useThree } from "@react-three/fiber";
 import useGetWidgets from "@widgets/_actions/hooks/useGetWidgets";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
-import { FC, useEffect, useState } from "react";
+import isEqual from "lodash/isEqual";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Object3D } from "three";
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 
@@ -16,65 +17,77 @@ const TransformControlsComponent: FC = ({ children }) => {
     const { getMeshByWidget } = useGetWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing } = useIsEditing();
-    const [transformControl, setTransformControl] = useState<TransformControls>();
-    const [attachedMesh, setAttachedMesh] = useState<Object3D>();
+    const [meshToAttach, setMeshToAttach] = useState<Object3D>();
+
+    const previousCurrentMode = usePrevious(currentMode);
     const previousCurrentWidgets = usePrevious(currentWidgets);
+    const transformControls = useMemo(
+        () => new TransformControls(camera, gl.domElement),
+        [camera, gl.domElement]
+    );
 
+    /**
+     * Attach the selected mesh on the scene to TransformControls
+     * Whenever it is unmounted, it detach all attached meshes
+     */
     useEffect(() => {
-        if (!transformControl && attachedMesh) {
-            const transformC = new TransformControls(camera, gl.domElement);
-
-            transformC.attach(attachedMesh);
-            transformC.setMode(currentMode);
-
-            scene.add(transformC);
-            setTransformControl(transformC);
+        if (meshToAttach) {
+            transformControls.attach(meshToAttach);
         }
 
         return () => {
-            if (transformControl) {
-                scene.remove(transformControl);
-                setTransformControl(undefined);
-            }
+            transformControls.detach();
         };
-    }, [transformControl, camera, scene, gl, attachedMesh, currentMode]);
+    }, [scene, meshToAttach, transformControls]);
 
     /**
-     * Detach the transformControl whenever the current element change
+     * Add TransformControls on the scene and remove it when it unmounted
      */
     useEffect(() => {
-        if (transformControl && previousCurrentWidgets !== currentWidgets) {
-            transformControl.detach();
-            setAttachedMesh(undefined);
+        scene.add(transformControls);
+
+        return () => {
+            scene.remove(transformControls);
+        };
+    }, [scene, meshToAttach, transformControls]);
+
+    /**
+     * Set the current mode of TransformControls when it changes
+     */
+    useEffect(() => {
+        if (currentMode !== previousCurrentMode) {
+            transformControls.setMode(currentMode);
+        }
+    }, [currentMode, previousCurrentMode, transformControls]);
+
+    /**
+     * Update the current the mesh to be attached to TransformControls when it changes
+     */
+    useEffect(() => {
+        if (
+            currentWidgets.length &&
+            (!previousCurrentWidgets || !isEqual(currentWidgets, previousCurrentWidgets))
+        ) {
+            setMeshToAttach(getMeshByWidget(currentWidgets[0]));
+        } else if (!currentWidgets.length) {
+            setMeshToAttach(undefined);
         }
     }, [
         currentWidgets,
         currentWidgets.length,
         firstCurrentWidget?.id,
+        getMeshByWidget,
         previousCurrentWidgets,
-        transformControl,
+        transformControls,
     ]);
 
-    useEffect(() => {
-        if (transformControl) {
-            transformControl.setMode(currentMode);
-        }
-    }, [currentMode, transformControl]);
-
-    useEffect(() => {
-        if (currentWidgets.length) {
-            setAttachedMesh(getMeshByWidget(currentWidgets[0]));
-        }
-    }, [currentWidgets, currentWidgets.length, firstCurrentWidget?.id, getMeshByWidget]);
-
     /**
-     * Initialize events on transformControls.
-     * Updated each time elementsOnScene is modified to keep the state updated
+     * Initialize events on TransformControls
      */
     useEffect(() => {
         const onTransformControlMouseUp = () => {
-            if (attachedMesh) {
-                updateCurrentWidgetWithMesh(attachedMesh);
+            if (meshToAttach) {
+                updateCurrentWidgetWithMesh(meshToAttach);
             }
         };
 
@@ -83,19 +96,19 @@ const TransformControlsComponent: FC = ({ children }) => {
         };
 
         const onObjectChangeHandler = () => {
-            updateCurrentWidgetWithMesh(attachedMesh, true);
+            updateCurrentWidgetWithMesh(meshToAttach, true);
         };
 
-        transformControl?.addEventListener("mouseUp", onTransformControlMouseUp);
-        transformControl?.addEventListener("dragging-changed", onDraggingChangedHandler);
-        transformControl?.addEventListener("objectChange", onObjectChangeHandler);
+        transformControls?.addEventListener("mouseUp", onTransformControlMouseUp);
+        transformControls?.addEventListener("dragging-changed", onDraggingChangedHandler);
+        transformControls?.addEventListener("objectChange", onObjectChangeHandler);
 
         return () => {
-            transformControl?.removeEventListener("mouseUp", onTransformControlMouseUp);
-            transformControl?.removeEventListener("dragging-changed", onDraggingChangedHandler);
-            transformControl?.removeEventListener("objectChange", onObjectChangeHandler);
+            transformControls?.removeEventListener("mouseUp", onTransformControlMouseUp);
+            transformControls?.removeEventListener("dragging-changed", onDraggingChangedHandler);
+            transformControls?.removeEventListener("objectChange", onObjectChangeHandler);
         };
-    }, [transformControl, attachedMesh, updateCurrentWidgetWithMesh, setIsEditing]);
+    }, [transformControls, meshToAttach, updateCurrentWidgetWithMesh, setIsEditing]);
 
     return <>{children}</>;
 };

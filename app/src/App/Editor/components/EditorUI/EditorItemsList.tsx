@@ -10,9 +10,9 @@ const EditorItemsList: FC = () => {
             <List
                 size="small"
                 bordered
-                dataSource={widgets}
-                renderItem={({ widgetDefinition }) => (
-                    <List.Item>{widgetDefinition.name}</List.Item>
+                dataSource={Object.keys(widgets)}
+                renderItem={(widgetId) => (
+                    <List.Item>{widgets[widgetId].widgetDefinition.name}</List.Item>
                 )}
             />
         </Card>

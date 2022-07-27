@@ -1,8 +1,8 @@
 import widgetsConstants from "../widgetsConstants";
-import { WidgetModule, WidgetSceneObject } from "../widgetsTypes";
+import { WidgetSceneObject } from "../widgetsTypes";
 
 const { widgetObjectsPrefix } = widgetsConstants;
 
-export default (widget: WidgetModule | WidgetSceneObject) => {
+export default (widget: WidgetSceneObject) => {
     return `${widgetObjectsPrefix}+${widget.widgetDefinition.name}+${widget.id}`;
 };

@@ -12,6 +12,7 @@ import {
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
+    WidgetSceneObjects,
     WidgetsDictionary,
 } from "../widgetsTypes";
 import useGetWidgets from "./useGetWidgets";
@@ -29,13 +30,11 @@ export default () => {
         properties?: WidgetProperties,
         options?: WidgetOptionsValues
     ) => {
-        const newWidget = { ...widget };
+        const newWidget: WidgetSceneObject = { ...widget };
         let widgetProperties = properties;
         let widgetOptions = options;
 
-        if (!newWidget.id) {
-            newWidget.id = uidGenerator(); // assign id on initialisation
-        }
+        newWidget.id = uidGenerator(); // assign id on initialisation
 
         if (!widgetProperties) {
             widgetProperties = {
@@ -64,16 +63,14 @@ export default () => {
     };
 
     const addWidgetsBatch = useCallback(
-        (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObject[]) => {
+        (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObjects) => {
             addBatch(newWidgets, newWidgetsDictionary);
         },
         [addBatch]
     );
 
     const selectWidget = (widget: WidgetSceneObject) => {
-        if (widget.id) {
-            dispatchSetSelected(widget);
-        }
+        dispatchSetSelected(widget);
     };
 
     const updateWidget = useCallback(
@@ -82,12 +79,10 @@ export default () => {
             widgetProperties?: WidgetProperties,
             updateOnlyProperties?: boolean
         ) => {
-            if (widget?.id) {
-                if (updateOnlyProperties && widgetProperties) {
-                    updateCurrentProperties(widgetProperties);
-                } else {
-                    update(widget, widgetProperties);
-                }
+            if (updateOnlyProperties && widgetProperties) {
+                updateCurrentProperties(widgetProperties);
+            } else {
+                update(widget, widgetProperties);
             }
         },
         [update, updateCurrentProperties]
@@ -98,9 +93,7 @@ export default () => {
             widget: WidgetSceneObject | SerializedWidgetSceneObject,
             widgetOptions: WidgetOptionsValues
         ) => {
-            if (widget?.id) {
-                update(widget as WidgetSceneObject, undefined, widgetOptions);
-            }
+            update(widget as WidgetSceneObject, undefined, widgetOptions);
         },
         [update]
     );
@@ -109,9 +102,7 @@ export default () => {
         (widgetOptions: WidgetOptionsValues) => {
             const currentWidget = currentWidgets[0];
 
-            if (currentWidget?.id) {
-                updateWidgetOptions(currentWidget, widgetOptions);
-            }
+            updateWidgetOptions(currentWidget, widgetOptions);
         },
         [currentWidgets, updateWidgetOptions]
     );
@@ -120,9 +111,7 @@ export default () => {
         (widgetProperties: WidgetProperties, updateOnlyProperties?: boolean) => {
             const currentWidget = currentWidgets[0];
 
-            if (currentWidget?.id) {
-                updateWidget(currentWidget, widgetProperties, updateOnlyProperties);
-            }
+            updateWidget(currentWidget, widgetProperties, updateOnlyProperties);
         },
         [currentWidgets, updateWidget]
     );
@@ -175,6 +164,14 @@ export default () => {
             remove(widget);
         }
     };
+
+    // const removeWidgetsBatch = (meshs: Object3D[]) => {
+    //     const { widget } = getWidgetByMesh(mesh);
+
+    //     if (widget.id) {
+    //         remove(widget);
+    //     }
+    // };
 
     const removeSelected = () => {
         dispatchRemoveSelected();

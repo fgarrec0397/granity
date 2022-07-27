@@ -65,7 +65,7 @@ const usePlayerControls = (): Movements => {
 
 const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => {
     const [ref, api] = useSphere(() => ({
-        mass: 0,
+        mass: 1,
         type: "Dynamic",
         // position: initialPlayerPos,
         ...props,

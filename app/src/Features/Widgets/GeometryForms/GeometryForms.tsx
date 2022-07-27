@@ -1,26 +1,29 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import { Html } from "@react-three/drei";
+import { useBox } from "@react-three/cannon";
 import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
 import { FC } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
-    number: number;
     shape: string;
     color: string;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, number }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, position, rotation, scale }) => {
     const GeometryComponent = shape;
 
+    const [ref] = useBox(() => ({
+        type: "Dynamic",
+        mass: 1,
+        rotation: [-Math.PI / 2, 0, 0],
+        position: [0, 0, 0],
+    }));
+
     return (
-        <mesh name="GeometryForms1" position={[0, 0, 0]}>
+        <mesh ref={ref} position={[0, 0, 0]}>
             <GeometryComponent />
             <meshStandardMaterial color={color} />
-            <Html>
-                <h2>{number}</h2>
-            </Html>
         </mesh>
     );
 };
@@ -30,13 +33,12 @@ export const widget: WidgetModule<GeometryFormsProps> = {
     reducer: null,
     widgetDefinition: {
         name: "Geometry",
+        physic: {
+            shape: "Box",
+            type: "Dynamic",
+            mass: 1,
+        },
         options: [
-            {
-                name: "color2",
-                displayName: "Color 2",
-                fieldType: FieldType.Text,
-                defaultValue: "blue",
-            },
             {
                 name: "color",
                 displayName: "Color",

@@ -2,8 +2,7 @@ import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
 import { ThreeEvent } from "@react-three/fiber";
 import { getWidgetName, populateWidgetProperties } from "@widgets/_actions/utilities";
 import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
-import { FC, useCallback, useRef, useState } from "react";
-import { Object3D } from "three";
+import { FC, useCallback, useState } from "react";
 
 import { useWidgets } from "../_actions/hooks";
 
@@ -14,7 +13,6 @@ type Props = {
 const WidgetRenderer: FC<Props> = ({ widget }) => {
     const { component, id, editorOptions } = widget;
     const Component = component;
-    const ref = useRef<Object3D>();
     const [hovered, setHover] = useState(false);
     const { widgetsDictionary, getWidgetDictionaryFromWidget } = useWidgets();
     const name = getWidgetName(widget);
@@ -40,13 +38,14 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
         <>{isEditor && editorOptions?.meshHolder ? editorOptions?.meshHolder : null}</>
     );
 
+    const widgetProperties = getWidgetDictionaryFromWidget(id!)?.properties;
+
     return (
         <mesh
-            ref={ref}
             name={name}
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
-            {...getWidgetDictionaryFromWidget(id!)?.properties}
+            {...widgetProperties}
         >
             {meshHolder}
 

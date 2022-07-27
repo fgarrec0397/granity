@@ -1,6 +1,6 @@
 import {
-    SerializedWidgetSceneObject,
-    WidgetSceneObject,
+    SerializedWidgetSceneObjects,
+    WidgetSceneObjects,
     WidgetsDictionary,
 } from "@app/Widgets/_actions/widgetsTypes";
 import { Camera } from "@react-three/fiber";
@@ -23,11 +23,11 @@ export type SceneCamera = {
  */
 
 export type SaveSceneServiceParameter = {
-    widgets: WidgetSceneObject[];
+    widgets: WidgetSceneObjects;
     widgetsDictionary: WidgetsDictionary;
 };
 
 export type SceneApiResponseResult = {
-    serializedWidgets: SerializedWidgetSceneObject[];
+    serializedWidgets: SerializedWidgetSceneObjects;
     widgetsDictionary: WidgetsDictionary;
 };

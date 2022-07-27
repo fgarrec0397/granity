@@ -1,5 +1,5 @@
 import { Select } from "@react-three/drei";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 
 import { useGetWidgets, useWidgetsActions } from "./_actions/hooks";
 import useWidgets from "./_actions/hooks/useWidgets";
@@ -23,21 +23,24 @@ const Widgets: FC = () => {
 
     useWidgetsConnector();
 
-    const onSelectMesh = (meshArray: THREE.Object3D[]) => {
-        if (meshArray.length) {
-            const { widget } = getWidgetByMesh(meshArray[0]);
+    const onSelectMesh = useCallback(
+        (meshArray: THREE.Object3D[]) => {
+            if (meshArray.length) {
+                const { widget } = getWidgetByMesh(meshArray[0]);
 
-            if (widget) {
-                selectWidget(widget);
+                if (widget) {
+                    selectWidget(widget);
+                }
             }
-        }
-    };
+        },
+        [getWidgetByMesh, selectWidget]
+    );
 
     return (
         <Select box multiple onChange={onSelectMesh}>
-            {widgets.map((widget, index) => (
+            {Object.keys(widgets).map((widgetId, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <Widget key={index} widget={widget} />
+                <Widget key={index} widget={widgets[widgetId]} />
             ))}
         </Select>
     );

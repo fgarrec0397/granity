@@ -1,5 +1,6 @@
 import { UnionOfProperties } from "@common/commonTypes";
 import { FeaturesState, FeaturesWidgetsProps } from "@features/collector";
+import { BodyProps, BodyShapeType } from "@react-three/cannon";
 import { FC, ReactNode } from "react";
 import { AnyAction, Reducer } from "redux";
 import { Object3D } from "three";
@@ -46,17 +47,24 @@ export interface WidgetBaseOptions extends WidgetAdditionnalOptions {
 export type WidgetOptions = WidgetBaseOptions;
 
 /**
+ * All physic options allowed for the widget in the editor
+ */
+export type WidgetPhysicOptions<T extends BodyProps = BodyProps> = T & {
+    shape: BodyShapeType | "Void";
+};
+
+/**
  * Widget object definition. This information is displayed in the editor
  */
-export interface WidgetDefinition {
+export interface WidgetDefinition<P extends BodyProps = BodyProps> {
     name: string;
+    physic?: WidgetPhysicOptions<P>;
     options?: WidgetOptions[];
 }
 
 /**
  * Widget options to set in the editor
  */
-
 export type WidgetEditorOptions = {
     meshHolder?: ReactNode | Object3D;
 };
@@ -70,7 +78,6 @@ type FeaturesUnionsTypes = UnionOfProperties<FeaturesState>;
  * Widget object that is exported from all widgets objects
  */
 export interface WidgetModule<Props = FeaturesWidgetsProps> {
-    id?: string;
     component: FC<Props>;
     reducer: Reducer<FeaturesUnionsTypes, AnyAction> | null;
     editorOptions?: WidgetEditorOptions;
@@ -80,12 +87,34 @@ export interface WidgetModule<Props = FeaturesWidgetsProps> {
 /**
  * Informations of a widget object on the scene
  */
-export type WidgetSceneObject = Omit<WidgetModule, "reducer">;
+export type WidgetSceneObject<Props = FeaturesWidgetsProps> = Omit<
+    WidgetModule<Props>,
+    "reducer"
+> & {
+    id: string;
+};
+
+/**
+ * A dictionary containing informations about all WidgetSceneObjects
+ */
+export type WidgetSceneObjects<Props = FeaturesWidgetsProps> = {
+    [id: string]: WidgetSceneObject<Props>;
+};
+
+/**
+ * A serialized dictionary containing informations about all WidgetSceneObjects
+ */
+export type SerializedWidgetSceneObjects<Props = FeaturesWidgetsProps> = {
+    [id: string]: SerializedWidgetSceneObject<Props>;
+};
 
 /**
  * A serialized version of WidgetSceneObject type
  */
-export type SerializedWidgetSceneObject = Omit<WidgetSceneObject, "component" | "meshHolder"> & {
+export type SerializedWidgetSceneObject<Props = FeaturesWidgetsProps> = Omit<
+    WidgetSceneObject<Props>,
+    "component" | "meshHolder"
+> & {
     meshHolder: string;
 };
 

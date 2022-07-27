@@ -3,7 +3,7 @@ import { Object3D } from "three";
 
 import { getWidgetName } from "../utilities";
 import widgetsConstants from "../widgetsConstants";
-import { WidgetModule, WidgetSceneObject } from "../widgetsTypes";
+import { WidgetSceneObject } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 
 const { widgetObjectsPrefix } = widgetsConstants;
@@ -14,7 +14,7 @@ export default () => {
 
     const getWidgetById = (id: string | undefined) => {
         if (id) {
-            return widgets.find((x) => x.id === id);
+            return widgets[id];
         }
     };
 
@@ -37,7 +37,7 @@ export default () => {
         return { widget, widgetMesh };
     };
 
-    const getMeshByWidget = (widget: WidgetModule | WidgetSceneObject) => {
+    const getMeshByWidget = (widget: WidgetSceneObject) => {
         const meshName = getWidgetName(widget);
         return scene.getObjectByName(meshName);
     };

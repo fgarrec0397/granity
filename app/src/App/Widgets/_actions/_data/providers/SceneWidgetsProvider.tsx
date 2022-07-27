@@ -1,21 +1,21 @@
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
-import { WidgetSceneObject } from "../../widgetsTypes";
+import { WidgetSceneObjects } from "../../widgetsTypes";
 
 export interface SceneWidgetDefinitionContextModel {
-    widgets: WidgetSceneObject[] | [];
-    setSceneWidgets: (() => void) | Dispatch<SetStateAction<WidgetSceneObject[]>>;
+    widgets: WidgetSceneObjects;
+    setSceneWidgets: (() => void) | Dispatch<SetStateAction<WidgetSceneObjects>>;
 }
 
 export const defaultContext: SceneWidgetDefinitionContextModel = {
-    widgets: [],
+    widgets: {},
     setSceneWidgets: () => {},
 };
 
 export const SceneWidgetsContext = createContext<SceneWidgetDefinitionContextModel>(defaultContext);
 
 const SceneWidgetsContextProvider: FC = ({ children }) => {
-    const [widgets, setSceneWidgets] = useState<WidgetSceneObject[]>([]);
+    const [widgets, setSceneWidgets] = useState<WidgetSceneObjects>({});
 
     const providerValue: SceneWidgetDefinitionContextModel = {
         widgets,

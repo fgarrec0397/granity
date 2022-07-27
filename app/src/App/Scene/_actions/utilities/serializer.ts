@@ -1,21 +1,32 @@
 import { serialize } from "@app/Core/_actions/utilities/componentSerializer";
 import { SetOptionalPropertyFrom } from "@common/commonTypes";
-import { WidgetEditorOptions, WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
+import {
+    SerializedWidgetSceneObject,
+    SerializedWidgetSceneObjects,
+    WidgetEditorOptions,
+    WidgetSceneObject,
+    WidgetSceneObjects,
+} from "@widgets/_actions/widgetsTypes";
 
-export const serializeWidgets = (
-    widgets: SetOptionalPropertyFrom<WidgetSceneObject, "component">[]
-) => {
-    return widgets.map((x) => {
-        const clonedWidget = { ...x };
+export const serializeWidgets = (widgets: WidgetSceneObjects) => {
+    const serializedWidgets: SerializedWidgetSceneObjects = {};
 
-        if (x.editorOptions) {
-            x.editorOptions = serializeEditorOptions(x.editorOptions);
+    for (const key in widgets) {
+        const widget: SetOptionalPropertyFrom<WidgetSceneObject, "component"> = { ...widgets[key] };
+        let editorOptions: WidgetEditorOptions | undefined;
+        // serializedWidgets[key] = widget;
+        if (widget.editorOptions) {
+            editorOptions = serializeEditorOptions(widget.editorOptions);
         }
 
-        delete clonedWidget.component;
+        widget.editorOptions = editorOptions;
 
-        return clonedWidget;
-    });
+        delete widget.component;
+
+        serializedWidgets[widget.id] = widget as SerializedWidgetSceneObject;
+    }
+
+    return serializedWidgets;
 };
 
 export const serializeEditorOptions = ({ meshHolder }: WidgetEditorOptions) => {
