@@ -1,7 +1,7 @@
 import { deserialize } from "@app/Core/_actions/utilities/componentSerializer";
 import { useWidgetsActions, useWidgetsModules } from "@app/Widgets/_actions/hooks";
 import { buildWidgetsDictionary } from "@app/Widgets/_actions/utilities/buildWidgetDictionaryItem";
-import { WidgetSceneObjects } from "@app/Widgets/_actions/widgetsTypes";
+import { WidgetObjects } from "@app/Widgets/_actions/widgetsTypes";
 import { useEffect } from "react";
 
 import { fetchScene } from "../_data/services";
@@ -15,7 +15,7 @@ export default () => {
     useEffect(() => {
         const handleFetchScene = async () => {
             await fetchScene((data: SceneApiResponseResult) => {
-                const deserializedWidgets: WidgetSceneObjects = {};
+                const deserializedWidgets: WidgetObjects = {};
 
                 for (const key in data.serializedWidgets) {
                     const widget = data.serializedWidgets[key];

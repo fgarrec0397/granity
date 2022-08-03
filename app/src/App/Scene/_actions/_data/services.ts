@@ -1,11 +1,11 @@
 import { SetOptionalPropertyFrom } from "@common/commonTypes";
-import { WidgetSceneObjects } from "@widgets/_actions/widgetsTypes";
+import { WidgetObjects } from "@widgets/_actions/widgetsTypes";
 
 import { SaveSceneServiceParameter, SceneApiResponseResult } from "../sceneTypes";
 import { serializer } from "../utilities";
 
 export const saveScene = async ({ widgets, widgetsDictionary }: SaveSceneServiceParameter) => {
-    const clonedWidgets: SetOptionalPropertyFrom<WidgetSceneObjects, "component"> = {
+    const clonedWidgets: SetOptionalPropertyFrom<WidgetObjects, "component"> = {
         ...widgets,
     };
 

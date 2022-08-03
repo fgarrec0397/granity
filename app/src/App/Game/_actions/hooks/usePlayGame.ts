@@ -5,6 +5,8 @@ export default () => {
 
     const playGame = () => {
         setIsEditor();
+        // SceneWidgetsContext
+        // Widgets Reducer (with WidgetsDictionary)
     };
 
     return { playGame };

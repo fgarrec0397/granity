@@ -1,18 +1,18 @@
 import { useCallback } from "react";
 
 import {
+    WidgetObjects,
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
-    WidgetSceneObjects,
     WidgetsDictionary,
     WidgetsDictionaryItem,
 } from "../../widgetsTypes";
-import useSceneWidgetsContext from "./useSceneWidgetsContext";
 import useWidgetDispatch from "./useWidgetDispatch";
+import useWidgetsContext from "./useWidgetsContext";
 
 export default () => {
-    const { widgets, setSceneWidgets } = useSceneWidgetsContext();
+    const { widgets, setWidgets } = useWidgetsContext();
     const {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
@@ -28,20 +28,20 @@ export default () => {
                 newWidgetsDictionaryItem as Required<WidgetsDictionaryItem>;
             dispatchAddDictionary(requiredWidgetDictionaryItem);
 
-            setSceneWidgets((prevWidgets) => ({
+            setWidgets((prevWidgets) => ({
                 ...prevWidgets,
                 [newWidget.id]: { ...newWidget },
             }));
         },
-        [dispatchAddDictionary, setSceneWidgets]
+        [dispatchAddDictionary, setWidgets]
     );
 
     const addBatch = useCallback(
-        (newWidgets: WidgetSceneObjects, newWidgetsDictionary: WidgetsDictionary) => {
+        (newWidgets: WidgetObjects, newWidgetsDictionary: WidgetsDictionary) => {
             dispatchAddBatchDictionary(newWidgetsDictionary);
-            setSceneWidgets((prevWidgets) => ({ ...prevWidgets, ...newWidgets }));
+            setWidgets((prevWidgets) => ({ ...prevWidgets, ...newWidgets }));
         },
-        [dispatchAddBatchDictionary, setSceneWidgets]
+        [dispatchAddBatchDictionary, setWidgets]
     );
 
     const update = useCallback(
@@ -61,7 +61,7 @@ export default () => {
 
     const remove = (widget: WidgetSceneObject) => {
         delete widgets[widget.id];
-        // setSceneWidgets([...updatedWidgets]); // TODO -- Validate this still works after thte refactoring
+        // setWidgets([...updatedWidgets]); // TODO -- Validate this still works after thte refactoring
         dispatchRemoveWidgetDictionary(widget.id);
         dispatchRemoveSelected();
     };

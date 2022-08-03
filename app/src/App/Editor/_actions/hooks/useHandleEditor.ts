@@ -15,8 +15,8 @@ export default () => {
             });
         } else {
             notification.open({
-                message: "Normal mode",
-                description: "You entered in normal mode",
+                message: "Game mode",
+                description: "You entered in game mode",
             });
         }
     }, [isEditor]);

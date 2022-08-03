@@ -2,4 +2,4 @@ import { useContext } from "react";
 
 import { SceneWidgetsProvider } from "../providers";
 
-export default () => useContext(SceneWidgetsProvider.SceneWidgetsContext);
+export default () => useContext(SceneWidgetsProvider.WidgetsContext);

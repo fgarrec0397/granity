@@ -1,12 +1,12 @@
 import { trigger } from "@app/Core/_actions/utilities/events";
 import { useEffect, useState } from "react";
 
-import { useSceneWidgetsContext, useWidgetsSelector } from "../_data/hooks";
+import { useWidgetsContext, useWidgetsSelector } from "../_data/hooks";
 import { WidgetSceneObject } from "../widgetsTypes";
 
 export default () => {
     const { currentWidgetProperties, selected, widgetsDictionary } = useWidgetsSelector();
-    const { widgets } = useSceneWidgetsContext();
+    const { widgets } = useWidgetsContext();
     const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
 
     useEffect(() => {

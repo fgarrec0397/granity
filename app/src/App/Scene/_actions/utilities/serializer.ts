@@ -2,14 +2,14 @@ import { serialize } from "@app/Core/_actions/utilities/componentSerializer";
 import { SetOptionalPropertyFrom } from "@common/commonTypes";
 import {
     SerializedWidgetSceneObject,
-    SerializedWidgetSceneObjects,
+    SerializedWidgetObjects,
     WidgetEditorOptions,
     WidgetSceneObject,
-    WidgetSceneObjects,
+    WidgetObjects,
 } from "@widgets/_actions/widgetsTypes";
 
-export const serializeWidgets = (widgets: WidgetSceneObjects) => {
-    const serializedWidgets: SerializedWidgetSceneObjects = {};
+export const serializeWidgets = (widgets: WidgetObjects) => {
+    const serializedWidgets: SerializedWidgetObjects = {};
 
     for (const key in widgets) {
         const widget: SetOptionalPropertyFrom<WidgetSceneObject, "component"> = { ...widgets[key] };

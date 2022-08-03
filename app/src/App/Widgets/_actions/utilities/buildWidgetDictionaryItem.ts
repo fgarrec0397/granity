@@ -7,7 +7,7 @@ import {
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
-    WidgetSceneObjects,
+    WidgetObjects,
     WidgetsDictionary,
     WidgetsDictionaryItem,
 } from "../widgetsTypes";
@@ -18,7 +18,7 @@ type WidgetsDictionaryBuilderOptions = {
     options?: WidgetOptionsValues;
 };
 
-export const buildWidgetsDictionary = (widgets: WidgetSceneObjects) => {
+export const buildWidgetsDictionary = (widgets: WidgetObjects) => {
     const widgetsDictionary: WidgetsDictionary = {};
 
     for (const key in widgets) {

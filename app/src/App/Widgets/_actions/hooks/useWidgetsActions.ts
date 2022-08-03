@@ -9,10 +9,10 @@ import {
 } from "../utilities/buildWidgetDictionaryItem";
 import {
     SerializedWidgetSceneObject,
+    WidgetObjects,
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
-    WidgetSceneObjects,
     WidgetsDictionary,
 } from "../widgetsTypes";
 import useGetWidgets from "./useGetWidgets";
@@ -63,7 +63,7 @@ export default () => {
     };
 
     const addWidgetsBatch = useCallback(
-        (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetSceneObjects) => {
+        (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetObjects) => {
             addBatch(newWidgets, newWidgetsDictionary);
         },
         [addBatch]

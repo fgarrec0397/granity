@@ -95,16 +95,16 @@ export type WidgetSceneObject<Props = FeaturesWidgetsProps> = Omit<
 };
 
 /**
- * A dictionary containing informations about all WidgetSceneObjects
+ * A dictionary containing informations about all WidgetObjects
  */
-export type WidgetSceneObjects<Props = FeaturesWidgetsProps> = {
+export type WidgetObjects<Props = FeaturesWidgetsProps> = {
     [id: string]: WidgetSceneObject<Props>;
 };
 
 /**
- * A serialized dictionary containing informations about all WidgetSceneObjects
+ * A serialized dictionary containing informations about all WidgetObjects
  */
-export type SerializedWidgetSceneObjects<Props = FeaturesWidgetsProps> = {
+export type SerializedWidgetObjects<Props = FeaturesWidgetsProps> = {
     [id: string]: SerializedWidgetSceneObject<Props>;
 };
 
