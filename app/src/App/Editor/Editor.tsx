@@ -2,7 +2,7 @@ import { useEditorKeyboardControls } from "@app/Core/_actions/hooks";
 import { useHandleGetScene, useHandleSaveScene } from "@app/Scene/_actions/hooks";
 import { SceneDefaultCamera } from "@app/Scene/components";
 import Widgets from "@app/Widgets/Widgets";
-import { Physics } from "@react-three/cannon";
+import { Debug, Physics } from "@react-three/cannon";
 import { FC } from "react";
 
 import EditorUI from "./components/EditorUI/EditorUI";
@@ -14,8 +14,10 @@ const Editor: FC = () => {
 
     return (
         <Physics isPaused={true}>
-            <SceneDefaultCamera />
-            <Widgets />
+            <Debug color="black" scale={1.1}>
+                <SceneDefaultCamera />
+                <Widgets />
+            </Debug>
         </Physics>
     );
 };

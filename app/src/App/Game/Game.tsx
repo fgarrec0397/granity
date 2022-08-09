@@ -1,5 +1,5 @@
 import { useGameKeyboardControls } from "@app/Core/_actions/hooks";
-import { Physics } from "@react-three/cannon";
+import { Debug, Physics } from "@react-three/cannon";
 import Widgets from "@widgets/Widgets";
 import { FC } from "react";
 
@@ -9,7 +9,9 @@ const Game: FC = () => {
     return (
         <>
             <Physics gravity={[0, -30, 0]}>
-                <Widgets />
+                <Debug color="black" scale={1.1}>
+                    <Widgets />
+                </Debug>
             </Physics>
         </>
     );

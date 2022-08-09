@@ -61,7 +61,7 @@ export default () => {
 
     const remove = (widget: WidgetSceneObject) => {
         delete widgets[widget.id];
-        // setWidgets([...updatedWidgets]); // TODO -- Validate this still works after thte refactoring
+
         dispatchRemoveWidgetDictionary(widget.id);
         dispatchRemoveSelected();
     };

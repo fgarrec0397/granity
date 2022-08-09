@@ -1,5 +1,6 @@
 import { KeyboardMappings } from "@app/Core/coreTypes";
 import { useIsEditor } from "@app/Editor/_actions/hooks";
+import usePlayGame from "@app/Game/_actions/hooks/usePlayGame";
 import useCameras from "@scene/_actions/hooks/useCameras";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
@@ -14,11 +15,12 @@ export default () => {
     const { removeCurrentWidgets, copyWidget } = useWidgetsActions();
     const { currentWidgets, firstCurrentWidget, widgets } = useWidgets();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
+    const { playGame } = usePlayGame();
 
     useKeyboardMappings(
         (keyMapping: KeyboardMappings) => {
             if (keyMapping.editor.toggleEditor?.value) {
-                setIsEditor();
+                playGame();
             } else if (keyMapping.editor.copyWidget?.value) {
                 if (currentWidgets.length > 0) {
                     setCopiedWidgets(currentWidgets);

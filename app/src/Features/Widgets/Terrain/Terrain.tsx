@@ -1,20 +1,25 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
+import { useIsEditor } from "@app/Editor/_actions/hooks";
 import { usePlane } from "@react-three/cannon";
 import { WidgetModule } from "@widgets/_actions/widgetsTypes";
-import { FC, useRef } from "react";
-import { Mesh } from "three";
+import { FC } from "react";
 
 export type TerrainProps = EditableWidget;
 
 type OwnProps = TerrainProps;
 
-const Terrain: FC<OwnProps> = () => {
+const Terrain: FC<OwnProps> = ({ position, rotation, scale }) => {
+    const { isEditor } = useIsEditor();
+
+    // TODO convert three position to cannon position
     const [ref] = usePlane(() => ({
-        rotation: [-Math.PI / 2, 0, 0],
+        position,
+        rotation,
+        scale,
     }));
 
     return (
-        <mesh ref={ref}>
+        <mesh ref={!isEditor ? ref : null}>
             <planeBufferGeometry />
             <meshStandardMaterial color="white" />
         </mesh>

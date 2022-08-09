@@ -1,4 +1,5 @@
 import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
+import useGameWidgets from "@app/Game/_actions/hooks/useGameWidgets";
 import { ThreeEvent } from "@react-three/fiber";
 import { getWidgetName, populateWidgetProperties } from "@widgets/_actions/utilities";
 import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
@@ -17,6 +18,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
     const { widgetsDictionary, getWidgetDictionaryFromWidget } = useWidgets();
     const name = getWidgetName(widget);
     const { isEditor } = useIsEditor();
+    const { gameWidgetsDictionary } = useGameWidgets();
 
     const componentProps = useCallback(() => {
         return {
@@ -38,7 +40,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
         <>{isEditor && editorOptions?.meshHolder ? editorOptions?.meshHolder : null}</>
     );
 
-    const widgetProperties = getWidgetDictionaryFromWidget(id!)?.properties;
+    const widgetProperties = isEditor ? getWidgetDictionaryFromWidget(id!)?.properties : undefined;
 
     return (
         <mesh
@@ -46,10 +48,55 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
             onPointerOver={handleOnPointerOver}
             onPointerOut={handleOnPointerOut}
             {...widgetProperties}
+            // position={isEditor ? widgetsDictionary[id]?.properties.position : undefined}
+            // rotation={isEditor ? widgetsDictionary[id]?.properties.rotation : undefined}
+            // scale={isEditor ? widgetsDictionary[id]?.properties.scale : undefined}
         >
             {meshHolder}
 
-            <Component {...componentProps()} hovered={hovered} />
+            <Component
+                {...componentProps()}
+                hovered={hovered}
+                position={
+                    isEditor
+                        ? [
+                              widgetsDictionary[id]?.properties.position[0],
+                              widgetsDictionary[id]?.properties.position[1],
+                              widgetsDictionary[id]?.properties.position[2],
+                          ]
+                        : [
+                              gameWidgetsDictionary[id]?.properties.position[0],
+                              gameWidgetsDictionary[id]?.properties.position[1],
+                              gameWidgetsDictionary[id]?.properties.position[2],
+                          ]
+                }
+                rotation={
+                    isEditor
+                        ? [
+                              widgetsDictionary[id]?.properties.rotation[0],
+                              widgetsDictionary[id]?.properties.rotation[1],
+                              widgetsDictionary[id]?.properties.rotation[2],
+                          ]
+                        : [
+                              gameWidgetsDictionary[id]?.properties.rotation[0],
+                              gameWidgetsDictionary[id]?.properties.rotation[1],
+                              gameWidgetsDictionary[id]?.properties.rotation[2],
+                          ]
+                }
+                scale={
+                    isEditor
+                        ? [
+                              widgetsDictionary[id]?.properties.scale[0],
+                              widgetsDictionary[id]?.properties.scale[1],
+                              widgetsDictionary[id]?.properties.scale[2],
+                          ]
+                        : [
+                              gameWidgetsDictionary[id]?.properties.scale[0],
+                              gameWidgetsDictionary[id]?.properties.scale[1],
+                              gameWidgetsDictionary[id]?.properties.scale[2],
+                          ]
+                }
+            />
         </mesh>
     );
 };

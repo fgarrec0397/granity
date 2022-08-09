@@ -42,6 +42,7 @@
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
     "three": "^0.139.2",
+    "three-to-cannon": "^4.2.0",
     "typescript": "^4.6.4",
     "web-vitals": "^1.1.2",
     "zustand": "^3.7.2"

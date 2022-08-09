@@ -1,4 +1,5 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
+import { useIsEditor } from "@app/Editor/_actions/hooks";
 import { useBox } from "@react-three/cannon";
 import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
 import { FC } from "react";
@@ -10,18 +11,26 @@ export interface GeometryFormsProps extends EditableWidget {
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, position, rotation, scale }) => {
+const GeometryForms: FC<OwnProps> = ({
+    shape,
+    color,
+    position,
+    rotation = [-Math.PI / 2, 0, 0],
+    scale,
+}) => {
     const GeometryComponent = shape;
+    const { isEditor } = useIsEditor();
 
     const [ref] = useBox(() => ({
         type: "Dynamic",
         mass: 1,
-        rotation: [-Math.PI / 2, 0, 0],
-        position: [0, 0, 0],
+        rotation,
+        position,
+        scale,
     }));
 
     return (
-        <mesh ref={ref} position={[0, 0, 0]}>
+        <mesh ref={!isEditor ? ref : null} position={[0, 0, 0]}>
             <GeometryComponent />
             <meshStandardMaterial color={color} />
         </mesh>

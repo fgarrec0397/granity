@@ -5,12 +5,16 @@ import WidgetsModulesContextProvider from "@widgets/_actions/_data/providers/Wid
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 
+import GameWidgetsContextProvider from "./Game/_actions/_data/providers/GameWidgetsProvider";
+
 const AppProviders: FC = ({ children }) => {
     return (
         <ReduxProvider store={store}>
             <CamerasContextProvider>
                 <WidgetsContextProvider>
-                    <WidgetsModulesContextProvider>{children}</WidgetsModulesContextProvider>
+                    <GameWidgetsContextProvider>
+                        <WidgetsModulesContextProvider>{children}</WidgetsModulesContextProvider>
+                    </GameWidgetsContextProvider>
                 </WidgetsContextProvider>
             </CamerasContextProvider>
         </ReduxProvider>

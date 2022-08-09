@@ -5,7 +5,7 @@ import { useWidgetsProviderValue } from "../hooks";
 
 export interface WidgetsContextModel {
     widgets: WidgetObjects;
-    setWidgets: (() => void) | Dispatch<SetStateAction<WidgetObjects>>;
+    setWidgets: Dispatch<SetStateAction<WidgetObjects>>;
 }
 
 export const widgetsDefaultContext: WidgetsContextModel = {
