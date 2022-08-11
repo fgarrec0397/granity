@@ -1,39 +1,26 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import { useIsEditor } from "@app/Editor/_actions/hooks";
-import { useBox } from "@react-three/cannon";
+import { RigidBody } from "@react-three/rapier";
 import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
 import { FC } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
     color: string;
+    gravityScale: number;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({
-    shape,
-    color,
-    position,
-    rotation = [-Math.PI / 2, 0, 0],
-    scale,
-}) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale }) => {
     const GeometryComponent = shape;
-    const { isEditor } = useIsEditor();
-
-    const [ref] = useBox(() => ({
-        type: "Dynamic",
-        mass: 1,
-        rotation,
-        position,
-        scale,
-    }));
 
     return (
-        <mesh ref={!isEditor ? ref : null} position={[0, 0, 0]}>
-            <GeometryComponent />
-            <meshStandardMaterial color={color} />
-        </mesh>
+        <RigidBody gravityScale={gravityScale}>
+            <mesh position={[0, 0, 0]}>
+                <GeometryComponent />
+                <meshStandardMaterial color={color} />
+            </mesh>
+        </RigidBody>
     );
 };
 
@@ -55,8 +42,8 @@ export const widget: WidgetModule<GeometryFormsProps> = {
                 defaultValue: "white",
             },
             {
-                name: "number",
-                displayName: "Number",
+                name: "gravityScale",
+                displayName: "Gravity Scale",
                 fieldType: FieldType.Number,
                 defaultValue: 1,
             },

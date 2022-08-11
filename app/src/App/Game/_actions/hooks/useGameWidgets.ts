@@ -11,6 +11,8 @@ export default () => {
     const { setWidgets, widgets } = useGameWidgetsContext();
     const dispatch = useDispatch();
 
+    console.log({ widgets, widgetsDictionary });
+
     const initGameWidgets = useCallback(
         (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetObjects) => {
             setWidgets({ ...newWidgets });

@@ -1,6 +1,5 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import { useIsEditor } from "@app/Editor/_actions/hooks";
-import { usePlane } from "@react-three/cannon";
+import { RigidBody } from "@react-three/rapier";
 import { WidgetModule } from "@widgets/_actions/widgetsTypes";
 import { FC } from "react";
 
@@ -8,21 +7,14 @@ export type TerrainProps = EditableWidget;
 
 type OwnProps = TerrainProps;
 
-const Terrain: FC<OwnProps> = ({ position, rotation, scale }) => {
-    const { isEditor } = useIsEditor();
-
-    // TODO convert three position to cannon position
-    const [ref] = usePlane(() => ({
-        position,
-        rotation,
-        scale,
-    }));
-
+const Terrain: FC<OwnProps> = () => {
     return (
-        <mesh ref={!isEditor ? ref : null}>
-            <planeBufferGeometry />
-            <meshStandardMaterial color="white" />
-        </mesh>
+        <RigidBody>
+            <mesh>
+                <planeBufferGeometry />
+                <meshStandardMaterial color="white" />
+            </mesh>
+        </RigidBody>
     );
 };
 

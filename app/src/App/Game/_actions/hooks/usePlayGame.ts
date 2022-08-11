@@ -9,6 +9,8 @@ export default () => {
     const { initGameWidgets, removeGameWidgets } = useGameWidgets();
 
     const playGame = () => {
+        console.log("play");
+
         if (isEditor) {
             initGameWidgets(widgetsDictionary, widgets);
         } else {
