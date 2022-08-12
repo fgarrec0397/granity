@@ -1,6 +1,6 @@
 # The-Web-3D-Game-Engine
 
-A React Three Fiber widgets based game engine build with on NodeJs back-end.
+A React Three Fiber widgets based game engine build with NodeJs as back-end.
 
 ## Documentation
 
