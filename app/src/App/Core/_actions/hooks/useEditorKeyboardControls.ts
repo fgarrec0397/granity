@@ -1,5 +1,4 @@
 import { KeyboardMappings } from "@app/Core/coreTypes";
-import { useIsEditor } from "@app/Editor/_actions/hooks";
 import usePlayGame from "@app/Game/_actions/hooks/usePlayGame";
 import useCameras from "@scene/_actions/hooks/useCameras";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
@@ -10,7 +9,6 @@ import { useState } from "react";
 import useKeyboardMappings from "./useKeyboardMappings";
 
 export default () => {
-    const { setIsEditor } = useIsEditor();
     const { setNextCamera, setPrevCamera } = useCameras();
     const { removeCurrentWidgets, copyWidget } = useWidgetsActions();
     const { currentWidgets, firstCurrentWidget, widgets } = useWidgets();

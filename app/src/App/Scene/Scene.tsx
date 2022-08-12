@@ -12,12 +12,8 @@ const Scene: FC = () => {
     useHandleEditor();
 
     return (
-        <Physics timeStep={isEditor ? 0 : "vary"}>
+        <Physics paused={isEditor}>
             <Lights />
-            {/* //     <Physics isPaused={isEditor}>
-        //         <SceneDefaultCamera />
-        //         <Widgets />
-        //     </Physics> */}
             {isEditor ? <Editor.Editor /> : <Game.Game />}
         </Physics>
     );

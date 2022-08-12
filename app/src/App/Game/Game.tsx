@@ -5,11 +5,7 @@ import { FC } from "react";
 const Game: FC = () => {
     useGameKeyboardControls();
 
-    return (
-        <>
-            <Widgets />
-        </>
-    );
+    return <Widgets />;
 };
 
 const GameUI: FC = () => {

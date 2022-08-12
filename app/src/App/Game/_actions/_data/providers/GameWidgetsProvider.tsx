@@ -1,8 +1,3 @@
-import useWidgetsProviderValue from "@app/Widgets/_actions/_data/hooks/useWidgetsProviderValue";
-import {
-    WidgetsContextModel,
-    widgetsDefaultContext,
-} from "@app/Widgets/_actions/_data/providers/WidgetsProvider";
 import { WidgetObjects } from "@app/Widgets/_actions/widgetsTypes";
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
