@@ -23,10 +23,5 @@ export const widget: WidgetModule<TerrainProps> = {
     reducer: null,
     widgetDefinition: {
         name: "Terrain",
-        physic: {
-            shape: "Plane",
-            type: "Dynamic",
-            mass: 0,
-        },
     },
 };

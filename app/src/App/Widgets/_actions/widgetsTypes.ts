@@ -1,6 +1,5 @@
 import { UnionOfProperties } from "@common/commonTypes";
 import { FeaturesState, FeaturesWidgetsProps } from "@features/collector";
-import { BodyProps, BodyShapeType } from "@react-three/cannon";
 import { FC, ReactNode } from "react";
 import { AnyAction, Reducer } from "redux";
 import { Object3D } from "three";
@@ -47,18 +46,10 @@ export interface WidgetBaseOptions extends WidgetAdditionnalOptions {
 export type WidgetOptions = WidgetBaseOptions;
 
 /**
- * All physic options allowed for the widget in the editor
- */
-export type WidgetPhysicOptions<T extends BodyProps = BodyProps> = T & {
-    shape: BodyShapeType | "Void";
-};
-
-/**
  * Widget object definition. This information is displayed in the editor
  */
-export interface WidgetDefinition<P extends BodyProps = BodyProps> {
+export interface WidgetDefinition {
     name: string;
-    physic?: WidgetPhysicOptions<P>;
     options?: WidgetOptions[];
 }
 

@@ -1,5 +1,5 @@
 import useIsEditor from "@app/Editor/_actions/hooks/useIsEditor";
-import { Triplet, useSphere } from "@react-three/cannon";
+// import { Triplet, useSphere } from "@react-three/cannon";
 import { PointerLockControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import useCameras from "@scene/_actions/hooks/useCameras";
@@ -7,7 +7,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 export interface PlayerCameraProps {
-    initialPlayerPos?: Triplet;
+    initialPlayerPos?: [number, number, number];
 }
 
 interface Movements {
@@ -64,12 +64,12 @@ const usePlayerControls = (): Movements => {
 };
 
 const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => {
-    const [ref, api] = useSphere(() => ({
-        mass: 1,
-        type: "Dynamic",
-        // position: initialPlayerPos,
-        ...props,
-    }));
+    // const [ref, api] = useSphere(() => ({
+    //     mass: 1,
+    //     type: "Dynamic",
+    //     // position: initialPlayerPos,
+    //     ...props,
+    // }));
 
     const { isEditor } = useIsEditor();
     const { setCamera } = useCameras();
@@ -79,39 +79,39 @@ const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => 
     const cameraRef = useRef();
     const velocity = useRef([0, 0, 0]);
 
-    useEffect(() => {
-        if (isEditor) {
-            setCamera({ cameraRef });
-        }
-    }, [setCamera, isEditor]);
+    // useEffect(() => {
+    //     if (isEditor) {
+    //         setCamera({ cameraRef });
+    //     }
+    // }, [setCamera, isEditor]);
 
-    useEffect(
-        () =>
-            api.velocity.subscribe((v) => {
-                velocity.current = v;
-            }),
-        [api.velocity]
-    );
+    // useEffect(
+    //     () =>
+    //         api.velocity.subscribe((v) => {
+    //             velocity.current = v;
+    //         }),
+    //     [api.velocity]
+    // );
 
-    useFrame(() => {
-        ref.current?.getWorldPosition(camera.position);
-        frontVector.set(0, 0, Number(backward) - Number(forward));
-        sideVector.set(Number(left) - Number(right), 0, 0);
-        direction
-            .subVectors(frontVector, sideVector)
-            .normalize()
-            .multiplyScalar(SPEED)
-            .applyEuler(camera.rotation);
-        speed.fromArray(velocity.current);
-        api.velocity.set(direction.x, velocity.current[1], direction.z);
+    // useFrame(() => {
+    //     ref.current?.getWorldPosition(camera.position);
+    //     frontVector.set(0, 0, Number(backward) - Number(forward));
+    //     sideVector.set(Number(left) - Number(right), 0, 0);
+    //     direction
+    //         .subVectors(frontVector, sideVector)
+    //         .normalize()
+    //         .multiplyScalar(SPEED)
+    //         .applyEuler(camera.rotation);
+    //     speed.fromArray(velocity.current);
+    //     api.velocity.set(direction.x, velocity.current[1], direction.z);
 
-        if (jump && Math.abs(Number(velocity.current[1].toFixed(2))) < 0.05)
-            api.velocity.set(velocity.current[0], 10, velocity.current[2]);
-    });
+    //     if (jump && Math.abs(Number(velocity.current[1].toFixed(2))) < 0.05)
+    //         api.velocity.set(velocity.current[0], 10, velocity.current[2]);
+    // });
 
     return (
         <>
-            <mesh ref={ref} />
+            {/* <mesh ref={ref} /> */}
             <perspectiveCamera ref={cameraRef} />
             <PointerLockControls />
         </>

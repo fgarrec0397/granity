@@ -4,10 +4,10 @@ import { Object3D } from "three";
 import widgetsConstants from "../widgetsConstants";
 import {
     SerializedWidgetSceneObject,
+    WidgetObjects,
     WidgetOptionsValues,
     WidgetProperties,
     WidgetSceneObject,
-    WidgetObjects,
     WidgetsDictionary,
     WidgetsDictionaryItem,
 } from "../widgetsTypes";

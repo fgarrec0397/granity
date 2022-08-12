@@ -14,6 +14,8 @@ type OwnProps = GeometryFormsProps;
 const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale }) => {
     const GeometryComponent = shape;
 
+    console.log({ color, gravityScale, shape });
+
     return (
         <RigidBody gravityScale={gravityScale}>
             <mesh position={[0, 0, 0]}>
@@ -29,11 +31,6 @@ export const widget: WidgetModule<GeometryFormsProps> = {
     reducer: null,
     widgetDefinition: {
         name: "Geometry",
-        physic: {
-            shape: "Box",
-            type: "Dynamic",
-            mass: 1,
-        },
         options: [
             {
                 name: "color",
