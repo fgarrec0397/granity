@@ -14,8 +14,6 @@ type OwnProps = GeometryFormsProps;
 const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale }) => {
     const GeometryComponent = shape;
 
-    console.log({ color, gravityScale, shape });
-
     return (
         <RigidBody gravityScale={gravityScale}>
             <mesh position={[0, 0, 0]}>

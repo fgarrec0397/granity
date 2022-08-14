@@ -9,11 +9,11 @@ export default () => {
     const { initGameWidgets, removeGameWidgets } = useGameWidgets();
 
     const playGame = () => {
-        if (isEditor) {
-            initGameWidgets(widgetsDictionary, widgets);
-        } else {
-            removeGameWidgets();
-        }
+        // if (isEditor) {
+        //     initGameWidgets(widgetsDictionary, widgets);
+        // } else {
+        //     removeGameWidgets();
+        // }
         setIsEditor();
     };
 

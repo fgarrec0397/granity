@@ -11,12 +11,12 @@ type Props = {
 };
 
 const WidgetRenderer: FC<Props> = ({ widget }) => {
-    const { component, id, editorOptions } = widget;
-    const Component = component;
     const [hovered, setHover] = useState(false);
     const { widgetsDictionary, getWidgetDictionaryFromWidget } = useWidgets();
-    const name = getWidgetName(widget);
     const { isEditor } = useIsEditor();
+    const { component, id, editorOptions } = widget;
+    const name = getWidgetName(widget);
+    const Component = component;
 
     const componentProps = useCallback(() => {
         return {

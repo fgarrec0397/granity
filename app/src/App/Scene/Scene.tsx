@@ -1,6 +1,7 @@
 import { useHandleEditor, useIsEditor } from "@app/Editor/_actions/hooks";
 import Editor from "@app/Editor/Editor";
 import Game from "@app/Game/Game";
+import { useHandleGetScene, useHandleSaveScene } from "@app/Scene/_actions/hooks";
 import { Physics } from "@react-three/rapier";
 import { FC } from "react";
 
@@ -10,6 +11,8 @@ const Scene: FC = () => {
     const { isEditor } = useIsEditor();
 
     useHandleEditor();
+    useHandleGetScene();
+    useHandleSaveScene();
 
     return (
         <Physics paused={isEditor}>
