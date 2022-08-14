@@ -15,8 +15,6 @@ export default () => {
     useEffect(() => {
         const handleFetchScene = async () => {
             await fetchScene((data: SceneApiResponseResult) => {
-                console.log("fetch scene");
-
                 const deserializedWidgets: WidgetObjects = {};
 
                 for (const key in data.serializedWidgets) {
