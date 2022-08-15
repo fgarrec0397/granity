@@ -61,7 +61,7 @@ const TransformControlsComponent: FC = ({ children }) => {
     }, [currentMode, previousCurrentMode, transformControls]);
 
     /**
-     * Update the current the mesh to be attached to TransformControls when it changes
+     * Update the current mesh to be attached to TransformControls when it changes
      */
     useEffect(() => {
         if (

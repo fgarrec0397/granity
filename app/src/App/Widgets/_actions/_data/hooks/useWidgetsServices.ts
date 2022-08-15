@@ -60,10 +60,10 @@ export default () => {
     );
 
     const remove = (widget: WidgetSceneObject) => {
-        delete widgets[widget.id];
-
-        dispatchRemoveWidgetDictionary(widget.id);
         dispatchRemoveSelected();
+        dispatchRemoveWidgetDictionary(widget.id);
+
+        delete widgets[widget.id];
     };
 
     const updateCurrentProperties = (widgetProperties: WidgetProperties) => {
