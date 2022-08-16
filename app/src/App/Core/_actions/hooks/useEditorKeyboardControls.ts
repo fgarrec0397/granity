@@ -2,7 +2,6 @@ import { KeyboardMappings } from "@app/Core/coreTypes";
 import usePlayGame from "@app/Game/_actions/hooks/usePlayGame";
 import useCameras from "@scene/_actions/hooks/useCameras";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
-import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
 import { WidgetSceneObject } from "@widgets/_actions/widgetsTypes";
 import { useState } from "react";
 
@@ -10,8 +9,8 @@ import useKeyboardMappings from "./useKeyboardMappings";
 
 export default () => {
     const { setNextCamera, setPrevCamera } = useCameras();
-    const { removeCurrentWidgets, copyWidget } = useWidgetsActions();
-    const { currentWidgets, firstCurrentWidget, widgets } = useWidgets();
+    const { currentWidgets, firstCurrentWidget, widgets, removeCurrentWidgets, copyWidget } =
+        useWidgets();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
     const { playGame } = usePlayGame();
 

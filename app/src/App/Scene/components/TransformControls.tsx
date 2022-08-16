@@ -1,10 +1,9 @@
 import useCurrentMode from "@app/Editor/_actions/hooks/useCurrentMode";
 import useIsEditing from "@app/Editor/_actions/hooks/useIsEditing";
+import useGetWidgets from "@app/Widgets/_actions/hooks/useGetMeshByWidget";
 import usePrevious from "@common/hooks/usePrevious";
 import { useThree } from "@react-three/fiber";
-import useGetWidgets from "@widgets/_actions/hooks/useGetWidgets";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
-import useWidgetsActions from "@widgets/_actions/hooks/useWidgetsActions";
 import isEqual from "lodash/isEqual";
 import { FC, useEffect, useMemo, useState } from "react";
 import { Object3D } from "three";
@@ -12,9 +11,8 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { camera, scene, gl } = useThree();
-    const { updateCurrentWidgetWithMesh } = useWidgetsActions();
-    const { currentWidgets, firstCurrentWidget } = useWidgets();
-    const { getMeshByWidget } = useGetWidgets();
+    const { currentWidgets, firstCurrentWidget, updateCurrentWidgetWithMesh } = useWidgets();
+    const getMeshByWidget = useGetWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing } = useIsEditing();
     const [meshToAttach, setMeshToAttach] = useState<Object3D>();

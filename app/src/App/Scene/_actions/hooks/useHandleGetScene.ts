@@ -1,5 +1,5 @@
 import { deserialize } from "@app/Core/_actions/utilities/componentSerializer";
-import { useWidgetsActions, useWidgetsModules } from "@app/Widgets/_actions/hooks";
+import { useWidgets, useWidgetsModules } from "@app/Widgets/_actions/hooks";
 import { buildWidgetsDictionary } from "@app/Widgets/_actions/utilities/buildWidgetDictionaryItem";
 import { WidgetObjects } from "@app/Widgets/_actions/widgetsTypes";
 import { useEffect } from "react";
@@ -10,7 +10,7 @@ import { SceneApiResponseResult } from "../sceneTypes";
 export default () => {
     const { widgetsModules, getSceneWidgetComponentFromModules, getWidgetModuleFromWidgetScene } =
         useWidgetsModules();
-    const { addWidgetsBatch } = useWidgetsActions();
+    const { addWidgetsBatch } = useWidgets();
 
     useEffect(() => {
         const handleFetchScene = async () => {

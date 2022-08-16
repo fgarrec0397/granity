@@ -1,31 +1,12 @@
 import { events } from "@app/Core/_actions/utilities";
 import { useEffect } from "react";
 
-import useGetWidgets from "./useGetWidgets";
+import useGetMeshByWidget from "./useGetMeshByWidget";
 import useWidgets from "./useWidgets";
-import useWidgetsActions from "./useWidgetsActions";
 
 export default () => {
-    const { updateCurrentWidgetOptions, updateCurrentWidgetWithMesh } = useWidgetsActions();
-    const { getMeshByWidget } = useGetWidgets();
-    const { currentWidgets } = useWidgets();
-
-    useEffect(() => {
-        const handleUpdateCurrentWidgetOptions = ({ detail }: CustomEvent) => {
-            updateCurrentWidgetOptions({
-                [detail.option.name]: {
-                    fieldType: detail.option.fieldType,
-                    value: detail.value,
-                },
-            });
-        };
-
-        events.on("updateCurrentWidgetOptions", handleUpdateCurrentWidgetOptions);
-
-        return () => {
-            events.off("updateCurrentWidgetOptions", handleUpdateCurrentWidgetOptions);
-        };
-    }, [updateCurrentWidgetOptions]);
+    const getMeshByWidget = useGetMeshByWidget();
+    const { currentWidgets, updateCurrentWidgetWithMesh } = useWidgets();
 
     useEffect(() => {
         const handleUpdateCurrentWidgetWithMesh = ({ detail }: CustomEvent) => {

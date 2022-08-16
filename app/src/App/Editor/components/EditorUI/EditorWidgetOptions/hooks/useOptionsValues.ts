@@ -1,11 +1,11 @@
-import { trigger } from "@app/Core/_actions/utilities/events";
 import { useWidgets } from "@app/Widgets/_actions/hooks";
 import { WidgetBaseOptions, WidgetOptionsValues } from "@app/Widgets/_actions/widgetsTypes";
 import { useEffect, useState } from "react";
 
 export default () => {
     const [optionsValues, setOptionsValues] = useState<WidgetOptionsValues>();
-    const { currentWidgets, getWidgetDictionaryFromWidget } = useWidgets();
+    const { currentWidgets, getWidgetDictionaryFromWidget, updateCurrentWidgetOptions } =
+        useWidgets();
 
     useEffect(() => {
         const options = getWidgetDictionaryFromWidget(currentWidgets[0]?.id)?.options;
@@ -21,7 +21,12 @@ export default () => {
             },
         });
 
-        trigger("updateCurrentWidgetOptions", { value, option });
+        updateCurrentWidgetOptions({
+            [option.name]: {
+                fieldType: option.fieldType,
+                value: value,
+            },
+        });
     };
 
     return { optionsValues, updateOptionsValues };

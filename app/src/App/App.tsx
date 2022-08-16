@@ -1,4 +1,3 @@
-import { events } from "@app/Core/_actions/utilities";
 import { WidgetsContext } from "@app/Widgets/_actions/_data/providers/WidgetsProvider";
 import useWidgetsInitModules from "@app/Widgets/_actions/hooks/useWidgetsInitModules";
 import { useContextBridge } from "@react-three/drei";
@@ -11,8 +10,10 @@ import { ReactReduxContext } from "react-redux";
 
 import { GameWidgetsContext } from "./Game/_actions/_data/providers/GameWidgetsProvider";
 import UI from "./UI/UI";
+import { useWidgets } from "./Widgets/_actions/hooks";
 
 const App: FC = () => {
+    const { removeSelected } = useWidgets();
     const ContextBridge = useContextBridge(
         CamerasContext,
         WidgetsContext,
@@ -26,7 +27,7 @@ const App: FC = () => {
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();
-        events.trigger("removeSelected"); // TODO -- refactor events system to avoid naming confusion
+        removeSelected();
     };
 
     return (

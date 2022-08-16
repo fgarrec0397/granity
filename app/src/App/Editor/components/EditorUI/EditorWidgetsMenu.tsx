@@ -1,4 +1,4 @@
-import { trigger } from "@app/Core/_actions/utilities/events";
+import { useWidgets } from "@app/Widgets/_actions/hooks";
 import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
 import useWidgetsModuleContext from "@widgets/_actions/_data/hooks/useWidgetsModuleContext";
 import { mapWidgetModuleToWidgetSceneObject } from "@widgets/_actions/utilities";
@@ -26,11 +26,12 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorGeometryMenu: FC = () => {
+    const { addWidget } = useWidgets();
     const { widgetsModules } = useWidgetsModuleContext();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleOnClick = (widget: WidgetSceneObject): void => {
-        trigger("addWidget", widget);
+        addWidget(widget);
         closeModalHandler();
     };
 
