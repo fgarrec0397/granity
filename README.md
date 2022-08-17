@@ -2,10 +2,10 @@
 
 A React Three Fiber widgets based game engine build with NodeJs as back-end.
 
-## Documentation
+![Current State of The Project](https://i.imgur.com/umqYMA5.png)
+
+
+## Documentation & Roadmap
 
 Coming soon...
 
-## Roadmap
-
-Coming soon...
