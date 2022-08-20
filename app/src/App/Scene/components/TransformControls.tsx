@@ -11,18 +11,22 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 
 const TransformControlsComponent: FC = ({ children }) => {
     const { camera, scene, gl } = useThree();
-    const { currentWidgets, firstCurrentWidget, updateCurrentWidgetWithMesh } = useWidgets();
+    const { selectedWidgets, firstCurrentWidget, updateCurrentWidgetWithMesh } = useWidgets();
     const getMeshByWidget = useGetWidgets();
     const { currentMode } = useCurrentMode();
     const { setIsEditing } = useIsEditing();
     const [meshToAttach, setMeshToAttach] = useState<Object3D>();
 
     const previousCurrentMode = usePrevious(currentMode);
-    const previousCurrentWidgets = usePrevious(currentWidgets);
+    const previousSelectedWidgets = usePrevious(selectedWidgets);
     const transformControls = useMemo(
         () => new TransformControls(camera, gl.domElement),
         [camera, gl.domElement]
     );
+
+    useEffect(() => {
+        console.log(meshToAttach, "meshToAttach");
+    }, [meshToAttach]);
 
     /**
      * Attach the selected mesh on the scene to TransformControls
@@ -62,20 +66,22 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Update the current mesh to be attached to TransformControls when it changes
      */
     useEffect(() => {
+        console.log(selectedWidgets.length, "selectedWidgets.length");
+
         if (
-            currentWidgets.length &&
-            (!previousCurrentWidgets || !isEqual(currentWidgets, previousCurrentWidgets))
+            selectedWidgets.length &&
+            (!previousSelectedWidgets || !isEqual(selectedWidgets, previousSelectedWidgets))
         ) {
-            setMeshToAttach(getMeshByWidget(currentWidgets[0]));
-        } else if (!currentWidgets.length) {
+            setMeshToAttach(getMeshByWidget(selectedWidgets[0]));
+        } else if (!selectedWidgets.length) {
             setMeshToAttach(undefined);
         }
     }, [
-        currentWidgets,
-        currentWidgets.length,
+        selectedWidgets,
+        selectedWidgets.length,
         firstCurrentWidget?.id,
         getMeshByWidget,
-        previousCurrentWidgets,
+        previousSelectedWidgets,
         transformControls,
     ]);
 

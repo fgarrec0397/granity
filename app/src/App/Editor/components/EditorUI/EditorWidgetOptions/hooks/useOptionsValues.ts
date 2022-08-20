@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 
 export default () => {
     const [optionsValues, setOptionsValues] = useState<WidgetOptionsValues>();
-    const { currentWidgets, getWidgetDictionaryFromWidget, updateCurrentWidgetOptions } =
+    const { selectedWidgets, getWidgetDictionaryFromWidget, updateCurrentWidgetOptions } =
         useWidgets();
 
     useEffect(() => {
-        const options = getWidgetDictionaryFromWidget(currentWidgets[0]?.id)?.options;
+        const options = getWidgetDictionaryFromWidget(selectedWidgets[0]?.id)?.options;
         setOptionsValues(options);
-    }, [currentWidgets, getWidgetDictionaryFromWidget]);
+    }, [selectedWidgets, getWidgetDictionaryFromWidget]);
 
     const updateOptionsValues = (value: string | number, option: WidgetBaseOptions) => {
         setOptionsValues({

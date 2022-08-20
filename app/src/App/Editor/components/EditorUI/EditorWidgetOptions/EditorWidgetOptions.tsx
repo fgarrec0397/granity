@@ -9,15 +9,15 @@ import EditorOptionsSelectField from "./EditorOptionsSelectField";
 import EditorOptionsTextField from "./EditorOptionsTextField";
 
 const EditorWidgetOptions: FC = () => {
-    const { currentWidgets } = useWidgets();
+    const { selectedWidgets } = useWidgets();
 
     return (
         <Card size="small" bordered={false} bodyStyle={{ padding: "0" }}>
-            {currentWidgets.length > 1 ? (
+            {selectedWidgets.length > 1 ? (
                 <Typography>Impossible to edit widget while more than one is selected</Typography>
             ) : (
-                currentWidgets.length > 0 &&
-                currentWidgets[0].widgetDefinition.options?.map((option) => {
+                selectedWidgets.length > 0 &&
+                selectedWidgets[0].widgetDefinition.options?.map((option) => {
                     if (option.fieldType === FieldType.Text) {
                         return <EditorOptionsTextField option={option} />;
                     }

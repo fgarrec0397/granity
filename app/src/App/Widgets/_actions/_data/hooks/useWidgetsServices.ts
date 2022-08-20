@@ -12,12 +12,11 @@ import useWidgetDispatch from "./useWidgetDispatch";
 import useWidgetsContext from "./useWidgetsContext";
 
 export default () => {
-    const { widgets, setWidgets } = useWidgetsContext();
+    const { widgets, setWidgets, setSelectedWidgets } = useWidgetsContext();
     const {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
         dispatchUpdateDictionary,
-        dispatchRemoveSelected,
         dispatchSetCurrentWidgetProperties,
         dispatchRemoveWidgetDictionary,
     } = useWidgetDispatch();
@@ -59,8 +58,19 @@ export default () => {
         [dispatchUpdateDictionary]
     );
 
+    const select = useCallback(
+        (widgetsToSelect: WidgetSceneObject[]) => {
+            setSelectedWidgets(widgetsToSelect);
+        },
+        [setSelectedWidgets]
+    );
+
+    const removeSelection = useCallback(() => {
+        select([]);
+    }, [select]);
+
     const remove = (widget: WidgetSceneObject) => {
-        dispatchRemoveSelected();
+        removeSelection();
         dispatchRemoveWidgetDictionary(widget.id);
 
         delete widgets[widget.id];
@@ -74,6 +84,8 @@ export default () => {
         add,
         addBatch,
         update,
+        select,
+        removeSelection,
         remove,
         updateCurrentProperties,
     };

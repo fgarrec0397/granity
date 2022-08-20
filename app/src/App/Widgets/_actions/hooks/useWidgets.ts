@@ -1,14 +1,8 @@
 import { uidGenerator } from "@app/Common/utilities";
-import { trigger } from "@app/Core/_actions/utilities/events";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { Object3D } from "three";
 
-import {
-    useWidgetDispatch,
-    useWidgetsContext,
-    useWidgetsSelector,
-    useWidgetsServices,
-} from "../_data/hooks";
+import { useWidgetsContext, useWidgetsSelector, useWidgetsServices } from "../_data/hooks";
 import {
     buildWidgetDictionaryItem,
     buildWidgetDictionaryProperties,
@@ -26,31 +20,10 @@ import {
 const { widgetObjectsPrefix } = widgetsConstants;
 
 export default () => {
-    const { currentWidgetProperties, selected, widgetsDictionary } = useWidgetsSelector();
-    const { widgets } = useWidgetsContext();
-    const [currentWidgetsState, setCurrentWidgetsState] = useState<WidgetSceneObject[]>([]);
-    const { add, addBatch, update, remove, updateCurrentProperties } = useWidgetsServices();
-    const { dispatchSetSelected, dispatchRemoveSelected } = useWidgetDispatch();
-
-    useEffect(() => {
-        // TODO -- Check an optimized version to get the current widgets ---> O(n) instead of O(n^2)
-        const currentWidgets = Object.keys(widgets)
-            .filter((x) => {
-                const widget = widgets[x];
-
-                if (widget.id) {
-                    return selected.indexOf(widget.id) !== -1;
-                }
-                return false;
-            })
-            .map((x) => widgets[x]);
-
-        setCurrentWidgetsState(currentWidgets);
-    }, [selected, widgets]);
-
-    useEffect(() => {
-        trigger("updateCurrentWidgetWithMesh", { updateOnlyProperties: true });
-    }, [currentWidgetsState]);
+    const { currentWidgetProperties, widgetsDictionary } = useWidgetsSelector();
+    const { widgets, selectedWidgets } = useWidgetsContext();
+    const { add, addBatch, select, removeSelection, update, remove, updateCurrentProperties } =
+        useWidgetsServices();
 
     const getWidgetDictionaryFromWidget = (widgetId: string | undefined) => {
         if (widgetId) {
@@ -58,30 +31,60 @@ export default () => {
         }
     };
 
-    const getWidgetById = (id: string | undefined) => {
-        if (id) {
-            return widgets[id];
-        }
-    };
+    const getWidgetById = useCallback(
+        (id: string | undefined) => {
+            if (id) {
+                return widgets[id];
+            }
+        },
+        [widgets]
+    );
 
-    const getWidgetByMesh = (mesh: Object3D) => {
-        let widgetMesh: Object3D | undefined;
+    const getWidgetByMesh = useCallback(
+        (mesh: Object3D) => {
+            let widgetMesh: Object3D | undefined;
 
-        if (mesh.name.startsWith(widgetObjectsPrefix)) {
-            widgetMesh = mesh;
-        } else {
-            mesh.traverseAncestors((object) => {
-                if (object.name.startsWith(widgetObjectsPrefix)) {
-                    widgetMesh = object;
-                }
-            });
-        }
+            if (mesh.name.startsWith(widgetObjectsPrefix)) {
+                widgetMesh = mesh;
+            } else {
+                mesh.traverseAncestors((object) => {
+                    if (object.name.startsWith(widgetObjectsPrefix)) {
+                        widgetMesh = object;
+                    }
+                });
+            }
 
-        const widgetIdInMesh = widgetMesh?.name.split("+")[2];
-        const widget = getWidgetById(widgetIdInMesh) as WidgetSceneObject;
+            const widgetIdInMesh = widgetMesh?.name.split("+")[2];
+            const widget = getWidgetById(widgetIdInMesh) as WidgetSceneObject;
 
-        return { widget, widgetMesh };
-    };
+            return { widget, widgetMesh };
+        },
+        [getWidgetById]
+    );
+
+    const updateWidget = useCallback(
+        (
+            widget: WidgetSceneObject,
+            widgetProperties?: WidgetProperties,
+            updateOnlyProperties?: boolean
+        ) => {
+            if (updateOnlyProperties && widgetProperties) {
+                updateCurrentProperties(widgetProperties);
+            } else {
+                update(widget, widgetProperties);
+            }
+        },
+        [update, updateCurrentProperties]
+    );
+
+    const updateCurrentWidget = useCallback(
+        (widgetProperties: WidgetProperties, updateOnlyProperties?: boolean) => {
+            const currentWidget = selectedWidgets[0];
+
+            updateWidget(currentWidget, widgetProperties, updateOnlyProperties);
+        },
+        [selectedWidgets, updateWidget]
+    );
 
     const addWidget = (
         widget: WidgetSceneObject,
@@ -127,23 +130,25 @@ export default () => {
         [addBatch]
     );
 
-    const selectWidget = (widget: WidgetSceneObject) => {
-        dispatchSetSelected(widget);
-    };
+    const selectWidget = useCallback(
+        (widgetsToSelect: WidgetSceneObject[]) => {
+            select(widgetsToSelect);
+            updateCurrentWidget(widgetsDictionary[widgetsToSelect[0].id].properties, true);
+        },
+        [select, widgetsDictionary, updateCurrentWidget]
+    );
 
-    const updateWidget = useCallback(
-        (
-            widget: WidgetSceneObject,
-            widgetProperties?: WidgetProperties,
-            updateOnlyProperties?: boolean
-        ) => {
-            if (updateOnlyProperties && widgetProperties) {
-                updateCurrentProperties(widgetProperties);
-            } else {
-                update(widget, widgetProperties);
+    const selectWidgetFromMeshArr = useCallback(
+        (meshArray: THREE.Object3D[]) => {
+            if (meshArray.length) {
+                const { widget } = getWidgetByMesh(meshArray[0]);
+
+                if (widget) {
+                    selectWidget([widget]);
+                }
             }
         },
-        [update, updateCurrentProperties]
+        [getWidgetByMesh, selectWidget]
     );
 
     const updateWidgetOptions = useCallback(
@@ -158,20 +163,11 @@ export default () => {
 
     const updateCurrentWidgetOptions = useCallback(
         (widgetOptions: WidgetOptionsValues) => {
-            const currentWidget = currentWidgetsState[0];
+            const currentWidget = selectedWidgets[0];
 
             updateWidgetOptions(currentWidget, widgetOptions);
         },
-        [currentWidgetsState, updateWidgetOptions]
-    );
-
-    const updateCurrentWidget = useCallback(
-        (widgetProperties: WidgetProperties, updateOnlyProperties?: boolean) => {
-            const currentWidget = currentWidgetsState[0];
-
-            updateWidget(currentWidget, widgetProperties, updateOnlyProperties);
-        },
-        [currentWidgetsState, updateWidget]
+        [selectedWidgets, updateWidgetOptions]
     );
 
     const updateCurrentWidgetWithMesh = useCallback(
@@ -204,8 +200,8 @@ export default () => {
         }
     };
 
-    const removeCurrentWidgets = () => {
-        const widget = currentWidgetsState[0];
+    const removeselectedWidgets = () => {
+        const widget = selectedWidgets[0];
         if (widget) {
             removeWidget(widget);
         } else {
@@ -220,25 +216,16 @@ export default () => {
         }
     };
 
-    // const removeWidgetsBatch = (meshs: Object3D[]) => {
-    //     const { widget } = getWidgetByMesh(mesh);
-
-    //     if (widget.id) {
-    //         remove(widget);
-    //     }
-    // };
-
-    const removeSelected = () => {
-        dispatchRemoveSelected();
+    const removeWidgetSelection = () => {
+        removeSelection();
     };
 
     return {
-        currentWidgets: currentWidgetsState,
-        firstCurrentWidget: currentWidgetsState[0],
+        selectedWidgets,
+        firstCurrentWidget: selectedWidgets[0],
         currentWidgetProperties,
         widgets,
         widgetsDictionary,
-        selected,
         getWidgetDictionaryFromWidget,
 
         // Widgets Getters
@@ -249,14 +236,15 @@ export default () => {
         addWidget,
         addWidgetsBatch,
         selectWidget,
+        selectWidgetFromMeshArr,
         updateWidget,
         updateWidgetOptions,
         updateCurrentWidgetOptions,
         updateCurrentWidget,
         updateCurrentWidgetWithMesh,
         copyWidget,
-        removeCurrentWidgets,
+        removeselectedWidgets,
         removeWidget,
-        removeSelected,
+        removeWidgetSelection,
     };
 };

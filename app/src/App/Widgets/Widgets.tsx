@@ -1,5 +1,5 @@
 import { Select } from "@react-three/drei";
-import { FC, useCallback } from "react";
+import { FC } from "react";
 
 import useWidgets from "./_actions/hooks/useWidgets";
 import useWidgetsConnector from "./_actions/hooks/useWidgetsConnector";
@@ -11,25 +11,12 @@ interface WidgetProps {
 }
 
 const Widgets: FC = () => {
-    const { widgets, getWidgetByMesh, selectWidget } = useWidgets();
+    const { widgets, selectWidgetFromMeshArr } = useWidgets();
 
     useWidgetsConnector();
 
-    const onSelectMesh = useCallback(
-        (meshArray: THREE.Object3D[]) => {
-            if (meshArray.length) {
-                const { widget } = getWidgetByMesh(meshArray[0]);
-
-                if (widget) {
-                    selectWidget(widget);
-                }
-            }
-        },
-        [getWidgetByMesh, selectWidget]
-    );
-
     return (
-        <Select box multiple onChange={onSelectMesh}>
+        <Select multiple onChange={selectWidgetFromMeshArr}>
             {Object.keys(widgets).map((widgetId) => (
                 <Widget key={widgetId} widget={widgets[widgetId]} />
             ))}

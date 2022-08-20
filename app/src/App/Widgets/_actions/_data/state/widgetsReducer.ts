@@ -3,13 +3,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WidgetProperties, WidgetsDictionary, WidgetsDictionaryItem } from "../../widgetsTypes";
 
 export interface WidgetsState {
-    selected: string[];
     widgetsDictionary: WidgetsDictionary;
     currentWidgetProperties: WidgetProperties | null;
 }
 
 export const widgetsInitialState: WidgetsState = {
-    selected: [],
     widgetsDictionary: {},
     currentWidgetProperties: null,
 };
@@ -52,18 +50,6 @@ export const widgetsReducerActions = <T extends WidgetsState>() => ({
     setCurrentWidgetProperties: (state: WidgetsState, action: PayloadAction<WidgetProperties>) => {
         state.currentWidgetProperties = action.payload;
     },
-    removeSelected: (state: WidgetsState) => {
-        state.selected = [];
-    },
-    setSelected: (
-        state: WidgetsState,
-        action: PayloadAction<{ newSelectedId: string; isMultipleSelect?: boolean }>
-    ) => {
-        const newSelectedIdArray = action.payload.isMultipleSelect
-            ? [...state.selected, action.payload.newSelectedId]
-            : [action.payload.newSelectedId];
-        state.selected = newSelectedIdArray;
-    },
 });
 
 export const sceneSlice = createSlice({
@@ -73,12 +59,10 @@ export const sceneSlice = createSlice({
 });
 
 export const {
-    setSelected,
     addWidgetDictionary,
     addBatchWidgetDictionary,
     updateWidgetDictionary,
     removeWidgetDictionary,
-    removeSelected,
     setCurrentWidgetProperties,
 } = sceneSlice.actions;
 

@@ -1,19 +1,12 @@
 import { useAppDispatch } from "@core/store";
 import { useCallback } from "react";
 
-import {
-    WidgetProperties,
-    WidgetSceneObject,
-    WidgetsDictionary,
-    WidgetsDictionaryItem,
-} from "../../widgetsTypes";
+import { WidgetProperties, WidgetsDictionary, WidgetsDictionaryItem } from "../../widgetsTypes";
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
-    removeSelected,
     removeWidgetDictionary,
     setCurrentWidgetProperties,
-    setSelected,
     updateWidgetDictionary,
 } from "../state/widgetsReducer";
 
@@ -31,12 +24,6 @@ export default () => {
         [dispatch]
     );
 
-    const dispatchSetSelected = (widget: WidgetSceneObject) => {
-        if (widget.id) {
-            return dispatch(setSelected({ newSelectedId: widget.id }));
-        }
-    };
-
     const dispatchUpdateDictionary = useCallback(
         (widgetsDictionaryItem: WidgetsDictionaryItem) => {
             return dispatch(updateWidgetDictionary(widgetsDictionaryItem));
@@ -50,10 +37,6 @@ export default () => {
         }
     };
 
-    const dispatchRemoveSelected = () => {
-        return dispatch(removeSelected());
-    };
-
     const dispatchSetCurrentWidgetProperties = (widgetProperties: WidgetProperties) => {
         return dispatch(setCurrentWidgetProperties(widgetProperties));
     };
@@ -61,10 +44,8 @@ export default () => {
     return {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
-        dispatchSetSelected,
         dispatchUpdateDictionary,
         dispatchRemoveWidgetDictionary,
-        dispatchRemoveSelected,
         dispatchSetCurrentWidgetProperties,
     };
 };

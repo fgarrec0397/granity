@@ -13,7 +13,7 @@ import UI from "./UI/UI";
 import { useWidgets } from "./Widgets/_actions/hooks";
 
 const App: FC = () => {
-    const { removeSelected } = useWidgets();
+    const { removeWidgetSelection } = useWidgets();
     const ContextBridge = useContextBridge(
         CamerasContext,
         WidgetsContext,
@@ -27,7 +27,7 @@ const App: FC = () => {
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();
-        removeSelected();
+        removeWidgetSelection();
     };
 
     return (

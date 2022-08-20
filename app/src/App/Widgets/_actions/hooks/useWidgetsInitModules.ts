@@ -1,6 +1,6 @@
+import rawWidgetsModules from "@features/collector";
 import { useCallback, useEffect } from "react";
 
-import { rawWidgetsModules } from "../../widgetsImports";
 import { WidgetModule } from "../widgetsTypes";
 import useWidgetsModules from "./useWidgetsModules";
 

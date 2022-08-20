@@ -1,4 +1,4 @@
-import { WidgetObjects } from "@app/Widgets/_actions/widgetsTypes";
+import { WidgetObjects, WidgetSceneObject } from "@app/Widgets/_actions/widgetsTypes";
 import { createContext, Dispatch, FC, SetStateAction } from "react";
 
 import { useWidgetsProviderValue } from "../hooks";
@@ -6,11 +6,15 @@ import { useWidgetsProviderValue } from "../hooks";
 export interface WidgetsContextModel {
     widgets: WidgetObjects;
     setWidgets: Dispatch<SetStateAction<WidgetObjects>>;
+    selectedWidgets: WidgetSceneObject[];
+    setSelectedWidgets: Dispatch<SetStateAction<WidgetSceneObject[]>>;
 }
 
 export const widgetsDefaultContext: WidgetsContextModel = {
     widgets: {},
     setWidgets: () => {},
+    selectedWidgets: [],
+    setSelectedWidgets: () => {},
 };
 
 export const WidgetsContext = createContext<WidgetsContextModel>(widgetsDefaultContext);

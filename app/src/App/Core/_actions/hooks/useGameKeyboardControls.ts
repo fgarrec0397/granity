@@ -10,7 +10,7 @@ import useKeyboardMappings from "./useKeyboardMappings";
 export default () => {
     const { setIsEditor } = useIsEditor();
     const { setNextCamera, setPrevCamera } = useCameras();
-    const { currentWidgets, firstCurrentWidget, widgets, removeCurrentWidgets, copyWidget } =
+    const { selectedWidgets, firstCurrentWidget, widgets, removeselectedWidgets, copyWidget } =
         useWidgets();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
 
@@ -19,18 +19,18 @@ export default () => {
             if (keyMapping.editor.toggleEditor?.value) {
                 setIsEditor();
             } else if (keyMapping.editor.copyWidget?.value) {
-                if (currentWidgets.length > 0) {
-                    setCopiedWidgets(currentWidgets);
+                if (selectedWidgets.length > 0) {
+                    setCopiedWidgets(selectedWidgets);
                 }
             } else if (keyMapping.editor.pasteWidget?.value) {
-                if (currentWidgets.length > 0) {
-                    currentWidgets.forEach((x) => {
+                if (selectedWidgets.length > 0) {
+                    selectedWidgets.forEach((x) => {
                         copyWidget(x);
                     });
                 }
             } else if (keyMapping.editor.deleteWidget?.value) {
-                if (currentWidgets.length > 0) {
-                    removeCurrentWidgets();
+                if (selectedWidgets.length > 0) {
+                    removeselectedWidgets();
                 }
             } else if (keyMapping.editor.nextCamera?.value) {
                 setNextCamera();
@@ -38,6 +38,6 @@ export default () => {
                 setPrevCamera();
             }
         },
-        [firstCurrentWidget?.id, currentWidgets, widgets, copyWidget, removeCurrentWidgets]
+        [firstCurrentWidget?.id, selectedWidgets, widgets, copyWidget, removeselectedWidgets]
     );
 };

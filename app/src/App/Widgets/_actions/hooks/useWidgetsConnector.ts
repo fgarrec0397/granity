@@ -6,12 +6,12 @@ import useWidgets from "./useWidgets";
 
 export default () => {
     const getMeshByWidget = useGetMeshByWidget();
-    const { currentWidgets, updateCurrentWidgetWithMesh } = useWidgets();
+    const { selectedWidgets, updateCurrentWidgetWithMesh } = useWidgets();
 
     useEffect(() => {
         const handleUpdateCurrentWidgetWithMesh = ({ detail }: CustomEvent) => {
-            if (currentWidgets.length) {
-                const mesh = getMeshByWidget(currentWidgets[0]);
+            if (selectedWidgets.length) {
+                const mesh = getMeshByWidget(selectedWidgets[0]);
                 updateCurrentWidgetWithMesh(mesh, detail?.updateOnlyProperties);
             }
         };
@@ -21,5 +21,5 @@ export default () => {
         return () => {
             events.off("updateCurrentWidgetWithMesh", handleUpdateCurrentWidgetWithMesh);
         };
-    }, [currentWidgets, getMeshByWidget, updateCurrentWidgetWithMesh]);
+    }, [selectedWidgets, getMeshByWidget, updateCurrentWidgetWithMesh]);
 };
