@@ -24,10 +24,6 @@ const TransformControlsComponent: FC = ({ children }) => {
         [camera, gl.domElement]
     );
 
-    useEffect(() => {
-        console.log(meshToAttach, "meshToAttach");
-    }, [meshToAttach]);
-
     /**
      * Attach the selected mesh on the scene to TransformControls
      * Whenever it is unmounted, it detach all attached meshes
@@ -66,8 +62,6 @@ const TransformControlsComponent: FC = ({ children }) => {
      * Update the current mesh to be attached to TransformControls when it changes
      */
     useEffect(() => {
-        console.log(selectedWidgets.length, "selectedWidgets.length");
-
         if (
             selectedWidgets.length &&
             (!previousSelectedWidgets || !isEqual(selectedWidgets, previousSelectedWidgets))
