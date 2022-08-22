@@ -2,18 +2,10 @@ import editorReducer, { EditorState } from "@app/Editor/_actions/_data/state/edi
 import gameReducer from "@app/Game/_actions/_data/state/gameReducer";
 import { FeaturesState } from "@features/collector";
 import featuresReducer from "@features/featuresReducer";
+import { configureStore } from "@reduxjs/toolkit";
 import widgetsReducer, { WidgetsState } from "@widgets/_actions/_data/state/widgetsReducer";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import {
-    AnyAction,
-    applyMiddleware,
-    combineReducers,
-    createStore,
-    Reducer,
-    ReducersMapObject,
-    Store,
-} from "redux";
-import thunk from "redux-thunk";
+import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "redux";
 
 interface State {
     editor: EditorState;
@@ -43,7 +35,9 @@ const staticReducers: ReducersMapObject<State, MyAction> = {
  * Create a store which has a function to inject a pageReducer
  */
 const initStore = (): InjectableStore => {
-    const store: InjectableStore = createStore(createReducer(), applyMiddleware(thunk));
+    const store: InjectableStore = configureStore({
+        reducer: staticReducers,
+    });
 
     store.asyncReducers = {};
     store.injectReducer = (asyncReducer: Reducer<FeaturesState, MyAction>) => {

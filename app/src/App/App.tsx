@@ -8,7 +8,6 @@ import { WidgetsModulesContext } from "@widgets/_actions/_data/providers/Widgets
 import { FC } from "react";
 import { ReactReduxContext } from "react-redux";
 
-import { GameWidgetsContext } from "./Game/_actions/_data/providers/GameWidgetsProvider";
 import UI from "./UI/UI";
 import { useWidgets } from "./Widgets/_actions/hooks";
 
@@ -17,7 +16,6 @@ const App: FC = () => {
     const ContextBridge = useContextBridge(
         CamerasContext,
         WidgetsContext,
-        GameWidgetsContext,
         WidgetsModulesContext,
         ReactReduxContext
     );

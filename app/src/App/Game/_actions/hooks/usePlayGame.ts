@@ -1,19 +1,10 @@
 import { useIsEditor } from "@app/Editor/_actions/hooks";
-import { useWidgets } from "@app/Widgets/_actions/hooks";
-
-import useGameWidgets from "./useGameWidgets";
 
 export default () => {
-    const { setIsEditor, isEditor } = useIsEditor();
-    const { widgets, widgetsDictionary } = useWidgets();
-    const { initGameWidgets, removeGameWidgets } = useGameWidgets();
+    const { setIsEditor } = useIsEditor();
 
+    // This hook will be in charge to init all the process set the game up
     const playGame = () => {
-        // if (isEditor) {
-        //     initGameWidgets(widgetsDictionary, widgets);
-        // } else {
-        //     removeGameWidgets();
-        // }
         setIsEditor();
     };
 

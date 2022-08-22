@@ -52,8 +52,8 @@ export const widgetsReducerActions = <T extends WidgetsState>() => ({
     },
 });
 
-export const sceneSlice = createSlice({
-    name: "editor",
+export const widgetsSlice = createSlice({
+    name: "widgets",
     initialState: widgetsInitialState,
     reducers: widgetsReducerActions(),
 });
@@ -64,6 +64,6 @@ export const {
     updateWidgetDictionary,
     removeWidgetDictionary,
     setCurrentWidgetProperties,
-} = sceneSlice.actions;
+} = widgetsSlice.actions;
 
-export default sceneSlice.reducer;
+export default widgetsSlice.reducer;
