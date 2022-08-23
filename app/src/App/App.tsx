@@ -8,6 +8,7 @@ import { WidgetsModulesContext } from "@widgets/_actions/_data/providers/Widgets
 import { FC } from "react";
 import { ReactReduxContext } from "react-redux";
 
+import { HistoryDictionaryContext } from "./Editor/_actions/_data/providers/HistoryContextProvider";
 import UI from "./UI/UI";
 import { useWidgets } from "./Widgets/_actions/hooks";
 
@@ -17,7 +18,8 @@ const App: FC = () => {
         CamerasContext,
         WidgetsContext,
         WidgetsModulesContext,
-        ReactReduxContext
+        ReactReduxContext,
+        HistoryDictionaryContext
     );
 
     // Store all kind of widgets in Widgets Context API
