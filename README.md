@@ -26,8 +26,44 @@ The goal is to provide you all the tools preset for you so you can focus on what
 * Copy widgets
 * Multiple cameras support
 * Key bindings (only with keyboard for now)
+* Save your scene
  
-## Documentation & Roadmap
+## Roadmap
+The roadmap elements below are not classed in order yet.
+
+### Features
+- [ ] Add a history system
+- [ ] Add a dashboard to control some settings such as key bindings
+- [ ] Select multiple widgets at the time
+- [ ] Be able to group elements together
+- [ ] Having a camera preview in the editor
+- [ ] Manage multiple scenes
+- [ ] Support multiplayer
+- [ ] Make shortcuts actions available from UI
+
+### Improvements
+- [ ] Remake the UI
+- [ ] Having multiple themes (one for the game, antoher for the editor)
+- [ ] Be able to select and manipulate the widgets through the UI
+- [ ] Add unit testing
+- [ ] Adding widget on mouse position instead of the position [0, 0, 0]
+- [ ] Add more field types
+- [ ] Add more keyboard shortcuts
+- [ ] Fix bugs along the way
+- [ ] Refactor the back-end architecture
+
+### Environment
+- [ ] Investigate to switch from [CRA with Webpack](https://create-react-app.dev/) to [Vite.js](https://vitejs.dev/) 
+
+### Documentation
+- [ ] Project installation
+- [ ] How it works
+- [ ] Document functions in the base code
+- [ ] Examples
+
+**And more...**
+ 
+## Documentation
 
 Coming soon...
 
