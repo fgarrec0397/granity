@@ -2,9 +2,14 @@
 >
 > Please consider it before using this tool. Updates will be a pain in the *ss, but you can always starring it if you love the concept :heart:
 
-# The-Web-3D-Game-Engine
+# The-Web-3D-Game-Engine 
+![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
-A React Three Fiber widgets based game engine build with NodeJs as back-end.
+A [React-Three-Fiber](https://github.com/pmndrs/react-three-fiber) widgets based game engine build with NodeJs as back-end.
 
 ![Current State of The Project](https://i.imgur.com/umqYMA5.png)
 
