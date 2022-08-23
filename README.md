@@ -1,4 +1,6 @@
-:warning: **UNDER HEAVY DEVELOPMENT** :warning: Please consider it before using this tool, updates will be a pain in the *ss
+> :warning: **UNDER HEAVY DEVELOPMENT** :warning: 
+>
+> Please consider it before using this tool. Updates will be a pain in the *ss, but you can always starring it if you love the concept :heart:
 
 # The-Web-3D-Game-Engine
 
