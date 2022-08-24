@@ -9,17 +9,12 @@ export default () => {
     const { add, set } = useHistoryService();
 
     useEffect(() => {
+        console.log(currentHistoryItem, "currentHistoryItem has changed");
+    }, [currentHistoryItem]);
+
+    useEffect(() => {
         console.log(historyDictionary, "historyDictionary");
     }, [historyDictionary]);
-
-    const setLastHistoryItem = useCallback(() => {
-        const lastHistoryStateId =
-            Object.keys(historyDictionary)[Object.keys(historyDictionary).length - 1];
-        const historyItem = historyDictionary[lastHistoryStateId];
-        console.log(historyItem, "historyItem");
-
-        set(historyItem);
-    }, [historyDictionary, set]);
 
     const addHistoryState = useCallback(
         (state: HistoryState) => {
@@ -43,7 +38,7 @@ export default () => {
         historyDictionary,
         currentHistoryItem,
         addHistoryState,
-        setLastHistoryItem,
+        // setLastHistoryItem,
         setPrevHistoryItem,
     };
 };
