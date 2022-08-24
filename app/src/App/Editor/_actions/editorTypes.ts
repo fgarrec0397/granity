@@ -30,6 +30,7 @@ export type HistoryDictionary = {
  * One history item
  */
 export type HistoryItem = {
+    id: string;
     order: number;
     state: HistoryState;
 };

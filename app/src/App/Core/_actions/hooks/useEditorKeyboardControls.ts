@@ -1,4 +1,5 @@
 import { KeyboardMappings } from "@app/Core/coreTypes";
+import useHistory from "@app/Editor/_actions/hooks/useHistory";
 import usePlayGame from "@app/Game/_actions/hooks/usePlayGame";
 import useCameras from "@scene/_actions/hooks/useCameras";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
@@ -11,6 +12,7 @@ export default () => {
     const { setNextCamera, setPrevCamera } = useCameras();
     const { selectedWidgets, firstCurrentWidget, widgets, removeselectedWidgets, copyWidget } =
         useWidgets();
+    const { setPrevHistoryItem } = useHistory();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
     const { playGame } = usePlayGame();
 
@@ -28,6 +30,10 @@ export default () => {
                         copyWidget(x);
                     });
                 }
+            } else if (keyMapping.editor.undo?.value) {
+                console.log("undo");
+
+                setPrevHistoryItem();
             } else if (keyMapping.editor.deleteWidget?.value) {
                 if (selectedWidgets.length > 0) {
                     removeselectedWidgets();

@@ -1,32 +1,32 @@
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
-import { HistoryDictionary } from "../../editorTypes";
+import { HistoryDictionary, HistoryItem } from "../../editorTypes";
 
 export interface HistoryContextModel {
     historyDictionary: HistoryDictionary;
     setHistoryDictionary: (() => void) | Dispatch<SetStateAction<HistoryDictionary>>;
-    currentHistoryStateId: string;
-    setCurrentHistoryStateId: (() => void) | Dispatch<SetStateAction<string>>;
+    currentHistoryItem?: HistoryItem;
+    setCurrentHistoryItem: (() => void) | Dispatch<SetStateAction<HistoryItem | undefined>>;
 }
 
 export const defaultContext: HistoryContextModel = {
     historyDictionary: {},
     setHistoryDictionary: () => {},
-    currentHistoryStateId: "",
-    setCurrentHistoryStateId: () => {},
+    currentHistoryItem: undefined,
+    setCurrentHistoryItem: () => {},
 };
 
 export const HistoryDictionaryContext = createContext<HistoryContextModel>(defaultContext);
 
 const HistoryDictionaryContextProvider: FC = ({ children }) => {
     const [historyDictionary, setHistoryDictionary] = useState<HistoryDictionary>({});
-    const [currentHistoryStateId, setCurrentHistoryStateId] = useState<string>("");
+    const [currentHistoryItem, setCurrentHistoryItem] = useState<HistoryItem>();
 
     const providerValue: HistoryContextModel = {
         historyDictionary,
         setHistoryDictionary,
-        currentHistoryStateId,
-        setCurrentHistoryStateId,
+        currentHistoryItem,
+        setCurrentHistoryItem,
     };
 
     return (
