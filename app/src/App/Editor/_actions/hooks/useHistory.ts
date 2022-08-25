@@ -19,7 +19,6 @@ export default () => {
     const addHistoryState = useCallback(
         (state: HistoryState) => {
             add(state);
-            // setLastHistoryItem();
         },
         [add]
     );

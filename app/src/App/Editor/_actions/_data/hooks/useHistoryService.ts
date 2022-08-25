@@ -1,40 +1,53 @@
 import { usePrevious } from "@app/Common/hooks";
-import useCurrentState from "@app/Common/hooks/useCurrentState";
 import { uidGenerator } from "@app/Common/utilities";
 import { useCallback, useEffect, useState } from "react";
 
-import { HistoryItem, HistoryState } from "../../editorTypes";
+import { HistoryDictionary, HistoryItem, HistoryState } from "../../editorTypes";
 import useHistoryContext from "./useHistoryContext";
 
-export default () => {
-    const { historyDictionary, setHistoryDictionary, setCurrentHistoryItem } = useHistoryContext();
+const useHandleNextHistoryItem = (
+    historyDictionary: HistoryDictionary,
+    callback: (historyItem: HistoryItem) => void
+) => {
     const previousHistoryDictionary = usePrevious(historyDictionary);
     const [historyItemToset, setHistoryItemToset] = useState<HistoryItem>();
-    const { withCurrentState } = useCurrentState();
 
-    const set = useCallback(
-        (historyItem: HistoryItem) => {
-            setCurrentHistoryItem(historyItem);
-        },
-        [setCurrentHistoryItem]
-    );
-
-    const postAdd = useCallback(
-        (historyItem: HistoryItem) => {
-            set(historyItem);
-        },
-        [set]
-    );
-
+    // TODO -- See to clean this
     useEffect(() => {
         if (
             previousHistoryDictionary &&
             historyItemToset &&
             Object.keys(historyDictionary).length > Object.keys(previousHistoryDictionary).length
         ) {
-            postAdd(historyItemToset);
+            callback(historyItemToset);
         }
-    }, [historyDictionary, historyItemToset, postAdd, previousHistoryDictionary]);
+    }, [historyDictionary, historyItemToset, previousHistoryDictionary, callback]);
+
+    return setHistoryItemToset;
+};
+
+export default () => {
+    const { historyDictionary, setHistoryDictionary, setCurrentHistoryItem } = useHistoryContext();
+    const set = useCallback(
+        (historyItem: HistoryItem) => {
+            setCurrentHistoryItem(historyItem);
+        },
+        [setCurrentHistoryItem]
+    );
+    const setHistoryItemToset = useHandleNextHistoryItem(historyDictionary, set);
+    // const previousHistoryDictionary = usePrevious(historyDictionary);
+    // const [historyItemToset, setHistoryItemToset] = useState<HistoryItem>();
+
+    // // TODO -- See to clean this
+    // useEffect(() => {
+    //     if (
+    //         previousHistoryDictionary &&
+    //         historyItemToset &&
+    //         Object.keys(historyDictionary).length > Object.keys(previousHistoryDictionary).length
+    //     ) {
+    //         set(historyItemToset);
+    //     }
+    // }, [historyDictionary, historyItemToset, previousHistoryDictionary, set]);
 
     const add = useCallback(
         (state: HistoryState) => {
@@ -51,12 +64,9 @@ export default () => {
                 [id]: historyItem,
             });
 
-            // console.log(historyItem, "historyItem that has just been created");
-            withCurrentState<HistoryItem>((historyItemToset2) => set(historyItemToset2));
-            // setHistoryItemToset(historyItem);
-            // postAdd(historyItem); // TODO -- see why it's not setting up the just create historyItem
+            setHistoryItemToset(historyItem); // set the next current history item
         },
-        [historyDictionary, set, setHistoryDictionary, withCurrentState]
+        [historyDictionary, setHistoryDictionary, setHistoryItemToset]
     );
 
     return { add, set };
