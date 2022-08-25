@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 import useHistoryContext from "../_data/hooks/useHistoryContext";
 import useHistoryService from "../_data/hooks/useHistoryService";
-import { HistoryItem, HistoryState } from "../editorTypes";
+import { HistoryState } from "../editorTypes";
 
 export default () => {
     const { historyDictionary, currentHistoryItem } = useHistoryContext();
-    const { add, set } = useHistoryService();
+    const { add, setCurrent } = useHistoryService();
 
     useEffect(() => {
         console.log(currentHistoryItem, "currentHistoryItem has changed");
@@ -29,9 +29,9 @@ export default () => {
         if (currentHistoryItemIndex) {
             const prevHistoryItemId = Object.keys(historyDictionary)[currentHistoryItemIndex - 1];
             console.log(prevHistoryItemId, "prevHistoryItemId");
-            set(historyDictionary[prevHistoryItemId]);
+            setCurrent(historyDictionary[prevHistoryItemId]);
         }
-    }, [currentHistoryItem?.order, historyDictionary, set]);
+    }, [currentHistoryItem?.order, historyDictionary, setCurrent]);
 
     return {
         historyDictionary,
