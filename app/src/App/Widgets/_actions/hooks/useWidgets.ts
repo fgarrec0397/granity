@@ -22,8 +22,16 @@ const { widgetObjectsPrefix } = widgetsConstants;
 export default () => {
     const { currentWidgetProperties, widgetsDictionary } = useWidgetsSelector();
     const { widgets, selectedWidgets } = useWidgetsContext();
-    const { add, addBatch, select, removeSelection, update, remove, updateCurrentProperties } =
-        useWidgetsServices();
+    const {
+        add,
+        addBatch,
+        select,
+        removeSelection,
+        update,
+        remove,
+        updateCurrentProperties,
+        reset,
+    } = useWidgetsServices();
 
     const getWidgetDictionaryFromWidget = (widgetId: string | undefined) => {
         if (widgetId) {
@@ -220,6 +228,13 @@ export default () => {
         removeSelection();
     };
 
+    const resetWidgets = useCallback(
+        (widgetsToAdd: WidgetObjects, widgetDictionaryToAdd: WidgetsDictionary) => {
+            reset(widgetsToAdd, widgetDictionaryToAdd);
+        },
+        [reset]
+    );
+
     return {
         selectedWidgets,
         firstCurrentWidget: selectedWidgets[0],
@@ -246,5 +261,6 @@ export default () => {
         removeselectedWidgets,
         removeWidget,
         removeWidgetSelection,
+        resetWidgets,
     };
 };

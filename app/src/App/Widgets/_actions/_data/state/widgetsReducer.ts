@@ -47,6 +47,13 @@ export const widgetsReducerActions = <T extends WidgetsState>() => ({
         const id = action.payload;
         delete state.widgetsDictionary[id];
     },
+    removeBatchWidgetDictionary: (state: T, action: PayloadAction<string[]>) => {
+        const ids = action.payload;
+        ids.forEach((x) => delete state.widgetsDictionary[x]);
+    },
+    overrideWidgetDictionary: (state: T, action: PayloadAction<WidgetsDictionary>) => {
+        state.widgetsDictionary = action.payload;
+    },
     setCurrentWidgetProperties: (state: WidgetsState, action: PayloadAction<WidgetProperties>) => {
         state.currentWidgetProperties = action.payload;
     },
@@ -63,6 +70,8 @@ export const {
     addBatchWidgetDictionary,
     updateWidgetDictionary,
     removeWidgetDictionary,
+    removeBatchWidgetDictionary,
+    overrideWidgetDictionary,
     setCurrentWidgetProperties,
 } = widgetsSlice.actions;
 

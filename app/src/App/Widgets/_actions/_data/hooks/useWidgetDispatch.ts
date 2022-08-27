@@ -5,6 +5,8 @@ import { WidgetProperties, WidgetsDictionary, WidgetsDictionaryItem } from "../.
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
+    overrideWidgetDictionary,
+    removeBatchWidgetDictionary,
     removeWidgetDictionary,
     setCurrentWidgetProperties,
     updateWidgetDictionary,
@@ -37,6 +39,14 @@ export default () => {
         }
     };
 
+    const dispatchRemoveBatchWidgetDictionary = (widgetIds: string[]) => {
+        return dispatch(removeBatchWidgetDictionary(widgetIds));
+    };
+
+    const dispatchOverrideWidgetDictionary = (widgetDictionary: WidgetsDictionary) => {
+        return dispatch(overrideWidgetDictionary(widgetDictionary));
+    };
+
     const dispatchSetCurrentWidgetProperties = (widgetProperties: WidgetProperties) => {
         return dispatch(setCurrentWidgetProperties(widgetProperties));
     };
@@ -46,6 +56,8 @@ export default () => {
         dispatchAddBatchDictionary,
         dispatchUpdateDictionary,
         dispatchRemoveWidgetDictionary,
+        dispatchRemoveBatchWidgetDictionary,
+        dispatchOverrideWidgetDictionary,
         dispatchSetCurrentWidgetProperties,
     };
 };

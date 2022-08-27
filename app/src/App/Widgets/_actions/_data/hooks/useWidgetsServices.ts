@@ -19,6 +19,8 @@ export default () => {
         dispatchUpdateDictionary,
         dispatchSetCurrentWidgetProperties,
         dispatchRemoveWidgetDictionary,
+        dispatchOverrideWidgetDictionary,
+        dispatchRemoveBatchWidgetDictionary,
     } = useWidgetDispatch();
 
     const add = useCallback(
@@ -69,16 +71,45 @@ export default () => {
         select([]);
     }, [select]);
 
-    const remove = (widget: WidgetSceneObject) => {
-        removeSelection();
-        dispatchRemoveWidgetDictionary(widget.id);
+    const remove = useCallback(
+        (widget: WidgetSceneObject) => {
+            removeSelection();
+            dispatchRemoveWidgetDictionary(widget.id);
 
-        delete widgets[widget.id];
-    };
+            delete widgets[widget.id];
+        },
+        [dispatchRemoveWidgetDictionary, removeSelection, widgets]
+    );
 
-    const updateCurrentProperties = (widgetProperties: WidgetProperties) => {
-        dispatchSetCurrentWidgetProperties(widgetProperties);
-    };
+    const removeBatch = useCallback(
+        (widgetsToDelete: WidgetObjects) => {
+            const widgetsIdsToDelete = Object.keys(widgetsToDelete);
+
+            removeSelection();
+            dispatchRemoveBatchWidgetDictionary(widgetsIdsToDelete);
+            Object.keys(widgetsToDelete).forEach((x) => delete widgets[x]);
+        },
+        [dispatchRemoveBatchWidgetDictionary, removeSelection, widgets]
+    );
+
+    const removeAll = useCallback(() => {
+        removeBatch(widgets);
+    }, [removeBatch, widgets]);
+
+    const updateCurrentProperties = useCallback(
+        (widgetProperties: WidgetProperties) => {
+            dispatchSetCurrentWidgetProperties(widgetProperties);
+        },
+        [dispatchSetCurrentWidgetProperties]
+    );
+
+    const reset = useCallback(
+        (newWidgets: WidgetObjects, newWidgetsDictionary: WidgetsDictionary) => {
+            dispatchOverrideWidgetDictionary(newWidgetsDictionary);
+            setWidgets(newWidgets);
+        },
+        [dispatchOverrideWidgetDictionary, setWidgets]
+    );
 
     return {
         add,
@@ -87,6 +118,9 @@ export default () => {
         select,
         removeSelection,
         remove,
+        removeBatch,
+        removeAll,
+        reset,
         updateCurrentProperties,
     };
 };
