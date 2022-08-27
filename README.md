@@ -41,7 +41,7 @@ The goal is to provide you all the tools preset for you so you can focus on what
 The roadmap elements below are not classed in order yet.
 
 ### Features
-- [ ] Add a history system
+- [ x ] Add a history system
 - [ ] Add a dashboard to control some settings such as key bindings
 - [ ] Select multiple widgets at the time
 - [ ] Be able to group elements together
