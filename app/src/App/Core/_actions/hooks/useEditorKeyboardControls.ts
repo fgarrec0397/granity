@@ -12,7 +12,7 @@ export default () => {
     const { setNextCamera, setPrevCamera } = useCameras();
     const { selectedWidgets, firstCurrentWidget, widgets, removeselectedWidgets, copyWidget } =
         useWidgets();
-    const { setPrevHistoryItem } = useHistory();
+    const { setPrevHistoryItem, shouldAddHistoryState } = useHistory();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
     const { playGame } = usePlayGame();
 
@@ -44,6 +44,13 @@ export default () => {
                 setPrevCamera();
             }
         },
-        [firstCurrentWidget?.id, selectedWidgets, widgets, copyWidget, removeselectedWidgets]
+        [
+            firstCurrentWidget?.id,
+            selectedWidgets,
+            widgets,
+            copyWidget,
+            removeselectedWidgets,
+            shouldAddHistoryState,
+        ]
     );
 };

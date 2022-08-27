@@ -1,42 +1,42 @@
 import { usePrevious } from "@app/Common/hooks";
 import { useWidgets } from "@app/Widgets/_actions/hooks";
-import isEqual from "lodash/isEqual";
 import { useEffect } from "react";
 
-import useHasEdited from "./useHasEdited";
 import useHistory from "./useHistory";
 
 export default () => {
     const { widgets, widgetsDictionary, resetWidgets } = useWidgets();
-    const hasEdited = useHasEdited();
-    const previousWidgets = usePrevious(widgets);
-    const previousWidgetsDictionary = usePrevious(widgetsDictionary);
-    const { addHistoryState, currentHistoryItem } = useHistory();
+    const {
+        addHistoryState,
+        currentHistoryItem,
+        setShouldAddHistoryState,
+        shouldResetWidgets,
+        shouldAddHistory,
+    } = useHistory();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
 
     useEffect(() => {
-        if (
-            !isEqual(widgets, previousWidgets) ||
-            !isEqual(widgetsDictionary, previousWidgetsDictionary)
-        ) {
+        if (shouldAddHistory) {
             addHistoryState({
                 widgets,
                 widgetsDictionary,
             });
         }
-    }, [addHistoryState, previousWidgets, previousWidgetsDictionary, widgets, widgetsDictionary]);
+    }, [addHistoryState, shouldAddHistory, widgets, widgetsDictionary]);
 
     useEffect(() => {
-        if (
-            hasEdited &&
-            currentHistoryItem?.state.widgets &&
-            currentHistoryItem?.state.widgetsDictionary &&
-            !isEqual(currentHistoryItem, previousCurrentHistoryItem)
-        ) {
+        if (shouldResetWidgets) {
+            setShouldAddHistoryState(true);
             resetWidgets(
-                currentHistoryItem.state.widgets,
-                currentHistoryItem.state.widgetsDictionary
+                currentHistoryItem!.state.widgets,
+                currentHistoryItem!.state.widgetsDictionary
             );
         }
-    }, [currentHistoryItem, previousCurrentHistoryItem, resetWidgets, hasEdited]);
+    }, [
+        currentHistoryItem,
+        previousCurrentHistoryItem,
+        resetWidgets,
+        setShouldAddHistoryState,
+        shouldResetWidgets,
+    ]);
 };

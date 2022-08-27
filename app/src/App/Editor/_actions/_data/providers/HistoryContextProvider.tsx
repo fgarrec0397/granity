@@ -7,6 +7,8 @@ export interface HistoryContextModel {
     setHistoryDictionary: (() => void) | Dispatch<SetStateAction<HistoryDictionary>>;
     currentHistoryItem?: HistoryItem;
     setCurrentHistoryItem: (() => void) | Dispatch<SetStateAction<HistoryItem | undefined>>;
+    shouldAddHistoryState?: boolean;
+    setShouldAddHistoryState: (() => void) | Dispatch<SetStateAction<boolean>>;
 }
 
 export const defaultContext: HistoryContextModel = {
@@ -14,6 +16,8 @@ export const defaultContext: HistoryContextModel = {
     setHistoryDictionary: () => {},
     currentHistoryItem: undefined,
     setCurrentHistoryItem: () => {},
+    shouldAddHistoryState: true,
+    setShouldAddHistoryState: () => {},
 };
 
 export const HistoryDictionaryContext = createContext<HistoryContextModel>(defaultContext);
@@ -21,12 +25,15 @@ export const HistoryDictionaryContext = createContext<HistoryContextModel>(defau
 const HistoryDictionaryContextProvider: FC = ({ children }) => {
     const [historyDictionary, setHistoryDictionary] = useState<HistoryDictionary>({});
     const [currentHistoryItem, setCurrentHistoryItem] = useState<HistoryItem>();
+    const [shouldAddHistoryState, setShouldAddHistoryState] = useState(true);
 
     const providerValue: HistoryContextModel = {
         historyDictionary,
         setHistoryDictionary,
         currentHistoryItem,
         setCurrentHistoryItem,
+        shouldAddHistoryState,
+        setShouldAddHistoryState,
     };
 
     return (
