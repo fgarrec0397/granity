@@ -27,6 +27,12 @@ export default {
             shiftKey: false,
         },
         {
+            name: "cancelUndo",
+            code: "KeyZ",
+            ctrlKey: true,
+            shiftKey: true,
+        },
+        {
             name: "deleteWidget",
             code: "Delete",
             ctrlKey: false,

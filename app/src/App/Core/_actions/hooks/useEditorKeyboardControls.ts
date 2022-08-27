@@ -12,7 +12,7 @@ export default () => {
     const { setNextCamera, setPrevCamera } = useCameras();
     const { selectedWidgets, firstCurrentWidget, widgets, removeselectedWidgets, copyWidget } =
         useWidgets();
-    const { setPrevHistoryItem, shouldAddHistoryState } = useHistory();
+    const { setPrevHistoryItem, setNextHistoryItem, shouldAddHistoryState } = useHistory();
     const [, setCopiedWidgets] = useState<WidgetSceneObject[]>([]);
     const { playGame } = usePlayGame();
 
@@ -31,9 +31,9 @@ export default () => {
                     });
                 }
             } else if (keyMapping.editor.undo?.value) {
-                console.log("undo");
-
                 setPrevHistoryItem();
+            } else if (keyMapping.editor.cancelUndo?.value) {
+                setNextHistoryItem();
             } else if (keyMapping.editor.deleteWidget?.value) {
                 if (selectedWidgets.length > 0) {
                     removeselectedWidgets();

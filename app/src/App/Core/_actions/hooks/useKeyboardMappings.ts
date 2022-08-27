@@ -23,8 +23,8 @@ export default (handler: KeyboardMappingHandler, dependencies: DependencyList) =
         keyboardMappings.editor.forEach((x) => {
             newMapping.editor[x.name] = {
                 reference: (event: KeyboardEvent) => {
-                    const hasCtrlKey = x.ctrlKey ? event.ctrlKey : true;
-                    const hasShifKey = x.shiftKey ? event.shiftKey : true;
+                    const hasCtrlKey = x.ctrlKey ? event.ctrlKey : !event.ctrlKey;
+                    const hasShifKey = x.shiftKey ? event.shiftKey : !event.shiftKey;
 
                     return hasCtrlKey && hasShifKey && event.code === x.code;
                 },

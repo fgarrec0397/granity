@@ -41,28 +41,55 @@ export default () => {
         [add]
     );
 
-    const setPrevHistoryItem = useCallback(() => {
-        const currentHistoryItemIndex = currentHistoryItem?.order;
+    const getHistoryItemId = useCallback(
+        (index: number) => {
+            return Object.keys(historyDictionary)[index];
+        },
+        [historyDictionary]
+    );
 
-        if (currentHistoryItemIndex && currentHistoryItemIndex >= 0) {
-            const prevHistoryItemId = Object.keys(historyDictionary)[currentHistoryItemIndex - 1];
-            const historyItem = historyDictionary[prevHistoryItemId];
+    const setHistoryItem = useCallback(
+        (historyItemId: string) => {
+            const historyItem = historyDictionary[historyItemId];
 
             if (
+                historyItem &&
                 Object.keys(historyItem.state.widgets).length &&
                 Object.keys(historyItem.state.widgetsDictionary).length
             ) {
                 setShouldAddHistoryState(false);
-                setCurrent(historyDictionary[prevHistoryItemId]);
+                setCurrent(historyItem);
             }
+        },
+        [historyDictionary, setCurrent, setShouldAddHistoryState]
+    );
+
+    const setPrevHistoryItem = useCallback(() => {
+        const currentHistoryItemIndex = currentHistoryItem?.order;
+
+        if (currentHistoryItemIndex && currentHistoryItemIndex >= 0) {
+            const prevHistoryItemId = getHistoryItemId(currentHistoryItemIndex - 1);
+            setHistoryItem(prevHistoryItemId);
         }
-    }, [currentHistoryItem?.order, historyDictionary, setCurrent, setShouldAddHistoryState]);
+    }, [currentHistoryItem?.order, getHistoryItemId, setHistoryItem]);
+
+    const setNextHistoryItem = useCallback(() => {
+        const currentHistoryItemIndex = currentHistoryItem?.order;
+
+        if (currentHistoryItemIndex && currentHistoryItemIndex >= 0) {
+            const nextHistoryItemId = getHistoryItemId(currentHistoryItemIndex + 1);
+            setHistoryItem(nextHistoryItemId);
+        }
+    }, [currentHistoryItem?.order, getHistoryItemId, setHistoryItem]);
 
     return {
         historyDictionary,
         currentHistoryItem,
         addHistoryState,
+        getHistoryItemId,
+        setHistoryItem,
         setPrevHistoryItem,
+        setNextHistoryItem,
         shouldAddHistoryState,
         setShouldAddHistoryState,
         shouldResetWidgets,
