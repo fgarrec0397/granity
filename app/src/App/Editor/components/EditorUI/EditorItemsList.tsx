@@ -1,9 +1,14 @@
+import { WidgetSceneObject } from "@app/Widgets/_actions/widgetsTypes";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
-import { Card, List } from "antd";
+import { Button, Card, List } from "antd";
 import { FC } from "react";
 
 const EditorItemsList: FC = () => {
-    const { widgets } = useWidgets();
+    const { widgets, selectWidget } = useWidgets();
+
+    const handleSelect = (widget: WidgetSceneObject) => {
+        selectWidget([widget]);
+    };
 
     return (
         <Card size="small" title="Elements on scene">
@@ -12,7 +17,11 @@ const EditorItemsList: FC = () => {
                 bordered
                 dataSource={Object.keys(widgets)}
                 renderItem={(widgetId) => (
-                    <List.Item>{widgets[widgetId].widgetDefinition.name}</List.Item>
+                    <List.Item>
+                        <Button onClick={() => handleSelect(widgets[widgetId])}>
+                            {widgets[widgetId].widgetDefinition.name}
+                        </Button>
+                    </List.Item>
                 )}
             />
         </Card>

@@ -30,7 +30,7 @@ const EditorLeftPanel: FC = () => {
         return (
             <StyledWrapper {...styles.wrapper}>
                 <Collapse defaultActiveKey={["1"]}>
-                    <Panel header="WidgetName: Not supported yet" key="1">
+                    <Panel header={selectedWidgets[0].widgetDefinition.name} key="1">
                         <EditorFeedback />
                     </Panel>
                     <Panel header="Options" key="2">
