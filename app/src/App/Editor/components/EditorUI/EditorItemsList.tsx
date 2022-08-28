@@ -4,7 +4,7 @@ import { Button, Card, List } from "antd";
 import { FC } from "react";
 
 const EditorItemsList: FC = () => {
-    const { widgets, selectWidget } = useWidgets();
+    const { widgets, selectWidget, selectedWidgets } = useWidgets();
 
     const handleSelect = (widget: WidgetSceneObject) => {
         selectWidget([widget]);
@@ -18,7 +18,10 @@ const EditorItemsList: FC = () => {
                 dataSource={Object.keys(widgets)}
                 renderItem={(widgetId) => (
                     <List.Item>
-                        <Button onClick={() => handleSelect(widgets[widgetId])}>
+                        <Button
+                            onClick={() => handleSelect(widgets[widgetId])}
+                            disabled={widgets[widgetId]?.id === selectedWidgets[0]?.id}
+                        >
                             {widgets[widgetId].widgetDefinition.name}
                         </Button>
                     </List.Item>
