@@ -1,7 +1,8 @@
 {
-  "name": "react-editor",
+  "name": "granity",
   "version": "0.0.1",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "A React Three Fiber widgets based game engine.",
+  "bin": "./bin/cli/js",
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd app && npm start",
@@ -9,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/fga97/youtube-3d.git"
+    "url": "https://github.com/fgarrec0397/Granity"
   },
   "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/fga97/youtube-3d#readme",
+  "license": "MIT",
+  "homepage": "https://github.com/fgarrec0397/Granity#readme",
   "devDependencies": {
     "concurrently": "^7.3.0"
   }
