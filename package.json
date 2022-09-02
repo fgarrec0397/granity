@@ -1,12 +1,15 @@
 {
-  "name": "granity",
-  "version": "0.0.1",
+  "name": "create-granity",
+  "version": "0.0.12",
   "description": "A React Three Fiber widgets based game engine.",
-  "bin": "./bin/cli/js",
+  "bin": {
+    "create-granity-app": "bin/cli.js"
+  },
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd app && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "postinstall": "npx granity install"
   },
   "repository": {
     "type": "git",
