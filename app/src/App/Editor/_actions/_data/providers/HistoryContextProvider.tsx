@@ -1,4 +1,4 @@
-import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
+import { createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
 
 import { HistoryDictionary, HistoryItem } from "../../editorTypes";
 
@@ -22,7 +22,11 @@ export const defaultContext: HistoryContextModel = {
 
 export const HistoryDictionaryContext = createContext<HistoryContextModel>(defaultContext);
 
-const HistoryDictionaryContextProvider: FC = ({ children }) => {
+type Props = {
+    children: ReactNode;
+};
+
+const HistoryDictionaryContextProvider: FC<Props> = ({ children }) => {
     const [historyDictionary, setHistoryDictionary] = useState<HistoryDictionary>({});
     const [currentHistoryItem, setCurrentHistoryItem] = useState<HistoryItem>();
     const [shouldAddHistoryState, setShouldAddHistoryState] = useState(true);

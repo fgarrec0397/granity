@@ -7,7 +7,11 @@ import { Provider as ReduxProvider } from "react-redux";
 
 import HistoryDictionaryContextProvider from "./Editor/_actions/_data/providers/HistoryContextProvider";
 
-const AppProviders: FC = ({ children }) => {
+type Props = {
+    children: React.ReactNode;
+};
+
+const AppProviders: FC<Props> = ({ children }) => {
     return (
         <ReduxProvider store={store}>
             <CamerasContextProvider>

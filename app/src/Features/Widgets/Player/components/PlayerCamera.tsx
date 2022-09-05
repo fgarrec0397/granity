@@ -76,7 +76,7 @@ const PlayerCamera: FC<PlayerCameraProps> = ({ initialPlayerPos, ...props }) => 
     const { forward, backward, left, right, jump } = usePlayerControls();
     const { camera } = useThree();
 
-    const cameraRef = useRef();
+    const cameraRef = useRef(null);
     const velocity = useRef([0, 0, 0]);
 
     // useEffect(() => {

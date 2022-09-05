@@ -5,11 +5,15 @@ import usePrevious from "@common/hooks/usePrevious";
 import { useThree } from "@react-three/fiber";
 import useWidgets from "@widgets/_actions/hooks/useWidgets";
 import isEqual from "lodash/isEqual";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import { Object3D } from "three";
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 
-const TransformControlsComponent: FC = ({ children }) => {
+type Props = {
+    children?: ReactNode;
+};
+
+const TransformControlsComponent: FC<Props> = ({ children }) => {
     const { camera, scene, gl } = useThree();
     const { selectedWidgets, firstCurrentWidget, updateCurrentWidgetWithMesh } = useWidgets();
     const getMeshByWidget = useGetWidgets();

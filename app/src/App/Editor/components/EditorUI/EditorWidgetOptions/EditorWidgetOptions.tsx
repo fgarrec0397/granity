@@ -14,20 +14,26 @@ const EditorWidgetOptions: FC = () => {
     return (
         <Card size="small" bordered={false} bodyStyle={{ padding: "0" }}>
             {selectedWidgets.length > 1 ? (
-                <Typography>Impossible to edit widget while more than one is selected</Typography>
+                <Typography>
+                    {"Impossible to edit widget while more than one is selected"}
+                </Typography>
             ) : (
                 selectedWidgets.length > 0 &&
                 selectedWidgets[0].widgetDefinition.options?.map((option) => {
                     if (option.fieldType === FieldType.Text) {
-                        return <EditorOptionsTextField option={option} />;
+                        return <EditorOptionsTextField key={option.displayName} option={option} />;
                     }
 
                     if (option.fieldType === FieldType.Number) {
-                        return <EditorOptionsNumberField option={option} />;
+                        return (
+                            <EditorOptionsNumberField key={option.displayName} option={option} />
+                        );
                     }
 
                     if (option.fieldType === FieldType.Select) {
-                        return <EditorOptionsSelectField option={option} />;
+                        return (
+                            <EditorOptionsSelectField key={option.displayName} option={option} />
+                        );
                     }
 
                     return null;
