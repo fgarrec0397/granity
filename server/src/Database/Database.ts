@@ -22,6 +22,8 @@ class Database {
             ],
         });
 
+        console.log(connectionString, "connectionString");
+
         mongoose
             .connect(connectionString)
             .catch((e: Error) => this._logger.error(`MongoDB connection failed with error: ${e}`));
