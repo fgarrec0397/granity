@@ -41,6 +41,7 @@
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+    "react/no-unknown-property": "off", // If on, this brings multiple invalid error... Should investigate in the future. If never it's not the case in your project for whatever reason, set it to "error"
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
     "react/prop-types": "off",
@@ -70,9 +71,6 @@
     ]
   },
   "settings": {
-    "react": {
-      "version": "detect"
-    },
     "import/resolver": {
       "typescript": {}
     }

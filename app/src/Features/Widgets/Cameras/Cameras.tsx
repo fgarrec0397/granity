@@ -3,7 +3,7 @@ import { useHelper } from "@react-three/drei";
 import useCameras from "@scene/_actions/hooks/useCameras";
 import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
 import { FC, useEffect, useRef } from "react";
-import { CameraHelper, PerspectiveCamera } from "three";
+import { CameraHelper } from "three";
 
 export type CamerasProps = EditableWidget;
 
@@ -11,7 +11,7 @@ type OwnProps = CamerasProps;
 
 const Cameras: FC<OwnProps> = () => {
     const { addCamera } = useCameras();
-    const cameraRef = useRef<PerspectiveCamera>(null!);
+    const cameraRef = useRef(null!);
 
     useEffect(() => {
         addCamera({ cameraRef });
