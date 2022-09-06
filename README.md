@@ -39,31 +39,46 @@ The goal is to provide you all the tools preset for you so you can focus on what
 * Save your scene
  
 ## Roadmap
-The roadmap elements below are not classed in order yet.
+The roadmap elements below are classed in order, but are may subject to change.
 
-### Features
+### 0.1.0
+- [x] Create and place programmable widgets on the scene
+- [x] Access widgets informations
+- [x] Transform widgets on the scene
+- [x] Delete widgets
+- [x] Copy widgets
+- [x] Multiple cameras support
+- [x] Key bindings (only with keyboard for now)
+- [x] Save your scene
 - [x] Add a history system
-- [ ] Add a dashboard to control some settings such as key bindings
-- [ ] Select multiple widgets at the time
-- [ ] Be able to group elements together
-- [ ] Having a camera preview in the editor
-- [ ] Manage multiple scenes
-- [ ] Support multiplayer
-- [ ] Make shortcuts actions available from UI
+- [x] Add a npx command line to setup a clean project
+- [ ] Switch from a CRA environment to a Vite environment
+- [ ] Make a flappy bird clone (Flappy poop)
 
-### Improvements
+### 0.2.0
+- [ ] Add unit testing
 - [ ] Remake the UI
 - [ ] Having multiple themes (one for the game, another for the editor)
-- [ ] Be able to select and manipulate the widgets through the UI
-- [ ] Add unit testing
+- [ ] Select multiple widgets at the time
+- [ ] Be able to group elements together
+- [ ] Be able to manipulate the widgets through the UI
+
+### 0.3.0
+- [ ] Add a dashboard to control some settings such as key bindings
+- [ ] Make shortcuts actions available from UI
+- [ ] Having a camera preview in the editor
+- [ ] Manage multiple scenes
+
+### 0.4.0
 - [ ] Adding widget on mouse position instead of the position [0, 0, 0]
+- [ ] Support multiplayer
+
+### In a near future
 - [ ] Add more field types
 - [ ] Add more keyboard shortcuts
 - [ ] Fix bugs along the way
 - [ ] Refactor the back-end architecture
 
-### Environment
-- [ ] Investigate to switch from [CRA with Webpack](https://create-react-app.dev/) to [Vite.js](https://vitejs.dev/) 
 
 ### Documentation
 - [ ] Project installation
