@@ -16,12 +16,10 @@ const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale }) => {
 
     return (
         <RigidBody gravityScale={gravityScale}>
-            {/* <> */}
             <mesh position={[0, 0, 0]}>
                 <GeometryComponent />
                 <meshStandardMaterial color={color} />
             </mesh>
-            {/* </> */}
         </RigidBody>
     );
 };
