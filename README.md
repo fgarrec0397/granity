@@ -52,7 +52,7 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [x] Save your scene
 - [x] Add a history system
 - [x] Add a npx command line to setup a clean project
-- [ ] Switch from a CRA environment to a Vite environment
+- [x] Switch from a CRA environment to a Vite environment
 - [ ] Make a flappy bird clone (Flappy poop)
 
 ### 0.2.0
