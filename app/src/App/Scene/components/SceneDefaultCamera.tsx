@@ -38,7 +38,7 @@ const EditorCamera: FC = () => {
 
     return (
         <>
-            <PerspectiveCamera ref={cameraRef} />
+            {/* <PerspectiveCamera ref={cameraRef} /> // TODO - fix perspective camera issue */}
             {isEditor && (
                 <>
                     <TransformControls />
