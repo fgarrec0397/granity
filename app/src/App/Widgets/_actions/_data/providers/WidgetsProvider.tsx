@@ -1,5 +1,5 @@
 import { WidgetObjects, WidgetSceneObject } from "@app/Widgets/_actions/widgetsTypes";
-import { createContext, Dispatch, FC, SetStateAction } from "react";
+import { createContext, Dispatch, FC, ReactNode, SetStateAction } from "react";
 
 import { useWidgetsProviderValue } from "../hooks";
 
@@ -19,7 +19,11 @@ export const widgetsDefaultContext: WidgetsContextModel = {
 
 export const WidgetsContext = createContext<WidgetsContextModel>(widgetsDefaultContext);
 
-const WidgetsContextProvider: FC = ({ children }) => {
+type Props = {
+    children: ReactNode;
+};
+
+const WidgetsContextProvider: FC<Props> = ({ children }) => {
     const providerValue = useWidgetsProviderValue();
 
     return <WidgetsContext.Provider value={providerValue}>{children}</WidgetsContext.Provider>;

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
 
 export interface StyledWrapperProps {
@@ -7,6 +7,7 @@ export interface StyledWrapperProps {
 
 interface Props extends StyledWrapperProps {
     as?: string;
+    children: ReactNode;
 }
 
 const Wrapper: FC<Props> = ({ as = "div", css, children, ...props }) => {

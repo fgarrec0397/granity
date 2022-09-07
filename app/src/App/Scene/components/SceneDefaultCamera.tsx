@@ -20,7 +20,7 @@ const EditorCamera: FC = () => {
 
     useEffect(() => {
         addCamera({ cameraRef });
-    }, [addCamera]);
+    }, [addCamera, cameraRef]);
 
     useEffect(() => {
         if (cameraRef.current) {
@@ -29,10 +29,10 @@ const EditorCamera: FC = () => {
     }, [cameraRef, setCamera]);
 
     useFrame(() => {
-        if (isEditor && !hasEditorOpened) {
+        if (isEditor && !hasEditorOpened && cameraRef.current) {
             setHasEditorOpened(true);
-            camera.translateOnAxis(new Vector3(10, 10, 10), 1);
-            camera.lookAt(10, 10, 10);
+            cameraRef.current.translateOnAxis(new Vector3(10, 10, 10), 1);
+            cameraRef.current.lookAt(10, 10, 10);
         }
     });
 

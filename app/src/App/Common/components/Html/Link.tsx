@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
 
 import baseTheme from "../../../../theme/baseTheme";
@@ -10,6 +10,7 @@ export interface LinkStyles {
 export interface LinkComponents {
     to?: string;
     target?: string;
+    children: ReactNode;
 }
 
 type Props = LinkStyles & LinkComponents;

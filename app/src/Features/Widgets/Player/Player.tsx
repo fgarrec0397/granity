@@ -12,7 +12,7 @@ export type PlayerProps = EditableWidget;
 type OwnProps = PlayerProps;
 
 const Player: FC<OwnProps> = () => {
-    const ref = useRef();
+    const ref = useRef(null);
     const { isEditor } = useIsEditor();
 
     useHelper(isEditor && ref, BoxHelper, "red");

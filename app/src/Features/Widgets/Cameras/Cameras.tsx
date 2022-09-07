@@ -1,6 +1,5 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
 import { useHelper } from "@react-three/drei";
-import { Camera } from "@react-three/fiber";
 import useCameras from "@scene/_actions/hooks/useCameras";
 import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
 import { FC, useEffect, useRef } from "react";
@@ -12,7 +11,7 @@ type OwnProps = CamerasProps;
 
 const Cameras: FC<OwnProps> = () => {
     const { addCamera } = useCameras();
-    const cameraRef = useRef<Camera>(null!);
+    const cameraRef = useRef(null!);
 
     useEffect(() => {
         addCamera({ cameraRef });

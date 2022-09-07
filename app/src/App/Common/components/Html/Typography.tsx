@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
 
 export interface TypographyStyles {
@@ -7,6 +7,7 @@ export interface TypographyStyles {
 
 export interface TypographyComponent {
     as?: string;
+    children: ReactNode;
 }
 
 export type TypographyProps = TypographyComponent & TypographyStyles;
