@@ -1,6 +1,6 @@
+import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import { ModesAvailable } from "@app/Editor/_actions/editorTypes";
-import useCurrentMode from "@app/Editor/_actions/hooks/useCurrentMode";
-import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
+import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import { Card, Select } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
@@ -22,10 +22,10 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorModeSelector: FC = () => {
-    const { setCurrentMode } = useCurrentMode();
+    const { selectMode } = useEditor();
 
     const handleChange = (value: ModesAvailable): void => {
-        setCurrentMode(value);
+        selectMode(value);
     };
 
     return (

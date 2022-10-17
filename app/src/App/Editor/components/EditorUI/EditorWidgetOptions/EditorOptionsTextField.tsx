@@ -1,6 +1,6 @@
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import Typography, { TypographyStyles } from "@app/Common/components/Html/Typography";
-import { FieldType, WidgetBaseOptions } from "@widgets/_actions/widgetsTypes";
+import { FieldType, WidgetBaseOptions } from "@app/Widgets/_actions/widgetsTypes";
 import { Input } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";

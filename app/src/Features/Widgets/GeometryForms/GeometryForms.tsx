@@ -1,7 +1,10 @@
+import unSerializeVector3 from "@app/Common/utilities/unSerializeVector3";
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import { RigidBody } from "@react-three/rapier";
-import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
-import { FC } from "react";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { FieldType } from "@app/Widgets/_actions/widgetsTypes";
+import GameRigidbody from "@features/Physics/components/GameRigidbody";
+import { RigidBodyApi } from "@react-three/rapier";
+import { FC, useEffect, useRef } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
@@ -11,20 +14,27 @@ export interface GeometryFormsProps extends EditableWidget {
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale, position }) => {
     const GeometryComponent = shape;
+    const colliderRef = useRef<RigidBodyApi>(null);
+
+    useEffect(() => {
+        if (colliderRef.current) {
+            colliderRef.current.setTranslation(unSerializeVector3(position));
+        }
+    }, [position]);
 
     return (
-        <RigidBody gravityScale={gravityScale}>
+        <GameRigidbody ref={colliderRef} gravityScale={gravityScale}>
             <mesh position={[0, 0, 0]}>
                 <GeometryComponent />
                 <meshStandardMaterial color={color} />
             </mesh>
-        </RigidBody>
+        </GameRigidbody>
     );
 };
 
-export const widget: WidgetModule<GeometryFormsProps> = {
+export const widget = createWidget({
     component: GeometryForms,
     reducer: null,
     widgetDefinition: {
@@ -60,4 +70,4 @@ export const widget: WidgetModule<GeometryFormsProps> = {
             },
         ],
     },
-};
+});

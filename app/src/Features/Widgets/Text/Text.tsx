@@ -1,8 +1,9 @@
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
 import { Html } from "@react-three/drei";
 import { FC } from "react";
 
 import { EditableWidget } from "../../../App/Editor/_actions/editorTypes";
-import { FieldType, WidgetModule } from "../../../App/Widgets/_actions/widgetsTypes";
+import { FieldType } from "../../../App/Widgets/_actions/widgetsTypes";
 import textReducer from "./state/textReducer";
 
 export interface TextProps extends EditableWidget {
@@ -23,7 +24,7 @@ const Text: FC<OwnProps> = ({ text }) => {
     );
 };
 
-export const widget: WidgetModule<TextProps> = {
+export const widget = createWidget({
     component: Text,
     reducer: textReducer,
     widgetDefinition: {
@@ -37,4 +38,4 @@ export const widget: WidgetModule<TextProps> = {
             },
         ],
     },
-};
+});

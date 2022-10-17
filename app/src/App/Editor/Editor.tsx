@@ -1,8 +1,8 @@
-import { useEditorKeyboardControls } from "@app/Core/_actions/hooks";
-import { SceneDefaultCamera } from "@app/Scene/components";
+import SceneDefaultCamera from "@app/Scenes/components/SceneDefaultCamera";
 import Widgets from "@app/Widgets/Widgets";
 import { FC } from "react";
 
+import useEditorKeyboardControls from "./_actions/hooks/useEditorKeyboardControls";
 import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateChange";
 import EditorUI from "./components/EditorUI/EditorUI";
 

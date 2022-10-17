@@ -1,4 +1,4 @@
-import { useWidgets } from "@app/Widgets/_actions/hooks";
+import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { WidgetBaseOptions, WidgetOptionsValues } from "@app/Widgets/_actions/widgetsTypes";
 import { useEffect, useState } from "react";
 
@@ -12,7 +12,7 @@ export default () => {
         setOptionsValues(options);
     }, [selectedWidgets, getWidgetDictionaryFromWidget]);
 
-    const updateOptionsValues = (value: string | number, option: WidgetBaseOptions) => {
+    const updateOptionsValues = (value: string | number | boolean, option: WidgetBaseOptions) => {
         setOptionsValues({
             ...optionsValues,
             [option.name]: {

@@ -1,13 +1,12 @@
-import { saveScene } from "@app/Scene/_actions/_data/services";
-import { useWidgets } from "@app/Widgets/_actions/hooks";
+import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import { Button } from "antd";
 import { FC } from "react";
 
 const SaveButton: FC = () => {
-    const { widgets, widgetsDictionary } = useWidgets();
+    const { saveScene } = useScenes();
 
-    const onSaveFileHanlder = async () => {
-        await saveScene({ widgets, widgetsDictionary });
+    const onSaveFileHanlder = () => {
+        saveScene();
     };
 
     return <Button onClick={onSaveFileHanlder}>Save</Button>;

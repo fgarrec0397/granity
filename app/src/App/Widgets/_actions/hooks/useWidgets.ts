@@ -2,7 +2,7 @@ import { uidGenerator } from "@app/Common/utilities";
 import { useCallback } from "react";
 import { Object3D } from "three";
 
-import { useWidgetsContext, useWidgetsSelector, useWidgetsServices } from "../_data/hooks";
+import useWidgetsService from "../_data/hooks/useWidgetsService";
 import {
     buildWidgetDictionaryItem,
     buildWidgetDictionaryProperties,
@@ -10,34 +10,39 @@ import {
 import widgetsConstants from "../widgetsConstants";
 import {
     SerializedWidgetSceneObject,
-    WidgetObjects,
+    WidgetObjectsDictionary,
+    WidgetObjectsDictionaryItem,
     WidgetOptionsValues,
     WidgetProperties,
-    WidgetSceneObject,
-    WidgetsDictionary,
+    WidgetsInfoDictionary,
 } from "../widgetsTypes";
 
 const { widgetObjectsPrefix } = widgetsConstants;
 
 export default () => {
-    const { currentWidgetProperties, widgetsDictionary } = useWidgetsSelector();
-    const { widgets, selectedWidgets } = useWidgetsContext();
     const {
         add,
         addBatch,
         select,
+        widgets,
+        currentWidgetProperties,
+        widgetsInfoDictionary,
+        selectedWidgets,
         removeSelection,
         update,
         remove,
         updateCurrentProperties,
         reset,
-    } = useWidgetsServices();
+    } = useWidgetsService();
 
-    const getWidgetDictionaryFromWidget = (widgetId: string | undefined) => {
-        if (widgetId) {
-            return widgetsDictionary[widgetId];
-        }
-    };
+    const getWidgetDictionaryFromWidget = useCallback(
+        (widgetId: string | undefined) => {
+            if (widgetId) {
+                return widgetsInfoDictionary[widgetId];
+            }
+        },
+        [widgetsInfoDictionary]
+    );
 
     const getWidgetById = useCallback(
         (id: string | undefined) => {
@@ -63,7 +68,7 @@ export default () => {
             }
 
             const widgetIdInMesh = widgetMesh?.name.split("+")[2];
-            const widget = getWidgetById(widgetIdInMesh) as WidgetSceneObject;
+            const widget = getWidgetById(widgetIdInMesh) as WidgetObjectsDictionaryItem;
 
             return { widget, widgetMesh };
         },
@@ -72,7 +77,7 @@ export default () => {
 
     const updateWidget = useCallback(
         (
-            widget: WidgetSceneObject,
+            widget: WidgetObjectsDictionaryItem,
             widgetProperties?: WidgetProperties,
             updateOnlyProperties?: boolean
         ) => {
@@ -94,56 +99,59 @@ export default () => {
         [selectedWidgets, updateWidget]
     );
 
-    const addWidget = (
-        widget: WidgetSceneObject,
-        properties?: WidgetProperties,
-        options?: WidgetOptionsValues
-    ) => {
-        const newWidget: WidgetSceneObject = { ...widget };
-        let widgetProperties = properties;
-        let widgetOptions = options;
+    const addWidget = useCallback(
+        (
+            widget: WidgetObjectsDictionaryItem,
+            properties?: WidgetProperties,
+            options?: WidgetOptionsValues
+        ) => {
+            const newWidget: WidgetObjectsDictionaryItem = { ...widget };
+            let widgetProperties = properties;
+            let widgetOptions = options;
 
-        newWidget.id = uidGenerator(); // assign id on initialisation
+            newWidget.id = uidGenerator(); // assign id on initialisation
 
-        if (!widgetProperties) {
-            widgetProperties = {
-                position: [0, 0, 0],
-                rotation: [0, 0, 0],
-                scale: [1, 1, 1],
-            };
-        }
-
-        if (!widgetOptions) {
-            if (newWidget.widgetDefinition.options?.length) {
-                const defaultOptions: WidgetOptionsValues = {};
-                for (const option of newWidget.widgetDefinition.options) {
-                    defaultOptions[option.name] = {
-                        fieldType: option.fieldType,
-                        value: option.defaultValue,
-                    };
-                }
-                widgetOptions = defaultOptions;
+            if (!widgetProperties) {
+                widgetProperties = {
+                    position: [0, 0, 0],
+                    rotation: [0, 0, 0],
+                    scale: [1, 1, 1],
+                };
             }
-        }
 
-        const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget);
+            if (!widgetOptions) {
+                if (newWidget.widgetDefinition.options?.length) {
+                    const defaultOptions: WidgetOptionsValues = {};
+                    for (const option of newWidget.widgetDefinition.options) {
+                        defaultOptions[option.name] = {
+                            fieldType: option.fieldType,
+                            value: option.defaultValue,
+                        };
+                    }
+                    widgetOptions = defaultOptions;
+                }
+            }
 
-        add(newWidget, widgetDictionaryItem);
-    };
+            const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget);
+
+            add(newWidget, widgetDictionaryItem);
+        },
+        [add]
+    );
 
     const addWidgetsBatch = useCallback(
-        (newWidgetsDictionary: WidgetsDictionary, newWidgets: WidgetObjects) => {
+        (newWidgetsDictionary: WidgetsInfoDictionary, newWidgets: WidgetObjectsDictionary) => {
             addBatch(newWidgets, newWidgetsDictionary);
         },
         [addBatch]
     );
 
     const selectWidget = useCallback(
-        (widgetsToSelect: WidgetSceneObject[]) => {
+        (widgetsToSelect: WidgetObjectsDictionaryItem[]) => {
             select(widgetsToSelect);
-            updateCurrentWidget(widgetsDictionary[widgetsToSelect[0].id].properties, true);
+            updateCurrentWidget(widgetsInfoDictionary[widgetsToSelect[0].id].properties, true);
         },
-        [select, widgetsDictionary, updateCurrentWidget]
+        [select, widgetsInfoDictionary, updateCurrentWidget]
     );
 
     const selectWidgetFromMeshArr = useCallback(
@@ -161,10 +169,10 @@ export default () => {
 
     const updateWidgetOptions = useCallback(
         (
-            widget: WidgetSceneObject | SerializedWidgetSceneObject,
+            widget: WidgetObjectsDictionaryItem | SerializedWidgetSceneObject,
             widgetOptions: WidgetOptionsValues
         ) => {
-            update(widget as WidgetSceneObject, undefined, widgetOptions);
+            update(widget as WidgetObjectsDictionaryItem, undefined, widgetOptions);
         },
         [update]
     );
@@ -189,26 +197,38 @@ export default () => {
         [updateCurrentWidget]
     );
 
-    const copyWidget = (widget: WidgetSceneObject) => {
-        const newWidget = { ...widget };
-        const newId = uidGenerator();
+    const copyWidget = useCallback(
+        (widget: WidgetObjectsDictionaryItem) => {
+            const newWidget = { ...widget };
+            const newId = uidGenerator();
 
-        newWidget.id = newId;
+            newWidget.id = newId;
 
-        if (widget.id) {
-            const properties = widgetsDictionary[widget.id].properties;
-            const options = widgetsDictionary[widget.id].options;
+            if (widget.id) {
+                const properties = widgetsInfoDictionary[widget.id].properties;
+                const options = widgetsInfoDictionary[widget.id].options;
 
-            const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget, {
-                properties,
-                options,
-            });
+                const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget, {
+                    properties,
+                    options,
+                });
 
-            add(newWidget, widgetDictionaryItem);
-        }
-    };
+                add(newWidget, widgetDictionaryItem);
+            }
+        },
+        [add, widgetsInfoDictionary]
+    );
 
-    const removeselectedWidgets = () => {
+    const removeWidget = useCallback(
+        (widget: WidgetObjectsDictionaryItem) => {
+            if (widget.id) {
+                remove(widget);
+            }
+        },
+        [remove]
+    );
+
+    const removeselectedWidgets = useCallback(() => {
         const widget = selectedWidgets[0];
         if (widget) {
             removeWidget(widget);
@@ -216,21 +236,19 @@ export default () => {
             // eslint-disable-next-line no-console
             console.error("No mesh found"); // TODO -- Add UI confirmation
         }
-    };
+    }, [removeWidget, selectedWidgets]);
 
-    const removeWidget = (widget: WidgetSceneObject) => {
-        if (widget.id) {
-            remove(widget);
-        }
-    };
-
-    const removeWidgetSelection = () => {
+    const removeWidgetSelection = useCallback(() => {
         removeSelection();
-    };
+    }, [removeSelection]);
 
     const resetWidgets = useCallback(
-        (widgetsToAdd: WidgetObjects, widgetDictionaryToAdd: WidgetsDictionary) => {
-            reset(widgetsToAdd, widgetDictionaryToAdd);
+        (
+            widgetsToAdd: WidgetObjectsDictionary,
+            widgetDictionaryToAdd: WidgetsInfoDictionary,
+            shouldRemoveAll?: boolean
+        ) => {
+            reset(widgetsToAdd, widgetDictionaryToAdd, shouldRemoveAll);
         },
         [reset]
     );
@@ -240,7 +258,7 @@ export default () => {
         firstCurrentWidget: selectedWidgets[0],
         currentWidgetProperties,
         widgets,
-        widgetsDictionary,
+        widgetsInfoDictionary,
         getWidgetDictionaryFromWidget,
 
         // Widgets Getters

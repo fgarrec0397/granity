@@ -1,11 +1,11 @@
-import { WidgetsDictionary } from "../widgetsTypes";
+import { WidgetsInfoDictionary } from "../widgetsTypes";
 
-export default (widgetId: string, widgetsDictionary: WidgetsDictionary) => {
+export default (widgetId: string, widgetsInfoDictionary: WidgetsInfoDictionary) => {
     const props: any = {};
 
-    for (const option in widgetsDictionary[widgetId]?.options) {
-        if ({}.hasOwnProperty.call(widgetsDictionary[widgetId]?.options, option)) {
-            props[option] = widgetsDictionary[widgetId].options[option].value;
+    for (const option in widgetsInfoDictionary[widgetId]?.options) {
+        if ({}.hasOwnProperty.call(widgetsInfoDictionary[widgetId]?.options, option)) {
+            props[option] = widgetsInfoDictionary[widgetId].options[option].value;
         }
     }
 

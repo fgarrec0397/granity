@@ -1,7 +1,7 @@
-import { SerializedWidgetSceneObject, WidgetSceneObject } from "../widgetsTypes";
+import { SerializedWidgetSceneObject, WidgetObjectsDictionaryItem } from "../widgetsTypes";
 import useWidgetsModules from "./useWidgetsModules";
 
-export default (widget: WidgetSceneObject | SerializedWidgetSceneObject) => {
+export default (widget: WidgetObjectsDictionaryItem | SerializedWidgetSceneObject) => {
     const { widgetsModules } = useWidgetsModules();
 
     return widgetsModules.find((x) => x.widgetDefinition.name === widget.widgetDefinition.name)

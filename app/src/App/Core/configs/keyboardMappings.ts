@@ -50,5 +50,19 @@ export default {
             ctrlKey: true,
             shiftKey: false,
         },
+        {
+            name: "saveScene",
+            code: "KeyS",
+            ctrlKey: true,
+            shiftKey: true,
+        },
+    ],
+    game: [
+        {
+            name: "jump",
+            code: "Space",
+            ctrlKey: false,
+            shiftKey: false,
+        },
     ],
 } as KeyboardKeys;

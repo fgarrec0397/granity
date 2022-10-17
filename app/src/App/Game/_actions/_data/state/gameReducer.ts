@@ -1,20 +1,23 @@
-import {
-    widgetsInitialState,
-    widgetsReducerActions,
-} from "@app/Widgets/_actions/_data/state/widgetsReducer";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export const sceneSlice = createSlice({
+export type GameState = {
+    isGamePaused: boolean;
+};
+
+const initialState: GameState = {
+    isGamePaused: false,
+};
+
+export const gameSlice = createSlice({
     name: "game",
-    initialState: widgetsInitialState,
-    reducers: { ...widgetsReducerActions() },
+    initialState,
+    reducers: {
+        setIsGamePaused: (state: GameState, actions: PayloadAction<boolean>) => {
+            state.isGamePaused = actions.payload;
+        },
+    },
 });
 
-export const {
-    addWidgetDictionary,
-    addBatchWidgetDictionary,
-    updateWidgetDictionary,
-    removeWidgetDictionary,
-} = sceneSlice.actions;
+export const { setIsGamePaused } = gameSlice.actions;
 
-export default sceneSlice.reducer;
+export default gameSlice.reducer;

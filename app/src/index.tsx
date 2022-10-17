@@ -2,7 +2,8 @@ import "./index.css";
 import "antd/dist/antd.css";
 
 import App from "@app/App";
-import AppProviders from "@app/AppProviders";
+import AppProvider from "@app/Core/_actions/_data/providers/AppProvider";
+import FeaturesProvider from "@features/Core/_actions/_data/providers/FeaturesProvider";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -12,8 +13,10 @@ const root = createRoot(container);
 
 root.render(
     <StrictMode>
-        <AppProviders>
-            <App />
-        </AppProviders>
+        <AppProvider>
+            <FeaturesProvider>
+                <App />
+            </FeaturesProvider>
+        </AppProvider>
     </StrictMode>
 );

@@ -1,15 +1,15 @@
 import { usePrevious } from "@app/Common/hooks";
-import { useWidgets } from "@app/Widgets/_actions/hooks";
+import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import isEqual from "lodash/isEqual";
 import { useCallback } from "react";
 
 import useHistoryContext from "../_data/hooks/useHistoryContext";
 import useHistoryService from "../_data/hooks/useHistoryService";
 import { HistoryState } from "../editorTypes";
-import useHasEdited from "./useHasEdited";
+import useEditor from "./useEditor";
 
 export default () => {
-    const { widgets, widgetsDictionary } = useWidgets();
+    const { widgets, widgetsInfoDictionary } = useWidgets();
 
     const {
         historyDictionary,
@@ -18,21 +18,21 @@ export default () => {
         setShouldAddHistoryState,
     } = useHistoryContext();
     const { add, setCurrent } = useHistoryService();
-    const hasEdited = useHasEdited();
+    const { hasEdited } = useEditor();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
-    const previousWidgetsDictionary = usePrevious(widgetsDictionary);
+    const previousWidgetsDictionary = usePrevious(widgetsInfoDictionary);
     const previousWidgets = usePrevious(widgets);
 
     const shouldResetWidgets =
         hasEdited &&
         currentHistoryItem?.state.widgets &&
-        currentHistoryItem?.state.widgetsDictionary &&
+        currentHistoryItem?.state.widgetsInfoDictionary &&
         !isEqual(currentHistoryItem, previousCurrentHistoryItem);
 
     const shouldAddHistory =
         shouldAddHistoryState &&
         (!isEqual(widgets, previousWidgets) ||
-            !isEqual(widgetsDictionary, previousWidgetsDictionary));
+            !isEqual(widgetsInfoDictionary, previousWidgetsDictionary));
 
     const addHistoryState = useCallback(
         (state: HistoryState) => {
@@ -55,7 +55,7 @@ export default () => {
             if (
                 historyItem &&
                 Object.keys(historyItem.state.widgets).length &&
-                Object.keys(historyItem.state.widgetsDictionary).length
+                Object.keys(historyItem.state.widgetsInfoDictionary).length
             ) {
                 setShouldAddHistoryState(false);
                 setCurrent(historyItem);

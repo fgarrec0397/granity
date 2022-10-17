@@ -1,10 +1,10 @@
 import { notification } from "antd";
 import { useEffect } from "react";
 
-import useIsEditor from "./useIsEditor";
+import useEditor from "./useEditor";
 
 export default () => {
-    const { isEditor } = useIsEditor();
+    const { isEditor } = useEditor();
 
     useEffect(() => {
         if (isEditor) {

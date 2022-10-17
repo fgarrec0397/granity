@@ -1,7 +1,11 @@
-import { useAppDispatch } from "@core/store";
+import { useAppDispatch } from "@app/Core/store";
 import { useCallback } from "react";
 
-import { WidgetProperties, WidgetsDictionary, WidgetsDictionaryItem } from "../../widgetsTypes";
+import {
+    WidgetProperties,
+    WidgetsInfoDictionary,
+    WidgetsInfoDictionaryItem,
+} from "../../widgetsTypes";
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
@@ -15,20 +19,22 @@ import {
 export default () => {
     const dispatch = useAppDispatch();
 
-    const dispatchAddDictionary = (widgetsDictionaryItem: Required<WidgetsDictionaryItem>) => {
-        return dispatch(addWidgetDictionary(widgetsDictionaryItem));
+    const dispatchAddDictionary = (
+        widgetsInfoDictionaryItem: Required<WidgetsInfoDictionaryItem>
+    ) => {
+        return dispatch(addWidgetDictionary(widgetsInfoDictionaryItem));
     };
 
     const dispatchAddBatchDictionary = useCallback(
-        (widgetsDictionary: Required<WidgetsDictionary>) => {
-            return dispatch(addBatchWidgetDictionary(widgetsDictionary));
+        (widgetsInfoDictionary: Required<WidgetsInfoDictionary>) => {
+            return dispatch(addBatchWidgetDictionary(widgetsInfoDictionary));
         },
         [dispatch]
     );
 
     const dispatchUpdateDictionary = useCallback(
-        (widgetsDictionaryItem: WidgetsDictionaryItem) => {
-            return dispatch(updateWidgetDictionary(widgetsDictionaryItem));
+        (widgetsInfoDictionaryItem: WidgetsInfoDictionaryItem) => {
+            return dispatch(updateWidgetDictionary(widgetsInfoDictionaryItem));
         },
         [dispatch]
     );
@@ -43,7 +49,7 @@ export default () => {
         return dispatch(removeBatchWidgetDictionary(widgetIds));
     };
 
-    const dispatchOverrideWidgetDictionary = (widgetDictionary: WidgetsDictionary) => {
+    const dispatchOverrideWidgetDictionary = (widgetDictionary: WidgetsInfoDictionary) => {
         return dispatch(overrideWidgetDictionary(widgetDictionary));
     };
 

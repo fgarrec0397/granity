@@ -1,8 +1,10 @@
-import { UnionOfProperties } from "@common/commonTypes";
-import { FeaturesState, FeaturesWidgetsProps } from "@features/collector";
-import { FC, ReactNode } from "react";
+import { Dictionary } from "@app/Common/commonTypes";
+import { FeaturesWidgetsProps } from "@features/Core/collector";
+import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
 import { AnyAction, Reducer } from "redux";
 import { Object3D } from "three";
+
+import { HelpersTypes } from "./widgetsConstants";
 
 /**
  * Allowed Fieldtypes
@@ -11,6 +13,7 @@ export enum FieldType {
     Text = "Text",
     Number = "Number",
     Select = "Select",
+    Checkbox = "Checkbox",
 }
 
 /**
@@ -23,7 +26,7 @@ export interface SelectOptions {
 
 type WidgetAdditionnalOptions = WidgetSelectionOptions;
 
-export type WidgetOptionDefaultValue = string | number; // TODO - Readjust that in order to match the field type
+export type WidgetOptionDefaultValue = string | number | boolean; // TODO - Readjust that in order to match the field type
 
 export interface WidgetSelectionOptions {
     selectOptions?: SelectOptions[];
@@ -57,20 +60,21 @@ export interface WidgetDefinition {
  * Widget options to set in the editor
  */
 export type WidgetEditorOptions = {
+    helper?: HelpersTypes;
     meshHolder?: ReactNode | Object3D;
 };
 
-/**
- * All Features reducers destructured as union types
- */
-type FeaturesUnionsTypes = UnionOfProperties<FeaturesState>;
+export type WidgetComponent<Props, Ref> =
+    | FC<Props>
+    | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<Ref>>;
 
 /**
  * Widget object that is exported from all widgets objects
  */
-export interface WidgetModule<Props = FeaturesWidgetsProps> {
-    component: FC<Props>;
-    reducer: Reducer<FeaturesUnionsTypes, AnyAction> | null;
+export interface WidgetModule<Props = FeaturesWidgetsProps, Ref = null, ReducerType = null> {
+    component: WidgetComponent<Props, Ref>;
+    hasRef?: true;
+    reducer: Reducer<ReducerType, AnyAction> | null;
     editorOptions?: WidgetEditorOptions;
     widgetDefinition: WidgetDefinition;
 }
@@ -78,7 +82,7 @@ export interface WidgetModule<Props = FeaturesWidgetsProps> {
 /**
  * Informations of a widget object on the scene
  */
-export type WidgetSceneObject<Props = FeaturesWidgetsProps> = Omit<
+export type WidgetObjectsDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
     WidgetModule<Props>,
     "reducer"
 > & {
@@ -86,41 +90,40 @@ export type WidgetSceneObject<Props = FeaturesWidgetsProps> = Omit<
 };
 
 /**
- * A dictionary containing informations about all WidgetObjects
+ * A dictionary containing informations about all WidgetObjectsDictionary
  */
-export type WidgetObjects<Props = FeaturesWidgetsProps> = {
-    [id: string]: WidgetSceneObject<Props>;
-};
+export type WidgetObjectsDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+    WidgetObjectsDictionaryItem<Props>
+>;
 
 /**
- * A serialized dictionary containing informations about all WidgetObjects
+ * A serialized dictionary containing informations about all WidgetObjectsDictionary
  */
-export type SerializedWidgetObjects<Props = FeaturesWidgetsProps> = {
-    [id: string]: SerializedWidgetSceneObject<Props>;
-};
+export type SerializedWidgetObjects<Props = FeaturesWidgetsProps> = Dictionary<
+    SerializedWidgetSceneObject<Props>
+>;
 
 /**
- * A serialized version of WidgetSceneObject type
+ * A serialized version of WidgetObjectsDictionaryItem type
  */
 export type SerializedWidgetSceneObject<Props = FeaturesWidgetsProps> = Omit<
-    WidgetSceneObject<Props>,
+    WidgetObjectsDictionaryItem<Props>,
     "component" | "meshHolder"
 > & {
     meshHolder: string;
 };
 
 /**
- * A dictionary containing editable informations about a WidgetSceneObject
+ * A dictionary containing editable informations about a WidgetObjectsDictionaryItem
  */
-export type WidgetsDictionary = {
-    [id: string]: { properties: WidgetProperties; options: WidgetOptionsValues };
-};
+export type WidgetsInfoDictionary = Dictionary<WidgetsInfoDictionaryItem>;
 
-export type WidgetOptionsValues = {
-    [name: string]: { fieldType: FieldType; value: WidgetOptionDefaultValue };
-};
+export type WidgetOptionsValues = Dictionary<{
+    fieldType: FieldType;
+    value: WidgetOptionDefaultValue;
+}>;
 
-export type WidgetsDictionaryItem = {
+export type WidgetsInfoDictionaryItem = {
     id: string;
     properties?: WidgetProperties;
     options?: WidgetOptionsValues;

@@ -1,31 +1,36 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import { useHelper } from "@react-three/drei";
-import useCameras from "@scene/_actions/hooks/useCameras";
-import { FieldType, WidgetModule } from "@widgets/_actions/widgetsTypes";
-import { FC, useEffect, useRef } from "react";
-import { CameraHelper } from "three";
+import useGameUpdate from "@app/Game/_actions/hooks/useGameUpdate";
+import useCreateCamera from "@app/Scenes/_actions/hooks/useCreateCamera";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { HelpersTypes } from "@app/Widgets/_actions/widgetsConstants";
+import { FieldType } from "@app/Widgets/_actions/widgetsTypes";
+import { FC, Ref } from "react";
+import { PerspectiveCamera } from "three";
 
-export type CamerasProps = EditableWidget;
-
-type OwnProps = CamerasProps;
-
-const Cameras: FC<OwnProps> = () => {
-    const { addCamera } = useCameras();
-    const cameraRef = useRef(null!);
-
-    useEffect(() => {
-        addCamera({ cameraRef });
-    }, [addCamera]);
-
-    useHelper(cameraRef, CameraHelper);
-
-    return <perspectiveCamera ref={cameraRef} />;
+export type CamerasProps = EditableWidget & {
+    translateXOnPlay: boolean;
 };
 
-export const widget: WidgetModule<CamerasProps> = {
+const Cameras: FC<CamerasProps> = ({ translateXOnPlay }, ref) => {
+    const { camera, cameraRef } = useCreateCamera("widgetCamera", ref!);
+
+    useGameUpdate(() => {
+        if (translateXOnPlay) {
+            camera.position.x += 0.01;
+        }
+    });
+
+    return <perspectiveCamera ref={cameraRef as Ref<PerspectiveCamera>} />;
+};
+
+Cameras.displayName = "Cameras";
+
+export const widget = createWidget<CamerasProps, PerspectiveCamera>({
     component: Cameras,
+    hasRef: true,
     reducer: null,
     editorOptions: {
+        helper: HelpersTypes.CameraHelper,
         meshHolder: (
             <mesh scale={[0.25, 0.25, 0.25]}>
                 <boxGeometry />
@@ -37,43 +42,11 @@ export const widget: WidgetModule<CamerasProps> = {
         name: "Cameras",
         options: [
             {
-                name: "cameraType",
-                displayName: "Type of Camera",
-                fieldType: FieldType.Select,
-                selectOptions: [
-                    {
-                        value: "perspective",
-                        name: "Perspective",
-                    },
-                    {
-                        value: "orthographic",
-                        name: "Orthographic",
-                    },
-                ],
-                defaultValue: "perspective",
-            },
-            {
-                name: "test",
-                displayName: "Test Multiple options",
-                fieldType: FieldType.Select,
-                selectOptions: [
-                    {
-                        value: "Test1",
-                        name: "Test1",
-                    },
-                    {
-                        value: "Test2",
-                        name: "Test2",
-                    },
-                ],
-                defaultValue: "perspective",
-            },
-            {
-                name: "fieldOfView",
-                displayName: "Field of View",
-                fieldType: FieldType.Number,
-                defaultValue: 50,
+                name: "translateXOnPlay",
+                displayName: "Translate X on play",
+                fieldType: FieldType.Checkbox,
+                defaultValue: false,
             },
         ],
     },
-};
+});

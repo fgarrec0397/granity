@@ -4,12 +4,12 @@ import { Object3D } from "three";
 import widgetsConstants from "../widgetsConstants";
 import {
     SerializedWidgetSceneObject,
-    WidgetObjects,
+    WidgetObjectsDictionary,
+    WidgetObjectsDictionaryItem,
     WidgetOptionsValues,
     WidgetProperties,
-    WidgetSceneObject,
-    WidgetsDictionary,
-    WidgetsDictionaryItem,
+    WidgetsInfoDictionary,
+    WidgetsInfoDictionaryItem,
 } from "../widgetsTypes";
 
 type WidgetsDictionaryBuilderOptions = {
@@ -18,25 +18,25 @@ type WidgetsDictionaryBuilderOptions = {
     options?: WidgetOptionsValues;
 };
 
-export const buildWidgetsDictionary = (widgets: WidgetObjects) => {
-    const widgetsDictionary: WidgetsDictionary = {};
+export const buildWidgetsDictionary = (widgets: WidgetObjectsDictionary) => {
+    const widgetsInfoDictionary: WidgetsInfoDictionary = {};
 
     for (const key in widgets) {
         const dictionaryItem = buildWidgetDictionaryItem(widgets[key]);
 
-        widgetsDictionary[dictionaryItem.id] = {
+        widgetsInfoDictionary[dictionaryItem.id] = {
             properties: dictionaryItem.properties!,
             options: dictionaryItem.options!,
         };
     }
 
-    return widgetsDictionary;
+    return widgetsInfoDictionary;
 };
 
 export const buildWidgetDictionaryItem = (
-    widget: WidgetSceneObject,
+    widget: WidgetObjectsDictionaryItem,
     builderOptions?: WidgetsDictionaryBuilderOptions
-): WidgetsDictionaryItem => {
+): WidgetsInfoDictionaryItem => {
     const options = builderOptions?.options
         ? builderOptions?.options
         : buildWidgetDictionaryOptions(widget);
@@ -55,7 +55,7 @@ export const buildWidgetDictionaryItem = (
 };
 
 export const buildWidgetDictionaryOptions = (
-    widget: WidgetSceneObject | SerializedWidgetSceneObject
+    widget: WidgetObjectsDictionaryItem | SerializedWidgetSceneObject
 ) => {
     const options: WidgetOptionsValues = {};
     const widgetOptions = widget.widgetDefinition.options;

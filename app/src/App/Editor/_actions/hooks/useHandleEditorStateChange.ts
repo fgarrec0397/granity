@@ -1,11 +1,11 @@
 import { usePrevious } from "@app/Common/hooks";
-import { useWidgets } from "@app/Widgets/_actions/hooks";
+import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { useEffect } from "react";
 
 import useHistory from "./useHistory";
 
 export default () => {
-    const { widgets, widgetsDictionary, resetWidgets } = useWidgets();
+    const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
     const {
         addHistoryState,
         currentHistoryItem,
@@ -19,17 +19,17 @@ export default () => {
         if (shouldAddHistory) {
             addHistoryState({
                 widgets,
-                widgetsDictionary,
+                widgetsInfoDictionary,
             });
         }
-    }, [addHistoryState, shouldAddHistory, widgets, widgetsDictionary]);
+    }, [addHistoryState, shouldAddHistory, widgets, widgetsInfoDictionary]);
 
     useEffect(() => {
         if (shouldResetWidgets) {
             setShouldAddHistoryState(true);
             resetWidgets(
                 currentHistoryItem!.state.widgets,
-                currentHistoryItem!.state.widgetsDictionary
+                currentHistoryItem!.state.widgetsInfoDictionary
             );
         }
     }, [

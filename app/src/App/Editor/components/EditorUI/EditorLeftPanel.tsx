@@ -1,5 +1,5 @@
-import StyledWrapper, { StyledWrapperProps } from "@common/components/Html/StyledWrapper";
-import useWidgets from "@widgets/_actions/hooks/useWidgets";
+import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
+import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { Collapse } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";

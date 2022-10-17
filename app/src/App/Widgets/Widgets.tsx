@@ -2,11 +2,11 @@ import { Select } from "@react-three/drei";
 import { FC } from "react";
 
 import useWidgets from "./_actions/hooks/useWidgets";
-import { WidgetSceneObject } from "./_actions/widgetsTypes";
+import { WidgetObjectsDictionaryItem } from "./_actions/widgetsTypes";
 import WidgetRenderer from "./components/WidgetRenderer";
 
 interface WidgetProps {
-    widget: WidgetSceneObject;
+    widget: WidgetObjectsDictionaryItem;
 }
 
 const Widgets: FC = () => {

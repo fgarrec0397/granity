@@ -1,4 +1,5 @@
-import { WidgetObjects, WidgetsDictionary } from "@widgets/_actions/widgetsTypes";
+import { Dictionary } from "@app/Common/commonTypes";
+import { WidgetObjectsDictionary, WidgetsInfoDictionary } from "@app/Widgets/_actions/widgetsTypes";
 
 /**
  * Additional props that applies for widgets in the editor
@@ -22,9 +23,7 @@ export enum ModesAvailable {
 /**
  * The History dictionary containing all actions done by the user
  */
-export type HistoryDictionary = {
-    [id: string]: HistoryItem;
-};
+export type HistoryDictionary = Dictionary<HistoryItem>;
 
 /**
  * One history item
@@ -39,6 +38,6 @@ export type HistoryItem = {
  * A snapshot of a editor state
  */
 export type HistoryState = {
-    widgetsDictionary: WidgetsDictionary;
-    widgets: WidgetObjects;
+    widgetsInfoDictionary: WidgetsInfoDictionary;
+    widgets: WidgetObjectsDictionary;
 };

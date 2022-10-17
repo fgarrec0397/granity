@@ -1,4 +1,4 @@
-import useWidgets from "@widgets/_actions/hooks/useWidgets";
+import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { Card, Descriptions } from "antd";
 import { FC } from "react";
 

@@ -1,15 +1,22 @@
-import { useGameKeyboardControls } from "@app/Core/_actions/hooks";
-import Widgets from "@widgets/Widgets";
+import Widgets from "@app/Widgets/Widgets";
+import ClientGameUI from "@features/GameUI/GameUI";
+import { Physics } from "@react-three/rapier";
 import { FC } from "react";
 
 const Game: FC = () => {
-    useGameKeyboardControls();
-
-    return <Widgets />;
+    // TODO Implement a setting to activate the Debug through the editor
+    return (
+        <>
+            <Physics>
+                {/* <Debug /> */}
+                <Widgets />
+            </Physics>
+        </>
+    );
 };
 
 const GameUI: FC = () => {
-    return null;
+    return <ClientGameUI />;
 };
 
 export default { Game, GameUI };
