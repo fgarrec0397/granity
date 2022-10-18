@@ -1,5 +1,5 @@
 import { Dictionary } from "@app/Common/commonTypes";
-import { FeaturesWidgetsProps } from "@features/Core/collector";
+import { FeaturesWidgetsProps } from "@features/Widgets";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
 import { AnyAction, Reducer } from "redux";
 import { Object3D } from "three";

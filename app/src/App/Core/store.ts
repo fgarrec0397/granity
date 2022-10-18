@@ -2,7 +2,7 @@ import editorReducer, { EditorState } from "@app/Editor/_actions/_data/state/edi
 import gameReducer, { GameState } from "@app/Game/_actions/_data/state/gameReducer";
 import scenesReducer, { ScenesState } from "@app/Scenes/_actions/_data/state/scenesReducer";
 import widgetsReducer, { WidgetsState } from "@app/Widgets/_actions/_data/state/widgetsReducer";
-import { FeaturesState } from "@features/Core/collector";
+import { FeaturesState } from "@features/Widgets";
 import featuresReducer from "@features/Core/featuresReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
