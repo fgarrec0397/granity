@@ -16,6 +16,21 @@ export enum HelpersTypes {
     SpotLightHelper = "SpotLightHelper",
 }
 
+/**
+ * Allowed Fieldtypes
+ */
+export enum FieldType {
+    Text = "Text",
+    Number = "Number",
+    Select = "Select",
+    Checkbox = "Checkbox",
+}
+
+export enum WidgetType {
+    GameObject = "GameObject",
+    UI = "UI",
+}
+
 export default {
     widgetObjectsPrefix: "WidgetRenderer",
     widgetDefaultProperties: {

@@ -4,17 +4,7 @@ import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttribute
 import { AnyAction, Reducer } from "redux";
 import { Object3D } from "three";
 
-import { HelpersTypes } from "./widgetsConstants";
-
-/**
- * Allowed Fieldtypes
- */
-export enum FieldType {
-    Text = "Text",
-    Number = "Number",
-    Select = "Select",
-    Checkbox = "Checkbox",
-}
+import { FieldType, HelpersTypes } from "./widgetsConstants";
 
 /**
  * Option for Select FieldType

@@ -1,6 +1,7 @@
 import clone from "lodash/clone";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
+import { WidgetType } from "../widgetsConstants";
 import { WidgetComponent, WidgetModule } from "../widgetsTypes";
 
 /**
@@ -11,6 +12,8 @@ import { WidgetComponent, WidgetModule } from "../widgetsTypes";
 export default <PropsType, RefType = null, ReducerType = null>(
     widget: WidgetModule<PropsType, RefType, ReducerType>
 ) => {
+    // if (widget.type === WidgetType.UI) {
+    // }
     const widgetModule: WidgetModule<PropsType, RefType, ReducerType> = clone(widget);
 
     if (widgetModule.hasRef) {
