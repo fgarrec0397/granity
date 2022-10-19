@@ -53,6 +53,8 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [x] Add a history system
 - [x] Add a npx command line to setup a clean project
 - [x] Switch from a CRA environment to a Vite environment
+- [x] Manage multiple scenes
+- [ ] UI widget type
 - [ ] Make a flappy bird clone (Flappy poop)
 
 ### 0.2.0
@@ -67,7 +69,6 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [ ] Add a dashboard to control some settings such as key bindings
 - [ ] Make shortcuts actions available from UI
 - [ ] Having a camera preview in the editor
-- [ ] Manage multiple scenes
 
 ### 0.4.0
 - [ ] Adding widget on mouse position instead of the position [0, 0, 0]
