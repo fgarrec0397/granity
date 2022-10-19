@@ -1,8 +1,16 @@
+// import { store } from "@app/Core/store";
 import clone from "lodash/clone";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
+import { addWidgetModule } from "../_data/state/widgetsModuleReducer";
 import { WidgetType } from "../widgetsConstants";
 import { WidgetComponent, WidgetModule } from "../widgetsTypes";
+
+let store: any;
+
+export const injectStore = (_store: any) => {
+    store = _store;
+};
 
 /**
  * A function helping you creating a widget.
@@ -14,6 +22,10 @@ export default <PropsType, RefType = null, ReducerType = null>(
 ) => {
     // if (widget.type === WidgetType.UI) {
     // }
+    console.log(store, "store");
+
+    console.log(widget.widgetDefinition.name);
+
     const widgetModule: WidgetModule<PropsType, RefType, ReducerType> = clone(widget);
 
     if (widgetModule.hasRef) {
@@ -22,5 +34,13 @@ export default <PropsType, RefType = null, ReducerType = null>(
         ) as WidgetComponent<PropsType, RefType>;
     }
 
+    if (store) {
+        if (widgetModule.reducer) {
+            console.log(widgetModule.reducer, "widgetModule.reducer");
+
+            store.injectReducer(widgetModule.reducer);
+        }
+        store.dispatch(addWidgetModule(widgetModule as any));
+    }
     return widgetModule;
 };

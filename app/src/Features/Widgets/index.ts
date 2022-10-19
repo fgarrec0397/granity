@@ -14,6 +14,14 @@ import widgetStarter, {
     WidgetStarterState,
 } from "@features/Widgets/WidgetStarter";
 
+const widgetModules = import.meta.glob("./**/*.tsx");
+
+for (const path in widgetModules) {
+    widgetModules[path]().then((mod) => {
+        // console.log({ path, mod });
+    });
+}
+
 /**
  * Add your Widgets Props here as union types
  */
@@ -42,12 +50,18 @@ export interface FeaturesState {
  * Add your Widgets reducers here.
  * They will be imported and combined to the main reducer
  */
+
+// TODO - continue here.
+//  Manage reducers in createWidget function
+//
 export const preparedReducer = {
     textState: text.reducer,
-    toiletsState: toilets.reducer,
-    poopState: poop.reducer,
-    gameControllerState: gameController.reducer,
-    widgetStarterState: widgetStarter.reducer,
+    // toiletsState: toilets.reducer,
+    // poopState: poop.reducer,
+    // gameControllerState: gameController.reducer,
+    // widgetStarterState: widgetStarter.reducer,
 };
 
-export default [geometryForms, terrain, text, gameController, player, cameras, poop, toilets];
+export default [];
+
+// export default [geometryForms, terrain, text, gameController, player, cameras, poop, toilets];
