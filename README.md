@@ -54,6 +54,7 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [x] Add a npx command line to setup a clean project
 - [x] Switch from a CRA environment to a Vite environment
 - [x] Manage multiple scenes
+- [ ] Auto import widgets
 - [ ] UI widget type
 - [ ] Make a flappy bird clone (Flappy poop)
 
