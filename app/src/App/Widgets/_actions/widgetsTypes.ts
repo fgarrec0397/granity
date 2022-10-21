@@ -1,7 +1,7 @@
 import { Dictionary } from "@app/Common/commonTypes";
 import { FeaturesWidgetsProps } from "@features/Widgets";
+import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
-import { AnyAction, Reducer } from "redux";
 import { Object3D } from "three";
 
 import { FieldType, HelpersTypes } from "./widgetsConstants";
@@ -61,10 +61,10 @@ export type WidgetComponent<Props, Ref> =
 /**
  * Widget object that is exported from all widgets objects
  */
-export interface WidgetModule<Props = FeaturesWidgetsProps, Ref = null, ReducerType = null> {
+export interface WidgetModule<Props = FeaturesWidgetsProps, Ref = null> {
     component: WidgetComponent<Props, Ref>;
     hasRef?: true;
-    reducer: Reducer<ReducerType, AnyAction> | null;
+    reducer: Slice | null;
     editorOptions?: WidgetEditorOptions;
     widgetDefinition: WidgetDefinition;
 }

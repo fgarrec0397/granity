@@ -1,24 +1,18 @@
-import cameras, { CamerasProps } from "@features/Widgets/Cameras";
-import gameController, {
-    GameControllerProps,
-    GameControllerState,
-} from "@features/Widgets/GameController";
-import geometryForms, { GeometryFormsProps } from "@features/Widgets/GeometryForms";
-import player, { PlayerProps } from "@features/Widgets/Player";
-import poop, { PoopProps, PoopState } from "@features/Widgets/Poop";
-import terrain, { TerrainProps } from "@features/Widgets/Terrain";
-import text, { TextProps, TextState } from "@features/Widgets/Text";
-import toilets, { ToiletsProps, ToiletsState } from "@features/Widgets/Toilets";
-import widgetStarter, {
-    WidgetStarterProps,
-    WidgetStarterState,
-} from "@features/Widgets/WidgetStarter";
+import type { CamerasProps } from "@features/Widgets/Cameras";
+import type { GameControllerProps, GameControllerState } from "@features/Widgets/GameController";
+import type { GeometryFormsProps } from "@features/Widgets/GeometryForms";
+import type { PlayerProps } from "@features/Widgets/Player";
+import type { PoopProps, PoopState } from "@features/Widgets/Poop";
+import type { TerrainProps } from "@features/Widgets/Terrain";
+import type { TextProps, TextState } from "@features/Widgets/Text";
+import type { ToiletsProps, ToiletsState } from "@features/Widgets/Toilets";
+import type { WidgetStarterProps, WidgetStarterState } from "@features/Widgets/WidgetStarter";
 
-const widgetModules = import.meta.glob("./**/*.tsx");
+const widgetModules = import.meta.glob("./*/*.tsx");
 
 for (const path in widgetModules) {
     widgetModules[path]().then((mod) => {
-        // console.log({ path, mod });
+        console.log({ path, mod });
     });
 }
 
@@ -45,22 +39,6 @@ export interface FeaturesState {
     gameControllerState: GameControllerState;
     widgetStarterState: WidgetStarterState;
 }
-
-/**
- * Add your Widgets reducers here.
- * They will be imported and combined to the main reducer
- */
-
-// TODO - continue here.
-//  Manage reducers in createWidget function
-//
-export const preparedReducer = {
-    textState: text.reducer,
-    // toiletsState: toilets.reducer,
-    // poopState: poop.reducer,
-    // gameControllerState: gameController.reducer,
-    // widgetStarterState: widgetStarter.reducer,
-};
 
 export default [];
 

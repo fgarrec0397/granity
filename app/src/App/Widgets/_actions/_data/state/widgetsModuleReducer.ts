@@ -15,7 +15,6 @@ export const widgetsModulesSlice = createSlice({
     initialState: widgetsModulesInitialState,
     reducers: {
         addWidgetModule: (state: WidgetsModulesState, action: PayloadAction<WidgetModule>) => {
-            console.log({ payload: action.payload });
             state.widgetsModules = [...state.widgetsModules, action.payload];
         },
     },
