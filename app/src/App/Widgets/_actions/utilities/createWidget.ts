@@ -29,6 +29,7 @@ export default <PropsType, RefType = null>(widget: WidgetModule<PropsType, RefTy
         if (widgetModule.reducer) {
             store.injectFeaturesReducer?.(widgetModule.reducer.name, widgetModule.reducer.reducer);
         }
+
         store.dispatch(addWidgetModule(widgetModule as any));
     }
     return widgetModule;

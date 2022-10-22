@@ -1,15 +1,24 @@
+import loadedModules from "@features/Widgets";
 import { useCallback } from "react";
 
 import useWidgetsModuleContext from "../_data/hooks/useWidgetsModuleContext";
-import { SerializedWidgetSceneObject, WidgetObjectsDictionaryItem } from "../widgetsTypes";
+import { WidgetModule } from "../widgetsTypes";
 
 export default () => {
     const { widgetsModules, setWidgetsModules } = useWidgetsModuleContext();
 
-    const loadWidgetModule = useCallback(
-        (widget: WidgetObjectsDictionaryItem | SerializedWidgetSceneObject) => {
-            return widgetsModules.find(
-                (x) => x.widgetDefinition.name === widget.widgetDefinition.name
+    const loadWidgetsModules = useCallback(async () => {
+        const loadedWidgetsModules = await loadedModules();
+
+        setWidgetsModules(loadedWidgetsModules);
+
+        return loadedWidgetsModules;
+    }, [setWidgetsModules]);
+
+    const getWidgetModuleByName = useCallback(
+        (widgetName: string, otherWidgetsModules?: WidgetModule[]) => {
+            return (otherWidgetsModules || widgetsModules).find(
+                (x) => x.widgetDefinition.name === widgetName
             );
         },
         [widgetsModules]
@@ -18,17 +27,18 @@ export default () => {
     /**
      * Load the  React component from the widgets modules list of the given widget
      */
-    const getSceneWidgetComponentFromModules = useCallback(
-        (widget: WidgetObjectsDictionaryItem | SerializedWidgetSceneObject) => {
-            return loadWidgetModule(widget)!.component;
+    const getWidgetModuleComponentByName = useCallback(
+        (widgetName: string, otherWidgetsModules?: WidgetModule[]) => {
+            return getWidgetModuleByName(widgetName, otherWidgetsModules)!.component;
         },
-        [loadWidgetModule]
+        [getWidgetModuleByName]
     );
 
     return {
         widgetsModules,
         setWidgetsModules,
-        getSceneWidgetComponentFromModules,
-        loadWidgetModule,
+        loadWidgetsModules,
+        getWidgetModuleComponentByName,
+        getWidgetModuleByName,
     };
 };

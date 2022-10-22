@@ -1,3 +1,4 @@
+import { WidgetModule } from "@app/Widgets/_actions/widgetsTypes";
 import type { CamerasProps } from "@features/Widgets/Cameras";
 import type { GameControllerProps, GameControllerState } from "@features/Widgets/GameController";
 import type { GeometryFormsProps } from "@features/Widgets/GeometryForms";
@@ -8,13 +9,7 @@ import type { TextProps, TextState } from "@features/Widgets/Text";
 import type { ToiletsProps, ToiletsState } from "@features/Widgets/Toilets";
 import type { WidgetStarterProps, WidgetStarterState } from "@features/Widgets/WidgetStarter";
 
-const widgetModules = import.meta.glob("./*/*.tsx");
-
-for (const path in widgetModules) {
-    widgetModules[path]().then((mod) => {
-        console.log({ path, mod });
-    });
-}
+const widgets = import.meta.glob("./*/*.tsx");
 
 /**
  * Add your Widgets Props here as union types
@@ -40,6 +35,13 @@ export interface FeaturesState {
     widgetStarterState: WidgetStarterState;
 }
 
-export default [];
+export default async () => {
+    const widgetsModules: WidgetModule[] = [];
 
-// export default [geometryForms, terrain, text, gameController, player, cameras, poop, toilets];
+    for (const path in widgets) {
+        const { widget } = (await widgets[path]()) as any;
+        widgetsModules.push(widget);
+    }
+
+    return widgetsModules;
+};

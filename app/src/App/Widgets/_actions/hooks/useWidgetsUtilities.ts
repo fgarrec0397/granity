@@ -9,10 +9,10 @@ import {
 import useWidgetsModules from "./useWidgetsModules";
 
 export default () => {
-    const { loadWidgetModule } = useWidgetsModules();
+    const { loadWidgetsModules, getWidgetModuleByName } = useWidgetsModules();
 
     const unserializeWidgets = useCallback(
-        (serializedWidgets: SerializedWidgetObjects) => {
+        async (serializedWidgets: SerializedWidgetObjects) => {
             const deserializedWidgets: WidgetObjectsDictionary = {};
 
             // loop through all serialized widgets from the DB
@@ -20,7 +20,11 @@ export default () => {
                 const serializedWidget = serializedWidgets[key];
 
                 // Load the corresponding widget module
-                const widgetModule = loadWidgetModule(serializedWidget);
+                const loadedWidgetsModules = await loadWidgetsModules();
+                const widgetModule = getWidgetModuleByName(
+                    serializedWidget.widgetDefinition.name,
+                    loadedWidgetsModules
+                );
 
                 if (widgetModule) {
                     const widget = mapWidgetModuleToWidgetSceneObject(widgetModule);
@@ -34,7 +38,7 @@ export default () => {
 
             return deserializedWidgets;
         },
-        [loadWidgetModule]
+        [getWidgetModuleByName, loadWidgetsModules]
     );
 
     const mergeWidgetsDictionary = useCallback(
