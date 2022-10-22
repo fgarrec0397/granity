@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { getScene } from "../_data/scenesApiservices";
+import { getScenes } from "../_data/scenesApiservices";
 import { SceneApiResponseResult } from "../scenesTypes";
 import useScenes from "./useScenes";
 
@@ -9,7 +9,7 @@ export default () => {
 
     useEffect(() => {
         const handleFetchScene = async () => {
-            await getScene(
+            await getScenes(
                 (result: SceneApiResponseResult) => {
                     initScenes(result);
                 },

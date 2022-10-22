@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import createWidgetReducer from "@app/Widgets/_actions/utilities/createWidgetReducer";
 
 export interface PoopState {
     score: number;
@@ -10,7 +10,7 @@ const initialState: PoopState = {
     isAlive: true,
 };
 
-export const poopSlice = createSlice({
+export const poopSlice = createWidgetReducer({
     name: "poop",
     initialState,
     reducers: {
@@ -25,4 +25,4 @@ export const poopSlice = createSlice({
 
 export const { addPoint, killPoop } = poopSlice.actions;
 
-export default poopSlice.reducer;
+export default poopSlice;

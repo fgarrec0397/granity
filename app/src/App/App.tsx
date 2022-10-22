@@ -10,7 +10,6 @@ import UI from "./UI/UI";
 import { WidgetsModulesContext } from "./Widgets/_actions/_data/providers/WidgetsModulesProvider";
 import { WidgetsContext } from "./Widgets/_actions/_data/providers/WidgetsProvider";
 import useWidgets from "./Widgets/_actions/hooks/useWidgets";
-import useWidgetsInitModules from "./Widgets/_actions/hooks/useWidgetsInitModules";
 
 const App: FC = () => {
     const { removeWidgetSelection } = useWidgets();
@@ -21,9 +20,6 @@ const App: FC = () => {
         ReactReduxContext,
         HistoryDictionaryContext
     );
-
-    // Store all kind of widgets in Widgets Context API
-    useWidgetsInitModules();
 
     const onPointerMissed = (event: MouseEvent) => {
         event.stopPropagation();

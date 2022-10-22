@@ -2,8 +2,7 @@ import editorReducer, { EditorState } from "@app/Editor/_actions/_data/state/edi
 import gameReducer, { GameState } from "@app/Game/_actions/_data/state/gameReducer";
 import scenesReducer, { ScenesState } from "@app/Scenes/_actions/_data/state/scenesReducer";
 import widgetsReducer, { WidgetsState } from "@app/Widgets/_actions/_data/state/widgetsReducer";
-import { FeaturesState } from "@features/Core/collector";
-import featuresReducer from "@features/Core/featuresReducer";
+import { FeaturesState } from "@features/Widgets";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "redux";
@@ -13,14 +12,19 @@ interface State {
     widgets: WidgetsState;
     scenes: ScenesState;
     game: GameState;
-    features: FeaturesState;
+    features?: FeaturesState;
 }
 
 type MyAction = AnyAction;
 
 export type InjectableStore = Store<State, MyAction> & {
-    injectReducer?: (featuresReducer: Reducer<FeaturesState, MyAction>) => void;
-    asyncReducers?: Partial<ReducersMapObject<State, MyAction>>;
+    injectReducer?: (key: keyof State, reducer?: Reducer<State, AnyAction>) => void;
+    injectFeaturesReducer?: (
+        key: string,
+        featuresReducer: Reducer<FeaturesState, MyAction>
+    ) => void;
+    asyncReducers?: Partial<ReducersMapObject<State, AnyAction>>;
+    asyncFeaturesReducers?: Partial<ReducersMapObject<FeaturesState, MyAction>>;
 };
 
 /**
@@ -31,7 +35,6 @@ const staticReducers: ReducersMapObject<State, MyAction> = {
     widgets: widgetsReducer,
     scenes: scenesReducer,
     game: gameReducer,
-    features: featuresReducer,
 };
 
 /**
@@ -43,12 +46,28 @@ const initStore = (): InjectableStore => {
     });
 
     store.asyncReducers = {};
-    store.injectReducer = (asyncReducer: Reducer<FeaturesState, MyAction>) => {
-        store.asyncReducers = {
-            ...store.asyncReducers,
-            features: asyncReducer,
-        };
-        store.replaceReducer(createReducer(store.asyncReducers));
+    store.asyncFeaturesReducers = {};
+
+    store.injectReducer = (key, asyncReducer) => {
+        if (store.asyncReducers) {
+            (store.asyncReducers as any)[key] = asyncReducer;
+
+            store.replaceReducer(createReducer(store.asyncReducers, staticReducers));
+        }
+    };
+
+    store.injectFeaturesReducer = (key, asyncReducer) => {
+        if (store.asyncFeaturesReducers) {
+            (store.asyncFeaturesReducers as any)[key] = asyncReducer;
+
+            store.injectReducer?.(
+                "features",
+                createReducer<
+                    Partial<ReducersMapObject<FeaturesState, AnyAction>>,
+                    Reducer<FeaturesState | undefined, AnyAction>
+                >(store.asyncFeaturesReducers, staticReducers.features)
+            );
+        }
     };
 
     return store;
@@ -57,12 +76,15 @@ const initStore = (): InjectableStore => {
 export const store = initStore();
 
 /**
- * combines the original static reducers with all of the reducer overrides
+ * Combines two given reducers together.
  */
-function createReducer(asyncReducers: Partial<ReducersMapObject<State, MyAction>> = {}) {
+function createReducer<
+    R1 extends ReducersMapObject<any, any> | Reducer<any, any>,
+    R2 extends ReducersMapObject<any, any> | Reducer<any, any>
+>(reducer1?: R1, reducer2?: R2): Reducer<any, any> {
     return combineReducers({
-        ...staticReducers,
-        ...asyncReducers,
+        ...reducer1,
+        ...reducer2,
     });
 }
 

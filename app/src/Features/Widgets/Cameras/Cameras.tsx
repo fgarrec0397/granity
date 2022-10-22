@@ -2,8 +2,7 @@ import { EditableWidget } from "@app/Editor/_actions/editorTypes";
 import useGameUpdate from "@app/Game/_actions/hooks/useGameUpdate";
 import useCreateCamera from "@app/Scenes/_actions/hooks/useCreateCamera";
 import createWidget from "@app/Widgets/_actions/utilities/createWidget";
-import { HelpersTypes } from "@app/Widgets/_actions/widgetsConstants";
-import { FieldType } from "@app/Widgets/_actions/widgetsTypes";
+import { FieldType, HelpersTypes } from "@app/Widgets/_actions/widgetsConstants";
 import { FC, Ref } from "react";
 import { PerspectiveCamera } from "three";
 

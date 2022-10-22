@@ -14,6 +14,6 @@ export const widget = createWidget({
     component: WidgetStarter,
     reducer: widgetStarterReducer,
     widgetDefinition: {
-        name: "Poop",
+        name: "WidgetStarter",
     },
 });

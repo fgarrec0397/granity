@@ -1,17 +1,22 @@
+import { InjectableStore } from "@app/Core/store";
 import clone from "lodash/clone";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
 import { WidgetComponent, WidgetModule } from "../widgetsTypes";
+
+let store: InjectableStore;
+
+export const injectStore = (_store: InjectableStore) => {
+    store = _store;
+};
 
 /**
  * A function helping you creating a widget.
  *
  * For now it only manage if your component is a forwarded one or a normal one, but in the future it could be more.
  */
-export default <PropsType, RefType = null, ReducerType = null>(
-    widget: WidgetModule<PropsType, RefType, ReducerType>
-) => {
-    const widgetModule: WidgetModule<PropsType, RefType, ReducerType> = clone(widget);
+export default <PropsType, RefType = null>(widget: WidgetModule<PropsType, RefType>) => {
+    const widgetModule: WidgetModule<PropsType, RefType> = clone(widget);
 
     if (widgetModule.hasRef) {
         (widgetModule.component as WidgetComponent<PropsType, RefType>) = forwardRef(
@@ -19,5 +24,10 @@ export default <PropsType, RefType = null, ReducerType = null>(
         ) as WidgetComponent<PropsType, RefType>;
     }
 
+    if (store) {
+        if (widgetModule.reducer) {
+            store.injectFeaturesReducer?.(widgetModule.reducer.name, widgetModule.reducer.reducer);
+        }
+    }
     return widgetModule;
 };

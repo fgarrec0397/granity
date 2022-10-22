@@ -1,20 +1,10 @@
 import { Dictionary } from "@app/Common/commonTypes";
-import { FeaturesWidgetsProps } from "@features/Core/collector";
+import { FeaturesWidgetsProps } from "@features/Widgets";
+import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
-import { AnyAction, Reducer } from "redux";
 import { Object3D } from "three";
 
-import { HelpersTypes } from "./widgetsConstants";
-
-/**
- * Allowed Fieldtypes
- */
-export enum FieldType {
-    Text = "Text",
-    Number = "Number",
-    Select = "Select",
-    Checkbox = "Checkbox",
-}
+import { FieldType, HelpersTypes } from "./widgetsConstants";
 
 /**
  * Option for Select FieldType
@@ -71,10 +61,10 @@ export type WidgetComponent<Props, Ref> =
 /**
  * Widget object that is exported from all widgets objects
  */
-export interface WidgetModule<Props = FeaturesWidgetsProps, Ref = null, ReducerType = null> {
+export interface WidgetModule<Props = FeaturesWidgetsProps, Ref = null> {
     component: WidgetComponent<Props, Ref>;
     hasRef?: true;
-    reducer: Reducer<ReducerType, AnyAction> | null;
+    reducer: Slice | null;
     editorOptions?: WidgetEditorOptions;
     widgetDefinition: WidgetDefinition;
 }

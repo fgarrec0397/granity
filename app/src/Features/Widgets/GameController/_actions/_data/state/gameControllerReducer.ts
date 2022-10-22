@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import createWidgetReducer from "@app/Widgets/_actions/utilities/createWidgetReducer";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export interface GameControllerState {
     gameControllerMessage: string;
@@ -8,7 +9,7 @@ const initialState: GameControllerState = {
     gameControllerMessage: "",
 };
 
-export const gameControllerSlice = createSlice({
+export const gameControllerSlice = createWidgetReducer({
     name: "gameController",
     initialState,
     reducers: {
@@ -20,4 +21,4 @@ export const gameControllerSlice = createSlice({
 
 export const { addYourWidgetAction } = gameControllerSlice.actions;
 
-export default gameControllerSlice.reducer;
+export default gameControllerSlice;

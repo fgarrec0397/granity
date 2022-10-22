@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import createWidgetReducer from "@app/Widgets/_actions/utilities/createWidgetReducer";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 import { ToiletModel, ToiletsArray, ToiletsChunkModel } from "../../toiletsTypes";
 
@@ -10,7 +11,7 @@ const initialState: ToiletsState = {
     toiletsChunks: [],
 };
 
-export const toiletsSlice = createSlice({
+export const toiletsSlice = createWidgetReducer({
     name: "toilets",
     initialState,
     reducers: {
@@ -52,4 +53,4 @@ export const toiletsSlice = createSlice({
 export const { addToiletsChunk, removeToiletsChunk, removeAllToilets, updateToilet } =
     toiletsSlice.actions;
 
-export default toiletsSlice.reducer;
+export default toiletsSlice;

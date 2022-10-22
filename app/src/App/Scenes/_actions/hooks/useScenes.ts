@@ -43,12 +43,14 @@ export default () => {
     );
 
     const selectScene = useCallback(
-        (sceneId: string) => {
+        async (sceneId: string) => {
             const scene = getSceneById(sceneId);
 
             if (scene) {
                 const selectedSceneData = scene.data;
-                const deserializedWidgets = unserializeWidgets(selectedSceneData.serializedWidgets);
+                const deserializedWidgets = await unserializeWidgets(
+                    selectedSceneData.serializedWidgets
+                );
 
                 updateCurrentSceneId(sceneId);
                 resetWidgets(deserializedWidgets, selectedSceneData.widgetsInfoDictionary, true);
@@ -136,11 +138,13 @@ export default () => {
     );
 
     const initScenes = useCallback(
-        (result: SceneApiResponseResult) => {
+        async (result: SceneApiResponseResult) => {
             const newCurrentSceneId = getDefaultScene(result);
             const newCurrentScene = (result as ScenesDictionary)[newCurrentSceneId];
 
-            const deserializedWidgets = unserializeWidgets(newCurrentScene.data.serializedWidgets);
+            const deserializedWidgets = await unserializeWidgets(
+                newCurrentScene.data.serializedWidgets
+            );
 
             const newWidgetsDictionary = buildWidgetsDictionary(deserializedWidgets);
             const mergedWidgetDictionary = mergeWidgetsDictionary(

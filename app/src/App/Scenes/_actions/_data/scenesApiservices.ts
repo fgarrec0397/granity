@@ -20,7 +20,7 @@ export const postScenes = async (scenes: SaveSceneServiceParameter) => {
 type FetchSuccessCallBack = (data: SceneApiResponseResult) => void;
 type FetchErrorCallBack = (error: unknown) => void;
 
-export const getScene = async (
+export const getScenes = async (
     successCallBack: FetchSuccessCallBack,
     errorCallback: FetchErrorCallBack
 ) => {
