@@ -1,8 +1,8 @@
 import { SetOptionalPropertyFrom } from "@app/Common/commonTypes";
 import { serialize } from "@app/Core/_actions/utilities/componentSerializer";
 import {
-    SerializedWidgetObjects,
-    SerializedWidgetSceneObject,
+    SerializedWidgetObjectsDictionary,
+    SerializedWidgetObjectDictionaryItem,
     WidgetEditorOptions,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
@@ -20,7 +20,7 @@ export const serializeEditorOptions = ({ meshHolder, helper }: WidgetEditorOptio
 };
 
 export default (widgets: WidgetObjectsDictionary) => {
-    const serializedWidgets: SerializedWidgetObjects = {};
+    const serializedWidgets: SerializedWidgetObjectsDictionary = {};
 
     for (const key in widgets) {
         const widget: SetOptionalPropertyFrom<WidgetObjectsDictionaryItem, "component"> = {
@@ -35,7 +35,7 @@ export default (widgets: WidgetObjectsDictionary) => {
 
         delete widget.component;
 
-        serializedWidgets[widget.id] = widget as SerializedWidgetSceneObject;
+        serializedWidgets[widget.id] = widget as SerializedWidgetObjectDictionaryItem;
     }
 
     return serializedWidgets;

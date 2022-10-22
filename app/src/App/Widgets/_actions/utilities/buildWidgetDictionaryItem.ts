@@ -3,7 +3,7 @@ import { Object3D } from "three";
 
 import widgetsConstants from "../widgetsConstants";
 import {
-    SerializedWidgetSceneObject,
+    SerializedWidgetObjectDictionaryItem,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
     WidgetOptionsValues,
@@ -55,7 +55,7 @@ export const buildWidgetDictionaryItem = (
 };
 
 export const buildWidgetDictionaryOptions = (
-    widget: WidgetObjectsDictionaryItem | SerializedWidgetSceneObject
+    widget: WidgetObjectsDictionaryItem | SerializedWidgetObjectDictionaryItem
 ) => {
     const options: WidgetOptionsValues = {};
     const widgetOptions = widget.widgetDefinition.options;

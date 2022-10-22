@@ -25,6 +25,11 @@ export type FeaturesWidgetsProps = GeometryFormsProps &
     WidgetStarterProps;
 
 /**
+ * Add your UI Props here as union types
+ */
+// export type FeaturesUIProps = PlayMenuProps;
+
+/**
  * Add your Widgets reducers state here
  */
 export interface FeaturesState {

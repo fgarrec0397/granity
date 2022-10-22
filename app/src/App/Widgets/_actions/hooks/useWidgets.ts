@@ -9,7 +9,7 @@ import {
 } from "../utilities/buildWidgetDictionaryItem";
 import widgetsConstants from "../widgetsConstants";
 import {
-    SerializedWidgetSceneObject,
+    SerializedWidgetObjectDictionaryItem,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
     WidgetOptionsValues,
@@ -173,7 +173,7 @@ export default () => {
 
     const updateWidgetOptions = useCallback(
         (
-            widget: WidgetObjectsDictionaryItem | SerializedWidgetSceneObject,
+            widget: WidgetObjectsDictionaryItem | SerializedWidgetObjectDictionaryItem,
             widgetOptions: WidgetOptionsValues
         ) => {
             update(widget as WidgetObjectsDictionaryItem, undefined, widgetOptions);

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 import mapWidgetModuleToWidgetSceneObject from "../utilities/mapWidgetModuleToWidgetSceneObject";
 import {
-    SerializedWidgetObjects,
+    SerializedWidgetObjectsDictionary,
     WidgetObjectsDictionary,
     WidgetsInfoDictionary,
 } from "../widgetsTypes";
@@ -12,7 +12,7 @@ export default () => {
     const { loadWidgetsModules, getWidgetModuleByName } = useWidgetsModules();
 
     const unserializeWidgets = useCallback(
-        async (serializedWidgets: SerializedWidgetObjects) => {
+        async (serializedWidgets: SerializedWidgetObjectsDictionary) => {
             const deserializedWidgets: WidgetObjectsDictionary = {};
 
             // loop through all serialized widgets from the DB
