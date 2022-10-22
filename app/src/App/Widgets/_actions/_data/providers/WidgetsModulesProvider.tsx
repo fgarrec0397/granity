@@ -1,10 +1,10 @@
 import { createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
 
-import { WidgetModule } from "../../widgetsTypes";
+import { WidgetObjectModule } from "../../widgetsTypes";
 
 export interface WidgetModuleContextModel {
-    widgetsModules: WidgetModule[] | [];
-    setWidgetsModules: (() => void) | Dispatch<SetStateAction<WidgetModule[]>>;
+    widgetsModules: WidgetObjectModule[] | [];
+    setWidgetsModules: (() => void) | Dispatch<SetStateAction<WidgetObjectModule[]>>;
 }
 
 export const defaultContext: WidgetModuleContextModel = {
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const WidgetsModulesContextProvider: FC<Props> = ({ children }) => {
-    const [widgetsModules, setWidgetsModules] = useState<WidgetModule[]>([]);
+    const [widgetsModules, setWidgetsModules] = useState<WidgetObjectModule[]>([]);
 
     const providerValue: WidgetModuleContextModel = {
         widgetsModules,

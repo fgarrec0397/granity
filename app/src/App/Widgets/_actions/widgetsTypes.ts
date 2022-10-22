@@ -6,70 +6,81 @@ import { Object3D } from "three";
 
 import { FieldType, HelpersTypes } from "./widgetsConstants";
 
-/// ---------------------- Widget Module ---------------------- ///
+/// ---------------------- Widget ---------------------- ///
 
 /**
- * Widget object that is exported from all widgets objects
+ * Base type of a widget
  */
-export interface WidgetModule<Props = FeaturesWidgetsProps, Ref = null> {
+export type Widget<Props = FeaturesWidgetsProps, Ref = null> = {
     component: WidgetComponent<Props, Ref>;
-    hasRef?: true;
-    reducer: Slice | null;
-    editorOptions?: WidgetEditorOptions;
     widgetDefinition: WidgetDefinition;
-}
+};
 
+/**
+ * A component type of a widget
+ */
 export type WidgetComponent<Props, Ref> =
     | FC<Props>
     | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<Ref>>;
 
 /**
- * Widget options to set in the editor
+ * Definition of the widget that is displayed in the editor
  */
-export type WidgetEditorOptions = {
-    helper?: HelpersTypes;
-    meshHolder?: ReactNode | Object3D;
-};
-
-/**
- * Widget object definition. This information is displayed in the editor
- */
-export interface WidgetDefinition {
+export type WidgetDefinition = {
     name: string;
     options?: WidgetOptions[];
-}
+};
 
 /**
  * Option for Select FieldType
  */
-export interface SelectOptions {
+export type SelectOptions = {
     value: string;
     name: string;
-}
+};
 
 type WidgetAdditionnalOptions = WidgetSelectionOptions;
 
 export type WidgetOptionDefaultValue = string | number | boolean; // TODO - Readjust that in order to match the field type
 
-export interface WidgetSelectionOptions {
+export type WidgetSelectionOptions = {
     selectOptions?: SelectOptions[];
-}
+};
 
 /**
  * Base interface for option object.
  */
-export interface WidgetBaseOptions extends WidgetAdditionnalOptions {
+export type WidgetBaseOptions = WidgetAdditionnalOptions & {
     name: string;
     displayName: string;
     fieldType: FieldType;
     isVisible?: (options: WidgetBaseOptions[]) => boolean;
     defaultValue: WidgetOptionDefaultValue;
-}
+};
 
 /**
  * All options allowed for the widget in the editor
  */
 export type WidgetOptions = WidgetBaseOptions;
+
+/// ---------------------- Widget Object Module ---------------------- ///
+
+/**
+ * A widget object is a widget that can be on the 3D scene.
+ */
+export type WidgetObjectModule<Props = FeaturesWidgetsProps, Ref = null> = Widget<Props, Ref> & {
+    hasRef?: true;
+    reducer: Slice | null;
+    editorOptions?: WidgetObjectEditorOptions;
+};
+
+/**
+ * Widget options to set in the editor
+ */
+export type WidgetObjectEditorOptions = {
+    helper?: HelpersTypes;
+    meshHolder?: ReactNode | Object3D;
+};
 
 /// ---------------------- Widgets Objects Dictionary ---------------------- ///
 
@@ -84,7 +95,7 @@ export type WidgetObjectsDictionary<Props = FeaturesWidgetsProps> = Dictionary<
  * Informations of a widget object on the scene
  */
 export type WidgetObjectsDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
-    WidgetModule<Props>,
+    WidgetObjectModule<Props>,
     "reducer"
 > & {
     id: string;
@@ -133,12 +144,11 @@ export type WidgetProperties = {
     scale: [number, number, number];
 };
 
-/// ---------------------- Widget UI ---------------------- ///
+/// ---------------------- Widget UI Module ---------------------- ///
 
 /**
  * Widget module to generate UI elements
  */
-export interface UIModule<Props> {
-    component: FC<Props>;
-    widgetDefinition: WidgetDefinition;
-}
+export type WidgetUIModule<Props> = Widget<Props>;
+
+/// ---------------------- Widget UI Dictionary ---------------------- ///

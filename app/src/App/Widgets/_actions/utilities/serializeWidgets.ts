@@ -3,12 +3,12 @@ import { serialize } from "@app/Core/_actions/utilities/componentSerializer";
 import {
     SerializedWidgetObjectsDictionary,
     SerializedWidgetObjectDictionaryItem,
-    WidgetEditorOptions,
+    WidgetObjectEditorOptions,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
 } from "@app/Widgets/_actions/widgetsTypes";
 
-export const serializeEditorOptions = ({ meshHolder, helper }: WidgetEditorOptions) => {
+export const serializeEditorOptions = ({ meshHolder, helper }: WidgetObjectEditorOptions) => {
     if (meshHolder) {
         const serializedMeshHolder = serialize(meshHolder as JSX.Element);
 
@@ -26,7 +26,7 @@ export default (widgets: WidgetObjectsDictionary) => {
         const widget: SetOptionalPropertyFrom<WidgetObjectsDictionaryItem, "component"> = {
             ...widgets[key],
         };
-        let editorOptions: WidgetEditorOptions | undefined;
+        let editorOptions: WidgetObjectEditorOptions | undefined;
         if (widget.editorOptions) {
             editorOptions = serializeEditorOptions(widget.editorOptions);
         }

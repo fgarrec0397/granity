@@ -1,6 +1,6 @@
-import { WidgetModule, WidgetObjectsDictionaryItem } from "../widgetsTypes";
+import { WidgetObjectModule, WidgetObjectsDictionaryItem } from "../widgetsTypes";
 
-export default (widget: WidgetModule) => {
+export default (widget: WidgetObjectModule) => {
     const widgetSceneObject: WidgetObjectsDictionaryItem = {
         id: "",
         component: widget.component,
