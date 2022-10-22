@@ -1,6 +1,6 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
-import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
 import { useHelper } from "@react-three/drei";
 import { FC, useRef } from "react";
 import { BoxHelper } from "three";

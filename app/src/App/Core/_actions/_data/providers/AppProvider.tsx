@@ -3,7 +3,7 @@ import HistoryDictionaryContextProvider from "@app/Editor/_actions/_data/provide
 import CamerasContextProvider from "@app/Scenes/_actions/_data/providers/CamerasContextProvider";
 import WidgetsModulesContextProvider from "@app/Widgets/_actions/_data/providers/WidgetsModulesProvider";
 import WidgetsContextProvider from "@app/Widgets/_actions/_data/providers/WidgetsProvider";
-import { injectStore } from "@app/Widgets/_actions/utilities/createWidget";
+import { injectStore } from "@app/Widgets/_actions/utilities/createWidgetObject";
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 

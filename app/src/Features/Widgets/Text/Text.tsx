@@ -1,4 +1,4 @@
-import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
 import { Html } from "@react-three/drei";
 import { FC } from "react";
 

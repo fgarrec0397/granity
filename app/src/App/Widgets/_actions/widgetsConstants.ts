@@ -26,11 +26,6 @@ export enum FieldType {
     Checkbox = "Checkbox",
 }
 
-export enum WidgetType {
-    GameObject = "GameObject",
-    UI = "UI",
-}
-
 export default {
     widgetObjectsPrefix: "WidgetRenderer",
     widgetDefaultProperties: {

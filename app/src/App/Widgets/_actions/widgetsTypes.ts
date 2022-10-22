@@ -13,6 +13,7 @@ import { FieldType, HelpersTypes } from "./widgetsConstants";
  */
 export type Widget<Props = FeaturesWidgetsProps, Ref = null> = {
     component: WidgetComponent<Props, Ref>;
+    reducer: Slice | null;
     widgetDefinition: WidgetDefinition;
 };
 
@@ -70,7 +71,6 @@ export type WidgetOptions = WidgetBaseOptions;
  */
 export type WidgetObjectModule<Props = FeaturesWidgetsProps, Ref = null> = Widget<Props, Ref> & {
     hasRef?: true;
-    reducer: Slice | null;
     editorOptions?: WidgetObjectEditorOptions;
 };
 
@@ -152,3 +152,20 @@ export type WidgetProperties = {
 export type WidgetUIModule<Props> = Widget<Props>;
 
 /// ---------------------- Widget UI Dictionary ---------------------- ///
+
+/**
+ * A dictionary containing informations about all WidgetObjectsDictionary
+ */
+export type WidgetUIDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+    WidgetObjectsDictionaryItem<Props>
+>;
+
+/**
+ * Informations of a widget object on the scene
+ */
+export type WidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
+    WidgetUIModule<Props>,
+    "reducer"
+> & {
+    id: string;
+};

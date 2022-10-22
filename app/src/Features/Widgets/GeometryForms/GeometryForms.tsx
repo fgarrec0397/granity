@@ -1,6 +1,6 @@
 import unSerializeVector3 from "@app/Common/utilities/unSerializeVector3";
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import GameRigidbody from "@features/Physics/components/GameRigidbody";
 import { RigidBodyApi } from "@react-three/rapier";

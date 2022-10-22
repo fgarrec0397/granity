@@ -1,5 +1,5 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
 import { FC, useRef } from "react";
 import { Mesh } from "three";
 

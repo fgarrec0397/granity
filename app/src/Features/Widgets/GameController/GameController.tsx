@@ -1,5 +1,5 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
 import { FC } from "react";
 
 import gameControllerReducer from "./_actions/_data/state/gameControllerReducer";
