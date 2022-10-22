@@ -148,8 +148,12 @@ export default () => {
 
     const selectWidget = useCallback(
         (widgetsToSelect: WidgetObjectsDictionaryItem[]) => {
+            const { properties } = widgetsInfoDictionary[widgetsToSelect[0].id];
             select(widgetsToSelect);
-            updateCurrentWidget(widgetsInfoDictionary[widgetsToSelect[0].id].properties, true);
+
+            if (properties) {
+                updateCurrentWidget(properties, true);
+            }
         },
         [select, widgetsInfoDictionary, updateCurrentWidget]
     );

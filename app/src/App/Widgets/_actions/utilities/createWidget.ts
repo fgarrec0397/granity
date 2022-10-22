@@ -2,7 +2,6 @@ import { InjectableStore } from "@app/Core/store";
 import clone from "lodash/clone";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
-import { addWidgetModule } from "../_data/state/widgetsModuleReducer";
 import { WidgetComponent, WidgetModule } from "../widgetsTypes";
 
 let store: InjectableStore;
@@ -29,8 +28,6 @@ export default <PropsType, RefType = null>(widget: WidgetModule<PropsType, RefTy
         if (widgetModule.reducer) {
             store.injectFeaturesReducer?.(widgetModule.reducer.name, widgetModule.reducer.reducer);
         }
-
-        store.dispatch(addWidgetModule(widgetModule as any));
     }
     return widgetModule;
 };
