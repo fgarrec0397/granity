@@ -43,10 +43,6 @@ const staticReducers: ReducersMapObject<State, MyAction> = {
 const initStore = (): InjectableStore => {
     const store: InjectableStore = configureStore({
         reducer: staticReducers,
-        middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware({
-                serializableCheck: false,
-            }),
     });
 
     store.asyncReducers = {};

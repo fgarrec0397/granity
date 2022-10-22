@@ -9,7 +9,7 @@ import type { TextProps, TextState } from "@features/Widgets/Text";
 import type { ToiletsProps, ToiletsState } from "@features/Widgets/Toilets";
 import type { WidgetStarterProps, WidgetStarterState } from "@features/Widgets/WidgetStarter";
 
-const widgets = import.meta.glob("./*/*.tsx");
+const modules = import.meta.glob("./*/*.tsx");
 
 /**
  * Add your Widgets Props here as union types
@@ -35,13 +35,20 @@ export interface FeaturesState {
     widgetStarterState: WidgetStarterState;
 }
 
-export default async () => {
+/**
+ * Extracts widgets from loaded modules and export them for further use.
+ *
+ * You should not touch this function
+ */
+const loadWidgetsFromModules = async () => {
     const widgetsModules: WidgetModule[] = [];
 
-    for (const path in widgets) {
-        const { widget } = (await widgets[path]()) as any;
+    for (const path in modules) {
+        const { widget } = (await modules[path]()) as any;
         widgetsModules.push(widget);
     }
 
     return widgetsModules;
 };
+
+export default loadWidgetsFromModules;
