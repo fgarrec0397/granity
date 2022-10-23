@@ -1,7 +1,7 @@
 import unSerializeVector3 from "@app/Common/utilities/unSerializeVector3";
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
-import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import GameRigidbody from "@features/Physics/components/GameRigidbody";
 import { RigidBodyApi } from "@react-three/rapier";
 import { FC, useEffect, useRef } from "react";
@@ -37,6 +37,7 @@ const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale, position }) =
 export const widget = createWidget({
     component: GeometryForms,
     reducer: null,
+    type: WidgetType.GameObject,
     widgetDefinition: {
         name: "Geometry",
         options: [

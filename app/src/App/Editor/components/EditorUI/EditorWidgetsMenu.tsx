@@ -1,9 +1,9 @@
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
-import useWidgetsModuleContext from "@app/Widgets/_actions/_data/hooks/useWidgetsModuleContext";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
+import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetSceneObject from "@app/Widgets/_actions/utilities/mapWidgetModuleToWidgetSceneObject";
 import { WidgetObjectsDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
-import { Button, Col, Modal, Row } from "antd";
+import { Button, Col, Modal, Row, Typography } from "antd";
 import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
 
@@ -27,7 +27,7 @@ const styles: EditorFeedbackStyles = {
 
 const EditorGeometryMenu: FC = () => {
     const { addWidget } = useWidgets();
-    const { widgetsModules } = useWidgetsModuleContext();
+    const { widgetsModules, widgetsUIModules } = useWidgetsModules();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleOnClick = (widget: WidgetObjectsDictionaryItem): void => {
@@ -56,6 +56,7 @@ const EditorGeometryMenu: FC = () => {
                     width={1000}
                     footer={[]}
                 >
+                    <Typography>Game Objects</Typography>
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                         {widgetsModules.map((widget, index) => {
                             const key = `${index}-${widget.widgetDefinition.name}`;
@@ -66,6 +67,24 @@ const EditorGeometryMenu: FC = () => {
                                     <Button
                                         type="link"
                                         onClick={() => handleOnClick(widgetSceneObject)}
+                                    >
+                                        {widget.widgetDefinition.name}
+                                    </Button>
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                    <Typography>UI</Typography>
+                    <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                        {widgetsUIModules.map((widget, index) => {
+                            const key = `${index}-${widget.widgetDefinition.name}`;
+
+                            // const widgetSceneObject = mapWidgetModuleToWidgetSceneObject(widget);
+                            return (
+                                <Col key={key} className="gutter-row" span={6}>
+                                    <Button
+                                        type="link"
+                                        // onClick={() => handleOnClick(widgetSceneObject)}
                                     >
                                         {widget.widgetDefinition.name}
                                     </Button>

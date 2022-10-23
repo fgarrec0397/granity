@@ -1,5 +1,6 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import { FC, useRef } from "react";
 import { Mesh } from "three";
 
@@ -36,6 +37,7 @@ const Toilets: FC<OwnProps> = () => {
 export const widget = createWidget({
     component: Toilets,
     reducer: toiletsReducer,
+    type: WidgetType.GameObject,
     widgetDefinition: {
         name: "Toilet",
     },

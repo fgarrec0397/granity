@@ -2,21 +2,30 @@ import loadedModules from "@features/Widgets";
 import { useCallback } from "react";
 
 import useWidgetsModuleContext from "../_data/hooks/useWidgetsModuleContext";
-import { WidgetObjectModule } from "../widgetsTypes";
+import filterWidgetsModules from "../utilities/filterWidgetsModules";
+import { WidgetModule } from "../widgetsTypes";
 
 export default () => {
-    const { widgetsModules, setWidgetsModules } = useWidgetsModuleContext();
+    const { widgetsModules, setWidgetsModules, widgetsUIModules, setWidgetsUIModules } =
+        useWidgetsModuleContext();
 
     const loadWidgetsModules = useCallback(async () => {
         const loadedWidgetsModules = await loadedModules();
+        const filteredModules = filterWidgetsModules(loadedWidgetsModules);
 
-        setWidgetsModules(loadedWidgetsModules);
+        if (filteredModules.widgetsModules) {
+            setWidgetsModules(filteredModules.widgetsModules);
+        }
 
-        return loadedWidgetsModules;
-    }, [setWidgetsModules]);
+        if (filteredModules.widgetsUIModules) {
+            setWidgetsUIModules(filteredModules.widgetsUIModules);
+        }
+
+        return filteredModules;
+    }, [setWidgetsModules, setWidgetsUIModules]);
 
     const getWidgetModuleByName = useCallback(
-        (widgetName: string, otherWidgetsModules?: WidgetObjectModule[]) => {
+        (widgetName: string, otherWidgetsModules?: WidgetModule[]) => {
             return (otherWidgetsModules || widgetsModules).find(
                 (x) => x.widgetDefinition.name === widgetName
             );
@@ -28,7 +37,7 @@ export default () => {
      * Load the  React component from the widgets modules list of the given widget
      */
     const getWidgetModuleComponentByName = useCallback(
-        (widgetName: string, otherWidgetsModules?: WidgetObjectModule[]) => {
+        (widgetName: string, otherWidgetsModules?: WidgetModule[]) => {
             return getWidgetModuleByName(widgetName, otherWidgetsModules)!.component;
         },
         [getWidgetModuleByName]
@@ -36,6 +45,7 @@ export default () => {
 
     return {
         widgetsModules,
+        widgetsUIModules,
         setWidgetsModules,
         loadWidgetsModules,
         getWidgetModuleComponentByName,

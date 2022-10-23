@@ -1,3 +1,4 @@
+import { SetOptionalPropertyFrom } from "@app/Common/commonTypes";
 import { WidgetUIModule } from "@app/Widgets/_actions/widgetsTypes";
 
 /**
@@ -5,6 +6,6 @@ import { WidgetUIModule } from "@app/Widgets/_actions/widgetsTypes";
  *
  * For now it only returns the widgetUIModule you pass, but in the future it could be more.
  */
-export default <Props>(ui: WidgetUIModule<Props>) => {
+export default <Props>(ui: any) => {
     return ui;
 };

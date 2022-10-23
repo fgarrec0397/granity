@@ -1,6 +1,7 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
-import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import { useHelper } from "@react-three/drei";
 import { FC, useRef } from "react";
 import { BoxHelper } from "three";
@@ -29,6 +30,7 @@ const Player: FC<OwnProps> = () => {
 export const widget = createWidget({
     component: Player,
     reducer: null,
+    type: WidgetType.GameObject,
     editorOptions: {
         meshHolder: (
             <mesh scale={[0.25, 0.25, 0.25]}>

@@ -1,5 +1,6 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import { FC } from "react";
 
 import gameControllerReducer from "./_actions/_data/state/gameControllerReducer";
@@ -18,6 +19,7 @@ const GameController: FC<GameControllerProps> = () => {
 export const widget = createWidget({
     component: GameController,
     reducer: gameControllerReducer,
+    type: WidgetType.GameObject,
     widgetDefinition: {
         name: "GameController",
     },

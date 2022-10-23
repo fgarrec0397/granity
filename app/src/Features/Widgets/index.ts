@@ -1,4 +1,4 @@
-import { WidgetObjectModule } from "@app/Widgets/_actions/widgetsTypes";
+import { WidgetModule, WidgetUIModule } from "@app/Widgets/_actions/widgetsTypes";
 import type { CamerasProps } from "@features/Widgets/Cameras";
 import type { GameControllerProps, GameControllerState } from "@features/Widgets/GameController";
 import type { GeometryFormsProps } from "@features/Widgets/GeometryForms";
@@ -46,7 +46,7 @@ export interface FeaturesState {
  * You should not touch this function
  */
 const loadWidgetsFromModules = async () => {
-    const widgetsModules: WidgetObjectModule[] = [];
+    const widgetsModules: WidgetModule[] | WidgetUIModule[] = [];
 
     for (const path in modules) {
         const { widget } = (await modules[path]()) as any;

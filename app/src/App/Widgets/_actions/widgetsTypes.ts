@@ -4,17 +4,20 @@ import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
 import { Object3D } from "three";
 
-import { FieldType, HelpersTypes } from "./widgetsConstants";
+import { FieldType, HelpersTypes, WidgetType } from "./widgetsConstants";
 
-/// ---------------------- Widget ---------------------- ///
+/// ---------------------- Widget Object Module ---------------------- ///
 
 /**
- * Base type of a widget
+ * A widget object is a widget that can be on the 3D scene.
  */
-export type Widget<Props = FeaturesWidgetsProps, Ref = null> = {
+export type WidgetModule<Props = FeaturesWidgetsProps, Ref = null> = {
     component: WidgetComponent<Props, Ref>;
     reducer: Slice | null;
     widgetDefinition: WidgetDefinition;
+    hasRef?: true;
+    editorOptions?: WidgetObjectEditorOptions;
+    type: WidgetType.GameObject;
 };
 
 /**
@@ -64,16 +67,6 @@ export type WidgetBaseOptions = WidgetAdditionnalOptions & {
  */
 export type WidgetOptions = WidgetBaseOptions;
 
-/// ---------------------- Widget Object Module ---------------------- ///
-
-/**
- * A widget object is a widget that can be on the 3D scene.
- */
-export type WidgetObjectModule<Props = FeaturesWidgetsProps, Ref = null> = Widget<Props, Ref> & {
-    hasRef?: true;
-    editorOptions?: WidgetObjectEditorOptions;
-};
-
 /**
  * Widget options to set in the editor
  */
@@ -95,7 +88,7 @@ export type WidgetObjectsDictionary<Props = FeaturesWidgetsProps> = Dictionary<
  * Informations of a widget object on the scene
  */
 export type WidgetObjectsDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
-    WidgetObjectModule<Props>,
+    WidgetModule<Props>,
     "reducer"
 > & {
     id: string;
@@ -149,23 +142,28 @@ export type WidgetProperties = {
 /**
  * Widget module to generate UI elements
  */
-export type WidgetUIModule<Props> = Widget<Props>;
-
-/// ---------------------- Widget UI Dictionary ---------------------- ///
-
-/**
- * A dictionary containing informations about all WidgetObjectsDictionary
- */
-export type WidgetUIDictionary<Props = FeaturesWidgetsProps> = Dictionary<
-    WidgetObjectsDictionaryItem<Props>
->;
-
-/**
- * Informations of a widget object on the scene
- */
-export type WidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
-    WidgetUIModule<Props>,
-    "reducer"
+export type WidgetUIModule<Props = FeaturesWidgetsProps> = Omit<
+    WidgetModule<Props>,
+    "hasRef" | "editorOptions" | "type"
 > & {
-    id: string;
+    type: WidgetType.UI;
 };
+
+// /// ---------------------- Widget UI Dictionary ---------------------- ///
+
+// /**
+//  * A dictionary containing informations about all WidgetObjectsDictionary
+//  */
+// export type WidgetUIDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+//     WidgetObjectsDictionaryItem<Props>
+// >;
+
+// /**
+//  * Informations of a widget object on the scene
+//  */
+// export type WidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
+//     WidgetUIModule<Props>,
+//     "reducer"
+// > & {
+//     id: string;
+// };

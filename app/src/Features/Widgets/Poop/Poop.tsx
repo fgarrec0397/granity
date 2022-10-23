@@ -6,7 +6,8 @@ import { ClientKeyMappings } from "@app/Core/coreTypes";
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import useGameUpdate from "@app/Game/_actions/hooks/useGameUpdate";
-import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import GameRigidbody from "@features/Physics/components/GameRigidbody";
 import { useGLTF } from "@react-three/drei";
 import { CuboidCollider, RigidBodyApi } from "@react-three/rapier";
@@ -108,6 +109,7 @@ const Poop: FC<PoopProps> = ({ position }) => {
 export const widget = createWidget({
     component: Poop,
     reducer: poopReducer,
+    type: WidgetType.GameObject,
     widgetDefinition: {
         name: "Poop",
     },

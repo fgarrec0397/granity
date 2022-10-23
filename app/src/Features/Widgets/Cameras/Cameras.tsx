@@ -1,8 +1,8 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
 import useGameUpdate from "@app/Game/_actions/hooks/useGameUpdate";
 import useCreateCamera from "@app/Scenes/_actions/hooks/useCreateCamera";
-import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
-import { FieldType, HelpersTypes } from "@app/Widgets/_actions/widgetsConstants";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { FieldType, HelpersTypes, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import { FC, Ref } from "react";
 import { PerspectiveCamera } from "three";
 
@@ -28,6 +28,7 @@ export const widget = createWidget<CamerasProps, PerspectiveCamera>({
     component: Cameras,
     hasRef: true,
     reducer: null,
+    type: WidgetType.GameObject,
     editorOptions: {
         helper: HelpersTypes.CameraHelper,
         meshHolder: (

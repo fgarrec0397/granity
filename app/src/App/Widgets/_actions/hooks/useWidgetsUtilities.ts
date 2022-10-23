@@ -21,9 +21,10 @@ export default () => {
 
                 // Load the corresponding widget module
                 const loadedWidgetsModules = await loadWidgetsModules();
+
                 const widgetModule = getWidgetModuleByName(
                     serializedWidget.widgetDefinition.name,
-                    loadedWidgetsModules
+                    loadedWidgetsModules.widgetsModules
                 );
 
                 if (widgetModule) {

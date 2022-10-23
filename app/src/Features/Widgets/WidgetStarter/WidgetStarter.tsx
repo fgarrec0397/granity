@@ -1,5 +1,6 @@
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidgetObject";
+import createWidget from "@app/Widgets/_actions/utilities/createWidget";
+import { WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import { FC } from "react";
 
 import widgetStarterReducer from "./_actions/_data/state/widgetStarterReducer";
@@ -13,6 +14,7 @@ const WidgetStarter: FC<WidgetStarterProps> = () => {
 export const widget = createWidget({
     component: WidgetStarter,
     reducer: widgetStarterReducer,
+    type: WidgetType.GameObject,
     widgetDefinition: {
         name: "WidgetStarter",
     },
