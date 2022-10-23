@@ -1,10 +1,10 @@
 import { FeaturesWidgetsProps } from "@features/Widgets";
 
 import { WidgetType } from "../widgetsConstants";
-import { WidgetModule, WidgetUIModule } from "../widgetsTypes";
+import { WidgetObjectModule, WidgetUIModule } from "../widgetsTypes";
 
 type FilteredModules = {
-    widgetsModules: WidgetModule[];
+    widgetsModules: WidgetObjectModule[];
     widgetsUIModules: WidgetUIModule[];
 };
 
@@ -13,7 +13,7 @@ type FilteredModules = {
  */
 export default (
     loadedWidgetsModules:
-        | WidgetModule<FeaturesWidgetsProps, null>[]
+        | WidgetObjectModule<FeaturesWidgetsProps, null>[]
         | WidgetUIModule<FeaturesWidgetsProps>[]
 ) => {
     const filteredModules: FilteredModules = {

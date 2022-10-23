@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import useWidgetsModuleContext from "../_data/hooks/useWidgetsModuleContext";
 import filterWidgetsModules from "../utilities/filterWidgetsModules";
-import { WidgetModule } from "../widgetsTypes";
+import { WidgetObjectModule } from "../widgetsTypes";
 
 export default () => {
     const { widgetsModules, setWidgetsModules, widgetsUIModules, setWidgetsUIModules } =
@@ -25,7 +25,7 @@ export default () => {
     }, [setWidgetsModules, setWidgetsUIModules]);
 
     const getWidgetModuleByName = useCallback(
-        (widgetName: string, otherWidgetsModules?: WidgetModule[]) => {
+        (widgetName: string, otherWidgetsModules?: WidgetObjectModule[]) => {
             return (otherWidgetsModules || widgetsModules).find(
                 (x) => x.widgetDefinition.name === widgetName
             );
@@ -37,7 +37,7 @@ export default () => {
      * Load the  React component from the widgets modules list of the given widget
      */
     const getWidgetModuleComponentByName = useCallback(
-        (widgetName: string, otherWidgetsModules?: WidgetModule[]) => {
+        (widgetName: string, otherWidgetsModules?: WidgetObjectModule[]) => {
             return getWidgetModuleByName(widgetName, otherWidgetsModules)!.component;
         },
         [getWidgetModuleByName]

@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 
-import mapWidgetModuleToWidgetSceneObject from "../utilities/mapWidgetModuleToWidgetSceneObject";
 import {
     SerializedWidgetObjectsDictionary,
     WidgetObjectsDictionary,
@@ -28,7 +27,10 @@ export default () => {
                 );
 
                 if (widgetModule) {
-                    const widget = mapWidgetModuleToWidgetSceneObject(widgetModule);
+                    const widget = {
+                        ...widgetModule,
+                        id: "",
+                    };
 
                     deserializedWidgets[serializedWidget.id] = {
                         ...widget,

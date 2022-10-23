@@ -1,8 +1,10 @@
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
-import mapWidgetModuleToWidgetSceneObject from "@app/Widgets/_actions/utilities/mapWidgetModuleToWidgetSceneObject";
-import { WidgetObjectsDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
+import {
+    WidgetObjectModule,
+    WidgetObjectsDictionaryItem,
+} from "@app/Widgets/_actions/widgetsTypes";
 import { Button, Col, Modal, Row, Typography } from "antd";
 import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
@@ -30,7 +32,11 @@ const EditorGeometryMenu: FC = () => {
     const { widgetsModules, widgetsUIModules } = useWidgetsModules();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const handleOnClick = (widget: WidgetObjectsDictionaryItem): void => {
+    const handleOnClick = (widgetModule: WidgetObjectModule): void => {
+        const widget: WidgetObjectsDictionaryItem = {
+            ...widgetModule,
+            id: "",
+        };
         addWidget(widget);
         closeModalHandler();
     };
@@ -61,13 +67,9 @@ const EditorGeometryMenu: FC = () => {
                         {widgetsModules.map((widget, index) => {
                             const key = `${index}-${widget.widgetDefinition.name}`;
 
-                            const widgetSceneObject = mapWidgetModuleToWidgetSceneObject(widget);
                             return (
                                 <Col key={key} className="gutter-row" span={6}>
-                                    <Button
-                                        type="link"
-                                        onClick={() => handleOnClick(widgetSceneObject)}
-                                    >
+                                    <Button type="link" onClick={() => handleOnClick(widget)}>
                                         {widget.widgetDefinition.name}
                                     </Button>
                                 </Col>

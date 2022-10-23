@@ -6,18 +6,15 @@ import { Object3D } from "three";
 
 import { FieldType, HelpersTypes, WidgetType } from "./widgetsConstants";
 
-/// ---------------------- Widget Object Module ---------------------- ///
+/// ---------------------- Widget Module ---------------------- ///
 
 /**
- * A widget object is a widget that can be on the 3D scene.
+ * Base widget type
  */
-export type WidgetModule<Props = FeaturesWidgetsProps, Ref = null> = {
+export type Widget<Props = FeaturesWidgetsProps, Ref = null> = {
     component: WidgetComponent<Props, Ref>;
     reducer: Slice | null;
     widgetDefinition: WidgetDefinition;
-    hasRef?: true;
-    editorOptions?: WidgetObjectEditorOptions;
-    type: WidgetType.GameObject;
 };
 
 /**
@@ -67,6 +64,17 @@ export type WidgetBaseOptions = WidgetAdditionnalOptions & {
  */
 export type WidgetOptions = WidgetBaseOptions;
 
+/// ---------------------- Widget Object Module ---------------------- ///
+
+/**
+ * A widget object that can be on the 3D scene.
+ */
+export type WidgetObjectModule<Props = FeaturesWidgetsProps, Ref = null> = Widget<Props, Ref> & {
+    hasRef?: true;
+    editorOptions?: WidgetObjectEditorOptions;
+    type: WidgetType.GameObject;
+};
+
 /**
  * Widget options to set in the editor
  */
@@ -88,7 +96,7 @@ export type WidgetObjectsDictionary<Props = FeaturesWidgetsProps> = Dictionary<
  * Informations of a widget object on the scene
  */
 export type WidgetObjectsDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
-    WidgetModule<Props>,
+    WidgetObjectModule<Props>,
     "reducer"
 > & {
     id: string;
@@ -143,7 +151,7 @@ export type WidgetProperties = {
  * Widget module to generate UI elements
  */
 export type WidgetUIModule<Props = FeaturesWidgetsProps> = Omit<
-    WidgetModule<Props>,
+    Widget<Props>,
     "hasRef" | "editorOptions" | "type"
 > & {
     type: WidgetType.UI;
