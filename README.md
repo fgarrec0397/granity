@@ -16,7 +16,7 @@
 
 A [React-Three-Fiber](https://github.com/pmndrs/react-three-fiber) widgets based game engine build with NodeJs as back-end.
 
-![Current State of The Project](https://i.imgur.com/umqYMA5.png)
+![Current State of The Project](https://i.imgur.com/x3uydfF.png)
 
 ## Basic Concept
 When you create a [React-Three-Fiber](https://github.com/pmndrs/react-three-fiber) project it can be difficult to place your 3D objects on the scene. You don't have any visual support to help you doing that. Well, this project was originally about solving this issue, but evolved in something bigger with the time.
