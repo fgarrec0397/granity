@@ -4,6 +4,7 @@ import { css } from "styled-components";
 
 import EditorGameUIPreviewButton from "./EditorGameUIPreviewButton";
 import EditorScenesList from "./EditorScenesList";
+import EditorUIList from "./EditorUIList";
 import {
     EditorItemsList,
     EditorLeftPanel,
@@ -61,6 +62,7 @@ const EditorUI: FC = () => {
             </StyledWrapper>
             <StyledWrapper {...styles.rightWrapper}>
                 <EditorItemsList />
+                <EditorUIList />
                 <EditorScenesList />
             </StyledWrapper>
             <StyledWrapper {...styles.bottomWrapper}>
