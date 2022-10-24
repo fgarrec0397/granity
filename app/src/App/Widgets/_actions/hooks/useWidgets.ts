@@ -7,9 +7,10 @@ import {
     buildWidgetDictionaryItem,
     buildWidgetDictionaryProperties,
 } from "../utilities/buildWidgetDictionaryItem";
-import widgetsConstants from "../widgetsConstants";
+import widgetsConstants, { WidgetType } from "../widgetsConstants";
 import {
     SerializedWidgetObjectDictionaryItem,
+    WidgetDictionaryItem,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
     WidgetOptionsValues,
@@ -25,6 +26,8 @@ export default () => {
         addBatch,
         select,
         widgets,
+        widgetsObjects,
+        widgetsUI,
         currentWidgetProperties,
         widgetsInfoDictionary,
         selectedWidgets,
@@ -77,7 +80,7 @@ export default () => {
 
     const updateWidget = useCallback(
         (
-            widget: WidgetObjectsDictionaryItem,
+            widget: WidgetDictionaryItem,
             widgetProperties?: WidgetProperties,
             updateOnlyProperties?: boolean
         ) => {
@@ -101,40 +104,45 @@ export default () => {
 
     const addWidget = useCallback(
         (
-            widget: WidgetObjectsDictionaryItem,
+            widget: WidgetDictionaryItem,
             properties?: WidgetProperties,
             options?: WidgetOptionsValues
         ) => {
-            const newWidget: WidgetObjectsDictionaryItem = { ...widget };
-            let widgetProperties = properties;
-            let widgetOptions = options;
+            const newWidget: WidgetDictionaryItem = { ...widget };
 
             newWidget.id = uidGenerator(); // assign id on initialisation
 
-            if (!widgetProperties) {
-                widgetProperties = {
-                    position: [0, 0, 0],
-                    rotation: [0, 0, 0],
-                    scale: [1, 1, 1],
-                };
-            }
+            if (widget.type === WidgetType.GameObject) {
+                let widgetProperties = properties;
+                let widgetOptions = options;
 
-            if (!widgetOptions) {
-                if (newWidget.widgetDefinition.options?.length) {
-                    const defaultOptions: WidgetOptionsValues = {};
-                    for (const option of newWidget.widgetDefinition.options) {
-                        defaultOptions[option.name] = {
-                            fieldType: option.fieldType,
-                            value: option.defaultValue,
-                        };
-                    }
-                    widgetOptions = defaultOptions;
+                if (!widgetProperties) {
+                    widgetProperties = {
+                        position: [0, 0, 0],
+                        rotation: [0, 0, 0],
+                        scale: [1, 1, 1],
+                    };
                 }
+
+                if (!widgetOptions) {
+                    if (newWidget.widgetDefinition.options?.length) {
+                        const defaultOptions: WidgetOptionsValues = {};
+                        for (const option of newWidget.widgetDefinition.options) {
+                            defaultOptions[option.name] = {
+                                fieldType: option.fieldType,
+                                value: option.defaultValue,
+                            };
+                        }
+                        widgetOptions = defaultOptions;
+                    }
+                }
+
+                const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget);
+
+                add(newWidget, widgetDictionaryItem);
             }
 
-            const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget);
-
-            add(newWidget, widgetDictionaryItem);
+            add(newWidget);
         },
         [add]
     );
@@ -173,7 +181,7 @@ export default () => {
 
     const updateWidgetOptions = useCallback(
         (
-            widget: WidgetObjectsDictionaryItem | SerializedWidgetObjectDictionaryItem,
+            widget: WidgetDictionaryItem | SerializedWidgetObjectDictionaryItem,
             widgetOptions: WidgetOptionsValues
         ) => {
             update(widget as WidgetObjectsDictionaryItem, undefined, widgetOptions);
@@ -224,7 +232,7 @@ export default () => {
     );
 
     const removeWidget = useCallback(
-        (widget: WidgetObjectsDictionaryItem) => {
+        (widget: WidgetDictionaryItem) => {
             if (widget.id) {
                 remove(widget);
             }
@@ -262,6 +270,8 @@ export default () => {
         firstCurrentWidget: selectedWidgets[0],
         currentWidgetProperties,
         widgets,
+        widgetsObjects,
+        widgetsUI,
         widgetsInfoDictionary,
         getWidgetDictionaryFromWidget,
 

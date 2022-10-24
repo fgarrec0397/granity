@@ -1,7 +1,5 @@
-import { FeaturesWidgetsProps } from "@features/Widgets";
-
 import { WidgetType } from "../widgetsConstants";
-import { WidgetObjectModule, WidgetUIModule } from "../widgetsTypes";
+import { WidgetModules, WidgetObjectModule, WidgetUIModule } from "../widgetsTypes";
 
 type FilteredModules = {
     widgetsModules: WidgetObjectModule[];
@@ -11,17 +9,13 @@ type FilteredModules = {
 /**
  * Take an array of mixed widgets modules and return them sorted by types
  */
-export default (
-    loadedWidgetsModules:
-        | WidgetObjectModule<FeaturesWidgetsProps, null>[]
-        | WidgetUIModule<FeaturesWidgetsProps>[]
-) => {
+export default (widgetsModules: WidgetModules[]) => {
     const filteredModules: FilteredModules = {
         widgetsModules: [],
         widgetsUIModules: [],
     };
 
-    loadedWidgetsModules.forEach((x) => {
+    widgetsModules.forEach((x) => {
         switch (x.type) {
             case WidgetType.GameObject:
                 filteredModules.widgetsModules.push(x);

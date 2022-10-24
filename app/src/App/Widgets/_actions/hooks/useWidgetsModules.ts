@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import useWidgetsModuleContext from "../_data/hooks/useWidgetsModuleContext";
 import filterWidgetsModules from "../utilities/filterWidgetsModules";
-import { WidgetObjectModule } from "../widgetsTypes";
+import { WidgetModules, WidgetObjectModule } from "../widgetsTypes";
 
 export default () => {
     const { widgetsModules, setWidgetsModules, widgetsUIModules, setWidgetsUIModules } =
@@ -25,7 +25,7 @@ export default () => {
     }, [setWidgetsModules, setWidgetsUIModules]);
 
     const getWidgetModuleByName = useCallback(
-        (widgetName: string, otherWidgetsModules?: WidgetObjectModule[]) => {
+        (widgetName: string, otherWidgetsModules?: WidgetModules[]) => {
             return (otherWidgetsModules || widgetsModules).find(
                 (x) => x.widgetDefinition.name === widgetName
             );

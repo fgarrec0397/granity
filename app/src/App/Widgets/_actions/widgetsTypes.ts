@@ -17,6 +17,8 @@ export type Widget<Props = FeaturesWidgetsProps, Ref = null> = {
     widgetDefinition: WidgetDefinition;
 };
 
+export type WidgetModules = WidgetObjectModule | WidgetUIModule;
+
 /**
  * A component type of a widget
  */
@@ -82,6 +84,22 @@ export type WidgetObjectEditorOptions = {
     helper?: HelpersTypes;
     meshHolder?: ReactNode | Object3D;
 };
+
+/// ---------------------- Widgets Dictionary ---------------------- ///
+
+/**
+ * A dictionary containing informations about all widgets
+ */
+export type WidgetDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+    WidgetDictionaryItem<Props>
+>;
+
+/**
+ * Informations of a widget
+ */
+export type WidgetDictionaryItem<Props = FeaturesWidgetsProps> =
+    | WidgetObjectsDictionaryItem<Props>
+    | WidgetUIDictionaryItem;
 
 /// ---------------------- Widgets Objects Dictionary ---------------------- ///
 
@@ -160,18 +178,18 @@ export type WidgetUIModule<Props = FeaturesWidgetsProps> = Omit<
 // /// ---------------------- Widget UI Dictionary ---------------------- ///
 
 // /**
-//  * A dictionary containing informations about all WidgetObjectsDictionary
+//  * A dictionary containing informations about all WidgetUIDictionaryItem
 //  */
-// export type WidgetUIDictionary<Props = FeaturesWidgetsProps> = Dictionary<
-//     WidgetObjectsDictionaryItem<Props>
-// >;
+export type WidgetUIDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+    WidgetUIDictionaryItem<Props>
+>;
 
 // /**
-//  * Informations of a widget object on the scene
+//  * Informations of a UI widget
 //  */
-// export type WidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
-//     WidgetUIModule<Props>,
-//     "reducer"
-// > & {
-//     id: string;
-// };
+export type WidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
+    WidgetUIModule<Props>,
+    "reducer"
+> & {
+    id: string;
+};

@@ -1,10 +1,8 @@
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
-import {
-    WidgetObjectModule,
-    WidgetObjectsDictionaryItem,
-} from "@app/Widgets/_actions/widgetsTypes";
+import mapWidgetModuleToWidgetDictionary from "@app/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
+import { WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
 import { Button, Col, Modal, Row, Typography } from "antd";
 import { FC, StrictMode, useState } from "react";
 import { css } from "styled-components";
@@ -32,11 +30,9 @@ const EditorGeometryMenu: FC = () => {
     const { widgetsModules, widgetsUIModules } = useWidgetsModules();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const handleOnClick = (widgetModule: WidgetObjectModule): void => {
-        const widget: WidgetObjectsDictionaryItem = {
-            ...widgetModule,
-            id: "",
-        };
+    // TODO - work with the new typ WidgetDictionaryItem in all the useWidget process
+
+    const handleWidgetClick = (widget: WidgetDictionaryItem): void => {
         addWidget(widget);
         closeModalHandler();
     };
@@ -66,10 +62,15 @@ const EditorGeometryMenu: FC = () => {
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                         {widgetsModules.map((widget, index) => {
                             const key = `${index}-${widget.widgetDefinition.name}`;
+                            const newWidget: WidgetDictionaryItem =
+                                mapWidgetModuleToWidgetDictionary(widget);
 
                             return (
                                 <Col key={key} className="gutter-row" span={6}>
-                                    <Button type="link" onClick={() => handleOnClick(widget)}>
+                                    <Button
+                                        type="link"
+                                        onClick={() => handleWidgetClick(newWidget)}
+                                    >
                                         {widget.widgetDefinition.name}
                                     </Button>
                                 </Col>
@@ -80,13 +81,14 @@ const EditorGeometryMenu: FC = () => {
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                         {widgetsUIModules.map((widget, index) => {
                             const key = `${index}-${widget.widgetDefinition.name}`;
+                            const newWidget: WidgetDictionaryItem =
+                                mapWidgetModuleToWidgetDictionary(widget);
 
-                            // const widgetSceneObject = mapWidgetModuleToWidgetSceneObject(widget);
                             return (
                                 <Col key={key} className="gutter-row" span={6}>
                                     <Button
                                         type="link"
-                                        // onClick={() => handleOnClick(widgetSceneObject)}
+                                        onClick={() => handleWidgetClick(newWidget)}
                                     >
                                         {widget.widgetDefinition.name}
                                     </Button>

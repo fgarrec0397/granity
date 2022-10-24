@@ -1,14 +1,11 @@
-import {
-    WidgetObjectsDictionary,
-    WidgetObjectsDictionaryItem,
-} from "@app/Widgets/_actions/widgetsTypes";
+import { WidgetDictionary, WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
 import { createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
 
 export interface WidgetsContextModel {
-    widgets: WidgetObjectsDictionary;
-    selectedWidgets: WidgetObjectsDictionaryItem[];
-    setWidgets: Dispatch<SetStateAction<WidgetObjectsDictionary>>;
-    setSelectedWidgets: Dispatch<SetStateAction<WidgetObjectsDictionaryItem[]>>;
+    widgets: WidgetDictionary;
+    selectedWidgets: WidgetDictionaryItem[];
+    setWidgets: Dispatch<SetStateAction<WidgetDictionary>>;
+    setSelectedWidgets: Dispatch<SetStateAction<WidgetDictionaryItem[]>>;
 }
 
 export const widgetsDefaultContext: WidgetsContextModel = {
@@ -25,8 +22,8 @@ type Props = {
 };
 
 const WidgetsContextProvider: FC<Props> = ({ children }) => {
-    const [widgets, setWidgets] = useState<WidgetObjectsDictionary>({});
-    const [selectedWidgets, setSelectedWidgets] = useState<WidgetObjectsDictionaryItem[]>([]);
+    const [widgets, setWidgets] = useState<WidgetDictionary>({});
+    const [selectedWidgets, setSelectedWidgets] = useState<WidgetDictionaryItem[]>([]);
 
     const providerValue: WidgetsContextModel = {
         widgets,

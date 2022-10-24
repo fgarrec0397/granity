@@ -6,7 +6,7 @@ import { FC } from "react";
 import { css } from "styled-components";
 
 const EditorItemsList: FC = () => {
-    const { widgets, selectWidget, selectedWidgets } = useWidgets();
+    const { widgetsObjects, selectWidget, selectedWidgets } = useWidgets();
 
     const handleSelect = (widget: WidgetObjectsDictionaryItem) => {
         selectWidget([widget]);
@@ -23,14 +23,14 @@ const EditorItemsList: FC = () => {
                 <List
                     size="small"
                     bordered
-                    dataSource={Object.keys(widgets)}
+                    dataSource={Object.keys(widgetsObjects)}
                     renderItem={(widgetId) => (
                         <List.Item>
                             <Button
-                                onClick={() => handleSelect(widgets[widgetId])}
-                                disabled={widgets[widgetId]?.id === selectedWidgets[0]?.id}
+                                onClick={() => handleSelect(widgetsObjects[widgetId])}
+                                disabled={widgetsObjects[widgetId]?.id === selectedWidgets[0]?.id}
                             >
-                                {widgets[widgetId].widgetDefinition.name}
+                                {widgetsObjects[widgetId].widgetDefinition.name}
                             </Button>
                         </List.Item>
                     )}
