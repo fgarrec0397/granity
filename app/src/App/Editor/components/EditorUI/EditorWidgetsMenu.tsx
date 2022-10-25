@@ -27,7 +27,7 @@ const styles: EditorFeedbackStyles = {
 
 const EditorGeometryMenu: FC = () => {
     const { addWidget } = useWidgets();
-    const { widgetsModules, widgetsUIModules } = useWidgetsModules();
+    const { widgetsObjectModules, widgetsUIModules } = useWidgetsModules();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     // TODO - work with the new typ WidgetDictionaryItem in all the useWidget process
@@ -60,7 +60,7 @@ const EditorGeometryMenu: FC = () => {
                 >
                     <Typography>Game Objects</Typography>
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                        {widgetsModules.map((widget, index) => {
+                        {widgetsObjectModules.map((widget, index) => {
                             const key = `${index}-${widget.widgetDefinition.name}`;
                             const newWidget: WidgetDictionaryItem =
                                 mapWidgetModuleToWidgetDictionary(widget);

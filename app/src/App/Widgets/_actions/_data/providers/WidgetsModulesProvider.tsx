@@ -3,14 +3,14 @@ import { createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from
 import { WidgetObjectModule, WidgetUIModule } from "../../widgetsTypes";
 
 export interface WidgetModuleContextModel {
-    widgetsModules: WidgetObjectModule[] | [];
+    widgetsObjectModules: WidgetObjectModule[] | [];
     widgetsUIModules: WidgetUIModule[] | [];
     setWidgetsModules: (() => void) | Dispatch<SetStateAction<WidgetObjectModule[]>>;
     setWidgetsUIModules: (() => void) | Dispatch<SetStateAction<WidgetUIModule[]>>;
 }
 
 export const defaultContext: WidgetModuleContextModel = {
-    widgetsModules: [],
+    widgetsObjectModules: [],
     widgetsUIModules: [],
     setWidgetsModules: () => {},
     setWidgetsUIModules: () => {},
@@ -23,11 +23,11 @@ type Props = {
 };
 
 const WidgetsModulesContextProvider: FC<Props> = ({ children }) => {
-    const [widgetsModules, setWidgetsModules] = useState<WidgetObjectModule[]>([]);
+    const [widgetsObjectModules, setWidgetsModules] = useState<WidgetObjectModule[]>([]);
     const [widgetsUIModules, setWidgetsUIModules] = useState<WidgetUIModule[]>([]);
 
     const providerValue: WidgetModuleContextModel = {
-        widgetsModules,
+        widgetsObjectModules,
         widgetsUIModules,
         setWidgetsModules,
         setWidgetsUIModules,

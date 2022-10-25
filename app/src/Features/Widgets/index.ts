@@ -46,14 +46,14 @@ export interface FeaturesState {
  * You should not touch this function
  */
 const loadWidgetsFromModules = async () => {
-    const widgetsModules: WidgetObjectModule[] | WidgetUIModule[] = [];
+    const widgetModules: WidgetObjectModule[] | WidgetUIModule[] = [];
 
     for (const path in modules) {
         const { widget } = (await modules[path]()) as any;
-        widgetsModules.push(widget);
+        widgetModules.push(widget);
     }
 
-    return widgetsModules;
+    return widgetModules;
 };
 
 export default loadWidgetsFromModules;

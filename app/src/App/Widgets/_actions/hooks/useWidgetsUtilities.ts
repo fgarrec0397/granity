@@ -23,7 +23,7 @@ export default () => {
 
                 const widgetModule = getWidgetModuleByName(
                     serializedWidget.widgetDefinition.name,
-                    loadedWidgetsModules.widgetsModules
+                    loadedWidgetsModules
                 );
 
                 if (widgetModule) {

@@ -1,27 +1,31 @@
 import loadedModules from "@features/Widgets";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import useWidgetsModuleContext from "../_data/hooks/useWidgetsModuleContext";
 import filterWidgetsModules from "../utilities/filterWidgetsModules";
 import { WidgetModules, WidgetObjectModule } from "../widgetsTypes";
 
 export default () => {
-    const { widgetsModules, setWidgetsModules, widgetsUIModules, setWidgetsUIModules } =
+    const { widgetsObjectModules, setWidgetsModules, widgetsUIModules, setWidgetsUIModules } =
         useWidgetsModuleContext();
+    const widgetsModules = useMemo(
+        () => [...widgetsObjectModules, ...widgetsUIModules],
+        [widgetsObjectModules, widgetsUIModules]
+    );
 
     const loadWidgetsModules = useCallback(async () => {
         const loadedWidgetsModules = await loadedModules();
         const filteredModules = filterWidgetsModules(loadedWidgetsModules);
 
-        if (filteredModules.widgetsModules) {
-            setWidgetsModules(filteredModules.widgetsModules);
+        if (filteredModules.widgetsObjectModules) {
+            setWidgetsModules(filteredModules.widgetsObjectModules);
         }
 
         if (filteredModules.widgetsUIModules) {
             setWidgetsUIModules(filteredModules.widgetsUIModules);
         }
 
-        return filteredModules;
+        return loadedWidgetsModules;
     }, [setWidgetsModules, setWidgetsUIModules]);
 
     const getWidgetModuleByName = useCallback(
@@ -45,6 +49,7 @@ export default () => {
 
     return {
         widgetsModules,
+        widgetsObjectModules,
         widgetsUIModules,
         setWidgetsModules,
         loadWidgetsModules,

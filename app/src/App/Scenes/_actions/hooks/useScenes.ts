@@ -31,8 +31,6 @@ export default () => {
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
     const previousScenes = usePrevious(scenes);
 
-    // console.log(scenes, "scenes");
-
     const getSceneById = useCallback(
         (sceneId: string | null) => {
             if (scenes && sceneId) {
@@ -44,6 +42,27 @@ export default () => {
         [scenes]
     );
 
+    const getCurrentScene = useCallback(() => {
+        return getSceneById(currentSceneId);
+    }, [currentSceneId, getSceneById]);
+
+    const updateCurrentScene = useCallback(() => {
+        const serializedWidgets = serializeWidgets(widgets);
+        const currentScene = getCurrentScene();
+
+        if (currentScene) {
+            const scene: ScenesDictionaryItem = {
+                ...currentScene,
+                data: {
+                    serializedWidgets,
+                    widgetsInfoDictionary,
+                },
+            };
+
+            updateScene(scene);
+        }
+    }, [getCurrentScene, updateScene, widgets, widgetsInfoDictionary]);
+
     const selectScene = useCallback(
         async (sceneId: string) => {
             const scene = getSceneById(sceneId);
@@ -54,11 +73,12 @@ export default () => {
                     selectedSceneData.serializedWidgets
                 );
 
+                updateCurrentScene();
                 updateCurrentSceneId(sceneId);
                 resetWidgets(deserializedWidgets, selectedSceneData.widgetsInfoDictionary, true);
             }
         },
-        [getSceneById, resetWidgets, unserializeWidgets, updateCurrentSceneId]
+        [getSceneById, resetWidgets, unserializeWidgets, updateCurrentScene, updateCurrentSceneId]
     );
 
     useEffect(() => {
@@ -72,10 +92,6 @@ export default () => {
             selectScene(lastSceneAdded.id);
         }
     }, [currentSceneId, lastSceneAdded, previousScenes, scenes, selectScene]);
-
-    const getCurrentScene = useCallback(() => {
-        return getSceneById(currentSceneId);
-    }, [currentSceneId, getSceneById]);
 
     const getCurrentDefaultScene = useCallback(() => {
         return getSceneById(currentDefaultSceneId);
@@ -163,7 +179,6 @@ export default () => {
 
     const saveScene = useCallback(async () => {
         const serializedWidgets = serializeWidgets(widgets);
-        console.log(serializedWidgets, "serializedWidgets");
 
         const currentScene = getCurrentScene();
         const scenesClone = cloneDeep(scenes);

@@ -2,30 +2,30 @@ import { WidgetType } from "../widgetsConstants";
 import { WidgetModules, WidgetObjectModule, WidgetUIModule } from "../widgetsTypes";
 
 type FilteredModules = {
-    widgetsModules: WidgetObjectModule[];
+    widgetsObjectModules: WidgetObjectModule[];
     widgetsUIModules: WidgetUIModule[];
 };
 
 /**
  * Take an array of mixed widgets modules and return them sorted by types
  */
-export default (widgetsModules: WidgetModules[]) => {
+export default (widgetModules: WidgetModules[]) => {
     const filteredModules: FilteredModules = {
-        widgetsModules: [],
+        widgetsObjectModules: [],
         widgetsUIModules: [],
     };
 
-    widgetsModules.forEach((x) => {
+    widgetModules.forEach((x) => {
         switch (x.type) {
             case WidgetType.GameObject:
-                filteredModules.widgetsModules.push(x);
+                filteredModules.widgetsObjectModules.push(x);
                 break;
             case WidgetType.UI:
                 filteredModules.widgetsUIModules.push(x);
                 break;
 
             default:
-                filteredModules.widgetsModules.push(x);
+                filteredModules.widgetsObjectModules.push(x);
                 break;
         }
     });
