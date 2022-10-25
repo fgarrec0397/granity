@@ -10,6 +10,7 @@ import {
 import widgetsConstants, { WidgetType } from "../widgetsConstants";
 import {
     SerializedWidgetObjectDictionaryItem,
+    WidgetDictionary,
     WidgetDictionaryItem,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
@@ -256,7 +257,7 @@ export default () => {
 
     const resetWidgets = useCallback(
         (
-            widgetsToAdd: WidgetObjectsDictionary,
+            widgetsToAdd: WidgetDictionary,
             widgetDictionaryToAdd: WidgetsInfoDictionary,
             shouldRemoveAll?: boolean
         ) => {

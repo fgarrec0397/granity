@@ -66,6 +66,38 @@ export type WidgetBaseOptions = WidgetAdditionnalOptions & {
  */
 export type WidgetOptions = WidgetBaseOptions;
 
+/// ---------------------- Widgets Dictionary ---------------------- ///
+
+/**
+ * A dictionary containing informations about all widgets
+ */
+export type WidgetDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+    WidgetDictionaryItem<Props>
+>;
+
+/**
+ * Informations of a widget
+ */
+export type WidgetDictionaryItem<Props = FeaturesWidgetsProps> =
+    | WidgetObjectsDictionaryItem<Props>
+    | WidgetUIDictionaryItem;
+
+/// ---------------------- Widgets Dictionary ---------------------- ///
+
+/**
+ * A dictionary containing informations about all widgets
+ */
+export type SerializedWidgetDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+    SerializedWidgetDictionaryItem<Props>
+>;
+
+/**
+ * Informations of a widget
+ */
+export type SerializedWidgetDictionaryItem<Props = FeaturesWidgetsProps> =
+    | SerializedWidgetObjectDictionaryItem<Props>
+    | SerializedWidgetUIDictionaryItem;
+
 /// ---------------------- Widget Object Module ---------------------- ///
 
 /**
@@ -84,22 +116,6 @@ export type WidgetObjectEditorOptions = {
     helper?: HelpersTypes;
     meshHolder?: ReactNode | Object3D;
 };
-
-/// ---------------------- Widgets Dictionary ---------------------- ///
-
-/**
- * A dictionary containing informations about all widgets
- */
-export type WidgetDictionary<Props = FeaturesWidgetsProps> = Dictionary<
-    WidgetDictionaryItem<Props>
->;
-
-/**
- * Informations of a widget
- */
-export type WidgetDictionaryItem<Props = FeaturesWidgetsProps> =
-    | WidgetObjectsDictionaryItem<Props>
-    | WidgetUIDictionaryItem;
 
 /// ---------------------- Widgets Objects Dictionary ---------------------- ///
 
@@ -193,3 +209,20 @@ export type WidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
 > & {
     id: string;
 };
+
+/// ---------------------- Serialized Widgets Objects Dictionary ---------------------- ///
+
+/**
+ * A serialized dictionary containing informations about all WidgetObjectsDictionary
+ */
+export type SerializedWidgetUIDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+    SerializedWidgetObjectDictionaryItem<Props>
+>;
+
+/**
+ * A serialized version of WidgetObjectsDictionaryItem type
+ */
+export type SerializedWidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
+    WidgetUIDictionaryItem<Props>,
+    "component" | "meshHolder"
+>;

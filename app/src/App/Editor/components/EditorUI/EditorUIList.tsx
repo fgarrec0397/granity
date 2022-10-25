@@ -6,6 +6,7 @@ import { css } from "styled-components";
 
 const EditorItemsList: FC = () => {
     const { widgetsUI } = useWidgets();
+    // TODO - widget UI does not persist on scene change nor on scene save
 
     return (
         <StyledWrapper

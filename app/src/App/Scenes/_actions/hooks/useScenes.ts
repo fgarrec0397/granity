@@ -31,6 +31,8 @@ export default () => {
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
     const previousScenes = usePrevious(scenes);
 
+    // console.log(scenes, "scenes");
+
     const getSceneById = useCallback(
         (sceneId: string | null) => {
             if (scenes && sceneId) {
@@ -161,6 +163,8 @@ export default () => {
 
     const saveScene = useCallback(async () => {
         const serializedWidgets = serializeWidgets(widgets);
+        console.log(serializedWidgets, "serializedWidgets");
+
         const currentScene = getCurrentScene();
         const scenesClone = cloneDeep(scenes);
 

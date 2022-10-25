@@ -20,6 +20,7 @@ export const scenesSlice = createSlice({
     reducers: {
         addScene: (state: ScenesState, actions: PayloadAction<ScenesDictionaryItem>) => {
             const newScene = actions.payload;
+            console.log("add");
 
             state.scenes = {
                 ...state.scenes,
@@ -28,6 +29,7 @@ export const scenesSlice = createSlice({
         },
         addScenesBatch: (state: ScenesState, actions: PayloadAction<ScenesDictionary>) => {
             const newScenes = actions.payload;
+            console.log("add batch");
 
             state.scenes = {
                 ...state.scenes,
@@ -39,6 +41,7 @@ export const scenesSlice = createSlice({
             actions: PayloadAction<{ scenes: ScenesDictionary; currentSceneId: string }>
         ) => {
             const { scenes, currentSceneId } = actions.payload;
+            console.log("resetScenes");
 
             state.currentSceneId = currentSceneId;
 
@@ -53,10 +56,12 @@ export const scenesSlice = createSlice({
             state.currentDefaultSceneId = actions.payload;
         },
         updateScenes: (state: ScenesState, actions: PayloadAction<ScenesDictionary>) => {
+            console.log("updateScenes");
             state.scenes = actions.payload;
         },
         updateScene: (state: ScenesState, actions: PayloadAction<ScenesDictionaryItem>) => {
             const newScene = actions.payload;
+            console.log(newScene, "newScene");
 
             if (state.scenes) {
                 state.scenes[newScene.id] = newScene;

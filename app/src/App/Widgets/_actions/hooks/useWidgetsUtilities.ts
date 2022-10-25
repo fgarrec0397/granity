@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 import {
-    SerializedWidgetObjectsDictionary,
+    SerializedWidgetDictionary,
     WidgetDictionary,
     WidgetsInfoDictionary,
 } from "../widgetsTypes";
@@ -11,7 +11,7 @@ export default () => {
     const { loadWidgetsModules, getWidgetModuleByName } = useWidgetsModules();
 
     const unserializeWidgets = useCallback(
-        async (serializedWidgets: SerializedWidgetObjectsDictionary) => {
+        async (serializedWidgets: SerializedWidgetDictionary) => {
             const deserializedWidgets: WidgetDictionary = {};
 
             // loop through all serialized widgets from the DB

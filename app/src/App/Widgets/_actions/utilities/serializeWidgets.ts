@@ -1,11 +1,11 @@
 import { SetOptionalPropertyFrom } from "@app/Common/commonTypes";
 import { serialize } from "@app/Core/_actions/utilities/componentSerializer";
 import {
-    SerializedWidgetObjectsDictionary,
-    SerializedWidgetObjectDictionaryItem,
+    SerializedWidgetDictionary,
+    SerializedWidgetDictionaryItem,
+    WidgetDictionary,
+    WidgetDictionaryItem,
     WidgetObjectEditorOptions,
-    WidgetObjectsDictionary,
-    WidgetObjectsDictionaryItem,
 } from "@app/Widgets/_actions/widgetsTypes";
 
 export const serializeEditorOptions = ({ meshHolder, helper }: WidgetObjectEditorOptions) => {
@@ -19,23 +19,24 @@ export const serializeEditorOptions = ({ meshHolder, helper }: WidgetObjectEdito
     }
 };
 
-export default (widgets: WidgetObjectsDictionary) => {
-    const serializedWidgets: SerializedWidgetObjectsDictionary = {};
+export default (widgets: WidgetDictionary) => {
+    const serializedWidgets: SerializedWidgetDictionary = {};
 
     for (const key in widgets) {
-        const widget: SetOptionalPropertyFrom<WidgetObjectsDictionaryItem, "component"> = {
+        const widget: SetOptionalPropertyFrom<WidgetDictionaryItem, "component"> = {
             ...widgets[key],
         };
-        let editorOptions: WidgetObjectEditorOptions | undefined;
-        if (widget.editorOptions) {
-            editorOptions = serializeEditorOptions(widget.editorOptions);
-        }
 
-        widget.editorOptions = editorOptions;
+        let editorOptions: WidgetObjectEditorOptions | undefined;
+
+        if ("editorOptions" in widget && widget.editorOptions) {
+            editorOptions = serializeEditorOptions(widget.editorOptions);
+            widget.editorOptions = editorOptions;
+        }
 
         delete widget.component;
 
-        serializedWidgets[widget.id] = widget as SerializedWidgetObjectDictionaryItem;
+        serializedWidgets[widget.id] = widget as SerializedWidgetDictionaryItem;
     }
 
     return serializedWidgets;
