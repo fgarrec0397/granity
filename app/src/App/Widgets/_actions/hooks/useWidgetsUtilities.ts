@@ -9,7 +9,7 @@ import {
 import useWidgetsModules from "./useWidgetsModules";
 
 export default () => {
-    const { loadWidgetsModules, getWidgetModuleByName } = useWidgetsModules();
+    const { getWidgetModuleByName } = useWidgetsModules();
 
     const unserializeWidgets = useCallback(
         (serializedWidgets: SerializedWidgetDictionary, widgetsModules: WidgetModules[]) => {
@@ -50,20 +50,22 @@ export default () => {
             Object.keys(widgetsInfoDictionary1).forEach((dictionaryItemKey) => {
                 const dictionaryItem = widgetsInfoDictionary1[dictionaryItemKey];
 
-                for (const key in widgetsInfoDictionary2[dictionaryItemKey].options) {
-                    if (!Object.prototype.hasOwnProperty.call(dictionaryItem.options, key)) {
-                        // Remove unexisting options on the local widget definitions options
-                        delete widgetsInfoDictionary2[dictionaryItemKey].options?.[key];
+                if (widgetsInfoDictionary2[dictionaryItemKey]) {
+                    for (const key in widgetsInfoDictionary2[dictionaryItemKey].options) {
+                        if (!Object.prototype.hasOwnProperty.call(dictionaryItem.options, key)) {
+                            // Remove unexisting options on the local widget definitions options
+                            delete widgetsInfoDictionary2[dictionaryItemKey].options?.[key];
+                        }
                     }
+
+                    // Make sure to keep the options left from the saved widget dictionary
+                    widgetsInfoDictionary1[dictionaryItemKey].options =
+                        widgetsInfoDictionary2[dictionaryItemKey].options;
+
+                    // Make sure to keep the properties left from the saved widget dictionary
+                    widgetsInfoDictionary1[dictionaryItemKey].properties =
+                        widgetsInfoDictionary2[dictionaryItemKey].properties;
                 }
-
-                // Make sure to keep the options left from the saved widget dictionary
-                widgetsInfoDictionary1[dictionaryItemKey].options =
-                    widgetsInfoDictionary2[dictionaryItemKey].options;
-
-                // Make sure to keep the properties left from the saved widget dictionary
-                widgetsInfoDictionary1[dictionaryItemKey].properties =
-                    widgetsInfoDictionary2[dictionaryItemKey].properties;
             });
 
             return widgetsInfoDictionary1;
