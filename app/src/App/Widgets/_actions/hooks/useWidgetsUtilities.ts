@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import {
     SerializedWidgetDictionary,
     WidgetDictionary,
+    WidgetModules,
     WidgetsInfoDictionary,
 } from "../widgetsTypes";
 import useWidgetsModules from "./useWidgetsModules";
@@ -11,19 +12,16 @@ export default () => {
     const { loadWidgetsModules, getWidgetModuleByName } = useWidgetsModules();
 
     const unserializeWidgets = useCallback(
-        async (serializedWidgets: SerializedWidgetDictionary) => {
+        (serializedWidgets: SerializedWidgetDictionary, widgetsModules: WidgetModules[]) => {
             const deserializedWidgets: WidgetDictionary = {};
 
             // loop through all serialized widgets from the DB
             for (const key in serializedWidgets) {
                 const serializedWidget = serializedWidgets[key];
 
-                // Load the corresponding widget module
-                const loadedWidgetsModules = await loadWidgetsModules();
-
                 const widgetModule = getWidgetModuleByName(
                     serializedWidget.widgetDefinition.name,
-                    loadedWidgetsModules
+                    widgetsModules
                 );
 
                 if (widgetModule) {
@@ -41,7 +39,7 @@ export default () => {
 
             return deserializedWidgets;
         },
-        [getWidgetModuleByName, loadWidgetsModules]
+        [getWidgetModuleByName]
     );
 
     const mergeWidgetsDictionary = useCallback(

@@ -10,7 +10,9 @@ export default () => {
     useEffect(() => {
         const handleFetchScene = async () => {
             await getScenes(
-                (result: SceneApiResponseResult) => {
+                (result) => {
+                    console.log("init");
+
                     initScenes(result);
                 },
                 (error: any) => {

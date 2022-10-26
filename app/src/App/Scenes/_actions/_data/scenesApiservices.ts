@@ -17,7 +17,7 @@ export const postScenes = async (scenes: SaveSceneServiceParameter) => {
     }
 };
 
-type FetchSuccessCallBack = (data: SceneApiResponseResult) => void;
+type FetchSuccessCallBack = (data?: SceneApiResponseResult) => void;
 type FetchErrorCallBack = (error: unknown) => void;
 
 export const getScenes = async (
@@ -29,7 +29,7 @@ export const getScenes = async (
     try {
         const { sceneJsonString } = await response.json();
         if (!sceneJsonString) {
-            return;
+            return successCallBack(undefined);
         }
         const data = JSON.parse(sceneJsonString) as SceneApiResponseResult;
 

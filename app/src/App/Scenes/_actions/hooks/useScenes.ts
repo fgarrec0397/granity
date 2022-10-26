@@ -1,6 +1,7 @@
 import { usePrevious } from "@app/Common/hooks";
 import { uidGenerator } from "@app/Common/utilities";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
+import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import useWidgetsUtilities from "@app/Widgets/_actions/hooks/useWidgetsUtilities";
 import { buildWidgetsDictionary } from "@app/Widgets/_actions/utilities/buildWidgetDictionaryItem";
 import serializeWidgets from "@app/Widgets/_actions/utilities/serializeWidgets";
@@ -28,6 +29,7 @@ export default () => {
     } = useScenesService();
     const { unserializeWidgets, mergeWidgetsDictionary } = useWidgetsUtilities();
     const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
+    const { loadWidgetsModules, widgetsModules } = useWidgetsModules();
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
     const previousScenes = usePrevious(scenes);
 
@@ -64,13 +66,14 @@ export default () => {
     }, [getCurrentScene, updateScene, widgets, widgetsInfoDictionary]);
 
     const selectScene = useCallback(
-        async (sceneId: string) => {
+        (sceneId: string) => {
             const scene = getSceneById(sceneId);
 
             if (scene) {
                 const selectedSceneData = scene.data;
-                const deserializedWidgets = await unserializeWidgets(
-                    selectedSceneData.serializedWidgets
+                const deserializedWidgets = unserializeWidgets(
+                    selectedSceneData.serializedWidgets,
+                    widgetsModules
                 );
 
                 updateCurrentScene();
@@ -78,7 +81,14 @@ export default () => {
                 resetWidgets(deserializedWidgets, selectedSceneData.widgetsInfoDictionary, true);
             }
         },
-        [getSceneById, resetWidgets, unserializeWidgets, updateCurrentScene, updateCurrentSceneId]
+        [
+            getSceneById,
+            resetWidgets,
+            unserializeWidgets,
+            updateCurrentScene,
+            updateCurrentSceneId,
+            widgetsModules,
+        ]
     );
 
     useEffect(() => {
@@ -156,25 +166,37 @@ export default () => {
     );
 
     const initScenes = useCallback(
-        async (result: SceneApiResponseResult) => {
-            const newCurrentSceneId = getDefaultScene(result);
-            const newCurrentScene = (result as ScenesDictionary)[newCurrentSceneId];
+        async (result?: SceneApiResponseResult) => {
+            // Load the corresponding widget module
+            const loadedWidgetsModules = await loadWidgetsModules();
 
-            const deserializedWidgets = await unserializeWidgets(
-                newCurrentScene.data.serializedWidgets
-            );
+            if (result) {
+                const newCurrentSceneId = getDefaultScene(result);
+                const newCurrentScene = (result as ScenesDictionary)[newCurrentSceneId];
+                const deserializedWidgets = unserializeWidgets(
+                    newCurrentScene.data.serializedWidgets,
+                    loadedWidgetsModules
+                );
 
-            const newWidgetsDictionary = buildWidgetsDictionary(deserializedWidgets);
-            const mergedWidgetDictionary = mergeWidgetsDictionary(
-                newWidgetsDictionary,
-                newCurrentScene.data.widgetsInfoDictionary
-            );
+                const newWidgetsDictionary = buildWidgetsDictionary(deserializedWidgets);
+                const mergedWidgetDictionary = mergeWidgetsDictionary(
+                    newWidgetsDictionary,
+                    newCurrentScene.data.widgetsInfoDictionary
+                );
 
-            resetWidgets(deserializedWidgets, mergedWidgetDictionary);
-            resetScenes(result, newCurrentSceneId);
-            changeDefaultScene(newCurrentScene);
+                resetWidgets(deserializedWidgets, mergedWidgetDictionary);
+                resetScenes(result, newCurrentSceneId);
+                changeDefaultScene(newCurrentScene);
+            }
         },
-        [unserializeWidgets, mergeWidgetsDictionary, resetWidgets, resetScenes, changeDefaultScene]
+        [
+            loadWidgetsModules,
+            unserializeWidgets,
+            mergeWidgetsDictionary,
+            resetWidgets,
+            resetScenes,
+            changeDefaultScene,
+        ]
     );
 
     const saveScene = useCallback(async () => {
