@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
 import { getScenes } from "../_data/scenesApiservices";
-import useScenes from "./useScenes";
+import useInitScenes from "./useInitScenes";
 
 export default () => {
-    const { initScenes } = useScenes();
+    const { initScenes } = useInitScenes();
 
     useEffect(() => {
         const handleFetchScene = async () => {

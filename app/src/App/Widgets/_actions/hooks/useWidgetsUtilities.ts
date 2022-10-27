@@ -11,6 +11,9 @@ import useWidgetsModules from "./useWidgetsModules";
 export default () => {
     const { getWidgetModuleByName } = useWidgetsModules();
 
+    /**
+     * Unserialize widgets based on the given widgetsModules as reference
+     */
     const unserializeWidgets = useCallback(
         (serializedWidgets: SerializedWidgetDictionary, widgetsModules: WidgetModules[]) => {
             const deserializedWidgets: WidgetDictionary = {};

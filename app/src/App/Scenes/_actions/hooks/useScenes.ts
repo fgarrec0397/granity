@@ -3,14 +3,12 @@ import { uidGenerator } from "@app/Common/utilities";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import useWidgetsUtilities from "@app/Widgets/_actions/hooks/useWidgetsUtilities";
-import { buildWidgetsDictionary } from "@app/Widgets/_actions/utilities/buildWidgetDictionaryItem";
 import serializeWidgets from "@app/Widgets/_actions/utilities/serializeWidgets";
 import cloneDeep from "lodash/cloneDeep";
 import { useCallback, useEffect, useState } from "react";
 
 import useScenesService from "../_data/hooks/useScenesService";
-import { SceneApiResponseResult, ScenesDictionary, ScenesDictionaryItem } from "../scenesTypes";
-import getDefaultScene from "../utilities/getDefaultScene";
+import { ScenesDictionary, ScenesDictionaryItem } from "../scenesTypes";
 import getFirstNonDefaultScene from "../utilities/getFirstNonDefaultScene";
 
 export default () => {
@@ -27,9 +25,9 @@ export default () => {
         updateScene,
         remove,
     } = useScenesService();
-    const { unserializeWidgets, mergeWidgetsDictionary } = useWidgetsUtilities();
+    const { unserializeWidgets } = useWidgetsUtilities();
     const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
-    const { loadWidgetsModules, widgetsModules } = useWidgetsModules();
+    const { widgetsModules } = useWidgetsModules();
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
     const previousScenes = usePrevious(scenes);
 
@@ -165,40 +163,6 @@ export default () => {
         [reset]
     );
 
-    const initScenes = useCallback(
-        async (result?: SceneApiResponseResult) => {
-            // Load the corresponding widget module
-            const loadedWidgetsModules = await loadWidgetsModules();
-
-            if (result) {
-                const newCurrentSceneId = getDefaultScene(result);
-                const newCurrentScene = (result as ScenesDictionary)[newCurrentSceneId];
-                const deserializedWidgets = unserializeWidgets(
-                    newCurrentScene.data.serializedWidgets,
-                    loadedWidgetsModules
-                );
-
-                const newWidgetsDictionary = buildWidgetsDictionary(deserializedWidgets);
-                const mergedWidgetDictionary = mergeWidgetsDictionary(
-                    newWidgetsDictionary,
-                    newCurrentScene.data.widgetsInfoDictionary
-                );
-
-                resetWidgets(deserializedWidgets, mergedWidgetDictionary);
-                resetScenes(result, newCurrentSceneId);
-                changeDefaultScene(newCurrentScene);
-            }
-        },
-        [
-            loadWidgetsModules,
-            unserializeWidgets,
-            mergeWidgetsDictionary,
-            resetWidgets,
-            resetScenes,
-            changeDefaultScene,
-        ]
-    );
-
     const saveScene = useCallback(async () => {
         const serializedWidgets = serializeWidgets(widgets);
 
@@ -254,11 +218,12 @@ export default () => {
         // Actions
         addScene,
         addScenesBatch,
+        changeDefaultScene,
         getSceneById,
         getCurrentScene,
         getCurrentDefaultScene,
         resetScenes,
-        initScenes,
+        // initScenes,
         saveScene,
         selectScene,
         removeScene,
