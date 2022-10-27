@@ -1,3 +1,4 @@
+import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { useCallback, useEffect } from "react";
 
 import useEditorService from "../_data/hooks/useEditorService";
@@ -18,6 +19,7 @@ export default () => {
         updateHasEditorOpened,
         updateCurrentMode,
     } = useEditorService();
+    const { removeWidgetSelection } = useWidgets();
 
     useEffect(() => {
         if (isEditing && !hasEdited) {
@@ -59,6 +61,14 @@ export default () => {
         [updateCurrentMode]
     );
 
+    const onEditorPointerMissed = useCallback(
+        (event: MouseEvent) => {
+            event.stopPropagation();
+            removeWidgetSelection();
+        },
+        [removeWidgetSelection]
+    );
+
     return {
         isEditor,
         isEditing,
@@ -73,5 +83,6 @@ export default () => {
         setIsEditing,
         setHasEditorOpened,
         selectMode,
+        onEditorPointerMissed,
     };
 };
