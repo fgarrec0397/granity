@@ -1,10 +1,10 @@
+import canvasConfig from "@app/Core/configs/canvas";
 import Scenes from "@app/Scenes/Scenes";
 import { useContextBridge } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Context, FC } from "react";
 
 import useCore from "../_actions/hooks/useCore";
-import canvasConfig from "../configs/canvas";
 
 type Props = {
     contexts: Context<any>[];

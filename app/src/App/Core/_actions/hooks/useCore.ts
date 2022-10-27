@@ -1,15 +1,20 @@
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
+import useFeatures from "@features/Core/_actions/useFeatures";
 import { useCallback } from "react";
 
 export default () => {
-    const { onEditorPointerMissed } = useEditor();
+    const { onEditorPointerMissed, isEditor } = useEditor();
+    const { onFeaturesPointerMissed } = useFeatures();
 
     const onCorePointerMissed = useCallback(
         (event: MouseEvent) => {
-            // TODO do the same for Game
-            onEditorPointerMissed(event);
+            if (isEditor) {
+                onEditorPointerMissed(event);
+            } else {
+                onFeaturesPointerMissed(event);
+            }
         },
-        [onEditorPointerMissed]
+        [isEditor, onEditorPointerMissed, onFeaturesPointerMissed]
     );
 
     return {
