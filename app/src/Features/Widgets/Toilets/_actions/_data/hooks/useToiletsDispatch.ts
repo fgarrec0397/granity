@@ -1,4 +1,4 @@
-import { useAppDispatch } from "@app/Core/store";
+import { useAppDispatch } from "@app/Core/_actions/_data/state/store";
 
 import { ToiletModel, ToiletsChunkModel } from "../../toiletsTypes";
 import {

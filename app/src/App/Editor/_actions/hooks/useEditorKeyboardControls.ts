@@ -1,5 +1,5 @@
 import useKeyboardMapping from "@app/Core/_actions/hooks/useKeyboardMapping";
-import { ClientKeyMappings } from "@app/Core/coreTypes";
+import { ClientKeyMappings } from "@app/Core/_actions/coreTypes";
 import useHistory from "@app/Editor/_actions/hooks/useHistory";
 import useGame from "@app/Game/_actions/hooks/useGame";
 import useCameras from "@app/Scenes/_actions/hooks/useCameras";

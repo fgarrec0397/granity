@@ -1,7 +1,7 @@
 import "./index.css";
 import "antd/dist/antd.css";
 
-import App from "@app/App";
+import App from "@app/Core/App";
 import AppProvider from "@app/Core/_actions/_data/providers/AppProvider";
 import FeaturesProvider from "@features/Core/_actions/_data/providers/FeaturesProvider";
 import { StrictMode } from "react";

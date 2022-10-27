@@ -1,4 +1,4 @@
-import { InjectableStore } from "@app/Core/store";
+import { InjectableStore } from "@app/Core/_actions/_data/state/store";
 import clone from "lodash/clone";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 

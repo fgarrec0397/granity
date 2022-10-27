@@ -1,4 +1,4 @@
-import keyboardMappings from "./configs/keyboardMappings";
+import keyboardMappings from "../configs/keyboardMappings";
 
 export type BaseApiParameter<T> = {
     isLoading: boolean;

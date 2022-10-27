@@ -1,4 +1,4 @@
-import { KeyboardKeys } from "../coreTypes";
+import { KeyboardKeys } from "../_actions/coreTypes";
 
 export default {
     editor: [

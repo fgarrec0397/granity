@@ -1,4 +1,4 @@
-import { store } from "@app/Core/store";
+import { store } from "@app/Core/_actions/_data/state/store";
 import HistoryDictionaryContextProvider from "@app/Editor/_actions/_data/providers/HistoryContextProvider";
 import CamerasContextProvider from "@app/Scenes/_actions/_data/providers/CamerasContextProvider";
 import WidgetsModulesContextProvider from "@app/Widgets/_actions/_data/providers/WidgetsModulesProvider";
