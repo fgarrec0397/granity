@@ -3,21 +3,22 @@ import useEditorHelper from "@app/Editor/_actions/hooks/useEditorHelper";
 import getWidgetName from "@app/Widgets/_actions/utilities/getWidgetName";
 import { WidgetObjectsDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
 import { ThreeEvent } from "@react-three/fiber";
-import { FC, MutableRefObject, useCallback, useRef, useState } from "react";
+import { FC, MutableRefObject, useRef, useState } from "react";
 import { Object3D } from "three";
 
-import useWidgets from "../_actions/hooks/useWidgets";
-import populateWidgetProperties from "../_actions/utilities/populateWidgetProperties";
-import resolveHelper from "../_actions/utilities/resolveHelper";
+import useWidgets from "../../_actions/hooks/useWidgets";
+import useWidgetsUtilities from "../../_actions/hooks/useWidgetsUtilities";
+import resolveHelper from "../../_actions/utilities/resolveHelper";
 
 type Props = {
     widget: WidgetObjectsDictionaryItem;
 };
 
-const WidgetRenderer: FC<Props> = ({ widget }) => {
+const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const componentRef = useRef(null!);
     const [hovered, setHover] = useState(false);
-    const { widgetsInfoDictionary, getWidgetDictionaryFromWidget } = useWidgets();
+    const { getWidgetDictionaryFromWidget } = useWidgets();
+    const { getWidgetProps } = useWidgetsUtilities();
     const { isEditor } = useEditor();
     const { component, id, editorOptions, hasRef } = widget;
     const name = getWidgetName(widget);
@@ -27,11 +28,7 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
 
     useEditorHelper(helper && (componentRef as MutableRefObject<Object3D | null>), helper);
 
-    const componentProps = useCallback(() => {
-        return {
-            ...populateWidgetProperties(id!, widgetsInfoDictionary),
-        };
-    }, [id, widgetsInfoDictionary]);
+    const widgetProps = getWidgetProps(id);
 
     const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
         event.stopPropagation();
@@ -65,8 +62,8 @@ const WidgetRenderer: FC<Props> = ({ widget }) => {
         >
             {meshHolder}
 
-            <Component {...componentProps()} {...widgetProperties} hovered={hovered} {...ref} />
+            <Component {...widgetProps} {...widgetProperties} hovered={hovered} {...ref} />
         </mesh>
     );
 };
-export default WidgetRenderer;
+export default WidgetObjectRenderer;

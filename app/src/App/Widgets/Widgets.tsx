@@ -1,33 +1,20 @@
 import { FC } from "react";
 
-import useWidgets from "./_actions/hooks/useWidgets";
-import { WidgetObjectsDictionaryItem } from "./_actions/widgetsTypes";
-import WidgetRenderer from "./components/WidgetRenderer";
+import { WidgetDictionary } from "./_actions/widgetsTypes";
+import WidgetItem from "./components/WidgetItem";
 
-interface WidgetProps {
-    widget: WidgetObjectsDictionaryItem;
-}
+type WidgetsProps = {
+    widgets: WidgetDictionary;
+};
 
-const Widgets: FC = () => {
-    const { widgetsObjects } = useWidgets();
-
+const Widgets: FC<WidgetsProps> = ({ widgets }) => {
     return (
         <>
-            {Object.keys(widgetsObjects).map((widgetId) => (
-                <Widget key={widgetId} widget={widgetsObjects[widgetId]} />
+            {Object.keys(widgets).map((widgetId) => (
+                <WidgetItem key={widgetId} widget={widgets[widgetId]} />
             ))}
         </>
     );
-};
-
-const Widget: FC<WidgetProps> = ({ widget }) => {
-    const { id } = widget;
-
-    if (id) {
-        return <WidgetRenderer widget={widget} />;
-    }
-
-    return null;
 };
 
 export default Widgets;

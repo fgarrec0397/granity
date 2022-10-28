@@ -1,7 +1,6 @@
 import { serializeVector3 } from "@app/Common/utilities";
 import { Object3D } from "three";
 
-import widgetsConstants from "../widgetsConstants";
 import {
     SerializedWidgetObjectDictionaryItem,
     WidgetDictionary,
@@ -17,6 +16,8 @@ type WidgetsDictionaryBuilderOptions = {
     properties?: WidgetProperties;
     options?: WidgetOptionsValues;
 };
+
+// TODO - scalable widgets types - Review this entire file
 
 export const buildWidgetsDictionary = (widgets: WidgetDictionary) => {
     const widgetsInfoDictionary: WidgetsInfoDictionary = {};
@@ -42,7 +43,7 @@ export const buildWidgetDictionaryItem = (
         ? builderOptions?.options
         : buildWidgetDictionaryOptions(widget);
 
-    let widgetProperties: WidgetProperties = widgetsConstants.widgetDefaultProperties;
+    let widgetProperties: WidgetProperties | undefined = undefined;
 
     if (builderOptions?.mesh) {
         widgetProperties = buildWidgetDictionaryProperties(builderOptions.mesh);
@@ -52,7 +53,11 @@ export const buildWidgetDictionaryItem = (
         widgetProperties = builderOptions.properties;
     }
 
-    return { id: widget.id!, properties: widgetProperties, options };
+    return {
+        id: widget.id!,
+        options,
+        ...(widgetProperties ? { properties: widgetProperties } : undefined), // TODO - scalable widgets types
+    };
 };
 
 export const buildWidgetDictionaryOptions = (

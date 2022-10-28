@@ -110,12 +110,12 @@ export default () => {
             options?: WidgetOptionsValues
         ) => {
             const newWidget: WidgetDictionaryItem = { ...widget };
+            let widgetOptions = options;
 
             newWidget.id = uidGenerator(); // assign id on initialisation
 
             if (widget.type === WidgetType.GameObject) {
                 let widgetProperties = properties;
-                let widgetOptions = options;
 
                 if (!widgetProperties) {
                     widgetProperties = {
@@ -124,26 +124,24 @@ export default () => {
                         scale: [1, 1, 1],
                     };
                 }
-
-                if (!widgetOptions) {
-                    if (newWidget.widgetDefinition.options?.length) {
-                        const defaultOptions: WidgetOptionsValues = {};
-                        for (const option of newWidget.widgetDefinition.options) {
-                            defaultOptions[option.name] = {
-                                fieldType: option.fieldType,
-                                value: option.defaultValue,
-                            };
-                        }
-                        widgetOptions = defaultOptions;
-                    }
-                }
-
-                const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget);
-
-                add(newWidget, widgetDictionaryItem);
             }
 
-            add(newWidget);
+            if (!widgetOptions) {
+                if (newWidget.widgetDefinition.options?.length) {
+                    const defaultOptions: WidgetOptionsValues = {};
+                    for (const option of newWidget.widgetDefinition.options) {
+                        defaultOptions[option.name] = {
+                            fieldType: option.fieldType,
+                            value: option.defaultValue,
+                        };
+                    }
+                    widgetOptions = defaultOptions;
+                }
+            }
+
+            const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget);
+
+            add(newWidget, widgetDictionaryItem);
         },
         [add]
     );

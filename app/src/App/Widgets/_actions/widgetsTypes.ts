@@ -22,7 +22,7 @@ export type WidgetModules = WidgetObjectModule | WidgetUIModule;
 /**
  * A component type of a widget
  */
-export type WidgetComponent<Props, Ref> =
+export type WidgetComponent<Props = FeaturesWidgetsProps, Ref = null> =
     | FC<Props>
     | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<Ref>>;
 
@@ -184,10 +184,7 @@ export type WidgetProperties = {
 /**
  * Widget module to generate UI elements
  */
-export type WidgetUIModule<Props = FeaturesWidgetsProps> = Omit<
-    Widget<Props>,
-    "hasRef" | "editorOptions" | "type"
-> & {
+export type WidgetUIModule = Omit<Widget, "hasRef" | "editorOptions" | "type"> & {
     type: WidgetType.UI;
 };
 
@@ -196,17 +193,12 @@ export type WidgetUIModule<Props = FeaturesWidgetsProps> = Omit<
 // /**
 //  * A dictionary containing informations about all WidgetUIDictionaryItem
 //  */
-export type WidgetUIDictionary<Props = FeaturesWidgetsProps> = Dictionary<
-    WidgetUIDictionaryItem<Props>
->;
+export type WidgetUIDictionary = Dictionary<WidgetUIDictionaryItem>;
 
 // /**
 //  * Informations of a UI widget
 //  */
-export type WidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
-    WidgetUIModule<Props>,
-    "reducer"
-> & {
+export type WidgetUIDictionaryItem = Omit<WidgetUIModule, "reducer"> & {
     id: string;
 };
 
@@ -222,7 +214,7 @@ export type SerializedWidgetUIDictionary<Props = FeaturesWidgetsProps> = Diction
 /**
  * A serialized version of WidgetObjectsDictionaryItem type
  */
-export type SerializedWidgetUIDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
-    WidgetUIDictionaryItem<Props>,
+export type SerializedWidgetUIDictionaryItem = Omit<
+    WidgetUIDictionaryItem,
     "component" | "meshHolder"
 >;

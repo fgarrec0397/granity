@@ -1,15 +1,18 @@
 import { useCallback } from "react";
 
+import populateWidgetProps from "../utilities/populateWidgetProps";
 import {
     SerializedWidgetDictionary,
     WidgetDictionary,
     WidgetModules,
     WidgetsInfoDictionary,
 } from "../widgetsTypes";
+import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
 
 export default () => {
     const { getWidgetModuleByName } = useWidgetsModules();
+    const { widgetsInfoDictionary } = useWidgets();
 
     /**
      * Unserialize widgets based on the given widgetsModules as reference
@@ -76,5 +79,14 @@ export default () => {
         []
     );
 
-    return { unserializeWidgets, mergeWidgetsDictionary };
+    const getWidgetProps = useCallback(
+        (id: string) => {
+            return {
+                ...populateWidgetProps(id, widgetsInfoDictionary),
+            };
+        },
+        [widgetsInfoDictionary]
+    );
+
+    return { unserializeWidgets, mergeWidgetsDictionary, getWidgetProps };
 };

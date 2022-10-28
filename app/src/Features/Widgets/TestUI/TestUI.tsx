@@ -2,15 +2,15 @@ import createWidget from "@app/Widgets/_actions/utilities/createWidget";
 import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import { FC } from "react";
 
-const PlayMenu: FC = () => {
+const TestUI: FC = () => {
     return (
         <div
             style={{
                 position: "absolute",
-                top: 0,
+                bottom: 0,
                 width: 200,
                 height: 200,
-                backgroundColor: "red",
+                backgroundColor: "blue",
             }}
         >
             {" "}
@@ -20,11 +20,11 @@ const PlayMenu: FC = () => {
 };
 
 export const widget = createWidget({
-    component: PlayMenu,
+    component: TestUI,
     reducer: null,
     type: WidgetType.UI,
     widgetDefinition: {
-        name: "PlayMenu",
+        name: "TestUI",
         options: [
             {
                 name: "translateXOnPlay",
