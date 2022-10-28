@@ -1,4 +1,3 @@
-import { Select } from "@react-three/drei";
 import { FC } from "react";
 
 import useWidgets from "./_actions/hooks/useWidgets";
@@ -10,14 +9,14 @@ interface WidgetProps {
 }
 
 const Widgets: FC = () => {
-    const { widgets, selectWidgetFromMeshArr } = useWidgets();
+    const { widgetsObjects } = useWidgets();
 
     return (
-        <Select multiple onChange={selectWidgetFromMeshArr}>
-            {Object.keys(widgets).map((widgetId) => (
-                <Widget key={widgetId} widget={widgets[widgetId]} />
+        <>
+            {Object.keys(widgetsObjects).map((widgetId) => (
+                <Widget key={widgetId} widget={widgetsObjects[widgetId]} />
             ))}
-        </Select>
+        </>
     );
 };
 
