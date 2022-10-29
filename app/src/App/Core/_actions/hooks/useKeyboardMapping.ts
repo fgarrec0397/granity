@@ -1,4 +1,3 @@
-import keyboardMappings from "@app/Core/configs/keyboardMappings";
 import { defaultKeyMappingObj } from "@app/Core/_actions/coreConstants";
 import {
     ClientKeyMappings,
@@ -6,6 +5,7 @@ import {
     KeyboardMappings,
     KeyboardType,
 } from "@app/Core/_actions/coreTypes";
+import keyboardMappings from "@app/Core/configs/keyboardMappings";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import { DependencyList, useCallback, useEffect, useMemo, useState } from "react";
 

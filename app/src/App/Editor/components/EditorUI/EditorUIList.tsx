@@ -1,12 +1,15 @@
-import { StyledWrapper } from "@app/Common/components/Html";
+import { StyledWrapper, Typography } from "@app/Common/components/Html";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
-import { Card, List } from "antd";
+import { Button, Card, List } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
 
 const EditorItemsList: FC = () => {
-    const { widgetsUI } = useWidgets();
-    // TODO - widget UI does not persist on scene change nor on scene save
+    const { widgetsUI, removeWidget } = useWidgets();
+
+    const handleRemove = (widgetId: string) => {
+        removeWidget(widgetId);
+    };
 
     return (
         <StyledWrapper
@@ -21,7 +24,10 @@ const EditorItemsList: FC = () => {
                     bordered
                     dataSource={Object.keys(widgetsUI)}
                     renderItem={(widgetId) => (
-                        <List.Item>{widgetsUI[widgetId].widgetDefinition.name}</List.Item>
+                        <List.Item>
+                            <Typography>{widgetsUI[widgetId].widgetDefinition.name}</Typography>
+                            <Button onClick={() => handleRemove(widgetId)}>X</Button>
+                        </List.Item>
                     )}
                 />
             </Card>

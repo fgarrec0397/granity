@@ -231,10 +231,8 @@ export default () => {
     );
 
     const removeWidget = useCallback(
-        (widget: WidgetDictionaryItem) => {
-            if (widget.id) {
-                remove(widget);
-            }
+        (widgetId: string) => {
+            remove(widgetId);
         },
         [remove]
     );
@@ -242,7 +240,7 @@ export default () => {
     const removeselectedWidgets = useCallback(() => {
         const widget = selectedWidgets[0];
         if (widget) {
-            removeWidget(widget);
+            removeWidget(widget.id);
         } else {
             // eslint-disable-next-line no-console
             console.error("No mesh found"); // TODO -- Add UI confirmation

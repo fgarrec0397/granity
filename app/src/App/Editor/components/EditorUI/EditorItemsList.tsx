@@ -6,10 +6,14 @@ import { FC } from "react";
 import { css } from "styled-components";
 
 const EditorItemsList: FC = () => {
-    const { widgetsObjects, selectWidget, selectedWidgets } = useWidgets();
+    const { widgetsObjects, selectWidget, selectedWidgets, removeWidget } = useWidgets();
 
     const handleSelect = (widget: WidgetObjectsDictionaryItem) => {
         selectWidget([widget]);
+    };
+
+    const handleRemove = (widgetId: string) => {
+        removeWidget(widgetId);
     };
 
     return (
@@ -32,6 +36,7 @@ const EditorItemsList: FC = () => {
                             >
                                 {widgetsObjects[widgetId].widgetDefinition.name}
                             </Button>
+                            <Button onClick={() => handleRemove(widgetId)}>X</Button>
                         </List.Item>
                     )}
                 />

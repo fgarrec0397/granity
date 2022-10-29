@@ -1,23 +1,20 @@
 import Editor from "@app/Editor/Editor";
-import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
-import Widgets from "@app/Widgets/Widgets";
+import Game from "@app/Game/Game";
 import { FC } from "react";
 
 import useUI from "./_actions/hooks/useUI";
+import UIClosePreviewButton from "./Components/UIClosePreviewButton";
 
 const UI: FC = () => {
-    const { showEditorUI, showGameUI } = useUI();
-    const { widgetsUI } = useWidgets();
+    const { showEditorUI, showGameUI, isGameUIPreview } = useUI();
 
-    if (showEditorUI) {
-        return <Editor.EditorUI />;
-    }
-
-    if (showGameUI) {
-        return <Widgets widgets={widgetsUI} />;
-    }
-
-    return null;
+    return (
+        <>
+            {showEditorUI && <Editor.EditorUI />}
+            {showGameUI && <Game.GameUI />}
+            {isGameUIPreview && <UIClosePreviewButton />}
+        </>
+    );
 };
 
 export default UI;

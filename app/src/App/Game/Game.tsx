@@ -1,6 +1,5 @@
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import Widgets from "@app/Widgets/Widgets";
-import ClientGameUI from "@features/GameUI/GameUI";
 import { Physics } from "@react-three/rapier";
 import { FC } from "react";
 
@@ -19,7 +18,9 @@ const Game: FC = () => {
 };
 
 const GameUI: FC = () => {
-    return <ClientGameUI />;
+    const { widgetsUI } = useWidgets();
+
+    return <Widgets widgets={widgetsUI} />;
 };
 
 export default { Game, GameUI };

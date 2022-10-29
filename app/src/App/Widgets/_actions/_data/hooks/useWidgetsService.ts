@@ -79,11 +79,11 @@ export default () => {
     }, [select]);
 
     const remove = useCallback(
-        (widget: WidgetDictionaryItem) => {
+        (widgetId: string) => {
             removeSelection();
-            dispatchRemoveWidgetDictionary(widget.id);
+            dispatchRemoveWidgetDictionary(widgetId);
 
-            delete widgets[widget.id];
+            delete widgets[widgetId];
         },
         [dispatchRemoveWidgetDictionary, removeSelection, widgets]
     );
