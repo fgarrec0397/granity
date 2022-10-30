@@ -1,8 +1,16 @@
+import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import createWidget from "@app/Widgets/_actions/utilities/createWidget";
 import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
+import { Button } from "antd";
 import { FC } from "react";
 
 const PlayMenu: FC = () => {
+    const { loadScene } = useScenes();
+
+    const handleChanceScene = () => {
+        loadScene("test");
+    };
+
     return (
         <div
             style={{
@@ -10,11 +18,11 @@ const PlayMenu: FC = () => {
                 top: 0,
                 width: 200,
                 height: 200,
-                backgroundColor: "red",
+                backgroundColor: "white",
+                border: "1px solid #f0f0f0",
             }}
         >
-            {" "}
-            Hello world{" "}
+            <Button onClick={handleChanceScene}>Change scene</Button>
         </div>
     );
 };

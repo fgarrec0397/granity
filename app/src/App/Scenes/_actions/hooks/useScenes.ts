@@ -42,6 +42,34 @@ export default () => {
         [scenes]
     );
 
+    const getSceneByName = useCallback(
+        (sceneName: string | null) => {
+            if (scenes && sceneName) {
+                const sceneId = Object.keys(scenes).find((x) => scenes[x].name === sceneName);
+
+                if (sceneId) {
+                    return scenes[sceneId];
+                }
+            }
+
+            return null;
+        },
+        [scenes]
+    );
+
+    const getSceneByNameOrId = useCallback(
+        (sceneIdOrName: string | null) => {
+            const scene = getSceneById(sceneIdOrName);
+
+            if (!scene) {
+                return getSceneByName(sceneIdOrName);
+            }
+
+            return scene;
+        },
+        [getSceneById, getSceneByName]
+    );
+
     const getCurrentScene = useCallback(() => {
         return getSceneById(currentSceneId);
     }, [currentSceneId, getSceneById]);
@@ -63,9 +91,9 @@ export default () => {
         }
     }, [getCurrentScene, updateScene, widgets, widgetsInfoDictionary]);
 
-    const selectScene = useCallback(
-        (sceneId: string) => {
-            const scene = getSceneById(sceneId);
+    const loadScene = useCallback(
+        (sceneNameOrId: string) => {
+            const scene = getSceneByNameOrId(sceneNameOrId);
 
             if (scene) {
                 const selectedSceneData = scene.data;
@@ -75,12 +103,12 @@ export default () => {
                 );
 
                 updateCurrentScene();
-                updateCurrentSceneId(sceneId);
+                updateCurrentSceneId(sceneNameOrId);
                 resetWidgets(deserializedWidgets, selectedSceneData.widgetsInfoDictionary, true);
             }
         },
         [
-            getSceneById,
+            getSceneByNameOrId,
             resetWidgets,
             unserializeWidgets,
             updateCurrentScene,
@@ -97,9 +125,9 @@ export default () => {
             currentSceneId !== lastSceneAdded.id &&
             Object.keys(scenes).length > Object.keys(previousScenes).length
         ) {
-            selectScene(lastSceneAdded.id);
+            loadScene(lastSceneAdded.id);
         }
-    }, [currentSceneId, lastSceneAdded, previousScenes, scenes, selectScene]);
+    }, [currentSceneId, lastSceneAdded, previousScenes, scenes, loadScene]);
 
     const getCurrentDefaultScene = useCallback(() => {
         return getSceneById(currentDefaultSceneId);
@@ -200,14 +228,14 @@ export default () => {
                 if (sceneToRemove && sceneToRemove.isDefault) {
                     const nonDefaultScene = getFirstNonDefaultScene(scenes);
 
-                    selectScene(nonDefaultScene.id);
+                    loadScene(nonDefaultScene.id);
                     changeDefaultScene(nonDefaultScene);
                 }
             }
 
             remove(sceneId);
         },
-        [getSceneById, scenes, remove, selectScene, changeDefaultScene]
+        [getSceneById, scenes, remove, loadScene, changeDefaultScene]
     );
 
     return {
@@ -225,7 +253,7 @@ export default () => {
         resetScenes,
         // initScenes,
         saveScene,
-        selectScene,
+        loadScene,
         removeScene,
     };
 };

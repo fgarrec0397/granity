@@ -7,10 +7,10 @@ const EditorScenesList: FC = () => {
     const [isAddSceneModalOpen, setIsAddSceneModalOpen] = useState(false);
     const [sceneName, setSceneName] = useState("");
     const [isDefault, setIsDefault] = useState(false);
-    const { scenes, currentSceneId, addScene, selectScene, removeScene } = useScenes();
+    const { scenes, currentSceneId, addScene, loadScene, removeScene } = useScenes();
 
     const handleSelect = (sceneId: string) => {
-        selectScene(sceneId);
+        loadScene(sceneId);
     };
 
     const handleRemove = (sceneId: string) => {
