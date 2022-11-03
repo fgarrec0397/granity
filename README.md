@@ -55,7 +55,7 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [x] Switch from a CRA environment to a Vite environment
 - [x] Manage multiple scenes
 - [x] Auto import widgets
-- [ ] UI widget type
+- [x] UI widget type
 - [ ] Make a flappy bird clone (Flappy poop)
 
 ### 0.2.0
