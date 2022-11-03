@@ -22,6 +22,8 @@ export default () => {
 
                 resetScenes(result, newCurrentSceneId);
                 changeDefaultScene(newCurrentScene);
+            } else {
+                initWidgets();
             }
         },
         [initWidgets, resetScenes, changeDefaultScene]

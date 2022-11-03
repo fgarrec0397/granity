@@ -3,8 +3,10 @@ import useGameUpdate from "@app/Game/_actions/hooks/useGameUpdate";
 import useCreateCamera from "@app/Scenes/_actions/hooks/useCreateCamera";
 import createWidget from "@app/Widgets/_actions/utilities/createWidget";
 import { FieldType, HelpersTypes, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
-import { FC, Ref } from "react";
+import { FC, Ref, useEffect } from "react";
 import { PerspectiveCamera } from "three";
+
+import usePoop from "../Poop/_actions/hooks/usePoop";
 
 export type CamerasProps = EditableWidget & {
     translateXOnPlay: boolean;
@@ -12,6 +14,12 @@ export type CamerasProps = EditableWidget & {
 
 const Cameras: FC<CamerasProps> = ({ translateXOnPlay }, ref) => {
     const { camera, cameraRef } = useCreateCamera("widgetCamera", ref!);
+    const { isAlive } = usePoop();
+
+    // set camera pos on component init
+    useEffect(() => {
+        camera.position.x = 0;
+    }, [camera.position]);
 
     useGameUpdate(() => {
         if (translateXOnPlay) {
@@ -19,7 +27,7 @@ const Cameras: FC<CamerasProps> = ({ translateXOnPlay }, ref) => {
         }
     });
 
-    return <perspectiveCamera ref={cameraRef as Ref<PerspectiveCamera>} />;
+    return isAlive ? <perspectiveCamera ref={cameraRef as Ref<PerspectiveCamera>} /> : null;
 };
 
 Cameras.displayName = "Cameras";

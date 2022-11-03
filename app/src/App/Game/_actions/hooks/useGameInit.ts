@@ -10,14 +10,19 @@ import { useEffect } from "react";
  *
  * @param onMountCallback Callback that is executed when the game init.
  * @param onUnMountCallback Callback that is executed when the component unmount.
+ * @param ignoreEditor A flag to execute the code even in the editor
  */
-export default <T>(onMountCallback: () => T, onUnMountCallback?: (data: T) => void) => {
+export default <T>(
+    onMountCallback: () => T,
+    onUnMountCallback?: (data: T) => void,
+    ignoreEditor?: boolean
+) => {
     const { isEditor } = useEditor();
 
     useEffect(() => {
         let returnedValue: T;
 
-        if (!isEditor) {
+        if (!isEditor || ignoreEditor) {
             returnedValue = onMountCallback();
         }
 

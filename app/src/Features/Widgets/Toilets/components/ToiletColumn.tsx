@@ -19,7 +19,7 @@ export type ToiletColumnProps = {
 };
 
 const ToiletColumn: FC<ToiletColumnProps> = ({ toilet }) => {
-    const { nodes, materials } = useGLTF("/assets/Toilet.gltf") as ToiletModelGLTFResult;
+    const { nodes, materials } = useGLTF("/assets/Toilet.gltf") as unknown as ToiletModelGLTFResult;
     const groupScale: Vector3Array = useMemo(() => [0.05, 0.05, 0.05], []);
     const { setIsVisible } = useToilets();
     const { getSize } = useObjectSize();
@@ -115,6 +115,9 @@ const ToiletColumn: FC<ToiletColumnProps> = ({ toilet }) => {
                 scale={[10, 100, 20]}
                 position={toilet.position}
                 rotation={[0, -Math.PI / 2, 0]}
+                userData={{
+                    name: "flag",
+                }}
                 sensor
             >
                 <mesh>

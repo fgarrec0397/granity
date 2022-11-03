@@ -1,11 +1,12 @@
 import { Vector3Array } from "@app/Common/commonTypes";
 import useObjectSize from "@app/Common/hooks/useObjectSize";
 import { serializeVector3 } from "@app/Common/utilities";
-import useKeyboardMapping from "@app/Core/_actions/hooks/useKeyboardMapping";
 import { ClientKeyMappings } from "@app/Core/_actions/coreTypes";
+import useKeyboardMapping from "@app/Core/_actions/hooks/useKeyboardMapping";
 import { EditableWidget } from "@app/Editor/_actions/editorTypes";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import useGameUpdate from "@app/Game/_actions/hooks/useGameUpdate";
+import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import createWidget from "@app/Widgets/_actions/utilities/createWidget";
 import { WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import GameRigidbody from "@features/Physics/components/GameRigidbody";
@@ -21,7 +22,8 @@ import { PoopModelGLTFResult } from "./_actions/poopTypes";
 export type PoopProps = EditableWidget;
 
 const Poop: FC<PoopProps> = ({ position }) => {
-    const { nodes, materials } = useGLTF("/assets/Poop.gltf") as PoopModelGLTFResult;
+    const { nodes, materials } = useGLTF("/assets/Poop.gltf") as unknown as PoopModelGLTFResult;
+    const { loadScene } = useScenes();
     const ref = useRef<Group>(null);
     const meshRef = useRef<Mesh>(null);
     const [groupPosition, setGroupPosition] = useState<Vector3Array>([0, 0, 0]);
@@ -29,11 +31,11 @@ const Poop: FC<PoopProps> = ({ position }) => {
     const { getSize } = useObjectSize();
     const { isEditor } = useEditor();
     const poopSpeed = 0.01;
-    const { passToilet, die } = usePoop();
+    const { passToilet, killPoop, isAlive } = usePoop();
 
     useKeyboardMapping((keyMapping: ClientKeyMappings) => {
         if (keyMapping.jump && colliderRef.current) {
-            colliderRef.current.applyImpulse(new Vector3(poopSpeed, 0.3, 0));
+            colliderRef.current.applyImpulse(new Vector3(0, 0.3, 0));
         }
     }, []);
 
@@ -63,7 +65,7 @@ const Poop: FC<PoopProps> = ({ position }) => {
         }
     });
 
-    return (
+    return isAlive ? (
         <GameRigidbody
             ref={colliderRef}
             colliders={false}
@@ -74,15 +76,18 @@ const Poop: FC<PoopProps> = ({ position }) => {
             userData={{
                 name: "poop",
             }}
-            onIntersectionEnter={() => {
-                passToilet();
+            onIntersectionEnter={(payload) => {
+                if (payload.rigidBodyObject?.userData.name === "flag") {
+                    passToilet();
+                }
             }}
         >
             {!isEditor && (
                 <CuboidCollider
                     args={[0.15, 0.15, 0.15]}
                     onCollisionEnter={() => {
-                        die();
+                        killPoop();
+                        loadScene("End");
                     }}
                 />
             )}
@@ -103,7 +108,7 @@ const Poop: FC<PoopProps> = ({ position }) => {
                 </group>
             </group>
         </GameRigidbody>
-    );
+    ) : null;
 };
 
 export const widget = createWidget({

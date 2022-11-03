@@ -1,4 +1,5 @@
 import createWidgetReducer from "@app/Widgets/_actions/utilities/createWidgetReducer";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export interface PoopState {
     score: number;
@@ -14,15 +15,15 @@ export const poopSlice = createWidgetReducer({
     name: "poop",
     initialState,
     reducers: {
-        addPoint: (state) => {
-            state.score++;
+        setScore: (state, action: PayloadAction<number>) => {
+            state.score = action.payload;
         },
-        killPoop: (state) => {
-            state.isAlive = false;
+        setIsAlive: (state, action: PayloadAction<boolean>) => {
+            state.isAlive = action.payload;
         },
     },
 });
 
-export const { addPoint, killPoop } = poopSlice.actions;
+export const { setScore, setIsAlive } = poopSlice.actions;
 
 export default poopSlice;

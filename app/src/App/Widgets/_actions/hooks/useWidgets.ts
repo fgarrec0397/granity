@@ -253,11 +253,11 @@ export default () => {
 
     const resetWidgets = useCallback(
         (
-            widgetsToAdd: WidgetDictionary,
-            widgetDictionaryToAdd: WidgetsInfoDictionary,
+            widgetsToAdd?: WidgetDictionary,
+            widgetDictionaryToAdd?: WidgetsInfoDictionary,
             shouldRemoveAll?: boolean
         ) => {
-            reset(widgetsToAdd, widgetDictionaryToAdd, shouldRemoveAll);
+            reset(widgetsToAdd || {}, widgetDictionaryToAdd || {}, shouldRemoveAll);
         },
         [reset]
     );

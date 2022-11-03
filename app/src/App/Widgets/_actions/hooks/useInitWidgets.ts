@@ -13,20 +13,27 @@ export default () => {
 
     const initWidgets = useCallback(
         async (
-            serializedWidgets: SerializedWidgetDictionary,
-            widgetsInfoDictionary: WidgetsInfoDictionary
+            serializedWidgets?: SerializedWidgetDictionary,
+            widgetsInfoDictionary?: WidgetsInfoDictionary
         ) => {
             const loadedWidgetsModules = await loadWidgetsModules();
 
-            const deserializedWidgets = unserializeWidgets(serializedWidgets, loadedWidgetsModules);
+            if (serializedWidgets || widgetsInfoDictionary) {
+                const deserializedWidgets = unserializeWidgets(
+                    serializedWidgets!, // already checked if it's defined
+                    loadedWidgetsModules
+                );
 
-            const newWidgetsDictionary = buildWidgetsDictionary(deserializedWidgets);
-            const mergedWidgetDictionary = mergeWidgetsDictionary(
-                newWidgetsDictionary,
-                widgetsInfoDictionary
-            );
+                const newWidgetsDictionary = buildWidgetsDictionary(deserializedWidgets);
+                const mergedWidgetDictionary = mergeWidgetsDictionary(
+                    newWidgetsDictionary,
+                    widgetsInfoDictionary! // already checked if it's defined
+                );
 
-            resetWidgets(deserializedWidgets, mergedWidgetDictionary);
+                resetWidgets(deserializedWidgets, mergedWidgetDictionary);
+            } else {
+                resetWidgets();
+            }
         },
         [loadWidgetsModules, mergeWidgetsDictionary, resetWidgets, unserializeWidgets]
     );

@@ -25,19 +25,14 @@ export type FeaturesWidgetsProps = GeometryFormsProps &
     WidgetStarterProps;
 
 /**
- * Add your UI Props here as union types
- */
-// export type FeaturesUIProps = PlayMenuProps;
-
-/**
  * Add your Widgets reducers state here
  */
 export interface FeaturesState {
-    textState: TextState;
-    toiletsState: ToiletsState;
-    poopState: PoopState;
-    gameControllerState: GameControllerState;
-    widgetStarterState: WidgetStarterState;
+    text: TextState;
+    toilets: ToiletsState;
+    poop: PoopState;
+    gameController: GameControllerState;
+    widgetStarter: WidgetStarterState;
 }
 
 /**
@@ -45,7 +40,7 @@ export interface FeaturesState {
  *
  * You should not touch this function
  */
-const loadWidgetsFromModules = async () => {
+export const loadWidgetsFromModules = async () => {
     const widgetModules: WidgetObjectModule[] | WidgetUIModule[] = [];
 
     for (const path in modules) {
@@ -55,5 +50,3 @@ const loadWidgetsFromModules = async () => {
 
     return widgetModules;
 };
-
-export default loadWidgetsFromModules;

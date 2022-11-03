@@ -10,14 +10,14 @@ type ValuesType<T> = {
 };
 
 export default () => {
-    const { toiletsChunks } = useToiletsSelector();
+    const toilets = useToiletsSelector();
     const { dispatchUpdate, dispatchAdd, dispatchRemove, dispatchRemoveAll } = useToiletsDispatch();
 
     const getToiletChunkByID = useCallback(
         (id: string) => {
-            return toiletsChunks.find((x) => x.id === id);
+            return toilets?.toiletsChunks.find((x) => x.id === id);
         },
-        [toiletsChunks]
+        [toilets?.toiletsChunks]
     );
 
     const getToiletById = useCallback(
@@ -29,18 +29,18 @@ export default () => {
 
     const add = useCallback(
         (toiletsChunk: ToiletsChunkModel) => {
-            const newToiletsChunks = [...toiletsChunks, toiletsChunk];
+            const newToiletsChunks = [...(toilets?.toiletsChunks || []), toiletsChunk];
             dispatchAdd(newToiletsChunks);
         },
-        [dispatchAdd, toiletsChunks]
+        [dispatchAdd, toilets?.toiletsChunks]
     );
 
     const addBatch = useCallback(
         (toiletsChunksArray: ToiletsChunkModel[]) => {
-            const newToiletsChunks = [...toiletsChunks, ...toiletsChunksArray];
+            const newToiletsChunks = [...(toilets?.toiletsChunks || []), ...toiletsChunksArray];
             dispatchAdd(newToiletsChunks);
         },
-        [dispatchAdd, toiletsChunks]
+        [dispatchAdd, toilets?.toiletsChunks]
     );
 
     const removeAll = useCallback(() => {
@@ -68,7 +68,7 @@ export default () => {
     );
 
     return {
-        toiletsChunks,
+        toiletsChunks: toilets?.toiletsChunks || [],
         add,
         addBatch,
         removeAll,

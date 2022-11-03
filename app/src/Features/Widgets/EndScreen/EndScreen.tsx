@@ -1,10 +1,13 @@
-import { StyledWrapper } from "@app/Common/components/Html";
+import { StyledWrapper, Typography } from "@app/Common/components/Html";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import createWidget from "@app/Widgets/_actions/utilities/createWidget";
 import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import { Button } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
+
+import usePoop from "../Poop/_actions/hooks/usePoop";
+import useToilets from "../Toilets/_actions/hooks/useToilets";
 
 const styles = {
     wrapper: {
@@ -13,6 +16,7 @@ const styles = {
             top: 40%;
             right: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 200px;
@@ -22,28 +26,40 @@ const styles = {
             transform: translate(50%, -50%);
         `,
     },
+    text: {
+        css: css`
+            margin-bottom: 1em;
+        `,
+    },
 };
 
-const PlayMenu: FC = () => {
-    const { loadScene } = useScenes();
+// Reset scene and position on restart
 
-    const handleChangeScene = () => {
+const EndScreen: FC = () => {
+    const { loadScene } = useScenes();
+    const { score, resetPoop } = usePoop();
+    const { removeAllToiletsChunks } = useToilets();
+
+    const handleResetGame = () => {
+        resetPoop();
+        removeAllToiletsChunks();
         loadScene("Game");
     };
 
     return (
         <StyledWrapper {...styles.wrapper}>
-            <Button onClick={handleChangeScene}>Play</Button>
+            <Typography {...styles.text}>Your score was {score}</Typography>
+            <Button onClick={handleResetGame}>Play</Button>
         </StyledWrapper>
     );
 };
 
 export const widget = createWidget({
-    component: PlayMenu,
+    component: EndScreen,
     reducer: null,
     type: WidgetType.UI,
     widgetDefinition: {
-        name: "PlayMenu",
+        name: "End Screen",
         options: [
             {
                 name: "translateXOnPlay",

@@ -1,20 +1,20 @@
 import { useDispatch } from "react-redux";
 
-import { addPoint, killPoop } from "../state/poopReducer";
+import { setIsAlive, setScore } from "../state/poopReducer";
 
 export default () => {
     const dispatch = useDispatch();
 
-    const dispatchAddPoint = () => {
-        dispatch(addPoint());
+    const dispatchSetPoint = (score: number) => {
+        dispatch(setScore(score));
     };
 
-    const dispatchKillPoop = () => {
-        dispatch(killPoop());
+    const dispatchSetIsAlive = (value: boolean) => {
+        dispatch(setIsAlive(value));
     };
 
     return {
-        dispatchAddPoint,
-        dispatchKillPoop,
+        dispatchSetPoint,
+        dispatchSetIsAlive,
     };
 };

@@ -16,10 +16,9 @@ export const injectStore = (_store: InjectableStore) => {
  * For now it only manage if your component is a forwarded one or a normal one, but in the future it could be more.
  */
 export default <PropsType, RefType = null>(
-    widget: WidgetObjectModule<PropsType, RefType> | WidgetUIModule<PropsType>
+    widget: WidgetObjectModule<PropsType, RefType> | WidgetUIModule
 ) => {
-    const widgetModule: WidgetObjectModule<PropsType, RefType> | WidgetUIModule<PropsType> =
-        clone(widget);
+    const widgetModule: WidgetObjectModule<PropsType, RefType> | WidgetUIModule = clone(widget);
 
     if ("hasRef" in widgetModule && widgetModule.hasRef) {
         (widgetModule.component as WidgetComponent<PropsType, RefType>) = forwardRef(
