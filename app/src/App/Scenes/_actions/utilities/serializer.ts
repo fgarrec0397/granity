@@ -1,8 +1,8 @@
 import { SetOptionalPropertyFrom } from "@app/Common/commonTypes";
 import { serialize } from "@app/Core/_actions/utilities/componentSerializer";
 import {
-    SerializedWidgetObjectsDictionary,
     SerializedWidgetObjectDictionaryItem,
+    SerializedWidgetObjectsDictionary,
     WidgetObjectEditorOptions,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
