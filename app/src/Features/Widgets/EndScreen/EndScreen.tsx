@@ -6,9 +6,6 @@ import { Button } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
 
-import usePoop from "../Poop/_actions/hooks/usePoop";
-import useToilets from "../Toilets/_actions/hooks/useToilets";
-
 const styles = {
     wrapper: {
         css: css`
@@ -37,18 +34,14 @@ const styles = {
 
 const EndScreen: FC = () => {
     const { loadScene } = useScenes();
-    const { score, resetPoop } = usePoop();
-    const { removeAllToiletsChunks } = useToilets();
 
     const handleResetGame = () => {
-        resetPoop();
-        removeAllToiletsChunks();
         loadScene("Game");
     };
 
     return (
         <StyledWrapper {...styles.wrapper}>
-            <Typography {...styles.text}>Your score was {score}</Typography>
+            <Typography {...styles.text}>Your died</Typography>
             <Button onClick={handleResetGame}>Play</Button>
         </StyledWrapper>
     );

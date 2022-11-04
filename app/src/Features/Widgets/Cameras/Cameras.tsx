@@ -6,15 +6,12 @@ import { FieldType, HelpersTypes, WidgetType } from "@app/Widgets/_actions/widge
 import { FC, Ref, useEffect } from "react";
 import { PerspectiveCamera } from "three";
 
-import usePoop from "../Poop/_actions/hooks/usePoop";
-
 export type CamerasProps = EditableWidget & {
     translateXOnPlay: boolean;
 };
 
 const Cameras: FC<CamerasProps> = ({ translateXOnPlay }, ref) => {
     const { camera, cameraRef } = useCreateCamera("widgetCamera", ref!);
-    const { isAlive } = usePoop();
 
     // set camera pos on component init
     useEffect(() => {
@@ -27,7 +24,7 @@ const Cameras: FC<CamerasProps> = ({ translateXOnPlay }, ref) => {
         }
     });
 
-    return isAlive ? <perspectiveCamera ref={cameraRef as Ref<PerspectiveCamera>} /> : null;
+    return <perspectiveCamera ref={cameraRef as Ref<PerspectiveCamera>} />;
 };
 
 Cameras.displayName = "Cameras";
