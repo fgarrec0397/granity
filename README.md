@@ -56,26 +56,25 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [x] Manage multiple scenes
 - [x] Auto import widgets
 - [x] UI widget type
-- [ ] Make a flappy bird clone (Flappy poop)
+- [x] Make a flappy bird clone (Flappy poop)
 
 ### 0.2.0
 - [ ] Add unit testing
 - [ ] Remake the UI
 - [ ] Having multiple themes (one for the game, another for the editor)
+- [ ] Adding the possibility to change widget name within the scene
 - [ ] Select multiple widgets at the time
-- [ ] Be able to group elements together
 - [ ] Be able to manipulate the widgets through the UI
 
 ### 0.3.0
 - [ ] Add a dashboard to control some settings such as key bindings
 - [ ] Make shortcuts actions available from UI
-- [ ] Having a camera preview in the editor
 
 ### 0.4.0
-- [ ] Adding widget on mouse position instead of the position [0, 0, 0]
 - [ ] Support multiplayer
 
 ### In a near future
+- [ ] A lot of enhancements (there are too much to list them here)
 - [ ] Add more field types
 - [ ] Add more keyboard shortcuts
 - [ ] Fix bugs along the way
