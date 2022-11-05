@@ -7,7 +7,10 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "lint": "eslint --ext .ts,.tsx src --fix"
+    "lint": "eslint --ext .ts,.tsx src --fix",
+    "test": "vitest watch",
+    "test:no-watch": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -50,7 +53,6 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^29.2.2",
     "@types/lodash": "^4.14.188",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
@@ -61,6 +63,7 @@
     "@types/use-sync-external-store": "^0.0.3",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "c8": "^7.12.0",
     "eslint": "^8.26.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -70,6 +73,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "2.7.1"
+    "jsdom": "^20.0.2",
+    "prettier": "2.7.1",
+    "vitest": "^0.24.5"
   }
 }
