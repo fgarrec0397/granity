@@ -7,10 +7,10 @@ describe("Create a random number based on a minimum and a maximum value", () => 
     const max = 10;
 
     test("Number returned is not larger than the maximum", () => {
-        expect(getRandomNumber(min, max)).toBeLessThan(max);
+        expect(getRandomNumber(min, max)).toBeLessThanOrEqual(max);
     });
 
     test("Number returned is not lower than the maximum", () => {
-        expect(getRandomNumber(min, max)).toBeGreaterThan(min);
+        expect(getRandomNumber(min, max)).toBeGreaterThanOrEqual(min);
     });
 });
