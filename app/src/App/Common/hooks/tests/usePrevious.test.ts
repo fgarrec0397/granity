@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react";
 import { useCallback, useState } from "react";
 import { describe, expect, it } from "vitest";
 

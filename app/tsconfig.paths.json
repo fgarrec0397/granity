@@ -4,6 +4,7 @@
         "paths": {
             "@app/*": ["App/*"],
             "@features/*": ["Features/*"],
+            "@tests/*": ["tests/*"],
         },
     }
 }
