@@ -59,7 +59,7 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [x] Make a flappy bird clone (Flappy poop)
 
 ### 0.2.0
-- [ ] Add unit testing
+- [ ] Implement unit testing
 - [ ] Remake the UI
 - [ ] Having multiple themes (one for the game, another for the editor)
 - [ ] Adding the possibility to change widget name within the scene
@@ -69,6 +69,7 @@ The roadmap elements below are classed in order, but are may subject to change.
 ### 0.3.0
 - [ ] Add a dashboard to control some settings such as key bindings
 - [ ] Make shortcuts actions available from UI
+- [ ] Implement unit testing
 
 ### 0.4.0
 - [ ] Support multiplayer
