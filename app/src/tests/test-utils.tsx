@@ -1,12 +1,5 @@
 import AppProvider from "@app/Core/_actions/_data/providers/AppProvider";
-import {
-    Queries,
-    queries,
-    render,
-    renderHook,
-    RenderHookOptions,
-    RenderOptions,
-} from "@testing-library/react";
+import { render, renderHook, RenderOptions } from "@testing-library/react";
 import { FC, ReactElement, ReactNode } from "react";
 
 type Props = {

@@ -25,15 +25,16 @@ export default defineConfig({
         alias: {
             "@app": path.resolve(__dirname, "./src/App"),
             "@features": path.resolve(__dirname, "./src/Features"),
+            "@tests": path.resolve(__dirname, "./src/tests"),
         },
     },
     test: {
         globals: true,
         environment: "jsdom",
-        setupFiles: "./src/tests/setupTests.ts",
+        setupFiles: "./src/setupTests.ts",
         coverage: {
             reporter: ["text", "html"],
-            exclude: ["node_modules/", "src/tests/setupTests.ts"],
+            exclude: ["node_modules/", "src/setupTests.ts"],
         },
     },
 });

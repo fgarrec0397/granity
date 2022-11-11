@@ -1,14 +1,12 @@
-import { render, renderHook } from "@testing-library/react";
-// import { renderHook } from "@testing-library/react-hooks";
-import { appRender, appRenderHook, TestAppProviders } from "@tests/test-utils"; // Need to investigate why the tester cant load the file
+import { act, appRenderHook } from "@tests/test-utils"; // Need to investigate why the tester cant load the file
 import { beforeEach, describe, expect, it } from "vitest";
 
 import useCore from "../useCore";
 
 describe("useCore hook", () => {
-    const { result } = renderHook(() => useCore(), { wrapper: TestAppProviders });
+    const { result } = appRenderHook(() => useCore());
 
-    describe("onCorePointerMissed function", () => {
+    describe("onCorePointerMissed is callable", () => {
         const canvas = document.createElement("canvas");
 
         const clickCallback = vi.fn((event: MouseEvent) => {
@@ -20,7 +18,9 @@ describe("useCore hook", () => {
         });
 
         it("should be executed on click event", () => {
-            canvas.click();
+            act(() => {
+                canvas.click();
+            });
 
             expect(clickCallback).toBeCalled();
         });
