@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { buildWidgetsDictionary } from "../utilities/buildWidgetDictionaryItem";
+import { buildWidgetsInfoDictionary } from "../utilities/buildWidgetsInfoDictionary";
 import { SerializedWidgetDictionary, WidgetsInfoDictionary } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
@@ -24,7 +24,7 @@ export default () => {
                     loadedWidgetsModules
                 );
 
-                const newWidgetsDictionary = buildWidgetsDictionary(deserializedWidgets);
+                const newWidgetsDictionary = buildWidgetsInfoDictionary(deserializedWidgets);
                 const mergedWidgetDictionary = mergeWidgetsDictionary(
                     newWidgetsDictionary,
                     widgetsInfoDictionary! // already checked if it's defined

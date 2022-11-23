@@ -2,7 +2,7 @@ import useInitWidgets from "@app/Widgets/_actions/hooks/useInitWidgets";
 import { useCallback } from "react";
 
 import { SceneApiResponseResult, ScenesDictionary } from "../scenesTypes";
-import getDefaultScene from "../utilities/getDefaultScene";
+import getDefaultSceneId from "../utilities/getDefaultSceneId";
 import useScenes from "./useScenes";
 
 export default () => {
@@ -12,7 +12,7 @@ export default () => {
     const initScenes = useCallback(
         async (result?: SceneApiResponseResult) => {
             if (result) {
-                const newCurrentSceneId = getDefaultScene(result);
+                const newCurrentSceneId = getDefaultSceneId(result);
                 const newCurrentScene = (result as ScenesDictionary)[newCurrentSceneId];
 
                 initWidgets(
