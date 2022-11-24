@@ -1,4 +1,4 @@
-import { appRenderHook } from "@tests/test-utils";
+import { appRenderHook } from "@tests/testing";
 import { act } from "react-dom/test-utils";
 import { describe, it } from "vitest";
 

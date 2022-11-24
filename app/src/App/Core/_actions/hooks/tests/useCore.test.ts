@@ -1,4 +1,4 @@
-import { act, appRenderHook } from "@tests/test-utils"; // Need to investigate why the tester cant load the file
+import { act, appRenderHook } from "@tests/testing";
 import { beforeEach, describe, expect, it } from "vitest";
 
 import useCore from "../useCore";
