@@ -78,7 +78,6 @@ describe("buildWidgetsInfoDictionary utility", () => {
         });
 
         describe("passing builderOptions properties should build the widgetsInfoDictionary with the given properties", () => {
-            // TODO - Do the same thing with the options
             const widgetsInfoDictionaryWithProperties = buildWidgetInfoDictionaryItem(
                 widgetsDictionary[widgetId1],
                 {
@@ -130,6 +129,4 @@ describe("buildWidgetsInfoDictionary utility", () => {
             });
         });
     });
-
-    // describe("buildWidgetInfoDictionaryOptions function")
 });
