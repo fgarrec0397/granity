@@ -12,7 +12,7 @@ import {
     WidgetsInfoDictionaryItem,
 } from "../widgetsTypes";
 
-type WidgetsDictionaryBuilderOptions = {
+export type WidgetsDictionaryBuilderOptions = {
     mesh?: Object3D;
     properties?: WidgetProperties;
     options?: WidgetOptionsValues;

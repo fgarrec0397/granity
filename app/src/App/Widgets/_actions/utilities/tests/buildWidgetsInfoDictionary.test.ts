@@ -1,7 +1,8 @@
 import { uidGenerator } from "@app/Common/utilities";
 import TestWidgetComponent from "@tests/TestWidgetComponent";
+import { describe } from "vitest";
 
-import { WidgetType } from "../../widgetsConstants";
+import { FieldType, WidgetType } from "../../widgetsConstants";
 import { WidgetDictionary } from "../../widgetsTypes";
 import {
     buildWidgetInfoDictionaryItem,
@@ -36,7 +37,7 @@ describe("buildWidgetsInfoDictionary utility", () => {
     describe("buildWidgetsInfoDictionary function", () => {
         const widgetsInfoDictionary = buildWidgetsInfoDictionary(widgetsDictionary);
 
-        it("should returns an object that the following shape", () => {
+        it("should returns an object that has the following shape", () => {
             expect(widgetsInfoDictionary).toMatchObject({
                 [widgetId1]: {
                     id: widgetId1,
@@ -77,6 +78,7 @@ describe("buildWidgetsInfoDictionary utility", () => {
         });
 
         describe("passing builderOptions properties should build the widgetsInfoDictionary with the given properties", () => {
+            // TODO - Do the same thing with the options
             const widgetsInfoDictionaryWithProperties = buildWidgetInfoDictionaryItem(
                 widgetsDictionary[widgetId1],
                 {
@@ -106,5 +108,28 @@ describe("buildWidgetsInfoDictionary utility", () => {
                 expect(widgetsInfoDictionaryWithProperties.properties?.scale[2]).toBe(10);
             });
         });
+
+        describe("passing builderOptions properties should build the widgetsInfoDictionary with the given properties", () => {
+            const builderOptions: any = {
+                options: {
+                    fieldType: FieldType.Text,
+                    value: "This is my value",
+                },
+            };
+            const widgetsInfoDictionaryWithProperties = buildWidgetInfoDictionaryItem(
+                widgetsDictionary[widgetId1],
+                builderOptions
+            );
+
+            test("options.fieldType should be 'Text'", () => {
+                expect(widgetsInfoDictionaryWithProperties.options?.fieldType).toBe("Text");
+            });
+
+            test("options.value should be 'This is my value'", () => {
+                expect(widgetsInfoDictionaryWithProperties.options?.value).toBe("This is my value");
+            });
+        });
     });
+
+    // describe("buildWidgetInfoDictionaryOptions function")
 });
