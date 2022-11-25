@@ -31,5 +31,6 @@ export default <PropsType, RefType = null>(
             store.injectFeaturesReducer?.(widgetModule.reducer.name, widgetModule.reducer.reducer);
         }
     }
+
     return widgetModule;
 };

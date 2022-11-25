@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import reactRefresh from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
@@ -24,6 +25,16 @@ export default defineConfig({
         alias: {
             "@app": path.resolve(__dirname, "./src/App"),
             "@features": path.resolve(__dirname, "./src/Features"),
+            "@tests": path.resolve(__dirname, "./src/tests"),
+        },
+    },
+    test: {
+        globals: true,
+        environment: "jsdom",
+        setupFiles: "./src/setupTests.ts",
+        coverage: {
+            reporter: ["text", "html"],
+            exclude: ["node_modules/", "src/setupTests.ts"],
         },
     },
 });

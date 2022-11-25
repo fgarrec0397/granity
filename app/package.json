@@ -7,7 +7,10 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "lint": "eslint --ext .ts,.tsx src --fix"
+    "lint": "eslint --ext .ts,.tsx src --fix",
+    "test": "vitest watch",
+    "test:no-watch": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -18,7 +21,6 @@
     "@reduxjs/toolkit": "^1.9.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
     "@vitejs/plugin-react": "^2.2.0",
     "antd": "^4.24.1",
     "cors": "^2.8.5",
@@ -34,7 +36,7 @@
     "three": "^0.146.0",
     "three-stdlib": "^2.17.3",
     "typescript": "^4.8.4",
-    "vite": "^3.2.2",
+    "vite": "^3.2.3",
     "vite-plugin-svgr": "^2.2.2"
   },
   "browserslist": {
@@ -50,18 +52,18 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^29.2.2",
     "@types/lodash": "^4.14.188",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
-    "@types/three": "^0.144.0",
+    "@types/three": "^0.146.0",
     "@types/use-sync-external-store": "^0.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0",
-    "eslint": "^8.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "c8": "^7.12.0",
+    "eslint": "^8.27.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.5.2",
@@ -70,6 +72,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "2.7.1"
+    "jsdom": "^20.0.2",
+    "prettier": "2.7.1",
+    "vitest": "^0.25.1"
   }
 }

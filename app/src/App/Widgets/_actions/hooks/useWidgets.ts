@@ -4,9 +4,9 @@ import { Object3D } from "three";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
 import {
-    buildWidgetDictionaryItem,
     buildWidgetDictionaryProperties,
-} from "../utilities/buildWidgetDictionaryItem";
+    buildWidgetInfoDictionaryItem,
+} from "../utilities/buildWidgetsInfoDictionary";
 import widgetsConstants, { WidgetType } from "../widgetsConstants";
 import {
     SerializedWidgetObjectDictionaryItem,
@@ -139,7 +139,7 @@ export default () => {
                 }
             }
 
-            const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget);
+            const widgetDictionaryItem = buildWidgetInfoDictionaryItem(newWidget);
 
             add(newWidget, widgetDictionaryItem);
         },
@@ -219,7 +219,7 @@ export default () => {
                 const properties = widgetsInfoDictionary[widget.id].properties;
                 const options = widgetsInfoDictionary[widget.id].options;
 
-                const widgetDictionaryItem = buildWidgetDictionaryItem(newWidget, {
+                const widgetDictionaryItem = buildWidgetInfoDictionaryItem(newWidget, {
                     properties,
                     options,
                 });

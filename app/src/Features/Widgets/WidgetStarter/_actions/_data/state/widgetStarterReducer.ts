@@ -1,5 +1,4 @@
-import createWidgetReducer from "@app/Widgets/_actions/utilities/createWidgetReducer";
-import { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface WidgetStarterState {
     widgetStarterMessage: string;
@@ -9,7 +8,7 @@ const initialState: WidgetStarterState = {
     widgetStarterMessage: "",
 };
 
-export const widgetStarterSlice = createWidgetReducer({
+export const widgetStarterSlice = createSlice({
     name: "widgetStarter",
     initialState,
     reducers: {
