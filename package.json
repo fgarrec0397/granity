@@ -5,7 +5,8 @@
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd app && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -15,6 +16,9 @@
   "license": "MIT",
   "homepage": "https://github.com/fgarrec0397/Granity#readme",
   "devDependencies": {
-    "concurrently": "^7.5.0"
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "concurrently": "^7.5.0",
+    "husky": "^8.0.2"
   }
 }
