@@ -18,6 +18,7 @@ export type SceneCameraRef = MutableRefObject<
 export type SceneCamera = {
     id: string;
     name: string;
+    isDefault?: boolean;
     cameraRef: SceneCameraRef;
 };
 

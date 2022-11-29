@@ -11,14 +11,15 @@ import useCameras from "./useCameras";
  */
 export default (
     cameraName: string,
-    ref?: MutableRefObject<PerspectiveCamera> | ForwardedRef<PerspectiveCamera>
+    ref?: MutableRefObject<PerspectiveCamera> | ForwardedRef<PerspectiveCamera>,
+    isDefault?: boolean
 ) => {
     const camera = useThree((state) => state.camera);
     const { addCamera, removeCamera, setCurrentCamera } = useCameras();
     const cameraRef = useForwardedRef(ref) as SceneCameraRef;
 
     useEffect(() => {
-        const newCamera = addCamera(cameraRef, cameraName);
+        const newCamera = addCamera(cameraRef, cameraName, isDefault);
         setCurrentCamera(newCamera.id);
 
         return () => {

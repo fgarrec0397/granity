@@ -14,13 +14,13 @@ export default () => {
 
     // This function is called when the game init
     const startGame = () => {
-        const firstGameCamera = gameCameras[0];
+        const firstGameCamera = gameCameras[0]; // TODO - get first isDefault: true camera
         closeEditor();
 
         // TODO - Rework the camera process when start the game
-        // if (firstGameCamera?.id && firstGameCamera.cameraRef.current) {
-        //     setThree({ camera: firstGameCamera.cameraRef.current });
-        // }
+        if (firstGameCamera?.id && firstGameCamera.cameraRef.current) {
+            setThree({ camera: firstGameCamera.cameraRef.current });
+        }
     };
 
     const pauseGame = useCallback(() => {

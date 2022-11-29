@@ -13,12 +13,13 @@ export default () => {
     const editorCameras = cameras.filter((x) => x.name === DefaultCameras.EditorCamera);
 
     const addCamera = useCallback(
-        (cameraRef: SceneCameraRef, name: string) => {
+        (cameraRef: SceneCameraRef, name: string, isDefault?: boolean) => {
             const id = cameraRef.current?.uuid || uidGenerator();
             const camera: SceneCamera = {
                 id,
                 cameraRef,
                 name,
+                isDefault,
             };
 
             add(camera);

@@ -8,10 +8,11 @@ import { PerspectiveCamera } from "three";
 
 export type CamerasProps = EditableWidget & {
     translateXOnPlay: boolean;
+    isDefault: boolean;
 };
 
-const Cameras: FC<CamerasProps> = ({ translateXOnPlay }, ref) => {
-    const { camera, cameraRef } = useCreateCamera("widgetCamera", ref!);
+const Cameras: FC<CamerasProps> = ({ translateXOnPlay, isDefault }, ref) => {
+    const { camera, cameraRef } = useCreateCamera("widgetCamera", ref!, isDefault);
 
     // set camera pos on component init
     useEffect(() => {
@@ -49,6 +50,12 @@ export const widget = createWidget<CamerasProps, PerspectiveCamera>({
             {
                 name: "translateXOnPlay",
                 displayName: "Translate X on play",
+                fieldType: FieldType.Checkbox,
+                defaultValue: false,
+            },
+            {
+                name: "isDefault",
+                displayName: "Set this camera as the default",
                 fieldType: FieldType.Checkbox,
                 defaultValue: false,
             },
