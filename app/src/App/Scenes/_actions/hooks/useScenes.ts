@@ -118,16 +118,18 @@ export default () => {
     );
 
     useEffect(() => {
-        if (
-            scenes &&
-            previousScenes &&
-            lastSceneAdded &&
-            currentSceneId !== lastSceneAdded.id &&
-            Object.keys(scenes).length > Object.keys(previousScenes).length
-        ) {
+        // console.log({
+        //     scenes,
+        //     previousScenes,
+        //     isCurrentSceneIdDifferentThanLastSceneId: currentSceneId !== lastSceneAdded?.id,
+        // });
+
+        if (scenes && lastSceneAdded && currentSceneId !== lastSceneAdded.id) {
+            console.log(lastSceneAdded.id, "loadscene");
+
             loadScene(lastSceneAdded.id);
         }
-    }, [currentSceneId, lastSceneAdded, previousScenes, scenes, loadScene]);
+    }, [currentSceneId, lastSceneAdded, scenes, loadScene]);
 
     const getCurrentDefaultScene = useCallback(() => {
         return getSceneById(currentDefaultSceneId);
@@ -251,7 +253,6 @@ export default () => {
         getCurrentScene,
         getCurrentDefaultScene,
         resetScenes,
-        // initScenes,
         saveScene,
         loadScene,
         removeScene,
