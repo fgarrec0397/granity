@@ -1,10 +1,10 @@
-import { uidGenerator } from "@app/Common/utilities";
 import { useThree } from "@react-three/fiber";
+import { Vector3Array } from "@react-three/rapier";
 import { useCallback } from "react";
 
 import useCamerasService from "../_data/hooks/useCamerasService";
 import { DefaultCameras } from "../scenesConstants";
-import { SceneCamera, SceneCameraRef } from "../scenesTypes";
+import { SceneCamera } from "../scenesTypes";
 
 export default () => {
     const setThree = useThree(({ set }) => set);
@@ -13,15 +13,7 @@ export default () => {
     const editorCameras = cameras.filter((x) => x.name === DefaultCameras.EditorCamera);
 
     const addCamera = useCallback(
-        (cameraRef: SceneCameraRef, name: string, isDefault?: boolean) => {
-            const id = cameraRef.current?.uuid || uidGenerator();
-            const camera: SceneCamera = {
-                id,
-                cameraRef,
-                name,
-                isDefault,
-            };
-
+        (camera: SceneCamera) => {
             add(camera);
 
             return camera;
@@ -37,11 +29,18 @@ export default () => {
     );
 
     const setCurrentCamera = useCallback(
-        (cameraId: string) => {
+        (cameraId: string, position?: Vector3Array) => {
             const currentCamera = getCameraById(cameraId);
             selectCamera(cameraId);
 
             if (currentCamera?.cameraRef.current) {
+                if (position) {
+                    currentCamera.cameraRef.current.position.set(
+                        position[0],
+                        position[1],
+                        position[2]
+                    );
+                }
                 setThree({ camera: currentCamera.cameraRef.current });
             }
         },

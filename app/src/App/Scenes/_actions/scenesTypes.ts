@@ -1,4 +1,4 @@
-import { Dictionary } from "@app/Common/commonTypes";
+import { Dictionary, Vector3Array } from "@app/Common/commonTypes";
 import {
     SerializedWidgetDictionary,
     WidgetsInfoDictionary,
@@ -20,6 +20,7 @@ export type SceneCamera = {
     name: string;
     isDefault?: boolean;
     cameraRef: SceneCameraRef;
+    position: Vector3Array;
 };
 
 // --------------- Scenes types --------------- //

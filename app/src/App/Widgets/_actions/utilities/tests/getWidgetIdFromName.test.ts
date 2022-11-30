@@ -1,4 +1,4 @@
-import object3DTestObject from "@tests/utilities/object3DTestObject";
+import object3DTestObject from "@tests/utilities/threeJS/object3DTestObject";
 
 import getWidgetIdFromName from "../getWidgetIdFromName";
 

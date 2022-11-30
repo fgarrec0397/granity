@@ -11,13 +11,15 @@ export type CamerasProps = EditableWidget & {
     isDefault: boolean;
 };
 
-const Cameras: FC<CamerasProps> = ({ translateXOnPlay, isDefault }, ref) => {
-    const { camera, cameraRef } = useCreateCamera("widgetCamera", ref!, isDefault);
+const Cameras: FC<CamerasProps> = ({ translateXOnPlay, isDefault, position }, ref) => {
+    const { camera, cameraRef } = useCreateCamera("widgetCamera", position, ref!, isDefault);
 
     // set camera pos on component init
     useEffect(() => {
-        camera.position.x = 0;
-    }, [camera.position]);
+        if (translateXOnPlay) {
+            camera.position.x = 0;
+        }
+    }, [camera.position, translateXOnPlay]);
 
     useGameUpdate(() => {
         if (translateXOnPlay) {

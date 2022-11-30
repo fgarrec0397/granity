@@ -2,7 +2,7 @@ import {
     widgetsDictionaryTest,
     widgetTestId1,
     widgetTestId2,
-} from "@tests/utilities/widgetsDictionaryTest";
+} from "@tests/utilities/widgets/widgetsDictionaryTest";
 import { describe } from "vitest";
 
 import { FieldType } from "../../widgetsConstants";
