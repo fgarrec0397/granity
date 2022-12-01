@@ -1,4 +1,4 @@
-import { widgetsModulesTest } from "@tests/utilities/widgetsModulesArrayTest";
+import { widgetsModulesTest } from "@tests/utilities/widgets/widgetsModulesArrayTest";
 
 import filterWidgetsModules from "../filterWidgetsModules";
 

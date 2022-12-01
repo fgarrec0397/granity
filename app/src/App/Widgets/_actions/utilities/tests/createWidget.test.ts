@@ -1,4 +1,4 @@
-import TestWidgetComponent from "@tests/utilities/TestWidgetComponent";
+import TestWidgetComponent from "@tests/utilities/widgets/TestWidgetComponent";
 import { describe } from "vitest";
 
 import { WidgetType } from "../../widgetsConstants";

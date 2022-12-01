@@ -1,4 +1,4 @@
-import { Dictionary } from "@app/Common/commonTypes";
+import { Dictionary, Vector3Array } from "@app/Common/commonTypes";
 import {
     SerializedWidgetDictionary,
     WidgetsInfoDictionary,
@@ -18,7 +18,9 @@ export type SceneCameraRef = MutableRefObject<
 export type SceneCamera = {
     id: string;
     name: string;
+    isDefault?: boolean;
     cameraRef: SceneCameraRef;
+    position: Vector3Array;
 };
 
 // --------------- Scenes types --------------- //

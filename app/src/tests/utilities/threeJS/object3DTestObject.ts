@@ -1,7 +1,7 @@
 import getWidgetName from "@app/Widgets/_actions/utilities/getWidgetName";
 import * as THREE from "three";
 
-import widgetDictionaryItemTest from "./widgetDictionaryItemTest";
+import widgetDictionaryItemTest from "../widgets/widgetDictionaryItemTest";
 
 const testObject = new THREE.Object3D();
 

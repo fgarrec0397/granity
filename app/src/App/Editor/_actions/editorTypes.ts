@@ -1,14 +1,15 @@
 import { Dictionary } from "@app/Common/commonTypes";
 import { WidgetObjectsDictionary, WidgetsInfoDictionary } from "@app/Widgets/_actions/widgetsTypes";
+import { Vector3Array } from "@react-three/rapier";
 
 /**
  * Additional props that applies for widgets in the editor
  */
 export interface EditableWidget {
     hovered: boolean;
-    position: [number, number, number];
-    rotation: [number, number, number];
-    scale: [number, number, number];
+    position: Vector3Array;
+    rotation: Vector3Array;
+    scale: Vector3Array;
 }
 
 /**

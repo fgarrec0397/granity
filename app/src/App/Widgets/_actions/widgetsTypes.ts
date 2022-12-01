@@ -1,5 +1,6 @@
 import { Dictionary } from "@app/Common/commonTypes";
 import { FeaturesWidgetsProps } from "@features/Widgets";
+import { Vector3Array } from "@react-three/rapier";
 import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
 import { Object3D } from "three";
@@ -174,9 +175,9 @@ export type WidgetOptionsValues = Dictionary<{
 }>;
 
 export type WidgetProperties = {
-    position: [number, number, number];
-    rotation: [number, number, number];
-    scale: [number, number, number];
+    position: Vector3Array;
+    rotation: Vector3Array;
+    scale: Vector3Array;
 };
 
 /// ---------------------- Widget UI Module ---------------------- ///

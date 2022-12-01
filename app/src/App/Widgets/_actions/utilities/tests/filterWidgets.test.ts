@@ -1,4 +1,4 @@
-import { widgetsDictionaryTest } from "@tests/utilities/widgetsDictionaryTest";
+import { widgetsDictionaryTest } from "@tests/utilities/widgets/widgetsDictionaryTest";
 
 import filterWidgets from "../filterWidgets";
 

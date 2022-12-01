@@ -1,4 +1,4 @@
-import { widgetsModulesTest } from "@tests/utilities/widgetsModulesTest";
+import { widgetsModulesTest } from "@tests/utilities/widgets/widgetsModulesTest";
 
 import mapWidgetModuleToWidgetDictionary from "../mapWidgetModuleToWidgetDictionary";
 

@@ -1,4 +1,4 @@
-import widgetDictionaryItemTest from "@tests/utilities/widgetDictionaryItemTest";
+import widgetDictionaryItemTest from "@tests/utilities/widgets/widgetDictionaryItemTest";
 
 import widgetsConstants from "../../widgetsConstants";
 import getWidgetName from "../getWidgetName";

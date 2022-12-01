@@ -1,4 +1,3 @@
-import { usePrevious } from "@app/Common/hooks";
 import { uidGenerator } from "@app/Common/utilities";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
@@ -29,7 +28,6 @@ export default () => {
     const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
-    const previousScenes = usePrevious(scenes);
 
     const getSceneById = useCallback(
         (sceneId: string | null) => {
@@ -118,16 +116,10 @@ export default () => {
     );
 
     useEffect(() => {
-        if (
-            scenes &&
-            previousScenes &&
-            lastSceneAdded &&
-            currentSceneId !== lastSceneAdded.id &&
-            Object.keys(scenes).length > Object.keys(previousScenes).length
-        ) {
+        if (scenes && lastSceneAdded && currentSceneId !== lastSceneAdded.id) {
             loadScene(lastSceneAdded.id);
         }
-    }, [currentSceneId, lastSceneAdded, previousScenes, scenes, loadScene]);
+    }, [currentSceneId, lastSceneAdded, scenes, loadScene]);
 
     const getCurrentDefaultScene = useCallback(() => {
         return getSceneById(currentDefaultSceneId);
@@ -251,7 +243,6 @@ export default () => {
         getCurrentScene,
         getCurrentDefaultScene,
         resetScenes,
-        // initScenes,
         saveScene,
         loadScene,
         removeScene,
