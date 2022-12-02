@@ -8,6 +8,7 @@ export default createGlobalStyle`
 
 	body {
 		color: ${baseTheme.colors.secondary};
+		font-size: 16px;
 	}
 
 	h1 {

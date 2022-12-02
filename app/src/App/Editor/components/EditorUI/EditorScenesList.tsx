@@ -1,3 +1,4 @@
+import Button2 from "@app/Common/components/Html/Button2";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import { Button, Card, Checkbox, Input, List, Modal, Typography } from "antd";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
@@ -36,7 +37,7 @@ const EditorScenesList: FC = () => {
                 size="small"
                 bordered
                 dataSource={Object.keys(scenes || {})}
-                footer={<Button onClick={() => setIsAddSceneModalOpen(true)}>Add scene</Button>}
+                footer={<Button2 onClick={() => setIsAddSceneModalOpen(true)}>Add scene</Button2>}
                 renderItem={(sceneId) => (
                     <List.Item>
                         <Button

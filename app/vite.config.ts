@@ -26,6 +26,7 @@ export default defineConfig({
             "@app": path.resolve(__dirname, "./src/App"),
             "@features": path.resolve(__dirname, "./src/Features"),
             "@tests": path.resolve(__dirname, "./src/tests"),
+            "@themes": path.resolve(__dirname, "./src/Themes"),
         },
     },
     test: {

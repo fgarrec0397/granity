@@ -5,6 +5,7 @@
             "@app/*": ["App/*"],
             "@features/*": ["Features/*"],
             "@tests/*": ["tests/*"],
+            "@themes/*": ["Themes/*"],
         },
     }
 }
