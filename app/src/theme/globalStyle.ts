@@ -1,3 +1,4 @@
+import { rootFontSize } from "@themes/themesConstants";
 import { createGlobalStyle } from "styled-components";
 
 import baseTheme from "./baseTheme";
@@ -5,16 +6,11 @@ import resetSheet from "./resetSheet";
 
 export default createGlobalStyle`
 	${resetSheet}
+	
+	@import url('${({ theme }) => theme.typography.fontFamilyURL}');
 
 	body {
-		color: ${baseTheme.colors.secondary};
-		font-size: 16px;
-	}
-
-	h1 {
-		font-weight: 900;
-		font-size: 32px;
-		line-height: 147.2%;
-
+		font-family: 'DM Sans', sans-serif;
+		font-size: ${rootFontSize}px;
 	}
 `;
