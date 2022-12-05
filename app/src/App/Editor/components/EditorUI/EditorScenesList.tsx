@@ -1,6 +1,6 @@
-import Button2 from "@app/Common/components/Html/Button2";
+import Button from "@app/Common/components/Html/Button/Button";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
-import { Button, Card, Checkbox, Input, List, Modal, Typography } from "antd";
+import { Card, Checkbox, Input, List, Modal, Typography } from "antd";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { FC, useState } from "react";
 
@@ -37,16 +37,23 @@ const EditorScenesList: FC = () => {
                 size="small"
                 bordered
                 dataSource={Object.keys(scenes || {})}
-                footer={<Button2 onClick={() => setIsAddSceneModalOpen(true)}>Add scene</Button2>}
+                footer={
+                    <Button onClick={() => setIsAddSceneModalOpen(true)} isFullWidth>
+                        Add scene
+                    </Button>
+                }
                 renderItem={(sceneId) => (
                     <List.Item>
                         <Button
                             onClick={() => handleSelect(sceneId)}
                             disabled={currentSceneId === sceneId}
+                            styleType="none"
                         >
                             {scenes && scenes[sceneId].name}
                         </Button>
-                        <Button onClick={() => handleRemove(sceneId)}>X</Button>
+                        <Button onClick={() => handleRemove(sceneId)} styleType="none">
+                            X
+                        </Button>
                     </List.Item>
                 )}
             />

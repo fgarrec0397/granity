@@ -12,6 +12,16 @@ export type ThemeColors = {
         backgroundAlt: string;
         border: string;
         text: string;
+        textDisabled: string;
+    };
+};
+
+export type ThemeCommon = {
+    borderRadius: {
+        small: string;
+        main: string;
+        large: string;
+        max: string;
     };
 };
 
@@ -47,6 +57,7 @@ export type ThemeTypography = {
 declare module "styled-components" {
     export interface DefaultTheme {
         colors: ThemeColors;
+        common: ThemeCommon;
         typography: ThemeTypography;
     }
 }

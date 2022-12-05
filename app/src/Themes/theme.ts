@@ -19,6 +19,15 @@ const theme: DefaultTheme = {
             backgroundAlt: "",
             border: "",
             text: "",
+            textDisabled: "",
+        },
+    },
+    common: {
+        borderRadius: {
+            small: pxToRem(4),
+            main: pxToRem(8),
+            large: pxToRem(12),
+            max: "100%",
         },
     },
     typography: {
