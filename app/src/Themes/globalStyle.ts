@@ -11,5 +11,6 @@ export default createGlobalStyle`
 	body {
 		font-family: ${({ theme }) => theme.typography.fontFamily.main};
 		font-size: ${rootFontSize}px;
+		color: ${({ theme }) => theme.colors.common.text};
 	}
 `;

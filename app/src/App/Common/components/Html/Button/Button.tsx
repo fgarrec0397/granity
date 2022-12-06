@@ -29,7 +29,7 @@ const StyledButton = styled(PureButton)<ButtonStyles>`
             padding: ${pxToRem(6, 20)};
             width: ${isFullWidth ? "100%" : "auto"};
             text-align: center;
-            border-radius: ${theme.common.borderRadius.small};
+            border-radius: ${theme.common.borderRadius.button};
             cursor: pointer;
 
             // eslint-disable-next-line

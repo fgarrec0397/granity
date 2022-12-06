@@ -10,6 +10,7 @@ export type ThemeColors = {
     common: {
         background: string;
         backgroundAlt: string;
+        backgroundDarker: string;
         border: string;
         text: string;
         textDisabled: string;
@@ -18,9 +19,9 @@ export type ThemeColors = {
 
 export type ThemeCommon = {
     borderRadius: {
-        small: string;
-        main: string;
-        large: string;
+        button: string;
+        panel: string;
+        panelLarge: string;
         max: string;
     };
 };
