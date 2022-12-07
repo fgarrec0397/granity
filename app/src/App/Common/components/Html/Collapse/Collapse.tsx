@@ -9,9 +9,10 @@ import {
     useDisclosureState,
 } from "ariakit";
 import { FC, ReactNode } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { BaseStyles } from "../htmlTypes";
+import Arrow from "../Icons/Arrow";
 import AppStyledWrapper, { StyledWrapperProps } from "../StyledWrapper";
 
 export type CollapseStylesProps = BaseStyles & {
@@ -37,21 +38,37 @@ const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
     ${(props) => props.css}
 `;
 
-const StyledCollapse = styled(Disclosure)<CollapseStylesProps>`
+const baseCollapseStyles = () => css`
     padding: ${pxToRem(10, 15)};
     width: 100%;
     background-color: ${getColor("common.backgroundDarker")};
     font-size: ${getTypography("size.smaller")}
     font-weight: ${getTypography("weight.bold")};
     text-align: left;
+`;
+
+const StyledCollapse = styled(Disclosure)<CollapseStylesProps>`
+    ${baseCollapseStyles()}
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border: none;
     border-bottom: ${pxToRem(1)} solid ${getColor("common.border")};
     border-top-left-radius: ${getCommon("borderRadius.panel")};
     border-top-right-radius: ${getCommon("borderRadius.panel")};
     cursor: pointer;
+
+    &[aria-expanded="false"] {
+        border-bottom-left-radius: ${getCommon("borderRadius.panel")};
+        border-bottom-right-radius: ${getCommon("borderRadius.panel")};
+    }
 `;
 
-const StyledCollapseContent = styled(DisclosureContent)<CollapseStylesProps>``;
+const StyledCollapseContent = styled(DisclosureContent)<CollapseStylesProps>`
+    ${baseCollapseStyles()}
+    border-bottom-left-radius: ${getCommon("borderRadius.panel")};
+    border-bottom-right-radius: ${getCommon("borderRadius.panel")};
+`;
 
 const Collapse: FC<Props> = ({ children, contentProps, title, titleProps }) => {
     const disclosure = useDisclosureState();
@@ -68,7 +85,10 @@ const Collapse: FC<Props> = ({ children, contentProps, title, titleProps }) => {
 
     return (
         <StyledWrapper>
-            <StyledCollapse {...mergedTitleProps}>{title}</StyledCollapse>
+            <StyledCollapse {...mergedTitleProps}>
+                {title}
+                <Arrow />
+            </StyledCollapse>
             <StyledCollapseContent {...mergedContentProps}>{children}</StyledCollapseContent>
         </StyledWrapper>
     );
