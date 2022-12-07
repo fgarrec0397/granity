@@ -1,3 +1,5 @@
+import { getColor, getCommon } from "@themes/utils";
+import getTypography from "@themes/utils/getTypography";
 import pxToRem from "@themes/utils/pxToRem";
 import {
     Disclosure,
@@ -28,9 +30,9 @@ type Props = CollapseStylesProps &
     };
 
 const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
-    border-radius: ${({ theme }) => theme.common.borderRadius.panel};
-    background-color: ${({ theme }) => theme.colors.common.backgroundDarker};
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.25), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    border-radius: ${getCommon("borderRadius.panel")};
+    background-color: ${getColor("common.backgroundDarker")};
+    box-shadow: ${getCommon("boxShadow.main")};
 
     ${(props) => props.css}
 `;
@@ -38,14 +40,14 @@ const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
 const StyledCollapse = styled(Disclosure)<CollapseStylesProps>`
     padding: ${pxToRem(10, 15)};
     width: 100%;
-    background-color: ${({ theme }) => theme.colors.common.backgroundDarker};
-    font-size: ${({ theme }) => theme.typography.size.smaller};
-    font-weight: ${({ theme }) => theme.typography.weight.bold};
+    background-color: ${getColor("common.backgroundDarker")};
+    font-size: ${getTypography("size.smaller")}
+    font-weight: ${getTypography("weight.bold")};
     text-align: left;
     border: none;
-    border-bottom: ${pxToRem(1)} solid ${({ theme }) => theme.colors.common.border};
-    border-top-left-radius: ${({ theme }) => theme.common.borderRadius.panel};
-    border-top-right-radius: ${({ theme }) => theme.common.borderRadius.panel};
+    border-bottom: ${pxToRem(1)} solid ${getColor("common.border")};
+    border-top-left-radius: ${getCommon("borderRadius.panel")};
+    border-top-right-radius: ${getCommon("borderRadius.panel")};
     cursor: pointer;
 `;
 

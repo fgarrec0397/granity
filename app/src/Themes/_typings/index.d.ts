@@ -24,6 +24,9 @@ export type ThemeCommon = {
         panelLarge: string;
         max: string;
     };
+    boxShadow: {
+        main: string;
+    };
 };
 
 export type ThemeTypography = {

@@ -30,6 +30,11 @@ const theme: DefaultTheme = {
             panelLarge: pxToRem(12),
             max: "100%",
         },
+        boxShadow: {
+            main: `0 ${pxToRem(1)} ${pxToRem(3)} 0 rgb(0 0 0 / 0.25), 0 ${pxToRem(1)} ${pxToRem(
+                2
+            )} ${pxToRem(-1)} rgb(0 0 0 / 0.1)`,
+        },
     },
     typography: {
         fontFamilyURL:

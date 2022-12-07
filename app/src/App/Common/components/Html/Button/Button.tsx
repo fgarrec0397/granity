@@ -1,3 +1,4 @@
+import { getColor, getCommon, getTypography } from "@themes/utils";
 import pxToRem from "@themes/utils/pxToRem";
 import { Button as LibButton, ButtonProps } from "ariakit/button";
 import { FC, ReactNode } from "react";
@@ -21,15 +22,15 @@ type Props = ButtonStyles &
 const PureButton: FC<Props> = ({ isFullWidth, styleType, ...props }) => <LibButton {...props} />;
 
 const StyledButton = styled(PureButton)<ButtonStyles>`
-    font-size: ${({ theme }) => theme.typography.size.tiny};
-    font-weight: ${({ theme }) => theme.typography.weight.bold};
+    font-size: ${getTypography("size.tiny")};
+    font-weight: ${getTypography("weight.bold")};
 
-    ${({ styleType, isFullWidth, theme }) => {
+    ${({ styleType, isFullWidth }) => {
         const baseButtonStyles = css`
             padding: ${pxToRem(6, 20)};
             width: ${isFullWidth ? "100%" : "auto"};
             text-align: center;
-            border-radius: ${theme.common.borderRadius.button};
+            border-radius: ${getCommon("borderRadius.button")};
             cursor: pointer;
 
             // eslint-disable-next-line
@@ -42,12 +43,12 @@ const StyledButton = styled(PureButton)<ButtonStyles>`
             return css`
                 ${baseButtonStyles}
                 background-color: transparent;
-                color: ${theme.colors.primary.main};
-                border: ${pxToRem(1)} solid ${theme.colors.primary.main};
+                color: ${getColor("primary.main")};
+                border: ${pxToRem(1)} solid ${getColor("primary.main")};
 
                 &:hover {
-                    background-color: ${theme.colors.primary.main};
-                    color: ${theme.colors.primary.contrast};
+                    background-color: ${getColor("primary.main")};
+                    color: ${getColor("primary.contrast")};
                 }
             `;
         }
@@ -55,13 +56,13 @@ const StyledButton = styled(PureButton)<ButtonStyles>`
         if (styleType === "filled") {
             return css`
                 ${baseButtonStyles}
-                background-color: ${theme.colors.primary.main};
-                color: ${theme.colors.primary.contrast};
-                border: ${pxToRem(1)} solid ${theme.colors.primary.main};
+                background-color: ${getColor("primary.main")};
+                color: ${getColor("primary.contrast")};
+                border: ${pxToRem(1)} solid ${getColor("primary.main")};
 
                 &:hover {
-                    background-color: ${theme.colors.primary.hover};
-                    border-color: ${theme.colors.primary.hover};
+                    background-color: ${getColor("primary.hover")};
+                    border-color: ${getColor("primary.hover")};
                 }
             `;
         }
