@@ -32,7 +32,7 @@ type Props = CollapseStylesProps &
 
 const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
     border-radius: ${getCommon("borderRadius.panel")};
-    background-color: ${getColor("common.backgroundDarker")};
+    background-color: ${getColor("common.backgroundDark")};
     box-shadow: ${getCommon("boxShadow.main")};
 
     ${(props) => props.css}
@@ -41,7 +41,6 @@ const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
 const baseCollapseStyles = () => css`
     padding: ${pxToRem(10, 15)};
     width: 100%;
-    background-color: ${getColor("common.backgroundDarker")};
     font-size: ${getTypography("size.smaller")}
     font-weight: ${getTypography("weight.bold")};
     text-align: left;
@@ -52,6 +51,7 @@ const StyledCollapse = styled(Disclosure)<CollapseStylesProps>`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: ${getColor("common.backgroundDark")};
     border: none;
     border-bottom: ${pxToRem(1)} solid ${getColor("common.border")};
     border-top-left-radius: ${getCommon("borderRadius.panel")};
@@ -66,6 +66,7 @@ const StyledCollapse = styled(Disclosure)<CollapseStylesProps>`
 
 const StyledCollapseContent = styled(DisclosureContent)<CollapseStylesProps>`
     ${baseCollapseStyles()}
+    background-color: ${getColor("common.background")};
     border-bottom-left-radius: ${getCommon("borderRadius.panel")};
     border-bottom-right-radius: ${getCommon("borderRadius.panel")};
 `;

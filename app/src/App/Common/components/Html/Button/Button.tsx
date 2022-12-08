@@ -1,4 +1,5 @@
 import { getColor, getCommon, getTypography } from "@themes/utils";
+import getFocus from "@themes/utils/getFocus";
 import pxToRem from "@themes/utils/pxToRem";
 import { Button as LibButton, ButtonProps } from "ariakit/button";
 import { FC, ReactNode } from "react";
@@ -6,7 +7,7 @@ import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
 export type ButtonStyleTypes = "outlined" | "filled" | "none";
 
-export type ButtonStyles = {
+export type ButtonStylesProps = {
     isFullWidth?: boolean;
     styleType?: ButtonStyleTypes;
     css?: FlattenSimpleInterpolation;
@@ -14,14 +15,14 @@ export type ButtonStyles = {
 
 export type ButtonComponents = ButtonProps;
 
-type Props = ButtonStyles &
+type Props = ButtonStylesProps &
     ButtonComponents & {
         children: ReactNode;
     };
 
 const PureButton: FC<Props> = ({ isFullWidth, styleType, ...props }) => <LibButton {...props} />;
 
-const StyledButton = styled(PureButton)<ButtonStyles>`
+const StyledButton = styled(PureButton)<ButtonStylesProps>`
     font-size: ${getTypography("size.tiny")};
     font-weight: ${getTypography("weight.bold")};
 
@@ -36,6 +37,12 @@ const StyledButton = styled(PureButton)<ButtonStyles>`
             // eslint-disable-next-line
             ${`&[aria-disabled="true"]`} {
                 cursor: not-allowed;
+            }
+
+            &:focus,
+            &:focus-visible,
+            &[data-focus-visible] {
+                outline: ${getFocus("main.borderWidth")} solid ${getFocus("main.borderColor")};
             }
         `;
 

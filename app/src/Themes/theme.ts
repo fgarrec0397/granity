@@ -16,8 +16,8 @@ const theme: DefaultTheme = {
         },
         common: {
             background: "#323232",
-            backgroundAlt: "",
-            backgroundDarker: "#292929",
+            backgroundLight: "#3D3D3D",
+            backgroundDark: "#292929",
             border: "#555555",
             text: "#ffffff",
             textDisabled: "",
@@ -26,6 +26,7 @@ const theme: DefaultTheme = {
     common: {
         borderRadius: {
             button: pxToRem(4),
+            formField: pxToRem(4),
             panel: pxToRem(8),
             panelLarge: pxToRem(12),
             max: "100%",
@@ -34,6 +35,16 @@ const theme: DefaultTheme = {
             main: `0 ${pxToRem(1)} ${pxToRem(3)} 0 rgb(0 0 0 / 0.25), 0 ${pxToRem(1)} ${pxToRem(
                 2
             )} ${pxToRem(-1)} rgb(0 0 0 / 0.1)`,
+        },
+    },
+    focus: {
+        main: {
+            borderColor: "#007ACC",
+            borderWidth: pxToRem(1),
+        },
+        alt: {
+            borderColor: "#007ACC",
+            borderWidth: pxToRem(1),
         },
     },
     typography: {

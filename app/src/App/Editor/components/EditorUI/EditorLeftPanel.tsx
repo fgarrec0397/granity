@@ -1,4 +1,5 @@
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
+import FormField from "@app/Common/components/Html/FormField/FormField";
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import pxToRem from "@themes/utils/pxToRem";
@@ -7,8 +8,6 @@ import { css } from "styled-components";
 
 import EditorFeedback from "./EditorFeedback";
 import EditorWidgetOptions from "./EditorWidgetOptions/EditorWidgetOptions";
-
-// const { Panel } = Collapse;
 
 interface EditorFeedbackStyles {
     wrapper?: StyledWrapperProps;
@@ -31,7 +30,12 @@ const EditorLeftPanel: FC = () => {
     return (
         <StyledWrapper {...styles.wrapper}>
             <Collapse title="yo">
-                test
+                <FormField
+                    label="Label"
+                    labelProps={{ name: "test" }}
+                    inputProps={{ name: "test" }}
+                    errorProps={{ name: "test" }}
+                />
                 {/* <Panel header={selectedWidgets[0].widgetDefinition.name} key="1">
                         <EditorFeedback />
                     </Panel>

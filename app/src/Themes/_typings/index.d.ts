@@ -4,22 +4,28 @@ export type BasicColor = {
     hover: string;
 };
 
-export type ThemeColors = {
+export type BasicFocus = {
+    borderColor: string;
+    borderWidth: string;
+};
+
+export type ThemedColors = {
     primary: BasicColor;
     secondary: BasicColor;
     common: {
         background: string;
-        backgroundAlt: string;
-        backgroundDarker: string;
+        backgroundLight: string;
+        backgroundDark: string;
         border: string;
         text: string;
         textDisabled: string;
     };
 };
 
-export type ThemeCommon = {
+export type ThemedCommon = {
     borderRadius: {
         button: string;
+        formField: string;
         panel: string;
         panelLarge: string;
         max: string;
@@ -29,7 +35,16 @@ export type ThemeCommon = {
     };
 };
 
-export type ThemeTypography = {
+export type ThemedFocus = {
+    main: BasicFocus;
+    alt: BasicFocus;
+};
+
+export type ThemedFormField = {
+    placeholder: string;
+};
+
+export type ThemedTypography = {
     fontFamilyURL: string;
     fontFamily: {
         main: string;
@@ -60,8 +75,10 @@ export type ThemeTypography = {
 
 declare module "styled-components" {
     export interface DefaultTheme {
-        colors: ThemeColors;
-        common: ThemeCommon;
-        typography: ThemeTypography;
+        colors: ThemedColors;
+        common: ThemedCommon;
+        focus: ThemedFocus;
+        formField?: ThemedFormField;
+        typography: ThemedTypography;
     }
 }
