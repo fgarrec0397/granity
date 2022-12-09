@@ -1,5 +1,7 @@
+import { DefaultTheme, ThemeProps } from "styled-components";
+
 import getThemeProperty from "./getThemeProperty";
 
 export default (path: string) => {
-    return getThemeProperty(path, "focus");
+    return (props: ThemeProps<DefaultTheme>) => getThemeProperty(path, "focus", props);
 };

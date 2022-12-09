@@ -1,4 +1,4 @@
-import { getColor, getCommon } from "@themes/utils";
+import { getColor, getCommon, getTypography } from "@themes/utils";
 import getFocus from "@themes/utils/getFocus";
 import pxToRem from "@themes/utils/pxToRem";
 import {
@@ -35,6 +35,8 @@ type Props = FormFieldStyles & FormFieldComponentProps;
 
 const StyledFormLabel = styled(FormLabel)<FormFieldStyles>`
     margin-bottom: ${pxToRem(10)};
+    font-size: ${getTypography("size.tiny")};
+    font-size: ${getTypography("weight.bold")};
 
     ${({ styling }) => styling?.labelCss}
 `;
