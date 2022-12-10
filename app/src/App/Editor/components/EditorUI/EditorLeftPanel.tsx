@@ -1,5 +1,6 @@
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import FormField from "@app/Common/components/Html/FormField/FormField";
+import Select from "@app/Common/components/Html/Select/Select";
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import pxToRem from "@themes/utils/pxToRem";
@@ -36,6 +37,7 @@ const EditorLeftPanel: FC = () => {
                     inputProps={{ name: "test" }}
                     errorProps={{ name: "test" }}
                 />
+                <Select />
                 {/* <Panel header={selectedWidgets[0].widgetDefinition.name} key="1">
                         <EditorFeedback />
                     </Panel>

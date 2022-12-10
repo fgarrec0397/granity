@@ -1,6 +1,4 @@
-import { getColor, getCommon, getTypography } from "@themes/utils";
-import getFocus from "@themes/utils/getFocus";
-import pxToRem from "@themes/utils/pxToRem";
+import { inputStyles, labelStyles } from "@themes/mixins/form";
 import {
     FormError,
     FormErrorOptions,
@@ -34,9 +32,7 @@ export type FormFieldComponentProps = {
 type Props = FormFieldStyles & FormFieldComponentProps;
 
 const StyledFormLabel = styled(FormLabel)<FormFieldStyles>`
-    margin-bottom: ${pxToRem(10)};
-    font-size: ${getTypography("size.tiny")};
-    font-size: ${getTypography("weight.bold")};
+    ${labelStyles()}
 
     ${({ styling }) => styling?.labelCss}
 `;
@@ -44,15 +40,7 @@ const StyledFormLabel = styled(FormLabel)<FormFieldStyles>`
 const StyledFormInput = styled(FormInput)<
     FormFieldStyles & any /* TODO - Find why there an issue with the props type */
 >`
-    background-color: ${getColor("common.backgroundLight")};
-    border: ${getFocus("borderWidth")} solid ${getColor("common.backgroundLight")};
-    border-radius: ${getCommon("borderRadius.formField")};
-
-    &:focus,
-    &:focus-visible,
-    &[data-focus-visible] {
-        outline: ${getFocus("main.borderWidth")} solid ${getFocus("main.borderColor")};
-    }
+    ${inputStyles()}
 
     ${({ styling }) => styling?.inputCss}
 `;

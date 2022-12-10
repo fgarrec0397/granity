@@ -1,5 +1,5 @@
-import { getColor, getCommon, getTypography } from "@themes/utils";
-import getFocus from "@themes/utils/getFocus";
+import { baseButtonStyles } from "@themes/mixins/buttons";
+import { getColor, getTypography } from "@themes/utils";
 import pxToRem from "@themes/utils/pxToRem";
 import { Button as LibButton, ButtonProps } from "ariakit/button";
 import { FC, ReactNode } from "react";
@@ -27,28 +27,9 @@ const StyledButton = styled(PureButton)<ButtonStylesProps>`
     font-weight: ${getTypography("weight.bold")};
 
     ${({ styleType, isFullWidth }) => {
-        const baseButtonStyles = css`
-            padding: ${pxToRem(6, 20)};
-            width: ${isFullWidth ? "100%" : "auto"};
-            text-align: center;
-            border-radius: ${getCommon("borderRadius.button")};
-            cursor: pointer;
-
-            // eslint-disable-next-line
-            ${`&[aria-disabled="true"]`} {
-                cursor: not-allowed;
-            }
-
-            &:focus,
-            &:focus-visible,
-            &[data-focus-visible] {
-                outline: ${getFocus("main.borderWidth")} solid ${getFocus("main.borderColor")};
-            }
-        `;
-
         if (styleType === "outlined") {
             return css`
-                ${baseButtonStyles}
+                ${baseButtonStyles(isFullWidth)}
                 background-color: transparent;
                 color: ${getColor("primary.main")};
                 border: ${pxToRem(1)} solid ${getColor("primary.main")};
@@ -62,7 +43,7 @@ const StyledButton = styled(PureButton)<ButtonStylesProps>`
 
         if (styleType === "filled") {
             return css`
-                ${baseButtonStyles}
+                ${baseButtonStyles(isFullWidth)}
                 background-color: ${getColor("primary.main")};
                 color: ${getColor("primary.contrast")};
                 border: ${pxToRem(1)} solid ${getColor("primary.main")};
@@ -75,7 +56,7 @@ const StyledButton = styled(PureButton)<ButtonStylesProps>`
         }
 
         return css`
-            ${baseButtonStyles}
+            ${baseButtonStyles(isFullWidth)}
             padding: 0;
             background-color: transparent;
             border: none;
