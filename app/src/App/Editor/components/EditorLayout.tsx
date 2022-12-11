@@ -2,9 +2,9 @@ import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/S
 import { FC } from "react";
 import { css } from "styled-components";
 
-import EditorGameUIPreviewButton from "./EditorGameUIPreviewButton";
-import EditorScenesList from "./EditorScenesList";
-import EditorUIList from "./EditorUIList";
+import EditorGameUIPreviewButton from "./EditorHeader/EditorGameUIPreviewButton";
+import EditorScenesList from "./EditorRightPanel/EditorScenesList";
+import EditorUIList from "./EditorRightPanel/EditorUIList";
 import { EditorItemsList, EditorLeftPanel, EditorSaveButton, EditorWidgetsMenu } from "./index";
 
 interface EditorStyles {
