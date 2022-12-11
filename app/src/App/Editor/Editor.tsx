@@ -6,7 +6,7 @@ import { FC } from "react";
 
 import useEditorKeyboardControls from "./_actions/hooks/useEditorKeyboardControls";
 import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateChange";
-import EditorUI from "./components/EditorUI/EditorUI";
+import EditorLayout from "./components/EditorUI/EditorLayout";
 
 const Editor: FC = () => {
     const { widgetsObjects, selectWidgetFromMeshArr } = useWidgets();
@@ -22,4 +22,4 @@ const Editor: FC = () => {
     );
 };
 
-export default { Editor, EditorUI };
+export default { Editor, EditorUI: EditorLayout };

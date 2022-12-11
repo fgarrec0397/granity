@@ -5,31 +5,14 @@ import { css } from "styled-components";
 import EditorGameUIPreviewButton from "./EditorGameUIPreviewButton";
 import EditorScenesList from "./EditorScenesList";
 import EditorUIList from "./EditorUIList";
-import {
-    EditorItemsList,
-    EditorLeftPanel,
-    EditorModeSelector,
-    EditorSaveButton,
-    EditorWidgetsMenu,
-} from "./index";
+import { EditorItemsList, EditorLeftPanel, EditorSaveButton, EditorWidgetsMenu } from "./index";
 
 interface EditorStyles {
-    topWrapper?: StyledWrapperProps;
     rightWrapper?: StyledWrapperProps;
     bottomWrapper?: StyledWrapperProps;
 }
 
 const styles: EditorStyles = {
-    topWrapper: {
-        css: css`
-            position: absolute;
-            top: 1em;
-            left: 1em;
-            display: flex;
-            align-items: flex-start;
-            user-select: none;
-        `,
-    },
     rightWrapper: {
         css: css`
             position: absolute;
@@ -56,10 +39,7 @@ const styles: EditorStyles = {
 const EditorUI: FC = () => {
     return (
         <>
-            <StyledWrapper {...styles.topWrapper}>
-                <EditorLeftPanel />
-                <EditorModeSelector />
-            </StyledWrapper>
+            <EditorLeftPanel />
             <StyledWrapper {...styles.rightWrapper}>
                 <EditorItemsList />
                 <EditorUIList />

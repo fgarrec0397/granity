@@ -29,8 +29,8 @@ const theme: DefaultTheme = {
         borderRadius: {
             button: pxToRem(4),
             formField: pxToRem(4),
-            panel: pxToRem(8),
-            panelLarge: pxToRem(12),
+            panel: pxToRem(0),
+            panelLarge: pxToRem(0),
             popover: pxToRem(8),
             max: "100%",
         },

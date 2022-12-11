@@ -7,6 +7,7 @@ import {
     DisclosureContent,
     DisclosureContentProps,
     DisclosureProps,
+    DisclosureState,
     useDisclosureState,
 } from "ariakit";
 import { FC } from "react";
@@ -23,18 +24,11 @@ export type CollapseStylesProps = BaseStyles & {
 export type CollapseComponentsProps = {
     title: string;
     titleProps?: DisclosureProps;
+    disclosureState?: DisclosureState;
     contentProps?: DisclosureContentProps;
 };
 
 type Props = CollapseStylesProps & CollapseComponentsProps & HasChildren;
-
-const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
-    border-radius: ${getCommon("borderRadius.panel")};
-    background-color: ${getColor("common.backgroundDark")};
-    box-shadow: ${getCommon("boxShadow.main")};
-
-    ${(props) => props.css}
-`;
 
 const baseCollapseStyles = () => css`
     padding: ${pxToRem(10, 15)};
@@ -42,6 +36,14 @@ const baseCollapseStyles = () => css`
     font-size: ${getTypography("size.smaller")}
     font-weight: ${getTypography("weight.bold")};
     text-align: left;
+`;
+
+const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
+    border-radius: ${getCommon("borderRadius.panel")};
+    background-color: ${getColor("common.backgroundDark")};
+    box-shadow: ${getCommon("boxShadow.main")};
+
+    ${(props) => props.css}
 `;
 
 const StyledCollapse = styled(Disclosure)<CollapseStylesProps>`
@@ -69,8 +71,8 @@ const StyledCollapseContent = styled(DisclosureContent)<CollapseStylesProps>`
     border-bottom-right-radius: ${getCommon("borderRadius.panel")};
 `;
 
-const Collapse: FC<Props> = ({ children, contentProps, title, titleProps }) => {
-    const disclosure = useDisclosureState();
+const Collapse: FC<Props> = ({ children, contentProps, disclosureState, title, titleProps }) => {
+    const disclosure = useDisclosureState({ defaultOpen: true, ...disclosureState });
 
     const mergedTitleProps: DisclosureProps = {
         ...titleProps,
