@@ -13,6 +13,8 @@ export type ThemedColors = {
     primary: BasicColor;
     secondary: BasicColor;
     common: {
+        active: string;
+        activeContrast: string;
         background: string;
         backgroundLight: string;
         backgroundDark: string;
@@ -28,6 +30,7 @@ export type ThemedCommon = {
         formField: string;
         panel: string;
         panelLarge: string;
+        popover: string;
         max: string;
     };
     boxShadow: {

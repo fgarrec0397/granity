@@ -27,27 +27,33 @@ const styles: EditorFeedbackStyles = {
 const EditorLeftPanel: FC = () => {
     const { selectedWidgets } = useWidgets();
 
-    // if (selectedWidgets[0]) {
-    return (
-        <StyledWrapper {...styles.wrapper}>
-            <Collapse title="yo">
-                <FormField
-                    label="Label"
-                    labelProps={{ name: "test" }}
-                    inputProps={{ name: "test" }}
-                    errorProps={{ name: "test" }}
-                />
-                <Select />
-                {/* <Panel header={selectedWidgets[0].widgetDefinition.name} key="1">
+    if (selectedWidgets[0]) {
+        return (
+            <StyledWrapper {...styles.wrapper}>
+                <Collapse title="Mode">
+                    <Select
+                        options={[
+                            {
+                                value: "test1",
+                            },
+                            {
+                                value: "test2",
+                            },
+                        ]}
+                        onChange={() => {
+                            console.log("select on change");
+                        }}
+                    />
+                    {/* <Panel header={selectedWidgets[0].widgetDefinition.name} key="1">
                         <EditorFeedback />
                     </Panel>
                     <Panel header="Options" key="2">
                         <EditorWidgetOptions />
                     </Panel> */}
-            </Collapse>
-        </StyledWrapper>
-    );
-    // }
+                </Collapse>
+            </StyledWrapper>
+        );
+    }
 
     return null;
 };

@@ -1,18 +1,21 @@
+import { actionStyles } from "@themes/mixins/common";
 import { inputStyles, labelStyles } from "@themes/mixins/form";
-import { getColor } from "@themes/utils";
-import { FormErrorOptions, FormInputOptions, FormLabelOptions } from "ariakit";
+import { getColor, getCommon, pxToRem } from "@themes/utils";
+import { FormInputOptions, FormLabelOptions } from "ariakit";
 import {
     Select as SelectLib,
     SelectItem,
+    SelectItemOptions,
     SelectLabel,
     SelectPopover,
+    SelectPopoverOptions,
     useSelectState,
 } from "ariakit/select";
 import { FC } from "react";
 import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
 import { FormFieldStyles } from "../FormField/FormField";
-import StyledWrapper from "../StyledWrapper";
+import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper";
 
 export type SelectStyles = {
     styling?: {
@@ -24,12 +27,11 @@ export type SelectStyles = {
 };
 
 export type FormFieldComponentProps = {
+    defaultValue?: string;
     label?: string;
     labelPosition?: "left" | "top";
-    labelProps: FormLabelOptions<"label">;
-    inputProps: FormInputOptions<"input">;
-    errorProps: FormErrorOptions<"div">;
-};
+    options: SelectItemOptions<"div">[];
+} & import("ariakit-utils/types").Component<SelectPopoverOptions<"div">>;
 
 type Props = SelectStyles & FormFieldComponentProps;
 
@@ -43,6 +45,7 @@ const StyledSelectInput = styled(SelectLib)<
     FormFieldStyles & any /* TODO - Find why there an issue with the props type */
 >`
     ${inputStyles()}
+    ${actionStyles()}
 
     ${({ styling }) => styling?.inputCss}
 `;
@@ -50,52 +53,82 @@ const StyledSelectInput = styled(SelectLib)<
 const StyledSelectPopover = styled(SelectPopover)<
     FormFieldStyles & any /* TODO - Find why there an issue with the props type */
 >`
+    display: block;
     background-color: ${getColor("common.backgroundLight")};
+    border-radius: ${getCommon("borderRadius.popover")};
 
     ${({ styling }) => styling?.inputCss}
 `;
 
 const StyledSelectItem = styled(SelectItem)`
     display: flex;
-    cursor: default;
-    scroll-margin: 0.5rem;
     align-items: center;
-    gap: 0.5rem;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    outline: none !important;
+    padding: ${pxToRem(8)};
+    scroll-margin: ${pxToRem(8)};
+    cursor: pointer;
+    border-radius: 0;
 
+    &:first-child {
+        border-top-left-radius: ${getCommon("borderRadius.popover")};
+        border-top-right-radius: ${getCommon("borderRadius.popover")};
+    }
+
+    &:last-child {
+        border-bottom-left-radius: ${getCommon("borderRadius.popover")};
+        border-bottom-right-radius: ${getCommon("borderRadius.popover")};
+    }
+
+    &:hover,
     &[data-active-item] {
-        background-color: hsl(204 100% 40%);
-        color: hsl(204 20% 100%);
+        background-color: ${getColor("common.active")};
+        color: ${getColor("common.activeContrast")};
     }
 
     &[aria-disabled="true"] {
         opacity: 0.5;
+        cursor: not-allowed;
     }
 `;
 
-const wrapperStyles = css`
-    position: relative;
-`;
-
-const Select: FC = () => {
-    const select = useSelectState({
-        defaultValue: "Apple",
-        animated: true,
+const Select: FC<Props> = ({ defaultValue, label, labelPosition, options, styling }) => {
+    const selectState = useSelectState({
+        defaultValue,
         sameWidth: true,
         gutter: 4,
     });
 
+    const wrapperStyles: StyledWrapperProps = {
+        css: css`
+            ${styling?.wrapperCss}
+            display: flex;
+
+            ${labelPosition === "left"
+                ? css`
+                      flex-direction: row;
+                      align-items: center;
+                  `
+                : css`
+                      flex-direction: column;
+                  `}
+        `,
+    };
+
     return (
-        <StyledWrapper css={wrapperStyles}>
-            <StyledSelectLabel state={select}>Favorite fruit</StyledSelectLabel>
-            <StyledSelectInput state={select} className="select" />
-            <StyledSelectPopover state={select} className="popover">
-                <StyledSelectItem className="select-item" value="Apple" />
-                <StyledSelectItem className="select-item" value="Banana" />
-                <StyledSelectItem className="select-item" value="Grape" disabled />
-                <StyledSelectItem className="select-item" value="Orange" />
+        <StyledWrapper {...wrapperStyles}>
+            <StyledSelectLabel state={selectState}>{label}</StyledSelectLabel>
+            <StyledSelectInput state={selectState} />
+            <StyledSelectPopover
+                state={selectState}
+                portal
+                onChange={() => {
+                    console.log("changed");
+                }}
+            >
+                {options.map((x) => (
+                    <StyledSelectItem key={x.value} {...x}>
+                        test
+                    </StyledSelectItem>
+                ))}
             </StyledSelectPopover>
         </StyledWrapper>
     );

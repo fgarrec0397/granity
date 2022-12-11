@@ -2,6 +2,8 @@ import { getColor, getCommon, getTypography, pxToRem } from "@themes/utils";
 import getFocus from "@themes/utils/getFocus";
 import { css } from "styled-components";
 
+import { focusStyles } from "./common";
+
 export const labelStyles = () => {
     return css`
         margin-bottom: ${pxToRem(10)};
@@ -20,10 +22,6 @@ export const inputStyles = () => {
         border: ${getFocus("borderWidth")} solid ${getColor("common.backgroundLight")};
         border-radius: ${getCommon("borderRadius.formField")};
 
-        &:focus,
-        &:focus-visible,
-        &[data-focus-visible] {
-            outline: ${getFocus("main.borderWidth")} solid ${getFocus("main.borderColor")};
-        }
+        ${focusStyles()}
     `;
 };

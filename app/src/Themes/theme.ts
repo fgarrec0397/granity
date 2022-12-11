@@ -15,6 +15,8 @@ const theme: DefaultTheme = {
             hover: "",
         },
         common: {
+            active: "#007ACC",
+            activeContrast: "#ffffff",
             background: "#323232",
             backgroundLight: "#3D3D3D",
             backgroundDark: "#292929",
@@ -29,6 +31,7 @@ const theme: DefaultTheme = {
             formField: pxToRem(4),
             panel: pxToRem(8),
             panelLarge: pxToRem(12),
+            popover: pxToRem(8),
             max: "100%",
         },
         boxShadow: {

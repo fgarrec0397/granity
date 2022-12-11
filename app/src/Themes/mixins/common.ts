@@ -3,13 +3,19 @@ import { css } from "styled-components";
 
 export const actionStyles = () => {
     return css`
+        ${focusStyles()}
+
         cursor: pointer;
 
         // eslint-disable-next-line
         ${`&[aria-disabled="true"]`} {
             cursor: not-allowed;
         }
+    `;
+};
 
+export const focusStyles = () => {
+    return css`
         &:focus,
         &:focus-visible,
         &[data-focus-visible] {
