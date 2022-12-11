@@ -1,16 +1,18 @@
 import { actionStyles } from "@themes/mixins/common";
 import { inputStyles, labelStyles } from "@themes/mixins/form";
 import { getColor, getCommon, pxToRem } from "@themes/utils";
-import { FormInputOptions, FormLabelOptions } from "ariakit";
 import {
     Select as SelectLib,
     SelectItem,
     SelectItemOptions,
     SelectLabel,
     SelectPopover,
-    SelectPopoverOptions,
+    SelectPopoverProps,
+    SelectState,
+    SelectStateProps,
     useSelectState,
 } from "ariakit/select";
+import { SetState } from "ariakit-utils/types";
 import { FC } from "react";
 import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
@@ -31,7 +33,11 @@ export type FormFieldComponentProps = {
     label?: string;
     labelPosition?: "left" | "top";
     options: SelectItemOptions<"div">[];
-} & import("ariakit-utils/types").Component<SelectPopoverOptions<"div">>;
+    selectProps?: Omit<SelectPopoverProps, "state">;
+    selectStateProps?: Omit<SelectStateProps, "setValue"> & {
+        onChange?: SetState<SelectState["value"]>;
+    };
+};
 
 type Props = SelectStyles & FormFieldComponentProps;
 
@@ -53,7 +59,6 @@ const StyledSelectInput = styled(SelectLib)<
 const StyledSelectPopover = styled(SelectPopover)<
     FormFieldStyles & any /* TODO - Find why there an issue with the props type */
 >`
-    display: block;
     background-color: ${getColor("common.backgroundLight")};
     border-radius: ${getCommon("borderRadius.popover")};
 
@@ -90,11 +95,21 @@ const StyledSelectItem = styled(SelectItem)`
     }
 `;
 
-const Select: FC<Props> = ({ defaultValue, label, labelPosition, options, styling }) => {
+const Select: FC<Props> = ({
+    defaultValue,
+    label,
+    labelPosition,
+    options,
+    styling,
+    selectProps,
+    selectStateProps,
+}) => {
     const selectState = useSelectState({
         defaultValue,
         sameWidth: true,
         gutter: 4,
+        setValue: selectStateProps?.onChange,
+        ...selectStateProps,
     });
 
     const wrapperStyles: StyledWrapperProps = {
@@ -117,16 +132,10 @@ const Select: FC<Props> = ({ defaultValue, label, labelPosition, options, stylin
         <StyledWrapper {...wrapperStyles}>
             <StyledSelectLabel state={selectState}>{label}</StyledSelectLabel>
             <StyledSelectInput state={selectState} />
-            <StyledSelectPopover
-                state={selectState}
-                portal
-                onChange={() => {
-                    console.log("changed");
-                }}
-            >
+            <StyledSelectPopover state={selectState} {...selectProps}>
                 {options.map((x) => (
                     <StyledSelectItem key={x.value} {...x}>
-                        test
+                        {x.value}
                     </StyledSelectItem>
                 ))}
             </StyledSelectPopover>

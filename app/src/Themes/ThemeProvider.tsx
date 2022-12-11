@@ -1,11 +1,10 @@
-import { FC, ReactNode } from "react";
+import { HasChildren } from "@app/Common/commonTypes";
+import { FC } from "react";
 import { ThemeProvider as ThemeProviderLib } from "styled-components";
 
 import theme from "./theme";
 
-type Props = {
-    children: ReactNode;
-};
+type Props = HasChildren;
 
 const ThemeProvider: FC<Props> = ({ children }) => {
     return <ThemeProviderLib theme={theme}>{children}</ThemeProviderLib>;

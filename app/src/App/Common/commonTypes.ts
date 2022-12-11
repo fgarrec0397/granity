@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 // eslint-disable-next-line import/named
 import { GLTF } from "three-stdlib";
 
@@ -50,3 +51,12 @@ export type Vector3Array = [number, number, number];
  * Equivalent of `{}`
  */
 export type OptionalType = Record<string, never>;
+
+// <-------------------- REACT -------------------->
+
+/**
+ * A React with children prop
+ */
+export type HasChildren = {
+    children: ReactNode;
+};

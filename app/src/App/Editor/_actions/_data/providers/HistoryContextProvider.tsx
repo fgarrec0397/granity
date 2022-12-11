@@ -1,4 +1,5 @@
-import { createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
+import { HasChildren } from "@app/Common/commonTypes";
+import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
 import { HistoryDictionary, HistoryItem } from "../../editorTypes";
 
@@ -22,9 +23,7 @@ export const defaultContext: HistoryContextModel = {
 
 export const HistoryDictionaryContext = createContext<HistoryContextModel>(defaultContext);
 
-type Props = {
-    children: ReactNode;
-};
+type Props = HasChildren;
 
 const HistoryDictionaryContextProvider: FC<Props> = ({ children }) => {
     const [historyDictionary, setHistoryDictionary] = useState<HistoryDictionary>({});

@@ -1,10 +1,9 @@
+import { HasChildren } from "@app/Common/commonTypes";
 import AppProvider from "@app/Core/_actions/_data/providers/AppProvider";
 import { render, renderHook, RenderOptions } from "@testing-library/react";
-import { FC, ReactElement, ReactNode } from "react";
+import { FC, ReactElement } from "react";
 
-type Props = {
-    children: ReactNode;
-};
+type Props = HasChildren;
 
 export const TestAppProviders: FC<Props> = ({ children }) => {
     return <AppProvider>{children}</AppProvider>;

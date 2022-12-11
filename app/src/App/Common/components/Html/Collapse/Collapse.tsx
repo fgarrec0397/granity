@@ -1,3 +1,4 @@
+import { HasChildren } from "@app/Common/commonTypes";
 import { getColor, getCommon } from "@themes/utils";
 import getTypography from "@themes/utils/getTypography";
 import pxToRem from "@themes/utils/pxToRem";
@@ -8,7 +9,7 @@ import {
     DisclosureProps,
     useDisclosureState,
 } from "ariakit";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import styled, { css } from "styled-components";
 
 import { BaseStyles } from "../htmlTypes";
@@ -25,10 +26,7 @@ export type CollapseComponentsProps = {
     contentProps?: DisclosureContentProps;
 };
 
-type Props = CollapseStylesProps &
-    CollapseComponentsProps & {
-        children: ReactNode;
-    };
+type Props = CollapseStylesProps & CollapseComponentsProps & HasChildren;
 
 const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
     border-radius: ${getCommon("borderRadius.panel")};

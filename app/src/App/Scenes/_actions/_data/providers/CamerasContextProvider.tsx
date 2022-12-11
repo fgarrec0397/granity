@@ -1,4 +1,5 @@
-import { createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
+import { HasChildren } from "@app/Common/commonTypes";
+import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
 import { SceneCamera } from "../../scenesTypes";
 
@@ -18,10 +19,7 @@ export const defaultContext: CamerasContextModel = {
 
 export const CamerasContext = createContext<CamerasContextModel>(defaultContext);
 
-type Props = {
-    children: ReactNode;
-};
-
+type Props = HasChildren;
 const CamerasContextProvider: FC<Props> = ({ children }) => {
     const [cameras, setCameras] = useState<SceneCamera[]>([]);
     const [currentCameraId, setCurrentCameraId] = useState<string | null>(null);

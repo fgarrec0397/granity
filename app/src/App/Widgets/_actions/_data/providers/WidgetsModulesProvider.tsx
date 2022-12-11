@@ -1,4 +1,5 @@
-import { createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
+import { HasChildren } from "@app/Common/commonTypes";
+import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
 import { WidgetObjectModule, WidgetUIModule } from "../../widgetsTypes";
 
@@ -18,9 +19,7 @@ export const defaultContext: WidgetModuleContextModel = {
 
 export const WidgetsModulesContext = createContext<WidgetModuleContextModel>(defaultContext);
 
-type Props = {
-    children: ReactNode;
-};
+type Props = HasChildren;
 
 const WidgetsModulesContextProvider: FC<Props> = ({ children }) => {
     const [widgetsObjectModules, setWidgetsModules] = useState<WidgetObjectModule[]>([]);

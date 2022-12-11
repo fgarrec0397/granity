@@ -1,5 +1,6 @@
+import { HasChildren } from "@app/Common/commonTypes";
 import { WidgetDictionary, WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
-import { createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
+import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
 export interface WidgetsContextModel {
     widgets: WidgetDictionary;
@@ -17,9 +18,7 @@ export const widgetsDefaultContext: WidgetsContextModel = {
 
 export const WidgetsContext = createContext<WidgetsContextModel>(widgetsDefaultContext);
 
-type Props = {
-    children: ReactNode;
-};
+type Props = HasChildren;
 
 const WidgetsContextProvider: FC<Props> = ({ children }) => {
     const [widgets, setWidgets] = useState<WidgetDictionary>({});

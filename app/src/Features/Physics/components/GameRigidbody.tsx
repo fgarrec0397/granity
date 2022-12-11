@@ -1,11 +1,12 @@
+import { HasChildren } from "@app/Common/commonTypes";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import { RigidBody, RigidBodyApi, RigidBodyProps } from "@react-three/rapier";
-import { forwardRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
-type Props = RigidBodyProps & {
-    hasPhysic?: boolean;
-    children: ReactNode;
-};
+type Props = RigidBodyProps &
+    HasChildren & {
+        hasPhysic?: boolean;
+    };
 
 const GameRigidbody = forwardRef<RigidBodyApi, Props>(({ children, ...rigidbodyProps }, ref) => {
     const { isEditor } = useEditor();

@@ -1,8 +1,9 @@
+import { HasChildren } from "@app/Common/commonTypes";
 import { baseButtonStyles } from "@themes/mixins/buttons";
 import { getColor, getTypography } from "@themes/utils";
 import pxToRem from "@themes/utils/pxToRem";
 import { Button as LibButton, ButtonProps } from "ariakit/button";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
 export type ButtonStyleTypes = "outlined" | "filled" | "none";
@@ -15,10 +16,7 @@ export type ButtonStylesProps = {
 
 export type ButtonComponents = ButtonProps;
 
-type Props = ButtonStylesProps &
-    ButtonComponents & {
-        children: ReactNode;
-    };
+type Props = ButtonStylesProps & ButtonComponents & HasChildren;
 
 const PureButton: FC<Props> = ({ isFullWidth, styleType, ...props }) => <LibButton {...props} />;
 

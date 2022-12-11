@@ -1,5 +1,6 @@
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import FormField from "@app/Common/components/Html/FormField/FormField";
+import Panel from "@app/Common/components/Html/Panel/Panel";
 import Select from "@app/Common/components/Html/Select/Select";
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
@@ -25,37 +26,11 @@ const styles: EditorFeedbackStyles = {
 };
 
 const EditorLeftPanel: FC = () => {
-    const { selectedWidgets } = useWidgets();
+    // const { selectedWidgets } = useWidgets();
 
-    if (selectedWidgets[0]) {
-        return (
-            <StyledWrapper {...styles.wrapper}>
-                <Collapse title="Mode">
-                    <Select
-                        options={[
-                            {
-                                value: "test1",
-                            },
-                            {
-                                value: "test2",
-                            },
-                        ]}
-                        onChange={() => {
-                            console.log("select on change");
-                        }}
-                    />
-                    {/* <Panel header={selectedWidgets[0].widgetDefinition.name} key="1">
-                        <EditorFeedback />
-                    </Panel>
-                    <Panel header="Options" key="2">
-                        <EditorWidgetOptions />
-                    </Panel> */}
-                </Collapse>
-            </StyledWrapper>
-        );
-    }
-
-    return null;
+    // if (selectedWidgets[0]) {
+    // }
+    return <Panel {...styles.wrapper}>test</Panel>;
 };
 
 export default EditorLeftPanel;
