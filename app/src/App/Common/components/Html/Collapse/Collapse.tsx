@@ -1,4 +1,5 @@
 import { HasChildren } from "@app/Common/commonTypes";
+import { boxStyles } from "@themes/mixins/box";
 import { getColor, getCommon } from "@themes/utils";
 import getTypography from "@themes/utils/getTypography";
 import pxToRem from "@themes/utils/pxToRem";
@@ -39,9 +40,8 @@ const baseCollapseStyles = () => css`
 `;
 
 const StyledWrapper = styled(AppStyledWrapper)<StyledWrapperProps>`
-    border-radius: ${getCommon("borderRadius.panel")};
-    background-color: ${getColor("common.backgroundDark")};
-    box-shadow: ${getCommon("boxShadow.main")};
+    ${boxStyles()}
+    padding: ${pxToRem(0)};
 
     ${(props) => props.css}
 `;

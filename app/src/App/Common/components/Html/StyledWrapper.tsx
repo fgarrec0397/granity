@@ -1,9 +1,9 @@
 import { HasChildren } from "@app/Common/commonTypes";
 import { FC } from "react";
-import styled, { FlattenSimpleInterpolation } from "styled-components";
+import styled, { DefaultTheme, Interpolation, ThemeProps } from "styled-components";
 
 export interface StyledWrapperProps {
-    css?: FlattenSimpleInterpolation;
+    css?: Interpolation<ThemeProps<DefaultTheme>>;
 }
 
 type Props = StyledWrapperProps &

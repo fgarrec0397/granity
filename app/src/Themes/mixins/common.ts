@@ -7,8 +7,7 @@ export const actionStyles = () => {
 
         cursor: pointer;
 
-        // eslint-disable-next-line
-        ${`&[aria-disabled="true"]`} {
+        &[aria-disabled="true"] {
             cursor: not-allowed;
         }
     `;

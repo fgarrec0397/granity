@@ -1,23 +1,36 @@
+import { StyledWrapper } from "@app/Common/components/Html";
 import Panel, { PanelStyles } from "@app/Common/components/Html/Panel/Panel";
+import { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
+import { layoutStyles } from "@themes/mixins/layout";
+import { pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
 
 import EditorModeSelector from "./EditorModeSelector";
+import EditorSelectedWidget from "./EditorSelectedWidget";
 
 type EditorLeftPanelStyles = {
-    panelStyles: PanelStyles;
+    wrapper: StyledWrapperProps;
+    panel: PanelStyles;
 };
 
 const styles: EditorLeftPanelStyles = {
-    panelStyles: {
+    wrapper: {
+        css: css`
+            width: 100%;
+            max-width: ${pxToRem(300)};
+
+            ${layoutStyles(110, undefined, undefined, 30)}
+        `,
+    },
+    panel: {
         wrapper: {
             css: css`
-                position: absolute;
-                top: 1em;
-                left: 1em;
-                display: flex;
-                align-items: flex-start;
-                user-select: none;
+                margin-bottom: ${pxToRem(15)};
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             `,
         },
     },
@@ -25,9 +38,14 @@ const styles: EditorLeftPanelStyles = {
 
 const EditorLeftPanel: FC = () => {
     return (
-        <Panel {...styles.panelStyles}>
-            <EditorModeSelector />
-        </Panel>
+        <StyledWrapper {...styles.wrapper}>
+            <Panel {...styles.panel}>
+                <EditorSelectedWidget />
+            </Panel>
+            <Panel {...styles.panel}>
+                <EditorModeSelector />
+            </Panel>
+        </StyledWrapper>
     );
 };
 
