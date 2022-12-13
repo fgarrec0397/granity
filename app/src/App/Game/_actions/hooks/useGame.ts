@@ -1,3 +1,4 @@
+import registerHook from "@app/Core/_actions/utilities/registerHook";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import useCameras from "@app/Scenes/_actions/hooks/useCameras";
 import { useCallback } from "react";
@@ -5,7 +6,7 @@ import { useCallback } from "react";
 import useGameService from "../_data/hooks/useGameService";
 import getStartingCamera from "../utilities/getStartingCamera";
 
-export default () => {
+export default registerHook("useGame", () => {
     const { updateIsGamePaused } = useGameService();
 
     const { closeEditor } = useEditor();
@@ -35,4 +36,4 @@ export default () => {
         pauseGame,
         playGame,
     };
-};
+});
