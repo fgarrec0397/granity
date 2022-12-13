@@ -18,7 +18,8 @@ export const focusStyles = () => {
         &:focus,
         &:focus-visible,
         &[data-focus-visible] {
-            outline: ${getFocus("main.borderWidth")} solid ${getFocus("main.borderColor")};
+            outline-offset: ${getFocus("alt.borderOffset")};
+            outline: ${getFocus("alt.borderWidth")} solid ${getFocus("alt.borderColor")};
         }
     `;
 };

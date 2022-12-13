@@ -44,10 +44,12 @@ const theme: DefaultTheme = {
         main: {
             borderColor: "#007ACC",
             borderWidth: pxToRem(1),
+            borderOffset: pxToRem(1),
         },
         alt: {
             borderColor: "#007ACC",
-            borderWidth: pxToRem(1),
+            borderWidth: pxToRem(2),
+            borderOffset: pxToRem(1),
         },
     },
     typography: {

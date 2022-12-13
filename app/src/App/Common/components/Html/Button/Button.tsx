@@ -1,5 +1,6 @@
 import { HasChildren } from "@app/Common/commonTypes";
 import { baseButtonStyles } from "@themes/mixins/buttons";
+import { actionStyles } from "@themes/mixins/common";
 import { getColor, getTypography } from "@themes/utils";
 import pxToRem from "@themes/utils/pxToRem";
 import { Button as LibButton, ButtonProps } from "ariakit/button";
@@ -10,6 +11,7 @@ export type ButtonStyleTypes = "outlined" | "filled" | "none";
 
 export type ButtonStylesProps = {
     isFullWidth?: boolean;
+    noStyles?: boolean;
     styleType?: ButtonStyleTypes;
     css?: FlattenSimpleInterpolation;
 };
@@ -53,18 +55,22 @@ const StyledButton = styled(PureButton)<ButtonStylesProps>`
             `;
         }
 
-        return css`
-            ${baseButtonStyles(isFullWidth)}
-            padding: 0;
-            background-color: transparent;
-            border: none;
-        `;
+        if (styleType === "none") {
+            return css`
+                ${baseButtonStyles(isFullWidth)}
+                ${actionStyles()}
+                padding: 0;
+                margin: 0;
+                background-color: transparent;
+                border: none;
+            `;
+        }
     }}
 
     ${(props) => props.css}
 `;
 
-const Button: FC<Props> = ({ children, isFullWidth, styleType, ...props }) => {
+const Button: FC<Props> = ({ children, isFullWidth, styleType, noStyles, ...props }) => {
     return (
         <StyledButton isFullWidth={isFullWidth} styleType={styleType} {...props}>
             {children}

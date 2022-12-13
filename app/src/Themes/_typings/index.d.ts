@@ -7,6 +7,7 @@ export type BasicColor = {
 export type BasicFocus = {
     borderColor: string;
     borderWidth: string;
+    borderOffset: string;
 };
 
 export type ThemedColors = {
