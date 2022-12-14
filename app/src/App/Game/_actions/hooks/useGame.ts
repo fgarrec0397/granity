@@ -1,31 +1,25 @@
+import registerHook from "@app/Core/_actions/utilities/registerHook";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
-import useCameras from "@app/Scenes/_actions/hooks/useCameras";
 import { useCallback } from "react";
 
 import useGameService from "../_data/hooks/useGameService";
-import getStartingCamera from "../utilities/getStartingCamera";
 
-export default () => {
+export default registerHook("useGame", () => {
     const { updateIsGamePaused } = useGameService();
 
     const { closeEditor } = useEditor();
-    const { gameCameras, setCurrentCamera } = useCameras();
 
     // This function is called when the game init
     const startGame = () => {
-        const startingGameCamera = getStartingCamera(gameCameras);
-
         closeEditor();
-
-        if (startingGameCamera?.id && startingGameCamera.cameraRef.current) {
-            setCurrentCamera(startingGameCamera.id, startingGameCamera.position);
-        }
     };
 
+    // Put the current game on pause
     const pauseGame = useCallback(() => {
         updateIsGamePaused(true);
     }, [updateIsGamePaused]);
 
+    // Put the current game on play
     const playGame = useCallback(() => {
         updateIsGamePaused(false);
     }, [updateIsGamePaused]);
@@ -35,4 +29,4 @@ export default () => {
         pauseGame,
         playGame,
     };
-};
+});
