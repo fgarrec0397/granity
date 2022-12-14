@@ -1,18 +1,25 @@
-import Button from "@app/Common/components/Html/Button/Button";
+import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
 import Play from "@app/Common/components/Html/Icons/Play";
+import useGame from "@app/Game/_actions/hooks/useGame";
 import { FC } from "react";
 
-const EditorPlayButton: FC = () => {
-    // const { startGame } = useGame(); // TODO - work on aevent system to make this work ?
+export type EditorPlayButtonPropsStyles = {
+    button?: ButtonStylesProps;
+};
+
+export type EditorPlayButtonProps = {
+    styles?: EditorPlayButtonPropsStyles;
+};
+
+const EditorPlayButton: FC<EditorPlayButtonProps> = ({ styles }) => {
+    const { startGame } = useGame();
 
     const onClickPlayHandler = () => {
-        console.log("Start game");
-
-        // startGame();
+        startGame();
     };
 
     return (
-        <Button onClick={onClickPlayHandler} styleType="none">
+        <Button onClick={onClickPlayHandler} styleType="none" {...styles?.button}>
             <Play />
         </Button>
     );

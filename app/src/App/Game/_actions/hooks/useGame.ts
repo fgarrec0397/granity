@@ -1,10 +1,9 @@
-import registerHook from "@app/Core/_actions/utilities/registerHook";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import { useCallback } from "react";
 
 import useGameService from "../_data/hooks/useGameService";
 
-export default registerHook("useGame", () => {
+export default () => {
     const { updateIsGamePaused } = useGameService();
 
     const { closeEditor } = useEditor();
@@ -29,4 +28,4 @@ export default registerHook("useGame", () => {
         pauseGame,
         playGame,
     };
-});
+};

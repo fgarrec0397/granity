@@ -6,13 +6,16 @@ import { pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
 
-import EditorPlayButton from "./EditorPlayButton";
+import EditorPlayButton, { EditorPlayButtonProps } from "./EditorPlayButton";
+import EditorPreviewUIButton, { EditorPreviewUIButtonProps } from "./EditorPreviewUIButton";
 
 type EditorStyles = {
     wrapper?: StyledWrapperProps;
     leftSection?: StyledWrapperProps;
     centerSection?: StyledWrapperProps;
     rightSection?: StyledWrapperProps;
+    uiPreviewButton?: EditorPreviewUIButtonProps;
+    playButton?: EditorPlayButtonProps;
 };
 
 const styles: EditorStyles = {
@@ -22,8 +25,14 @@ const styles: EditorStyles = {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: ${pxToRem(15, 30)};
+            padding: ${pxToRem(10, 30)};
             backdrop-filter: blur(50px);
+        `,
+    },
+    centerSection: {
+        css: css`
+            display: flex;
+            align-items: center;
         `,
     },
     leftSection: {
@@ -31,6 +40,15 @@ const styles: EditorStyles = {
             display: flex;
             align-items: center;
         `,
+    },
+    playButton: {
+        styles: {
+            button: {
+                css: css`
+                    margin-left: ${pxToRem(25)};
+                `,
+            },
+        },
     },
 };
 
@@ -41,7 +59,8 @@ const EditorHeader: FC = () => {
                 <GranityLogo />
             </StyledWrapper>
             <StyledWrapper {...styles.centerSection}>
-                <EditorPlayButton />
+                <EditorPreviewUIButton {...styles.uiPreviewButton} />
+                <EditorPlayButton {...styles.playButton} />
             </StyledWrapper>
             <StyledWrapper {...styles.rightSection}>Menu</StyledWrapper>
         </StyledWrapper>

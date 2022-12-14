@@ -71,6 +71,8 @@ const StyledButton = styled(PureButton)<ButtonStylesProps>`
 `;
 
 const Button: FC<Props> = ({ children, isFullWidth, styleType, noStyles, ...props }) => {
+    console.log(props, "props buttons");
+
     return (
         <StyledButton isFullWidth={isFullWidth} styleType={styleType} {...props}>
             {children}
