@@ -1,11 +1,11 @@
 import { inputStyles, labelStyles } from "@themes/mixins/form";
 import {
     FormError,
-    FormErrorOptions,
+    FormErrorProps,
     FormInput,
-    FormInputOptions,
+    FormInputProps,
     FormLabel,
-    FormLabelOptions,
+    FormLabelProps,
 } from "ariakit";
 import { FC } from "react";
 import styled, { css, FlattenSimpleInterpolation } from "styled-components";
@@ -24,9 +24,10 @@ export type FormFieldStyles = {
 export type FormFieldComponentProps = {
     label?: string;
     labelPosition?: "left" | "top";
-    labelProps: FormLabelOptions<"label">;
-    inputProps: FormInputOptions<"input">;
-    errorProps: FormErrorOptions<"div">;
+    size?: "medium" | "small";
+    labelProps?: FormLabelProps;
+    inputProps?: FormInputProps;
+    errorProps?: FormErrorProps;
 };
 
 type Props = FormFieldStyles & FormFieldComponentProps;
@@ -45,7 +46,9 @@ const StyledFormInput = styled(FormInput)<
     ${({ styling }) => styling?.inputCss}
 `;
 
-const StyledFormError = styled(FormError)<FormFieldStyles>`
+const StyledFormError = styled(FormError)<
+    FormFieldStyles & any /* TODO - Find why there an issue with the props type */
+>`
     ${({ styling }) => styling?.errorCss}
 `;
 
@@ -76,12 +79,12 @@ const FormField: FC<Props> = ({
     return (
         <StyledWrapper {...wrapperStyles}>
             {label ? (
-                <StyledFormLabel {...labelProps} {...styling?.labelCss}>
+                <StyledFormLabel {...(labelProps || {})} {...styling?.labelCss}>
                     {label}
                 </StyledFormLabel>
             ) : null}
-            <StyledFormInput {...inputProps} {...styling?.inputCss} />
-            <StyledFormError {...errorProps} {...styling?.errorCss} />
+            <StyledFormInput {...(inputProps || {})} {...styling?.inputCss} />
+            <StyledFormError {...(errorProps || {})} {...styling?.errorCss} />
         </StyledWrapper>
     );
 };

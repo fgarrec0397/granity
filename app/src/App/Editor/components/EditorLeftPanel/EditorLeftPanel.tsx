@@ -8,6 +8,7 @@ import { css } from "styled-components";
 
 import EditorModeSelector from "./EditorModeSelector";
 import EditorSelectedWidget from "./EditorSelectedWidget";
+import EditorWidgetProperties from "./EditorWidgetProperties";
 
 type EditorLeftPanelStyles = {
     wrapper: StyledWrapperProps;
@@ -44,6 +45,9 @@ const EditorLeftPanel: FC = () => {
             </Panel>
             <Panel {...styles.panel}>
                 <EditorModeSelector />
+            </Panel>
+            <Panel {...styles.panel}>
+                <EditorWidgetProperties />
             </Panel>
         </StyledWrapper>
     );
