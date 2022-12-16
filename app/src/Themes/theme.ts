@@ -59,6 +59,7 @@ const theme: DefaultTheme = {
             main: "'DM Sans', sans-serif",
         },
         size: {
+            tiniest: pxToRem(10),
             tiny: pxToRem(12),
             smallest: pxToRem(13),
             smaller: pxToRem(14),

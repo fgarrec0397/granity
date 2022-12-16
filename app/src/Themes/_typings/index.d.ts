@@ -1,3 +1,5 @@
+import { DefaultTheme, FlattenInterpolation, ThemeProps } from "styled-components";
+
 export type BasicColor = {
     main: string;
     contrast: string;
@@ -55,6 +57,7 @@ export type ThemedTypography = {
         alt?: string;
     };
     size: {
+        tiniest: string;
         tiny: string;
         smallest: string;
         smaller: string;
@@ -76,6 +79,8 @@ export type ThemedTypography = {
         black: string;
     };
 };
+
+export type ThemedFlattenInterpolation = FlattenInterpolation<ThemeProps<DefaultTheme>>;
 
 declare module "styled-components" {
     export interface DefaultTheme {

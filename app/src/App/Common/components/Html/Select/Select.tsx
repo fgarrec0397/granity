@@ -1,3 +1,4 @@
+import { ThemedFlattenInterpolation } from "@themes/_typings";
 import { actionStyles } from "@themes/mixins/common";
 import { inputStyles, labelStyles } from "@themes/mixins/form";
 import { getColor, getCommon, pxToRem } from "@themes/utils";
@@ -14,17 +15,17 @@ import {
 } from "ariakit/select";
 import { SetState } from "ariakit-utils/types";
 import { FC } from "react";
-import styled, { css, FlattenSimpleInterpolation } from "styled-components";
+import styled, { css } from "styled-components";
 
 import { FormFieldStyles } from "../FormField/FormField";
 import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper";
 
 export type SelectStyles = {
     styling?: {
-        wrapperCss?: FlattenSimpleInterpolation;
-        labelCss?: FlattenSimpleInterpolation;
-        inputCss?: FlattenSimpleInterpolation;
-        errorCss?: FlattenSimpleInterpolation;
+        wrapperCss?: ThemedFlattenInterpolation;
+        labelCss?: ThemedFlattenInterpolation;
+        inputCss?: ThemedFlattenInterpolation;
+        errorCss?: ThemedFlattenInterpolation;
     };
 };
 

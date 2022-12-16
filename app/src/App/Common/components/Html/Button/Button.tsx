@@ -1,11 +1,12 @@
 import { HasChildren } from "@app/Common/commonTypes";
+import { ThemedFlattenInterpolation } from "@themes/_typings";
 import { baseButtonStyles } from "@themes/mixins/buttons";
 import { actionStyles } from "@themes/mixins/common";
 import { getColor, getTypography } from "@themes/utils";
 import pxToRem from "@themes/utils/pxToRem";
 import { Button as LibButton, ButtonProps } from "ariakit/button";
 import { FC } from "react";
-import styled, { css, FlattenSimpleInterpolation } from "styled-components";
+import styled, { css } from "styled-components";
 
 export type ButtonStyleTypes = "outlined" | "filled" | "none";
 
@@ -13,7 +14,7 @@ export type ButtonStylesProps = {
     isFullWidth?: boolean;
     noStyles?: boolean;
     styleType?: ButtonStyleTypes;
-    css?: FlattenSimpleInterpolation;
+    css?: ThemedFlattenInterpolation;
 };
 
 export type ButtonComponents = ButtonProps;

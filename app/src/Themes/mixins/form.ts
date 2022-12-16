@@ -8,7 +8,7 @@ export const labelStyles = () => {
     return css`
         margin-bottom: ${pxToRem(10)};
         font-size: ${getTypography("size.tiny")};
-        font-size: ${getTypography("weight.bold")};
+        font-weight: ${getTypography("weight.bold")};
     `;
 };
 
@@ -21,6 +21,18 @@ export const inputStyles = () => {
         background-color: ${getColor("common.backgroundLight")};
         border: ${getFocus("borderWidth")} solid ${getColor("common.backgroundLight")};
         border-radius: ${getCommon("borderRadius.formField")};
+
+        /* Chrome, Safari, Edge, Opera */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        &[type="number"] {
+            -moz-appearance: textfield;
+        }
 
         ${focusStyles()}
     `;

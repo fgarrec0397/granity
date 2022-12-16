@@ -1,4 +1,6 @@
+import { ThemedFlattenInterpolation } from "@themes/_typings";
 import { inputStyles, labelStyles } from "@themes/mixins/form";
+import { pxToRem } from "@themes/utils";
 import {
     FormError,
     FormErrorProps,
@@ -8,16 +10,16 @@ import {
     FormLabelProps,
 } from "ariakit";
 import { FC } from "react";
-import styled, { css, FlattenSimpleInterpolation } from "styled-components";
+import styled, { css } from "styled-components";
 
 import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper";
 
 export type FormFieldStyles = {
     styling?: {
-        wrapperCss?: FlattenSimpleInterpolation;
-        labelCss?: FlattenSimpleInterpolation;
-        inputCss?: FlattenSimpleInterpolation;
-        errorCss?: FlattenSimpleInterpolation;
+        wrapperCss?: ThemedFlattenInterpolation;
+        labelCss?: ThemedFlattenInterpolation;
+        inputCss?: ThemedFlattenInterpolation;
+        errorCss?: ThemedFlattenInterpolation;
     };
 };
 
@@ -32,8 +34,18 @@ export type FormFieldComponentProps = {
 
 type Props = FormFieldStyles & FormFieldComponentProps;
 
-const StyledFormLabel = styled(FormLabel)<FormFieldStyles>`
+const StyledFormLabel = styled(FormLabel)<
+    FormFieldStyles & Pick<FormFieldComponentProps, "labelPosition">
+>`
     ${labelStyles()}
+
+    ${({ labelPosition }) => css`
+        ${labelPosition === "left" &&
+        css`
+            margin-right: ${pxToRem(8)};
+            margin-bottom: 0;
+        `}
+    `}
 
     ${({ styling }) => styling?.labelCss}
 `;
@@ -79,7 +91,11 @@ const FormField: FC<Props> = ({
     return (
         <StyledWrapper {...wrapperStyles}>
             {label ? (
-                <StyledFormLabel {...(labelProps || {})} {...styling?.labelCss}>
+                <StyledFormLabel
+                    labelPosition={labelPosition}
+                    {...(labelProps || {})}
+                    {...styling?.labelCss}
+                >
                     {label}
                 </StyledFormLabel>
             ) : null}
