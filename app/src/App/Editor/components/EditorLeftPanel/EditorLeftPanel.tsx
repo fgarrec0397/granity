@@ -10,7 +10,7 @@ import { css } from "styled-components";
 import EditorModeSelector from "./EditorModeSelector";
 import EditorSelectedWidget from "./EditorSelectedWidget";
 import EditorWidgetOptions from "./EditorWidgetOptions/EditorWidgetOptions";
-import EditorWidgetProperties from "./EditorWidgetProperties";
+import EditorWidgetProperties from "./EditorWidgetProperties/EditorWidgetProperties";
 
 type EditorLeftPanelStyles = {
     wrapper: StyledWrapperProps;

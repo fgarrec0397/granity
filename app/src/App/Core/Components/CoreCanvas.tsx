@@ -3,6 +3,7 @@ import Scenes from "@app/Scenes/Scenes";
 import { useContextBridge } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Context, FC } from "react";
+import { useTheme } from "styled-components";
 
 import useCore from "../_actions/hooks/useCore";
 
@@ -11,6 +12,7 @@ type Props = {
 };
 
 const CoreCanvas: FC<Props> = ({ contexts }) => {
+    const theme = useTheme();
     const { onCorePointerMissed } = useCore();
     const ContextBridge = useContextBridge(...contexts);
 
@@ -19,7 +21,13 @@ const CoreCanvas: FC<Props> = ({ contexts }) => {
     };
 
     return (
-        <Canvas {...canvasConfig} onPointerMissed={onPointerMissed}>
+        <Canvas
+            style={{
+                background: theme.common.canvas.background,
+            }}
+            {...canvasConfig}
+            onPointerMissed={onPointerMissed}
+        >
             <ContextBridge>
                 <Scenes />
             </ContextBridge>

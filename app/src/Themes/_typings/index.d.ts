@@ -39,6 +39,9 @@ export type ThemedCommon = {
     boxShadow: {
         main: string;
     };
+    canvas: {
+        background: string;
+    };
 };
 
 export type ThemedFocus = {

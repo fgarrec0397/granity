@@ -39,6 +39,10 @@ const theme: DefaultTheme = {
                 2
             )} ${pxToRem(-1)} rgb(0 0 0 / 0.1)`,
         },
+        canvas: {
+            background:
+                "radial-gradient(152.41% 152.41% at 50% 50%, #7C7C7C 0%, #525252 25.15%, #323232 42.89%)",
+        },
     },
     focus: {
         main: {
