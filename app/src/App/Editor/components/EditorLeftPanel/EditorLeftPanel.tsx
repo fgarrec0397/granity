@@ -1,6 +1,7 @@
 import { StyledWrapper } from "@app/Common/components/Html";
 import Panel, { PanelStyles } from "@app/Common/components/Html/Panel/Panel";
 import { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
+import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { layoutStyles } from "@themes/mixins/layout";
 import { pxToRem } from "@themes/utils";
 import { FC } from "react";
@@ -8,6 +9,7 @@ import { css } from "styled-components";
 
 import EditorModeSelector from "./EditorModeSelector";
 import EditorSelectedWidget from "./EditorSelectedWidget";
+import EditorWidgetOptions from "./EditorWidgetOptions/EditorWidgetOptions";
 import EditorWidgetProperties from "./EditorWidgetProperties";
 
 type EditorLeftPanelStyles = {
@@ -38,6 +40,8 @@ const styles: EditorLeftPanelStyles = {
 };
 
 const EditorLeftPanel: FC = () => {
+    const { selectedWidgets } = useWidgets();
+
     return (
         <StyledWrapper {...styles.wrapper}>
             <Panel {...styles.panel}>
@@ -49,6 +53,11 @@ const EditorLeftPanel: FC = () => {
             <Panel {...styles.panel}>
                 <EditorWidgetProperties />
             </Panel>
+            {selectedWidgets[0] && (
+                <Panel {...styles.panel}>
+                    <EditorWidgetOptions />
+                </Panel>
+            )}
         </StyledWrapper>
     );
 };

@@ -1,9 +1,9 @@
+import FormField from "@app/Common/components/Html/FormField/FormField";
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
-import Typography, { TypographyStyles } from "@app/Common/components/Html/Typography";
+import { TypographyStyles } from "@app/Common/components/Html/Typography";
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@app/Widgets/_actions/widgetsTypes";
-import { Input } from "antd";
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import { css } from "styled-components";
 
 import useOptionsValues from "./hooks/useOptionsValues";
@@ -33,20 +33,20 @@ const styles: EditorOptionsTextFieldStyles = {
 const EditorOptionsTextField: FC<Props> = ({ option }) => {
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
-    const handleChange = (value: string | number) => {
-        updateOptionsValues(value, option);
+    const onChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+        updateOptionsValues(target.value, option);
     };
 
     if (option.fieldType === FieldType.Text) {
         return (
             <StyledWrapper {...styles.inputsWrapper}>
-                <Typography as="label" {...styles.label}>
-                    {option.displayName}
-                </Typography>
-                <Input
-                    placeholder={option.displayName}
-                    onChange={(event) => handleChange(event.target.value)}
-                    value={optionsValues ? optionsValues[option.name]?.value : ""}
+                <FormField
+                    label={option.displayName}
+                    inputProps={{
+                        name: "displayName",
+                        value: optionsValues ? (optionsValues[option.name]?.value as string) : "",
+                        onChange,
+                    }}
                 />
             </StyledWrapper>
         );

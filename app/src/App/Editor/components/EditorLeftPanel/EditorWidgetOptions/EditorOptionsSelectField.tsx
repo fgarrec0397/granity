@@ -1,14 +1,12 @@
+import Select from "@app/Common/components/Html/Select/Select";
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import Typography, { TypographyStyles } from "@app/Common/components/Html/Typography";
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@app/Widgets/_actions/widgetsTypes";
-import { Select } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
 
 import useOptionsValues from "./hooks/useOptionsValues";
-
-const { Option } = Select;
 
 type Props = {
     option: WidgetBaseOptions;
@@ -35,7 +33,7 @@ const styles: EditorOptionsSelectFieldStyles = {
 const EditorOptionsSelectField: FC<Props> = ({ option }) => {
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
-    const handleChange = (value: string | number) => {
+    const onChange = (value: string) => {
         updateOptionsValues(value, option);
     };
 
@@ -46,20 +44,14 @@ const EditorOptionsSelectField: FC<Props> = ({ option }) => {
                     {option.displayName}
                 </Typography>
                 <Select
-                    defaultValue="default"
-                    value={optionsValues ? (optionsValues[option.name]?.value as string) : ""}
-                    onChange={(value: string) => handleChange(value)}
-                    style={{ width: "100%" }}
-                >
-                    <Option value="default" disabled>
-                        Select an option
-                    </Option>
-                    {option.selectOptions?.map((selectionOption, index) => (
-                        <Option key={index} value={selectionOption.value}>
-                            {selectionOption.name}
-                        </Option>
-                    ))}
-                </Select>
+                    options={(option.selectOptions || []).map(({ value }) => ({
+                        value,
+                    }))}
+                    selectStateProps={{
+                        onChange,
+                        value: optionsValues ? (optionsValues[option.name]?.value as string) : "",
+                    }}
+                />
             </StyledWrapper>
         );
     }

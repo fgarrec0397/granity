@@ -1,7 +1,7 @@
+import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import Typography from "@app/Common/components/Html/Typography";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
-import { Card } from "antd";
 import { FC } from "react";
 
 import EditorOptionsCheckboxField from "./EditorOptionsCheckboxField";
@@ -13,7 +13,7 @@ const EditorWidgetOptions: FC = () => {
     const { selectedWidgets } = useWidgets();
 
     return (
-        <Card size="small" bordered={false} bodyStyle={{ padding: "0" }}>
+        <Collapse title="Options">
             {selectedWidgets.length > 1 ? (
                 <Typography>
                     {"Impossible to edit widget while more than one is selected"}
@@ -46,7 +46,7 @@ const EditorWidgetOptions: FC = () => {
                     return null;
                 })
             )}
-        </Card>
+        </Collapse>
     );
 };
 
