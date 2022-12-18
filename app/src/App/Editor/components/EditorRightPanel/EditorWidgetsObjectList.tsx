@@ -1,11 +1,32 @@
-import { StyledWrapper } from "@app/Common/components/Html";
+import { StyledWrapper, StyledWrapperProps } from "@app/Common/components/Html";
+import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
+import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { WidgetObjectsDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
-import { Button, Card, List } from "antd";
+import { pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
 
-const EditorItemsList: FC = () => {
+type EditorWidgetsObjectListStyles = {
+    row?: StyledWrapperProps;
+    button?: ButtonStylesProps;
+};
+
+const styles: EditorWidgetsObjectListStyles = {
+    row: {
+        css: css`
+            display: flex;
+            align-items: center;
+            padding-top: ${pxToRem(10)};
+
+            &:last-child {
+                padding-bottom: ${pxToRem(10)};
+            }
+        `,
+    },
+};
+
+const EditorWidgetsObjectList: FC = () => {
     const { widgetsObjects, selectWidget, selectedWidgets, removeWidget } = useWidgets();
 
     const handleSelect = (widget: WidgetObjectsDictionaryItem) => {
@@ -17,32 +38,23 @@ const EditorItemsList: FC = () => {
     };
 
     return (
-        <StyledWrapper
-            css={css`
-                width: 100%;
-                margin-bottom: 1em;
-            `}
-        >
-            <Card size="small" title="Elements on scene">
-                <List
-                    size="small"
-                    bordered
-                    dataSource={Object.keys(widgetsObjects)}
-                    renderItem={(widgetId) => (
-                        <List.Item>
-                            <Button
-                                onClick={() => handleSelect(widgetsObjects[widgetId])}
-                                disabled={widgetsObjects[widgetId]?.id === selectedWidgets[0]?.id}
-                            >
-                                {widgetsObjects[widgetId].widgetDefinition.name}
-                            </Button>
-                            <Button onClick={() => handleRemove(widgetId)}>X</Button>
-                        </List.Item>
-                    )}
-                />
-            </Card>
-        </StyledWrapper>
+        <Collapse title="Widgets Collection">
+            {Object.keys(widgetsObjects).map((widgetId) => (
+                <StyledWrapper key={widgetId} {...styles.row}>
+                    <Button
+                        styleType="none"
+                        onClick={() => handleSelect(widgetsObjects[widgetId])}
+                        disabled={widgetsObjects[widgetId]?.id === selectedWidgets[0]?.id}
+                    >
+                        {widgetsObjects[widgetId].widgetDefinition.name}
+                    </Button>
+                    <Button styleType="none" onClick={() => handleRemove(widgetId)}>
+                        X
+                    </Button>
+                </StyledWrapper>
+            ))}
+        </Collapse>
     );
 };
 
-export default EditorItemsList;
+export default EditorWidgetsObjectList;
