@@ -1,14 +1,16 @@
 import { HasChildren } from "@app/Common/commonTypes";
+import { ThemedFlattenInterpolation } from "@themes/_typings";
 import { FC } from "react";
-import styled, { DefaultTheme, Interpolation, ThemeProps } from "styled-components";
+import styled from "styled-components";
 
 export interface StyledWrapperProps {
-    css?: Interpolation<ThemeProps<DefaultTheme>>;
+    css?: ThemedFlattenInterpolation;
 }
 
 type Props = StyledWrapperProps &
     HasChildren & {
         as?: string;
+        onClick?: (event: MouseEvent) => void;
     };
 
 const Wrapper: FC<Props> = ({ as = "div", css, children, ...props }) => {

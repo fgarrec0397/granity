@@ -24,7 +24,7 @@ type Props = ButtonStylesProps & ButtonComponents & HasChildren;
 const PureButton: FC<Props> = ({ isFullWidth, styleType, ...props }) => <LibButton {...props} />;
 
 const StyledButton = styled(PureButton)<ButtonStylesProps>`
-    font-size: ${getTypography("size.tiny")};
+    font-size: ${getTypography("size.smaller")};
     font-weight: ${getTypography("weight.bold")};
 
     ${({ styleType, isFullWidth }) => {

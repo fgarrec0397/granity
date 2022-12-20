@@ -24,6 +24,26 @@ const theme: DefaultTheme = {
             text: "#ffffff",
             textDisabled: "",
         },
+        danger: {
+            main: "#C64141",
+            contrast: "#ffffff",
+            hover: "#C64141",
+        },
+        info: {
+            main: "",
+            contrast: "",
+            hover: "",
+        },
+        success: {
+            main: "",
+            contrast: "",
+            hover: "",
+        },
+        warning: {
+            main: "",
+            contrast: "",
+            hover: "",
+        },
     },
     common: {
         borderRadius: {

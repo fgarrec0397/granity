@@ -25,6 +25,10 @@ export type ThemedColors = {
         text: string;
         textDisabled: string;
     };
+    danger: BasicColor;
+    info: BasicColor;
+    success: BasicColor;
+    warning: BasicColor;
 };
 
 export type ThemedCommon = {

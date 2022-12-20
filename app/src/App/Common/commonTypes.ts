@@ -58,5 +58,5 @@ export type OptionalType = Record<string, never>;
  * A React with children prop
  */
 export type HasChildren = {
-    children: ReactNode | string;
+    children: ReactNode | ReactNode[];
 };

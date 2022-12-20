@@ -1,34 +1,56 @@
-import { StyledWrapper, StyledWrapperProps } from "@app/Common/components/Html";
 import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
+import Garbage from "@app/Common/components/Html/Icons/Garbage";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
-import { WidgetObjectsDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
-import { pxToRem } from "@themes/utils";
-import { FC } from "react";
+import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
+import {
+    WidgetDictionaryItem,
+    WidgetObjectsDictionaryItem,
+} from "@app/Widgets/_actions/widgetsTypes";
+import { getColor, pxToRem } from "@themes/utils";
+import { FC, useState } from "react";
 import { css } from "styled-components";
 
+import ActionItemRow from "./ActionItemRow";
+
 type EditorWidgetsObjectListStyles = {
-    row?: StyledWrapperProps;
     button?: ButtonStylesProps;
+    deleteButton?: ButtonStylesProps;
+    addWidgetButton?: ButtonStylesProps;
 };
 
 const styles: EditorWidgetsObjectListStyles = {
-    row: {
+    deleteButton: {
         css: css`
-            display: flex;
-            align-items: center;
-            padding-top: ${pxToRem(10)};
-
-            &:last-child {
-                padding-bottom: ${pxToRem(10)};
-            }
+            color: ${getColor("danger.main")};
+        `,
+    },
+    addWidgetButton: {
+        css: css`
+            margin-top: ${pxToRem(15)};
         `,
     },
 };
 
 const EditorWidgetsObjectList: FC = () => {
-    const { widgetsObjects, selectWidget, selectedWidgets, removeWidget } = useWidgets();
+    const { addWidget, widgetsObjects, selectWidget, selectedWidgets, removeWidget } = useWidgets();
+    const { widgetsObjectModules, widgetsUIModules } = useWidgetsModules();
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
+    // TODO - work with the new typ WidgetDictionaryItem in all the useWidget process
+
+    const handleWidgetClick = (widget: WidgetDictionaryItem): void => {
+        addWidget(widget);
+        closeModalHandler();
+    };
+
+    const openModalHandler = () => {
+        setIsModalVisible(true);
+    };
+
+    const closeModalHandler = () => {
+        setIsModalVisible(false);
+    };
     const handleSelect = (widget: WidgetObjectsDictionaryItem) => {
         selectWidget([widget]);
     };
@@ -40,19 +62,24 @@ const EditorWidgetsObjectList: FC = () => {
     return (
         <Collapse title="Widgets Collection">
             {Object.keys(widgetsObjects).map((widgetId) => (
-                <StyledWrapper key={widgetId} {...styles.row}>
+                <ActionItemRow
+                    key={widgetId}
+                    onClick={() => handleSelect(widgetsObjects[widgetId])}
+                    isSelected={widgetsObjects[widgetId]?.id === selectedWidgets[0]?.id}
+                >
+                    {widgetsObjects[widgetId].widgetDefinition.name}
                     <Button
                         styleType="none"
-                        onClick={() => handleSelect(widgetsObjects[widgetId])}
-                        disabled={widgetsObjects[widgetId]?.id === selectedWidgets[0]?.id}
+                        onClick={() => handleRemove(widgetId)}
+                        {...styles.deleteButton}
                     >
-                        {widgetsObjects[widgetId].widgetDefinition.name}
+                        <Garbage />
                     </Button>
-                    <Button styleType="none" onClick={() => handleRemove(widgetId)}>
-                        X
-                    </Button>
-                </StyledWrapper>
+                </ActionItemRow>
             ))}
+            <Button isFullWidth {...styles.addWidgetButton} onClick={openModalHandler}>
+                Add Widget
+            </Button>
         </Collapse>
     );
 };
