@@ -2,7 +2,7 @@ import { StyledWrapper } from "@app/Common/components/Html";
 import GranityLogo from "@app/Common/components/Html/Icons/GranityLogo";
 import { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import { layoutStyles } from "@themes/mixins/layout";
-import { pxToRem } from "@themes/utils";
+import { getCommon, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
 
@@ -26,7 +26,7 @@ const styles: EditorStyles = {
             align-items: center;
             justify-content: space-between;
             padding: ${pxToRem(10, 30)};
-            backdrop-filter: blur(50px);
+            backdrop-filter: blur(${getCommon("blur.heavy")});
         `,
     },
     centerSection: {

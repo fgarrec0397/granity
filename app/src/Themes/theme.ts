@@ -21,6 +21,7 @@ const theme: DefaultTheme = {
             backgroundLight: "#3D3D3D",
             backgroundDark: "#292929",
             border: "#555555",
+            overlay: "hsl(204 10% 10% / 0.1)",
             text: "#ffffff",
             textDisabled: "",
         },
@@ -46,11 +47,16 @@ const theme: DefaultTheme = {
         },
     },
     common: {
+        blur: {
+            light: pxToRem(10),
+            main: pxToRem(25),
+            heavy: pxToRem(50),
+        },
         borderRadius: {
             button: pxToRem(4),
             formField: pxToRem(4),
             panel: pxToRem(0),
-            panelLarge: pxToRem(0),
+            modal: pxToRem(16),
             popover: pxToRem(8),
             max: "100%",
         },
@@ -62,6 +68,10 @@ const theme: DefaultTheme = {
         canvas: {
             background:
                 "radial-gradient(152.41% 152.41% at 50% 50%, #7C7C7C 0%, #525252 25.15%, #323232 42.89%)",
+        },
+        zIndex: {
+            modal: 200,
+            main: 0,
         },
     },
     focus: {

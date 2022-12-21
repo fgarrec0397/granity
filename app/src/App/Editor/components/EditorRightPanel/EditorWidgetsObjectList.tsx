@@ -1,6 +1,7 @@
 import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import Garbage from "@app/Common/components/Html/Icons/Garbage";
+import Modal from "@app/Common/components/Html/Modal/Modal";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import {
@@ -77,9 +78,20 @@ const EditorWidgetsObjectList: FC = () => {
                     </Button>
                 </ActionItemRow>
             ))}
-            <Button isFullWidth {...styles.addWidgetButton} onClick={openModalHandler}>
-                Add Widget
-            </Button>
+            <Modal
+                title="Widgets"
+                trigger={
+                    <Button isFullWidth {...styles.addWidgetButton}>
+                        Add Widget
+                    </Button>
+                }
+            >
+                {(state) => (
+                    <Button isFullWidth {...styles.addWidgetButton} onClick={state.hide}>
+                        Close
+                    </Button>
+                )}
+            </Modal>
         </Collapse>
     );
 };

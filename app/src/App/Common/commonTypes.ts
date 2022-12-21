@@ -55,8 +55,15 @@ export type OptionalType = Record<string, never>;
 // <-------------------- REACT -------------------->
 
 /**
- * A React with children prop
+ * A React component with children prop
  */
 export type HasChildren = {
     children: ReactNode | ReactNode[];
+};
+
+/**
+ * A React component with callable children prop
+ */
+export type HasCallableChildren<P> = {
+    children: (param: P) => ReactNode;
 };

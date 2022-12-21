@@ -22,6 +22,7 @@ export type ThemedColors = {
         backgroundLight: string;
         backgroundDark: string;
         border: string;
+        overlay: string;
         text: string;
         textDisabled: string;
     };
@@ -32,11 +33,16 @@ export type ThemedColors = {
 };
 
 export type ThemedCommon = {
+    blur: {
+        light: string;
+        main: string;
+        heavy: string;
+    };
     borderRadius: {
         button: string;
         formField: string;
         panel: string;
-        panelLarge: string;
+        modal: string;
         popover: string;
         max: string;
     };
@@ -45,6 +51,10 @@ export type ThemedCommon = {
     };
     canvas: {
         background: string;
+    };
+    zIndex: {
+        modal: number;
+        main: number;
     };
 };
 
