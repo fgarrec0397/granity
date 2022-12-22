@@ -32,12 +32,12 @@ const StyledButton = styled(PureButton)<ButtonStylesProps>`
             return css`
                 ${baseButtonStyles(isFullWidth)}
                 background-color: transparent;
-                color: ${getColor("primary.main")};
-                border: ${pxToRem(1)} solid ${getColor("primary.main")};
+                color: ${getColor("common.text")};
+                border: ${pxToRem(1)} solid ${getColor("common.text")};
 
                 &:hover {
-                    background-color: ${getColor("primary.main")};
-                    color: ${getColor("primary.contrast")};
+                    background-color: ${getColor("common.backgroundLight")};
+                    border-color: ${getColor("common.backgroundLight")};
                 }
             `;
         }
@@ -64,6 +64,7 @@ const StyledButton = styled(PureButton)<ButtonStylesProps>`
                 margin: 0;
                 background-color: transparent;
                 border: none;
+                border-radius: 0;
             `;
         }
     }}

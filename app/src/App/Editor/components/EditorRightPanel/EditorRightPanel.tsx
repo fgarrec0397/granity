@@ -8,6 +8,7 @@ import { css } from "styled-components";
 import EditorScenesList from "./EditorScenesList";
 import EditorUIList from "./EditorUIList";
 import EditorWidgetsObjectList from "./EditorWidgetsObjectList";
+import EditorWidgetsUIList from "./EditorWidgetsUIList";
 
 type EditorRightPanelStyles = {
     wrapper?: StyledWrapperProps;
@@ -42,7 +43,9 @@ const EditorRightPanel: FC = () => {
             <Panel {...styles.panel}>
                 <EditorWidgetsObjectList />
             </Panel>
-            <EditorUIList />
+            <Panel {...styles.panel}>
+                <EditorWidgetsUIList />
+            </Panel>
             {/* <EditorScenesList /> */}
         </StyledWrapper>
     );

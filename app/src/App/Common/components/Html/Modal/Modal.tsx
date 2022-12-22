@@ -3,7 +3,6 @@ import { getColor, getCommon, getTypography, pxToRem } from "@themes/utils";
 import getModal from "@themes/utils/getModal";
 import {
     Dialog,
-    DialogDismiss,
     DialogHeading,
     DialogStateProps,
     DisclosureState,
@@ -14,6 +13,8 @@ import {
 import cloneDeep from "lodash/cloneDeep";
 import { cloneElement, FC, ReactElement, useMemo } from "react";
 import styled from "styled-components";
+
+import Button from "../Button/Button";
 
 type ModalSize = "small" | "medium" | "large";
 
@@ -26,6 +27,7 @@ type ModalProps = DisclosureStateProps &
     ModalStylesProps & {
         isOpen?: boolean;
         title?: string;
+        cancelButtonText?: string;
         trigger?: ReactElement;
         options?: DialogStateProps;
     };
@@ -54,9 +56,14 @@ const StyledTitle = styled(DialogHeading)<ModalStylesProps>`
     color: ${getColor("common.text")};
     font-weight: ${getTypography("weight.bold")};
     font-size: ${getTypography("size.largest")};
+    line-height: 1;
 `;
 
-const Modal: FC<ModalProps> = ({ options, title, trigger, size, children }) => {
+const StyledButton = styled(Button)`
+    margin-top: ${pxToRem(50)};
+`;
+
+const Modal: FC<ModalProps> = ({ options, title, trigger, size, cancelButtonText, children }) => {
     const dialog = useDialogState(options);
 
     const mergedTriggerProps = useDialogDisclosure({
@@ -77,9 +84,9 @@ const Modal: FC<ModalProps> = ({ options, title, trigger, size, children }) => {
             <StyledModal state={dialog} backdrop={StyledOverlay} size={size}>
                 {title && <StyledTitle>{title}</StyledTitle>}
                 {children?.(dialog)}
-                <div>
-                    <DialogDismiss className="button">OK</DialogDismiss>
-                </div>
+                <StyledButton styleType="outlined">
+                    {cancelButtonText ? cancelButtonText : "Cancel"}
+                </StyledButton>
             </StyledModal>
         </>
     );

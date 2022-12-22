@@ -111,7 +111,7 @@ const theme: DefaultTheme = {
             smaller: pxToRem(14),
             small: pxToRem(15),
             main: pxToRem(16),
-            large: pxToRem(18),
+            large: pxToRem(20),
             larger: pxToRem(24),
             largest: pxToRem(32),
         },

@@ -6,17 +6,14 @@ import Modal from "@app/Common/components/Html/Modal/Modal";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@app/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
-import {
-    WidgetDictionaryItem,
-    WidgetObjectsDictionaryItem,
-} from "@app/Widgets/_actions/widgetsTypes";
+import { WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
 import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
 
 import ActionItemRow from "./ActionItemRow";
 
-type EditorWidgetsObjectListStyles = {
+type EditorWidgetsUIListStyles = {
     button?: ButtonStylesProps;
     deleteButton?: ButtonStylesProps;
     addWidgetButton?: ButtonStylesProps;
@@ -24,7 +21,7 @@ type EditorWidgetsObjectListStyles = {
     widgetButton?: ButtonStylesProps;
 };
 
-const styles: EditorWidgetsObjectListStyles = {
+const styles: EditorWidgetsUIListStyles = {
     deleteButton: {
         css: css`
             color: ${getColor("danger.main")};
@@ -56,18 +53,12 @@ const styles: EditorWidgetsObjectListStyles = {
     },
 };
 
-const EditorWidgetsObjectList: FC = () => {
-    const { addWidget, widgetsObjects, selectWidget, selectedWidgets, removeWidget } = useWidgets();
-    const { widgetsObjectModules } = useWidgetsModules();
-
-    // TODO - work with the new typ WidgetDictionaryItem in all the useWidget process
+const EditorWidgetsUIList: FC = () => {
+    const { addWidget, widgetsUI, removeWidget } = useWidgets();
+    const { widgetsUIModules } = useWidgetsModules();
 
     const handleWidgetClick = (widget: WidgetDictionaryItem): void => {
         addWidget(widget);
-    };
-
-    const handleSelect = (widget: WidgetObjectsDictionaryItem) => {
-        selectWidget([widget]);
     };
 
     const handleRemove = (widgetId: string) => {
@@ -75,15 +66,11 @@ const EditorWidgetsObjectList: FC = () => {
     };
 
     return (
-        <Collapse title="Objects Widgets">
-            {Object.keys(widgetsObjects).length > 0
-                ? Object.keys(widgetsObjects).map((widgetId) => (
-                      <ActionItemRow
-                          key={widgetId}
-                          onClick={() => handleSelect(widgetsObjects[widgetId])}
-                          isSelected={widgetsObjects[widgetId]?.id === selectedWidgets[0]?.id}
-                      >
-                          {widgetsObjects[widgetId].widgetDefinition.name}
+        <Collapse title="UI Widgets Collection">
+            {Object.keys(widgetsUI).length > 0
+                ? Object.keys(widgetsUI).map((widgetId) => (
+                      <ActionItemRow key={widgetId}>
+                          {widgetsUI[widgetId].widgetDefinition.name}
                           <Button
                               styleType="none"
                               onClick={() => handleRemove(widgetId)}
@@ -93,21 +80,21 @@ const EditorWidgetsObjectList: FC = () => {
                           </Button>
                       </ActionItemRow>
                   ))
-                : "No object widget on the scene."}
+                : "No UI widget on the scene."}
             <Modal
-                title="Widgets Objects"
+                title="UI Widgets"
                 size="large"
                 trigger={
                     <Button isFullWidth {...styles.addWidgetButton}>
-                        Add Object Widget
+                        Add UI Widget
                     </Button>
                 }
             >
                 {(state) => (
                     <>
                         <StyledWrapper {...styles.widgetsWrapper}>
-                            {widgetsObjectModules.length > 0
-                                ? widgetsObjectModules.map((widget, index) => {
+                            {widgetsUIModules.length > 0
+                                ? widgetsUIModules.map((widget, index) => {
                                       const key = `${index}-${widget.widgetDefinition.name}`;
                                       const newWidget: WidgetDictionaryItem =
                                           mapWidgetModuleToWidgetDictionary(widget);
@@ -126,7 +113,7 @@ const EditorWidgetsObjectList: FC = () => {
                                           </Button>
                                       );
                                   })
-                                : "No object widget available. Please, create one by code."}
+                                : "No UI widget available. Please, create one by code."}
                         </StyledWrapper>
                     </>
                 )}
@@ -135,4 +122,4 @@ const EditorWidgetsObjectList: FC = () => {
     );
 };
 
-export default EditorWidgetsObjectList;
+export default EditorWidgetsUIList;
