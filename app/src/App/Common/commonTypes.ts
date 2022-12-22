@@ -65,5 +65,5 @@ export type HasChildren = {
  * A React component with callable children prop
  */
 export type HasCallableChildren<P> = {
-    children: (param: P) => ReactNode;
+    children: (param: P) => ReactNode | ReactNode[];
 };

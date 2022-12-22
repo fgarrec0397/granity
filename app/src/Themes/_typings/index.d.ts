@@ -67,6 +67,19 @@ export type ThemedFormField = {
     placeholder: string;
 };
 
+export type ThemedModal = {
+    spacing: {
+        small: string;
+        medium: string;
+        large: string;
+    };
+    size: {
+        small: string;
+        medium: string;
+        large: string;
+    };
+};
+
 export type ThemedTypography = {
     fontFamilyURL: string;
     fontFamily: {
@@ -105,6 +118,7 @@ declare module "styled-components" {
         common: ThemedCommon;
         focus: ThemedFocus;
         formField?: ThemedFormField;
+        modal: ThemedModal;
         typography: ThemedTypography;
     }
 }

@@ -86,6 +86,18 @@ const theme: DefaultTheme = {
             borderOffset: pxToRem(1),
         },
     },
+    modal: {
+        size: {
+            small: pxToRem(250),
+            medium: pxToRem(500),
+            large: pxToRem(1000),
+        },
+        spacing: {
+            small: pxToRem(20),
+            medium: pxToRem(30),
+            large: pxToRem(60),
+        },
+    },
     typography: {
         fontFamilyURL:
             "https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap",
@@ -100,8 +112,8 @@ const theme: DefaultTheme = {
             small: pxToRem(15),
             main: pxToRem(16),
             large: pxToRem(18),
-            larger: pxToRem(20),
-            largest: pxToRem(22),
+            larger: pxToRem(24),
+            largest: pxToRem(32),
         },
         weight: {
             slim: "100",
