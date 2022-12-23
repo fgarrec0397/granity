@@ -30,6 +30,11 @@ export type Dictionary<Type> = {
 };
 
 /**
+ * Get the type of a dictionary item of the given Dictionary
+ */
+export type DictionaryValue<DictionaryType> = DictionaryType[keyof DictionaryType];
+
+/**
  * Type representing falsy values in TypeScript: `false | "" | 0 | null | undefined`
  */
 export type Falsy = false | "" | 0 | null | undefined;

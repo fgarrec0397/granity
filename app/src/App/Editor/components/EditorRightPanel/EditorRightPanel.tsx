@@ -6,7 +6,6 @@ import { FC } from "react";
 import { css } from "styled-components";
 
 import EditorScenesList from "./EditorScenesList";
-import EditorUIList from "./EditorUIList";
 import EditorWidgetsObjectList from "./EditorWidgetsObjectList";
 import EditorWidgetsUIList from "./EditorWidgetsUIList";
 
