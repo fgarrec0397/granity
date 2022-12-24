@@ -1,9 +1,11 @@
+import { usePrevious } from "@app/Common/hooks";
 import { uidGenerator } from "@app/Common/utilities";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import useWidgetsUtilities from "@app/Widgets/_actions/hooks/useWidgetsUtilities";
 import serializeWidgets from "@app/Widgets/_actions/utilities/serializeWidgets";
 import cloneDeep from "lodash/cloneDeep";
+import isEqual from "lodash/isEqual";
 import { useCallback, useEffect, useState } from "react";
 
 import useScenesService from "../_data/hooks/useScenesService";
@@ -27,6 +29,7 @@ export default () => {
     const { unserializeWidgets } = useWidgetsUtilities();
     const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
+    const previousScenes = usePrevious(scenes);
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
 
     const getSceneById = useCallback(
@@ -115,11 +118,19 @@ export default () => {
         ]
     );
 
+    /**
+     * Verifiy if a scene has been added. If yes, load it.
+     */
     useEffect(() => {
-        if (scenes && lastSceneAdded && currentSceneId !== lastSceneAdded.id) {
+        if (
+            !isEqual(scenes, previousScenes) &&
+            scenes &&
+            lastSceneAdded &&
+            currentSceneId !== lastSceneAdded.id
+        ) {
             loadScene(lastSceneAdded.id);
         }
-    }, [currentSceneId, lastSceneAdded, scenes, loadScene]);
+    }, [currentSceneId, lastSceneAdded, scenes, loadScene, previousScenes]);
 
     const getCurrentDefaultScene = useCallback(() => {
         return getSceneById(currentDefaultSceneId);
