@@ -3,7 +3,7 @@ import { StyledWrapper, StyledWrapperProps } from "@app/Common/components/Html";
 import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import Garbage from "@app/Common/components/Html/Icons/Garbage";
-import Modal from "@app/Common/components/Html/Modal/Modal";
+import Modal, { ModalProps } from "@app/Common/components/Html/Modal/Modal";
 import { ScenesDictionary, ScenesDictionaryItem } from "@app/Scenes/_actions/scenesTypes";
 import { WidgetDictionary, WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
 import { getColor, pxToRem } from "@themes/utils";
@@ -16,7 +16,9 @@ type EditorItemsListProps<T extends WidgetDictionary | ScenesDictionary> = {
     itemsDictionary: T;
     title: string;
     noItemsText: string;
-    addButtonText: string;
+    triggerButtonText: string;
+    acceptButton?: ModalProps["acceptButton"];
+    cancelButton?: ModalProps["cancelButton"];
     handleClickRow?: (row: DictionaryValue<T>) => void;
     handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (row: DictionaryValue<T>) => boolean;
@@ -52,10 +54,12 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
     itemsDictionary,
     title,
     noItemsText,
-    addButtonText,
+    triggerButtonText,
     handleClickRow,
     handleClickRemove,
     isActionRowSelected,
+    acceptButton,
+    cancelButton,
     children,
 }: EditorItemsListProps<T>) => {
     return (
@@ -87,9 +91,11 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
             <Modal
                 title={title}
                 size="large"
+                acceptButton={acceptButton}
+                cancelButton={cancelButton}
                 trigger={
                     <Button isFullWidth {...styles.addItemButton}>
-                        {addButtonText}
+                        {triggerButtonText}
                     </Button>
                 }
             >

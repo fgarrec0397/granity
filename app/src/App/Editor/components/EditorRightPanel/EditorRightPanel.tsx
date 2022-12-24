@@ -45,7 +45,9 @@ const EditorRightPanel: FC = () => {
             <Panel {...styles.panel}>
                 <EditorWidgetsUIList />
             </Panel>
-            {/* <EditorScenesList /> */}
+            <Panel {...styles.panel}>
+                <EditorScenesList />
+            </Panel>
         </StyledWrapper>
     );
 };

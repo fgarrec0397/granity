@@ -53,10 +53,13 @@ const EditorWidgetsObjectList: FC = () => {
             itemsDictionary={widgetsObjects}
             title="Objects Widgets"
             noItemsText="No object widget on the scene."
-            addButtonText="Add Object Widget"
+            triggerButtonText="Add Object Widget"
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
             isActionRowSelected={(row) => widgetsObjects[row.id]?.id === selectedWidgets[0]?.id}
+            cancelButton={{
+                text: "Cancel and close",
+            }}
         >
             {(state) =>
                 widgetsObjectModules.length > 0

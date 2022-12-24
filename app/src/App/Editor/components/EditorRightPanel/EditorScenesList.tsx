@@ -1,77 +1,68 @@
-import Button from "@app/Common/components/Html/Button/Button";
+import Checkbox from "@app/Common/components/Html/Checkbox/Checkbox";
+import FormField from "@app/Common/components/Html/FormField/FormField";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
-import { Card, Checkbox, Input, List, Modal, Typography } from "antd";
-import { CheckboxChangeEvent } from "antd/lib/checkbox";
-import { FC, useState } from "react";
+import { ScenesDictionary, ScenesDictionaryItem } from "@app/Scenes/_actions/scenesTypes";
+import { ChangeEvent, FC, useState } from "react";
+
+import EditorItemsList from "./EditorItemsList";
 
 const EditorScenesList: FC = () => {
-    const [isAddSceneModalOpen, setIsAddSceneModalOpen] = useState(false);
     const [sceneName, setSceneName] = useState("");
     const [isDefault, setIsDefault] = useState(false);
     const { scenes, currentSceneId, addScene, loadScene, removeScene } = useScenes();
 
-    const handleSelect = (sceneId: string) => {
-        loadScene(sceneId);
+    const handleClickRow = (scene: ScenesDictionaryItem) => {
+        loadScene(scene.id);
     };
 
-    const handleRemove = (sceneId: string) => {
+    const handleClickRemove = (sceneId: string) => {
         removeScene(sceneId);
     };
 
-    const handleIsDefault = (e: CheckboxChangeEvent) => {
-        setIsDefault(e.target.checked);
+    const handleIsDefault = (event: ChangeEvent<HTMLInputElement>): void => {
+        setIsDefault(event.target.checked);
     };
 
-    const handleOk = () => {
+    const handleAddScene = () => {
         addScene(sceneName, isDefault);
-        setIsAddSceneModalOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsAddSceneModalOpen(false);
     };
 
     return (
-        <Card size="small" title="Scenes">
-            <List
-                size="small"
-                bordered
-                dataSource={Object.keys(scenes || {})}
-                footer={
-                    <Button onClick={() => setIsAddSceneModalOpen(true)} isFullWidth>
-                        Add scene
-                    </Button>
-                }
-                renderItem={(sceneId) => (
-                    <List.Item>
-                        <Button
-                            onClick={() => handleSelect(sceneId)}
-                            disabled={currentSceneId === sceneId}
-                            styleType="none"
-                        >
-                            {scenes && scenes[sceneId].name}
-                        </Button>
-                        <Button onClick={() => handleRemove(sceneId)} styleType="none">
-                            X
-                        </Button>
-                    </List.Item>
-                )}
-            />
-
-            <Modal
-                title="Create A Scene"
-                open={isAddSceneModalOpen}
-                onOk={handleOk}
-                onCancel={handleCancel}
-            >
-                <Typography>Scene Name</Typography>
-                <Input
-                    placeholder="Enter your scene name here..."
-                    onChange={(event) => setSceneName(event.target.value)}
-                />
-                <Checkbox onChange={handleIsDefault}>Make it default scene</Checkbox>
-            </Modal>
-        </Card>
+        <EditorItemsList<ScenesDictionary>
+            itemsDictionary={scenes || {}}
+            title="Scenes"
+            noItemsText="No UI widget on the scene."
+            triggerButtonText="Add Scene"
+            handleClickRow={handleClickRow}
+            handleClickRemove={handleClickRemove}
+            isActionRowSelected={(row) => currentSceneId === row.id}
+            acceptButton={{
+                text: "Add scene",
+                callback: handleAddScene,
+            }}
+            cancelButton={{
+                text: "Cancel and close",
+            }}
+        >
+            {() => (
+                <>
+                    <FormField
+                        label="Scene Name"
+                        inputProps={{
+                            name: "sceneName",
+                            placeholder: "Enter your scene name here...",
+                            onChange: (event) => setSceneName(event.target.value),
+                        }}
+                    />
+                    <Checkbox
+                        label="Make it default scene"
+                        checkboxProp={{
+                            onChange: handleIsDefault,
+                        }}
+                    />
+                </>
+            )}
+        </EditorItemsList>
     );
 };
 

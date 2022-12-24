@@ -1,17 +1,11 @@
+import { uidGenerator } from "@app/Common/utilities";
 import { ThemedFlattenInterpolation } from "@themes/_typings";
-import { inputStyles, labelStyles } from "@themes/mixins/form";
-import { pxToRem } from "@themes/utils";
-import {
-    FormError,
-    FormErrorProps,
-    FormInput,
-    FormInputProps,
-    FormLabel,
-    FormLabelProps,
-} from "ariakit";
-import { FC } from "react";
+import { inputStyles } from "@themes/mixins/form";
+import { FormError, FormErrorProps, FormInput, FormInputProps } from "ariakit";
+import { FC, useMemo } from "react";
 import styled, { css } from "styled-components";
 
+import Label, { LabelProps } from "../Label/Label";
 import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper";
 
 export type FormFieldStyles = {
@@ -25,30 +19,13 @@ export type FormFieldStyles = {
 
 export type FormFieldComponentProps = {
     label?: string;
-    labelPosition?: "left" | "top";
     size?: "medium" | "small";
-    labelProps?: FormLabelProps;
+    labelProps?: LabelProps;
     inputProps?: FormInputProps;
     errorProps?: FormErrorProps;
 };
 
 type Props = FormFieldStyles & FormFieldComponentProps;
-
-const StyledFormLabel = styled(FormLabel)<
-    FormFieldStyles & Pick<FormFieldComponentProps, "labelPosition">
->`
-    ${labelStyles()}
-
-    ${({ labelPosition }) => css`
-        ${labelPosition === "left" &&
-        css`
-            margin-right: ${pxToRem(8)};
-            margin-bottom: 0;
-        `}
-    `}
-
-    ${({ styling }) => styling?.labelCss}
-`;
 
 const StyledFormInput = styled(FormInput)<
     FormFieldStyles & any /* TODO - Find why there an issue with the props type */
@@ -64,20 +41,20 @@ const StyledFormError = styled(FormError)<
     ${({ styling }) => styling?.errorCss}
 `;
 
-const FormField: FC<Props> = ({
-    label,
-    labelPosition,
-    labelProps,
-    inputProps,
-    errorProps,
-    styling,
-}) => {
+const FormField: FC<Props> = ({ label, labelProps, inputProps, errorProps, styling }) => {
+    const labelPropsMemo = useMemo(() => {
+        return {
+            ...labelProps,
+            name: labelProps?.name || uidGenerator(),
+        };
+    }, [labelProps]);
+
     const wrapperStyles: StyledWrapperProps = {
         css: css`
             ${styling?.wrapperCss}
             display: flex;
 
-            ${labelPosition === "left"
+            ${labelProps?.labelPosition === "left"
                 ? css`
                       flex-direction: row;
                       align-items: center;
@@ -91,13 +68,13 @@ const FormField: FC<Props> = ({
     return (
         <StyledWrapper {...wrapperStyles}>
             {label ? (
-                <StyledFormLabel
-                    labelPosition={labelPosition}
-                    {...(labelProps || {})}
-                    {...styling?.labelCss}
+                <Label
+                    labelPosition={labelProps?.labelPosition}
+                    additionalCss={styling?.labelCss}
+                    {...labelPropsMemo}
                 >
                     {label}
-                </StyledFormLabel>
+                </Label>
             ) : null}
             <StyledFormInput {...(inputProps || {})} {...styling?.inputCss} />
             <StyledFormError {...(errorProps || {})} {...styling?.errorCss} />

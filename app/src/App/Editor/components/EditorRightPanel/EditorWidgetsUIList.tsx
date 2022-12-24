@@ -45,8 +45,11 @@ const EditorWidgetsUIList: FC = () => {
             itemsDictionary={widgetsUI}
             title="UI Widgets"
             noItemsText="No UI widget on the scene."
-            addButtonText="Add UI Widget"
+            triggerButtonText="Add UI Widget"
             handleClickRemove={handleClickRemove}
+            cancelButton={{
+                text: "Cancel and close",
+            }}
         >
             {(state) =>
                 widgetsUIModules.length > 0
