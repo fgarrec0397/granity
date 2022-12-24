@@ -23,7 +23,7 @@ const theme: DefaultTheme = {
             border: "#555555",
             overlay: "hsl(204 10% 10% / 0.1)",
             text: "#ffffff",
-            textDisabled: "",
+            textDisabled: "#BDBDBD",
         },
         danger: {
             main: "#C64141",

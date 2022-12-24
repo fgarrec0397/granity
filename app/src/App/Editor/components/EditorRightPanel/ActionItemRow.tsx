@@ -34,6 +34,7 @@ const styles: ActionItemRowStyles = {
                 css`
                     background-color: #424242;
                     border: 1px solid #5c5c5c;
+                    cursor: default;
                 `}
             `,
         } as StyledWrapperProps;
