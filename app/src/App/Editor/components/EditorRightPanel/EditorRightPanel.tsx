@@ -20,7 +20,7 @@ const styles: EditorRightPanelStyles = {
             width: 100%;
             max-width: ${pxToRem(275)};
 
-            ${layoutStyles(110, 30, undefined, undefined)}
+            ${layoutStyles({ top: 110, right: 30 })}
         `,
     },
     panel: {

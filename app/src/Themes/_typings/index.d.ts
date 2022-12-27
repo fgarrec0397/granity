@@ -39,6 +39,7 @@ export type ThemedCommon = {
         heavy: string;
     };
     borderRadius: {
+        scrollbar: string;
         button: string;
         formField: string;
         panel: string;
@@ -51,6 +52,12 @@ export type ThemedCommon = {
     };
     canvas: {
         background: string;
+    };
+    scrollbar: {
+        widthPx: number;
+        trackColor: string;
+        thumbColor: string;
+        thumbHoverColor: string;
     };
     zIndex: {
         modal: number;

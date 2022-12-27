@@ -1,9 +1,23 @@
 import { pxToRem } from "@themes/utils";
 import { css } from "styled-components";
 
-export const layoutStyles = (top?: number, right?: number, bottom?: number, left?: number) => {
+import { scrollableStyles } from "./scrollbar";
+
+export type LayoutPosition = {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+};
+
+export const layoutStyles = (position: LayoutPosition, isScrollable = true) => {
+    const { top, right, bottom, left } = position;
+
     return css`
         position: absolute;
+        max-height: calc(100vh - ${pxToRem(top || 0)} - ${pxToRem(bottom || 0)});
+        ${isScrollable && scrollableStyles()}
+
         ${top !== undefined &&
         css`
             top: ${pxToRem(top)};

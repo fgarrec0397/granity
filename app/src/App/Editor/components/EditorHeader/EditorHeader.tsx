@@ -21,7 +21,14 @@ type EditorStyles = {
 const styles: EditorStyles = {
     wrapper: {
         css: css`
-            ${layoutStyles(0, 0, undefined, 0)}
+            ${layoutStyles(
+                {
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                },
+                false
+            )}
             display: flex;
             align-items: center;
             justify-content: space-between;

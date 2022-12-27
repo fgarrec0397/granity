@@ -58,7 +58,8 @@ const theme: DefaultTheme = {
             panel: pxToRem(0),
             modal: pxToRem(16),
             popover: pxToRem(8),
-            max: "100%",
+            scrollbar: pxToRem(5),
+            max: "50%",
         },
         boxShadow: {
             main: `0 ${pxToRem(1)} ${pxToRem(3)} 0 rgb(0 0 0 / 0.25), 0 ${pxToRem(1)} ${pxToRem(
@@ -68,6 +69,12 @@ const theme: DefaultTheme = {
         canvas: {
             background:
                 "radial-gradient(152.41% 152.41% at 50% 50%, #7C7C7C 0%, #525252 25.15%, #323232 42.89%)",
+        },
+        scrollbar: {
+            widthPx: 10,
+            trackColor: "#3d3d3d",
+            thumbColor: "#555555",
+            thumbHoverColor: "#6b6b6b",
         },
         zIndex: {
             modal: 200,

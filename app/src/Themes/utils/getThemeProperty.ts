@@ -3,10 +3,10 @@ import { DefaultTheme, ThemeProps } from "styled-components";
 
 export default (
     path: string,
-    themeObject: keyof DefaultTheme,
+    themeKey: keyof DefaultTheme,
     themeProps: ThemeProps<DefaultTheme>
 ) => {
-    const object = themeProps.theme[themeObject];
+    const object = themeProps.theme[themeKey];
 
-    return at(object, path);
+    return at(object, path)[0];
 };

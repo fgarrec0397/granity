@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
+import { scrollbarStyles } from "./mixins/scrollbar";
 import resetSheet from "./resetSheet";
 import { rootFontSize } from "./themesConstants";
 
@@ -9,7 +10,7 @@ export default createGlobalStyle`
 	@import url(${({ theme }) => theme.typography.fontFamilyURL});
 
 	* {
-    box-sizing: border-box;
+    	box-sizing: border-box;
 	}
 	
 	html,
@@ -25,5 +26,9 @@ export default createGlobalStyle`
 		font-family: ${({ theme }) => theme.typography.fontFamily.main};
 		font-size: ${rootFontSize}px;
 		color: ${({ theme }) => theme.colors.common.text};
+		
+		${scrollbarStyles()}
 	}
+
+
 `;
