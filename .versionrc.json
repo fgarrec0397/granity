@@ -5,10 +5,10 @@
       {"type": "chore", "hidden": true},
       {"type": "docs", "hidden": true},
       {"type": "style", "hidden": true},
-      {"type": "refactor", "hidden": true},
+      {"type": "refactor", "hidden": "Refactor"},
       {"type": "perf", "hidden": true},
       {"type": "test", "hidden": true}
     ],
-    "commitUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/commits/{{hash}}",
-    "compareUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/compare/{{previousTag}}...{{currentTag}}"
+    "commitUrlFormat": "https://github.com/fgarrec0397/granity/commits/{{hash}}",
+    "compareUrlFormat": "https://github.com/fgarrec0397/granity/compare/{{previousTag}}...{{currentTag}}"
   }
