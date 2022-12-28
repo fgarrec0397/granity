@@ -1,10 +1,28 @@
+import { StyledWrapper } from "@app/Common/components/Html";
 import Checkbox from "@app/Common/components/Html/Checkbox/Checkbox";
-import FormField from "@app/Common/components/Html/FormField/FormField";
+import FormField, { FormFieldStyles } from "@app/Common/components/Html/FormField/FormField";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import { ScenesDictionary, ScenesDictionaryItem } from "@app/Scenes/_actions/scenesTypes";
+import { pxToRem } from "@themes/utils";
 import { ChangeEvent, FC, useState } from "react";
+import { css } from "styled-components";
 
 import EditorItemsList from "./EditorItemsList";
+
+type EditorScenesListStyles = {
+    formField?: FormFieldStyles;
+};
+
+const styles: EditorScenesListStyles = {
+    formField: {
+        styling: {
+            wrapperCss: css`
+                width: 100%;
+                max-width: ${pxToRem(300)};
+            `,
+        },
+    },
+};
 
 const EditorScenesList: FC = () => {
     const [sceneName, setSceneName] = useState("");
@@ -45,7 +63,7 @@ const EditorScenesList: FC = () => {
             }}
         >
             {() => (
-                <>
+                <StyledWrapper>
                     <FormField
                         label="Scene Name"
                         inputProps={{
@@ -53,6 +71,7 @@ const EditorScenesList: FC = () => {
                             placeholder: "Enter your scene name here...",
                             onChange: (event) => setSceneName(event.target.value),
                         }}
+                        {...styles.formField}
                     />
                     <Checkbox
                         label="Make it default scene"
@@ -60,7 +79,7 @@ const EditorScenesList: FC = () => {
                             onChange: handleIsDefault,
                         }}
                     />
-                </>
+                </StyledWrapper>
             )}
         </EditorItemsList>
     );

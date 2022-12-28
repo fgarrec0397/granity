@@ -67,6 +67,12 @@ const StyledTitle = styled(DialogHeading)<ModalStylesProps>`
 
 const StyledButton = styled(Button)`
     margin-top: ${pxToRem(50)};
+    margin-right: ${pxToRem(10)};
+`;
+
+const ButtonsWrapper = styled.div`
+    display: flex;
+    align-items: center;
 `;
 
 const Modal: FC<ModalProps> = ({
@@ -98,27 +104,29 @@ const Modal: FC<ModalProps> = ({
             <StyledModal state={dialog} backdrop={StyledOverlay} size={size}>
                 {title && <StyledTitle>{title}</StyledTitle>}
                 {children?.(dialog)}
-                {acceptButton && (
-                    <StyledButton
-                        onClick={(event) => {
-                            acceptButton.callback?.(event);
-                            dialog.hide();
-                        }}
-                    >
-                        {acceptButton.text}
-                    </StyledButton>
-                )}
-                {cancelButton && (
-                    <StyledButton
-                        styleType="outlined"
-                        onClick={(event) => {
-                            cancelButton.callback?.(event);
-                            dialog.hide();
-                        }}
-                    >
-                        {cancelButton.text}
-                    </StyledButton>
-                )}
+                <ButtonsWrapper>
+                    {acceptButton && (
+                        <StyledButton
+                            onClick={(event) => {
+                                acceptButton.callback?.(event);
+                                dialog.hide();
+                            }}
+                        >
+                            {acceptButton.text}
+                        </StyledButton>
+                    )}
+                    {cancelButton && (
+                        <StyledButton
+                            styleType="outlined"
+                            onClick={(event) => {
+                                cancelButton.callback?.(event);
+                                dialog.hide();
+                            }}
+                        >
+                            {cancelButton.text}
+                        </StyledButton>
+                    )}
+                </ButtonsWrapper>
             </StyledModal>
         </>
     );

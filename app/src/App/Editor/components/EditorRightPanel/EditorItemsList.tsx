@@ -1,5 +1,5 @@
 import { DictionaryValue, HasCallableChildren } from "@app/Common/commonTypes";
-import { StyledWrapper, StyledWrapperProps, Typography } from "@app/Common/components/Html";
+import { StyledWrapperProps, Typography } from "@app/Common/components/Html";
 import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import Garbage from "@app/Common/components/Html/Icons/Garbage";
@@ -43,13 +43,7 @@ const styles: EditorItemsListStyles = {
             margin-top: ${pxToRem(15)};
         `,
     },
-    itemWrapper: {
-        css: css`
-            display: grid;
-            gap: ${pxToRem(20)};
-            grid-template-columns: repeat(4, 1fr);
-        `,
-    },
+
     noItemsText: {
         css: css`
             color: ${getColor("common.textDisabled")};
@@ -108,11 +102,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
                     </Button>
                 }
             >
-                {(state) => (
-                    <>
-                        <StyledWrapper {...styles.itemWrapper}>{children(state)}</StyledWrapper>
-                    </>
-                )}
+                {(state) => children(state)}
             </Modal>
         </Collapse>
     );
