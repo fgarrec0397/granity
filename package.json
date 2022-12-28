@@ -1,6 +1,6 @@
 {
   "name": "create-granity",
-  "version": null,
+  "version": "0.0.12",
   "description": "A React Three Fiber widgets based game engine.",
   "scripts": {
     "server": "cd server && npm start",
