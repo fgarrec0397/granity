@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import { scrollbarStyles } from "./mixins/scrollbar";
 import resetSheet from "./resetSheet";
 import { rootFontSize } from "./themesConstants";
+import { getColor } from "./utils";
 
 export default createGlobalStyle`
 	${resetSheet}
@@ -29,6 +30,12 @@ export default createGlobalStyle`
 		
 		${scrollbarStyles()}
 	}
+
+	/* Variables */
+	:root {
+		--toastify-color-dark: ${getColor("common.backgroundDark")};
+	}
+
 
 
 `;
