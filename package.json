@@ -1,12 +1,16 @@
 {
   "name": "create-granity",
-  "version": "0.0.12",
+  "version": null,
   "description": "A React Three Fiber widgets based game engine.",
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd app && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major"
   },
   "repository": {
     "type": "git",
@@ -19,6 +23,7 @@
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "concurrently": "^7.5.0",
-    "husky": "^8.0.2"
+    "husky": "^8.0.2",
+    "standard-version": "^9.5.0"
   }
 }
