@@ -14,25 +14,19 @@ export const widgetsDictionaryTest: WidgetDictionary = {
         id: widgetTestId1,
         hasRef: true,
         type: WidgetType.GameObject,
-        widgetDefinition: {
-            name: "widget1",
-        },
+        name: "widget1",
     },
     [widgetTestId2]: {
         component: TestWidgetComponent,
         id: widgetTestId2,
         hasRef: true,
         type: WidgetType.GameObject,
-        widgetDefinition: {
-            name: "widget2",
-        },
+        name: "widget2",
     },
     [widgetTestId3]: {
         component: TestWidgetComponent,
         id: widgetTestId3,
         type: WidgetType.UI,
-        widgetDefinition: {
-            name: "widget3",
-        },
+        name: "widget3",
     },
 };

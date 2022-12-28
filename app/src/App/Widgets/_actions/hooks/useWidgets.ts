@@ -127,9 +127,9 @@ export default () => {
             }
 
             if (!widgetOptions) {
-                if (newWidget.widgetDefinition.options?.length) {
+                if (newWidget.options?.length) {
                     const defaultOptions: WidgetOptionsValues = {};
-                    for (const option of newWidget.widgetDefinition.options) {
+                    for (const option of newWidget.options) {
                         defaultOptions[option.name] = {
                             fieldType: option.fieldType,
                             value: option.defaultValue,

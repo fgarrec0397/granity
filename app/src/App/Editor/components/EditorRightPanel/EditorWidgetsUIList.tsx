@@ -54,7 +54,7 @@ const EditorWidgetsUIList: FC = () => {
             {(state) =>
                 widgetsUIModules.length > 0
                     ? widgetsUIModules.map((widget, index) => {
-                          const key = `${index}-${widget.widgetDefinition.name}`;
+                          const key = `${index}-${widget.name}`;
                           const newWidget: WidgetDictionaryItem =
                               mapWidgetModuleToWidgetDictionary(widget);
 
@@ -68,7 +68,7 @@ const EditorWidgetsUIList: FC = () => {
                                   }}
                                   {...styles.widgetButton}
                               >
-                                  {widget.widgetDefinition.name}
+                                  {widget.name}
                               </Button>
                           );
                       })

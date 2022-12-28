@@ -22,7 +22,7 @@ describe("getWidgetName utility", () => {
     });
 
     test("middle section of the widget name should be equal to the widget definition name", () => {
-        expect(name).toBe(widgetDictionaryItemTest.widgetDefinition.name);
+        expect(name).toBe(widgetDictionaryItemTest.name);
     });
 
     test("last section of the widget name should be equal to the widget id", () => {

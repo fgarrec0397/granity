@@ -10,9 +10,7 @@ const widgetDictionaryItemTest: WidgetObjectsDictionaryItem = {
     id: widgetDictionaryItemTestId,
     component: TestWidgetComponent,
     type: WidgetType.GameObject,
-    widgetDefinition: {
-        name: "widgetDictionaryItemTest",
-    },
+    name: "widgetDictionaryItemTest",
 };
 
 export default widgetDictionaryItemTest;

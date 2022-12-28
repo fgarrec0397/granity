@@ -20,7 +20,7 @@ const EditorWidgetOptions: FC = () => {
                 </Typography>
             ) : (
                 selectedWidgets.length > 0 &&
-                selectedWidgets[0].widgetDefinition.options?.map((option) => {
+                selectedWidgets[0].options?.map((option) => {
                     if (option.fieldType === FieldType.Text) {
                         return <EditorOptionsTextField key={option.displayName} option={option} />;
                     }

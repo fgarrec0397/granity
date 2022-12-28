@@ -51,15 +51,13 @@ export const widget = createWidget({
     component: EndScreen,
     reducer: null,
     type: WidgetType.UI,
-    widgetDefinition: {
-        name: "End Screen",
-        options: [
-            {
-                name: "translateXOnPlay",
-                displayName: "Translate X on play",
-                fieldType: FieldType.Checkbox,
-                defaultValue: false,
-            },
-        ],
-    },
+    name: "End Screen",
+    options: [
+        {
+            name: "translateXOnPlay",
+            displayName: "Translate X on play",
+            fieldType: FieldType.Checkbox,
+            defaultValue: false,
+        },
+    ],
 });

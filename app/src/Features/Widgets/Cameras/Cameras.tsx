@@ -46,21 +46,19 @@ export const widget = createWidget<CamerasProps, PerspectiveCamera>({
             </mesh>
         ),
     },
-    widgetDefinition: {
-        name: "Cameras",
-        options: [
-            {
-                name: "translateXOnPlay",
-                displayName: "Translate X on play",
-                fieldType: FieldType.Checkbox,
-                defaultValue: false,
-            },
-            {
-                name: "isDefault",
-                displayName: "Set this camera as the default",
-                fieldType: FieldType.Checkbox,
-                defaultValue: false,
-            },
-        ],
-    },
+    name: "Cameras",
+    options: [
+        {
+            name: "translateXOnPlay",
+            displayName: "Translate X on play",
+            fieldType: FieldType.Checkbox,
+            defaultValue: false,
+        },
+        {
+            name: "isDefault",
+            displayName: "Set this camera as the default",
+            fieldType: FieldType.Checkbox,
+            defaultValue: false,
+        },
+    ],
 });

@@ -4,5 +4,5 @@ import { WidgetDictionaryItem } from "../widgetsTypes";
 const { widgetObjectsPrefix } = widgetsConstants;
 
 export default <WidgetType extends WidgetDictionaryItem>(widget: WidgetType) => {
-    return `${widgetObjectsPrefix}+${widget.widgetDefinition.name}+${widget.id}`;
+    return `${widgetObjectsPrefix}+${widget.name}+${widget.id}`;
 };

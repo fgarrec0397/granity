@@ -38,37 +38,35 @@ export const widget = createWidget({
     component: GeometryForms,
     reducer: null,
     type: WidgetType.GameObject,
-    widgetDefinition: {
-        name: "Geometry",
-        options: [
-            {
-                name: "color",
-                displayName: "Color",
-                fieldType: FieldType.Text,
-                defaultValue: "white",
-            },
-            {
-                name: "gravityScale",
-                displayName: "Gravity Scale",
-                fieldType: FieldType.Number,
-                defaultValue: 1,
-            },
-            {
-                name: "shape",
-                displayName: "Shape",
-                fieldType: FieldType.Select,
-                selectOptions: [
-                    {
-                        value: "BoxGeometry",
-                        name: "Cube",
-                    },
-                    {
-                        value: "PlaneGeometry",
-                        name: "Plane",
-                    },
-                ],
-                defaultValue: "BoxGeometry",
-            },
-        ],
-    },
+    name: "Geometry",
+    options: [
+        {
+            name: "color",
+            displayName: "Color",
+            fieldType: FieldType.Text,
+            defaultValue: "white",
+        },
+        {
+            name: "gravityScale",
+            displayName: "Gravity Scale",
+            fieldType: FieldType.Number,
+            defaultValue: 1,
+        },
+        {
+            name: "shape",
+            displayName: "Shape",
+            fieldType: FieldType.Select,
+            selectOptions: [
+                {
+                    value: "BoxGeometry",
+                    name: "Cube",
+                },
+                {
+                    value: "PlaneGeometry",
+                    name: "Plane",
+                },
+            ],
+            defaultValue: "BoxGeometry",
+        },
+    ],
 });

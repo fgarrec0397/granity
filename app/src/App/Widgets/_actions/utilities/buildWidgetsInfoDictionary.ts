@@ -80,7 +80,7 @@ export const buildWidgetInfoDictionaryOptions = (
     widget: WidgetDictionaryItem | SerializedWidgetObjectDictionaryItem
 ) => {
     const options: WidgetOptionsValues = {};
-    const widgetOptions = widget.widgetDefinition.options;
+    const widgetOptions = widget.options;
 
     if (widgetOptions?.length) {
         for (const option of widgetOptions) {

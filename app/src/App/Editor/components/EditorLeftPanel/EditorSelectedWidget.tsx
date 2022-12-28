@@ -4,13 +4,7 @@ import { FC } from "react";
 
 const EditorSelectedWidget: FC = () => {
     const { selectedWidgets } = useWidgets();
-    return (
-        <Box>
-            {selectedWidgets.length
-                ? selectedWidgets[0].widgetDefinition.name
-                : "No widget selected"}
-        </Box>
-    );
+    return <Box>{selectedWidgets.length ? selectedWidgets[0].name : "No widget selected"}</Box>;
 };
 
 export default EditorSelectedWidget;
