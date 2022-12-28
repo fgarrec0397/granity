@@ -1,4 +1,4 @@
-import { getColor, getCommon, pxToRem } from "@themes/utils";
+import { getCommon, pxToRem } from "@themes/utils";
 import { css } from "styled-components";
 
 export type ScrollSide = "y" | "x";
@@ -20,11 +20,10 @@ export const scrollbarStyles = () => {
         cursor: pointer;
 
         ::-webkit-scrollbar {
-            width: ${() => (props) => {
+            width: ${(props) => {
                 const widthPx = getCommon("scrollbar.widthPx");
-                console.log(widthPx(props), "widthPx");
 
-                return pxToRem(widthPx(props));
+                return pxToRem(widthPx(props) as unknown as number);
             }};
             cursor: pointer;
         }
