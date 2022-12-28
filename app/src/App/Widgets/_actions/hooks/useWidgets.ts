@@ -1,3 +1,4 @@
+import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import { uidGenerator } from "@app/Common/utilities";
 import { useCallback } from "react";
 import { Object3D } from "three";
@@ -127,9 +128,9 @@ export default () => {
             }
 
             if (!widgetOptions) {
-                if (newWidget.widgetDefinition.options?.length) {
+                if (newWidget.options?.length) {
                     const defaultOptions: WidgetOptionsValues = {};
-                    for (const option of newWidget.widgetDefinition.options) {
+                    for (const option of newWidget.options) {
                         defaultOptions[option.name] = {
                             fieldType: option.fieldType,
                             value: option.defaultValue,
@@ -242,8 +243,7 @@ export default () => {
         if (widget) {
             removeWidget(widget.id);
         } else {
-            // eslint-disable-next-line no-console
-            console.error("No mesh found"); // TODO -- Add UI confirmation
+            toast.error("No mesh found");
         }
     }, [removeWidget, selectedWidgets]);
 

@@ -19,3 +19,4 @@ ToastContainer.defaultProps = {
 };
 
 export default ToastContainer;
+export * from "react-toastify";

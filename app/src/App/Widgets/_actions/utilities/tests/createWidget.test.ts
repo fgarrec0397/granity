@@ -11,9 +11,7 @@ describe("createWidget utility", () => {
         reducer: null,
         hasRef: true,
         type: WidgetType.GameObject,
-        widgetDefinition: {
-            name: "widget",
-        },
+        name: "widget",
     });
 
     it("should have a component property", () => {
@@ -35,9 +33,8 @@ describe("createWidget utility", () => {
         expect(widget.type).toBe(WidgetType.GameObject);
     });
 
-    it("should have a widgetDefinition property and it should be contains an object with a name property", () => {
-        expect(widget).toHaveProperty("widgetDefinition");
-        expect(widget.widgetDefinition).toHaveProperty("name");
-        expect(widget.widgetDefinition.name).toBe("widget");
+    it("should have a name property", () => {
+        expect(widget).toHaveProperty("name");
+        expect(widget.name).toBe("widget");
     });
 });

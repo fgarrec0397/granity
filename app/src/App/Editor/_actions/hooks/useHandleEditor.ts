@@ -1,32 +1,17 @@
-import { notification } from "antd";
+import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 
 import useEditor from "./useEditor";
 
 export default () => {
     const { isEditor } = useEditor();
 
-    // message: "Edit mode",
-    // description: "You entered in edit mode",
     useEffect(() => {
         if (isEditor) {
             document.exitPointerLock();
-            toast.success("Edit mode", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            toast.info("Edit mode");
         } else {
-            notification.open({
-                message: "Game mode",
-                description: "You entered in game mode",
-            });
+            toast.info("Game mode");
         }
     }, [isEditor]);
 };

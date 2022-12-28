@@ -8,7 +8,5 @@ export const widgetsModulesTest: WidgetModules = {
     reducer: null,
     hasRef: true,
     type: WidgetType.GameObject,
-    widgetDefinition: {
-        name: "widget1",
-    },
+    name: "widget1",
 };

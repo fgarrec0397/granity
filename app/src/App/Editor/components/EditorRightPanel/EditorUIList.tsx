@@ -25,7 +25,7 @@ const EditorItemsList: FC = () => {
                     dataSource={Object.keys(widgetsUI)}
                     renderItem={(widgetId) => (
                         <List.Item>
-                            <Typography>{widgetsUI[widgetId].widgetDefinition.name}</Typography>
+                            <Typography>{widgetsUI[widgetId].name}</Typography>
                             <Button onClick={() => handleRemove(widgetId)}>X</Button>
                         </List.Item>
                     )}

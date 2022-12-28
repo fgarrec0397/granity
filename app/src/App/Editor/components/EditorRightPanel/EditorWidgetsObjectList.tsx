@@ -74,7 +74,7 @@ const EditorWidgetsObjectList: FC = () => {
                 <StyledWrapper {...styles.itemWrapper}>
                     {widgetsObjectModules.length > 0
                         ? widgetsObjectModules.map((widget, index) => {
-                              const key = `${index}-${widget.widgetDefinition.name}`;
+                              const key = `${index}-${widget.name}`;
                               const newWidget: WidgetDictionaryItem =
                                   mapWidgetModuleToWidgetDictionary(widget);
 
@@ -88,7 +88,7 @@ const EditorWidgetsObjectList: FC = () => {
                                       }}
                                       {...styles.widgetButton}
                                   >
-                                      {widget.widgetDefinition.name}
+                                      {widget.name}
                                   </Button>
                               );
                           })

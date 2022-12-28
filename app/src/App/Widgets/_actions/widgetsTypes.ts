@@ -15,7 +15,9 @@ import { FieldType, HelpersTypes, WidgetType } from "./widgetsConstants";
 export type Widget<Props = FeaturesWidgetsProps, Ref = null> = {
     component: WidgetComponent<Props, Ref>;
     reducer: Slice | null;
-    widgetDefinition: WidgetDefinition;
+    name: string;
+    displayName?: string;
+    options?: WidgetOptions[];
 };
 
 export type WidgetModules = WidgetObjectModule | WidgetUIModule;
@@ -27,13 +29,12 @@ export type WidgetComponent<Props = FeaturesWidgetsProps, Ref = null> =
     | FC<Props>
     | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<Ref>>;
 
-/**
- * Definition of the widget that is displayed in the editor
- */
-export type WidgetDefinition = {
-    name: string;
-    options?: WidgetOptions[];
-};
+// /**
+//  * Definition of the widget that is displayed in the editor
+//  */
+// export type WidgetDefinition = {
+//     options?: WidgetOptions[];
+// };
 
 /**
  * Option for Select FieldType

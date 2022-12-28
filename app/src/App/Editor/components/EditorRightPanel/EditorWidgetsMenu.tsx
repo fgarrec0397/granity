@@ -61,7 +61,7 @@ const EditorGeometryMenu: FC = () => {
                     <Typography>Game Objects</Typography>
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                         {widgetsObjectModules.map((widget, index) => {
-                            const key = `${index}-${widget.widgetDefinition.name}`;
+                            const key = `${index}-${widget.name}`;
                             const newWidget: WidgetDictionaryItem =
                                 mapWidgetModuleToWidgetDictionary(widget);
 
@@ -71,7 +71,7 @@ const EditorGeometryMenu: FC = () => {
                                         type="link"
                                         onClick={() => handleWidgetClick(newWidget)}
                                     >
-                                        {widget.widgetDefinition.name}
+                                        {widget.name}
                                     </Button>
                                 </Col>
                             );
@@ -80,7 +80,7 @@ const EditorGeometryMenu: FC = () => {
                     <Typography>UI</Typography>
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                         {widgetsUIModules.map((widget, index) => {
-                            const key = `${index}-${widget.widgetDefinition.name}`;
+                            const key = `${index}-${widget.name}`;
                             const newWidget: WidgetDictionaryItem =
                                 mapWidgetModuleToWidgetDictionary(widget);
 
@@ -90,7 +90,7 @@ const EditorGeometryMenu: FC = () => {
                                         type="link"
                                         onClick={() => handleWidgetClick(newWidget)}
                                     >
-                                        {widget.widgetDefinition.name}
+                                        {widget.name}
                                     </Button>
                                 </Col>
                             );

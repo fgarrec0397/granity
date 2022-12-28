@@ -30,9 +30,7 @@ export default () => {
 
     const getWidgetModuleByName = useCallback(
         (widgetName: string, otherWidgetsModules?: WidgetModules[]) => {
-            return (otherWidgetsModules || widgetsModules).find(
-                (x) => x.widgetDefinition.name === widgetName
-            );
+            return (otherWidgetsModules || widgetsModules).find((x) => x.name === widgetName);
         },
         [widgetsModules]
     );

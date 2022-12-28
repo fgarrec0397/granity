@@ -5,8 +5,8 @@ import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import Garbage from "@app/Common/components/Html/Icons/Garbage";
 import Modal, { ModalProps } from "@app/Common/components/Html/Modal/Modal";
 import { TypographyStylesProps } from "@app/Common/components/Html/Typography";
-import { ScenesDictionary, ScenesDictionaryItem } from "@app/Scenes/_actions/scenesTypes";
-import { WidgetDictionary, WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
+import { ScenesDictionary } from "@app/Scenes/_actions/scenesTypes";
+import { WidgetDictionary } from "@app/Widgets/_actions/widgetsTypes";
 import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { DisclosureState } from "ariakit";
 import { css } from "styled-components";
@@ -76,9 +76,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
                             itemsDictionary[id] as DictionaryValue<T>
                         )}
                     >
-                        {"widgetDefinition" in itemsDictionary[id]
-                            ? (itemsDictionary[id] as WidgetDictionaryItem).widgetDefinition.name
-                            : (itemsDictionary[id] as ScenesDictionaryItem).name}
+                        {itemsDictionary[id].name}
                         <Button
                             styleType="none"
                             onClick={() => handleClickRemove?.(id)}

@@ -43,21 +43,19 @@ export const widget = createWidget({
     component: Terrain,
     reducer: null,
     type: WidgetType.GameObject,
-    widgetDefinition: {
-        name: "Terrain",
-        options: [
-            {
-                name: "translateXOnPlay",
-                displayName: "Translate X on play",
-                fieldType: FieldType.Checkbox,
-                defaultValue: false,
-            },
-            {
-                name: "color",
-                displayName: "Color",
-                fieldType: FieldType.Text,
-                defaultValue: "white",
-            },
-        ],
-    },
+    name: "Terrain",
+    options: [
+        {
+            name: "translateXOnPlay",
+            displayName: "Translate X on play",
+            fieldType: FieldType.Checkbox,
+            defaultValue: false,
+        },
+        {
+            name: "color",
+            displayName: "Color",
+            fieldType: FieldType.Text,
+            defaultValue: "white",
+        },
+    ],
 });

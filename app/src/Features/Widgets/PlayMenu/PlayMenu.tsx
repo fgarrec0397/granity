@@ -42,15 +42,13 @@ export const widget = createWidget({
     component: PlayMenu,
     reducer: null,
     type: WidgetType.UI,
-    widgetDefinition: {
-        name: "PlayMenu",
-        options: [
-            {
-                name: "translateXOnPlay",
-                displayName: "Translate X on play",
-                fieldType: FieldType.Checkbox,
-                defaultValue: false,
-            },
-        ],
-    },
+    name: "PlayMenu",
+    options: [
+        {
+            name: "translateXOnPlay",
+            displayName: "Translate X on play",
+            fieldType: FieldType.Checkbox,
+            defaultValue: false,
+        },
+    ],
 });

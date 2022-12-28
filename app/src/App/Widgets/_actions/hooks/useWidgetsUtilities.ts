@@ -25,10 +25,7 @@ export default () => {
             for (const key in serializedWidgets) {
                 const serializedWidget = serializedWidgets[key];
 
-                const widgetModule = getWidgetModuleByName(
-                    serializedWidget.widgetDefinition.name,
-                    widgetsModules
-                );
+                const widgetModule = getWidgetModuleByName(serializedWidget.name, widgetsModules);
 
                 if (widgetModule) {
                     const widget = {

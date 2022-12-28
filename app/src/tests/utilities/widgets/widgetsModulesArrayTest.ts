@@ -9,25 +9,19 @@ export const widgetsModulesTest: WidgetModules[] = [
         reducer: null,
         hasRef: true,
         type: WidgetType.GameObject,
-        widgetDefinition: {
-            name: "widget1",
-        },
+        name: "widget1",
     },
     {
         component: TestWidgetComponent,
         reducer: null,
         hasRef: true,
         type: WidgetType.GameObject,
-        widgetDefinition: {
-            name: "widget2",
-        },
+        name: "widget2",
     },
     {
         component: TestWidgetComponent,
         reducer: null,
         type: WidgetType.UI,
-        widgetDefinition: {
-            name: "widget3",
-        },
+        name: "widget3",
     },
 ];

@@ -15,7 +15,5 @@ export const widget = createWidget({
     component: WidgetStarter,
     reducer: widgetStarterReducer,
     type: WidgetType.GameObject,
-    widgetDefinition: {
-        name: "WidgetStarter",
-    },
+    name: "WidgetStarter",
 });
