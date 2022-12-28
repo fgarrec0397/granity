@@ -1,3 +1,4 @@
+import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import { uidGenerator } from "@app/Common/utilities";
 import { useCallback } from "react";
 import { Object3D } from "three";
@@ -242,8 +243,7 @@ export default () => {
         if (widget) {
             removeWidget(widget.id);
         } else {
-            // eslint-disable-next-line no-console
-            console.error("No mesh found"); // TODO -- Add UI confirmation
+            toast.error("No mesh found");
         }
     }, [removeWidget, selectedWidgets]);
 

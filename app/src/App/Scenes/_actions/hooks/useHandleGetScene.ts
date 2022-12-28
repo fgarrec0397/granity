@@ -1,3 +1,4 @@
+import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import { useEffect } from "react";
 
 import { getScenes } from "../_data/scenesApiservices";
@@ -13,9 +14,7 @@ export default () => {
                     initScenes(result);
                 },
                 (error: any) => {
-                    // TODO - show UI element with this error
-                    // eslint-disable-next-line no-console
-                    console.warn(error);
+                    toast.error(error);
                 }
             );
         };
