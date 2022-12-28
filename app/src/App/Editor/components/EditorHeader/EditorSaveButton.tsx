@@ -1,5 +1,5 @@
+import Button from "@app/Common/components/Html/Button/Button";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
-import { Button } from "antd";
 import { FC } from "react";
 
 const SaveButton: FC = () => {

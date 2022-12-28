@@ -1,8 +1,8 @@
 import { StyledWrapper } from "@app/Common/components/Html";
+import Button from "@app/Common/components/Html/Button/Button";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import createWidget from "@app/Widgets/_actions/utilities/createWidget";
 import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
-import { Button } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
 

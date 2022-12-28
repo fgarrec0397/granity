@@ -1,5 +1,3 @@
-import "antd/dist/antd.css";
-
 import Core from "@app/Core/Core";
 import GlobalStyle from "@themes/globalStyle";
 import { StrictMode } from "react";

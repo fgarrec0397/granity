@@ -1,5 +1,5 @@
+import Button from "@app/Common/components/Html/Button/Button";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
-import { Button } from "antd";
 import { FC } from "react";
 
 const SaveButton: FC = () => {

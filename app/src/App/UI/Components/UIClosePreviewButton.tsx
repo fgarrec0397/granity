@@ -1,7 +1,7 @@
 import { StyledWrapper } from "@app/Common/components/Html";
+import Button from "@app/Common/components/Html/Button/Button";
 import { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
-import { Button } from "antd";
 import { FC } from "react";
 import { css } from "styled-components";
 
