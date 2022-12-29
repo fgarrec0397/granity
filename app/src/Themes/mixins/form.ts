@@ -21,6 +21,7 @@ export const inputStyles = () => {
         background-color: ${getColor("common.backgroundLight")};
         border: ${getFocus("borderWidth")} solid ${getColor("common.backgroundLight")};
         border-radius: ${getCommon("borderRadius.formField")};
+        color: ${getColor("common.text")};
 
         /* Chrome, Safari, Edge, Opera */
         &::-webkit-outer-spin-button,

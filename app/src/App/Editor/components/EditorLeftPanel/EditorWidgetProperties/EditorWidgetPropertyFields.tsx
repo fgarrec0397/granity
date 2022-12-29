@@ -63,6 +63,10 @@ const EditorWidgetPropertyFields: FC<Props> = ({ title, fields }) => {
                         <FormField
                             key={x.label}
                             label={x.label}
+                            labelProps={{
+                                name: x.label,
+                                labelPosition: "left",
+                            }}
                             inputProps={{
                                 name: x.label,
                                 type: "number",

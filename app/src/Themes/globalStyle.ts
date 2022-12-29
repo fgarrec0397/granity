@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import { scrollbarStyles } from "./mixins/scrollbar";
 import resetSheet from "./resetSheet";
 import { rootFontSize } from "./themesConstants";
-import { getColor } from "./utils";
+import { getColor, getTypography } from "./utils";
 
 export default createGlobalStyle`
 	${resetSheet}
@@ -24,9 +24,9 @@ export default createGlobalStyle`
 	}
 
 	body {
-		font-family: ${({ theme }) => theme.typography.fontFamily.main};
+		font-family: ${getTypography("fontFamily.main")};
 		font-size: ${rootFontSize}px;
-		color: ${({ theme }) => theme.colors.common.text};
+		color: ${getColor("common.text")};
 		
 		${scrollbarStyles()}
 	}

@@ -13,9 +13,11 @@ export type LabelComponentProps = FormLabelProps & {
     labelPosition?: "left" | "top";
 };
 
-export type LabelProps = LabelStylesProps & LabelComponentProps & HasChildren;
+export type LabelProps = LabelStylesProps & LabelComponentProps;
 
-const Label = styled(FormLabel)<LabelProps>`
+type Props = LabelProps & HasChildren;
+
+const Label = styled(FormLabel)<Props>`
     ${labelStyles()}
 
     ${({ labelPosition }) => css`

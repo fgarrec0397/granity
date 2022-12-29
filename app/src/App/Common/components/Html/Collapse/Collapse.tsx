@@ -34,6 +34,7 @@ type Props = CollapseStylesProps & CollapseComponentsProps & HasChildren;
 const baseCollapseStyles = () => css`
     padding: ${pxToRem(10, 15)};
     width: 100%;
+    color: ${getColor("common.text")};
     font-size: ${getTypography("size.smaller")}
     font-weight: ${getTypography("weight.bold")};
     text-align: left;
