@@ -17,7 +17,9 @@ export type LabelProps = LabelStylesProps & LabelComponentProps;
 
 type Props = LabelProps & HasChildren;
 
-const Label = styled(FormLabel)<Props>`
+const Label = styled(({ labelPosition, additionalCss, ...props }) => (
+    <FormLabel {...props} />
+))<Props>`
     ${labelStyles()}
 
     ${({ labelPosition }) => css`
