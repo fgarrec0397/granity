@@ -27,8 +27,7 @@ type ModalButton = {
     callback?: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-export type ModalProps = DisclosureStateProps &
-    HasCallableChildren<DisclosureState> &
+export type ModalProps = HasCallableChildren<DisclosureState> &
     ModalStylesProps & {
         isOpen?: boolean;
         title?: string;
@@ -104,29 +103,31 @@ const Modal: FC<ModalProps> = ({
             <StyledModal state={dialog} backdrop={StyledOverlay} size={size}>
                 {title && <StyledTitle>{title}</StyledTitle>}
                 {children?.(dialog)}
-                <ButtonsWrapper>
-                    {acceptButton && (
-                        <StyledButton
-                            onClick={(event) => {
-                                acceptButton.callback?.(event);
-                                dialog.hide();
-                            }}
-                        >
-                            {acceptButton.text}
-                        </StyledButton>
-                    )}
-                    {cancelButton && (
-                        <StyledButton
-                            styleType="outlined"
-                            onClick={(event) => {
-                                cancelButton.callback?.(event);
-                                dialog.hide();
-                            }}
-                        >
-                            {cancelButton.text}
-                        </StyledButton>
-                    )}
-                </ButtonsWrapper>
+                {(acceptButton || cancelButton) && (
+                    <ButtonsWrapper>
+                        {acceptButton && (
+                            <StyledButton
+                                onClick={(event) => {
+                                    acceptButton.callback?.(event);
+                                    dialog.hide();
+                                }}
+                            >
+                                {acceptButton.text}
+                            </StyledButton>
+                        )}
+                        {cancelButton && (
+                            <StyledButton
+                                styleType="outlined"
+                                onClick={(event) => {
+                                    cancelButton.callback?.(event);
+                                    dialog.hide();
+                                }}
+                            >
+                                {cancelButton.text}
+                            </StyledButton>
+                        )}
+                    </ButtonsWrapper>
+                )}
             </StyledModal>
         </>
     );

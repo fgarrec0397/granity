@@ -1,4 +1,5 @@
 import { HasChildren } from "@app/Common/commonTypes";
+import useMergeStyles from "@themes/hooks/useMergeStyles";
 import { boxStyles as baseBoxStyles } from "@themes/mixins/box";
 import { FC } from "react";
 import { css } from "styled-components";
@@ -18,13 +19,15 @@ const boxStyles: BoxStyles = {
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export type BoxComponents = {};
+export type BoxComponents = {
+    styling?: BoxStyles;
+};
 
 type Props = BoxComponents & HasChildren;
 
-const styles = boxStyles;
+const Box: FC<Props> = ({ children, styling }) => {
+    const styles = useMergeStyles(styling, boxStyles);
 
-const Box: FC<Props> = ({ children }) => {
     return <StyledWrapper {...styles.wrapper}>{children}</StyledWrapper>;
 };
 

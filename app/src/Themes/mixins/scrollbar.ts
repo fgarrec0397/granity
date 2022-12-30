@@ -17,7 +17,6 @@ export const scrollbarStyles = () => {
     return css`
         scrollbar-color: ${getCommon("scrollbar.trackColor")} ${getCommon("borderRadius.scrollbar")};
         scrollbar-width: ${pxToRem(10)};
-        cursor: pointer;
 
         ::-webkit-scrollbar {
             width: ${(props) => {
