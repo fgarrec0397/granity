@@ -5,7 +5,6 @@ import FormField from "@app/Common/components/Html/FormField/FormField";
 import Edit from "@app/Common/components/Html/Icons/Edit";
 import Modal from "@app/Common/components/Html/Modal/Modal";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
-import displayWidgetName from "@app/Widgets/_actions/utilities/displayWidgetName";
 import { getColor, pxToRem } from "@themes/utils";
 import { ChangeEvent, FC, useState } from "react";
 import { css } from "styled-components";
@@ -36,7 +35,7 @@ const styles: EditorSelectedWidgetStyles = {
 
 const EditorSelectedWidget: FC = () => {
     const [displayNameValue, setDisplayNameValue] = useState("");
-    const { selectedWidgets, updateWidget } = useWidgets();
+    const { displayWidgetName, selectedWidgets, updateWidget } = useWidgets();
 
     const onDisplayNameInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
         setDisplayNameValue(target.value);
@@ -59,9 +58,9 @@ const EditorSelectedWidget: FC = () => {
         <Box styling={styles.box}>
             {selectedWidgets.length ? (
                 <>
-                    <Typography>{displayWidgetName(selectedWidgets[0])}</Typography>
+                    <Typography>{displayWidgetName(selectedWidgets[0].id)}</Typography>
                     <Modal
-                        title={`Edit ${displayWidgetName(selectedWidgets[0])}`}
+                        title={`Edit ${displayWidgetName(selectedWidgets[0].id)}`}
                         size="large"
                         acceptButton={{
                             text: "Save",
@@ -84,7 +83,7 @@ const EditorSelectedWidget: FC = () => {
                             },
                         }}
                     >
-                        {(state) => {
+                        {() => {
                             return (
                                 <FormField
                                     label="Display Name"

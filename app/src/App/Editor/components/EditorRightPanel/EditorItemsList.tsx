@@ -6,7 +6,6 @@ import Garbage from "@app/Common/components/Html/Icons/Garbage";
 import Modal, { ModalProps } from "@app/Common/components/Html/Modal/Modal";
 import { TypographyStylesProps } from "@app/Common/components/Html/Typography";
 import { ScenesDictionary } from "@app/Scenes/_actions/scenesTypes";
-import displayWidgetName from "@app/Widgets/_actions/utilities/displayWidgetName";
 import { WidgetDictionary } from "@app/Widgets/_actions/widgetsTypes";
 import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { DisclosureState } from "ariakit";
@@ -70,9 +69,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
         <Collapse title={title}>
             {Object.keys(itemsDictionary).length > 0 ? (
                 Object.keys(itemsDictionary).map((id) => {
-                    const item = itemsDictionary[id];
-                    const itemName =
-                        "displayName" in item ? displayWidgetName(item) : itemsDictionary[id].name;
+                    const { name } = itemsDictionary[id];
 
                     return (
                         <ActionItemRow
@@ -84,7 +81,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
                                 itemsDictionary[id] as DictionaryValue<T>
                             )}
                         >
-                            {itemName}
+                            {name}
                             <Button
                                 styleType="none"
                                 onClick={() => handleClickRemove?.(id)}

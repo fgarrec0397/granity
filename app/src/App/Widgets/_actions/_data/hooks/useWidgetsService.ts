@@ -21,6 +21,7 @@ export default () => {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
         dispatchUpdateDictionary,
+        dispatchUpdateDictionaryV2,
         dispatchSetCurrentWidgetProperties,
         dispatchRemoveWidgetDictionary,
         dispatchOverrideWidgetDictionary,
@@ -50,6 +51,13 @@ export default () => {
             setWidgets((prevWidgets) => ({ ...prevWidgets, ...newWidgets }));
         },
         [dispatchAddBatchDictionary, setWidgets]
+    );
+
+    const updateV2 = useCallback(
+        (widgetId: string, value: Omit<WidgetsInfoDictionaryItem, "id">) => {
+            dispatchUpdateDictionaryV2(widgetId, value);
+        },
+        [dispatchUpdateDictionaryV2]
     );
 
     const update = useCallback(
@@ -129,6 +137,7 @@ export default () => {
     return {
         add,
         addBatch,
+        updateV2,
         update,
         select,
         widgets,

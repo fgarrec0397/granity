@@ -16,7 +16,7 @@ export type Widget<Props = FeaturesWidgetsProps, Ref = null> = {
     component: WidgetComponent<Props, Ref>;
     reducer: Slice | null;
     name: string;
-    displayName?: string;
+    // displayName?: string;
     options?: WidgetOptions[];
 };
 
@@ -166,6 +166,7 @@ export type WidgetsInfoDictionary = Dictionary<WidgetsInfoDictionaryItem>;
 
 export type WidgetsInfoDictionaryItem = {
     id: string;
+    displayName?: string;
     properties?: WidgetProperties;
     options?: WidgetOptionsValues;
 };

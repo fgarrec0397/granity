@@ -14,6 +14,7 @@ import {
     removeWidgetDictionary,
     setCurrentWidgetProperties,
     updateWidgetDictionary,
+    updateWidgetDictionaryV2,
 } from "../state/widgetsReducer";
 
 export default () => {
@@ -28,6 +29,13 @@ export default () => {
     const dispatchAddBatchDictionary = useCallback(
         (widgetsInfoDictionary: Required<WidgetsInfoDictionary>) => {
             return dispatch(addBatchWidgetDictionary(widgetsInfoDictionary));
+        },
+        [dispatch]
+    );
+
+    const dispatchUpdateDictionaryV2 = useCallback(
+        (widgetId: string, value: Omit<WidgetsInfoDictionaryItem, "id">) => {
+            return dispatch(updateWidgetDictionaryV2({ widgetId, value }));
         },
         [dispatch]
     );
@@ -61,6 +69,7 @@ export default () => {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
         dispatchUpdateDictionary,
+        dispatchUpdateDictionaryV2,
         dispatchRemoveWidgetDictionary,
         dispatchRemoveBatchWidgetDictionary,
         dispatchOverrideWidgetDictionary,

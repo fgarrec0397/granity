@@ -36,6 +36,21 @@ export const widgetsReducerActions = <T extends WidgetsState>() => ({
             ...newWidgetsDictionary,
         };
     },
+    updateWidgetDictionaryV2: (
+        state: T,
+        action: PayloadAction<{ widgetId: string; value: Omit<WidgetsInfoDictionaryItem, "id"> }>
+    ) => {
+        const { widgetId, value } = action.payload;
+
+        state.widgetsInfoDictionary[widgetId] = {
+            ...state.widgetsInfoDictionary[widgetId],
+            ...value,
+        };
+
+        // if (state.widgetsInfoDictionary[widgetId][]) {
+
+        // }
+    },
     updateWidgetDictionary: (state: T, action: PayloadAction<WidgetsInfoDictionaryItem>) => {
         const { id, properties, options } = action.payload;
 
@@ -76,6 +91,7 @@ export const {
     addWidgetDictionary,
     addBatchWidgetDictionary,
     updateWidgetDictionary,
+    updateWidgetDictionaryV2,
     removeWidgetDictionary,
     removeBatchWidgetDictionary,
     overrideWidgetDictionary,
