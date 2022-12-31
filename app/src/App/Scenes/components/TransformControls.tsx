@@ -3,6 +3,7 @@ import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import useGetWidgets from "@app/Widgets/_actions/hooks/useGetMeshByWidget";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { useThree } from "@react-three/fiber";
+import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
 import { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import { Object3D } from "three";
@@ -85,29 +86,31 @@ const TransformControlsComponent: FC<Props> = ({ children }) => {
      * Initialize events on TransformControls
      */
     useEffect(() => {
+        const onObjectChangeHandler = () => {
+            updateCurrentWidgetWithMesh(meshToAttach, true);
+        };
+
+        const debouncedObjectChange = debounce(onObjectChangeHandler, 40);
+
         const onTransformControlMouseUp = () => {
             if (meshToAttach) {
                 updateCurrentWidgetWithMesh(meshToAttach);
             }
+            debouncedObjectChange.cancel();
         };
 
         const onDraggingChangedHandler = ({ value }: any) => {
             setIsEditing(value);
         };
 
-        const onObjectChangeHandler = () => {
-            // console.log("drag");
-            updateCurrentWidgetWithMesh(meshToAttach, true);
-        };
-
         transformControls?.addEventListener("mouseUp", onTransformControlMouseUp);
         transformControls?.addEventListener("dragging-changed", onDraggingChangedHandler);
-        transformControls?.addEventListener("objectChange", onObjectChangeHandler);
+        transformControls?.addEventListener("objectChange", debouncedObjectChange);
 
         return () => {
             transformControls?.removeEventListener("mouseUp", onTransformControlMouseUp);
             transformControls?.removeEventListener("dragging-changed", onDraggingChangedHandler);
-            transformControls?.removeEventListener("objectChange", onObjectChangeHandler);
+            transformControls?.removeEventListener("objectChange", debouncedObjectChange);
         };
     }, [transformControls, meshToAttach, updateCurrentWidgetWithMesh, setIsEditing]);
 

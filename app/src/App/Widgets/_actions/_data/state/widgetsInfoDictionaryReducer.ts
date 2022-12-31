@@ -49,10 +49,6 @@ export const widgetsSlice = createSlice({
                 ...state.widgetsInfoDictionary[widgetId],
                 ...value,
             };
-
-            // if (state.widgetsInfoDictionary[widgetId][]) {
-
-            // }
         },
         updateWidgetDictionary: (
             state: WidgetsInfoDictionaryState,

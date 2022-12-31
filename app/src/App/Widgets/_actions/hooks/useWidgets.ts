@@ -106,7 +106,6 @@ export default () => {
 
     const updateWidgetV2 = useCallback(
         (widgetId: string, value: Omit<WidgetsInfoDictionaryItem, "id">) => {
-            // const widget = getWidgetInfoById(widgetId);
             updateV2(widgetId, value);
         },
         [updateV2]
@@ -169,7 +168,6 @@ export default () => {
                 const widgetProperties = buildWidgetDictionaryProperties(mesh);
 
                 if (updateOnlyProperties) {
-                    console.log("updateOnlyProperties");
                     updateCurrentProperties(widgetProperties);
                 } else {
                     updateWidgetV2(currentWidget.id, { properties: widgetProperties });
