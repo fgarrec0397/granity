@@ -6,16 +6,16 @@ import {
     WidgetsInfoDictionary,
     WidgetsInfoDictionaryItem,
 } from "../../widgetsTypes";
+import { setCurrentWidgetProperties } from "../state/displayedInformationReducer";
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
     overrideWidgetDictionary,
     removeBatchWidgetDictionary,
     removeWidgetDictionary,
-    setCurrentWidgetProperties,
     updateWidgetDictionary,
     updateWidgetDictionaryV2,
-} from "../state/widgetsReducer";
+} from "../state/widgetsInfoDictionaryReducer";
 
 export default () => {
     const dispatch = useAppDispatch();

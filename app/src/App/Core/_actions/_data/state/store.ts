@@ -1,7 +1,9 @@
 import editorReducer, { EditorState } from "@app/Editor/_actions/_data/state/editorReducer";
 import gameReducer, { GameState } from "@app/Game/_actions/_data/state/gameReducer";
 import scenesReducer, { ScenesState } from "@app/Scenes/_actions/_data/state/scenesReducer";
-import widgetsReducer, { WidgetsState } from "@app/Widgets/_actions/_data/state/widgetsReducer";
+import widgetsReducerV2, {
+    WidgetsStateV2,
+} from "@app/Widgets/_actions/_data/state/widgetsReducerV2";
 import { FeaturesState } from "@features/Widgets";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
@@ -9,7 +11,7 @@ import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "r
 
 interface State {
     editor: EditorState;
-    widgets: WidgetsState;
+    widgets: WidgetsStateV2;
     scenes: ScenesState;
     game: GameState;
     features?: FeaturesState;
@@ -32,7 +34,7 @@ export type InjectableStore = Store<State, MyAction> & {
  */
 const staticReducers: ReducersMapObject<State, MyAction> = {
     editor: editorReducer,
-    widgets: widgetsReducer,
+    widgets: widgetsReducerV2,
     scenes: scenesReducer,
     game: gameReducer,
 };

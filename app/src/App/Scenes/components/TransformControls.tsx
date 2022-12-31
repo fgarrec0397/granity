@@ -96,6 +96,7 @@ const TransformControlsComponent: FC<Props> = ({ children }) => {
         };
 
         const onObjectChangeHandler = () => {
+            // console.log("drag");
             updateCurrentWidgetWithMesh(meshToAttach, true);
         };
 

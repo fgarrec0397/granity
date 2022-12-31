@@ -169,13 +169,14 @@ export default () => {
                 const widgetProperties = buildWidgetDictionaryProperties(mesh);
 
                 if (updateOnlyProperties) {
-                    updateDisplayedProperties(widgetProperties);
+                    console.log("updateOnlyProperties");
+                    updateCurrentProperties(widgetProperties);
                 } else {
                     updateWidgetV2(currentWidget.id, { properties: widgetProperties });
                 }
             }
         },
-        [selectedWidgets, updateDisplayedProperties, updateWidgetV2]
+        [selectedWidgets, updateCurrentProperties, updateWidgetV2]
     );
 
     const addWidget = useCallback(
