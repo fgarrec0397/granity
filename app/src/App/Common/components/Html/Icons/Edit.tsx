@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC } from "react";
 
 const Edit: FC = () => {
     return (
@@ -21,4 +21,4 @@ const Edit: FC = () => {
     );
 };
 
-export default memo(Edit);
+export default Edit;

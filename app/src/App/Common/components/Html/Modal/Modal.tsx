@@ -6,11 +6,9 @@ import {
     DialogHeading,
     DialogStateProps,
     DisclosureState,
-    DisclosureStateProps,
     useDialogDisclosure,
     useDialogState,
 } from "ariakit";
-import cloneDeep from "lodash/cloneDeep";
 import { cloneElement, FC, MouseEvent, ReactElement, useMemo } from "react";
 import styled from "styled-components";
 
@@ -29,7 +27,6 @@ type ModalButton = {
 
 export type ModalProps = HasCallableChildren<DisclosureState> &
     ModalStylesProps & {
-        isOpen?: boolean;
         title?: string;
         acceptButton?: ModalButton;
         cancelButton?: ModalButton;
@@ -91,10 +88,9 @@ const Modal: FC<ModalProps> = ({
     });
 
     const triggerProps = useMemo(() => {
-        const clonedProps = cloneDeep(mergedTriggerProps);
-        delete clonedProps.ref;
+        delete mergedTriggerProps.ref;
 
-        return clonedProps;
+        return mergedTriggerProps;
     }, [mergedTriggerProps]);
 
     return (
