@@ -35,14 +35,18 @@ const styles: EditorSelectedWidgetStyles = {
 
 const EditorSelectedWidget: FC = () => {
     const [displayNameValue, setDisplayNameValue] = useState("");
-    const { displayWidgetName, selectedWidgets, updateWidget } = useWidgets();
+    const { displayWidgetName, getWidgetDictionaryFromWidget, selectedWidgets, updateWidgetV2 } =
+        useWidgets();
 
     const onDisplayNameInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
         setDisplayNameValue(target.value);
     };
 
     const onSave = () => {
-        updateWidget(selectedWidgets[0]);
+        updateWidgetV2(selectedWidgets[0].id, {
+            ...getWidgetDictionaryFromWidget(selectedWidgets[0].id),
+            displayName: displayNameValue,
+        });
         clearInput();
     };
 

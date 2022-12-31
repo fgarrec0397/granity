@@ -32,9 +32,7 @@ export const buildWidgetsInfoDictionary = (widgets: WidgetDictionary) => {
         const dictionaryItem = buildWidgetInfoDictionaryItem(widgets[key]);
 
         widgetsInfoDictionary[dictionaryItem.id] = {
-            id: dictionaryItem.id,
-            properties: dictionaryItem.properties!,
-            options: dictionaryItem.options!,
+            ...dictionaryItem,
         };
     }
 
@@ -59,7 +57,6 @@ export const buildWidgetInfoDictionaryItem = (
 
     let widgetProperties: WidgetProperties = widgetsConstants.widgetDefaultProperties;
 
-    // TODO - see if this is still used
     if (builderOptions?.mesh) {
         widgetProperties = buildWidgetDictionaryProperties(builderOptions.mesh);
     }

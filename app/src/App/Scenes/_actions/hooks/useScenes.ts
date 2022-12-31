@@ -1,3 +1,4 @@
+import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import { usePrevious } from "@app/Common/hooks";
 import { uidGenerator } from "@app/Common/utilities";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
@@ -220,6 +221,8 @@ export default () => {
             };
 
             await save(scenesClone);
+        } else {
+            toast.error("Impossible to save without a scene");
         }
     }, [getCurrentScene, save, scenes, updateScene, widgets, widgetsInfoDictionary]);
 

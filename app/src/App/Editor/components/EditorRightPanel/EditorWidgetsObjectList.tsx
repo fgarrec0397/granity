@@ -42,7 +42,14 @@ const styles: EditorWidgetsObjectListStyles = {
 };
 
 const EditorWidgetsObjectList: FC = () => {
-    const { addWidget, widgetsObjects, selectWidget, selectedWidgets, removeWidget } = useWidgets();
+    const {
+        addWidget,
+        displayWidgetName,
+        widgetsObjects,
+        selectWidget,
+        selectedWidgets,
+        removeWidget,
+    } = useWidgets();
     const { widgetsObjectModules } = useWidgetsModules();
 
     const handleClickMenuItem = (widget: WidgetDictionaryItem): void => {
@@ -63,6 +70,7 @@ const EditorWidgetsObjectList: FC = () => {
             title="Objects Widgets"
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
+            displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
             isActionRowSelected={(row) => widgetsObjects[row.id]?.id === selectedWidgets[0]?.id}

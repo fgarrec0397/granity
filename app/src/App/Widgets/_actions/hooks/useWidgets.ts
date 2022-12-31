@@ -326,6 +326,7 @@ export default () => {
         selectWidget,
         selectWidgetFromMeshArr,
         updateWidget,
+        updateWidgetV2,
         updateWidgetOptions,
         updateCurrentWidgetOptions,
         updateCurrentWidget,

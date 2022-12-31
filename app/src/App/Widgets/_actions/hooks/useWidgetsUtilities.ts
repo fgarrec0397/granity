@@ -45,7 +45,10 @@ export default () => {
         [getWidgetModuleByName]
     );
 
-    const mergeWidgetsDictionary = useCallback(
+    /**
+     * Synchronize two widgets by removing the options from widgetsInfoDictionary2 that are not on widgetsInfoDictionary1
+     */
+    const synchWidgets = useCallback(
         (
             widgetsInfoDictionary1: WidgetsInfoDictionary,
             widgetsInfoDictionary2: WidgetsInfoDictionary
@@ -61,13 +64,10 @@ export default () => {
                         }
                     }
 
-                    // Make sure to keep the options left from the saved widget dictionary
-                    widgetsInfoDictionary1[dictionaryItemKey].options =
-                        widgetsInfoDictionary2[dictionaryItemKey].options;
-
                     // Make sure to keep the properties left from the saved widget dictionary
-                    widgetsInfoDictionary1[dictionaryItemKey].properties =
-                        widgetsInfoDictionary2[dictionaryItemKey].properties;
+                    widgetsInfoDictionary1[dictionaryItemKey] = {
+                        ...widgetsInfoDictionary2[dictionaryItemKey],
+                    };
                 }
             });
 
@@ -85,5 +85,5 @@ export default () => {
         [widgetsInfoDictionary]
     );
 
-    return { unserializeWidgets, mergeWidgetsDictionary, getWidgetProps };
+    return { unserializeWidgets, synchWidgets, getWidgetProps };
 };

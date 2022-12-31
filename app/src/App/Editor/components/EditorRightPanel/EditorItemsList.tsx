@@ -20,6 +20,7 @@ type EditorItemsListProps<T extends WidgetDictionary | ScenesDictionary> = {
     triggerButtonText: string;
     acceptButton?: ModalProps["acceptButton"];
     cancelButton?: ModalProps["cancelButton"];
+    displayItemName?: (id: string) => string | undefined;
     handleClickRow?: (row: DictionaryValue<T>) => void;
     handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (row: DictionaryValue<T>) => boolean;
@@ -58,6 +59,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
     title,
     noItemsText,
     triggerButtonText,
+    displayItemName,
     handleClickRow,
     handleClickRemove,
     isActionRowSelected,
@@ -69,7 +71,9 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
         <Collapse title={title}>
             {Object.keys(itemsDictionary).length > 0 ? (
                 Object.keys(itemsDictionary).map((id) => {
-                    const { name } = itemsDictionary[id];
+                    const itemName = displayItemName
+                        ? displayItemName(itemsDictionary[id].id)
+                        : itemsDictionary[id].name;
 
                     return (
                         <ActionItemRow
@@ -81,7 +85,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
                                 itemsDictionary[id] as DictionaryValue<T>
                             )}
                         >
-                            {name}
+                            {itemName}
                             <Button
                                 styleType="none"
                                 onClick={() => handleClickRemove?.(id)}
