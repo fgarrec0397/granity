@@ -3,7 +3,7 @@ import { createSelector } from "@reduxjs/toolkit";
 // import { createSelector } from "red"
 
 const widgetsInfoSelector = (state: AppState) => state.widgets.widgetsInfoDictionary;
-const currentWidgetPropertiesSelector = (state: AppState) => state.widgets.displayedInformation;
+const displayedInformationSelector = (state: AppState) => state.widgets.displayedInformation;
 
 // const selectWidgets = createSelector(
 //     widgetsInfoSelector,
@@ -20,11 +20,11 @@ const currentWidgetPropertiesSelector = (state: AppState) => state.widgets.displ
 export default () =>
     useAppSelector((state) => {
         const widgetsInfoDictionary = widgetsInfoSelector(state);
-        const currentWidgetProperties = currentWidgetPropertiesSelector(state);
+        const displayedInformations = displayedInformationSelector(state);
         // console.log(widgetsInfoDictionary, "widgetsInfoDictionary");
 
         return {
-            widgetsInfoDictionary,
-            currentWidgetProperties,
+            widgetsInfoDictionary: widgetsInfoDictionary.widgetsInfoDictionary,
+            currentWidgetProperties: displayedInformations.currentWidgetProperties,
         };
     });
