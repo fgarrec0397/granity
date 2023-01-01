@@ -12,6 +12,7 @@ import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
 
+import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
 
 type EditorWidgetsObjectListStyles = {
@@ -70,6 +71,7 @@ const EditorWidgetsObjectList: FC = () => {
             title="Objects Widgets"
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
+            editModal={(row) => <EditWidgetModal widget={widgetsObjects[row.id]} iconWidth={12} />}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}

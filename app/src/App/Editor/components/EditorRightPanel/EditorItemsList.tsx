@@ -1,5 +1,5 @@
 import { DictionaryValue, HasCallableChildren } from "@app/Common/commonTypes";
-import { StyledWrapperProps, Typography } from "@app/Common/components/Html";
+import { StyledWrapper, StyledWrapperProps, Typography } from "@app/Common/components/Html";
 import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import Garbage from "@app/Common/components/Html/Icons/Garbage";
@@ -9,6 +9,7 @@ import { ScenesDictionary } from "@app/Scenes/_actions/scenesTypes";
 import { WidgetDictionary } from "@app/Widgets/_actions/widgetsTypes";
 import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { DisclosureState } from "ariakit";
+import { ReactElement } from "react";
 import { css } from "styled-components";
 
 import ActionItemRow from "./ActionItemRow";
@@ -18,6 +19,7 @@ type EditorItemsListProps<T extends WidgetDictionary | ScenesDictionary> = {
     title: string;
     noItemsText: string;
     triggerButtonText: string;
+    editModal?: (row: DictionaryValue<T>) => ReactElement;
     acceptButton?: ModalProps["acceptButton"];
     cancelButton?: ModalProps["cancelButton"];
     displayItemName?: (id: string) => string | undefined;
@@ -31,6 +33,7 @@ type EditorItemsListStyles = {
     addItemButton?: ButtonStylesProps;
     itemWrapper?: StyledWrapperProps;
     noItemsText?: TypographyStylesProps;
+    actionsWrapper?: StyledWrapperProps;
 };
 
 const styles: EditorItemsListStyles = {
@@ -52,6 +55,16 @@ const styles: EditorItemsListStyles = {
             font-style: italic;
         `,
     },
+    actionsWrapper: {
+        css: css`
+            display: flex;
+            align-items: center;
+
+            & > * {
+                margin-left: ${pxToRem(8)};
+            }
+        `,
+    },
 };
 
 const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
@@ -59,6 +72,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
     title,
     noItemsText,
     triggerButtonText,
+    editModal,
     displayItemName,
     handleClickRow,
     handleClickRemove,
@@ -86,13 +100,16 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
                             )}
                         >
                             {itemName}
-                            <Button
-                                styleType="none"
-                                onClick={() => handleClickRemove?.(id)}
-                                {...styles.deleteButton}
-                            >
-                                <Garbage />
-                            </Button>
+                            <StyledWrapper {...styles.actionsWrapper}>
+                                {editModal?.(itemsDictionary[id] as DictionaryValue<T>)}
+                                <Button
+                                    styleType="none"
+                                    onClick={() => handleClickRemove?.(id)}
+                                    {...styles.deleteButton}
+                                >
+                                    <Garbage />
+                                </Button>
+                            </StyledWrapper>
                         </ActionItemRow>
                     );
                 })

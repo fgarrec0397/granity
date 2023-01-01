@@ -61,7 +61,6 @@ const StyledButton = styled(PureButton)<ButtonStylesProps>`
                 ${baseButtonStyles(isFullWidth)}
                 ${actionStyles()}
                 padding: 0;
-                margin: 0;
                 background-color: transparent;
                 border: none;
                 border-radius: 0;
