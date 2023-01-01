@@ -136,7 +136,6 @@ export default () => {
     const updateCurrentWidget = useCallback(
         (widgetProperties: WidgetProperties, updateOnlyProperties?: boolean) => {
             const currentWidget = selectedWidgets[0];
-
             updateWidget(currentWidget, widgetProperties, updateOnlyProperties);
         },
         [selectedWidgets, updateWidget]

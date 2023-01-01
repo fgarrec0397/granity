@@ -111,7 +111,7 @@ export type WidgetObjectEditorOptions = {
     meshHolder?: ReactNode | Object3D;
 };
 
-/// ---------------------- Widgets Objects Dictionary ---------------------- ///
+/// ---------------------- Widgets Object Dictionary ---------------------- ///
 
 /**
  * A dictionary containing informations about all WidgetObjectsDictionary
@@ -152,13 +152,23 @@ export type SerializedWidgetObjectDictionaryItem<Props = FeaturesWidgetsProps> =
 /// ---------------------- Widgets Info Dictionary ---------------------- ///
 
 /**
- * A dictionary containing editable informations about a WidgetObjectsDictionaryItem
+ * A dictionary containing editable informations about all Widget types
+ */
+export type WidgetInfoDictionary = Dictionary<WidgetInfo>;
+
+export type WidgetInfo = {
+    id: string;
+    displayName?: string;
+};
+
+/// ---------------------- Widgets Object Info Dictionary ---------------------- ///
+
+/**
+ * A dictionary containing editable informations about a WidgetObject
  */
 export type WidgetObjectInfoDictionary = Dictionary<WidgetObjectInfo>;
 
-export type WidgetObjectInfo = {
-    id: string;
-    displayName?: string;
+export type WidgetObjectInfo = WidgetInfo & {
     properties?: WidgetProperties;
     options?: WidgetOptionsValues;
 };
@@ -173,6 +183,12 @@ export type WidgetProperties = {
     rotation: Vector3Array;
     scale: Vector3Array;
 };
+
+/// ---------------------- Widgets UI Info Dictionary ---------------------- ///
+
+export type WidgetUIInfoDictionary = Dictionary<WidgetUIInfo>;
+
+export type WidgetUIInfo = WidgetInfo;
 
 /// ---------------------- Widget UI Module ---------------------- ///
 

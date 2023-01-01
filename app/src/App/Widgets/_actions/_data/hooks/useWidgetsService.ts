@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import filterWidgets from "../../utilities/filterWidgets";
 import {
@@ -27,7 +27,8 @@ export default () => {
         dispatchOverrideWidgetDictionary,
         dispatchRemoveBatchWidgetDictionary,
     } = useWidgetDispatch();
-    const { widgetsObjects, widgetsUI } = filterWidgets(widgets);
+
+    const { widgetsObjects, widgetsUI } = useMemo(() => filterWidgets(widgets), [widgets]);
 
     const add = useCallback(
         (newWidget: WidgetDictionaryItem, newWidgetObjectInfo?: WidgetObjectInfo) => {
@@ -36,7 +37,6 @@ export default () => {
                     newWidgetObjectInfo as Required<WidgetObjectInfo>;
                 dispatchAddDictionary(requiredWidgetDictionaryItem);
             }
-
             setWidgets((prevWidgets) => ({
                 ...prevWidgets,
                 [newWidget.id]: { ...newWidget },

@@ -16,9 +16,12 @@ import {
 export default () => {
     const dispatch = useAppDispatch();
 
-    const dispatchAddDictionary = (widgetObjectInfo: Required<WidgetObjectInfo>) => {
-        return dispatch(addWidgetDictionary(widgetObjectInfo));
-    };
+    const dispatchAddDictionary = useCallback(
+        (widgetObjectInfo: Required<WidgetObjectInfo>) => {
+            return dispatch(addWidgetDictionary(widgetObjectInfo));
+        },
+        [dispatch]
+    );
 
     const dispatchAddBatchDictionary = useCallback(
         (widgetsObjectInfoDictionary: Required<WidgetObjectInfoDictionary>) => {
@@ -41,23 +44,35 @@ export default () => {
         [dispatch]
     );
 
-    const dispatchRemoveWidgetDictionary = (widgetId: string | undefined) => {
-        if (widgetId) {
-            return dispatch(removeWidgetDictionary(widgetId));
-        }
-    };
+    const dispatchRemoveWidgetDictionary = useCallback(
+        (widgetId: string | undefined) => {
+            if (widgetId) {
+                return dispatch(removeWidgetDictionary(widgetId));
+            }
+        },
+        [dispatch]
+    );
 
-    const dispatchRemoveBatchWidgetDictionary = (widgetIds: string[]) => {
-        return dispatch(removeBatchWidgetDictionary(widgetIds));
-    };
+    const dispatchRemoveBatchWidgetDictionary = useCallback(
+        (widgetIds: string[]) => {
+            return dispatch(removeBatchWidgetDictionary(widgetIds));
+        },
+        [dispatch]
+    );
 
-    const dispatchOverrideWidgetDictionary = (widgetDictionary: WidgetObjectInfoDictionary) => {
-        return dispatch(overrideWidgetDictionary(widgetDictionary));
-    };
+    const dispatchOverrideWidgetDictionary = useCallback(
+        (widgetDictionary: WidgetObjectInfoDictionary) => {
+            return dispatch(overrideWidgetDictionary(widgetDictionary));
+        },
+        [dispatch]
+    );
 
-    const dispatchSetCurrentWidgetProperties = (widgetProperties: WidgetProperties) => {
-        return dispatch(setCurrentWidgetProperties(widgetProperties));
-    };
+    const dispatchSetCurrentWidgetProperties = useCallback(
+        (widgetProperties: WidgetProperties) => {
+            return dispatch(setCurrentWidgetProperties(widgetProperties));
+        },
+        [dispatch]
+    );
 
     return {
         dispatchAddDictionary,

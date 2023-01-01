@@ -70,7 +70,7 @@ const TransformControlsComponent: FC<Props> = ({ children }) => {
             (!previousSelectedWidgets || !isEqual(selectedWidgets, previousSelectedWidgets))
         ) {
             setMeshToAttach(getMeshByWidget(selectedWidgets[0]));
-        } else if (!selectedWidgets.length) {
+        } else if (previousSelectedWidgets?.length && !selectedWidgets.length) {
             setMeshToAttach(undefined);
         }
     }, [

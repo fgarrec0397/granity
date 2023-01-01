@@ -1,3 +1,4 @@
+import { uidGenerator } from "@app/Common/utilities";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import useCameras from "@app/Scenes/_actions/hooks/useCameras";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
@@ -5,6 +6,7 @@ import { FC, useEffect, useRef } from "react";
 import { PerspectiveCamera as PerspectiveCameraType, Vector3 } from "three";
 
 import { DefaultCameras } from "../_actions/scenesConstants";
+import { SceneCamera } from "../_actions/scenesTypes";
 import TransformControls from "./TransformControls";
 
 const EditorCamera: FC = () => {
@@ -13,7 +15,15 @@ const EditorCamera: FC = () => {
     const cameraRef = useRef<PerspectiveCameraType>(null!);
 
     useEffect(() => {
-        const newCamera = addCamera(cameraRef, DefaultCameras.EditorCamera);
+        const newCameraId = cameraRef.current?.uuid || uidGenerator();
+        const newSceneCamera: SceneCamera = {
+            id: newCameraId,
+            name: DefaultCameras.EditorCamera,
+            isDefault: true,
+            cameraRef,
+            position: [0, 0, 0],
+        };
+        const newCamera = addCamera(newSceneCamera);
 
         setCurrentCamera(newCamera.id);
 
