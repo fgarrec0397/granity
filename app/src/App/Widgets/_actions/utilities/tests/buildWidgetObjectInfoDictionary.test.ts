@@ -7,16 +7,16 @@ import { describe } from "vitest";
 
 import { FieldType } from "../../widgetsConstants";
 import {
-    buildWidgetInfoDictionaryItem,
-    buildWidgetsInfoDictionary,
-} from "../buildWidgetsInfoDictionary";
+    buildWidgetObjectInfo,
+    buildWidgetObjectInfoDictionary,
+} from "../buildWidgetObjectInfoDictionary";
 
-describe("buildWidgetsInfoDictionary utility", () => {
-    describe("buildWidgetsInfoDictionary function", () => {
-        const widgetsInfoDictionary = buildWidgetsInfoDictionary(widgetsDictionaryTest);
+describe("buildWidgetObjectInfoDictionary utility", () => {
+    describe("buildWidgetObjectInfoDictionary function", () => {
+        const widgetsObjectInfoDictionary = buildWidgetObjectInfoDictionary(widgetsDictionaryTest);
 
         it("should returns an object that has the following shape", () => {
-            expect(widgetsInfoDictionary).toMatchObject({
+            expect(widgetsObjectInfoDictionary).toMatchObject({
                 [widgetTestId1]: {
                     id: widgetTestId1,
                     properties: {
@@ -39,24 +39,22 @@ describe("buildWidgetsInfoDictionary utility", () => {
         });
 
         it("should returns an object that has the same ids as properties than the given dictionary", () => {
-            expect(widgetsInfoDictionary).toMatchObject({
+            expect(widgetsObjectInfoDictionary).toMatchObject({
                 [widgetTestId1]: {},
                 [widgetTestId2]: {},
             });
         });
     });
 
-    describe("buildWidgetInfoDictionaryItem function", () => {
-        const widgetsInfoDictionaryItem = buildWidgetInfoDictionaryItem(
-            widgetsDictionaryTest[widgetTestId1]
-        );
+    describe("buildWidgetObjectInfo function", () => {
+        const widgetObjectInfo = buildWidgetObjectInfo(widgetsDictionaryTest[widgetTestId1]);
 
         it("should returns an object with the same id as the given object", () => {
-            expect(widgetsInfoDictionaryItem.id).toBe(widgetsDictionaryTest[widgetTestId1].id);
+            expect(widgetObjectInfo.id).toBe(widgetsDictionaryTest[widgetTestId1].id);
         });
 
-        describe("passing builderOptions properties should build the widgetsInfoDictionary with the given properties", () => {
-            const widgetsInfoDictionaryWithProperties = buildWidgetInfoDictionaryItem(
+        describe("passing builderOptions properties should build the widgetsObjectInfoDictionary with the given properties", () => {
+            const widgetsInfoDictionaryWithProperties = buildWidgetObjectInfo(
                 widgetsDictionaryTest[widgetTestId1],
                 {
                     properties: {
@@ -86,14 +84,14 @@ describe("buildWidgetsInfoDictionary utility", () => {
             });
         });
 
-        describe("passing builderOptions properties should build the widgetsInfoDictionary with the given properties", () => {
+        describe("passing builderOptions properties should build the widgetsObjectInfoDictionary with the given properties", () => {
             const builderOptions: any = {
                 options: {
                     fieldType: FieldType.Text,
                     value: "This is my value",
                 },
             };
-            const widgetsInfoDictionaryWithProperties = buildWidgetInfoDictionaryItem(
+            const widgetsInfoDictionaryWithProperties = buildWidgetObjectInfo(
                 widgetsDictionaryTest[widgetTestId1],
                 builderOptions
             );

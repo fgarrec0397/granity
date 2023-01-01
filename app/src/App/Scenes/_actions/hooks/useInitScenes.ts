@@ -17,7 +17,7 @@ export default () => {
 
                 initWidgets(
                     newCurrentScene.data.serializedWidgets,
-                    newCurrentScene.data.widgetsInfoDictionary
+                    newCurrentScene.data.widgetsObjectInfoDictionary
                 );
 
                 resetScenes(result, newCurrentSceneId);

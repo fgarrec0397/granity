@@ -6,19 +6,19 @@ import { Object3D } from "three";
 import useWidgetsService from "../_data/hooks/useWidgetsService";
 import {
     buildWidgetDictionaryProperties,
-    buildWidgetInfoDictionaryItem,
-} from "../utilities/buildWidgetsInfoDictionary";
+    buildWidgetObjectInfo,
+} from "../utilities/buildWidgetObjectInfoDictionary";
 import widgetsConstants, { WidgetType } from "../widgetsConstants";
 import {
     SerializedWidgetObjectDictionaryItem,
     WidgetDictionary,
     WidgetDictionaryItem,
+    WidgetObjectInfo,
+    WidgetObjectInfoDictionary,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
     WidgetOptionsValues,
     WidgetProperties,
-    WidgetsInfoDictionary,
-    WidgetsInfoDictionaryItem,
 } from "../widgetsTypes";
 
 const { widgetObjectsPrefix } = widgetsConstants;
@@ -32,7 +32,7 @@ export default () => {
         widgetsObjects,
         widgetsUI,
         currentWidgetProperties,
-        widgetsInfoDictionary,
+        widgetsObjectInfoDictionary,
         selectedWidgets,
         removeSelection,
         updateV2,
@@ -45,10 +45,10 @@ export default () => {
     const getWidgetDictionaryFromWidget = useCallback(
         (widgetId: string | undefined) => {
             if (widgetId) {
-                return widgetsInfoDictionary[widgetId];
+                return widgetsObjectInfoDictionary[widgetId];
             }
         },
-        [widgetsInfoDictionary]
+        [widgetsObjectInfoDictionary]
     );
 
     const getWidgetById = useCallback(
@@ -63,10 +63,10 @@ export default () => {
     const getWidgetInfoById = useCallback(
         (id: string | undefined) => {
             if (id) {
-                return widgetsInfoDictionary[id];
+                return widgetsObjectInfoDictionary[id];
             }
         },
-        [widgetsInfoDictionary]
+        [widgetsObjectInfoDictionary]
     );
 
     const displayWidgetName = useCallback(
@@ -105,7 +105,7 @@ export default () => {
     );
 
     const updateWidgetV2 = useCallback(
-        (widgetId: string, value: Omit<WidgetsInfoDictionaryItem, "id">) => {
+        (widgetId: string, value: Omit<WidgetObjectInfo, "id">) => {
             updateV2(widgetId, value);
         },
         [updateV2]
@@ -213,7 +213,7 @@ export default () => {
                 }
             }
 
-            const widgetDictionaryItem = buildWidgetInfoDictionaryItem(newWidget);
+            const widgetDictionaryItem = buildWidgetObjectInfo(newWidget);
 
             add(newWidget, widgetDictionaryItem);
         },
@@ -221,7 +221,7 @@ export default () => {
     );
 
     const addWidgetsBatch = useCallback(
-        (newWidgetsDictionary: WidgetsInfoDictionary, newWidgets: WidgetObjectsDictionary) => {
+        (newWidgetsDictionary: WidgetObjectInfoDictionary, newWidgets: WidgetObjectsDictionary) => {
             addBatch(newWidgets, newWidgetsDictionary);
         },
         [addBatch]
@@ -229,14 +229,14 @@ export default () => {
 
     const selectWidget = useCallback(
         (widgetsToSelect: WidgetObjectsDictionaryItem[]) => {
-            const { properties } = widgetsInfoDictionary[widgetsToSelect[0].id];
+            const { properties } = widgetsObjectInfoDictionary[widgetsToSelect[0].id];
             select(widgetsToSelect);
 
             if (properties) {
                 updateCurrentWidget(properties, true);
             }
         },
-        [select, widgetsInfoDictionary, updateCurrentWidget]
+        [select, widgetsObjectInfoDictionary, updateCurrentWidget]
     );
 
     const selectWidgetFromMeshArr = useCallback(
@@ -260,10 +260,10 @@ export default () => {
             newWidget.id = newId;
 
             if (widget.id) {
-                const properties = widgetsInfoDictionary[widget.id].properties;
-                const options = widgetsInfoDictionary[widget.id].options;
+                const properties = widgetsObjectInfoDictionary[widget.id].properties;
+                const options = widgetsObjectInfoDictionary[widget.id].options;
 
-                const widgetDictionaryItem = buildWidgetInfoDictionaryItem(newWidget, {
+                const widgetDictionaryItem = buildWidgetObjectInfo(newWidget, {
                     properties,
                     options,
                 });
@@ -271,7 +271,7 @@ export default () => {
                 add(newWidget, widgetDictionaryItem);
             }
         },
-        [add, widgetsInfoDictionary]
+        [add, widgetsObjectInfoDictionary]
     );
 
     const removeWidget = useCallback(
@@ -297,7 +297,7 @@ export default () => {
     const resetWidgets = useCallback(
         (
             widgetsToAdd?: WidgetDictionary,
-            widgetDictionaryToAdd?: WidgetsInfoDictionary,
+            widgetDictionaryToAdd?: WidgetObjectInfoDictionary,
             shouldRemoveAll?: boolean
         ) => {
             reset(widgetsToAdd || {}, widgetDictionaryToAdd || {}, shouldRemoveAll);
@@ -312,7 +312,7 @@ export default () => {
         widgets,
         widgetsObjects,
         widgetsUI,
-        widgetsInfoDictionary,
+        widgetsObjectInfoDictionary,
         getWidgetDictionaryFromWidget,
 
         // Widgets Getters

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
-import { buildWidgetsInfoDictionary } from "../utilities/buildWidgetsInfoDictionary";
-import { SerializedWidgetDictionary, WidgetsInfoDictionary } from "../widgetsTypes";
+import { buildWidgetObjectInfoDictionary } from "../utilities/buildWidgetObjectInfoDictionary";
+import { SerializedWidgetDictionary, WidgetObjectInfoDictionary } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
 import useWidgetsUtilities from "./useWidgetsUtilities";
@@ -14,21 +14,21 @@ export default () => {
     const initWidgets = useCallback(
         async (
             serializedWidgets?: SerializedWidgetDictionary,
-            widgetsInfoDictionary?: WidgetsInfoDictionary
+            widgetsObjectInfoDictionary?: WidgetObjectInfoDictionary
         ) => {
             const loadedWidgetsModules = await loadWidgetsModules();
 
-            if (serializedWidgets || widgetsInfoDictionary) {
+            if (serializedWidgets || widgetsObjectInfoDictionary) {
                 const deserializedWidgets = unserializeWidgets(
                     serializedWidgets!, // already checked if it's defined
                     loadedWidgetsModules
                 );
 
                 // Build a widgetsInfos dictionary base on locally up-to-date widgets
-                const localWidgetsDictionary = buildWidgetsInfoDictionary(deserializedWidgets);
+                const localWidgetsDictionary = buildWidgetObjectInfoDictionary(deserializedWidgets);
                 const synchedWidgetDictionary = synchWidgets(
                     localWidgetsDictionary,
-                    widgetsInfoDictionary! // already checked if it's defined
+                    widgetsObjectInfoDictionary! // already checked if it's defined
                 );
 
                 resetWidgets(deserializedWidgets, synchedWidgetDictionary);

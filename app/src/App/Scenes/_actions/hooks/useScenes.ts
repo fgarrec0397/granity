@@ -28,7 +28,7 @@ export default () => {
         remove,
     } = useScenesService();
     const { unserializeWidgets } = useWidgetsUtilities();
-    const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
+    const { widgets, widgetsObjectInfoDictionary, resetWidgets } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
     const previousScenes = usePrevious(scenes);
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
@@ -85,13 +85,13 @@ export default () => {
                 ...currentScene,
                 data: {
                     serializedWidgets,
-                    widgetsInfoDictionary,
+                    widgetsObjectInfoDictionary,
                 },
             };
 
             updateScene(scene);
         }
-    }, [getCurrentScene, updateScene, widgets, widgetsInfoDictionary]);
+    }, [getCurrentScene, updateScene, widgets, widgetsObjectInfoDictionary]);
 
     const loadScene = useCallback(
         (sceneNameOrId: string) => {
@@ -106,7 +106,7 @@ export default () => {
 
                 updateCurrentScene();
                 updateCurrentSceneId(sceneNameOrId);
-                resetWidgets(deserializedWidgets, selectedSceneData.widgetsInfoDictionary, true);
+                resetWidgets(deserializedWidgets, selectedSceneData.widgetsObjectInfoDictionary, true);
             }
         },
         [
@@ -167,7 +167,7 @@ export default () => {
                 isDefault,
                 data: {
                     serializedWidgets: {},
-                    widgetsInfoDictionary: {},
+                    widgetsObjectInfoDictionary: {},
                 },
             };
 
@@ -206,7 +206,7 @@ export default () => {
                 ...currentScene,
                 data: {
                     serializedWidgets,
-                    widgetsInfoDictionary,
+                    widgetsObjectInfoDictionary,
                 },
             };
 
@@ -216,7 +216,7 @@ export default () => {
                 ...scenesClone[currentScene.id],
                 data: {
                     serializedWidgets,
-                    widgetsInfoDictionary,
+                    widgetsObjectInfoDictionary,
                 },
             };
 
@@ -224,7 +224,7 @@ export default () => {
         } else {
             toast.error("Impossible to save without a scene");
         }
-    }, [getCurrentScene, save, scenes, updateScene, widgets, widgetsInfoDictionary]);
+    }, [getCurrentScene, save, scenes, updateScene, widgets, widgetsObjectInfoDictionary]);
 
     const removeScene = useCallback(
         (sceneId: string) => {

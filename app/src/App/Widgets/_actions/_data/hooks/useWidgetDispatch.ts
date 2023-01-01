@@ -1,11 +1,7 @@
 import { useAppDispatch } from "@app/Core/_actions/_data/state/store";
 import { useCallback } from "react";
 
-import {
-    WidgetProperties,
-    WidgetsInfoDictionary,
-    WidgetsInfoDictionaryItem,
-} from "../../widgetsTypes";
+import { WidgetObjectInfo, WidgetObjectInfoDictionary, WidgetProperties } from "../../widgetsTypes";
 import { setCurrentWidgetProperties } from "../state/displayedInformationReducer";
 import {
     addBatchWidgetDictionary,
@@ -20,29 +16,27 @@ import {
 export default () => {
     const dispatch = useAppDispatch();
 
-    const dispatchAddDictionary = (
-        widgetsInfoDictionaryItem: Required<WidgetsInfoDictionaryItem>
-    ) => {
-        return dispatch(addWidgetDictionary(widgetsInfoDictionaryItem));
+    const dispatchAddDictionary = (widgetObjectInfo: Required<WidgetObjectInfo>) => {
+        return dispatch(addWidgetDictionary(widgetObjectInfo));
     };
 
     const dispatchAddBatchDictionary = useCallback(
-        (widgetsInfoDictionary: Required<WidgetsInfoDictionary>) => {
-            return dispatch(addBatchWidgetDictionary(widgetsInfoDictionary));
+        (widgetsObjectInfoDictionary: Required<WidgetObjectInfoDictionary>) => {
+            return dispatch(addBatchWidgetDictionary(widgetsObjectInfoDictionary));
         },
         [dispatch]
     );
 
     const dispatchUpdateDictionaryV2 = useCallback(
-        (widgetId: string, value: Omit<WidgetsInfoDictionaryItem, "id">) => {
+        (widgetId: string, value: Omit<WidgetObjectInfo, "id">) => {
             return dispatch(updateWidgetDictionaryV2({ widgetId, value }));
         },
         [dispatch]
     );
 
     const dispatchUpdateDictionary = useCallback(
-        (widgetsInfoDictionaryItem: WidgetsInfoDictionaryItem) => {
-            return dispatch(updateWidgetDictionary(widgetsInfoDictionaryItem));
+        (widgetObjectInfo: WidgetObjectInfo) => {
+            return dispatch(updateWidgetDictionary(widgetObjectInfo));
         },
         [dispatch]
     );
@@ -57,7 +51,7 @@ export default () => {
         return dispatch(removeBatchWidgetDictionary(widgetIds));
     };
 
-    const dispatchOverrideWidgetDictionary = (widgetDictionary: WidgetsInfoDictionary) => {
+    const dispatchOverrideWidgetDictionary = (widgetDictionary: WidgetObjectInfoDictionary) => {
         return dispatch(overrideWidgetDictionary(widgetDictionary));
     };
 

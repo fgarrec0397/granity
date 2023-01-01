@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import useHistory from "./useHistory";
 
 export default () => {
-    const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
+    const { widgets, widgetsObjectInfoDictionary, resetWidgets } = useWidgets();
     const {
         addHistoryState,
         currentHistoryItem,
@@ -19,17 +19,17 @@ export default () => {
         if (shouldAddHistory) {
             addHistoryState({
                 widgets,
-                widgetsInfoDictionary,
+                widgetsObjectInfoDictionary,
             });
         }
-    }, [addHistoryState, shouldAddHistory, widgets, widgetsInfoDictionary]);
+    }, [addHistoryState, shouldAddHistory, widgets, widgetsObjectInfoDictionary]);
 
     useEffect(() => {
         if (shouldResetWidgets) {
             setShouldAddHistoryState(true);
             resetWidgets(
                 currentHistoryItem!.state.widgets,
-                currentHistoryItem!.state.widgetsInfoDictionary
+                currentHistoryItem!.state.widgetsObjectInfoDictionary
             );
         }
     }, [

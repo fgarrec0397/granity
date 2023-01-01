@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { WidgetsInfoDictionary, WidgetsInfoDictionaryItem } from "../../widgetsTypes";
+import { WidgetObjectInfo, WidgetObjectInfoDictionary } from "../../widgetsTypes";
 
-export interface WidgetsInfoDictionaryState {
-    widgetsInfoDictionary: WidgetsInfoDictionary;
+export interface WidgetObjectInfoDictionaryState {
+    widgetsObjectInfoDictionary: WidgetObjectInfoDictionary;
 }
 
-export const widgetsInitialState: WidgetsInfoDictionaryState = {
-    widgetsInfoDictionary: {},
+export const widgetsInitialState: WidgetObjectInfoDictionaryState = {
+    widgetsObjectInfoDictionary: {},
 };
 
 export const widgetsSlice = createSlice({
@@ -15,77 +15,77 @@ export const widgetsSlice = createSlice({
     initialState: widgetsInitialState,
     reducers: {
         addWidgetDictionary: (
-            state: WidgetsInfoDictionaryState,
-            action: PayloadAction<Required<WidgetsInfoDictionaryItem>>
+            state: WidgetObjectInfoDictionaryState,
+            action: PayloadAction<Required<WidgetObjectInfo>>
         ) => {
-            const widgetsInfoDictionaryItem = action.payload;
+            const widgetObjectInfo = action.payload;
 
-            state.widgetsInfoDictionary = {
-                ...state.widgetsInfoDictionary,
-                [widgetsInfoDictionaryItem.id]: widgetsInfoDictionaryItem,
+            state.widgetsObjectInfoDictionary = {
+                ...state.widgetsObjectInfoDictionary,
+                [widgetObjectInfo.id]: widgetObjectInfo,
             };
         },
         addBatchWidgetDictionary: (
-            state: WidgetsInfoDictionaryState,
-            action: PayloadAction<Required<WidgetsInfoDictionary>>
+            state: WidgetObjectInfoDictionaryState,
+            action: PayloadAction<Required<WidgetObjectInfoDictionary>>
         ) => {
             const newWidgetsDictionary = action.payload;
 
-            state.widgetsInfoDictionary = {
-                ...state.widgetsInfoDictionary,
+            state.widgetsObjectInfoDictionary = {
+                ...state.widgetsObjectInfoDictionary,
                 ...newWidgetsDictionary,
             };
         },
         updateWidgetDictionaryV2: (
-            state: WidgetsInfoDictionaryState,
+            state: WidgetObjectInfoDictionaryState,
             action: PayloadAction<{
                 widgetId: string;
-                value: Omit<WidgetsInfoDictionaryItem, "id">;
+                value: Omit<WidgetObjectInfo, "id">;
             }>
         ) => {
             const { widgetId, value } = action.payload;
 
-            state.widgetsInfoDictionary[widgetId] = {
-                ...state.widgetsInfoDictionary[widgetId],
+            state.widgetsObjectInfoDictionary[widgetId] = {
+                ...state.widgetsObjectInfoDictionary[widgetId],
                 ...value,
             };
         },
         updateWidgetDictionary: (
-            state: WidgetsInfoDictionaryState,
-            action: PayloadAction<WidgetsInfoDictionaryItem>
+            state: WidgetObjectInfoDictionaryState,
+            action: PayloadAction<WidgetObjectInfo>
         ) => {
             const { id, properties, options } = action.payload;
 
             if (properties) {
-                state.widgetsInfoDictionary[id].properties = properties;
+                state.widgetsObjectInfoDictionary[id].properties = properties;
             }
 
             if (options) {
-                state.widgetsInfoDictionary[id].options = {
-                    ...state.widgetsInfoDictionary[id].options,
+                state.widgetsObjectInfoDictionary[id].options = {
+                    ...state.widgetsObjectInfoDictionary[id].options,
                     ...options,
                 };
             }
         },
         removeWidgetDictionary: (
-            state: WidgetsInfoDictionaryState,
+            state: WidgetObjectInfoDictionaryState,
             action: PayloadAction<string>
         ) => {
             const id = action.payload;
-            delete state.widgetsInfoDictionary[id];
+            delete state.widgetsObjectInfoDictionary[id];
         },
         removeBatchWidgetDictionary: (
-            state: WidgetsInfoDictionaryState,
+            state: WidgetObjectInfoDictionaryState,
             action: PayloadAction<string[]>
         ) => {
             const ids = action.payload;
-            ids.forEach((x) => delete state.widgetsInfoDictionary[x]);
+            ids.forEach((x) => delete state.widgetsObjectInfoDictionary[x]);
         },
         overrideWidgetDictionary: (
-            state: WidgetsInfoDictionaryState,
-            action: PayloadAction<WidgetsInfoDictionary>
+            state: WidgetObjectInfoDictionaryState,
+            action: PayloadAction<WidgetObjectInfoDictionary>
         ) => {
-            state.widgetsInfoDictionary = action.payload;
+            state.widgetsObjectInfoDictionary = action.payload;
         },
     },
 });

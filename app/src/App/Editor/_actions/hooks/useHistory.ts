@@ -9,7 +9,7 @@ import { HistoryState } from "../editorTypes";
 import useEditor from "./useEditor";
 
 export default () => {
-    const { widgets, widgetsInfoDictionary } = useWidgets();
+    const { widgets, widgetsObjectInfoDictionary } = useWidgets();
 
     const {
         historyDictionary,
@@ -20,19 +20,19 @@ export default () => {
     const { add, setCurrent } = useHistoryService();
     const { hasEdited } = useEditor();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
-    const previousWidgetsDictionary = usePrevious(widgetsInfoDictionary);
+    const previousWidgetsDictionary = usePrevious(widgetsObjectInfoDictionary);
     const previousWidgets = usePrevious(widgets);
 
     const shouldResetWidgets =
         hasEdited &&
         currentHistoryItem?.state.widgets &&
-        currentHistoryItem?.state.widgetsInfoDictionary &&
+        currentHistoryItem?.state.widgetsObjectInfoDictionary &&
         !isEqual(currentHistoryItem, previousCurrentHistoryItem);
 
     const shouldAddHistory =
         shouldAddHistoryState &&
         (!isEqual(widgets, previousWidgets) ||
-            !isEqual(widgetsInfoDictionary, previousWidgetsDictionary));
+            !isEqual(widgetsObjectInfoDictionary, previousWidgetsDictionary));
 
     const addHistoryState = useCallback(
         (state: HistoryState) => {
@@ -55,7 +55,7 @@ export default () => {
             if (
                 historyItem &&
                 Object.keys(historyItem.state.widgets).length &&
-                Object.keys(historyItem.state.widgetsInfoDictionary).length
+                Object.keys(historyItem.state.widgetsObjectInfoDictionary).length
             ) {
                 setShouldAddHistoryState(false);
                 setCurrent(historyItem);

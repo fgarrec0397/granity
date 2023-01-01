@@ -154,9 +154,9 @@ export type SerializedWidgetObjectDictionaryItem<Props = FeaturesWidgetsProps> =
 /**
  * A dictionary containing editable informations about a WidgetObjectsDictionaryItem
  */
-export type WidgetsInfoDictionary = Dictionary<WidgetsInfoDictionaryItem>;
+export type WidgetObjectInfoDictionary = Dictionary<WidgetObjectInfo>;
 
-export type WidgetsInfoDictionaryItem = {
+export type WidgetObjectInfo = {
     id: string;
     displayName?: string;
     properties?: WidgetProperties;

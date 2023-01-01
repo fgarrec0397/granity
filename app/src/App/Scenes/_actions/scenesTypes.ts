@@ -1,7 +1,7 @@
 import { Dictionary, Vector3Array } from "@app/Common/commonTypes";
 import {
     SerializedWidgetDictionary,
-    WidgetsInfoDictionary,
+    WidgetObjectInfoDictionary,
 } from "@app/Widgets/_actions/widgetsTypes";
 import { Camera } from "@react-three/fiber";
 import { MutableRefObject } from "react";
@@ -45,7 +45,7 @@ export type ScenesDictionaryItem = {
  */
 export type SceneData = {
     serializedWidgets: SerializedWidgetDictionary;
-    widgetsInfoDictionary: WidgetsInfoDictionary;
+    widgetsObjectInfoDictionary: WidgetObjectInfoDictionary;
 };
 
 /**

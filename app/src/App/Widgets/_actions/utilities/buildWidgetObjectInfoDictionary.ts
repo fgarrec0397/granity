@@ -6,10 +6,10 @@ import {
     SerializedWidgetObjectDictionaryItem,
     WidgetDictionary,
     WidgetDictionaryItem,
+    WidgetObjectInfo,
+    WidgetObjectInfoDictionary,
     WidgetOptionsValues,
     WidgetProperties,
-    WidgetsInfoDictionary,
-    WidgetsInfoDictionaryItem,
 } from "../widgetsTypes";
 
 export type WidgetsDictionaryBuilderOptions = {
@@ -20,37 +20,37 @@ export type WidgetsDictionaryBuilderOptions = {
 
 /**
  *
- * Builds a widgetsInfoDictionary based on the given widgetsDictionary to fill the values
+ * Builds a widgetsObjectInfoDictionary based on the given widgetsDictionary to fill the values
  *
- * @param widgets - The widgets taken to build the widgetsInfoDictionary
- * @returns - A WidgetsInfoDictionary
+ * @param widgets - The widgets taken to build the widgetsObjectInfoDictionary
+ * @returns - A WidgetObjectInfoDictionary
  */
-export const buildWidgetsInfoDictionary = (widgets: WidgetDictionary) => {
-    const widgetsInfoDictionary: WidgetsInfoDictionary = {};
+export const buildWidgetObjectInfoDictionary = (widgets: WidgetDictionary) => {
+    const widgetsObjectInfoDictionary: WidgetObjectInfoDictionary = {};
 
     for (const key in widgets) {
-        const dictionaryItem = buildWidgetInfoDictionaryItem(widgets[key]);
+        const dictionaryItem = buildWidgetObjectInfo(widgets[key]);
 
-        widgetsInfoDictionary[dictionaryItem.id] = {
+        widgetsObjectInfoDictionary[dictionaryItem.id] = {
             ...dictionaryItem,
         };
     }
 
-    return widgetsInfoDictionary;
+    return widgetsObjectInfoDictionary;
 };
 
 /**
  *
- * Builds a widgetsInfoDictionary based on the given widgetsDictionaryItem to fill the values
+ * Builds a widgetsObjectInfoDictionary based on the given widgetsDictionaryItem to fill the values
  *
- * @param widget - The taken widget to build the widgetsInfoDictionaryItem
+ * @param widget - The taken widget to build the widgetObjectInfo
  * @param builderOptions - Overrides the widget options by passing your own options
- * @returns - A WidgetsInfoDictionaryItem
+ * @returns - A WidgetObjectInfo
  */
-export const buildWidgetInfoDictionaryItem = (
+export const buildWidgetObjectInfo = (
     widget: WidgetDictionaryItem,
     builderOptions?: WidgetsDictionaryBuilderOptions
-): WidgetsInfoDictionaryItem => {
+): WidgetObjectInfo => {
     const options = builderOptions?.options
         ? builderOptions?.options
         : buildWidgetInfoDictionaryOptions(widget);

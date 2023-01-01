@@ -5,14 +5,14 @@ import {
     SerializedWidgetDictionary,
     WidgetDictionary,
     WidgetModules,
-    WidgetsInfoDictionary,
+    WidgetObjectInfoDictionary,
 } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
 
 export default () => {
     const { getWidgetModuleByName } = useWidgetsModules();
-    const { widgetsInfoDictionary } = useWidgets();
+    const { widgetsObjectInfoDictionary } = useWidgets();
 
     /**
      * Unserialize widgets based on the given widgetsModules as reference
@@ -50,28 +50,28 @@ export default () => {
      */
     const synchWidgets = useCallback(
         (
-            widgetsInfoDictionary1: WidgetsInfoDictionary,
-            widgetsInfoDictionary2: WidgetsInfoDictionary
+            widgetObjectInfoDictionary1: WidgetObjectInfoDictionary,
+            widgetObjectInfoDictionary2: WidgetObjectInfoDictionary
         ) => {
-            Object.keys(widgetsInfoDictionary1).forEach((dictionaryItemKey) => {
-                const dictionaryItem = widgetsInfoDictionary1[dictionaryItemKey];
+            Object.keys(widgetObjectInfoDictionary1).forEach((dictionaryItemKey) => {
+                const dictionaryItem = widgetObjectInfoDictionary1[dictionaryItemKey];
 
-                if (widgetsInfoDictionary2[dictionaryItemKey]) {
-                    for (const key in widgetsInfoDictionary2[dictionaryItemKey].options) {
+                if (widgetObjectInfoDictionary2[dictionaryItemKey]) {
+                    for (const key in widgetObjectInfoDictionary2[dictionaryItemKey].options) {
                         if (!Object.prototype.hasOwnProperty.call(dictionaryItem.options, key)) {
                             // Remove unexisting options on the local widget definitions options
-                            delete widgetsInfoDictionary2[dictionaryItemKey].options?.[key];
+                            delete widgetObjectInfoDictionary2[dictionaryItemKey].options?.[key];
                         }
                     }
 
                     // Make sure to keep the properties left from the saved widget dictionary
-                    widgetsInfoDictionary1[dictionaryItemKey] = {
-                        ...widgetsInfoDictionary2[dictionaryItemKey],
+                    widgetObjectInfoDictionary1[dictionaryItemKey] = {
+                        ...widgetObjectInfoDictionary2[dictionaryItemKey],
                     };
                 }
             });
 
-            return widgetsInfoDictionary1;
+            return widgetObjectInfoDictionary1;
         },
         []
     );
@@ -79,10 +79,10 @@ export default () => {
     const getWidgetProps = useCallback(
         (id: string) => {
             return {
-                ...populateWidgetProps(id, widgetsInfoDictionary),
+                ...populateWidgetProps(id, widgetsObjectInfoDictionary),
             };
         },
-        [widgetsInfoDictionary]
+        [widgetsObjectInfoDictionary]
     );
 
     return { unserializeWidgets, synchWidgets, getWidgetProps };

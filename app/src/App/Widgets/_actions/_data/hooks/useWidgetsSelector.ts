@@ -1,20 +1,20 @@
 import { AppState, useAppSelector } from "@app/Core/_actions/_data/state/store";
 import { createSelector } from "@reduxjs/toolkit";
 
-const widgetsInfoSelector = (state: AppState) => state.widgets.widgetsInfoDictionary;
+const widgetsInfoSelector = (state: AppState) => state.widgets.widgetsObjectInfoDictionary;
 const displayedInformationSelector = (state: AppState) => state.widgets.displayedInformation;
 
-const selectWidgets = createSelector(widgetsInfoSelector, (widgetsInfoDictionary) => {
-    return widgetsInfoDictionary;
+const selectWidgets = createSelector(widgetsInfoSelector, (widgetsObjectInfoDictionary) => {
+    return widgetsObjectInfoDictionary;
 });
 
 export default () =>
     useAppSelector((state) => {
-        const widgetsInfoDictionary = selectWidgets(state);
+        const widgetsObjectInfoDictionary = selectWidgets(state);
         const displayedInformations = displayedInformationSelector(state);
 
         return {
-            widgetsInfoDictionary: widgetsInfoDictionary.widgetsInfoDictionary,
+            widgetsObjectInfoDictionary: widgetsObjectInfoDictionary.widgetsObjectInfoDictionary,
             currentWidgetProperties: displayedInformations.currentWidgetProperties,
         };
     });

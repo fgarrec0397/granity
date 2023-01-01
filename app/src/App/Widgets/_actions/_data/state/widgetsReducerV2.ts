@@ -4,15 +4,15 @@ import displayedInformationReducer, {
     DisplayedInformationsState,
 } from "./displayedInformationReducer";
 import widgetsInfoDictionaryReducer, {
-    WidgetsInfoDictionaryState,
+    WidgetObjectInfoDictionaryState,
 } from "./widgetsInfoDictionaryReducer";
 
 export type WidgetsStateV2 = {
     displayedInformation: DisplayedInformationsState;
-    widgetsInfoDictionary: WidgetsInfoDictionaryState;
+    widgetsObjectInfoDictionary: WidgetObjectInfoDictionaryState;
 };
 
 export default combineReducers({
     displayedInformation: displayedInformationReducer,
-    widgetsInfoDictionary: widgetsInfoDictionaryReducer,
+    widgetsObjectInfoDictionary: widgetsInfoDictionaryReducer,
 });
