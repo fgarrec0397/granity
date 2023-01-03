@@ -1,7 +1,14 @@
 {
   "name": "create-granity",
   "version": "0.1.8",
+  "author": "Fabrice Garrec",
+  "license": "MIT",
+  "homepage": "https://github.com/fgarrec0397/Granity#readme",
   "description": "A React Three Fiber widgets based game engine.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fgarrec0397/Granity"
+  },
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd app && npm start",
@@ -12,18 +19,16 @@
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fgarrec0397/Granity"
-  },
-  "author": "",
-  "license": "MIT",
-  "homepage": "https://github.com/fgarrec0397/Granity#readme",
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "concurrently": "^7.5.0",
     "husky": "^8.0.2",
+    "lerna": "^6.3.0",
     "standard-version": "^9.5.0"
-  }
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
 }
