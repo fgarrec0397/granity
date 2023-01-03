@@ -2,7 +2,7 @@ import { StyledWrapper, Typography } from "@app/Common/components/Html";
 import Button from "@app/Common/components/Html/Button/Button";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import createWidget from "@app/Widgets/_actions/utilities/createWidget";
-import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
+import { WidgetType } from "@app/Widgets/_actions/widgetsConstants";
 import { FC } from "react";
 import { css } from "styled-components";
 
@@ -52,12 +52,4 @@ export const widget = createWidget({
     reducer: null,
     type: WidgetType.UI,
     name: "End Screen",
-    options: [
-        {
-            name: "translateXOnPlay",
-            displayName: "Translate X on play",
-            fieldType: FieldType.Checkbox,
-            defaultValue: false,
-        },
-    ],
 });

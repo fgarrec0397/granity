@@ -8,6 +8,7 @@ import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
 
+import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
 
 type EditorWidgetsUIListStyles = {
@@ -38,7 +39,7 @@ const styles: EditorWidgetsUIListStyles = {
 };
 
 const EditorWidgetsUIList: FC = () => {
-    const { addWidget, widgetsUI, removeWidget } = useWidgets();
+    const { addWidget, displayWidgetName, widgetsUI, removeWidget } = useWidgets();
     const { widgetsUIModules } = useWidgetsModules();
 
     const handleClickMenuItem = (widget: WidgetDictionaryItem): void => {
@@ -55,6 +56,8 @@ const EditorWidgetsUIList: FC = () => {
             title="UI Widgets"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add UI Widget"
+            editModal={(row) => <EditWidgetModal widget={widgetsUI[row.id]} iconWidth={12} />}
+            displayItemName={displayWidgetName}
             handleClickRemove={handleClickRemove}
             cancelButton={{
                 text: "Cancel and close",

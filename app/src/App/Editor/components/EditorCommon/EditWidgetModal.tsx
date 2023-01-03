@@ -27,16 +27,15 @@ const styles: EditWidgetModalStyles = {
 
 const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconWidth = 18 }) => {
     const [displayNameValue, setDisplayNameValue] = useState("");
-    const { displayWidgetName, getWidgetDictionaryFromWidget, selectedWidgets, updateWidgetV2 } =
-        useWidgets();
+    const { displayWidgetName, getWidgetDictionaryFromWidget, updateWidgetV2 } = useWidgets();
 
     const onDisplayNameInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
         setDisplayNameValue(target.value);
     };
 
     const onSave = () => {
-        updateWidgetV2(selectedWidgets[0].id, {
-            ...getWidgetDictionaryFromWidget(selectedWidgets[0].id),
+        updateWidgetV2(widget.id, {
+            ...getWidgetDictionaryFromWidget(widget.id),
             displayName: displayNameValue,
         });
         clearInput();
