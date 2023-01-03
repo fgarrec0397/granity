@@ -5,8 +5,8 @@
       {"type": "chore", "hidden": true},
       {"type": "docs", "hidden": true},
       {"type": "style", "hidden": true},
-      {"type": "refactor", "hidden": "Refactor"},
-      {"type": "perf", "hidden": true},
+      {"type": "refactor", "section": "Refactor"},
+      {"type": "perf", "section": "Performances"},
       {"type": "test", "hidden": true}
     ],
     "commitUrlFormat": "https://github.com/fgarrec0397/granity/commits/{{hash}}",
