@@ -10,7 +10,6 @@ import {
 } from "../utilities/buildWidgetObjectInfoDictionary";
 import widgetsConstants, { WidgetType } from "../widgetsConstants";
 import {
-    SerializedWidgetObjectDictionaryItem,
     WidgetDictionary,
     WidgetDictionaryItem,
     WidgetObjectInfo,
@@ -35,7 +34,6 @@ export default () => {
         widgetsObjectInfoDictionary,
         selectedWidgets,
         removeSelection,
-        updateV2,
         update,
         remove,
         updateCurrentProperties,
@@ -104,26 +102,11 @@ export default () => {
         [getWidgetById]
     );
 
-    const updateWidgetV2 = useCallback(
-        (widgetId: string, value: Omit<WidgetObjectInfo, "id">) => {
-            updateV2(widgetId, value);
-        },
-        [updateV2]
-    );
-
     const updateWidget = useCallback(
-        (
-            widget: WidgetDictionaryItem,
-            widgetProperties?: WidgetProperties,
-            updateOnlyProperties?: boolean
-        ) => {
-            if (updateOnlyProperties && widgetProperties) {
-                updateCurrentProperties(widgetProperties);
-            } else {
-                update(widget, widgetProperties);
-            }
+        (widgetId: string, value: Omit<WidgetObjectInfo, "id">) => {
+            update(widgetId, value);
         },
-        [update, updateCurrentProperties]
+        [update]
     );
 
     const updateDisplayedProperties = useCallback(
@@ -133,31 +116,13 @@ export default () => {
         [updateCurrentProperties]
     );
 
-    const updateCurrentWidget = useCallback(
-        (widgetProperties: WidgetProperties, updateOnlyProperties?: boolean) => {
-            const currentWidget = selectedWidgets[0];
-            updateWidget(currentWidget, widgetProperties, updateOnlyProperties);
-        },
-        [selectedWidgets, updateWidget]
-    );
-
-    const updateWidgetOptions = useCallback(
-        (
-            widget: WidgetDictionaryItem | SerializedWidgetObjectDictionaryItem,
-            widgetOptions: WidgetOptionsValues
-        ) => {
-            update(widget as WidgetObjectsDictionaryItem, undefined, widgetOptions);
-        },
-        [update]
-    );
-
     const updateCurrentWidgetOptions = useCallback(
         (widgetOptions: WidgetOptionsValues) => {
             const currentWidget = selectedWidgets[0];
 
-            updateWidgetOptions(currentWidget, widgetOptions);
+            update(currentWidget.id, { options: widgetOptions });
         },
-        [selectedWidgets, updateWidgetOptions]
+        [selectedWidgets, update]
     );
 
     const updateCurrentWidgetWithMesh = useCallback(
@@ -169,11 +134,11 @@ export default () => {
                 if (updateOnlyProperties) {
                     updateCurrentProperties(widgetProperties);
                 } else {
-                    updateWidgetV2(currentWidget.id, { properties: widgetProperties });
+                    updateWidget(currentWidget.id, { properties: widgetProperties });
                 }
             }
         },
-        [selectedWidgets, updateCurrentProperties, updateWidgetV2]
+        [selectedWidgets, updateCurrentProperties, updateWidget]
     );
 
     const addWidget = useCallback(
@@ -232,10 +197,11 @@ export default () => {
             select(widgetsToSelect);
 
             if (properties) {
-                updateCurrentWidget(properties, true);
+                updateCurrentProperties(properties);
+                updateWidget(widgetsToSelect[0].id, { properties });
             }
         },
-        [select, widgetsObjectInfoDictionary, updateCurrentWidget]
+        [widgetsObjectInfoDictionary, select, updateCurrentProperties, updateWidget]
     );
 
     const selectWidgetFromMeshArr = useCallback(
@@ -325,10 +291,7 @@ export default () => {
         selectWidget,
         selectWidgetFromMeshArr,
         updateWidget,
-        updateWidgetV2,
-        updateWidgetOptions,
         updateCurrentWidgetOptions,
-        updateCurrentWidget,
         updateCurrentWidgetWithMesh,
         updateDisplayedProperties,
         copyWidget,

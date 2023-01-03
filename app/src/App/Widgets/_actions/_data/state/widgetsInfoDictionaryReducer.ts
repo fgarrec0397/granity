@@ -45,25 +45,18 @@ export const widgetsSlice = createSlice({
         ) => {
             const { widgetId, value } = action.payload;
 
-            state.widgetsObjectInfoDictionary[widgetId] = {
-                ...state.widgetsObjectInfoDictionary[widgetId],
-                ...value,
-            };
-        },
-        updateWidgetDictionary: (
-            state: WidgetObjectInfoDictionaryState,
-            action: PayloadAction<WidgetObjectInfo>
-        ) => {
-            const { id, properties, options } = action.payload;
-
-            if (properties) {
-                state.widgetsObjectInfoDictionary[id].properties = properties;
+            if (value.displayName) {
+                state.widgetsObjectInfoDictionary[widgetId].displayName = value.displayName;
             }
 
-            if (options) {
-                state.widgetsObjectInfoDictionary[id].options = {
-                    ...state.widgetsObjectInfoDictionary[id].options,
-                    ...options,
+            if (value.properties) {
+                state.widgetsObjectInfoDictionary[widgetId].properties = value.properties;
+            }
+
+            if (value.options) {
+                state.widgetsObjectInfoDictionary[widgetId].options = {
+                    ...state.widgetsObjectInfoDictionary[widgetId].options,
+                    ...value.options,
                 };
             }
         },
@@ -93,7 +86,6 @@ export const widgetsSlice = createSlice({
 export const {
     addWidgetDictionary,
     addBatchWidgetDictionary,
-    updateWidgetDictionary,
     updateWidgetDictionaryV2,
     removeWidgetDictionary,
     removeBatchWidgetDictionary,

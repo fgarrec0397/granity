@@ -7,7 +7,6 @@ import {
     WidgetObjectInfo,
     WidgetObjectInfoDictionary,
     WidgetObjectsDictionaryItem,
-    WidgetOptionsValues,
     WidgetProperties,
 } from "../../widgetsTypes";
 import useWidgetDispatch from "./useWidgetDispatch";
@@ -21,7 +20,6 @@ export default () => {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
         dispatchUpdateDictionary,
-        dispatchUpdateDictionaryV2,
         dispatchSetCurrentWidgetProperties,
         dispatchRemoveWidgetDictionary,
         dispatchOverrideWidgetDictionary,
@@ -53,24 +51,9 @@ export default () => {
         [dispatchAddBatchDictionary, setWidgets]
     );
 
-    const updateV2 = useCallback(
-        (widgetId: string, value: Omit<WidgetObjectInfo, "id">) => {
-            dispatchUpdateDictionaryV2(widgetId, value);
-        },
-        [dispatchUpdateDictionaryV2]
-    );
-
     const update = useCallback(
-        (
-            widget: WidgetDictionaryItem,
-            widgetProperties?: WidgetProperties,
-            widgetOptions?: WidgetOptionsValues
-        ) => {
-            dispatchUpdateDictionary({
-                id: widget.id,
-                options: widgetOptions,
-                properties: widgetProperties,
-            });
+        (widgetId: string, value: Omit<WidgetObjectInfo, "id">) => {
+            dispatchUpdateDictionary(widgetId, value);
         },
         [dispatchUpdateDictionary]
     );
@@ -137,7 +120,6 @@ export default () => {
     return {
         add,
         addBatch,
-        updateV2,
         update,
         select,
         widgets,
