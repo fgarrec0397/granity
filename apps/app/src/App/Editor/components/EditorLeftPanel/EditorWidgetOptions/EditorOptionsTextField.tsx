@@ -1,6 +1,6 @@
 import FormField from "@app/Common/components/Html/FormField/FormField";
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
-import { TypographyStyles } from "@app/Common/components/Html/Typography";
+import { TypographyStyles } from "@app/Common/components/Html/Typography/Typography";
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@app/Widgets/_actions/widgetsTypes";
 import { ChangeEvent, FC } from "react";

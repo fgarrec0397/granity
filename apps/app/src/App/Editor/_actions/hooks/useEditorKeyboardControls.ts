@@ -5,7 +5,7 @@ import useGame from "@app/Game/_actions/hooks/useGame";
 import useCameras from "@app/Scenes/_actions/hooks/useCameras";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
-import { WidgetObjectsDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
+import { WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
 import { useState } from "react";
 
 export default () => {
@@ -13,7 +13,7 @@ export default () => {
     const { selectedWidgets, firstCurrentWidget, widgets, removeselectedWidgets, copyWidget } =
         useWidgets();
     const { setPrevHistoryItem, setNextHistoryItem, shouldAddHistoryState } = useHistory();
-    const [, setCopiedWidgets] = useState<WidgetObjectsDictionaryItem[]>([]);
+    const [, setCopiedWidgets] = useState<WidgetDictionaryItem[]>([]);
     const { startGame } = useGame();
     const { saveScene } = useScenes();
 

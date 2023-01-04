@@ -11,6 +11,7 @@ describe("getCameraRef utility", () => {
         cameraRef: {
             current: undefined,
         },
+        position: [0, 0, 0],
     };
 
     const basicRef: MutableRefObject<any> = {

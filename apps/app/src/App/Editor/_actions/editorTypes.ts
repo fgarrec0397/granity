@@ -1,5 +1,5 @@
 import { Dictionary } from "@app/Common/commonTypes";
-import { WidgetObjectsDictionary, WidgetObjectInfoDictionary } from "@app/Widgets/_actions/widgetsTypes";
+import { WidgetDictionary, WidgetInfoDictionary } from "@app/Widgets/_actions/widgetsTypes";
 import { Vector3Array } from "@react-three/rapier";
 
 /**
@@ -39,6 +39,6 @@ export type HistoryItem = {
  * A snapshot of a editor state
  */
 export type HistoryState = {
-    widgetsObjectInfoDictionary: WidgetObjectInfoDictionary;
-    widgets: WidgetObjectsDictionary;
+    widgetsObjectInfoDictionary: WidgetInfoDictionary;
+    widgets: WidgetDictionary;
 };

@@ -218,7 +218,7 @@ export default () => {
     );
 
     const copyWidget = useCallback(
-        (widget: WidgetObjectsDictionaryItem) => {
+        (widget: WidgetDictionaryItem) => {
             const newWidget = { ...widget };
             const newId = uidGenerator();
 

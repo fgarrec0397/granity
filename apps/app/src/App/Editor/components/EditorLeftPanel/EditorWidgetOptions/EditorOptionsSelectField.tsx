@@ -1,6 +1,7 @@
+import { Typography } from "@app/Common/components/Html";
 import Select from "@app/Common/components/Html/Select/Select";
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
-import Typography, { TypographyStyles } from "@app/Common/components/Html/Typography";
+import { TypographyStyles } from "@app/Common/components/Html/Typography/Typography";
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@app/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
