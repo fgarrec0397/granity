@@ -10,8 +10,8 @@
     "url": "https://github.com/fgarrec0397/Granity"
   },
   "scripts": {
-    "server": "cd server && npm start",
-    "client": "cd app && npm start",
+    "server": "cd apps/server && npm start",
+    "client": "cd apps/app && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prepare": "husky install",
     "release": "standard-version",
@@ -24,8 +24,10 @@
     "@commitlint/config-conventional": "^17.3.0",
     "concurrently": "^7.5.0",
     "husky": "^8.0.2",
-    "lerna": "^6.3.0",
     "standard-version": "^9.5.0"
+  },
+  "dependencies": {
+    "workspaces": "^0.1.0"
   },
   "workspaces": [
     "packages/*",

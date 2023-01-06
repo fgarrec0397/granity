@@ -10,9 +10,13 @@
     "lint": "eslint --ext .ts,.tsx src --fix",
     "test": "vitest watch",
     "test:no-watch": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --write ./src"
   },
+  "prettier": "tools/prettier.config.js",
   "dependencies": {
+    "a": "*",
+    "functions": "*",
     "@ant-design/icons": "^4.7.0",
     "@react-spring/three": "^9.5.5",
     "@react-three/drei": "9.40.0",
@@ -54,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "tools": "*",
     "@types/lodash": "^4.14.188",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
