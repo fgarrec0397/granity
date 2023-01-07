@@ -14,6 +14,7 @@
     "format": "prettier --write ./src"
   },
   "dependencies": {
+    "eslint-config-granity": "*",
     "@ant-design/icons": "^4.7.0",
     "@react-spring/three": "^9.5.5",
     "@react-three/drei": "9.40.0",
@@ -63,20 +64,8 @@
     "@types/styled-components": "^5.1.26",
     "@types/three": "^0.146.0",
     "@types/use-sync-external-store": "^0.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
     "@vitest/coverage-c8": "^0.25.3",
-    "c8": "^7.12.0",
-    "eslint": "^8.27.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.5.2",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "jsdom": "^20.0.2",
+    "c8": "^7.12.0","jsdom": "^20.0.2",
     "prettier": "2.7.1",
     "vitest": "^0.25.1"
   }
