@@ -61,6 +61,7 @@ module.exports = {
       "@typescript-eslint/member-ordering": "error",
       "@typescript-eslint/no-non-null-assertion": "off",
       "import/prefer-default-export": "off",
+      "import/no-named-as-default": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
