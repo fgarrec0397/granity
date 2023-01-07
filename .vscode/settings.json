@@ -1,6 +1,5 @@
 {
     "eslint.workingDirectories": [
-      "./apps/app",
-      "./apps/server",
+      "./apps/*",
     ]
   }
