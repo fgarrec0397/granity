@@ -106,7 +106,11 @@ export default () => {
 
                 updateCurrentScene();
                 updateCurrentSceneId(sceneNameOrId);
-                resetWidgets(deserializedWidgets, selectedSceneData.widgetsObjectInfoDictionary, true);
+                resetWidgets(
+                    deserializedWidgets,
+                    selectedSceneData.widgetsObjectInfoDictionary,
+                    true
+                );
             }
         },
         [
