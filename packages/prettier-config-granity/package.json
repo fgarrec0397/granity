@@ -1,0 +1,17 @@
+{
+  "name": "prettier-config-granity",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fgarrec0397/Granity.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fgarrec0397/Granity/issues"
+  },
+  "homepage": "https://github.com/fgarrec0397/Granity#readme"
+}

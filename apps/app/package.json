@@ -13,6 +13,19 @@
     "test:coverage": "vitest run --coverage",
     "format": "prettier --write ./src"
   },
+  "prettier": "prettier-config-granity",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
     "eslint-config-granity": "*",
     "@ant-design/icons": "^4.7.0",
@@ -41,18 +54,6 @@
     "typescript": "^4.8.4",
     "vite": "^3.2.3",
     "vite-plugin-svgr": "^2.2.2"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@types/lodash": "^4.14.188",
