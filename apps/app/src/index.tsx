@@ -8,7 +8,6 @@ import Providers from "./Providers";
 const container = document.getElementById("root") as Element | DocumentFragment;
 
 const root = createRoot(container);
-console.log("test");
 
 root.render(
     <StrictMode>

@@ -1,5 +1,3 @@
 {
-    "eslint.workingDirectories": [
-      "./apps/*",
-    ]
+  "eslint.workingDirectories": [{ "mode": "auto" }]
   }
