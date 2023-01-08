@@ -1,5 +1,5 @@
 {
-  "name": "create-granity",
+  "name": "granity",
   "version": "0.1.8",
   "author": "Fabrice Garrec",
   "license": "MIT",
@@ -10,9 +10,11 @@
     "url": "https://github.com/fgarrec0397/Granity"
   },
   "scripts": {
-    "server": "cd apps/server && npm start",
-    "client": "cd apps/app && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "test:no-coverage": "turbo run test:no-coverage",
+    "test:watch": "turbo run test:watch",
     "prepare": "husky install",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
@@ -22,7 +24,6 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
-    "concurrently": "^7.5.0",
     "husky": "^8.0.2",
     "standard-version": "^9.5.0",
     "turbo": "^1.6.3"

@@ -1,13 +1,35 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "pipeline": {
+      "dev": {
+        "cache": false,
+        "dependsOn": ["test:watch"]
+      },
       "build": {
         "outputs": ["dist/**", "build/**"]
+      },
+      "buildForRelease": {
+        "dependsOn": ["build", "lint", "test"]
+      },
+      "release:patch": {
+        "dependsOn": ["buildForRelease"]
+      },
+      "release:minor": {
+        "dependsOn": ["buildForRelease"]
+      },
+      "release:major": {
+        "dependsOn": ["buildForRelease"]
       },
       "lint": {
         "outputs": []
       },
       "format": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": ["coverage/**"]
+      },
+      "test:watch": {
         "outputs": []
       }
     }

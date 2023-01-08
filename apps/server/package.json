@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ts-node ./src/index.ts",
+    "dev": "nodemon ts-node ./src/index.ts",
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {

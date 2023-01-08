@@ -4,14 +4,14 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx src --fix",
-    "test": "vitest watch",
-    "test:no-watch": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ./src",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "test:no-coverage": "vitest run"
   },
   "prettier": "prettier-config-granity",
   "browserslist": {
