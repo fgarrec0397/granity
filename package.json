@@ -24,7 +24,8 @@
     "@commitlint/config-conventional": "^17.3.0",
     "concurrently": "^7.5.0",
     "husky": "^8.0.2",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "turbo": "^1.6.3"
   },
   "dependencies": {
     "workspaces": "^0.1.0"
