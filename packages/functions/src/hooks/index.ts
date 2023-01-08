@@ -1,1 +1,1 @@
-export { default as useForwardedRef } from "./useForwardedRef"
+export { default as useForwardedRef } from "./useForwardedRef";

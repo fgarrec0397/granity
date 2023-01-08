@@ -1,7 +1,7 @@
-import useForwardedRef from "@app/Common/hooks/useForwardedRef";
 import { uidGenerator } from "@app/Common/utilities";
 import { useThree } from "@react-three/fiber";
 import { Vector3Array } from "@react-three/rapier";
+import { useForwardedRef } from "functions";
 import { ForwardedRef, MutableRefObject, useEffect } from "react";
 import { PerspectiveCamera } from "three";
 
