@@ -13,7 +13,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "test": "turbo run test",
-    "test:no-coverage": "turbo run test:no-coverage",
+    "test:coverage": "turbo run test:coverage",
     "test:watch": "turbo run test:watch",
     "lint": "turbo run lint",
     "format": "turbo run format",
@@ -35,7 +35,6 @@
   },
   "workspaces": [
     "packages/*",
-    "apps/*",
-    "testing-config-granity"
+    "apps/*"
   ]
 }

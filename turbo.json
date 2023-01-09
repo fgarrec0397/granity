@@ -6,19 +6,17 @@
         "dependsOn": ["test:watch"]
       },
       "build": {
-        "outputs": ["dist/**", "build/**"]
-      },
-      "buildForRelease": {
-        "dependsOn": ["build", "lint", "test"]
+        "outputs": ["dist/**", "build/**"],
+        "dependsOn": ["lint", "test"]
       },
       "release:patch": {
-        "dependsOn": ["buildForRelease"]
+        "dependsOn": ["build"]
       },
       "release:minor": {
-        "dependsOn": ["buildForRelease"]
+        "dependsOn": ["build"]
       },
       "release:major": {
-        "dependsOn": ["buildForRelease"]
+        "dependsOn": ["build"]
       },
       "lint": {
         "outputs": []
@@ -27,6 +25,9 @@
         "outputs": []
       },
       "test": {
+        "outputs": []
+      },
+      "test:coverage": {
         "outputs": ["coverage/**"]
       },
       "test:watch": {
