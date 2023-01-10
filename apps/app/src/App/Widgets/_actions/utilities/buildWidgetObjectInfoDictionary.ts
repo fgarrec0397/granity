@@ -1,5 +1,5 @@
-import { Object3D } from "three";
 import { serializeVector3 } from "helpers-granity";
+import { Object3D } from "three";
 
 import widgetsConstants from "../widgetsConstants";
 import {

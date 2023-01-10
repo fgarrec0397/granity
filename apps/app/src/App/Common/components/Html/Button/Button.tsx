@@ -1,10 +1,10 @@
-import { HasChildren } from "@app/Common/commonTypes";
 import { ThemedFlattenInterpolation } from "@themes/_typings";
 import { baseButtonStyles } from "@themes/mixins/buttons";
 import { actionStyles } from "@themes/mixins/common";
 import { getColor, getTypography } from "@themes/utils";
 import pxToRem from "@themes/utils/pxToRem";
 import { Button as LibButton, ButtonProps } from "ariakit/button";
+import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import styled, { css } from "styled-components";
 

@@ -1,5 +1,5 @@
-import { HasChildren } from "@app/Common/commonTypes";
 import { ThemedFlattenInterpolation } from "@themes/_typings";
+import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import styled from "styled-components";
 

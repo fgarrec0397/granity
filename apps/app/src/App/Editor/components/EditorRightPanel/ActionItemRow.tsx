@@ -1,6 +1,6 @@
-import { HasChildren } from "@app/Common/commonTypes";
 import { StyledWrapper, StyledWrapperProps } from "@app/Common/components/Html";
 import { pxToRem } from "@themes/utils";
+import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import { css } from "styled-components";
 

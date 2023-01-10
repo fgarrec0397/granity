@@ -1,5 +1,5 @@
-import { useCallback } from "react";
 import { uidGenerator } from "helpers-granity";
+import { useCallback } from "react";
 
 import { HistoryItem, HistoryState } from "../../editorTypes";
 import useHistoryContext from "./useHistoryContext";

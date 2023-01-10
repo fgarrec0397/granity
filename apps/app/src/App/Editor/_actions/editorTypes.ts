@@ -1,6 +1,6 @@
-import { Dictionary } from "@app/Common/commonTypes";
 import { WidgetDictionary, WidgetInfoDictionary } from "@app/Widgets/_actions/widgetsTypes";
 import { Vector3Array } from "@react-three/rapier";
+import { Dictionary } from "helpers-granity";
 
 /**
  * Additional props that applies for widgets in the editor

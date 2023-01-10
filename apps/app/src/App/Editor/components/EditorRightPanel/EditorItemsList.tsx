@@ -1,4 +1,3 @@
-import { DictionaryValue, HasCallableChildren } from "@app/Common/commonTypes";
 import { StyledWrapper, StyledWrapperProps, Typography } from "@app/Common/components/Html";
 import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
 import Collapse from "@app/Common/components/Html/Collapse/Collapse";
@@ -9,6 +8,7 @@ import { ScenesDictionary } from "@app/Scenes/_actions/scenesTypes";
 import { WidgetDictionary } from "@app/Widgets/_actions/widgetsTypes";
 import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { DisclosureState } from "ariakit";
+import { DictionaryValue, HasCallableChildren } from "helpers-granity";
 import { ReactElement } from "react";
 import { css } from "styled-components";
 

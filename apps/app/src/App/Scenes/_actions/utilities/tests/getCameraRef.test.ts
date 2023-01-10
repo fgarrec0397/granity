@@ -1,5 +1,5 @@
-import { MutableRefObject } from "react";
 import { uidGenerator } from "helpers-granity";
+import { MutableRefObject } from "react";
 
 import { SceneCamera } from "../../scenesTypes";
 import getCameraRef from "../getCameraRef";

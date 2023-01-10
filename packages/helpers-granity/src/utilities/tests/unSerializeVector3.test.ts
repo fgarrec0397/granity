@@ -1,4 +1,4 @@
-import { Vector3Array } from "@app/Common/commonTypes";
+import { Vector3Array } from "helpers-granity";
 
 import unSerializeVector3 from "../unSerializeVector3";
 

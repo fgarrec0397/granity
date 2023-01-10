@@ -1,4 +1,3 @@
-import { SetOptionalPropertyFrom } from "@app/Common/commonTypes";
 import { serialize } from "@app/Core/_actions/utilities/componentSerializer";
 import {
     SerializedWidgetDictionary,
@@ -7,6 +6,7 @@ import {
     WidgetDictionaryItem,
     WidgetObjectEditorOptions,
 } from "@app/Widgets/_actions/widgetsTypes";
+import { SetOptionalPropertyFrom } from "helpers-granity";
 
 export const serializeEditorOptions = ({ meshHolder, helper }: WidgetObjectEditorOptions) => {
     if (meshHolder) {

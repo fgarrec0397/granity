@@ -1,6 +1,6 @@
-import { HasChildren } from "@app/Common/commonTypes";
 import AppProvider from "@app/Core/_actions/_data/providers/AppProvider";
 import { render, renderHook, RenderOptions } from "@testing-library/react";
+import { HasChildren } from "helpers-granity";
 import { FC, ReactElement } from "react";
 
 type Props = HasChildren;

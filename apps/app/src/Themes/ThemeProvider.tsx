@@ -1,4 +1,4 @@
-import { HasChildren } from "@app/Common/commonTypes";
+import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import { ThemeProvider as ThemeProviderLib } from "styled-components";
 

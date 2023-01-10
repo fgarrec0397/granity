@@ -1,6 +1,6 @@
-import { HasChildren } from "@app/Common/commonTypes";
 import useMergeStyles from "@themes/hooks/useMergeStyles";
 import { boxStyles as baseBoxStyles } from "@themes/mixins/box";
+import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import { css } from "styled-components";
 

@@ -1,7 +1,7 @@
 import { ThemedFlattenInterpolation } from "@themes/_typings";
 import { Checkbox as CheckboxLib, CheckboxProps as CheckboxLibProps } from "ariakit/checkbox";
-import { FC, useMemo } from "react";
 import { uidGenerator } from "helpers-granity";
+import { FC, useMemo } from "react";
 
 import Label, { LabelProps } from "../Label/Label";
 

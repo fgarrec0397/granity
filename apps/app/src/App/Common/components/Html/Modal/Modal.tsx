@@ -1,4 +1,3 @@
-import { HasCallableChildren } from "@app/Common/commonTypes";
 import { getColor, getCommon, getTypography, pxToRem } from "@themes/utils";
 import getModal from "@themes/utils/getModal";
 import {
@@ -9,6 +8,7 @@ import {
     useDialogDisclosure,
     useDialogState,
 } from "ariakit";
+import { HasCallableChildren } from "helpers-granity";
 import { cloneElement, FC, MouseEvent, ReactElement, useMemo } from "react";
 import styled from "styled-components";
 

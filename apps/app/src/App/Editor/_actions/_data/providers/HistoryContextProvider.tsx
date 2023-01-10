@@ -1,4 +1,4 @@
-import { HasChildren } from "@app/Common/commonTypes";
+import { HasChildren } from "helpers-granity";
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
 import { HistoryDictionary, HistoryItem } from "../../editorTypes";

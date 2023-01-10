@@ -1,7 +1,7 @@
-import { HasChildren } from "@app/Common/commonTypes";
 import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useMergeStyles from "@themes/hooks/useMergeStyles";
 import pxToRem from "@themes/utils/pxToRem";
+import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import { css } from "styled-components";
 

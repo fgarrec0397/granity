@@ -1,4 +1,3 @@
-import { HasChildren } from "@app/Common/commonTypes";
 import { boxStyles } from "@themes/mixins/box";
 import { getColor, getCommon } from "@themes/utils";
 import getTypography from "@themes/utils/getTypography";
@@ -11,6 +10,7 @@ import {
     DisclosureState,
     useDisclosureState,
 } from "ariakit";
+import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import styled, { css } from "styled-components";
 
