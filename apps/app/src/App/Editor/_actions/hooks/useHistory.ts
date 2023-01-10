@@ -1,7 +1,7 @@
-import { usePrevious } from "@app/Common/hooks";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import isEqual from "lodash/isEqual";
 import { useCallback } from "react";
+import { usePrevious } from "helpers-granity";
 
 import useHistoryContext from "../_data/hooks/useHistoryContext";
 import useHistoryService from "../_data/hooks/useHistoryService";

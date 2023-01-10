@@ -1,4 +1,4 @@
-import { uidGenerator } from "@app/Common/utilities";
+import { uidGenerator } from "helpers-granity";
 
 import { ScenesDictionary } from "../../scenesTypes";
 import getFirstNonDefaultScene from "../getFirstNonDefaultScene";

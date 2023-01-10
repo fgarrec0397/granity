@@ -1,4 +1,3 @@
-import usePrevious from "@app/Common/hooks/usePrevious";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import useGetWidgets from "@app/Widgets/_actions/hooks/useGetMeshByWidget";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
@@ -8,6 +7,7 @@ import isEqual from "lodash/isEqual";
 import { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import { Object3D } from "three";
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
+import { usePrevious } from "helpers-granity";
 
 type Props = {
     children?: ReactNode;

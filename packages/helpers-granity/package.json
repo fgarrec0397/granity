@@ -1,5 +1,5 @@
 {
-  "name": "utilities-granity",
+  "name": "helpers-granity",
   "version": "1.0.0",
   "main": "./src/index.ts",
   "scripts": {

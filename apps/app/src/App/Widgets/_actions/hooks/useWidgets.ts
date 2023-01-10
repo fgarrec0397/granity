@@ -1,7 +1,7 @@
 import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
-import { uidGenerator } from "@app/Common/utilities";
 import { useCallback } from "react";
 import { Object3D } from "three";
+import { uidGenerator } from "helpers-granity";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
 import {
