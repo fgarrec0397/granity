@@ -32,6 +32,10 @@
       },
       "test:watch": {
         "outputs": []
+      },
+      "storybook": {
+        "outputs": [],
+        "cache": false
       }
     }
   }
