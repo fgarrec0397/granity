@@ -1,4 +1,4 @@
-import { pxToRem } from "@themes/utils";
+import { pxToRem } from "../utils";
 import { css } from "styled-components";
 
 import { scrollableStyles } from "./scrollbar";

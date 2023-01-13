@@ -1,5 +1,5 @@
-import { getColor, getCommon, getTypography, pxToRem } from "@themes/utils";
-import getFocus from "@themes/utils/getFocus";
+import { getColor, getCommon, getTypography, pxToRem } from "../utils";
+import getFocus from "../utils/getFocus";
 import { css } from "styled-components";
 
 import { focusStyles } from "./common";

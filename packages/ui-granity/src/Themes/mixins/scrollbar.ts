@@ -1,4 +1,4 @@
-import { getCommon, pxToRem } from "@themes/utils";
+import { getCommon, pxToRem } from "../utils";
 import { css } from "styled-components";
 
 export type ScrollSide = "y" | "x";

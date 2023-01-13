@@ -1,4 +1,4 @@
-import { rootFontSize } from "@themes/themesConstants";
+import { rootFontSize } from "../themesConstants";
 
 export default (...args: number[]): string => {
     if (args?.length === 0) {

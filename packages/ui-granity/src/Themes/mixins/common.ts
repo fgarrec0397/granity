@@ -1,4 +1,4 @@
-import getFocus from "@themes/utils/getFocus";
+import getFocus from "../utils/getFocus";
 import { css } from "styled-components";
 
 export const actionStyles = () => {

@@ -1,4 +1,4 @@
-import { getColor, getCommon, pxToRem } from "@themes/utils";
+import { getColor, getCommon, pxToRem } from "../utils";
 import { css } from "styled-components";
 
 export const boxStyles = () => {
