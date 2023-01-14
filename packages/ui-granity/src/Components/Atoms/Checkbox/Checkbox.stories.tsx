@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Checkbox from '../Checkbox/Checkbox';
+import Checkbox from './Checkbox';
 
 export default {
   title: 'Atoms/Checkbox',
