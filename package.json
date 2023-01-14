@@ -10,6 +10,8 @@
     "url": "https://github.com/fgarrec0397/Granity"
   },
   "scripts": {
+    "audit": "turbo run audit",
+    "audit:fix": "turbo run audit:fix",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "test": "turbo run test",
@@ -27,11 +29,11 @@
     "update": "turbo run update"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
-    "husky": "^8.0.2",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "husky": "^8.0.3",
     "standard-version": "^9.5.0",
-    "turbo": "^1.6.3"
+    "turbo": "^1.7.0"
   },
   "dependencies": {
     "workspaces": "^0.1.0"

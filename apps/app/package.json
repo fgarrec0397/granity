@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "scripts": {
+    "audit": "npm audit",
+    "audit:fix": "npm audit fix",
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
@@ -29,9 +31,6 @@
     ]
   },
   "dependencies": {
-    "helpers-granity": "*",
-    "eslint-config-granity": "*",
-    "prettier-config-granity": "*",
     "@react-spring/three": "^9.6.1",
     "@react-three/drei": "9.52.3",
     "@react-three/fiber": "8.10.0",
@@ -42,6 +41,10 @@
     "@vitejs/plugin-react": "^3.0.1",
     "@vitest/coverage-c8": "^0.27.1",
     "cors": "^2.8.5",
+    "eslint-config-granity": "*",
+    "helpers-granity": "*",
+    "jsdom": "^21.0.0",
+    "prettier-config-granity": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

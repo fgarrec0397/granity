@@ -1,7 +1,6 @@
-/// <reference types="vitest" />
 import reactRefresh from "@vitejs/plugin-react";
 import path from "path";
-import { defineConfig } from "vite";
+import { defineConfig, PluginOption } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 
 export default defineConfig({
@@ -9,12 +8,12 @@ export default defineConfig({
         outDir: "build",
     },
     plugins: [
-        reactRefresh(),
+        reactRefresh() as PluginOption,
         svgrPlugin({
             svgrOptions: {
                 icon: true,
             },
-        }),
+        }) as unknown as PluginOption,
     ],
     server: {
         proxy: {
@@ -27,15 +26,6 @@ export default defineConfig({
             "@features": path.resolve(__dirname, "./src/Features"),
             "@tests": path.resolve(__dirname, "./src/tests"),
             "@themes": path.resolve(__dirname, "./src/Themes"),
-        },
-    },
-    test: {
-        globals: true,
-        environment: "jsdom",
-        setupFiles: "./src/setupTests.ts",
-        coverage: {
-            reporter: ["text", "html"],
-            exclude: ["node_modules/", "src/setupTests.ts"],
         },
     },
 });

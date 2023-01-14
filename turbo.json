@@ -1,9 +1,16 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "pipeline": {
+      "audit": {
+        "outputs": []
+      },
+      "audit:fix": {
+        "outputs": []
+      },
       "dev": {
         "cache": false,
-        "dependsOn": ["test:watch"]
+        "persistent": true,
+        "dependsOn": ["lint", "test"]
       },
       "build": {
         "outputs": ["dist/**", "build/**"],

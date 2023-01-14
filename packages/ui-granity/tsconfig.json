@@ -19,7 +19,8 @@
   "include": [
     "src", 
     "vite.config.ts",
+    "vitest.config.ts",
     ".storybook"
   ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.vite.json" }]
 }

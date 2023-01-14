@@ -3,11 +3,12 @@
   "main": "index.js",
   "prettier": "prettier-config-granity",
   "scripts": {
+    "audit": "npm audit",
+    "audit:fix": "npm audit fix",
     "update:check": "ncu",
     "update": "ncu -u"
   },
   "devDependencies": {
-    "prettier-config-granity": "*",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "eslint": "^8.31.0",
@@ -20,8 +21,9 @@
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
+    "npm-check-updates": "^16.6.2",
     "prettier": "2.8.2",
-    "npm-check-updates": "^16.6.2"
+    "prettier-config-granity": "*"
   },
   "repository": {
     "type": "git",
@@ -31,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/fgarrec0397/Granity/issues"
   },
-  "homepage": "https://github.com/fgarrec0397/Granity#readme"
+  "homepage": "https://github.com/fgarrec0397/Granity#readme",
+  "dependencies": {
+    "jsdom": "^21.0.0"
+  }
 }

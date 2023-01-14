@@ -26,18 +26,18 @@ export type KeyboardKeysItem = {
 export type KeyboardMappings = KeyboardApp<KeyMappings>;
 
 export type KeyMappings = {
-    [key: typeof keyboardMappings.editor[number]["name"]]: {
+    [key: (typeof keyboardMappings.editor)[number]["name"]]: {
         value: boolean;
         trigger: (event: KeyboardEvent) => boolean;
     };
 };
 
 export type EditorClientKeyMappings = {
-    [key: typeof keyboardMappings.editor[number]["name"]]: boolean;
+    [key: (typeof keyboardMappings.editor)[number]["name"]]: boolean;
 };
 
 export type GameClientKeyMappings = {
-    [key: typeof keyboardMappings.game[number]["name"]]: boolean;
+    [key: (typeof keyboardMappings.game)[number]["name"]]: boolean;
 };
 
 export type ClientKeyMappings = EditorClientKeyMappings | GameClientKeyMappings;

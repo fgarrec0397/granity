@@ -9,5 +9,8 @@
   "bugs": {
     "url": "https://github.com/fgarrec0397/Granity/issues"
   },
-  "homepage": "https://github.com/fgarrec0397/Granity#readme"
+  "homepage": "https://github.com/fgarrec0397/Granity#readme",
+  "dependencies": {
+    "jsdom": "^21.0.0"
+  }
 }
