@@ -3,9 +3,7 @@ import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import useWidgetsUtilities from "@app/Widgets/_actions/hooks/useWidgetsUtilities";
 import serializeWidgets from "@app/Widgets/_actions/utilities/serializeWidgets";
-import { uidGenerator, usePrevious } from "helpers-granity";
-import cloneDeep from "lodash/cloneDeep";
-import isEqual from "lodash/isEqual";
+import { cloneDeep, isEqual, uidGenerator, usePrevious } from "helpers-granity";
 import { useCallback, useEffect, useState } from "react";
 
 import useScenesService from "../_data/hooks/useScenesService";

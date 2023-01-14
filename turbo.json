@@ -36,6 +36,14 @@
       "storybook": {
         "outputs": [],
         "cache": false
+      },
+      "update:check": {
+        "cache": false,
+        "outputs": []
+      },
+      "update": {
+        "cache": false,
+        "outputs": []
       }
     }
   }
