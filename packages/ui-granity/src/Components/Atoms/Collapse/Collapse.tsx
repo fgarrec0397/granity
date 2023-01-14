@@ -1,7 +1,3 @@
-import { boxStyles } from "../../../Themes/mixins/box";
-import { getColor, getCommon } from "../../../Themes/utils";
-import getTypography from "../../../Themes/utils/getTypography";
-import pxToRem from "../../../Themes/utils/pxToRem";
 import {
     Disclosure,
     DisclosureContent,
@@ -14,6 +10,10 @@ import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import styled, { css } from "styled-components";
 
+import { boxStyles } from "../../../Themes/mixins/box";
+import { getColor, getCommon } from "../../../Themes/utils";
+import getTypography from "../../../Themes/utils/getTypography";
+import pxToRem from "../../../Themes/utils/pxToRem";
 import { BaseStyles } from "../../../types";
 import Arrow from "../Icons/Arrow";
 import AppStyledWrapper, { StyledWrapperProps } from "../StyledWrapper/StyledWrapper";

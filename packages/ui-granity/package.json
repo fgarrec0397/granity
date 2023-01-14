@@ -8,16 +8,28 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "eslint --ext .ts,.tsx src --fix",
+    "format": "prettier --write ./src",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage"
   },
+  "prettier": "prettier-config-granity",
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
     "ariakit": "^2.0.0-next.41",
     "ariakit-utils": "^0.17.0-next.26",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^5.3.6"
+    "@storybook/react": "^6.5.15",
+    "styled-components": "^5.3.6",
+    "vitest": "^0.25.1"
   },
   "devDependencies": {
+    "eslint-config-granity": "*",
+    "prettier-config-granity": "*",
     "@babel/core": "^7.20.12",
     "@storybook/addon-actions": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",
@@ -25,7 +37,6 @@
     "@storybook/addon-links": "^6.5.15",
     "@storybook/addons": "^6.5.15",
     "@storybook/builder-vite": "^0.2.7",
-    "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.0.13",
     "@storybook/theming": "^6.5.15",
     "@types/react": "^18.0.26",

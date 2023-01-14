@@ -1,5 +1,6 @@
-import getFocus from "../utils/getFocus";
 import { css } from "styled-components";
+
+import getFocus from "../utils/getFocus";
 
 export const actionStyles = () => {
     return css`

@@ -1,6 +1,6 @@
-import { pxToRem } from "../utils";
 import { css } from "styled-components";
 
+import { pxToRem } from "../utils";
 import { scrollableStyles } from "./scrollbar";
 
 export type LayoutPosition = {

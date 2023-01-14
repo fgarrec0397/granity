@@ -1,12 +1,13 @@
+import { Button as LibButton, ButtonProps as LibButtonProps } from "ariakit/button";
+import { HasChildren } from "helpers-granity";
+import { FC } from "react";
+import styled, { css } from "styled-components";
+
 import { ThemedFlattenInterpolation } from "../../../Themes/_typings";
 import { baseButtonStyles } from "../../../Themes/mixins/buttons";
 import { actionStyles } from "../../../Themes/mixins/common";
 import { getColor, getTypography } from "../../../Themes/utils";
 import pxToRem from "../../../Themes/utils/pxToRem";
-import { Button as LibButton, ButtonProps as LibButtonProps } from "ariakit/button";
-import { HasChildren } from "helpers-granity";
-import { FC } from "react";
-import styled, { css } from "styled-components";
 
 export type ButtonStyleTypes = "outlined" | "filled" | "none";
 
@@ -21,7 +22,9 @@ export type ButtonComponents = LibButtonProps;
 
 export type ButtonProps = ButtonStylesProps & ButtonComponents & HasChildren;
 
-const PureButton: FC<ButtonProps> = ({ isFullWidth, styleType, ...props }) => <LibButton {...props} />;
+const PureButton: FC<ButtonProps> = ({ isFullWidth, styleType, ...props }) => (
+    <LibButton {...props} />
+);
 
 const StyledButton = styled(PureButton)<ButtonStylesProps>`
     font-size: ${getTypography("size.smaller")};

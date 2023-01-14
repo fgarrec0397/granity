@@ -1,10 +1,10 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import Modal from './Modal';
+import Modal from "./Modal";
 
 export default {
-  title: 'Atoms/Modal',
-  component: Modal,
+    title: "Atoms/Modal",
+    component: Modal,
 } as ComponentMeta<typeof Modal>;
 
 const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
@@ -12,5 +12,5 @@ const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
-  children: (state) => "Modal !",
+    children: (state) => "Modal !",
 };

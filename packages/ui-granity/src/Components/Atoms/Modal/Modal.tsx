@@ -1,5 +1,3 @@
-import { getColor, getCommon, getTypography, pxToRem } from "../../../Themes/utils";
-import getModal from "../../../Themes/utils/getModal";
 import {
     Dialog,
     DialogHeading,
@@ -12,6 +10,8 @@ import { HasCallableChildren } from "helpers-granity";
 import { cloneElement, FC, MouseEvent, ReactElement, useMemo } from "react";
 import styled from "styled-components";
 
+import { getColor, getCommon, getTypography, pxToRem } from "../../../Themes/utils";
+import getModal from "../../../Themes/utils/getModal";
 import Button from "../Button/Button";
 
 type ModalSize = "small" | "medium" | "large";

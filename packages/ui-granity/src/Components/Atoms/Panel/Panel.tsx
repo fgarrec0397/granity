@@ -1,8 +1,9 @@
-import useMergeStyles from "../../../Themes/hooks/useMergeStyles";
-import pxToRem from "../../../Themes/utils/pxToRem";
 import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import { css } from "styled-components";
+
+import useMergeStyles from "../../../Themes/hooks/useMergeStyles";
+import pxToRem from "../../../Themes/utils/pxToRem";
 import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper/StyledWrapper";
 
 export type PanelProps = HasChildren;

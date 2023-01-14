@@ -1,7 +1,7 @@
-import { getColor, getCommon, getTypography, pxToRem } from "../utils";
-import getFocus from "../utils/getFocus";
 import { css } from "styled-components";
 
+import { getColor, getCommon, getTypography, pxToRem } from "../utils";
+import getFocus from "../utils/getFocus";
 import { focusStyles } from "./common";
 
 export const labelStyles = () => {

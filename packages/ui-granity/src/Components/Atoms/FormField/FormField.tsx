@@ -1,10 +1,10 @@
-import { ThemedFlattenInterpolation } from "../../../Themes/_typings";
-import { inputStyles } from "../../../Themes/mixins/form";
 import { FormError, FormErrorProps, FormInput, FormInputProps } from "ariakit";
 import { uidGenerator } from "helpers-granity";
 import { FC, useMemo } from "react";
 import styled, { css } from "styled-components";
 
+import { ThemedFlattenInterpolation } from "../../../Themes/_typings";
+import { inputStyles } from "../../../Themes/mixins/form";
 import Label, { LabelProps } from "../Label/Label";
 import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper/StyledWrapper";
 

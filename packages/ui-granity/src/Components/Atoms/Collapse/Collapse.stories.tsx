@@ -1,10 +1,10 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import Collapse from './Collapse';
+import Collapse from "./Collapse";
 
 export default {
-  title: 'Atoms/Collapse',
-  component: Collapse,
+    title: "Atoms/Collapse",
+    component: Collapse,
 } as ComponentMeta<typeof Collapse>;
 
 const Template: ComponentStory<typeof Collapse> = (args) => <Collapse {...args} />;
@@ -13,19 +13,19 @@ export const Basic = Template.bind({});
 export const Wrapped = Template.bind({});
 
 Basic.args = {
-  title: "Collapse",
-  children: "Collapsable content!"
+    title: "Collapse",
+    children: "Collapsable content!",
 };
 
 Wrapped.args = {
-  title: "Collapse",
-  children: "Content!"
+    title: "Collapse",
+    children: "Content!",
 };
 
 Wrapped.decorators = [
-  (Story) => (
-    <div style={{ maxWidth: "250px" }}>
-      <Story />
-    </div>
-  ),
+    (Story) => (
+        <div style={{ maxWidth: "250px" }}>
+            <Story />
+        </div>
+    ),
 ];

@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "./src/index.ts",
   "scripts": {
+    "lint": "eslint --ext .ts,.tsx src --fix",
+    "format": "prettier --write ./src",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage"

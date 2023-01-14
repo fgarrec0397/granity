@@ -1,10 +1,10 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import Label from './Label';
+import Label from "./Label";
 
 export default {
-  title: 'Atoms/Label',
-  component: Label,
+    title: "Atoms/Label",
+    component: Label,
 } as ComponentMeta<typeof Label>;
 
 const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />;
@@ -12,5 +12,5 @@ const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
-  children: "Label",
+    children: "Label",
 };
