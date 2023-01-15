@@ -1,16 +1,13 @@
-import { StyledWrapper } from "@app/Common/components/Html";
-import Checkbox from "@app/Common/components/Html/Checkbox/Checkbox";
-import FormField, { FormFieldStyles } from "@app/Common/components/Html/FormField/FormField";
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import { ScenesDictionary, ScenesDictionaryItem } from "@app/Scenes/_actions/scenesTypes";
-import { pxToRem } from "@themes/utils";
 import { ChangeEvent, FC, useState } from "react";
 import { css } from "styled-components";
+import { Checkbox, FormField, FormFieldStylesProps, pxToRem, StyledWrapper } from "ui-granity";
 
 import EditorItemsList from "./EditorItemsList";
 
 type EditorScenesListStyles = {
-    formField?: FormFieldStyles;
+    formField?: FormFieldStylesProps;
 };
 
 const styles: EditorScenesListStyles = {

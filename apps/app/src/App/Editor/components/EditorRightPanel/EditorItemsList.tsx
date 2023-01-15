@@ -1,16 +1,24 @@
-import { StyledWrapper, StyledWrapperProps, Typography } from "@app/Common/components/Html";
-import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
-import Collapse from "@app/Common/components/Html/Collapse/Collapse";
-import Garbage from "@app/Common/components/Html/Icons/Garbage";
-import Modal, { ModalProps } from "@app/Common/components/Html/Modal/Modal";
-import { TypographyStylesProps } from "@app/Common/components/Html/Typography";
 import { ScenesDictionary } from "@app/Scenes/_actions/scenesTypes";
 import { WidgetDictionary } from "@app/Widgets/_actions/widgetsTypes";
-import { getColor, getTypography, pxToRem } from "@themes/utils";
-import { DisclosureState } from "ariakit";
+import { DisclosureState } from "ariakit"; // TODO - encapsulate ariakit in ui-granity
 import { DictionaryValue, HasCallableChildren } from "helpers-granity";
 import { ReactElement } from "react";
 import { css } from "styled-components";
+import {
+    Button,
+    ButtonStylesProps,
+    Collapse,
+    getColor,
+    getTypography,
+    Icons,
+    Modal,
+    pxToRem,
+    StyledWrapper,
+    StyledWrapperProps,
+    Typography,
+    TypographyStylesProps,
+} from "ui-granity";
+import { ModalProps } from "ui-granity/src/Components/Atoms/Modal/Modal";
 
 import ActionItemRow from "./ActionItemRow";
 
@@ -107,7 +115,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
                                     onClick={() => handleClickRemove?.(id)}
                                     {...styles.deleteButton}
                                 >
-                                    <Garbage />
+                                    <Icons.Garbage />
                                 </Button>
                             </StyledWrapper>
                         </ActionItemRow>

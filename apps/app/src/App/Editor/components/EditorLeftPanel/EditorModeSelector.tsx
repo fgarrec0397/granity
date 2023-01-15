@@ -1,8 +1,7 @@
-import Collapse from "@app/Common/components/Html/Collapse/Collapse";
-import Select from "@app/Common/components/Html/Select/Select";
 import { ModesAvailable } from "@app/Editor/_actions/editorTypes";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import { FC } from "react";
+import { Collapse, Select } from "ui-granity";
 
 const EditorModeSelector: FC = () => {
     const { selectMode } = useEditor();

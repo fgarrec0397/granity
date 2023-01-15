@@ -1,11 +1,14 @@
-import { Typography } from "@app/Common/components/Html";
-import Select from "@app/Common/components/Html/Select/Select";
-import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
-import { TypographyStyles } from "@app/Common/components/Html/Typography/Typography";
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@app/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
 import { css } from "styled-components";
+import {
+    Select,
+    StyledWrapper,
+    StyledWrapperProps,
+    Typography,
+    TypographyStylesProps,
+} from "ui-granity";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 
@@ -15,7 +18,7 @@ type Props = {
 
 interface EditorOptionsSelectFieldStyles {
     inputsWrapper?: StyledWrapperProps;
-    label?: TypographyStyles;
+    label?: TypographyStylesProps;
 }
 
 const styles: EditorOptionsSelectFieldStyles = {

@@ -12,5 +12,5 @@ const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
-    children: (state) => "Modal !",
+    children: () => "Modal !",
 };

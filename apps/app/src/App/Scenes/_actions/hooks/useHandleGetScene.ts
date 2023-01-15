@@ -1,5 +1,5 @@
-import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import { useEffect } from "react";
+import { Toaster } from "ui-granity";
 
 import { getScenes } from "../_data/scenesApiservices";
 import useInitScenes from "./useInitScenes";
@@ -14,7 +14,7 @@ export default () => {
                     initScenes(result);
                 },
                 (error: any) => {
-                    toast.error(error);
+                    Toaster.toast.error(error);
                 }
             );
         };

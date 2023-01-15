@@ -1,10 +1,8 @@
-import { StyledWrapper } from "@app/Common/components/Html";
-import GranityLogo from "@app/Common/components/Html/Icons/GranityLogo";
-import { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import { layoutStyles } from "@themes/mixins/layout";
 import { getCommon, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
+import { Icons, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 import EditorPlayButton, { EditorPlayButtonProps } from "./EditorPlayButton";
 import EditorPreviewUIButton, { EditorPreviewUIButtonProps } from "./EditorPreviewUIButton";
@@ -63,7 +61,7 @@ const EditorHeader: FC = () => {
     return (
         <StyledWrapper {...styles.wrapper}>
             <StyledWrapper {...styles.leftSection}>
-                <GranityLogo />
+                <Icons.GranityLogo />
             </StyledWrapper>
             <StyledWrapper {...styles.centerSection}>
                 <EditorPreviewUIButton {...styles.uiPreviewButton} />

@@ -1,9 +1,13 @@
-import Panel, { PanelStyles } from "@app/Common/components/Html/Panel/Panel";
-import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
-import { layoutStyles } from "@themes/mixins/layout";
-import { pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
+import {
+    layoutStyles,
+    Panel,
+    PanelStylesProps,
+    pxToRem,
+    StyledWrapper,
+    StyledWrapperProps,
+} from "ui-granity";
 
 import EditorScenesList from "./EditorScenesList";
 import EditorWidgetsObjectList from "./EditorWidgetsObjectList";
@@ -11,7 +15,7 @@ import EditorWidgetsUIList from "./EditorWidgetsUIList";
 
 type EditorRightPanelStyles = {
     wrapper?: StyledWrapperProps;
-    panel?: PanelStyles;
+    panel?: PanelStylesProps;
 };
 
 const styles: EditorRightPanelStyles = {

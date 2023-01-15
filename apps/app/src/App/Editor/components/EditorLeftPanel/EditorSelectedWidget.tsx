@@ -1,24 +1,21 @@
-import { Typography } from "@app/Common/components/Html";
-import Box, { BoxStyles } from "@app/Common/components/Html/Box/Box";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { FC } from "react";
 import { css } from "styled-components";
+import { StyledWrapper, StyledWrapperProps, Typography } from "ui-granity";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 
 type EditorSelectedWidgetStyles = {
-    box?: BoxStyles;
+    wrapper?: StyledWrapperProps;
 };
 
 const styles: EditorSelectedWidgetStyles = {
-    box: {
-        wrapper: {
-            css: css`
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            `,
-        },
+    wrapper: {
+        css: css`
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        `,
     },
 };
 
@@ -26,7 +23,7 @@ const EditorSelectedWidget: FC = () => {
     const { displayWidgetName, selectedWidgets } = useWidgets();
 
     return (
-        <Box styling={styles.box}>
+        <StyledWrapper {...styles.wrapper}>
             {selectedWidgets.length ? (
                 <>
                     <Typography>{displayWidgetName(selectedWidgets[0].id)}</Typography>
@@ -35,7 +32,7 @@ const EditorSelectedWidget: FC = () => {
             ) : (
                 <Typography>No widget selected</Typography>
             )}
-        </Box>
+        </StyledWrapper>
     );
 };
 

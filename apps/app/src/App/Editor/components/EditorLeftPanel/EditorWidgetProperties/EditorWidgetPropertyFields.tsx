@@ -1,15 +1,19 @@
-import { Typography } from "@app/Common/components/Html";
-import FormField, { FormFieldStyles } from "@app/Common/components/Html/FormField/FormField";
-import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { getTypography, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
+import {
+    FormField,
+    FormFieldStylesProps,
+    StyledWrapper,
+    StyledWrapperProps,
+    Typography,
+} from "ui-granity";
 
 type EditorWidgetPropertyFieldsStyles = {
     section?: StyledWrapperProps;
     inputGroup?: StyledWrapperProps;
-    formField?: FormFieldStyles;
+    formField?: FormFieldStylesProps;
 };
 
 const styles: EditorWidgetPropertyFieldsStyles = {

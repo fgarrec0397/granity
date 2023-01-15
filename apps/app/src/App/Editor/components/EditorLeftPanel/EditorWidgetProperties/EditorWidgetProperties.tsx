@@ -1,6 +1,6 @@
-import Collapse from "@app/Common/components/Html/Collapse/Collapse";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { FC } from "react";
+import { Collapse } from "ui-granity";
 
 import EditorWidgetPropertyFields from "./EditorWidgetPropertyFields";
 

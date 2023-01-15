@@ -1,4 +1,5 @@
 import get from "@app/Core/_actions/_data/services/get";
+import { Toaster } from "ui-granity";
 
 import { SaveSceneServiceParameter, SceneApiResponseResult } from "../scenesTypes";
 
@@ -14,8 +15,8 @@ export const postScenes = async (scenes: SaveSceneServiceParameter) => {
 
     try {
         return await rawResponse.json();
-    } catch (error) {
-        return console.error(error, "error");
+    } catch (error: any) {
+        return Toaster.toast.error(error);
     }
 };
 

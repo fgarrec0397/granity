@@ -8,7 +8,7 @@ import { inputStyles } from "../../../Themes/mixins/form";
 import Label, { LabelProps } from "../Label/Label";
 import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper/StyledWrapper";
 
-export type FormFieldStyles = {
+export type FormFieldStylesProps = {
     styling?: {
         wrapperCss?: ThemedFlattenInterpolation;
         labelCss?: ThemedFlattenInterpolation;
@@ -25,10 +25,10 @@ export type FormFieldComponentProps = {
     errorProps?: FormErrorProps;
 };
 
-type Props = FormFieldStyles & FormFieldComponentProps;
+type Props = FormFieldStylesProps & FormFieldComponentProps;
 
 const StyledFormInput = styled(FormInput)<
-    FormFieldStyles & any /* TODO - Find why there an issue with the props type */
+    FormFieldStylesProps & any /* TODO - Find why there an issue with the props type */
 >`
     ${inputStyles()}
 
@@ -36,7 +36,7 @@ const StyledFormInput = styled(FormInput)<
 `;
 
 const StyledFormError = styled(FormError)<
-    FormFieldStyles & any /* TODO - Find why there an issue with the props type */
+    FormFieldStylesProps & any /* TODO - Find why there an issue with the props type */
 >`
     ${({ styling }) => styling?.errorCss}
 `;

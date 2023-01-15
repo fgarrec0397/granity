@@ -1,11 +1,9 @@
-import { StyledWrapper } from "@app/Common/components/Html";
-import Panel, { PanelStyles } from "@app/Common/components/Html/Panel/Panel";
-import { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { layoutStyles } from "@themes/mixins/layout";
 import { pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
+import { Panel, PanelStylesProps, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 import EditorModeSelector from "./EditorModeSelector";
 import EditorSelectedWidget from "./EditorSelectedWidget";
@@ -14,7 +12,7 @@ import EditorWidgetProperties from "./EditorWidgetProperties/EditorWidgetPropert
 
 type EditorLeftPanelStyles = {
     wrapper: StyledWrapperProps;
-    panel: PanelStyles;
+    panel: PanelStylesProps;
 };
 
 const styles: EditorLeftPanelStyles = {

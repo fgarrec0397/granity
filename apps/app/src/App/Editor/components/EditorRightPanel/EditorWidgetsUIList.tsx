@@ -1,5 +1,3 @@
-import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
-import StyledWrapper, { StyledWrapperProps } from "@app/Common/components/Html/StyledWrapper";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@app/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -7,6 +5,7 @@ import { WidgetDictionary, WidgetDictionaryItem } from "@app/Widgets/_actions/wi
 import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
+import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";

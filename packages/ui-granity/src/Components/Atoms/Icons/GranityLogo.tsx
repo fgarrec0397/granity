@@ -1,5 +1,6 @@
 import { FC, memo } from "react";
 
+// TODO - Remove this icon and manage it with the file system when it's done
 const GranityLogo: FC = () => {
     return (
         <>

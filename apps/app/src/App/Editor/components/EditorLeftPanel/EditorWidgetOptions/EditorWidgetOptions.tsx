@@ -1,8 +1,7 @@
-import Collapse from "@app/Common/components/Html/Collapse/Collapse";
-import Typography from "@app/Common/components/Html/Typography";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import { FC } from "react";
+import { Collapse, Typography } from "ui-granity";
 
 import EditorOptionsCheckboxField from "./EditorOptionsCheckboxField";
 import EditorOptionsNumberField from "./EditorOptionsNumberField";

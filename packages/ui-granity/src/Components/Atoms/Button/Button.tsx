@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 
 import { baseButtonStyles } from "../../../Themes/mixins/button";
 import { actionStyles } from "../../../Themes/mixins/common";
-import { ThemedFlattenInterpolation } from "../../../Themes";
+import { ThemedFlattenInterpolation } from "../../../Themes/types";
 import { getColor, getTypography } from "../../../Themes/utils";
 import pxToRem from "../../../Themes/utils/pxToRem";
 

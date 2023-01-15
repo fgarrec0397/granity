@@ -1,16 +1,16 @@
 import { FC, ReactNode } from "react";
 import styled, { FlattenSimpleInterpolation } from "styled-components";
 
-export interface TypographyStyles {
+export interface TypographyStylesProps {
     css?: FlattenSimpleInterpolation;
 }
 
-export interface TypographyComponent {
+export interface TypographyComponentProps {
     as?: string;
     children: ReactNode;
 }
 
-export type TypographyProps = TypographyComponent & TypographyStyles;
+export type TypographyProps = TypographyComponentProps & TypographyStylesProps;
 
 const Typography: FC<TypographyProps> = ({ as = "span", css, children, ...props }) => {
     const AsComponent: any = as;

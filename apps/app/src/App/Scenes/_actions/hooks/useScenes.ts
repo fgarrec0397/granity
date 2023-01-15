@@ -1,10 +1,10 @@
-import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import useWidgetsUtilities from "@app/Widgets/_actions/hooks/useWidgetsUtilities";
 import serializeWidgets from "@app/Widgets/_actions/utilities/serializeWidgets";
 import { cloneDeep, isEqual, uidGenerator, usePrevious } from "helpers-granity";
 import { useCallback, useEffect, useState } from "react";
+import { Toaster } from "ui-granity";
 
 import useScenesService from "../_data/hooks/useScenesService";
 import { ScenesDictionary, ScenesDictionaryItem } from "../scenesTypes";
@@ -223,7 +223,7 @@ export default () => {
 
             await save(scenesClone);
         } else {
-            toast.error("Impossible to save without a scene");
+            Toaster.toast.error("Impossible to save without a scene");
         }
     }, [getCurrentScene, save, scenes, updateScene, widgets, widgetsObjectInfoDictionary]);
 

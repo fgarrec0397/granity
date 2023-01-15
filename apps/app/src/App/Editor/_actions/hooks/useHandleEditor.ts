@@ -1,5 +1,5 @@
-import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import { useEffect } from "react";
+import { Toaster } from "ui-granity";
 
 import useEditor from "./useEditor";
 
@@ -9,9 +9,9 @@ export default () => {
     useEffect(() => {
         if (isEditor) {
             document.exitPointerLock();
-            toast.info("Edit mode");
+            Toaster.toast.info("Edit mode");
         } else {
-            toast.info("Game mode");
+            Toaster.toast.info("Game mode");
         }
     }, [isEditor]);
 };

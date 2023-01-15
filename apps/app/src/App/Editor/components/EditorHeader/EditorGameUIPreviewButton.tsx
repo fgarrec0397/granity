@@ -1,6 +1,6 @@
-import Button from "@app/Common/components/Html/Button/Button";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import { FC } from "react";
+import { Button } from "ui-granity";
 
 const SaveButton: FC = () => {
     const { openEditorUIPreview } = useEditor();

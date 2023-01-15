@@ -1,7 +1,6 @@
-import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
-import PreviewUI from "@app/Common/components/Html/Icons/PreviewUI";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import { FC } from "react";
+import { Button, ButtonStylesProps, Icons } from "ui-granity";
 
 export type EditorPreviewUIButtonPropsStyles = {
     button?: ButtonStylesProps;
@@ -19,7 +18,7 @@ const EditorPreviewButton: FC<EditorPreviewUIButtonProps> = ({ styles }) => {
 
     return (
         <Button onClick={onClickPreviewUIHandler} styleType="none" {...styles?.button}>
-            <PreviewUI />
+            <Icons.PreviewUI />
         </Button>
     );
 };

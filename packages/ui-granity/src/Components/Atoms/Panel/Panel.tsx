@@ -12,11 +12,11 @@ type Props = PanelProps & {
     width?: number;
 };
 
-export type PanelStyles = {
+export type PanelStylesProps = {
     wrapper?: StyledWrapperProps;
 };
 
-const panelStyles: PanelStyles = {
+const panelStyles: PanelStylesProps = {
     wrapper: {
         css: css`
             width: 100%;

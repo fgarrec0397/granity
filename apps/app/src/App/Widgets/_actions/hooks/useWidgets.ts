@@ -1,7 +1,7 @@
-import { toast } from "@app/Common/components/Html/Toast/ToastContainer";
 import { uidGenerator } from "helpers-granity";
 import { useCallback } from "react";
 import { Object3D } from "three";
+import { Toaster } from "ui-granity";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
 import {
@@ -251,7 +251,7 @@ export default () => {
         if (widget) {
             removeWidget(widget.id);
         } else {
-            toast.error("No mesh found");
+            Toaster.toast.error("No mesh found");
         }
     }, [removeWidget, selectedWidgets]);
 

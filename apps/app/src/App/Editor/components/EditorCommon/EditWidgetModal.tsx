@@ -1,12 +1,9 @@
-import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
-import FormField from "@app/Common/components/Html/FormField/FormField";
-import Edit from "@app/Common/components/Html/Icons/Edit";
-import Modal from "@app/Common/components/Html/Modal/Modal";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
 import { getColor, pxToRem } from "@themes/utils";
 import { ChangeEvent, FC, useState } from "react";
 import { css } from "styled-components";
+import { Button, ButtonStylesProps, FormField, Icons, Modal } from "ui-granity";
 
 export type EditWidgetModalProps = {
     widget: WidgetDictionaryItem;
@@ -73,7 +70,7 @@ const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconWidth = 18 }) =
             }}
             trigger={
                 <Button styleType="none" {...triggerButtonStyles}>
-                    <Edit />
+                    <Icons.Edit />
                 </Button>
             }
             options={{

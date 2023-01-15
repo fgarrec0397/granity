@@ -1,7 +1,6 @@
-import Button, { ButtonStylesProps } from "@app/Common/components/Html/Button/Button";
-import Play from "@app/Common/components/Html/Icons/Play";
 import useGame from "@app/Game/_actions/hooks/useGame";
 import { FC } from "react";
+import { Button, ButtonStylesProps, Icons } from "ui-granity";
 
 export type EditorPlayButtonPropsStyles = {
     button?: ButtonStylesProps;
@@ -20,7 +19,7 @@ const EditorPlayButton: FC<EditorPlayButtonProps> = ({ styles }) => {
 
     return (
         <Button onClick={onClickPlayHandler} styleType="none" {...styles?.button}>
-            <Play />
+            <Icons.Play />
         </Button>
     );
 };
