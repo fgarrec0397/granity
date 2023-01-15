@@ -35,7 +35,4 @@ export default createGlobalStyle`
 	:root {
 		--toastify-color-dark: ${getColor("common.backgroundDark")};
 	}
-
-
-
 `;

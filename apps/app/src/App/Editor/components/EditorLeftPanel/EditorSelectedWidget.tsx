@@ -1,7 +1,7 @@
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { FC } from "react";
 import { css } from "styled-components";
-import { StyledWrapper, StyledWrapperProps, Typography } from "ui-granity";
+import { boxStyles, StyledWrapper, StyledWrapperProps, Typography } from "ui-granity";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 
@@ -15,6 +15,7 @@ const styles: EditorSelectedWidgetStyles = {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            ${boxStyles()}
         `,
     },
 };

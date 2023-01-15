@@ -13,11 +13,11 @@ import { SetState } from "ariakit-utils/types";
 import { FC } from "react";
 import styled, { css } from "styled-components";
 
-import { ThemedFlattenInterpolation } from "../../../Themes";
 import { actionStyles } from "../../../Themes/mixins/common";
 import { inputStyles, labelStyles } from "../../../Themes/mixins/form";
+import { ThemedFlattenInterpolation } from "../../../Themes/types";
 import { getColor, getCommon, pxToRem } from "../../../Themes/utils";
-import { FormFieldStyles } from "../FormField/FormField";
+import { FormFieldStylesProps } from "../FormField/FormField";
 import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper/StyledWrapper";
 
 export type SelectStyles = {
@@ -49,7 +49,7 @@ const StyledSelectLabel = styled(SelectLabel)<SelectStyles>`
 `;
 
 const StyledSelectInput = styled(SelectLib)<
-    FormFieldStyles & any /* TODO - Find why there an issue with the props type */
+    FormFieldStylesProps & any /* TODO - Find why there an issue with the props type */
 >`
     ${inputStyles()}
     ${actionStyles()}
@@ -58,7 +58,7 @@ const StyledSelectInput = styled(SelectLib)<
 `;
 
 const StyledSelectPopover = styled(SelectPopover)<
-    FormFieldStyles & any /* TODO - Find why there an issue with the props type */
+    FormFieldStylesProps & any /* TODO - Find why there an issue with the props type */
 >`
     background-color: ${getColor("common.backgroundLight")};
     border-radius: ${getCommon("borderRadius.popover")};

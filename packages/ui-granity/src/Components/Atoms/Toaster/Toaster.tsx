@@ -1,3 +1,5 @@
+import "react-toastify/dist/ReactToastify.min.css";
+
 import { FC } from "react";
 import { ToastContainer as ToastContainerLib, ToastContainerProps } from "react-toastify";
 
@@ -9,7 +11,6 @@ ToastContainer.defaultProps = {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
-    newestOnTop: false,
     closeOnClick: true,
     rtl: false,
     pauseOnFocusLoss: true,
