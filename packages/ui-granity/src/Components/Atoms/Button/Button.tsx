@@ -3,9 +3,9 @@ import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import styled, { css } from "styled-components";
 
-import { ThemedFlattenInterpolation } from "../../../Themes/_typings";
-import { baseButtonStyles } from "../../../Themes/mixins/buttons";
+import { baseButtonStyles } from "../../../Themes/mixins/button";
 import { actionStyles } from "../../../Themes/mixins/common";
+import { ThemedFlattenInterpolation } from "../../../Themes";
 import { getColor, getTypography } from "../../../Themes/utils";
 import pxToRem from "../../../Themes/utils/pxToRem";
 

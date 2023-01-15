@@ -2,7 +2,7 @@ import { Checkbox as CheckboxLib, CheckboxProps as CheckboxLibProps } from "aria
 import { uidGenerator } from "helpers-granity";
 import { FC, useMemo } from "react";
 
-import { ThemedFlattenInterpolation } from "../../../Themes/_typings";
+import { ThemedFlattenInterpolation } from "../../../Themes";
 import Label, { LabelProps } from "../Label/Label";
 
 export type CheckboxStyles = {

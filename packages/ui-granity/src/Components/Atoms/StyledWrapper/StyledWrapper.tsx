@@ -2,7 +2,7 @@ import { HasChildren } from "helpers-granity";
 import { FC } from "react";
 import styled from "styled-components";
 
-import { ThemedFlattenInterpolation } from "../../../Themes/_typings";
+import { ThemedFlattenInterpolation } from "../../../Themes";
 
 export interface StyledWrapperProps {
     css?: ThemedFlattenInterpolation;

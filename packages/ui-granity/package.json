@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "./src/index.ts",
   "scripts": {
     "audit": "npm audit",
     "audit:fix": "npm audit fix",
@@ -27,6 +28,7 @@
     "@vitest/coverage-c8": "^0.27.1",
     "ariakit": "^2.0.0-next.43",
     "ariakit-utils": "^0.17.0-next.27",
+    "helpers-granity": "*",
     "jsdom": "^21.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

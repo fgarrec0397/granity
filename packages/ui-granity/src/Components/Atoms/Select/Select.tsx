@@ -13,7 +13,7 @@ import { SetState } from "ariakit-utils/types";
 import { FC } from "react";
 import styled, { css } from "styled-components";
 
-import { ThemedFlattenInterpolation } from "../../../Themes/_typings";
+import { ThemedFlattenInterpolation } from "../../../Themes";
 import { actionStyles } from "../../../Themes/mixins/common";
 import { inputStyles, labelStyles } from "../../../Themes/mixins/form";
 import { getColor, getCommon, pxToRem } from "../../../Themes/utils";

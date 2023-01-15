@@ -2,7 +2,7 @@ import { FormLabel, FormLabelProps } from "ariakit";
 import { HasChildren } from "helpers-granity";
 import styled, { css } from "styled-components";
 
-import { ThemedFlattenInterpolation } from "../../../Themes/_typings";
+import { ThemedFlattenInterpolation } from "../../../Themes";
 import { labelStyles } from "../../../Themes/mixins/form";
 import { pxToRem } from "../../../Themes/utils";
 

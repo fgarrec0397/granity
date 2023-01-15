@@ -1,4 +1,4 @@
-import at from "lodash/at";
+import { at } from "helpers-granity";
 import { DefaultTheme, ThemeProps } from "styled-components";
 
 export default (
@@ -10,3 +10,5 @@ export default (
 
     return at(object, path)[0];
 };
+
+// TODO - fix lint issues + make sure dev command works
