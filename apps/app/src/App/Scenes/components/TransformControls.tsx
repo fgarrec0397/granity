@@ -1,8 +1,8 @@
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
 import useGetWidgets from "@app/Widgets/_actions/hooks/useGetMeshByWidget";
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
+import { debounce, isEqual, usePrevious } from "@granity/helpers";
 import { useThree } from "@react-three/fiber";
-import { debounce, isEqual, usePrevious } from "helpers-granity";
 import { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import { Object3D } from "three";
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";

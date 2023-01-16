@@ -1,9 +1,9 @@
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
+import { Button, ButtonStylesProps, FormField, Icons, Modal } from "@granity/ui";
 import { getColor, pxToRem } from "@themes/utils";
 import { ChangeEvent, FC, useState } from "react";
 import { css } from "styled-components";
-import { Button, ButtonStylesProps, FormField, Icons, Modal } from "ui-granity";
 
 export type EditWidgetModalProps = {
     widget: WidgetDictionaryItem;

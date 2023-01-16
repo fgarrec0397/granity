@@ -1,5 +1,5 @@
+import { resetSheet } from "@granity/ui";
 import { createGlobalStyle } from "styled-components";
-import { resetSheet } from "ui-granity";
 
 import { scrollbarStyles } from "./mixins/scrollbar";
 import { rootFontSize } from "./themesConstants";

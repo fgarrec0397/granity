@@ -1,7 +1,7 @@
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
+import { boxStyles, StyledWrapper, StyledWrapperProps, Typography } from "@granity/ui";
 import { FC } from "react";
 import { css } from "styled-components";
-import { boxStyles, StyledWrapper, StyledWrapperProps, Typography } from "ui-granity";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 

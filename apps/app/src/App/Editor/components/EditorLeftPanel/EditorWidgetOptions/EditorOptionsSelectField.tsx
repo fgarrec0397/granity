@@ -1,14 +1,14 @@
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@app/Widgets/_actions/widgetsTypes";
-import { FC } from "react";
-import { css } from "styled-components";
 import {
     Select,
     StyledWrapper,
     StyledWrapperProps,
     Typography,
     TypographyStylesProps,
-} from "ui-granity";
+} from "@granity/ui";
+import { FC } from "react";
+import { css } from "styled-components";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 

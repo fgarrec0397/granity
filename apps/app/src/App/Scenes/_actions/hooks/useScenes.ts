@@ -2,9 +2,9 @@ import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import useWidgetsUtilities from "@app/Widgets/_actions/hooks/useWidgetsUtilities";
 import serializeWidgets from "@app/Widgets/_actions/utilities/serializeWidgets";
-import { cloneDeep, isEqual, uidGenerator, usePrevious } from "helpers-granity";
+import { cloneDeep, isEqual, uidGenerator, usePrevious } from "@granity/helpers";
+import { Toaster } from "@granity/ui";
 import { useCallback, useEffect, useState } from "react";
-import { Toaster } from "ui-granity";
 
 import useScenesService from "../_data/hooks/useScenesService";
 import { ScenesDictionary, ScenesDictionaryItem } from "../scenesTypes";

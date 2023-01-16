@@ -1,7 +1,7 @@
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
+import { Button, StyledWrapper, StyledWrapperProps } from "@granity/ui";
 import { FC } from "react";
 import { css } from "styled-components";
-import { Button, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 type UIClosePreviewButtonStyles = {
     wrapper?: StyledWrapperProps;

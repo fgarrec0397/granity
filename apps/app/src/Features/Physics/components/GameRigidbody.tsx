@@ -1,6 +1,6 @@
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
+import { HasChildren } from "@granity/helpers";
 import { RigidBody, RigidBodyApi, RigidBodyProps } from "@react-three/rapier";
-import { HasChildren } from "helpers-granity";
 import { forwardRef } from "react";
 
 type Props = RigidBodyProps &

@@ -1,6 +1,6 @@
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
+import { Collapse } from "@granity/ui";
 import { FC } from "react";
-import { Collapse } from "ui-granity";
 
 import EditorWidgetPropertyFields from "./EditorWidgetPropertyFields";
 

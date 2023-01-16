@@ -1,8 +1,8 @@
+import { Icons, StyledWrapper, StyledWrapperProps } from "@granity/ui";
 import { layoutStyles } from "@themes/mixins/layout";
 import { getCommon, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
-import { Icons, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 import EditorPlayButton, { EditorPlayButtonProps } from "./EditorPlayButton";
 import EditorPreviewUIButton, { EditorPreviewUIButtonProps } from "./EditorPreviewUIButton";

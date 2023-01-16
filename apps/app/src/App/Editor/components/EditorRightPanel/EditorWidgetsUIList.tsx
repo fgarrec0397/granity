@@ -2,10 +2,10 @@ import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@app/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@app/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
 import { WidgetDictionary, WidgetDictionaryItem } from "@app/Widgets/_actions/widgetsTypes";
+import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
 import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
-import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";

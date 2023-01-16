@@ -1,7 +1,7 @@
 import { FeaturesWidgetsProps } from "@features/Widgets";
+import { Dictionary } from "@granity/helpers";
 import { Vector3Array } from "@react-three/rapier";
 import { Slice } from "@reduxjs/toolkit";
-import { Dictionary } from "helpers-granity";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
 import { Object3D } from "three";
 

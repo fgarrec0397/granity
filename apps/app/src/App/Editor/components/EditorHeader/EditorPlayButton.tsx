@@ -1,6 +1,6 @@
 import useGame from "@app/Game/_actions/hooks/useGame";
+import { Button, ButtonStylesProps, Icons } from "@granity/ui";
 import { FC } from "react";
-import { Button, ButtonStylesProps, Icons } from "ui-granity";
 
 export type EditorPlayButtonPropsStyles = {
     button?: ButtonStylesProps;

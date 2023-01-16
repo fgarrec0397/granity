@@ -1,7 +1,7 @@
-import { HasChildren } from "helpers-granity";
+import { HasChildren } from "@granity/helpers";
+import { pxToRem, StyledWrapper, StyledWrapperProps } from "@granity/ui";
 import { FC } from "react";
 import { css } from "styled-components";
-import { pxToRem, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 type ActionItemRowStyles = {
     row?: (isSelected?: boolean) => StyledWrapperProps;

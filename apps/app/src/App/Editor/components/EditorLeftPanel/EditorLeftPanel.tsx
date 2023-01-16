@@ -1,9 +1,9 @@
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
+import { Panel, PanelStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
 import { layoutStyles } from "@themes/mixins/layout";
 import { pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
-import { Panel, PanelStylesProps, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 import EditorModeSelector from "./EditorModeSelector";
 import EditorSelectedWidget from "./EditorSelectedWidget";

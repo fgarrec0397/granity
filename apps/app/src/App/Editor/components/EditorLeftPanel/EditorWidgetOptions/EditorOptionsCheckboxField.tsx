@@ -1,8 +1,8 @@
 import { FieldType } from "@app/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@app/Widgets/_actions/widgetsTypes";
+import { FormField, StyledWrapper, StyledWrapperProps, TypographyStylesProps } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
 import { css } from "styled-components";
-import { FormField, StyledWrapper, StyledWrapperProps, TypographyStylesProps } from "ui-granity";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 

@@ -1,4 +1,4 @@
-import { HasChildren } from "helpers-granity";
+import { HasChildren } from "@granity/helpers";
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
 import { SceneCamera } from "../../scenesTypes";

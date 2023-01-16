@@ -1,4 +1,4 @@
-import { uidGenerator } from "helpers-granity";
+import { uidGenerator } from "@granity/helpers";
 import { useCallback } from "react";
 
 import { HistoryItem, HistoryState } from "../../editorTypes";

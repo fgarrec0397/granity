@@ -1,5 +1,5 @@
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
-import { isEqual, usePrevious } from "helpers-granity";
+import { isEqual, usePrevious } from "@granity/helpers";
 import { useCallback } from "react";
 
 import useHistoryContext from "../_data/hooks/useHistoryContext";

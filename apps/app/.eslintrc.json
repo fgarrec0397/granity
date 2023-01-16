@@ -1,6 +1,6 @@
 {
   "extends": [
-    "granity"
+    "@granity"
   ],
   "settings": {
     "react": {

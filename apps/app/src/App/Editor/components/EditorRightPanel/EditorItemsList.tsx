@@ -1,9 +1,6 @@
 import { ScenesDictionary } from "@app/Scenes/_actions/scenesTypes";
 import { WidgetDictionary } from "@app/Widgets/_actions/widgetsTypes";
-import { DisclosureState } from "ariakit"; // TODO - encapsulate ariakit in ui-granity
-import { DictionaryValue, HasCallableChildren } from "helpers-granity";
-import { ReactElement } from "react";
-import { css } from "styled-components";
+import { DictionaryValue, HasCallableChildren } from "@granity/helpers";
 import {
     Button,
     ButtonStylesProps,
@@ -17,8 +14,11 @@ import {
     StyledWrapperProps,
     Typography,
     TypographyStylesProps,
-} from "ui-granity";
-import { ModalProps } from "ui-granity/src/Components/Atoms/Modal/Modal";
+} from "@granity/ui";
+import { ModalProps } from "@granity/ui/src/Components/Atoms/Modal/Modal";
+import { DisclosureState } from "ariakit"; // TODO - encapsulate ariakit in @granity/ui
+import { ReactElement } from "react";
+import { css } from "styled-components";
 
 import ActionItemRow from "./ActionItemRow";
 

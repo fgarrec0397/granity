@@ -1,5 +1,5 @@
+import { Toaster } from "@granity/ui";
 import { useEffect } from "react";
-import { Toaster } from "ui-granity";
 
 import useEditor from "./useEditor";
 

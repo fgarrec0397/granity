@@ -1,5 +1,3 @@
-import { FC } from "react";
-import { css } from "styled-components";
 import {
     layoutStyles,
     Panel,
@@ -7,7 +5,9 @@ import {
     pxToRem,
     StyledWrapper,
     StyledWrapperProps,
-} from "ui-granity";
+} from "@granity/ui";
+import { FC } from "react";
+import { css } from "styled-components";
 
 import EditorScenesList from "./EditorScenesList";
 import EditorWidgetsObjectList from "./EditorWidgetsObjectList";

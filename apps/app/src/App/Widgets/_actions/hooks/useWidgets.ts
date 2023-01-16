@@ -1,7 +1,7 @@
-import { uidGenerator } from "helpers-granity";
+import { uidGenerator } from "@granity/helpers";
+import { Toaster } from "@granity/ui";
 import { useCallback } from "react";
 import { Object3D } from "three";
-import { Toaster } from "ui-granity";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
 import {

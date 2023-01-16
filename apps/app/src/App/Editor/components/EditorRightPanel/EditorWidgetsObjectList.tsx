@@ -6,10 +6,10 @@ import {
     WidgetDictionaryItem,
     WidgetObjectsDictionaryItem,
 } from "@app/Widgets/_actions/widgetsTypes";
+import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
 import { getColor, getTypography, pxToRem } from "@themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
-import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "ui-granity";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";

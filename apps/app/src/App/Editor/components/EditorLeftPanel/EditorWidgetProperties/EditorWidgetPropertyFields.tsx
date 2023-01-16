@@ -1,14 +1,14 @@
 import useWidgets from "@app/Widgets/_actions/hooks/useWidgets";
-import { getTypography, pxToRem } from "@themes/utils";
-import { FC } from "react";
-import { css } from "styled-components";
 import {
     FormField,
     FormFieldStylesProps,
     StyledWrapper,
     StyledWrapperProps,
     Typography,
-} from "ui-granity";
+} from "@granity/ui";
+import { getTypography, pxToRem } from "@themes/utils";
+import { FC } from "react";
+import { css } from "styled-components";
 
 type EditorWidgetPropertyFieldsStyles = {
     section?: StyledWrapperProps;

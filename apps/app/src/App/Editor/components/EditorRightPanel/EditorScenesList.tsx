@@ -1,8 +1,8 @@
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import { ScenesDictionary, ScenesDictionaryItem } from "@app/Scenes/_actions/scenesTypes";
+import { Checkbox, FormField, FormFieldStylesProps, pxToRem, StyledWrapper } from "@granity/ui";
 import { ChangeEvent, FC, useState } from "react";
 import { css } from "styled-components";
-import { Checkbox, FormField, FormFieldStylesProps, pxToRem, StyledWrapper } from "ui-granity";
 
 import EditorItemsList from "./EditorItemsList";
 

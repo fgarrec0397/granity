@@ -1,4 +1,4 @@
-import { uidGenerator } from "helpers-granity";
+import { uidGenerator } from "@granity/helpers";
 import { MutableRefObject } from "react";
 
 import { SceneCamera } from "../../scenesTypes";

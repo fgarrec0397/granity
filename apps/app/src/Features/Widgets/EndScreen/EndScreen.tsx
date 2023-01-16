@@ -1,9 +1,9 @@
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
 import createWidget from "@app/Widgets/_actions/utilities/createWidget";
 import { WidgetType } from "@app/Widgets/_actions/widgetsConstants";
+import { Button, StyledWrapper, Typography } from "@granity/ui";
 import { FC } from "react";
 import { css } from "styled-components";
-import { Button, StyledWrapper, Typography } from "ui-granity";
 
 const styles = {
     wrapper: {

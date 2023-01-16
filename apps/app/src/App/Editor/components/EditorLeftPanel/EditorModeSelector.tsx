@@ -1,7 +1,7 @@
 import { ModesAvailable } from "@app/Editor/_actions/editorTypes";
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
+import { Collapse, Select } from "@granity/ui";
 import { FC } from "react";
-import { Collapse, Select } from "ui-granity";
 
 const EditorModeSelector: FC = () => {
     const { selectMode } = useEditor();

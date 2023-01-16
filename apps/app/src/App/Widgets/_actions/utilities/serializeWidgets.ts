@@ -6,7 +6,7 @@ import {
     WidgetDictionaryItem,
     WidgetObjectEditorOptions,
 } from "@app/Widgets/_actions/widgetsTypes";
-import { SetOptionalPropertyFrom } from "helpers-granity";
+import { SetOptionalPropertyFrom } from "@granity/helpers";
 
 export const serializeEditorOptions = ({ meshHolder, helper }: WidgetObjectEditorOptions) => {
     if (meshHolder) {

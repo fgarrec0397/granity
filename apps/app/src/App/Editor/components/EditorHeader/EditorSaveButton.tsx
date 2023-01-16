@@ -1,6 +1,6 @@
 import useScenes from "@app/Scenes/_actions/hooks/useScenes";
+import { Button } from "@granity/ui";
 import { FC } from "react";
-import { Button } from "ui-granity";
 
 const SaveButton: FC = () => {
     const { saveScene } = useScenes();

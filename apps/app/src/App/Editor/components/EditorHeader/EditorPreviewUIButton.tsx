@@ -1,6 +1,6 @@
 import useEditor from "@app/Editor/_actions/hooks/useEditor";
+import { Button, ButtonStylesProps, Icons } from "@granity/ui";
 import { FC } from "react";
-import { Button, ButtonStylesProps, Icons } from "ui-granity";
 
 export type EditorPreviewUIButtonPropsStyles = {
     button?: ButtonStylesProps;

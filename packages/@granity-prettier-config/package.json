@@ -1,0 +1,16 @@
+{
+  "name": "@granity/prettier-config",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fgarrec0397/Granity.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fgarrec0397/Granity/issues"
+  },
+  "homepage": "https://github.com/fgarrec0397/Granity#readme",
+  "dependencies": {
+    "jsdom": "^21.0.0"
+  }
+}

@@ -17,7 +17,7 @@
     "update:check": "ncu",
     "update": "ncu -u"
   },
-  "prettier": "prettier-config-granity",
+  "prettier": "@granity/prettier-config",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -31,7 +31,7 @@
     ]
   },
   "dependencies": {
-    "ui-granity": "*",
+    "@granity/ui": "*",
     "@react-spring/three": "^9.6.1",
     "@react-three/drei": "9.52.3",
     "@react-three/fiber": "8.10.0",
@@ -45,10 +45,10 @@
     "ariakit": "^2.0.0-next.43",
     "ariakit-utils": "^0.17.0-next.27",
     "cors": "^2.8.5",
-    "eslint-config-granity": "*",
-    "helpers-granity": "*",
+    "@granity/eslint-config": "*",
+    "@granity/helpers": "*",
     "jsdom": "^21.0.0",
-    "prettier-config-granity": "*",
+    "@granity/prettier-config": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

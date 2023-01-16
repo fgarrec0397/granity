@@ -1,5 +1,5 @@
 import get from "@app/Core/_actions/_data/services/get";
-import { Toaster } from "ui-granity";
+import { Toaster } from "@granity/ui";
 
 import { SaveSceneServiceParameter, SceneApiResponseResult } from "../scenesTypes";
 
