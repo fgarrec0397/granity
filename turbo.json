@@ -10,7 +10,7 @@
       "dev": {
         "cache": false,
         "persistent": true,
-        "dependsOn": ["lint", "test"]
+        "dependsOn": ["test", "lint", "storybook"]
       },
       "build": {
         "outputs": ["dist/**", "build/**"],
@@ -38,11 +38,13 @@
         "outputs": ["coverage/**"]
       },
       "test:watch": {
+        "cache": false,
+        "persistent": true,
         "outputs": []
       },
       "storybook": {
-        "outputs": [],
-        "cache": false
+        "cache": false,
+        "outputs": []
       },
       "update:check": {
         "cache": false,
