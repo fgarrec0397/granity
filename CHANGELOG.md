@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/fgarrec0397/granity/compare/v0.1.8...v0.2.0) (2023-01-16)
+
+
+### Features
+
+* add more components ([7a2cee2](https://github.com/fgarrec0397/granity/commits/7a2cee259cd13de28aa8cfa658c81e772130efb4))
+* display refactor and performance in changelog ([246473b](https://github.com/fgarrec0397/granity/commits/246473b95de00cef7d0f6246ebf513d94fcba6ed))
+
+
+### Bug Fixes
+
+* all build issues ([03e69fd](https://github.com/fgarrec0397/granity/commits/03e69fdc3d4130748258468df2cc14127e7bb7b5))
+* bad imports issue + first component working with storybook ([bf6fd72](https://github.com/fgarrec0397/granity/commits/bf6fd724957b70d64bb0f7685b86d17001cbda5a))
+* eslint alias issue ([f63bba5](https://github.com/fgarrec0397/granity/commits/f63bba58ce27b290bf43bc5d9e3137489f3f9fab))
+* eslint sort import extracted from apps/app ([685d5ed](https://github.com/fgarrec0397/granity/commits/685d5ed7b97f47ff1f6871a123630e4720535600))
+* minor adjustments ([11bf311](https://github.com/fgarrec0397/granity/commits/11bf311382d7f7a7423ad871443f02b38e3b7a5b))
+* packages adjustments ([a400842](https://github.com/fgarrec0397/granity/commits/a400842aaa2c7840ca84519f4c3ae47c7fe43085))
+* **partially:** app build error ([4bd3ddf](https://github.com/fgarrec0397/granity/commits/4bd3ddff972496f4cde8312c80da511b8e4caa92))
+* prettier package ([a37b065](https://github.com/fgarrec0397/granity/commits/a37b0656a3e3e82e54fe5a6b083a586c0459f9d8))
+* small fixes and clean up ([c431dba](https://github.com/fgarrec0397/granity/commits/c431dba9aa80590e6925acd3f7818842373fa8de))
+
+
+### Refactor
+
+* app package to  engine + storybook on dev command ([31ec844](https://github.com/fgarrec0397/granity/commits/31ec844da5f75b58705627fcf0e59d53d9f599dc))
+* clean up ([db09a69](https://github.com/fgarrec0397/granity/commits/db09a69937172e4d4d50109642da57069d3d62d3))
+* common types extracted to its own package ([ca96ec7](https://github.com/fgarrec0397/granity/commits/ca96ec7205cf680bf3029c6a8a6353b2686017a0))
+* creation of workspaces apps and packages ([5c22d89](https://github.com/fgarrec0397/granity/commits/5c22d89e25484d1ab656895f8f1d157581335123))
+* eslin-config moved in its own package ([122b4cc](https://github.com/fgarrec0397/granity/commits/122b4cc1a96dd041c40066577ca931d07d490cdd))
+* extraction of the first hook ([16689b6](https://github.com/fgarrec0397/granity/commits/16689b6107d8ceb64fb39371ef872dbc2415a92a))
+* functions package renamed to utilities-granity ([f23ea66](https://github.com/fgarrec0397/granity/commits/f23ea66ed7edd744a8a8bf5ebcadba26f3e15ee0))
+* html components extracted to ui-granity package ([946233b](https://github.com/fgarrec0397/granity/commits/946233bdef7bab93bea09ba86f1f79ee775ed147))
+* import extracted components ([ff34b4b](https://github.com/fgarrec0397/granity/commits/ff34b4be7f47171763274af0344ca7d1b7bed3bc))
+* lodash extracted + clean up ([6378dc9](https://github.com/fgarrec0397/granity/commits/6378dc944d3cba799956a164af65d5af53f3c399))
+* mixins + Themeprovider ([be74c6b](https://github.com/fgarrec0397/granity/commits/be74c6bd362c53d56e8fd25b76c68924717609bc))
+* packages renamed to @granity/package-name ([777d078](https://github.com/fgarrec0397/granity/commits/777d078261d93fb38f81a3b7e82342b77f0cda3c))
+* removed unecessary tsconfig ([4f276e3](https://github.com/fgarrec0397/granity/commits/4f276e3fd9b0fa08a3b9427474e9901348a28512))
+* types imports / feat: storybook initialized ([61f67b5](https://github.com/fgarrec0397/granity/commits/61f67b59f3e9718ae34e45e2152f4ae41c3e7e42))
+* use of new extracted hook + test package preparation ([26fc62b](https://github.com/fgarrec0397/granity/commits/26fc62bfa5f41f34427c70411f262e827c8c6562))
+* utilities renamed to helpers ([814961c](https://github.com/fgarrec0397/granity/commits/814961cb300f5969a47cf8aa9366069dc4114816))
+
 ### [0.1.8](https://github.com/fgarrec0397/granity/compare/v0.1.7...v0.1.8) (2023-01-03)
 
 
