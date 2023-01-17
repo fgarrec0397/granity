@@ -6,7 +6,7 @@
   "scripts": {
     "audit": "npm audit",
     "audit:fix": "npm audit fix",
-    "dev": "vite",
+    "dev": "vite --port 3000",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx src --fix",
