@@ -24,9 +24,9 @@
     "checkJs": false
   },
   "include": [
-    "src",
-    "vite.config.ts",
-    "vitest.config.ts"
+    "./src",
+    "./vite.config.ts",
+    "./vitest.config.ts"
   ],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.vite.json" }]

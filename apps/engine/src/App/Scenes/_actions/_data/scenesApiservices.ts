@@ -23,21 +23,27 @@ export const postScenes = async (scenes: SaveSceneServiceParameter) => {
 type FetchSuccessCallBack = (data?: SceneApiResponseResult) => void;
 type FetchErrorCallBack = (error: unknown) => void;
 
-export const getScenes = async (
-    successCallBack: FetchSuccessCallBack,
-    errorCallback: FetchErrorCallBack
-) => {
+// successCallBack: FetchSuccessCallBack,
+// errorCallback: FetchErrorCallBack
+export const getScenes = async () => {
     const response = await get("api/scene");
 
-    try {
-        const { sceneJsonString } = await response.json();
-        if (!sceneJsonString) {
-            return successCallBack(undefined);
-        }
-        const data = JSON.parse(sceneJsonString) as SceneApiResponseResult;
-
-        successCallBack(data);
-    } catch (error) {
-        errorCallback(error);
+    if (!response.ok) {
+        throw new Error("No connection");
     }
+
+    return response.json();
+
+    // try {
+    //     const { sceneJsonString } = await response.json();
+    //     if (!sceneJsonString) {
+    //         return successCallBack(undefined);
+    //     }
+    //     const data = JSON.parse(sceneJsonString) as SceneApiResponseResult;
+
+    //     successCallBack(data);
+    // } catch (error: any) {
+    //     // errorCallback(error);
+    //     return Promise.reject(new Error(error));
+    // }
 };
