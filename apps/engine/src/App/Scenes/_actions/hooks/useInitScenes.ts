@@ -10,7 +10,7 @@ export default () => {
     const { initWidgets } = useInitWidgets();
 
     const initScenes = useCallback(
-        async (result?: SceneApiResponseResult) => {
+        (result?: SceneApiResponseResult) => {
             if (result) {
                 const newCurrentSceneId = getDefaultSceneId(result);
                 const newCurrentScene = (result as ScenesDictionary)[newCurrentSceneId];
