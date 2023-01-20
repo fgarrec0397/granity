@@ -1,6 +1,6 @@
-import reactRefresh from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react";
 import path from "path";
-import { defineConfig, PluginOption } from "vite";
+import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 
 export default defineConfig({
@@ -8,12 +8,12 @@ export default defineConfig({
         outDir: "build",
     },
     plugins: [
-        reactRefresh() as PluginOption,
+        react(),
         svgrPlugin({
             svgrOptions: {
                 icon: true,
             },
-        }) as unknown as PluginOption,
+        }),
     ],
     server: {
         proxy: {

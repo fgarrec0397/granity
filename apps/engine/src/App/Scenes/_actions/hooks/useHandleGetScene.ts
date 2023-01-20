@@ -1,3 +1,4 @@
+import { useQuery } from "@granity/helpers";
 import { Toaster } from "@granity/ui";
 import { useEffect } from "react";
 
@@ -7,19 +8,31 @@ import useInitScenes from "./useInitScenes";
 export default () => {
     const { initScenes } = useInitScenes();
 
-    useEffect(() => {
-        const handleFetchScene = async () => {
-            await getScenes(
-                (result) => {
-                    initScenes(result);
-                },
-                (error: any) => {
-                    Toaster.toast.error(error);
-                }
-            );
-        };
+    const { data, status } = useQuery({
+        queryKey: ["scenes"],
+        queryFn: () => getScenes(),
+    });
 
-        handleFetchScene();
+    useEffect(() => {
+        if (status === "error") {
+            Toaster.toast.error("No connections");
+        }
+
+        if (status === "success") {
+            try {
+                const { sceneJsonString } = data;
+
+                if (!sceneJsonString) {
+                    Toaster.toast.warning("No scenes found");
+                }
+
+                const scenes = JSON.parse(sceneJsonString);
+
+                initScenes(scenes);
+            } catch (errorParsing) {
+                Toaster.toast.error(errorParsing as string);
+            }
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [status]);
 };
