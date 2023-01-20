@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/fgarrec0397/granity/compare/v0.2.0...v0.2.1) (2023-01-20)
+
+
+### Bug Fixes
+
+* infinite reload ([f578564](https://github.com/fgarrec0397/granity/commits/f5785645ef36a8dbcaf25c693fbadb8ea71287c2))
+
 ## [0.2.0](https://github.com/fgarrec0397/granity/compare/v0.1.8...v0.2.0) (2023-01-16)
 
 
