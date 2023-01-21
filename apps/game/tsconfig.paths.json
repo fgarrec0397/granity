@@ -3,11 +3,9 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
-            "@/*": [
-                "src/*"
-            ],
-            "@app/*": ["App/*"],
-            "@features/*": ["Features/*"],
+            "@app/*": ["../../engine/src/App/*"],
+            "@features/*": ["../../engine/src/Features/*"],
+            "@themes/*": ["../../engine/src/Themes/*"],
         },
     }
 }

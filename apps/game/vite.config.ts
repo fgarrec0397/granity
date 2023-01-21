@@ -11,9 +11,9 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            // "@engine": "/engine/src/api",
-            "@app": "../engine/src/App",
-            "@features": "../engine/src/Features",
+            "@app": path.resolve(__dirname, "../engine/src/App"),
+            "@features": path.resolve(__dirname, "../engine/src/Features"),
+            "@themes": path.resolve(__dirname, "../engine/src/Themes"),
         },
     },
 });
