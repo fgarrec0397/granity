@@ -11,7 +11,9 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            engine: path.resolve(__dirname, "engine/src/api"),
+            // "@engine": "/engine/src/api",
+            "@app": "../engine/src/App",
+            "@features": "../engine/src/Features",
         },
     },
 });

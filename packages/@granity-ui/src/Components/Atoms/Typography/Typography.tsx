@@ -1,8 +1,10 @@
 import { FC, ReactNode } from "react";
-import styled, { FlattenSimpleInterpolation } from "styled-components";
+import styled from "styled-components";
+
+import { ThemedFlattenInterpolation } from "../../../Themes/types";
 
 export interface TypographyStylesProps {
-    css?: FlattenSimpleInterpolation;
+    css?: ThemedFlattenInterpolation;
 }
 
 export interface TypographyComponentProps {

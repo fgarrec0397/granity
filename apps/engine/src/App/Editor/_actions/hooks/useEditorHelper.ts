@@ -18,11 +18,15 @@ type Helper = Object3D & {
  */
 
 export default <T extends Constructor>(
-    object3D: MutableRefObject<Object3D | null>,
+    object3D: MutableRefObject<Object3D>,
     helperConstructor?: T,
     additionnalCondition = true
-): MutableRefObject<Helper | undefined> => {
+): MutableRefObject<Helper | undefined> | undefined => {
     const { isEditor } = useEditor();
 
-    return useHelper(isEditor && additionnalCondition && object3D, helperConstructor as any); // TODO -- fix any type here
+    if (object3D === null) {
+        return undefined;
+    }
+
+    return useHelper(isEditor && additionnalCondition ? object3D : false, helperConstructor as any); // TODO -- fix any type here
 };

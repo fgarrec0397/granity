@@ -26,7 +26,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
 
     const helper = resolveHelper(editorOptions?.helper);
 
-    useEditorHelper(helper && (componentRef as MutableRefObject<Object3D | null>), helper);
+    useEditorHelper(helper && (componentRef as MutableRefObject<Object3D>), helper);
 
     const widgetProps = getWidgetProps(id);
 

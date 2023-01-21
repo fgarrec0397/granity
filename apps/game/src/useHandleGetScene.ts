@@ -1,6 +1,6 @@
 import { useQuery } from "@granity/helpers";
 import { Toaster } from "@granity/ui";
-import { initScenes } from "engine";
+import { test } from "engine";
 import { useEffect } from "react";
 
 const getScenes = async () => {
@@ -14,32 +14,33 @@ const getScenes = async () => {
 };
 
 export default () => {
-    const { data, status } = useQuery({
-        queryKey: ["scenes"],
-        queryFn: () => getScenes(),
-    });
+    test();
+    // const { data, status } = useQuery({
+    //     queryKey: ["scenes"],
+    //     queryFn: () => getScenes(),
+    // });
 
-    useEffect(() => {
-        if (status === "error") {
-            Toaster.toast.error("No connections");
-        }
+    // useEffect(() => {
+    //     if (status === "error") {
+    //         Toaster.toast.error("No connections");
+    //     }
 
-        if (status === "success") {
-            try {
-                const { sceneJsonString } = data;
+    //     if (status === "success") {
+    //         try {
+    //             const { sceneJsonString } = data;
 
-                if (!sceneJsonString) {
-                    Toaster.toast.warning("No scenes found");
-                }
+    //             if (!sceneJsonString) {
+    //                 Toaster.toast.warning("No scenes found");
+    //             }
 
-                const scenes = JSON.parse(sceneJsonString);
+    //             const scenes = JSON.parse(sceneJsonString);
 
-                console.log(scenes, "scenes");
-                initScenes(scenes);
-            } catch (errorParsing) {
-                Toaster.toast.error(errorParsing as string);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [status]);
+    //             console.log(scenes, "scenes");
+    //             initScenes(scenes);
+    //         } catch (errorParsing) {
+    //             Toaster.toast.error(errorParsing as string);
+    //         }
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [status]);
 };

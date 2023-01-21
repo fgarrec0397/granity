@@ -3,8 +3,8 @@ import { FormError, FormErrorProps, FormInput, FormInputProps } from "ariakit";
 import { FC, useMemo } from "react";
 import styled, { css } from "styled-components";
 
-import { ThemedFlattenInterpolation } from "../../../Themes";
 import { inputStyles } from "../../../Themes/mixins/form";
+import { ThemedFlattenInterpolation } from "../../../Themes/types";
 import Label, { LabelProps } from "../Label/Label";
 import StyledWrapper, { StyledWrapperProps } from "../StyledWrapper/StyledWrapper";
 

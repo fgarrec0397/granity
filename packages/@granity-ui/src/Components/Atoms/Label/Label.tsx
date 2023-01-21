@@ -2,8 +2,8 @@ import { HasChildren } from "@granity/helpers";
 import { FormLabel, FormLabelProps } from "ariakit";
 import styled, { css } from "styled-components";
 
-import { ThemedFlattenInterpolation } from "../../../Themes";
 import { labelStyles } from "../../../Themes/mixins/form";
+import { ThemedFlattenInterpolation } from "../../../Themes/types";
 import { pxToRem } from "../../../Themes/utils";
 
 export type LabelStylesProps = {

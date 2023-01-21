@@ -2,7 +2,7 @@ import { uidGenerator } from "@granity/helpers";
 import { Checkbox as CheckboxLib, CheckboxProps as CheckboxLibProps } from "ariakit/checkbox";
 import { FC, useMemo } from "react";
 
-import { ThemedFlattenInterpolation } from "../../../Themes";
+import { ThemedFlattenInterpolation } from "../../../Themes/types";
 import Label, { LabelProps } from "../Label/Label";
 
 export type CheckboxStyles = {
