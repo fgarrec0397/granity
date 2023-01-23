@@ -1,4 +1,4 @@
-import { FeaturesWidgetsProps } from "@features/Widgets";
+// import { FeaturesWidgetsProps } from "@features/Widgets";
 import { Dictionary } from "@granity/helpers";
 import { Vector3Array } from "@react-three/rapier";
 import { Slice } from "@reduxjs/toolkit";
@@ -6,6 +6,8 @@ import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttribute
 import { Object3D } from "three";
 
 import { FieldType, HelpersTypes, WidgetType } from "./widgetsConstants";
+
+type FeaturesWidgetsProps = any; // TODO this temporary
 
 /// ---------------------- Widget Module ---------------------- ///
 

@@ -1,4 +1,4 @@
-import { loadWidgetsFromModules } from "@features/Widgets";
+// import { loadWidgetsFromModules } from "@features/Widgets";
 import { useCallback, useMemo } from "react";
 
 import useWidgetsModuleContext from "../_data/hooks/useWidgetsModuleContext";
@@ -14,8 +14,8 @@ export default () => {
     );
 
     const loadWidgetsModules = useCallback(async () => {
-        const loadedWidgetsModules = await loadWidgetsFromModules();
-        const filteredModules = filterWidgetsModules(loadedWidgetsModules);
+        // const loadedWidgetsModules = await loadWidgetsFromModules();
+        const filteredModules = filterWidgetsModules([]); // TODO - plug back the loadedWidgetsModules
 
         if (filteredModules.widgetsObjectModules) {
             setWidgetsModules(filteredModules.widgetsObjectModules);
@@ -25,7 +25,7 @@ export default () => {
             setWidgetsUIModules(filteredModules.widgetsUIModules);
         }
 
-        return loadedWidgetsModules;
+        // return loadedWidgetsModules;
     }, [setWidgetsModules, setWidgetsUIModules]);
 
     const getWidgetModuleByName = useCallback(

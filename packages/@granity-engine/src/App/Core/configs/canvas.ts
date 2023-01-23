@@ -1,4 +1,3 @@
-import featuresCanvaProps from "@features/Core/configs/canvas";
 import { Props as CanvasProps } from "@react-three/fiber";
 
 /**
@@ -6,7 +5,6 @@ import { Props as CanvasProps } from "@react-three/fiber";
  */
 const canvasProps: Omit<CanvasProps, "children"> = {
     camera: { fov: 25, aspect: 1 },
-    ...featuresCanvaProps,
 };
 
 export default canvasProps;
