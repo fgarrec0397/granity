@@ -1,0 +1,76 @@
+{
+  "name": "engine-test",
+  "version": "0.1.0",
+  "main": "./src/api.ts",
+  "proxy": "http://localhost:5000",
+  "scripts": {
+    "audit": "npm audit",
+    "audit:fix": "npm audit fix",
+    "dev": "vite --port 3000",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
+    "lint": "eslint --ext .ts,.tsx src --fix",
+    "format": "prettier --write ./src",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "update:check": "ncu",
+    "update": "ncu -u"
+  },
+  "prettier": "@granity/prettier-config",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@granity/engine": "*",
+    "@granity/ui": "*",
+    "@react-spring/three": "^9.6.1",
+    "@react-three/drei": "9.52.3",
+    "@react-three/fiber": "8.10.0",
+    "@react-three/rapier": "^0.11.3",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@types/styled-components": "^5.1.26",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@vitejs/plugin-react": "^3.0.1",
+    "@vitest/coverage-c8": "^0.27.1",
+    "ariakit": "^2.0.0-next.43",
+    "ariakit-utils": "^0.17.0-next.27",
+    "cors": "^2.8.5",
+    "@granity/eslint-config": "*",
+    "@granity/helpers": "*",
+    "jsdom": "^21.0.0",
+    "@granity/prettier-config": "*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.6.2",
+    "react-toastify": "^9.1.1",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2",
+    "three": "^0.148.0",
+    "three-stdlib": "^2.21.5",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4",
+    "vite-plugin-svgr": "^2.4.0",
+    "vitest": "^0.27.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/three": "^0.148.0",
+    "@types/use-sync-external-store": "^0.0.3",
+    "npm-check-updates": "^16.6.2"
+  }
+}
