@@ -1,3 +1,4 @@
+import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -6,7 +7,6 @@ import {
     WidgetDictionaryItem,
     WidgetObjectsDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
 import { getColor, getTypography, pxToRem } from "@granity-engine/Themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";

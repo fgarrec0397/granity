@@ -1,6 +1,6 @@
+import { Collapse, Typography } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { Collapse, Typography } from "@granity/ui";
 import { FC } from "react";
 
 import EditorOptionsCheckboxField from "./EditorOptionsCheckboxField";

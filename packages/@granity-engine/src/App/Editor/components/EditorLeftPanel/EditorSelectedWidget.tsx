@@ -1,5 +1,5 @@
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { boxStyles, StyledWrapper, StyledWrapperProps, Typography } from "@granity/ui";
+import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { FC } from "react";
 import { css } from "styled-components";
 

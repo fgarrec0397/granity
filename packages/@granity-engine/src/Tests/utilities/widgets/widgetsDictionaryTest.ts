@@ -1,6 +1,6 @@
+import { uidGenerator } from "@granity/helpers";
 import { WidgetType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
 import { WidgetDictionary } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { uidGenerator } from "@granity/helpers";
 
 import TestWidgetComponent from "./TestWidgetComponent";
 

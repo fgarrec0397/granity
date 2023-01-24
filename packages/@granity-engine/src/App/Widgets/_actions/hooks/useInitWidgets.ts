@@ -17,6 +17,7 @@ export default () => {
             widgetsObjectInfoDictionary?: WidgetObjectInfoDictionary
         ) => {
             const loadedWidgetsModules = await loadWidgetsModules();
+            console.log(loadedWidgetsModules, "loadedWidgetsModules");
 
             if (serializedWidgets || widgetsObjectInfoDictionary) {
                 const deserializedWidgets = unserializeWidgets(

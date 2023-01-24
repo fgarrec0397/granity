@@ -1,5 +1,5 @@
-import { SceneCamera } from "@granity-engine/App/Scenes/_actions/scenesTypes";
 import { uidGenerator } from "@granity/helpers";
+import { SceneCamera } from "@granity-engine/App/Scenes/_actions/scenesTypes";
 
 export const [cameraId1, cameraId2, cameraId3] = [uidGenerator(), uidGenerator(), uidGenerator()];
 export const [cameraName1, cameraName2, cameraName3] = ["camera1", "camera2", "camera3"];

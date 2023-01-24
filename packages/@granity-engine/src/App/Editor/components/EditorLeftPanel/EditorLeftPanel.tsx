@@ -1,5 +1,5 @@
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { Panel, PanelStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
+import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { layoutStyles } from "@granity-engine/Themes/mixins/layout";
 import { pxToRem } from "@granity-engine/Themes/utils";
 import { FC } from "react";

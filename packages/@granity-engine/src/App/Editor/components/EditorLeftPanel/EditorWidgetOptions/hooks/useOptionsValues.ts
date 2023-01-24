@@ -1,5 +1,8 @@
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import { WidgetBaseOptions, WidgetOptionsValues } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import {
+    WidgetBaseOptions,
+    WidgetOptionsValues,
+} from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { useEffect, useState } from "react";
 
 export default () => {

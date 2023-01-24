@@ -1,13 +1,15 @@
+import { cloneDeep, isEqual, uidGenerator, usePrevious } from "@granity/helpers";
+import { Toaster } from "@granity/ui";
+import useInitWidgets from "@granity-engine/App/Widgets/_actions/hooks/useInitWidgets";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import useWidgetsUtilities from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsUtilities";
 import serializeWidgets from "@granity-engine/App/Widgets/_actions/utilities/serializeWidgets";
-import { cloneDeep, isEqual, uidGenerator, usePrevious } from "@granity/helpers";
-import { Toaster } from "@granity/ui";
 import { useCallback, useEffect, useState } from "react";
 
 import useScenesService from "../_data/hooks/useScenesService";
 import { ScenesDictionary, ScenesDictionaryItem } from "../scenesTypes";
+import getDefaultSceneId from "../utilities/getDefaultSceneId";
 import getFirstNonDefaultScene from "../utilities/getFirstNonDefaultScene";
 
 export default () => {
@@ -24,6 +26,7 @@ export default () => {
         updateScene,
         remove,
     } = useScenesService();
+    const { initWidgets } = useInitWidgets();
     const { unserializeWidgets } = useWidgetsUtilities();
     const { widgets, widgetsObjectInfoDictionary, resetWidgets } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
@@ -245,6 +248,26 @@ export default () => {
         [getSceneById, scenes, remove, loadScene, changeDefaultScene]
     );
 
+    const initScenes = useCallback(
+        (initialScenes?: ScenesDictionary) => {
+            if (initialScenes) {
+                const newCurrentSceneId = getDefaultSceneId(initialScenes);
+                const newCurrentScene = initialScenes[newCurrentSceneId];
+
+                initWidgets(
+                    newCurrentScene.data.serializedWidgets,
+                    newCurrentScene.data.widgetsObjectInfoDictionary
+                );
+
+                resetScenes(initialScenes, newCurrentSceneId);
+                changeDefaultScene(newCurrentScene);
+            } else {
+                initWidgets();
+            }
+        },
+        [initWidgets, resetScenes, changeDefaultScene]
+    );
+
     return {
         scenes,
         currentScene: getCurrentScene(),
@@ -261,5 +284,6 @@ export default () => {
         saveScene,
         loadScene,
         removeScene,
+        initScenes,
     };
 };

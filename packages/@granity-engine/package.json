@@ -2,13 +2,9 @@
   "name": "@granity/engine",
   "version": "0.1.0",
   "main": "./src/api.ts",
-  "proxy": "http://localhost:5000",
   "scripts": {
     "audit": "npm audit",
     "audit:fix": "npm audit fix",
-    "dev": "vite --port 3000",
-    "build": "tsc && vite build",
-    "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx src --fix",
     "format": "prettier --write ./src",
     "test": "vitest run",

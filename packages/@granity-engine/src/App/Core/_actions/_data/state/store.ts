@@ -1,10 +1,14 @@
-import editorReducer, { EditorState } from "@granity-engine/App/Editor/_actions/_data/state/editorReducer";
+import { FeaturesState } from "@features/Widgets";
+import editorReducer, {
+    EditorState,
+} from "@granity-engine/App/Editor/_actions/_data/state/editorReducer";
 import gameReducer, { GameState } from "@granity-engine/App/Game/_actions/_data/state/gameReducer";
-import scenesReducer, { ScenesState } from "@granity-engine/App/Scenes/_actions/_data/state/scenesReducer";
+import scenesReducer, {
+    ScenesState,
+} from "@granity-engine/App/Scenes/_actions/_data/state/scenesReducer";
 import widgetsReducerV2, {
     WidgetsStateV2,
 } from "@granity-engine/App/Widgets/_actions/_data/state/widgetsReducerV2";
-import { FeaturesState } from "@features/Widgets";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "redux";

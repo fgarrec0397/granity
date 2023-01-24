@@ -1,5 +1,5 @@
-import AppProvider from "@granity-engine/App/Core/_actions/_data/providers/AppProvider";
 import { HasChildren } from "@granity/helpers";
+import AppProvider from "@granity-engine/App/Core/_actions/_data/providers/AppProvider";
 import { render, renderHook, RenderOptions } from "@testing-library/react";
 import { FC, ReactElement } from "react";
 

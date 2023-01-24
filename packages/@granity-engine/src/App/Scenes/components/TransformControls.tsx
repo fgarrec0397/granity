@@ -1,7 +1,7 @@
+import { debounce, isEqual, usePrevious } from "@granity/helpers";
 import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import useGetWidgets from "@granity-engine/App/Widgets/_actions/hooks/useGetMeshByWidget";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import { debounce, isEqual, usePrevious } from "@granity/helpers";
 import { useThree } from "@react-three/fiber";
 import { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import { Object3D } from "three";

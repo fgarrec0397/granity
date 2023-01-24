@@ -1,5 +1,3 @@
-import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { WidgetBaseOptions } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import {
     Select,
     StyledWrapper,
@@ -7,6 +5,8 @@ import {
     Typography,
     TypographyStylesProps,
 } from "@granity/ui";
+import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
+import { WidgetBaseOptions } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
 import { css } from "styled-components";
 

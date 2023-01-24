@@ -1,5 +1,5 @@
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import { Button, StyledWrapper, StyledWrapperProps } from "@granity/ui";
+import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import { FC } from "react";
 import { css } from "styled-components";
 

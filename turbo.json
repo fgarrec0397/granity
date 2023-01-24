@@ -9,8 +9,11 @@
       },
       "dev": {
         "cache": false,
-        "persistent": true,
-        "dependsOn": ["test", "lint", "storybook"]
+        "persistent": true
+      },
+      "dev-light": {
+        "cache": false,
+        "persistent": true
       },
       "build": {
         "outputs": ["dist/**", "build/**"],

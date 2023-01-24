@@ -1,6 +1,6 @@
+import { Button, ButtonStylesProps, FormField, Icons, Modal } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { Button, ButtonStylesProps, FormField, Icons, Modal } from "@granity/ui";
 import { getColor, pxToRem } from "@granity-engine/Themes/utils";
 import { ChangeEvent, FC, useState } from "react";
 import { css } from "styled-components";

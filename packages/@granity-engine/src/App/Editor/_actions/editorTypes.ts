@@ -1,5 +1,8 @@
-import { WidgetDictionary, WidgetInfoDictionary } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary } from "@granity/helpers";
+import {
+    WidgetDictionary,
+    WidgetInfoDictionary,
+} from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { Vector3Array } from "@react-three/rapier";
 
 /**

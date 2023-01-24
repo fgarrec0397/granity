@@ -5,9 +5,6 @@ import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 
 export default defineConfig({
-    build: {
-        outDir: "build",
-    },
     plugins: [
         react(),
         svgrPlugin({
@@ -16,11 +13,6 @@ export default defineConfig({
             },
         }),
     ],
-    server: {
-        proxy: {
-            "/api": "http://localhost:5000",
-        },
-    },
     resolve: {
         alias: {
             "@granity-engine": path.resolve(__dirname, "./src"),
