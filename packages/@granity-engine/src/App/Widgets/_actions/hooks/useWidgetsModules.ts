@@ -13,20 +13,23 @@ export default () => {
         [widgetsObjectModules, widgetsUIModules]
     );
 
-    const loadWidgetsModules = useCallback(async () => {
-        // const loadedWidgetsModules = await loadWidgetsFromModules();
-        const filteredModules = filterWidgetsModules([]); // TODO - plug back the loadedWidgetsModules
+    const loadWidgetsModules = useCallback(
+        async (loadedWidgetsModules: any) => {
+            // const loadedWidgetsModules = await loadWidgetsFromModules();
+            const filteredModules = filterWidgetsModules(loadedWidgetsModules); // TODO - plug back the loadedWidgetsModules
 
-        if (filteredModules.widgetsObjectModules) {
-            setWidgetsModules(filteredModules.widgetsObjectModules);
-        }
+            if (filteredModules.widgetsObjectModules) {
+                setWidgetsModules(filteredModules.widgetsObjectModules);
+            }
 
-        if (filteredModules.widgetsUIModules) {
-            setWidgetsUIModules(filteredModules.widgetsUIModules);
-        }
+            if (filteredModules.widgetsUIModules) {
+                setWidgetsUIModules(filteredModules.widgetsUIModules);
+            }
 
-        // return loadedWidgetsModules;
-    }, [setWidgetsModules, setWidgetsUIModules]);
+            // return loadedWidgetsModules;
+        },
+        [setWidgetsModules, setWidgetsUIModules]
+    );
 
     const getWidgetModuleByName = useCallback(
         (widgetName: string, otherWidgetsModules?: WidgetModules[]) => {

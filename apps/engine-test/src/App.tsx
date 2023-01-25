@@ -32,16 +32,12 @@ const App: FC = () => {
 
                 if (!sceneJsonString) {
                     Toaster.toast.warning("No scenes found");
-                    console.log("No scenes found");
                 }
 
                 const scenes = JSON.parse(sceneJsonString);
-                console.log(scenes, "scenes");
 
                 initScenes(scenes);
             } catch (errorParsing) {
-                console.log(errorParsing, "errorParsing");
-
                 Toaster.toast.error(errorParsing as string);
             }
         }
