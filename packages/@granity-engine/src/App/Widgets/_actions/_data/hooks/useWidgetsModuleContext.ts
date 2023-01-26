@@ -3,5 +3,11 @@ import { useContext } from "react";
 import { WidgetsModulesContext } from "../providers/WidgetsModulesProvider";
 
 export default () => {
-    return useContext(WidgetsModulesContext);
+    const context = useContext(WidgetsModulesContext);
+
+    if (!context) {
+        throw new Error("You are trying to access WidgetsModulesContext outside a provider");
+    }
+
+    return context;
 };

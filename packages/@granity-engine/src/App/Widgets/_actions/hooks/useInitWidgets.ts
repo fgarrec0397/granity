@@ -7,22 +7,19 @@ import useWidgetsModules from "./useWidgetsModules";
 import useWidgetsUtilities from "./useWidgetsUtilities";
 
 export default () => {
-    const { loadWidgetsModules } = useWidgetsModules();
+    const { widgetsModules } = useWidgetsModules();
     const { unserializeWidgets, synchWidgets } = useWidgetsUtilities();
     const { resetWidgets } = useWidgets();
 
     const initWidgets = useCallback(
-        async (
+        (
             serializedWidgets?: SerializedWidgetDictionary,
             widgetsObjectInfoDictionary?: WidgetObjectInfoDictionary
         ) => {
-            const loadedWidgetsModules = await loadWidgetsModules();
-            console.log(loadedWidgetsModules, "loadedWidgetsModules");
-
             if (serializedWidgets || widgetsObjectInfoDictionary) {
                 const deserializedWidgets = unserializeWidgets(
                     serializedWidgets!, // already checked if it's defined
-                    loadedWidgetsModules
+                    widgetsModules
                 );
 
                 // Build a widgetsInfos dictionary base on locally up-to-date widgets
@@ -37,7 +34,7 @@ export default () => {
                 resetWidgets();
             }
         },
-        [loadWidgetsModules, synchWidgets, resetWidgets, unserializeWidgets]
+        [widgetsModules, unserializeWidgets, synchWidgets, resetWidgets]
     );
 
     return {

@@ -3,7 +3,7 @@ import type { GeometryFormsProps } from "./GeometryForms";
 import type { TerrainProps } from "./Terrain";
 import type { WidgetStarterProps, WidgetStarterState } from "./WidgetStarter";
 
-const modules = import.meta.glob("./*/*.tsx");
+const modules = import.meta.glob("./*/*.tsx", { eager: true });
 
 /**
  * Add your Widgets Props here as union types
