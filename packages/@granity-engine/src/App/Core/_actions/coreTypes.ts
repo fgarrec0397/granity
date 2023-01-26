@@ -1,9 +1,9 @@
+import { WidgetModules } from "@granity-engine/api";
+
 import keyboardMappings from "../configs/keyboardMappings";
 
-export type BaseApiParameter<T> = {
-    isLoading: boolean;
-    data: T;
-    error: string;
+export type EngineOptions = {
+    widgetsModules: WidgetModules[];
 };
 
 // --- Key Bindings --- //
