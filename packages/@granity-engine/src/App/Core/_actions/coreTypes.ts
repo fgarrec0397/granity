@@ -4,6 +4,7 @@ import keyboardMappings from "../configs/keyboardMappings";
 
 export type EngineOptions = {
     widgetsModules: WidgetModules[];
+    onSave?: () => void;
 };
 
 // --- Key Bindings --- //

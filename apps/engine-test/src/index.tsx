@@ -19,6 +19,9 @@ for (const path in widgets) {
 
 const engine: EngineOptions = {
     widgetsModules,
+    onSave: () => {
+        console.log("save scene callback from engine-test");
+    },
 };
 
 root.render(

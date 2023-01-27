@@ -1,1 +1,1 @@
-export * as default from "./CamerasContextProvider";
+export { CamerasContext, default as CamerasContextProvider } from "./CamerasContextProvider";

@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 
 import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
-import { postScenes } from "../scenesApiservices";
 import useScenesDispatch from "./useScenesDispatch";
 import useScenesSelector from "./useScenesSelector";
 
@@ -47,10 +46,6 @@ export default () => {
         [dispatchUpdateScene]
     );
 
-    const save = useCallback(async (scenes: ScenesDictionary) => {
-        await postScenes(scenes);
-    }, []);
-
     const remove = (sceneId: string) => {
         dispatchRemoveScene(sceneId);
     };
@@ -60,7 +55,6 @@ export default () => {
         add,
         addBatch,
         reset,
-        save,
         updateScene,
         updateCurrentDefaultSceneId,
         updateCurrentSceneId,

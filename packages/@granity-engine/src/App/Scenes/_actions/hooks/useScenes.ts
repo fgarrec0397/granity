@@ -1,5 +1,6 @@
 import { cloneDeep, isEqual, uidGenerator, usePrevious } from "@granity/helpers";
 import { Toaster } from "@granity/ui";
+import useCore from "@granity-engine/App/Core/_actions/hooks/useCore";
 import useInitWidgets from "@granity-engine/App/Widgets/_actions/hooks/useInitWidgets";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
@@ -17,7 +18,6 @@ export default () => {
         scenes,
         currentSceneId,
         currentDefaultSceneId,
-        save,
         add,
         addBatch,
         reset,
@@ -30,6 +30,7 @@ export default () => {
     const { unserializeWidgets } = useWidgetsUtilities();
     const { widgets, widgetsObjectInfoDictionary, resetWidgets } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
+    const { onSave } = useCore();
     const previousScenes = usePrevious(scenes);
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
 
@@ -224,11 +225,11 @@ export default () => {
                 },
             };
 
-            await save(scenesClone);
+            onSave?.();
         } else {
             Toaster.toast.error("Impossible to save without a scene");
         }
-    }, [getCurrentScene, save, scenes, updateScene, widgets, widgetsObjectInfoDictionary]);
+    }, [getCurrentScene, onSave, scenes, updateScene, widgets, widgetsObjectInfoDictionary]);
 
     const removeScene = useCallback(
         (sceneId: string) => {

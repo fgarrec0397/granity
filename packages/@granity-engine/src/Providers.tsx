@@ -11,6 +11,7 @@ import theme from "@granity-engine/Themes/theme";
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 
+import { CoreContextProvider } from "./App/Core/_actions/_data/providers";
 import { EngineOptions } from "./App/Core/_actions/coreTypes";
 import useInitCore from "./App/Core/_actions/hooks/useInitCore";
 
@@ -27,6 +28,7 @@ const AppProvider: FC<Props> = ({ engine, children }) => {
         [ThemeProvider, { theme }],
         [ReduxProvider, { store }],
         [QueryClientProvider, { client: queryClient }],
+        [CoreContextProvider],
         [CamerasContextProvider],
         [WidgetsContextProvider],
         [WidgetsModulesContextProvider],
