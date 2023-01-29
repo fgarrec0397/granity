@@ -1,11 +1,15 @@
 import { useCallback } from "react";
 
-import { EngineConfig } from "../../coreTypes";
+import { EngineConfig, KeyboardKeys } from "../../coreTypes";
 import { CoreAction } from "../providers";
 import useCoreContext from "./useCoreContext";
 
 export default () => {
-    const [state, dispatch] = useCoreContext();
+    const {
+        reducer: [state, dispatch],
+        keyboardMappings,
+        setKeyboardMappings,
+    } = useCoreContext();
 
     const updateOnSave = useCallback(
         (onSaveCallback: EngineConfig["onSave"]) => {
@@ -17,8 +21,17 @@ export default () => {
         [dispatch]
     );
 
+    const updateKeyboardMappings = useCallback(
+        (newKeyboardMappings: KeyboardKeys) => {
+            setKeyboardMappings(newKeyboardMappings);
+        },
+        [setKeyboardMappings]
+    );
+
     return {
         onSave: state.onSave,
         updateOnSave,
+        updateKeyboardMappings,
+        keyboardMappings,
     };
 };

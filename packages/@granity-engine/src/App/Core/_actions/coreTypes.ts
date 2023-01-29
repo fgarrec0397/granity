@@ -1,18 +1,17 @@
+import { Dictionary } from "@granity/helpers";
 import { ScenesDictionary, WidgetModules } from "@granity-engine/api";
 
 import keyboardMappings from "../configs/keyboardMappings";
 
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
+    keyboardMappings?: KeyboardKeys;
     onSave?: (scenes: ScenesDictionary | null) => void;
 };
 
 // --- Key Bindings --- //
 
-export type KeyboardApp<MappingType> = {
-    editor: MappingType;
-    game: MappingType;
-};
+export type KeyboardApp<MappingType> = Dictionary<MappingType>;
 
 export type KeyboardKeys = KeyboardApp<Array<KeyboardKeysItem>>;
 

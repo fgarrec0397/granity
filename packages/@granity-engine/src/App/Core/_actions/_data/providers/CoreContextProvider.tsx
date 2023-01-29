@@ -1,11 +1,20 @@
 import { HasChildren } from "@granity/helpers";
-import { createContext, Dispatch, FC, useReducer } from "react";
+import defaultKeyboardMappings from "@granity-engine/App/Core/configs/keyboardMappings";
+import { createContext, Dispatch, FC, SetStateAction, useReducer, useState } from "react";
 
-import { EngineConfig } from "../../coreTypes";
+import { EngineConfig, KeyboardKeys } from "../../coreTypes";
 
-export type CoreContextModel = [CoreReducerState, Dispatch<CoreReducerAction>];
+export type CoreContextModel = {
+    reducer: [CoreReducerState, Dispatch<CoreReducerAction>];
+    keyboardMappings: KeyboardKeys;
+    setKeyboardMappings: (() => void) | Dispatch<SetStateAction<KeyboardKeys>>;
+};
 
-export const CoreContext = createContext<CoreContextModel>([{ onSave: () => {} }, () => {}]);
+export const CoreContext = createContext<CoreContextModel>({
+    reducer: [{ onSave: () => {} }, () => {}],
+    keyboardMappings: defaultKeyboardMappings,
+    setKeyboardMappings: () => {},
+});
 
 export enum CoreAction {
     ON_SAVE = "ON_SAVE",
@@ -13,14 +22,14 @@ export enum CoreAction {
 
 type CoreReducerAction = {
     type: CoreAction;
-    payload?: () => void;
+    payload?: EngineConfig["onSave"];
 };
 
 type CoreReducerState = {
     onSave: EngineConfig["onSave"];
 };
 
-const reducer = (state: CoreReducerState, action: CoreReducerAction) => {
+const coreReducer = (state: CoreReducerState, action: CoreReducerAction) => {
     switch (action.type) {
         case "ON_SAVE":
             return { onSave: action.payload };
@@ -31,9 +40,16 @@ const reducer = (state: CoreReducerState, action: CoreReducerAction) => {
 
 type Props = HasChildren;
 const CoreContextProvider: FC<Props> = ({ children }) => {
-    const coreReducer = useReducer(reducer, { onSave: () => {} });
+    const reducer = useReducer(coreReducer, { onSave: () => {} });
+    const [keyboardMappings, setKeyboardMappings] = useState<KeyboardKeys>(defaultKeyboardMappings);
 
-    return <CoreContext.Provider value={coreReducer}>{children}</CoreContext.Provider>;
+    const providerValue: CoreContextModel = {
+        reducer,
+        keyboardMappings,
+        setKeyboardMappings,
+    };
+
+    return <CoreContext.Provider value={providerValue}>{children}</CoreContext.Provider>;
 };
 
 export default CoreContextProvider;

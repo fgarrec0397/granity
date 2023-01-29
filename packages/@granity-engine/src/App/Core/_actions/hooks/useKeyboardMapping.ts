@@ -5,9 +5,11 @@ import {
     KeyboardMappings,
     KeyboardType,
 } from "@granity-engine/App/Core/_actions/coreTypes";
-import keyboardMappings from "@granity-engine/App/Core/configs/keyboardMappings";
+// import keyboardMappings from "@granity-engine/App/Core/configs/keyboardMappings";
 import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import { DependencyList, useCallback, useEffect, useMemo, useState } from "react";
+
+import useCore from "./useCore";
 
 const triggerAllMappedKeys = (
     keyMapped: KeyboardMappings,
@@ -32,6 +34,8 @@ export default (handler: KeyboardMappingHandler, dependencies: DependencyList) =
     const handlerCallback = useCallback(handler, [handler, ...dependencies]);
     const [keyboardType, setKeyboardType] = useState<KeyboardType>("editor");
     const { isEditor } = useEditor();
+    const { keyboardMappings } = useCore();
+    // console.log(keyboardMappings, "keyboardMappings");
 
     useEffect(() => {
         if (isEditor) {
@@ -57,7 +61,7 @@ export default (handler: KeyboardMappingHandler, dependencies: DependencyList) =
         });
 
         return newMapping;
-    }, [keyboardType]);
+    }, [keyboardMappings, keyboardType]);
 
     useEffect(() => {
         const onKeyUpHandler = (event: KeyboardEvent) => {
