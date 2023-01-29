@@ -1,10 +1,9 @@
-import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidget";
-import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
-import GameRigidbody from "@features/Physics/components/GameRigidbody";
+import { createWidget, EditableWidget, FieldType, WidgetType } from "@granity/engine";
 import { unSerializeVector3 } from "@granity/helpers";
 import { RigidBodyApi } from "@react-three/rapier";
 import { FC, useEffect, useRef } from "react";
+
+import GameRigidbody from "../../Physics/components/GameRigidbody";
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;

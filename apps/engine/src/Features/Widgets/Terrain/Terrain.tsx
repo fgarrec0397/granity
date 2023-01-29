@@ -1,11 +1,15 @@
-import { EditableWidget } from "@app/Editor/_actions/editorTypes";
-import useGameUpdate from "@app/Game/_actions/hooks/useGameUpdate";
-import createWidget from "@app/Widgets/_actions/utilities/createWidget";
-import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
-import GameRigidbody from "@features/Physics/components/GameRigidbody";
+import {
+    createWidget,
+    EditableWidget,
+    FieldType,
+    useGameUpdate,
+    WidgetType,
+} from "@granity/engine";
 import { RigidBodyApi } from "@react-three/rapier";
 import { FC, useRef } from "react";
 import { Vector3 } from "three";
+
+import GameRigidbody from "../../Physics/components/GameRigidbody";
 
 export type TerrainProps = EditableWidget & {
     translateXOnPlay: boolean;

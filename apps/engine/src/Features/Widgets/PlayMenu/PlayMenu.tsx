@@ -1,6 +1,4 @@
-import useScenes from "@app/Scenes/_actions/hooks/useScenes";
-import createWidget from "@app/Widgets/_actions/utilities/createWidget";
-import { FieldType, WidgetType } from "@app/Widgets/_actions/widgetsConstants";
+import { createWidget, FieldType, useScenes, WidgetType } from "@granity/engine";
 import { Button, StyledWrapper } from "@granity/ui";
 import { FC } from "react";
 import { css } from "styled-components";

@@ -1,12 +1,12 @@
 {
-  "name": "engine",
+  "name": "engine-test",
   "version": "0.1.0",
   "main": "./src/api.ts",
   "proxy": "http://localhost:5000",
   "scripts": {
     "audit": "npm audit",
     "audit:fix": "npm audit fix",
-    "dev-deactivated": "vite --port 3000",
+    "dev": "vite --port 3000",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx src --fix",
@@ -31,6 +31,7 @@
     ]
   },
   "dependencies": {
+    "@granity/engine": "*",
     "@granity/ui": "*",
     "@react-spring/three": "^9.6.1",
     "@react-three/drei": "9.52.3",

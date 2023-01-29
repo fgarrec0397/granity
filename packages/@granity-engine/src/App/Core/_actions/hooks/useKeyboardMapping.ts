@@ -5,7 +5,6 @@ import {
     KeyboardMappings,
     KeyboardType,
 } from "@granity-engine/App/Core/_actions/coreTypes";
-// import keyboardMappings from "@granity-engine/App/Core/configs/keyboardMappings";
 import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import { DependencyList, useCallback, useEffect, useMemo, useState } from "react";
 
@@ -35,7 +34,6 @@ export default (handler: KeyboardMappingHandler, dependencies: DependencyList) =
     const [keyboardType, setKeyboardType] = useState<KeyboardType>("editor");
     const { isEditor } = useEditor();
     const { keyboardMappings } = useCore();
-    // console.log(keyboardMappings, "keyboardMappings");
 
     useEffect(() => {
         if (isEditor) {

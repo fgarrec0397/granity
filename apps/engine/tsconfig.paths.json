@@ -2,10 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
-            "@app/*": ["App/*"],
-            "@features/*": ["Features/*"],
-            "@tests/*": ["tests/*"],
-            "@themes/*": ["Themes/*"],
-        },
+            "@granity-engine/*": ["../../../packages/@granity-engine/src/*"],
+        }
     }
 }
