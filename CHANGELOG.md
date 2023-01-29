@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/fgarrec0397/granity/compare/v0.2.1...v0.2.2) (2023-01-29)
+
+
+### Features
+
+* fetching scenes data from engine-server + engine api exports ([13d46ce](https://github.com/fgarrec0397/granity/commits/13d46ce95aeec12152844bff7f6b79aeca95b05d))
+
+
+### Bug Fixes
+
+* nested alias working ([80eac9e](https://github.com/fgarrec0397/granity/commits/80eac9e3899da5cc159e431566d1c3fe34266a90))
+
+
+### Refactor
+
+* [@granity-engine](https://github.com/granity-engine) working from another package ([167a147](https://github.com/fgarrec0397/granity/commits/167a147e6c9537bfc3dbba1e66816a198a7774b6))
+* **@granity-engine:** clean up + exportable scenes ([d04462b](https://github.com/fgarrec0397/granity/commits/d04462b5096a6fe55c945614f6264f32e4f95fa0))
+* can save scene from outside [@granity-engine](https://github.com/granity-engine) ([a528949](https://github.com/fgarrec0397/granity/commits/a5289495488687609a16050a31ce69c63fa3e61e))
+* clean up + investigation ([2ee9063](https://github.com/fgarrec0397/granity/commits/2ee90637abd01c1dfcb4eefd06e12b5d7461a22e))
+* engine-test package ([92cedc5](https://github.com/fgarrec0397/granity/commits/92cedc58825ee5a5d7e41548c777f53d54f86a4c))
+* **engine:** bring Features folder with all widgets ([b6f7031](https://github.com/fgarrec0397/granity/commits/b6f7031791847313fc746dcff8828483dd06cacc))
+* engineConfig + onSave working ([d28c8d8](https://github.com/fgarrec0397/granity/commits/d28c8d8424afc489fed0f23d38026955b280da70))
+* granity provider now takes engineOptions as parameter ([a426935](https://github.com/fgarrec0397/granity/commits/a42693585d1613bba4535c244811712d575d09d5))
+* granity-engine working in engine package ([ef95758](https://github.com/fgarrec0397/granity/commits/ef9575848a985daf613800c921555195290e7fe6))
+* passing a list of keyboard mapping now override the defaults ([b1d5c84](https://github.com/fgarrec0397/granity/commits/b1d5c84acd48274ce6d4e89517cad268c0387384))
+* paths unresolved ([4d7506f](https://github.com/fgarrec0397/granity/commits/4d7506f2bceb5229615eaf5b8d65f806227cc449))
+* removed AppProvider ([586d05d](https://github.com/fgarrec0397/granity/commits/586d05d35b7fbd7d6d44c9a16774b0695dcf0f3c))
+* stie wrapper ([27d49b6](https://github.com/fgarrec0397/granity/commits/27d49b6ce49a37f9ce51bd7bcc9b2bf0c650d06c))
+* switch engine-test to the actual engine package ([d8ed915](https://github.com/fgarrec0397/granity/commits/d8ed9157b6cf0ec5efdc493a316a47078c7756be))
+
 ### [0.2.1](https://github.com/fgarrec0397/granity/compare/v0.2.0...v0.2.1) (2023-01-20)
 
 
