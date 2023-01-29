@@ -13,27 +13,27 @@ const getScenes = async () => {
 };
 
 export default () => {
-    // const { data, status } = useQuery({
-    //     queryKey: ["scenes"],
-    //     queryFn: () => getScenes(),
-    // });
-    // useEffect(() => {
-    //     if (status === "error") {
-    //         Toaster.toast.error("No connections");
-    //     }
-    //     if (status === "success") {
-    //         try {
-    //             const { sceneJsonString } = data;
-    //             if (!sceneJsonString) {
-    //                 Toaster.toast.warning("No scenes found");
-    //             }
-    //             const scenes = JSON.parse(sceneJsonString);
-    //             console.log(scenes, "scenes");
-    //             initScenes(scenes);
-    //         } catch (errorParsing) {
-    //             Toaster.toast.error(errorParsing as string);
-    //         }
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [status]);
+    const { data, status } = useQuery({
+        queryKey: ["scenes"],
+        queryFn: () => getScenes(),
+    });
+    useEffect(() => {
+        if (status === "error") {
+            Toaster.toast.error("No connections");
+        }
+        if (status === "success") {
+            try {
+                const { sceneJsonString } = data;
+                if (!sceneJsonString) {
+                    Toaster.toast.warning("No scenes found");
+                }
+                const scenes = JSON.parse(sceneJsonString);
+                console.log(scenes, "scenes");
+                // initScenes(scenes);
+            } catch (errorParsing) {
+                Toaster.toast.error(errorParsing as string);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [status]);
 };

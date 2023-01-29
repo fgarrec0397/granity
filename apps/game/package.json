@@ -15,7 +15,7 @@
   },
   "prettier": "@granity/prettier-config",
   "dependencies": {
-    "engine": "*",
+    "@granity/engine": "*",
     "@granity/eslint-config": "*",
     "@granity/helpers": "*",
     "@granity/prettier-config": "*",

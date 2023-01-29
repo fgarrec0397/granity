@@ -4,26 +4,25 @@ import { useEffect } from "react";
 import { EngineConfig } from "../coreTypes";
 import useCore from "./useCore";
 
-export default (config: EngineConfig) => {
+export default (config?: EngineConfig) => {
     const { initWidgetsModules } = useWidgetsModules();
     const { initOnSave, initKeyboardMappings } = useCore();
-    const { widgetsModules, onSave, keyboardMappings } = config;
 
     useEffect(() => {
-        if (widgetsModules) {
-            initWidgetsModules(widgetsModules);
+        if (config?.widgetsModules) {
+            initWidgetsModules(config.widgetsModules);
         }
-    }, [initWidgetsModules, widgetsModules]);
+    }, [config?.widgetsModules, initWidgetsModules]);
 
     useEffect(() => {
-        if (onSave) {
-            initOnSave(onSave);
+        if (config?.onSave) {
+            initOnSave(config.onSave);
         }
-    }, [onSave, initOnSave]);
+    }, [initOnSave, config?.onSave]);
 
     useEffect(() => {
-        if (keyboardMappings) {
-            initKeyboardMappings(keyboardMappings);
+        if (config?.keyboardMappings) {
+            initKeyboardMappings(config.keyboardMappings);
         }
-    }, [initKeyboardMappings, keyboardMappings]);
+    }, [config?.keyboardMappings, initKeyboardMappings]);
 };

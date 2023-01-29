@@ -1,4 +1,4 @@
-import { HasChildren, QueryClient, QueryClientProvider } from "@granity/helpers";
+import { HasChildren } from "@granity/helpers";
 import { ThemeProvider, Toaster } from "@granity/ui";
 import { store } from "@granity-engine/App/Core/_actions/_data/state/store";
 import ProvidersBuilder from "@granity-engine/App/Core/Components/ProvidersBuilder";
@@ -16,18 +16,15 @@ import { EngineConfig } from "./App/Core/_actions/coreTypes";
 import useInitCore from "./App/Core/_actions/hooks/useInitCore";
 
 type Props = HasChildren & {
-    config: EngineConfig;
+    config?: EngineConfig;
 };
 
 injectStore(store);
-
-const queryClient = new QueryClient();
 
 const AppProvider: FC<Props> = ({ config, children }) => {
     const Providers = ProvidersBuilder([
         [ThemeProvider, { theme }],
         [ReduxProvider, { store }],
-        [QueryClientProvider, { client: queryClient }],
         [CoreContextProvider],
         [CamerasContextProvider],
         [WidgetsContextProvider],
@@ -44,7 +41,7 @@ const AppProvider: FC<Props> = ({ config, children }) => {
 };
 
 type InitializerProps = {
-    config: EngineConfig;
+    config?: EngineConfig;
     children: React.ReactNode;
 };
 

@@ -1,4 +1,5 @@
 import { GranityEngineProvider, ScenesDictionary, WidgetModules } from "@granity/engine";
+import { QueryClient, QueryClientProvider } from "@granity/helpers";
 import { Toaster } from "@granity/ui";
 import { EngineConfig } from "@granity-engine/App/Core/_actions/coreTypes";
 import { StrictMode } from "react";
@@ -61,10 +62,14 @@ const config: EngineConfig = {
     },
 };
 
+const queryClient = new QueryClient();
+
 root.render(
     <StrictMode>
-        <GranityEngineProvider config={config}>
-            <App />
-        </GranityEngineProvider>
+        <QueryClientProvider client={queryClient}>
+            <GranityEngineProvider config={config}>
+                <App />
+            </GranityEngineProvider>
+        </QueryClientProvider>
     </StrictMode>
 );

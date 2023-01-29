@@ -11,9 +11,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "@app": path.resolve(__dirname, "../engine/src/App"),
-            "@features": path.resolve(__dirname, "../engine/src/Features"),
-            "@themes": path.resolve(__dirname, "../engine/src/Themes"),
+            "@granity-engine": path.resolve(__dirname, "../../packages/@granity-engine/src"),
         },
     },
 });

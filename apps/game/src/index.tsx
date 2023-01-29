@@ -1,5 +1,5 @@
+import { GranityEngineProvider } from "@granity/engine";
 import { QueryClient, QueryClientProvider } from "@granity/helpers";
-import { EngineProvider } from "engine";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -14,9 +14,9 @@ const queryClient = new QueryClient();
 root.render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
-            <EngineProvider>
+            <GranityEngineProvider>
                 <App />
-            </EngineProvider>
+            </GranityEngineProvider>
         </QueryClientProvider>
     </StrictMode>
 );
