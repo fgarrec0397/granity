@@ -1,13 +1,13 @@
 import { useWidgetsModules } from "@granity-engine/api";
 import { useEffect } from "react";
 
-import { EngineOptions } from "../coreTypes";
+import { EngineConfig } from "../coreTypes";
 import useCore from "./useCore";
 
-export default (engine: EngineOptions) => {
+export default (config: EngineConfig) => {
     const { initWidgetsModules } = useWidgetsModules();
     const { initOnSave } = useCore();
-    const { widgetsModules, onSave } = engine;
+    const { widgetsModules, onSave } = config;
 
     useEffect(() => {
         if (widgetsModules) {

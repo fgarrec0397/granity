@@ -2,7 +2,7 @@ import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import { useCallback } from "react";
 
 import useCoreService from "../_data/hooks/useCoreService";
-import { EngineOptions } from "../coreTypes";
+import { EngineConfig } from "../coreTypes";
 
 export default () => {
     const { onEditorPointerMissed, isEditor } = useEditor();
@@ -18,7 +18,7 @@ export default () => {
     );
 
     const initOnSave = useCallback(
-        (onSaveCallback: EngineOptions["onSave"]) => {
+        (onSaveCallback: EngineConfig["onSave"]) => {
             updateOnSave(onSaveCallback);
         },
         [updateOnSave]

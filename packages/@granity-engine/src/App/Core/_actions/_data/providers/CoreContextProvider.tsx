@@ -1,7 +1,7 @@
 import { HasChildren } from "@granity/helpers";
 import { createContext, Dispatch, FC, useReducer } from "react";
 
-import { EngineOptions } from "../../coreTypes";
+import { EngineConfig } from "../../coreTypes";
 
 export type CoreContextModel = [CoreReducerState, Dispatch<CoreReducerAction>];
 
@@ -17,7 +17,7 @@ type CoreReducerAction = {
 };
 
 type CoreReducerState = {
-    onSave: EngineOptions["onSave"];
+    onSave: EngineConfig["onSave"];
 };
 
 const reducer = (state: CoreReducerState, action: CoreReducerAction) => {

@@ -1,5 +1,6 @@
-import { GranityEngineProvider, WidgetModules } from "@granity/engine";
-import { EngineOptions } from "@granity-engine/App/Core/_actions/coreTypes";
+import { GranityEngineProvider, ScenesDictionary, WidgetModules } from "@granity/engine";
+import { Toaster } from "@granity/ui";
+import { EngineConfig } from "@granity-engine/App/Core/_actions/coreTypes";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -17,16 +18,52 @@ for (const path in widgets) {
     widgetsModules.push(widget);
 }
 
-const engine: EngineOptions = {
+export const postScenes = async (scenes: ScenesDictionary) => {
+    const rawResponse = await fetch("api/scene", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(scenes),
+    });
+
+    try {
+        if (!rawResponse.ok) {
+            throw new Error("An error occured.");
+        }
+
+        return {
+            success: true,
+        };
+    } catch (error: any) {
+        return {
+            success: false,
+            errorMessage: error,
+        };
+    }
+};
+
+const config: EngineConfig = {
     widgetsModules,
-    onSave: () => {
-        console.log("save scene callback from engine-test");
+    onSave: async (scenes) => {
+        if (scenes) {
+            const response = await postScenes(scenes);
+
+            if (!response.success) {
+                Toaster.toast.error(response.errorMessage);
+            }
+
+            if (response.success) {
+                Toaster.toast.success("Scenes saved with success!");
+            }
+        }
     },
 };
 
 root.render(
     <StrictMode>
-        <GranityEngineProvider engine={engine}>
+        <GranityEngineProvider config={config}>
             <App />
         </GranityEngineProvider>
     </StrictMode>

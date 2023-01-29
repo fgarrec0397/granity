@@ -225,7 +225,7 @@ export default () => {
                 },
             };
 
-            onSave?.();
+            onSave?.(scenesClone);
         } else {
             Toaster.toast.error("Impossible to save without a scene");
         }

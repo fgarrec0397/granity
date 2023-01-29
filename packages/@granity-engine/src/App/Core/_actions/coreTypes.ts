@@ -1,10 +1,10 @@
-import { WidgetModules } from "@granity-engine/api";
+import { ScenesDictionary, WidgetModules } from "@granity-engine/api";
 
 import keyboardMappings from "../configs/keyboardMappings";
 
-export type EngineOptions = {
+export type EngineConfig = {
     widgetsModules: WidgetModules[];
-    onSave?: () => void;
+    onSave?: (scenes: ScenesDictionary | null) => void;
 };
 
 // --- Key Bindings --- //

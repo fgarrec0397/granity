@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { EngineOptions } from "../../coreTypes";
+import { EngineConfig } from "../../coreTypes";
 import { CoreAction } from "../providers";
 import useCoreContext from "./useCoreContext";
 
@@ -8,7 +8,7 @@ export default () => {
     const [state, dispatch] = useCoreContext();
 
     const updateOnSave = useCallback(
-        (onSaveCallback: EngineOptions["onSave"]) => {
+        (onSaveCallback: EngineConfig["onSave"]) => {
             dispatch({
                 type: CoreAction.ON_SAVE,
                 payload: onSaveCallback,

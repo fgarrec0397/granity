@@ -12,18 +12,18 @@ import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 
 import { CoreContextProvider } from "./App/Core/_actions/_data/providers";
-import { EngineOptions } from "./App/Core/_actions/coreTypes";
+import { EngineConfig } from "./App/Core/_actions/coreTypes";
 import useInitCore from "./App/Core/_actions/hooks/useInitCore";
 
 type Props = HasChildren & {
-    engine: EngineOptions;
+    config: EngineConfig;
 };
 
 injectStore(store);
 
 const queryClient = new QueryClient();
 
-const AppProvider: FC<Props> = ({ engine, children }) => {
+const AppProvider: FC<Props> = ({ config, children }) => {
     const Providers = ProvidersBuilder([
         [ThemeProvider, { theme }],
         [ReduxProvider, { store }],
@@ -38,19 +38,19 @@ const AppProvider: FC<Props> = ({ engine, children }) => {
     return (
         <Providers>
             <Toaster.ToastContainer />
-            <Initializer engine={engine}>{children}</Initializer>
+            <Initializer config={config}>{children}</Initializer>
         </Providers>
     );
 };
 
 type InitializerProps = {
-    engine: EngineOptions;
+    config: EngineConfig;
     children: React.ReactNode;
 };
 
 // Need this component to init the data within the context
-const Initializer: FC<InitializerProps> = ({ engine, children }) => {
-    useInitCore(engine);
+const Initializer: FC<InitializerProps> = ({ config, children }) => {
+    useInitCore(config);
 
     return <>{children}</>;
 };
