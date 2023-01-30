@@ -1,3 +1,4 @@
+import { useScenes } from "@granity/engine";
 import { useQuery } from "@granity/helpers";
 import { Toaster } from "@granity/ui";
 import { useEffect } from "react";
@@ -13,6 +14,8 @@ const getScenes = async () => {
 };
 
 export default () => {
+    const { initScenes } = useScenes();
+
     const { data, status } = useQuery({
         queryKey: ["scenes"],
         queryFn: () => getScenes(),
@@ -29,7 +32,7 @@ export default () => {
                 }
                 const scenes = JSON.parse(sceneJsonString);
                 console.log(scenes, "scenes");
-                // initScenes(scenes);
+                initScenes(scenes);
             } catch (errorParsing) {
                 Toaster.toast.error(errorParsing as string);
             }

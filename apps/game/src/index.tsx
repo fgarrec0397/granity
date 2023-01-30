@@ -1,3 +1,5 @@
+import "./index.css";
+
 import { GranityEngineProvider } from "@granity/engine";
 import { QueryClient, QueryClientProvider } from "@granity/helpers";
 import { StrictMode } from "react";
