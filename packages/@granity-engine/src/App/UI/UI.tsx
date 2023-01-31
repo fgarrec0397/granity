@@ -1,5 +1,5 @@
 import Editor from "@granity-engine/App/Editor/Editor";
-import Game from "@granity-engine/App/Game/Components/GamePreview";
+import { GamePreview } from "@granity-engine/App/Game/Components";
 import { FC } from "react";
 
 import useUI from "./_actions/hooks/useUI";
@@ -12,7 +12,7 @@ const UI: FC = () => {
     return (
         <>
             {showEditorUI && <Editor.EditorUI />}
-            {showGameUI && <Game.GameUI />}
+            {showGameUI && <GamePreview.GameUI />}
             {isGameUIPreview && <UIClosePreviewButton />}
         </>
     );

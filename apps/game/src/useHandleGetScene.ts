@@ -31,7 +31,7 @@ export default () => {
                     Toaster.toast.warning("No scenes found");
                 }
                 const scenes = JSON.parse(sceneJsonString);
-                console.log(scenes, "scenes");
+
                 initScenes(scenes);
             } catch (errorParsing) {
                 Toaster.toast.error(errorParsing as string);

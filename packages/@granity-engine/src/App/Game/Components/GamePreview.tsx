@@ -10,7 +10,6 @@ const Game: FC = () => {
     return (
         <>
             <Physics>
-                {/* <Debug /> */}
                 <Widgets widgets={widgetsObjects} />
             </Physics>
         </>

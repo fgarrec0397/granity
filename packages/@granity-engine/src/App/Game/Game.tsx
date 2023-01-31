@@ -3,10 +3,10 @@ import Widgets from "@granity-engine/App/Widgets/Widgets";
 import { FC } from "react";
 import { ReactReduxContext } from "react-redux";
 
-import CoreCanvas from "../Core/Components/CoreCanvas";
 import { HistoryDictionaryContext } from "../Editor/_actions/_data/providers/HistoryContextProvider";
 import { CamerasContext } from "../Scenes/_actions/_data/providers";
 import { WidgetsContext, WidgetsModulesContext } from "../Widgets/_actions/_data/providers";
+import GameCanvas from "./Components/GameCanvas";
 
 export const Game: FC = () => {
     const contexts = [
@@ -19,7 +19,7 @@ export const Game: FC = () => {
 
     return (
         <>
-            <CoreCanvas contexts={contexts} />
+            <GameCanvas contexts={contexts} />
             <GameUI />
         </>
     );
