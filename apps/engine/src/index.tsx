@@ -1,12 +1,16 @@
-import { GranityEngineProvider, ScenesDictionary, WidgetModules } from "@granity/engine";
+import {
+    EngineConfig,
+    GranityEngineProvider,
+    ScenesDictionary,
+    WidgetModules,
+} from "@granity/engine";
 import { QueryClient, QueryClientProvider } from "@granity/helpers";
 import { Toaster } from "@granity/ui";
-import { EngineConfig } from "@granity-engine/App/Core/_actions/coreTypes";
+import { widgetsModules as modules } from "@granity/widgets";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import App from "./App";
-import widgets from "./Features/Widgets";
 
 const container = document.getElementById("root") as Element | DocumentFragment;
 
@@ -14,8 +18,8 @@ const root = createRoot(container);
 
 const widgetsModules: WidgetModules[] = [];
 
-for (const path in widgets) {
-    const { widget } = widgets[path] as any;
+for (const path in modules) {
+    const { widget } = modules[path] as any;
     widgetsModules.push(widget);
 }
 

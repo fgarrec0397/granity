@@ -33,6 +33,7 @@
   "dependencies": {
     "@granity/engine": "*",
     "@granity/ui": "*",
+    "@granity/widgets": "*",
     "@react-spring/three": "^9.6.1",
     "@react-three/drei": "9.52.3",
     "@react-three/fiber": "8.10.0",
