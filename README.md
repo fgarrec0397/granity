@@ -60,16 +60,24 @@ The roadmap elements below are classed in order, but are may subject to change.
 
 ### 0.2.0
 - [x] Implement unit testing
+- [x] Adding the possibility to change widget name within the scene
+- [x] Refactor project in monorepo
+- [x] Extract App folder into its own package
+- [x] Having a site for the admin and the game separatly
 - [ ] Remake the UI
 - [ ] Having multiple themes (one for the game, another for the editor)
-- [ ] Adding the possibility to change widget name within the scene
+- [ ] Control Lights by widget instead of hardcoded default ones
 - [ ] Select multiple widgets at the time
 - [ ] Be able to manipulate the widgets through the UI
+- [ ] Group widgets together
 
 ### 0.3.0
 - [ ] Add a dashboard to control some settings such as key bindings
+- [ ] File system (images, 3D models, etc)
 - [ ] Make shortcuts actions available from UI
-- [ ] Implement integration test for widgets flow
+- [ ] Implement integration test for @granity/engine
+- [ ] Some optimisation (code split)
+- [ ] Make the app deployable
 
 ### 0.4.0
 - [ ] Support multiplayer
