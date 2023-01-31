@@ -1,4 +1,4 @@
-import useGameInit from "@app/Game/_actions/hooks/useGameInit";
+import { useGameInit } from "@granity/engine";
 
 export default () => {
     useGameInit(() => {});
