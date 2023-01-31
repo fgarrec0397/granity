@@ -1,12 +1,7 @@
-import {
-    EngineConfig,
-    GranityEngineProvider,
-    ScenesDictionary,
-    WidgetModules,
-} from "@granity/engine";
+import { EngineConfig, GranityEngineProvider, ScenesDictionary } from "@granity/engine";
 import { QueryClient, QueryClientProvider } from "@granity/helpers";
 import { Toaster } from "@granity/ui";
-import { widgetsModules as modules } from "@granity/widgets";
+import { widgetsModules } from "@granity/widgets";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -15,13 +10,6 @@ import App from "./App";
 const container = document.getElementById("root") as Element | DocumentFragment;
 
 const root = createRoot(container);
-
-const widgetsModules: WidgetModules[] = [];
-
-for (const path in modules) {
-    const { widget } = modules[path] as any;
-    widgetsModules.push(widget);
-}
 
 export const postScenes = async (scenes: ScenesDictionary) => {
     const rawResponse = await fetch("api/scene", {

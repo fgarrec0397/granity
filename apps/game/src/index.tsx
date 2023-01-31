@@ -1,7 +1,8 @@
 import "./index.css";
 
-import { GranityEngineProvider } from "@granity/engine";
+import { EngineConfig, GranityEngineProvider } from "@granity/engine";
 import { QueryClient, QueryClientProvider } from "@granity/helpers";
+import { widgetsModules } from "@granity/widgets";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -13,10 +14,14 @@ const root = createRoot(container);
 
 const queryClient = new QueryClient();
 
+const config: EngineConfig = {
+    widgetsModules,
+};
+
 root.render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
-            <GranityEngineProvider>
+            <GranityEngineProvider config={config}>
                 <App />
             </GranityEngineProvider>
         </QueryClientProvider>

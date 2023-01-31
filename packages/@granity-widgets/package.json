@@ -1,15 +1,17 @@
 {
   "name": "@granity/widgets",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "main": "./src/index.ts",
+  "prettier": "@granity/prettier-config",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "lint": "eslint --ext .ts,.tsx src --fix",
+    "format": "prettier --write ./src"
   },
   "dependencies": {
+    "@granity/engine": "*",
+    "@granity/eslint-config": "*",
+    "@granity/prettier-config": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

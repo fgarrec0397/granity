@@ -27,6 +27,9 @@
     ]
   },
   "dependencies": {
+    "@granity/eslint-config": "*",
+    "@granity/helpers": "*",
+    "@granity/prettier-config": "*",
     "@granity/ui": "*",
     "@react-spring/three": "^9.6.1",
     "@react-three/drei": "9.52.3",
@@ -41,10 +44,7 @@
     "ariakit": "^2.0.0-next.43",
     "ariakit-utils": "^0.17.0-next.27",
     "cors": "^2.8.5",
-    "@granity/eslint-config": "*",
-    "@granity/helpers": "*",
     "jsdom": "^21.0.0",
-    "@granity/prettier-config": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

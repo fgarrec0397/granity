@@ -1,3 +1,5 @@
+import { WidgetModules } from "@granity/engine";
+
 import type { CamerasProps } from "./Cameras";
 import type { GeometryFormsProps } from "./GeometryForms";
 import type { TerrainProps } from "./Terrain";
@@ -20,4 +22,14 @@ export interface FeaturesState {
     widgetStarter: WidgetStarterState;
 }
 
-export default modules;
+const resolveModules = () => {
+    const widgetsModules: WidgetModules[] = [];
+    for (const path in modules) {
+        const { widget } = modules[path] as any;
+        widgetsModules.push(widget);
+    }
+
+    return widgetsModules;
+};
+
+export default resolveModules();
