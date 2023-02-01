@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@granity/engine";
 
 import { addYourWidgetAction } from "../state/widgetStarterReducer";
 
 export default () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const dispatchAdd = (message: string) => {
         dispatch(addYourWidgetAction(message));
