@@ -1,4 +1,4 @@
-import useGameUpdate from "@app/Game/_actions/hooks/useGameUpdate";
+import { useGameUpdate } from "@granity/engine";
 
 export default () => {
     useGameUpdate(() => {});

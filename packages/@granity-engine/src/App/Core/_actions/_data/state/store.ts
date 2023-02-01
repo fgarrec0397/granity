@@ -1,4 +1,4 @@
-import { FeaturesState } from "@features/Widgets";
+// import { FeaturesState } from "@features/Widgets" // TODO - fix that;
 import editorReducer, {
     EditorState,
 } from "@granity-engine/App/Editor/_actions/_data/state/editorReducer";
@@ -12,6 +12,8 @@ import widgetsReducerV2, {
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "redux";
+
+type FeaturesState = any; // TODO fix that
 
 interface State {
     editor: EditorState;
@@ -69,7 +71,7 @@ const initStore = (): InjectableStore => {
             store.injectReducer?.(
                 "features",
                 createReducer<
-                    Partial<ReducersMapObject<FeaturesState, AnyAction>>,
+                    /*Partial<ReducersMapObject<FeaturesState, AnyAction>>*/ any,
                     Reducer<FeaturesState | undefined, AnyAction>
                 >(store.asyncFeaturesReducers, staticReducers.features)
             );

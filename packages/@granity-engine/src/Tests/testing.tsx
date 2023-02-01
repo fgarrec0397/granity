@@ -1,12 +1,12 @@
 import { HasChildren } from "@granity/helpers";
-import AppProvider from "@granity-engine/App/Core/_actions/_data/providers/AppProvider";
+import { GranityEngineProvider } from "@granity-engine/api";
 import { render, renderHook, RenderOptions } from "@testing-library/react";
 import { FC, ReactElement } from "react";
 
 type Props = HasChildren;
 
 export const TestAppProviders: FC<Props> = ({ children }) => {
-    return <AppProvider>{children}</AppProvider>;
+    return <GranityEngineProvider>{children}</GranityEngineProvider>;
 };
 
 const appRender = (element: ReactElement, options: RenderOptions) =>

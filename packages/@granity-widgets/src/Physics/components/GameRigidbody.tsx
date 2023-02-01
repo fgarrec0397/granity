@@ -1,5 +1,5 @@
+import { useEditor } from "@granity/engine";
 import { HasChildren } from "@granity/helpers";
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import { RigidBody, RigidBodyApi, RigidBodyProps } from "@react-three/rapier";
 import { forwardRef } from "react";
 

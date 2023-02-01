@@ -1,4 +1,4 @@
-import { useAppSelector } from "@app/Core/_actions/_data/state/store";
+import { useAppSelector } from "@granity/engine";
 
 export default () => {
     return useAppSelector((state) => state.features);

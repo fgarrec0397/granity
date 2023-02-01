@@ -1,1 +1,1 @@
-export { default as widgetsModules } from "./Widgets"
+export { default as widgetsModules } from "./Widgets";

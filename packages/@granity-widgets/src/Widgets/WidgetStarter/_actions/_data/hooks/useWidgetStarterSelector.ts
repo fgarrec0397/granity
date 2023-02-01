@@ -1,4 +1,4 @@
-import useFeaturesSelector from "@features/Core/_actions/_data/hooks/useFeaturesSelector";
+import useFeaturesSelector from "@granity-widgets/Core/_actions/_data/hooks/useFeaturesSelector";
 
 export default () => {
     return useFeaturesSelector()?.widgetStarter;
