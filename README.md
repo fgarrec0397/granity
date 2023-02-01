@@ -1,9 +1,6 @@
 > :warning: **UNDER HEAVY DEVELOPMENT** :warning: 
 >
-> Due to the fact that this application is not live, it may contains some bugs and issues. The V0.1 will be released as soon as the first project made with it is done.
-> You can follow the development of this first project [here](https://github.com/fgarrec0397/flappy-poop).
->
-> Please consider it before using this tool. Updates will be a pain in the *ss, but you can always starring it if you love the concept :heart:
+> This application is not usable in its current version, but you can always starring it if you love the concept :heart:
 
 <p>&nbsp;</p>
 
