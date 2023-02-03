@@ -2,19 +2,34 @@ import createTheme from "@mui/material/styles/createTheme";
 
 declare module "@mui/material/styles" {
     interface Theme {
-        status: {
-            danger: string;
+        custom: {
+            palette: {
+                background: {
+                    paperDark?: string;
+                };
+            };
         };
     }
     // allow configuration using `createTheme`
     interface ThemeOptions {
-        status?: {
-            danger?: string;
+        custom?: {
+            palette?: {
+                background: {
+                    paperDark?: string;
+                };
+            };
         };
     }
 }
 
 const theme = createTheme({
+    custom: {
+        palette: {
+            background: {
+                paperDark: "#292929",
+            },
+        },
+    },
     palette: {
         mode: "dark",
         primary: {
@@ -27,6 +42,11 @@ const theme = createTheme({
             light: "#fff",
             dark: "#A5A5A5",
         },
+        background: {
+            paper: "#323232",
+            default: "#323232",
+        },
+        divider: "#555555",
     },
     components: {
         MuiButton: {
@@ -36,6 +56,13 @@ const theme = createTheme({
         },
     },
     typography: {
+        fontFamily: ["DM Sans", "sans-serif"].join(","),
+        body1: {
+            letterSpacing: "1px",
+        },
+        body2: {
+            letterSpacing: "1px",
+        },
         button: {
             fontWeight: "bold",
             textTransform: "initial",
