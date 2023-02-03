@@ -10,7 +10,7 @@ export default {
 
 const AccordionTemplate: ComponentStory<typeof Accordion> = (args) => <Accordion {...args} />;
 
-export const Default: ComponentStory<typeof Accordion> = () => {
+export const PrimaryDefault: ComponentStory<typeof Accordion> = () => {
     return (
         <div>
             <AccordionTemplate>

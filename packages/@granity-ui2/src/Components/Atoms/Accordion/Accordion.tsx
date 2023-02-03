@@ -1,4 +1,4 @@
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AccordionLib, { AccordionProps as LibAccordionProps } from "@mui/material/Accordion";
 import AccordionDetailsLib, {
     AccordionDetailsProps as LibAccordionDetailsProps,
@@ -42,7 +42,7 @@ const StyledAccordionSummary = styled(AccordionSummaryLib)`
 
 export const AccordionSummary: FC<LibAccordionSummaryProps> = ({ children, ...props }) => {
     return (
-        <StyledAccordionSummary expandIcon={<ExpandMoreIcon />} {...props}>
+        <StyledAccordionSummary expandIcon={<ArrowDropDownIcon />} {...props}>
             {children}
         </StyledAccordionSummary>
     );
