@@ -1,139 +1,97 @@
-import { DefaultTheme } from "styled-components";
+import createTheme from "@mui/material/styles/createTheme";
 
-import pxToRem from "./utils/pxToRem";
+declare module "@mui/material/styles" {
+    interface Theme {
+        custom: {
+            layout: {
+                pxToRem: (size: number) => string;
+            };
+            palette: {
+                background: {
+                    paperDark?: string;
+                    textField?: string;
+                };
+            };
+        };
+    }
 
-const theme: DefaultTheme = {
-    colors: {
+    interface ThemeOptions {
+        custom?: {
+            layout: {
+                pxToRem: (size: number) => string;
+            };
+            palette?: {
+                background: {
+                    paperDark?: string;
+                    textField?: string;
+                };
+            };
+        };
+    }
+}
+
+export const htmlFontSize = 16;
+
+const theme = createTheme({
+    custom: {
+        layout: {
+            pxToRem: (size) => `${size / htmlFontSize}rem`,
+        },
+        palette: {
+            background: {
+                paperDark: "#292929",
+                textField: "#3D3D3D",
+            },
+        },
+    },
+    palette: {
+        mode: "dark",
         primary: {
             main: "#9D00FF",
-            contrast: "#FFFFFF",
-            hover: "#BE57FF",
+            light: "#BD85E0",
+            dark: "#8501D7",
         },
         secondary: {
-            main: "",
-            contrast: "",
-            hover: "",
+            main: "#fff",
+            light: "#fff",
+            dark: "#A5A5A5",
         },
-        common: {
-            active: "#007ACC",
-            activeContrast: "#ffffff",
-            background: "#323232",
-            backgroundLight: "#3D3D3D",
-            backgroundDark: "#292929",
-            border: "#555555",
-            overlay: "hsl(204 10% 10% / 0.1)",
-            text: "#ffffff",
-            textDisabled: "#BDBDBD",
+        background: {
+            paper: "#323232",
+            default: "#323232",
         },
-        danger: {
-            main: "#C64141",
-            contrast: "#ffffff",
-            hover: "#C64141",
-        },
-        info: {
-            main: "",
-            contrast: "",
-            hover: "",
-        },
-        success: {
-            main: "",
-            contrast: "",
-            hover: "",
-        },
-        warning: {
-            main: "",
-            contrast: "",
-            hover: "",
+        divider: "#555555",
+        action: {
+            hover: "#454545",
+            focus: "#1976d2",
         },
     },
-    common: {
-        blur: {
-            light: pxToRem(10),
-            main: pxToRem(25),
-            heavy: pxToRem(50),
+    components: {
+        MuiButton: {
+            defaultProps: {
+                variant: "contained",
+            },
         },
-        borderRadius: {
-            button: pxToRem(4),
-            formField: pxToRem(4),
-            panel: pxToRem(0),
-            modal: pxToRem(16),
-            popover: pxToRem(8),
-            scrollbar: pxToRem(5),
-            max: "50%",
-        },
-        boxShadow: {
-            main: `0 ${pxToRem(1)} ${pxToRem(3)} 0 rgb(0 0 0 / 0.25), 0 ${pxToRem(1)} ${pxToRem(
-                2
-            )} ${pxToRem(-1)} rgb(0 0 0 / 0.1)`,
-        },
-        canvas: {
-            background:
-                "radial-gradient(152.41% 152.41% at 50% 50%, #7C7C7C 0%, #525252 25.15%, #323232 42.89%)",
-        },
-        scrollbar: {
-            widthPx: 10,
-            trackColor: "#3d3d3d",
-            thumbColor: "#555555",
-            thumbHoverColor: "#6b6b6b",
-        },
-        zIndex: {
-            modal: 200,
-            main: 0,
-        },
-    },
-    focus: {
-        main: {
-            borderColor: "#007ACC",
-            borderWidth: pxToRem(1),
-            borderOffset: pxToRem(1),
-        },
-        alt: {
-            borderColor: "#007ACC",
-            borderWidth: pxToRem(2),
-            borderOffset: pxToRem(1),
-        },
-    },
-    modal: {
-        size: {
-            small: pxToRem(250),
-            medium: pxToRem(500),
-            large: pxToRem(1000),
-        },
-        spacing: {
-            small: pxToRem(20),
-            medium: pxToRem(30),
-            large: pxToRem(60),
+        MuiTextField: {
+            defaultProps: {
+                variant: "filled",
+            },
         },
     },
     typography: {
-        fontFamilyURL:
-            "https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap",
-        fontFamily: {
-            main: "'DM Sans', sans-serif",
+        fontFamily: ["DM Sans", "sans-serif"].join(","),
+        fontSize: 12,
+        body1: {
+            letterSpacing: "1px",
         },
-        size: {
-            tiniest: pxToRem(10),
-            tiny: pxToRem(12),
-            smallest: pxToRem(13),
-            smaller: pxToRem(14),
-            small: pxToRem(15),
-            main: pxToRem(16),
-            large: pxToRem(20),
-            larger: pxToRem(24),
-            largest: pxToRem(32),
+        body2: {
+            letterSpacing: "1px",
         },
-        weight: {
-            slim: "100",
-            lightest: "200",
-            lighter: "300",
-            light: "400",
-            main: "500",
-            medium: "600",
-            bold: "700",
-            bolder: "800",
-            black: "900",
+        button: {
+            fontWeight: "bold",
+            textTransform: "initial",
         },
     },
-};
+});
 
 export default theme;

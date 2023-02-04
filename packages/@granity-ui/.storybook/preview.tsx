@@ -1,8 +1,8 @@
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import theme from "../src/Themes/theme"
 import { themes } from '@storybook/theming';
-import GlobalStyles from "../src/Themes/globalStyle"
+
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -17,11 +17,13 @@ export const parameters = {
   },
 }
 
+export const withMuiTheme = (Story) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Story />
+  </ThemeProvider>
+);
+
 export const decorators = [
-  (Story) => (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      {Story()}
-    </ThemeProvider>
-  ),
+  withMuiTheme,
 ];

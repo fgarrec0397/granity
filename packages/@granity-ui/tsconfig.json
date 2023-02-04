@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -7,6 +8,7 @@
     "skipLibCheck": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
@@ -19,7 +21,6 @@
   "include": [
     "src", 
     "vite.config.ts",
-    "vitest.config.ts",
     ".storybook"
   ],
   "references": [{ "path": "./tsconfig.vite.json" }]

@@ -1,3 +1,6 @@
+const { mergeConfig } = require('vite');
+const path = require('path');
+
 module.exports = {
   "stories": [
     "../src/**/*.stories.mdx",
@@ -14,5 +17,14 @@ module.exports = {
   },
   "features": {
     "storyStoreV7": true
-  }
+  },
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      resolve: {
+        alias: {
+            "@granity-ui": path.resolve(__dirname, "../src"), // TODO - dynamically import from the defined config
+        },
+      },
+    });
+  },
 }

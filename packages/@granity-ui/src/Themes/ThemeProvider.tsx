@@ -1,12 +1,14 @@
 import { HasChildren } from "@granity/helpers";
+import { Theme, ThemeProvider as ThemeProviderLib } from "@mui/material";
 import { FC } from "react";
-import { DefaultTheme, ThemeProvider as ThemeProviderLib } from "styled-components";
+
+import appTheme from "./theme";
 
 type Props = HasChildren & {
-    theme: DefaultTheme | ((theme: DefaultTheme) => DefaultTheme);
+    theme?: Theme;
 };
 
-const ThemeProvider: FC<Props> = ({ theme, children }) => {
+const ThemeProvider: FC<Props> = ({ theme = appTheme, children }) => {
     return <ThemeProviderLib theme={theme}>{children}</ThemeProviderLib>;
 };
 

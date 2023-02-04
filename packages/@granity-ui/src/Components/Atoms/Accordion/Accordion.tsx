@@ -1,3 +1,4 @@
+import pxToRem from "@granity-ui/Themes/utilities/pxToRem";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AccordionLib, { AccordionProps as LibAccordionProps } from "@mui/material/Accordion";
 import AccordionDetailsLib, {
@@ -28,14 +29,14 @@ const Accordion: FC<AccordionProps> = ({ children, ...props }) => {
 };
 
 const StyledAccordionSummary = styled(AccordionSummaryLib)`
-    min-height: 37px;
+    min-height: ${pxToRem(37)};
     background-color: ${({ theme }) => theme.custom.palette.background.paperDark};
 
     &.Mui-expanded {
-        min-height: 37px;
+        min-height: ${pxToRem(37)};
 
         .MuiAccordionSummary-content {
-            margin: 12px 0;
+            margin: ${pxToRem(12)} 0;
         }
     }
 `;
@@ -49,7 +50,7 @@ export const AccordionSummary: FC<LibAccordionSummaryProps> = ({ children, ...pr
 };
 
 const StyledAccordionDetails = styled(AccordionDetailsLib)`
-    padding: 22px 16px 22px;
+    padding: ${pxToRem(22)} ${pxToRem(16)} ${pxToRem(22)};
 `;
 
 export const AccordionDetails: FC<LibAccordionDetailsProps> = ({ children, ...props }) => {

@@ -1,21 +1,72 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import Button from "./Button2";
+import Button from "./Button";
 
 export default {
-    /* 👇 The title prop is optional.
-     * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
-     * to learn how to generate automatic titles
-     */
     title: "Atoms/Button",
     component: Button,
 } as ComponentMeta<typeof Button>;
 
-//👇 We create a “template” of how args map to rendering
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const ButtonTemplate: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-export const Primary = Template.bind({});
+export const PrimaryDefault: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate>Primary Button</ButtonTemplate>
+);
 
-Primary.args = {
-    children: "Primary Button",
-};
+export const PrimaryDefaultDisabled: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate disabled>Primary Disabled</ButtonTemplate>
+);
+
+export const PrimaryOutlined: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate variant="outlined">Primary Outlined</ButtonTemplate>
+);
+
+export const PrimaryOutlinedDisabled: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate variant="outlined" disabled>
+        Primary Outlined Disabled
+    </ButtonTemplate>
+);
+
+export const PrimaryText: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate variant="text">Primary Text</ButtonTemplate>
+);
+
+export const PrimaryTextDisabled: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate variant="text" disabled>
+        Primary Text Disabled
+    </ButtonTemplate>
+);
+
+export const SecondaryDefault: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate color="secondary">Secondary Button</ButtonTemplate>
+);
+
+export const SecondaryDefaultDisabled: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate color="secondary" disabled>
+        Secondary Disabled
+    </ButtonTemplate>
+);
+
+export const SecondaryOutlined: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate color="secondary" variant="outlined">
+        Secondary Outlined
+    </ButtonTemplate>
+);
+
+export const SecondaryOutlinedDisabled: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate color="secondary" variant="outlined" disabled>
+        Secondary Outlined Disabled
+    </ButtonTemplate>
+);
+
+export const SecondaryText: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate color="secondary" variant="text">
+        Secondary Text
+    </ButtonTemplate>
+);
+
+export const SecondaryTextDisabled: ComponentStory<typeof Button> = () => (
+    <ButtonTemplate color="secondary" variant="text" disabled>
+        Secondary Text Disabled
+    </ButtonTemplate>
+);
