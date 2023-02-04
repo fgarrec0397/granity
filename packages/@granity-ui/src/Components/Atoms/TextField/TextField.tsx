@@ -6,8 +6,13 @@ import { FC } from "react";
 export type TextFieldProps = LibTextFieldProps;
 
 const StyledTextField = styled(TextFieldLib)`
-    .MuiFormLabel-root.Mui-focused {
-        color: ${({ theme }) => theme.palette.text.primary};
+    .MuiFormLabel-root {
+        position: static;
+        transform: translate(0) scale(0.75);
+
+        &.Mui-focused {
+            color: ${({ theme }) => theme.palette.text.primary};
+        }
     }
 
     .MuiInputBase-root {
@@ -54,6 +59,12 @@ const StyledTextField = styled(TextFieldLib)`
             padding-left: ${pxToRem(5)};
             font-size: ${pxToRem(12)};
         }
+    }
+
+    .MuiMenuItem-root.Mui-selected {
+        background-color: ${({ theme }) => theme.palette.action.hover} !important;
+    }
+    .MuiList-root {
     }
 `;
 

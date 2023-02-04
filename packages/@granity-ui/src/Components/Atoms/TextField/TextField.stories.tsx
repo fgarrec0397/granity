@@ -1,3 +1,4 @@
+import MenuItem from "@mui/material/MenuItem";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import TextField from "./TextField";
@@ -49,9 +50,9 @@ export const TextFieldSelect: ComponentStory<typeof TextField> = () => {
             defaultValue="option1"
             helperText="Please select your option"
         >
-            <option value="option1">Option1</option>
-            <option value="option2">Option2</option>
-            <option value="option3">Option3</option>
+            <MenuItem value="option1">Option1</MenuItem>
+            <MenuItem value="option2">Option2</MenuItem>
+            <MenuItem value="option3">Option3</MenuItem>
         </TextFieldTemplate>
     );
 };
