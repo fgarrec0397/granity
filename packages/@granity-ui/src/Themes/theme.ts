@@ -84,6 +84,11 @@ const theme = createTheme({
                 variant: "contained",
             },
         },
+        MuiSelect: {
+            defaultProps: {
+                variant: "filled",
+            },
+        },
         MuiTextField: {
             defaultProps: {
                 variant: "filled",

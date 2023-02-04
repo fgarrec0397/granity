@@ -1,4 +1,3 @@
-import MenuItem from "@mui/material/MenuItem";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import TextField from "./TextField";
@@ -11,68 +10,33 @@ export default {
 const TextFieldTemplate: ComponentStory<typeof TextField> = (args) => <TextField {...args} />;
 
 export const TextFieldDefault: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate defaultValue="Default" />
+    <TextFieldTemplate label="Default" />
 );
 
 export const TextFieldDefaultDisabled: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate defaultValue="Default Disabled" disabled />
+    <TextFieldTemplate label="Default Disabled" disabled />
 );
 
 export const TextFieldSmall: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate defaultValue="Small" size="small" />
+    <TextFieldTemplate label="Small" size="small" />
 );
 
 export const TextFieldSmallDisabled: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate defaultValue="Small" size="small" disabled />
+    <TextFieldTemplate label="Small" size="small" disabled />
 );
 
 export const TextFieldNumber: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate defaultValue="10" type="number" />
+    <TextFieldTemplate label="10" type="number" />
 );
 
 export const TextFieldNumberDisabled: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate defaultValue="10" type="number" disabled />
+    <TextFieldTemplate label="10" type="number" disabled />
 );
 
 export const TextFieldNumberSmall: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate defaultValue="10" size="small" type="number" />
+    <TextFieldTemplate label="10" size="small" type="number" />
 );
 
 export const TextFieldNumberSmallDisabled: ComponentStory<typeof TextField> = () => (
     <TextFieldTemplate defaultValue="10" size="small" type="number" disabled />
 );
-
-export const TextFieldSelect: ComponentStory<typeof TextField> = () => {
-    return (
-        <TextFieldTemplate
-            select
-            label="Select"
-            defaultValue="option1"
-            helperText="Please select your option"
-        >
-            <MenuItem value="option1">Option1</MenuItem>
-            <MenuItem value="option2">Option2</MenuItem>
-            <MenuItem value="option3">Option3</MenuItem>
-        </TextFieldTemplate>
-    );
-};
-
-// export const TextFieldSelectDisabled: ComponentStory<typeof TextField> = () => (
-//     <TextFieldTemplate
-//         id="outlined-select-option"
-//         select
-//         defaultValue="option1"
-//         helperText="Please select your option"
-//         disabled
-//     >
-//         {[
-//             { value: "option1", label: "Option 1" },
-//             { value: "option2", label: "Option 2" },
-//             { value: "option3", label: "Option 3" },
-//         ].map((option) => (
-//             <MenuItem key={option.value} value={option.value}>
-//                 {option.label}
-//             </MenuItem>
-//         ))}
-//     </TextFieldTemplate>
-// );
