@@ -2,6 +2,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
+            "@mui/styled-engine": ["../../node_modules/@mui/styled-engine-sc"],
             "@granity-ui/*": ["src/*"],
         },
     }

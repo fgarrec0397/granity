@@ -1,8 +1,14 @@
+import { css } from "@mui/material";
 import createTheme from "@mui/material/styles/createTheme";
+
+import { ThemedFlattenInterpolation } from "./types";
 
 declare module "@mui/material/styles" {
     interface Theme {
         custom: {
+            mixins: {
+                inputStyles: () => ThemedFlattenInterpolation;
+            };
             layout: {
                 pxToRem: (size: number) => string;
             };
@@ -17,7 +23,10 @@ declare module "@mui/material/styles" {
 
     interface ThemeOptions {
         custom?: {
-            layout: {
+            mixins?: {
+                inputStyles?: () => ThemedFlattenInterpolation;
+            };
+            layout?: {
                 pxToRem: (size: number) => string;
             };
             palette?: {
@@ -34,6 +43,9 @@ export const htmlFontSize = 16;
 
 const theme = createTheme({
     custom: {
+        mixins: {
+            inputStyles: () => css``,
+        },
         layout: {
             pxToRem: (size) => `${size / htmlFontSize}rem`,
         },
