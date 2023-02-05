@@ -1,5 +1,5 @@
-import { inputStyles } from "@granity-ui/Themes/mixins/form";
-import pxToRem from "@granity-ui/Themes/utilities/pxToRem";
+import { inputStyles } from "@granity-ui/Theme/mixins/form";
+import pxToRem from "@granity-ui/Theme/utilities/pxToRem";
 import { styled } from "@mui/material";
 import SelectLib, { SelectProps as LibSelectProps } from "@mui/material/Select";
 import { FC } from "react";

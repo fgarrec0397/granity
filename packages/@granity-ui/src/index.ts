@@ -1,1 +1,3 @@
-export { default as Button } from "./Components/Atoms/Button/Button";
+export * from "./Components";
+export * from "./Lib";
+export * from "./Theme";

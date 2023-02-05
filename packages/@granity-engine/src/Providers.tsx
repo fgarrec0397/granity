@@ -1,5 +1,5 @@
 import { HasChildren } from "@granity/helpers";
-import { ThemeProvider, Toaster } from "@granity/ui";
+import { ThemeProvider } from "@granity/ui";
 import { store } from "@granity-engine/App/Core/_actions/_data/state/store";
 import ProvidersBuilder from "@granity-engine/App/Core/Components/ProvidersBuilder";
 import HistoryDictionaryContextProvider from "@granity-engine/App/Editor/_actions/_data/providers/HistoryContextProvider";
@@ -7,7 +7,6 @@ import CamerasContextProvider from "@granity-engine/App/Scenes/_actions/_data/pr
 import WidgetsModulesContextProvider from "@granity-engine/App/Widgets/_actions/_data/providers/WidgetsModulesProvider";
 import WidgetsContextProvider from "@granity-engine/App/Widgets/_actions/_data/providers/WidgetsProvider";
 import { injectStore } from "@granity-engine/App/Widgets/_actions/utilities/createWidget";
-import theme from "@granity-engine/Themes/theme";
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 
@@ -23,7 +22,7 @@ injectStore(store);
 
 const AppProvider: FC<Props> = ({ config, children }) => {
     const Providers = ProvidersBuilder([
-        [ThemeProvider, { theme }],
+        [ThemeProvider],
         [ReduxProvider, { store }],
         [CoreContextProvider],
         [CamerasContextProvider],
@@ -34,7 +33,6 @@ const AppProvider: FC<Props> = ({ config, children }) => {
 
     return (
         <Providers>
-            <Toaster.ToastContainer />
             <Initializer config={config}>{children}</Initializer>
         </Providers>
     );

@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import React from 'react';
-import theme from "../src/Themes/theme"
+import theme from "../src/Theme/theme"
 import { themes } from '@storybook/theming';
 
 

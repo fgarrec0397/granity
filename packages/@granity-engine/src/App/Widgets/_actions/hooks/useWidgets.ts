@@ -1,5 +1,5 @@
 import { uidGenerator } from "@granity/helpers";
-import { Toaster } from "@granity/ui";
+import { useSnackbar } from "@granity/ui";
 import { useCallback } from "react";
 import { Object3D } from "three";
 
@@ -39,6 +39,7 @@ export default () => {
         updateCurrentProperties,
         reset,
     } = useWidgetsService();
+    const { enqueueSnackbar } = useSnackbar();
 
     const getWidgetDictionaryFromWidget = useCallback(
         (widgetId: string | undefined) => {
@@ -251,9 +252,9 @@ export default () => {
         if (widget) {
             removeWidget(widget.id);
         } else {
-            Toaster.toast.error("No mesh found");
+            enqueueSnackbar("No mesh found", { variant: "error" });
         }
-    }, [removeWidget, selectedWidgets]);
+    }, [enqueueSnackbar, removeWidget, selectedWidgets]);
 
     const removeWidgetSelection = useCallback(() => {
         removeSelection();

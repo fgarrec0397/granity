@@ -1,4 +1,4 @@
-import { inputStyles } from "@granity-ui/Themes/mixins/form";
+import { inputStyles } from "@granity-ui/Theme/mixins/form";
 import { styled } from "@mui/material";
 import TextFieldLib, { TextFieldProps as LibTextFieldProps } from "@mui/material/TextField";
 import { FC } from "react";
