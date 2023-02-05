@@ -1,17 +1,18 @@
-import { Toaster } from "@granity/ui";
+import { useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
 
 import useEditor from "./useEditor";
 
 export default () => {
     const { isEditor } = useEditor();
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         if (isEditor) {
             document.exitPointerLock();
-            Toaster.toast.info("Edit mode");
+            enqueueSnackbar("Edit mode", { variant: "info" });
         } else {
-            Toaster.toast.info("Game mode");
+            enqueueSnackbar("Game mode", { variant: "info" });
         }
-    }, [isEditor]);
+    }, [enqueueSnackbar, isEditor]);
 };
