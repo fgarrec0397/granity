@@ -1,6 +1,6 @@
-import MenuItem from "@mui/material/MenuItem";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
+import MenuItem from "../MenuItem/MenuItem";
 import Select from "./Select";
 
 export default {

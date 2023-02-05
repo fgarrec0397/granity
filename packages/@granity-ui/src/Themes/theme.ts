@@ -52,7 +52,7 @@ const theme = createTheme({
         palette: {
             background: {
                 paperDark: "#292929",
-                textField: "#3D3D3D",
+                textField: "#454545",
             },
         },
     },
@@ -82,6 +82,14 @@ const theme = createTheme({
         MuiButton: {
             defaultProps: {
                 variant: "contained",
+            },
+        },
+        MuiList: {
+            styleOverrides: {
+                root: {
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                },
             },
         },
         MuiSelect: {

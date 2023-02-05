@@ -26,17 +26,17 @@ export const TextFieldSmallDisabled: ComponentStory<typeof TextField> = () => (
 );
 
 export const TextFieldNumber: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate label="10" type="number" />
+    <TextFieldTemplate label="Number" type="number" />
 );
 
 export const TextFieldNumberDisabled: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate label="10" type="number" disabled />
+    <TextFieldTemplate label="Number Disabled" type="number" disabled />
 );
 
 export const TextFieldNumberSmall: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate label="10" size="small" type="number" />
+    <TextFieldTemplate label="Number Small" size="small" type="number" />
 );
 
 export const TextFieldNumberSmallDisabled: ComponentStory<typeof TextField> = () => (
-    <TextFieldTemplate defaultValue="10" size="small" type="number" disabled />
+    <TextFieldTemplate defaultValue="Number Small Disabled" size="small" type="number" disabled />
 );
