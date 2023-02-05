@@ -1,1 +1,1 @@
-export * as Atoms from "./Atoms";
+export * from "./Atoms";
