@@ -6,7 +6,10 @@ import keyboardMappings from "../configs/keyboardMappings";
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
     keyboardMappings?: KeyboardKeys;
-    onSave?: (scenes: ScenesDictionary | null) => void;
+    onSave?: (scenes: ScenesDictionary | null) => Promise<{
+        status: boolean;
+        message: string;
+    }>;
 };
 
 // --- Key Bindings --- //

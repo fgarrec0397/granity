@@ -10,12 +10,17 @@ declare module "@mui/material/styles" {
                 inputStyles: () => ThemedFlattenInterpolation;
             };
             layout: {
-                pxToRem: (size: number) => string;
+                blur?: {
+                    light?: string;
+                    main?: string;
+                    heavy?: string;
+                };
             };
             palette: {
                 background: {
                     paperDark?: string;
                     textField?: string;
+                    gradient?: string;
                 };
             };
         };
@@ -27,12 +32,17 @@ declare module "@mui/material/styles" {
                 inputStyles?: () => ThemedFlattenInterpolation;
             };
             layout?: {
-                pxToRem: (size: number) => string;
+                blur?: {
+                    light?: string;
+                    main?: string;
+                    heavy?: string;
+                };
             };
             palette?: {
                 background: {
                     paperDark?: string;
                     textField?: string;
+                    gradient?: string;
                 };
             };
         };
@@ -47,12 +57,18 @@ const theme = createTheme({
             inputStyles: () => css``,
         },
         layout: {
-            pxToRem: (size) => `${size / htmlFontSize}rem`,
+            blur: {
+                light: "10px",
+                main: "25px",
+                heavy: "50px",
+            },
         },
         palette: {
             background: {
                 paperDark: "#292929",
                 textField: "#454545",
+                gradient:
+                    "radial-gradient(152.41% 152.41% at 50% 50%, #7C7C7C 0%, #525252 25.15%, #323232 42.89%)",
             },
         },
     },
@@ -115,6 +131,11 @@ const theme = createTheme({
         button: {
             fontWeight: "bold",
             textTransform: "initial",
+        },
+    },
+    unstable_sxConfig: {
+        backdropFilter: {
+            themeKey: "custom.layout.blur",
         },
     },
 });

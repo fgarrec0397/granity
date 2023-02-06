@@ -1,6 +1,5 @@
 import { EngineConfig, GranityEngineProvider, ScenesDictionary } from "@granity/engine";
 import { QueryClient, QueryClientProvider } from "@granity/helpers";
-import { Toaster } from "@granity/ui";
 import { widgetsModules } from "@granity/widgets";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -44,13 +43,24 @@ const config: EngineConfig = {
             const response = await postScenes(scenes);
 
             if (!response.success) {
-                Toaster.toast.error(response.errorMessage);
+                return {
+                    status: false,
+                    message: response.errorMessage as string,
+                };
             }
 
             if (response.success) {
-                Toaster.toast.success("Scenes saved with success!");
+                return {
+                    status: true,
+                    message: "Scenes saved with success!",
+                };
             }
         }
+
+        return {
+            status: false,
+            message: "An error occured",
+        };
     },
 };
 

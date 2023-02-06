@@ -1,9 +1,9 @@
+import { useTheme } from "@granity/ui";
 import canvasConfig from "@granity-engine/App/Core/configs/canvas";
 import Scenes from "@granity-engine/App/Scenes/Scenes";
 import { useContextBridge } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Context, FC } from "react";
-import { useTheme } from "styled-components";
 
 import useCore from "../_actions/hooks/useCore";
 
@@ -23,7 +23,7 @@ const CoreCanvas: FC<Props> = ({ contexts }) => {
     return (
         <Canvas
             style={{
-                background: theme.common.canvas.background,
+                background: theme.custom.palette.background.gradient,
             }}
             {...canvasConfig}
             onPointerMissed={onPointerMissed}

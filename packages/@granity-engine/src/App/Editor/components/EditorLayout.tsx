@@ -7,8 +7,8 @@ import { EditorLeftPanel } from "./index";
 const EditorUI: FC = () => {
     return (
         <>
-            {/* <EditorHeader />
-            <EditorLeftPanel />
+            <EditorHeader />
+            {/* <EditorLeftPanel />
             <EditorRightPanel /> */}
         </>
     );

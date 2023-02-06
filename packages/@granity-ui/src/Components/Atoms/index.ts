@@ -1,8 +1,10 @@
 export type { AccordionProps } from "./Accordion/Accordion";
 export { default as Accordion } from "./Accordion/Accordion";
 export * from "./Basics";
-export type { ButtonProps } from "./Button/Button";
-export { default as Button } from "./Button/Button";
+export type { BoxProps } from "./Box/Box";
+export { default as Box } from "./Box/Box";
+export type { ButtonProps, IconButtonProps } from "./Button/Button";
+export { default as Button, IconButton } from "./Button/Button";
 export type { CheckboxProps } from "./Checkbox/Checkbox";
 export { default as Checkbox } from "./Checkbox/Checkbox";
 export type { MenuItemProps } from "./MenuItem/MenuItem";
@@ -11,3 +13,5 @@ export type { SelectProps } from "./Select/Select";
 export { default as Select } from "./Select/Select";
 export type { TextFieldProps } from "./TextField/TextField";
 export { default as TextField } from "./TextField/TextField";
+export type { TypographyProps } from "./Typography/Typography";
+export { default as Typography } from "./Typography/Typography";

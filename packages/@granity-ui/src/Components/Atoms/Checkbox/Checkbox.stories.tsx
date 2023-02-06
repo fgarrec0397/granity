@@ -22,7 +22,3 @@ export const CheckboxWithLabel: ComponentStory<typeof Checkbox> = () => {
         </FormGroup>
     );
 };
-
-// export const CheckboxDefaultDisabled: ComponentStory<typeof Checkbox> = () => (
-//     <CheckboxTemplate label="Default Disabled" disabled />
-// );

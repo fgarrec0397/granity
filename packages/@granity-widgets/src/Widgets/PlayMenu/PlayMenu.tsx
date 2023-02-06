@@ -1,23 +1,26 @@
 import { createWidget, FieldType, useScenes, WidgetType } from "@granity/engine";
-import { Button, StyledWrapper } from "@granity/ui";
+import { Box, BoxProps, Button, pxToRem } from "@granity/ui";
 import { FC } from "react";
-import { css } from "styled-components";
 
-const styles = {
+type PlayMenuStyles = {
+    wrapper?: BoxProps;
+};
+
+const styles: PlayMenuStyles = {
     wrapper: {
-        css: css`
-            position: absolute;
-            top: 40%;
-            right: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 200px;
-            height: 200px;
-            background-color: white;
-            border: 1px solid rgb(240, 240, 240);
-            transform: translate(50%, -50%);
-        `,
+        sx: {
+            position: "absolute",
+            top: "40%",
+            right: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: pxToRem(200),
+            height: pxToRem(200),
+            backgroundColor: "white",
+            border: 1,
+            transform: "translate(50%, -50%)",
+        },
     },
 };
 
@@ -29,9 +32,9 @@ const PlayMenu: FC = () => {
     };
 
     return (
-        <StyledWrapper {...styles.wrapper}>
+        <Box {...styles.wrapper}>
             <Button onClick={handleChangeScene}>Play</Button>
-        </StyledWrapper>
+        </Box>
     );
 };
 

@@ -226,7 +226,11 @@ export default () => {
                 },
             };
 
-            onSave?.(scenesClone);
+            const onSaveSuccess = onSave?.(scenesClone);
+
+            if (onSaveSuccess) {
+                enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
+            }
         } else {
             enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
         }
