@@ -12,6 +12,7 @@ import { FC } from "react";
 
 export type AccordionProps = LibAccordionProps;
 export type AccordionSummaryProps = LibAccordionSummaryProps;
+export type AccordionDetailsProps = LibAccordionDetailsProps;
 
 const StyledAccordion = styled(AccordionLib)`
     &.Mui-expanded {
@@ -41,7 +42,7 @@ const StyledAccordionSummary = styled(AccordionSummaryLib)`
     }
 `;
 
-export const AccordionSummary: FC<LibAccordionSummaryProps> = ({ children, ...props }) => {
+export const AccordionSummary: FC<AccordionSummaryProps> = ({ children, ...props }) => {
     return (
         <StyledAccordionSummary expandIcon={<ArrowDropDownIcon />} {...props}>
             {children}

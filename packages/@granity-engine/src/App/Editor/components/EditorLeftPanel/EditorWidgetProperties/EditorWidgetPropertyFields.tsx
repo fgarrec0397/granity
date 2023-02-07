@@ -1,48 +1,33 @@
-import {
-    FormField,
-    FormFieldStylesProps,
-    StyledWrapper,
-    StyledWrapperProps,
-    Typography,
-} from "@granity/ui";
+import { Box, BoxProps, pxToRem, TextField, TextFieldProps, Typography } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import { getTypography, pxToRem } from "@granity-engine/Themes/utils";
 import { FC } from "react";
-import { css } from "styled-components";
 
 type EditorWidgetPropertyFieldsStyles = {
-    section?: StyledWrapperProps;
-    inputGroup?: StyledWrapperProps;
-    formField?: FormFieldStylesProps;
+    section?: BoxProps;
+    inputGroup?: BoxProps;
+    formField?: TextFieldProps;
 };
 
 const styles: EditorWidgetPropertyFieldsStyles = {
     section: {
-        css: css`
-            margin-bottom: ${pxToRem(12)};
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        `,
+        sx: {
+            marginBottom: pxToRem(12),
+            "&:last-child": {
+                marginBottom: 0,
+            },
+        },
     },
     inputGroup: {
-        css: css`
-            display: flex;
-            align-items: center;
-        `,
+        sx: {
+            display: "flex",
+            alignItems: "center",
+        },
     },
     formField: {
-        styling: {
-            inputCss: css`
-                line-height: 1;
-                font-size: ${getTypography("size.tiniest")};
-            `,
-            wrapperCss: css`
-                width: 100%;
-                max-width: calc(100% / 3 - ${pxToRem(12)});
-                margin-right: ${pxToRem(12)};
-            `,
+        sx: {
+            width: "100%",
+            maxWidth: `calc(100% / 3 - ${pxToRem(12)})`,
+            marginRight: pxToRem(12),
         },
     },
 };
@@ -60,27 +45,20 @@ const EditorWidgetPropertyFields: FC<Props> = ({ title, fields }) => {
 
     if (selectedWidgets[0] && currentWidgetProperties) {
         return (
-            <StyledWrapper {...styles.section}>
+            <Box {...styles.section}>
                 <Typography>{title}</Typography>
-                <StyledWrapper {...styles.inputGroup}>
+                <Box {...styles.inputGroup}>
                     {fields.map((x) => (
-                        <FormField
+                        <TextField
                             key={x.label}
                             label={x.label}
-                            labelProps={{
-                                name: x.label,
-                                labelPosition: "left",
-                            }}
-                            inputProps={{
-                                name: x.label,
-                                type: "number",
-                                value: x.value,
-                            }}
+                            value={x.value}
+                            type="number"
                             {...styles.formField}
                         />
                     ))}
-                </StyledWrapper>
-            </StyledWrapper>
+                </Box>
+            </Box>
         );
     }
 

@@ -1,5 +1,9 @@
-export type { AccordionProps } from "./Accordion/Accordion";
-export { default as Accordion } from "./Accordion/Accordion";
+export type {
+    AccordionDetailsProps,
+    AccordionProps,
+    AccordionSummaryProps,
+} from "./Accordion/Accordion";
+export { default as Accordion, AccordionDetails, AccordionSummary } from "./Accordion/Accordion";
 export * from "./Basics";
 export type { BoxProps } from "./Box/Box";
 export { default as Box } from "./Box/Box";
@@ -11,7 +15,7 @@ export type { MenuItemProps } from "./MenuItem/MenuItem";
 export { default as MenuItem } from "./MenuItem/MenuItem";
 export type { SelectChangeEvent, SelectProps } from "./Select/Select";
 export { default as Select } from "./Select/Select";
-export type { TextFieldProps } from "./TextField/TextField";
-export { default as TextField } from "./TextField/TextField";
+export type { InputLabelProps, TextFieldProps } from "./TextField/TextField";
+export { InputLabel, default as TextField } from "./TextField/TextField";
 export type { TypographyProps } from "./Typography/Typography";
 export { default as Typography } from "./Typography/Typography";

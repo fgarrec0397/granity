@@ -1,14 +1,7 @@
-import {
-    Select,
-    StyledWrapper,
-    StyledWrapperProps,
-    Typography,
-    TypographyStylesProps,
-} from "@granity/ui";
+import { Box, BoxProps, MenuItem, Select, SelectChangeEvent } from "@granity/ui";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
-import { css } from "styled-components";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 
@@ -17,46 +10,43 @@ type Props = {
 };
 
 interface EditorOptionsSelectFieldStyles {
-    inputsWrapper?: StyledWrapperProps;
-    label?: TypographyStylesProps;
+    inputsWrapper?: BoxProps;
 }
 
 const styles: EditorOptionsSelectFieldStyles = {
     inputsWrapper: {
-        css: css`
-            margin-top: 1rem;
+        sx: {
+            marginTop: "1rem",
 
-            &:first-child {
-                margin-top: 0;
-            }
-        `,
+            "&:first-child": {
+                marginTop: 0,
+            },
+        },
     },
-    label: {},
 };
 
 const EditorOptionsSelectField: FC<Props> = ({ option }) => {
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
-    const onChange = (value: string) => {
-        updateOptionsValues(value, option);
+    const onChange = (event: SelectChangeEvent) => {
+        updateOptionsValues(event.target.value as string, option);
     };
 
     if (option.fieldType === FieldType.Select) {
         return (
-            <StyledWrapper {...styles.inputsWrapper}>
-                <Typography as="label" {...styles.label}>
-                    {option.displayName}
-                </Typography>
+            <Box {...styles.inputsWrapper}>
                 <Select
-                    options={(option.selectOptions || []).map(({ value }) => ({
-                        value,
-                    }))}
-                    selectStateProps={{
-                        onChange,
-                        value: optionsValues ? (optionsValues[option.name]?.value as string) : "",
-                    }}
-                />
-            </StyledWrapper>
+                    label={option.displayName}
+                    value={optionsValues ? (optionsValues[option.name]?.value as string) : ""}
+                    onChange={onChange}
+                >
+                    {(option.selectOptions || []).map((selectOpion) => (
+                        <MenuItem key={selectOpion.value} value={selectOpion.value}>
+                            {selectOpion.name}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </Box>
         );
     }
 

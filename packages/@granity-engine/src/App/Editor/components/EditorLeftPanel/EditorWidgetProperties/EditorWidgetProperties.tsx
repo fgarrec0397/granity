@@ -1,4 +1,4 @@
-import { Collapse } from "@granity/ui";
+import { Accordion } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { FC } from "react";
 
@@ -9,7 +9,7 @@ const EditorWidgetProperties: FC = () => {
 
     if (selectedWidgets[0] && currentWidgetProperties) {
         return (
-            <Collapse title="Properties">
+            <Accordion title="Properties">
                 <EditorWidgetPropertyFields
                     title="Position"
                     fields={[
@@ -61,7 +61,7 @@ const EditorWidgetProperties: FC = () => {
                         },
                     ]}
                 />
-            </Collapse>
+            </Accordion>
         );
     }
 

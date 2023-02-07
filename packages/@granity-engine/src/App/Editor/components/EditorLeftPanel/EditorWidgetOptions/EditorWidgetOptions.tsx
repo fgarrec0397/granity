@@ -1,4 +1,4 @@
-import { Collapse, Typography } from "@granity/ui";
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
 import { FC } from "react";
@@ -12,40 +12,59 @@ const EditorWidgetOptions: FC = () => {
     const { selectedWidgets } = useWidgets();
 
     return (
-        <Collapse title="Options">
-            {selectedWidgets.length > 1 ? (
-                <Typography>
-                    {"Impossible to edit widget while more than one is selected"}
-                </Typography>
-            ) : (
-                selectedWidgets.length > 0 &&
-                selectedWidgets[0].options?.map((option) => {
-                    if (option.fieldType === FieldType.Text) {
-                        return <EditorOptionsTextField key={option.displayName} option={option} />;
-                    }
+        <Accordion>
+            <AccordionSummary>Options</AccordionSummary>
+            <AccordionDetails>
+                <>
+                    {selectedWidgets.length > 1 ? (
+                        <Typography>
+                            {"Impossible to edit widget while more than one is selected"}
+                        </Typography>
+                    ) : (
+                        selectedWidgets.length > 0 &&
+                        selectedWidgets[0].options?.map((option) => {
+                            if (option.fieldType === FieldType.Text) {
+                                return (
+                                    <EditorOptionsTextField
+                                        key={option.displayName}
+                                        option={option}
+                                    />
+                                );
+                            }
 
-                    if (option.fieldType === FieldType.Number) {
-                        return (
-                            <EditorOptionsNumberField key={option.displayName} option={option} />
-                        );
-                    }
+                            if (option.fieldType === FieldType.Number) {
+                                return (
+                                    <EditorOptionsNumberField
+                                        key={option.displayName}
+                                        option={option}
+                                    />
+                                );
+                            }
 
-                    if (option.fieldType === FieldType.Checkbox) {
-                        return (
-                            <EditorOptionsCheckboxField key={option.displayName} option={option} />
-                        );
-                    }
+                            if (option.fieldType === FieldType.Checkbox) {
+                                return (
+                                    <EditorOptionsCheckboxField
+                                        key={option.displayName}
+                                        option={option}
+                                    />
+                                );
+                            }
 
-                    if (option.fieldType === FieldType.Select) {
-                        return (
-                            <EditorOptionsSelectField key={option.displayName} option={option} />
-                        );
-                    }
+                            if (option.fieldType === FieldType.Select) {
+                                return (
+                                    <EditorOptionsSelectField
+                                        key={option.displayName}
+                                        option={option}
+                                    />
+                                );
+                            }
 
-                    return null;
-                })
-            )}
-        </Collapse>
+                            return null;
+                        })
+                    )}
+                </>
+            </AccordionDetails>
+        </Accordion>
     );
 };
 
