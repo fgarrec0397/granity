@@ -9,7 +9,7 @@ export type { CheckboxProps } from "./Checkbox/Checkbox";
 export { default as Checkbox } from "./Checkbox/Checkbox";
 export type { MenuItemProps } from "./MenuItem/MenuItem";
 export { default as MenuItem } from "./MenuItem/MenuItem";
-export type { SelectProps } from "./Select/Select";
+export type { SelectChangeEvent, SelectProps } from "./Select/Select";
 export { default as Select } from "./Select/Select";
 export type { TextFieldProps } from "./TextField/TextField";
 export { default as TextField } from "./TextField/TextField";

@@ -8,8 +8,8 @@ const EditorUI: FC = () => {
     return (
         <>
             <EditorHeader />
-            {/* <EditorLeftPanel />
-            <EditorRightPanel /> */}
+            <EditorLeftPanel />
+            <EditorRightPanel />
         </>
     );
 };

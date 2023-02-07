@@ -1,11 +1,4 @@
-import {
-    layoutStyles,
-    Panel,
-    PanelStylesProps,
-    pxToRem,
-    StyledWrapper,
-    StyledWrapperProps,
-} from "@granity/ui";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 import { css } from "styled-components";
 
@@ -14,7 +7,7 @@ import EditorWidgetsObjectList from "./EditorWidgetsObjectList";
 import EditorWidgetsUIList from "./EditorWidgetsUIList";
 
 type EditorRightPanelStyles = {
-    wrapper?: StyledWrapperProps;
+    wrapper?: BoxProps;
     panel?: PanelStylesProps;
 };
 

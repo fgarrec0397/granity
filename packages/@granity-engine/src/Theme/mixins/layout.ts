@@ -1,6 +1,4 @@
-import { css, pxToRem } from "@granity/ui";
-
-// import { scrollableStyles } from "./scrollbar";
+import { pxToRem } from "@granity/ui";
 
 export type LayoutPosition = {
     top?: number;
@@ -19,6 +17,14 @@ export const layoutStyles = (position: LayoutPosition, isScrollable = true) => {
         right: `${right !== undefined && pxToRem(right)}`,
         bottom: `${bottom !== undefined && pxToRem(bottom)}`,
         left: `${left !== undefined && pxToRem(left)}`,
+        userSelect: "none",
+    };
+};
+
+export const layoutSectionStyles = () => {
+    return {
+        width: "100%",
+        maxWidth: pxToRem(300),
         userSelect: "none",
     };
 };

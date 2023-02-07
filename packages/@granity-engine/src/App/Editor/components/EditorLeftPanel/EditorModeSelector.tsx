@@ -1,4 +1,4 @@
-import { Collapse, Select } from "@granity/ui";
+import { Accordion, MenuItem, Select, SelectChangeEvent } from "@granity/ui";
 import { ModesAvailable } from "@granity-engine/App/Editor/_actions/editorTypes";
 import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import { FC } from "react";
@@ -6,30 +6,18 @@ import { FC } from "react";
 const EditorModeSelector: FC = () => {
     const { selectMode } = useEditor();
 
-    const handleChange = (value: ModesAvailable): void => {
-        selectMode(value);
+    const handleChange = (event: SelectChangeEvent) => {
+        selectMode(event.target.value as ModesAvailable);
     };
 
     return (
-        <Collapse title="Mode">
-            <Select
-                defaultValue={ModesAvailable.Translate}
-                options={[
-                    {
-                        value: "translate",
-                    },
-                    {
-                        value: "rotate",
-                    },
-                    {
-                        value: "scale",
-                    },
-                ]}
-                selectStateProps={{
-                    onChange: handleChange,
-                }}
-            />
-        </Collapse>
+        <Accordion title="Mode">
+            <Select onChange={handleChange} defaultValue={ModesAvailable.Translate}>
+                <MenuItem value="translate">Translate</MenuItem>
+                <MenuItem value="rotate">Rotate</MenuItem>
+                <MenuItem value="Scale">Scale</MenuItem>
+            </Select>
+        </Accordion>
     );
 };
 
