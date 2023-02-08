@@ -1,6 +1,7 @@
 > :warning: **UNDER HEAVY DEVELOPMENT** :warning: 
 >
-> This application is not usable in its current version, but you can always starring it if you love the concept :heart:
+> This application is not usable in its current version and is closed to any contribution until it is stable.
+> But feel free to star it if you love the concept :heart:
 
 <p>&nbsp;</p>
 
