@@ -1,26 +1,23 @@
-import { DictionaryValue, HasCallableChildren } from "@granity/helpers";
+import { DictionaryValue, HasChildren } from "@granity/helpers";
 import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    BoxProps,
     Button,
-    ButtonStylesProps,
-    Collapse,
-    getColor,
-    getTypography,
-    Icons,
+    ButtonProps,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
     Modal,
-    pxToRem,
-    StyledWrapper,
-    StyledWrapperProps,
     Typography,
-    TypographyStylesProps,
+    TypographyProps,
 } from "@granity/ui";
-import { ModalProps } from "@granity/ui/src/Components/Atoms/Modal/Modal";
 import { ScenesDictionary } from "@granity-engine/App/Scenes/_actions/scenesTypes";
 import { WidgetDictionary } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { DisclosureState } from "ariakit"; // TODO - encapsulate ariakit in @granity/ui
+import { Garbage } from "@granity-engine/Theme/components/Icons";
 import { ReactElement } from "react";
-import { css } from "styled-components";
-
-import ActionItemRow from "./ActionItemRow";
 
 type EditorItemsListProps<T extends WidgetDictionary | ScenesDictionary> = {
     itemsDictionary: T;
@@ -28,51 +25,39 @@ type EditorItemsListProps<T extends WidgetDictionary | ScenesDictionary> = {
     noItemsText: string;
     triggerButtonText: string;
     editModal?: (row: DictionaryValue<T>) => ReactElement;
-    acceptButton?: ModalProps["acceptButton"];
-    cancelButton?: ModalProps["cancelButton"];
+    acceptButton?: ButtonProps;
+    cancelButton?: ButtonProps;
     displayItemName?: (id: string) => string | undefined;
     handleClickRow?: (row: DictionaryValue<T>) => void;
     handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (row: DictionaryValue<T>) => boolean;
-} & HasCallableChildren<DisclosureState>;
+} & HasChildren;
 
 type EditorItemsListStyles = {
-    deleteButton?: ButtonStylesProps;
-    addItemButton?: ButtonStylesProps;
-    itemWrapper?: StyledWrapperProps;
-    noItemsText?: TypographyStylesProps;
-    actionsWrapper?: StyledWrapperProps;
+    deleteButton?: ButtonProps;
+    addItemButton?: ButtonProps;
+    itemWrapper?: BoxProps;
+    noItemsText?: TypographyProps;
+    actionsWrapper?: BoxProps;
 };
 
 const styles: EditorItemsListStyles = {
-    deleteButton: {
-        css: css`
-            color: ${getColor("danger.main")};
-        `,
-    },
-    addItemButton: {
-        css: css`
-            margin-top: ${pxToRem(15)};
-        `,
-    },
-
-    noItemsText: {
-        css: css`
-            color: ${getColor("common.textDisabled")};
-            font-size: ${getTypography("size.smaller")};
-            font-style: italic;
-        `,
-    },
-    actionsWrapper: {
-        css: css`
-            display: flex;
-            align-items: center;
-
-            & > * {
-                margin-left: ${pxToRem(8)};
-            }
-        `,
-    },
+    // noItemsText: {
+    //     css: css`
+    //         color: ${getColor("common.textDisabled")};
+    //         font-size: ${getTypography("size.smaller")};
+    //         font-style: italic;
+    //     `,
+    // },
+    // actionsWrapper: {
+    //     css: css`
+    //         display: flex;
+    //         align-items: center;
+    //         & > * {
+    //             margin-left: ${pxToRem(8)};
+    //         }
+    //     `,
+    // },
 };
 
 const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
@@ -90,54 +75,59 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
     children,
 }: EditorItemsListProps<T>) => {
     return (
-        <Collapse title={title}>
-            {Object.keys(itemsDictionary).length > 0 ? (
-                Object.keys(itemsDictionary).map((id) => {
-                    const itemName = displayItemName
-                        ? displayItemName(itemsDictionary[id].id)
-                        : itemsDictionary[id].name;
+        <Accordion>
+            <AccordionSummary>{title}</AccordionSummary>
+            <AccordionDetails>
+                <List>
+                    {Object.keys(itemsDictionary).length > 0 ? (
+                        Object.keys(itemsDictionary).map((id) => {
+                            const itemName = displayItemName
+                                ? displayItemName(itemsDictionary[id].id)
+                                : itemsDictionary[id].name;
 
-                    return (
-                        <ActionItemRow
-                            key={id}
-                            onClick={() =>
-                                handleClickRow?.(itemsDictionary[id] as DictionaryValue<T>)
-                            }
-                            isSelected={isActionRowSelected?.(
-                                itemsDictionary[id] as DictionaryValue<T>
-                            )}
-                        >
-                            {itemName}
-                            <StyledWrapper {...styles.actionsWrapper}>
-                                {editModal?.(itemsDictionary[id] as DictionaryValue<T>)}
-                                <Button
-                                    styleType="none"
-                                    onClick={() => handleClickRemove?.(id)}
-                                    {...styles.deleteButton}
+                            return (
+                                <ListItem
+                                    key={id}
+                                    secondaryAction={
+                                        <IconButton onClick={() => handleClickRemove?.(id)}>
+                                            {editModal?.(itemsDictionary[id] as DictionaryValue<T>)}
+                                            <Garbage />
+                                        </IconButton>
+                                    }
+                                    disablePadding
                                 >
-                                    <Icons.Garbage />
-                                </Button>
-                            </StyledWrapper>
-                        </ActionItemRow>
-                    );
-                })
-            ) : (
-                <Typography {...styles.noItemsText}>{noItemsText}</Typography>
-            )}
-            <Modal
+                                    <ListItemButton
+                                        onClick={() =>
+                                            handleClickRow?.(
+                                                itemsDictionary[id] as DictionaryValue<T>
+                                            )
+                                        }
+                                        selected={isActionRowSelected?.(
+                                            itemsDictionary[id] as DictionaryValue<T>
+                                        )}
+                                    >
+                                        {itemName}
+                                    </ListItemButton>
+                                </ListItem>
+                            );
+                        })
+                    ) : (
+                        <Typography {...styles.noItemsText}>{noItemsText}</Typography>
+                    )}
+                </List>
+                {/* <Button fullWidth {...styles.addItemButton}>
+                    {triggerButtonText}
+                </Button> */}
+            </AccordionDetails>
+            {/* <Modal
                 title={title}
-                size="large"
-                acceptButton={acceptButton}
-                cancelButton={cancelButton}
-                trigger={
-                    <Button isFullWidth {...styles.addItemButton}>
-                        {triggerButtonText}
-                    </Button>
-                }
+                // acceptButton={acceptButton}
+                // cancelButton={cancelButton}
+                trigger={}
             >
-                {(state) => children(state)}
-            </Modal>
-        </Collapse>
+                {children as any}
+            </Modal> */}
+        </Accordion>
     );
 };
 

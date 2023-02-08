@@ -59,30 +59,30 @@ const EditorScenesList: FC = () => {
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
             isActionRowSelected={(row) => currentSceneId === row.id}
-            acceptButton={{
-                text: "Add scene",
-                callback: handleAddScene,
-            }}
-            cancelButton={{
-                text: "Cancel and close",
-            }}
+            // acceptButton={{
+            //     text: "Add scene",
+            //     callback: handleAddScene,
+            // }}
+            // cancelButton={{
+            //     text: "Cancel and close",
+            // }}
         >
-            {() => (
-                <Box>
-                    <TextField
-                        label="Scene Name"
-                        onChange={(event) => setSceneName(event.target.value)}
-                        placeholder="Enter your scene name here..."
-                        {...styles.textField}
+            {/* {() => (
+            )} */}
+            <Box>
+                <TextField
+                    label="Scene Name"
+                    onChange={(event) => setSceneName(event.target.value)}
+                    placeholder="Enter your scene name here..."
+                    {...styles.textField}
+                />
+                <FormGroup>
+                    <FormControlLabel
+                        control={<Checkbox onChange={handleIsDefault} />}
+                        label="Make it default scene"
                     />
-                    <FormGroup>
-                        <FormControlLabel
-                            control={<Checkbox onChange={handleIsDefault} />}
-                            label="Make it default scene"
-                        />
-                    </FormGroup>
-                </Box>
-            )}
+                </FormGroup>
+            </Box>
         </EditorItemsList>
     );
 };

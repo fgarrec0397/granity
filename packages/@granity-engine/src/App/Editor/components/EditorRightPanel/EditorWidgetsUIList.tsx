@@ -1,4 +1,4 @@
-import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
+import { Box, BoxProps, Button, ButtonProps, pxToRem } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -6,7 +6,6 @@ import {
     WidgetDictionary,
     WidgetDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { getColor, getTypography, pxToRem } from "@granity-engine/Themes/utils";
 import { FC } from "react";
 import { css } from "styled-components";
 
@@ -14,29 +13,27 @@ import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
 
 type EditorWidgetsUIListStyles = {
-    widgetButton?: ButtonStylesProps;
-    itemWrapper?: StyledWrapperProps;
+    widgetButton?: ButtonProps;
+    itemWrapper?: BoxProps;
 };
 
 const styles: EditorWidgetsUIListStyles = {
     widgetButton: {
-        css: css`
-            min-height: ${pxToRem(105)};
-            border: ${pxToRem(1)} solid ${getColor("common.border")};
-            font-size: ${getTypography("size.large")};
-            font-weight: ${getTypography("weight.medium")};
+        sx: {
+            minHeight: pxToRem(105),
+            border: 1,
 
-            &:hover {
-                background-color: ${getColor("common.backgroundLight")};
-            }
-        `,
+            // "&:hover": {
+            //     backgroundColor: getColor("common.backgroundLight"),
+            // },
+        },
     },
     itemWrapper: {
-        css: css`
-            display: grid;
-            gap: ${pxToRem(20)};
-            grid-template-columns: repeat(4, 1fr);
-        `,
+        sx: {
+            display: "grid",
+            gap: pxToRem(20),
+            gridTemplateColumns: "repeat(4, 1fr)",
+        },
     },
 };
 
@@ -61,12 +58,12 @@ const EditorWidgetsUIList: FC = () => {
             editModal={(row) => <EditWidgetModal widget={widgetsUI[row.id]} iconWidth={12} />}
             displayItemName={displayWidgetName}
             handleClickRemove={handleClickRemove}
-            cancelButton={{
-                text: "Cancel and close",
-            }}
+            // cancelButton={{
+            //     text: "Cancel and close",
+            // }}
         >
-            {(state) => (
-                <StyledWrapper {...styles.itemWrapper}>
+            {/* {(state) => (
+                <Box {...styles.itemWrapper}>
                     {widgetsUIModules.length > 0
                         ? widgetsUIModules.map((widget, index) => {
                               const key = `${index}-${widget.name}`;
@@ -88,8 +85,8 @@ const EditorWidgetsUIList: FC = () => {
                               );
                           })
                         : "No UI widget available."}
-                </StyledWrapper>
-            )}
+                </Box>
+            )} */}
         </EditorItemsList>
     );
 };

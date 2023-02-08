@@ -71,34 +71,32 @@ const EditorWidgetsObjectList: FC = () => {
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
             isActionRowSelected={(row) => widgetsObjects[row.id]?.id === selectedWidgets[0]?.id}
-            cancelButton={{
-                text: "Cancel and close",
-            }}
+            // cancelButton={{
+            //     text: "Cancel and close",
+            // }}
         >
-            {(state) => (
-                <Box {...styles.itemWrapper}>
-                    {widgetsObjectModules.length > 0
-                        ? widgetsObjectModules.map((widget, index) => {
-                              const key = `${index}-${widget.name}`;
-                              const newWidget: WidgetDictionaryItem =
-                                  mapWidgetModuleToWidgetDictionary(widget);
+            <Box {...styles.itemWrapper}>
+                {widgetsObjectModules.length > 0
+                    ? widgetsObjectModules.map((widget, index) => {
+                          const key = `${index}-${widget.name}`;
+                          const newWidget: WidgetDictionaryItem =
+                              mapWidgetModuleToWidgetDictionary(widget);
 
-                              return (
-                                  <Button
-                                      key={key}
-                                      onClick={() => {
-                                          handleClickMenuItem(newWidget);
-                                          state.hide();
-                                      }}
-                                      {...styles.widgetButton}
-                                  >
-                                      {widget.name}
-                                  </Button>
-                              );
-                          })
-                        : "No object widget available."}
-                </Box>
-            )}
+                          return (
+                              <Button
+                                  key={key}
+                                  onClick={() => {
+                                      handleClickMenuItem(newWidget);
+                                      //   state.hide();
+                                  }}
+                                  {...styles.widgetButton}
+                              >
+                                  {widget.name}
+                              </Button>
+                          );
+                      })
+                    : "No object widget available."}
+            </Box>
         </EditorItemsList>
     );
 };

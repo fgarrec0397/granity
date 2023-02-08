@@ -1,7 +1,6 @@
-import { Button, ButtonStylesProps, FormField, Icons, Modal } from "@granity/ui";
+import { Button, ButtonProps, Modal, pxToRem, TextField } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { getColor, pxToRem } from "@granity-engine/Themes/utils";
 import { ChangeEvent, FC, useState } from "react";
 import { css } from "styled-components";
 
@@ -11,15 +10,15 @@ export type EditWidgetModalProps = {
 };
 
 type EditWidgetModalStyles = {
-    triggerButton?: ButtonStylesProps;
+    triggerButton?: ButtonProps;
 };
 
 const styles: EditWidgetModalStyles = {
-    triggerButton: {
-        css: css`
-            color: ${getColor("common.text")};
-        `,
-    },
+    // triggerButton: {
+    //     css: css`
+    //         color: ${getColor("common.text")};
+    //     `,
+    // },
 };
 
 const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconWidth = 18 }) => {
@@ -46,54 +45,47 @@ const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconWidth = 18 }) =
         setDisplayNameValue("");
     };
 
-    const triggerButtonStyles = {
-        ...styles.triggerButton,
-        css: css`
-            ${styles.triggerButton?.css}
+    // const triggerButtonStyles = {
+    //     ...styles.triggerButton,
+    //     css: css`
+    //         ${styles.triggerButton?.css}
 
-            max-width: ${pxToRem(iconWidth)};
-            max-height: ${pxToRem(iconWidth)};
-        `,
-    };
+    //         max-width: ${pxToRem(iconWidth)};
+    //         max-height: ${pxToRem(iconWidth)};
+    //     `,
+    // };
 
     return (
         <Modal
             title={`Edit ${displayWidgetName(widget.id)}`}
-            size="large"
-            acceptButton={{
-                text: "Save",
-                callback: onSave,
-            }}
-            cancelButton={{
-                text: "Cancel",
-                callback: onCancel,
-            }}
-            trigger={
-                <Button styleType="none" {...triggerButtonStyles}>
-                    <Icons.Edit />
-                </Button>
-            }
-            options={{
-                setOpen: (open) => {
-                    if (!open) {
-                        clearInput();
-                    }
-                },
-            }}
+            open={false}
+            // size="large"
+            // acceptButton={{
+            //     text: "Save",
+            //     callback: onSave,
+            // }}
+            // cancelButton={{
+            //     text: "Cancel",
+            //     callback: onCancel,
+            // }}
+            // trigger={
+            //     <Button styleType="none" {...triggerButtonStyles}>
+            //         <Icons.Edit />
+            //     </Button>
+            // }
+            // options={{
+            //     setOpen: (open) => {
+            //         if (!open) {
+            //             clearInput();
+            //         }
+            //     },
+            // }}
         >
-            {() => {
-                return (
-                    <FormField
-                        label="Display Name"
-                        inputProps={{
-                            name: "displayName",
-                            type: "text",
-                            value: displayNameValue,
-                            onChange: onDisplayNameInputChange,
-                        }}
-                    />
-                );
-            }}
+            <TextField
+                label="Display Name"
+                onChange={onDisplayNameInputChange}
+                value={displayNameValue}
+            />
         </Modal>
     );
 };
