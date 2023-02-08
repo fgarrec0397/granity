@@ -1,2 +1,2 @@
-export { default as CssBaseline } from "@mui/material/CssBaseline";
-export { default as GlobalStyles } from "@mui/material/GlobalStyles";
+export * from "@mui/material/CssBaseline";
+export * from "@mui/material/GlobalStyles";

@@ -1,6 +1,6 @@
 import { Box, BoxProps, pxToRem } from "@granity/ui";
+import { layoutSectionStyles, layoutStyles } from "@granity-engine/Theme/mixins/layout";
 import { FC } from "react";
-import { css } from "styled-components";
 
 import EditorScenesList from "./EditorScenesList";
 import EditorWidgetsObjectList from "./EditorWidgetsObjectList";
@@ -8,44 +8,39 @@ import EditorWidgetsUIList from "./EditorWidgetsUIList";
 
 type EditorRightPanelStyles = {
     wrapper?: BoxProps;
-    panel?: PanelStylesProps;
+    section?: BoxProps;
 };
 
 const styles: EditorRightPanelStyles = {
     wrapper: {
-        css: css`
-            width: 100%;
-            max-width: ${pxToRem(275)};
-
-            ${layoutStyles({ top: 110, right: 30 })}
-        `,
+        sx: {
+            ...layoutStyles({ top: 110, right: 30 }),
+        },
     },
-    panel: {
-        wrapper: {
-            css: css`
-                margin-bottom: ${pxToRem(15)};
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            `,
+    section: {
+        sx: {
+            ...layoutSectionStyles(),
+            marginBottom: pxToRem(15),
+            "&:last-child": {
+                marginBottom: 0,
+            },
         },
     },
 };
 
 const EditorRightPanel: FC = () => {
     return (
-        <StyledWrapper {...styles.wrapper}>
-            <Panel {...styles.panel}>
+        <Box {...styles.wrapper}>
+            <Box {...styles.section}>
                 <EditorWidgetsObjectList />
-            </Panel>
-            <Panel {...styles.panel}>
+            </Box>
+            <Box {...styles.section}>
                 <EditorWidgetsUIList />
-            </Panel>
-            <Panel {...styles.panel}>
+            </Box>
+            <Box {...styles.section}>
                 <EditorScenesList />
-            </Panel>
-        </StyledWrapper>
+            </Box>
+        </Box>
     );
 };
 

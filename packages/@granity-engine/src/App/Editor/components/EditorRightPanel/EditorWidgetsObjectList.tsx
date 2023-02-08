@@ -1,4 +1,4 @@
-import { Box, BoxProps, Button, ButtonProps } from "@granity/ui";
+import { Box, BoxProps, Button, ButtonProps, pxToRem } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -7,9 +7,7 @@ import {
     WidgetDictionaryItem,
     WidgetObjectsDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { getColor, getTypography, pxToRem } from "@granity-engine/Themes/utils";
 import { FC } from "react";
-import { css } from "styled-components";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
@@ -24,11 +22,9 @@ const styles: EditorWidgetsObjectListStyles = {
         sx: {
             minHeight: pxToRem(105),
             border: 1,
-            fontSize: getTypography("size.large"),
-            fontWeight: getTypography("weight.medium"),
 
             "&:hover": {
-                backgroundColor: getColor("common.backgroundLight"),
+                backgroundColor: "action.hover", // TODO - mui check this
             },
         },
     },
