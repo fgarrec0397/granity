@@ -1,4 +1,12 @@
-import { Box, BoxProps, pxToRem, TextField, TextFieldProps, Typography } from "@granity/ui";
+import {
+    Box,
+    BoxProps,
+    pxToRem,
+    TextField,
+    TextFieldProps,
+    Typography,
+    TypographyProps,
+} from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { FC } from "react";
 
@@ -6,6 +14,7 @@ type EditorWidgetPropertyFieldsStyles = {
     section?: BoxProps;
     inputGroup?: BoxProps;
     formField?: TextFieldProps;
+    title?: TypographyProps;
 };
 
 const styles: EditorWidgetPropertyFieldsStyles = {
@@ -30,6 +39,11 @@ const styles: EditorWidgetPropertyFieldsStyles = {
             marginRight: pxToRem(12),
         },
     },
+    title: {
+        sx: {
+            marginBottom: pxToRem(8),
+        },
+    },
 };
 
 type Props = {
@@ -46,7 +60,7 @@ const EditorWidgetPropertyFields: FC<Props> = ({ title, fields }) => {
     if (selectedWidgets[0] && currentWidgetProperties) {
         return (
             <Box {...styles.section}>
-                <Typography>{title}</Typography>
+                <Typography {...styles.title}>{title}</Typography>
                 <Box {...styles.inputGroup}>
                     {fields.map((x) => (
                         <TextField
@@ -54,6 +68,8 @@ const EditorWidgetPropertyFields: FC<Props> = ({ title, fields }) => {
                             label={x.label}
                             value={x.value}
                             type="number"
+                            size="small"
+                            labelPosition="left"
                             {...styles.formField}
                         />
                     ))}

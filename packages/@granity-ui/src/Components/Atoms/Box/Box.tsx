@@ -1,17 +1,10 @@
-import { styled } from "@mui/material";
 import BoxLib, { BoxProps as LibBoxProps } from "@mui/material/Box";
 import { FC } from "react";
 
-export type BoxProps = LibBoxProps & {
-    hasBackground?: boolean;
-};
+export type BoxProps = LibBoxProps;
 
-const StyledBox = styled(BoxLib)<BoxProps>(({ hasBackground, theme }) => ({
-    backgroundColor: hasBackground ? theme.palette.background.paper : undefined,
-}));
-
-const Box: FC<BoxProps> = ({ hasBackground = true, ...props }) => {
-    return <StyledBox hasBackground={hasBackground} {...props} />;
+const Box: FC<BoxProps> = (props) => {
+    return <BoxLib {...props} />;
 };
 
 export default Box;

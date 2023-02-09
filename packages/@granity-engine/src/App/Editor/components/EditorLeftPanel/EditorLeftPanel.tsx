@@ -16,6 +16,8 @@ type EditorLeftPanelStyles = {
 const styles: EditorLeftPanelStyles = {
     wrapper: {
         sx: {
+            width: "100%",
+            maxWidth: pxToRem(280),
             ...layoutStyles({ top: 110, left: 30 }),
         },
     },
@@ -40,15 +42,9 @@ const EditorLeftPanel: FC = () => {
             </Box>
             <Box {...styles.section}>
                 <EditorModeSelector />
-            </Box>
-            <Box {...styles.section}>
                 <EditorWidgetProperties />
+                {selectedWidgets[0] && <EditorWidgetOptions />}
             </Box>
-            {selectedWidgets[0] && (
-                <Box {...styles.section}>
-                    <EditorWidgetOptions />
-                </Box>
-            )}
         </Box>
     );
 };

@@ -19,6 +19,7 @@ declare module "@mui/material/styles" {
             palette: {
                 background: {
                     paperDark?: string;
+                    paperDarker?: string;
                     textField?: string;
                     gradient?: string;
                 };
@@ -41,6 +42,7 @@ declare module "@mui/material/styles" {
             palette?: {
                 background: {
                     paperDark?: string;
+                    paperDarker?: string;
                     textField?: string;
                     gradient?: string;
                 };
@@ -66,6 +68,7 @@ const theme = createTheme({
         palette: {
             background: {
                 paperDark: "#292929",
+                paperDarker: "#1c1c1c",
                 textField: "#454545",
                 gradient:
                     "radial-gradient(152.41% 152.41% at 50% 50%, #7C7C7C 0%, #525252 25.15%, #323232 42.89%)",
@@ -85,7 +88,7 @@ const theme = createTheme({
             dark: "#A5A5A5",
         },
         background: {
-            paper: "#323232",
+            paper: "#292929",
             default: "#323232",
         },
         divider: "#555555",
@@ -105,6 +108,14 @@ const theme = createTheme({
                 root: {
                     paddingTop: 0,
                     paddingBottom: 0,
+                },
+            },
+        },
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    borderRadius: 0,
+                    boxShadow: "none",
                 },
             },
         },

@@ -51,7 +51,7 @@ export const AccordionSummary: FC<AccordionSummaryProps> = ({ children, ...props
 };
 
 const StyledAccordionDetails = styled(AccordionDetailsLib)`
-    padding: ${pxToRem(22)} ${pxToRem(16)} ${pxToRem(22)};
+    padding: ${pxToRem(10)} ${pxToRem(16)} ${pxToRem(10)};
 `;
 
 export const AccordionDetails: FC<LibAccordionDetailsProps> = ({ children, ...props }) => {

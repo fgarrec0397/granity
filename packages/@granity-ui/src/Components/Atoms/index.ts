@@ -16,6 +16,8 @@ export * from "./List";
 export type { MenuItemProps } from "./MenuItem/MenuItem";
 export { default as MenuItem } from "./MenuItem/MenuItem";
 export * from "./Modal";
+export type { PaperProps } from "./Paper/Paper";
+export { default as Paper } from "./Paper/Paper";
 export type { SelectChangeEvent, SelectProps } from "./Select/Select";
 export { default as Select } from "./Select/Select";
 export type { InputLabelProps, TextFieldProps } from "./TextField/TextField";
