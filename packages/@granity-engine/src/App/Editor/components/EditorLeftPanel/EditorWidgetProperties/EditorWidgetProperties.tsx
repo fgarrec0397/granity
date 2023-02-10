@@ -1,15 +1,17 @@
 import { Accordion, AccordionDetails, AccordionSummary } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
+import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { FC } from "react";
 
 import EditorWidgetPropertyFields from "./EditorWidgetPropertyFields";
 
 const EditorWidgetProperties: FC = () => {
     const { selectedWidgets, currentWidgetProperties } = useWidgets();
+    const openedAccordion = useAccordionDefaultOpened();
 
     if (selectedWidgets[0] && currentWidgetProperties) {
         return (
-            <Accordion>
+            <Accordion {...openedAccordion}>
                 <AccordionSummary>Properties</AccordionSummary>
                 <AccordionDetails>
                     <EditorWidgetPropertyFields

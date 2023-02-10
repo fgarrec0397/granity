@@ -11,6 +11,8 @@ export type { ButtonProps, IconButtonProps } from "./Button/Button";
 export { default as Button, IconButton } from "./Button/Button";
 export type { CheckboxProps } from "./Checkbox/Checkbox";
 export { default as Checkbox } from "./Checkbox/Checkbox";
+export type { DialogProps } from "./Dialog/Dialog";
+export { default as Dialog } from "./Dialog/Dialog";
 export * from "./Form";
 export * from "./List";
 export type { MenuItemProps } from "./MenuItem/MenuItem";

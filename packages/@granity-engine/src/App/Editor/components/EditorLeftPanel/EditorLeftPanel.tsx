@@ -16,9 +16,7 @@ type EditorLeftPanelStyles = {
 const styles: EditorLeftPanelStyles = {
     wrapper: {
         sx: {
-            width: "100%",
-            maxWidth: pxToRem(280),
-            ...layoutStyles({ top: 110, left: 30 }),
+            ...layoutStyles({ top: 110, left: 30, width: 280 }),
         },
     },
     section: {

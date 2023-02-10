@@ -93,8 +93,9 @@ const theme = createTheme({
         },
         divider: "#555555",
         action: {
-            hover: "#454545",
             focus: "#1976d2",
+            hover: "#454545",
+            selected: "#454545",
         },
     },
     components: {

@@ -14,7 +14,7 @@ type EditorRightPanelStyles = {
 const styles: EditorRightPanelStyles = {
     wrapper: {
         sx: {
-            ...layoutStyles({ top: 110, right: 30 }),
+            ...layoutStyles({ top: 110, right: 30, width: 275 }),
         },
     },
     section: {
@@ -31,15 +31,9 @@ const styles: EditorRightPanelStyles = {
 const EditorRightPanel: FC = () => {
     return (
         <Box {...styles.wrapper}>
-            <Box {...styles.section}>
-                <EditorWidgetsObjectList />
-            </Box>
-            <Box {...styles.section}>
-                <EditorWidgetsUIList />
-            </Box>
-            <Box {...styles.section}>
-                <EditorScenesList />
-            </Box>
+            <EditorWidgetsObjectList />
+            <EditorWidgetsUIList />
+            <EditorScenesList />
         </Box>
     );
 };

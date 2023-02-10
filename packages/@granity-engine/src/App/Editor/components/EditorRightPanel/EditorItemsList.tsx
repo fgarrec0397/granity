@@ -1,4 +1,4 @@
-import { DictionaryValue, HasChildren } from "@granity/helpers";
+import { DictionaryValue, HasCallableChildren } from "@granity/helpers";
 import {
     Accordion,
     AccordionDetails,
@@ -6,32 +6,46 @@ import {
     BoxProps,
     Button,
     ButtonProps,
+    Dialog,
     IconButton,
     List,
     ListItem,
     ListItemButton,
-    Modal,
     Typography,
     TypographyProps,
 } from "@granity/ui";
+import {
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+} from "@granity/ui/src/Components/Atoms/Dialog/Dialog";
 import { ScenesDictionary } from "@granity-engine/App/Scenes/_actions/scenesTypes";
 import { WidgetDictionary } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { Garbage } from "@granity-engine/Theme/components/Icons";
-import { ReactElement } from "react";
+import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
+import { ReactElement, useState } from "react";
 
-type EditorItemsListProps<T extends WidgetDictionary | ScenesDictionary> = {
+export type EditorItemsListButtonProps = {
+    text: string;
+    callback?: () => void;
+};
+
+export type EditorItemsListProps<T extends WidgetDictionary | ScenesDictionary> = {
     itemsDictionary: T;
     title: string;
     noItemsText: string;
     triggerButtonText: string;
     editModal?: (row: DictionaryValue<T>) => ReactElement;
-    acceptButton?: ButtonProps;
-    cancelButton?: ButtonProps;
+    acceptButton?: EditorItemsListButtonProps;
+    cancelButton?: EditorItemsListButtonProps;
     displayItemName?: (id: string) => string | undefined;
     handleClickRow?: (row: DictionaryValue<T>) => void;
     handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (row: DictionaryValue<T>) => boolean;
-} & HasChildren;
+} & HasCallableChildren<{
+    handleClose: () => void;
+    handleOpen: () => void;
+}>;
 
 type EditorItemsListStyles = {
     deleteButton?: ButtonProps;
@@ -42,22 +56,11 @@ type EditorItemsListStyles = {
 };
 
 const styles: EditorItemsListStyles = {
-    // noItemsText: {
-    //     css: css`
-    //         color: ${getColor("common.textDisabled")};
-    //         font-size: ${getTypography("size.smaller")};
-    //         font-style: italic;
-    //     `,
-    // },
-    // actionsWrapper: {
-    //     css: css`
-    //         display: flex;
-    //         align-items: center;
-    //         & > * {
-    //             margin-left: ${pxToRem(8)};
-    //         }
-    //     `,
-    // },
+    addItemButton: {
+        sx: {
+            marginTop: 2,
+        },
+    },
 };
 
 const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
@@ -74,8 +77,24 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
     cancelButton,
     children,
 }: EditorItemsListProps<T>) => {
+    const openedAccordion = useAccordionDefaultOpened();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleOpen = () => setIsModalOpen(true);
+    const handleClose = () => setIsModalOpen(false);
+
+    const handleAccept = () => {
+        acceptButton?.callback?.();
+        handleClose();
+    };
+
+    const handleCancel = () => {
+        cancelButton?.callback?.();
+        handleClose();
+    };
+
     return (
-        <Accordion>
+        <Accordion {...openedAccordion}>
             <AccordionSummary>{title}</AccordionSummary>
             <AccordionDetails>
                 <List>
@@ -115,18 +134,32 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
                         <Typography {...styles.noItemsText}>{noItemsText}</Typography>
                     )}
                 </List>
-                {/* <Button fullWidth {...styles.addItemButton}>
+                <Button onClick={handleOpen} fullWidth {...styles.addItemButton}>
                     {triggerButtonText}
-                </Button> */}
+                </Button>
             </AccordionDetails>
-            {/* <Modal
-                title={title}
-                // acceptButton={acceptButton}
-                // cancelButton={cancelButton}
-                trigger={}
+            <Dialog
+                open={isModalOpen}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
             >
-                {children as any}
-            </Modal> */}
+                <DialogTitle>{title}</DialogTitle>
+                <DialogContent>
+                    {children({
+                        handleOpen,
+                        handleClose,
+                    })}
+                </DialogContent>
+                <DialogActions>
+                    {acceptButton && <Button onClick={handleAccept}>{acceptButton.text}</Button>}
+                    {cancelButton && (
+                        <Button onClick={handleCancel} autoFocus>
+                            {cancelButton.text}
+                        </Button>
+                    )}
+                </DialogActions>
+            </Dialog>
         </Accordion>
     );
 };

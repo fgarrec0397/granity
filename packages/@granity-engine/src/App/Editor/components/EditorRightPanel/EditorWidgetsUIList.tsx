@@ -7,7 +7,6 @@ import {
     WidgetDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
-import { css } from "styled-components";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
@@ -58,11 +57,11 @@ const EditorWidgetsUIList: FC = () => {
             editModal={(row) => <EditWidgetModal widget={widgetsUI[row.id]} iconWidth={12} />}
             displayItemName={displayWidgetName}
             handleClickRemove={handleClickRemove}
-            // cancelButton={{
-            //     text: "Cancel and close",
-            // }}
+            cancelButton={{
+                text: "Cancel and close",
+            }}
         >
-            {/* {(state) => (
+            {(state) => (
                 <Box {...styles.itemWrapper}>
                     {widgetsUIModules.length > 0
                         ? widgetsUIModules.map((widget, index) => {
@@ -72,11 +71,10 @@ const EditorWidgetsUIList: FC = () => {
 
                               return (
                                   <Button
-                                      styleType="none"
                                       key={key}
                                       onClick={() => {
                                           handleClickMenuItem(newWidget);
-                                          state.hide();
+                                          state.handleClose();
                                       }}
                                       {...styles.widgetButton}
                                   >
@@ -86,7 +84,7 @@ const EditorWidgetsUIList: FC = () => {
                           })
                         : "No UI widget available."}
                 </Box>
-            )} */}
+            )}
         </EditorItemsList>
     );
 };
