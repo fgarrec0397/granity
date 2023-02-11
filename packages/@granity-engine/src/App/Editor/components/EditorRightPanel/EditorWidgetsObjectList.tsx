@@ -1,4 +1,4 @@
-import { Box, BoxProps, Button, ButtonProps, pxToRem } from "@granity/ui";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -11,23 +11,13 @@ import { FC } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
+import EditorItemsListModalButton from "./EditorItemsListModalButton";
 
 type EditorWidgetsObjectListStyles = {
-    widgetButton?: ButtonProps;
     itemWrapper?: BoxProps;
 };
 
 const styles: EditorWidgetsObjectListStyles = {
-    widgetButton: {
-        sx: {
-            minHeight: pxToRem(105),
-            border: 1,
-
-            "&:hover": {
-                backgroundColor: "action.hover", // TODO - mui check this
-            },
-        },
-    },
     itemWrapper: {
         sx: {
             display: "grid",
@@ -66,7 +56,7 @@ const EditorWidgetsObjectList: FC = () => {
             title="Objects Widgets"
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
-            editModal={(row) => <EditWidgetModal widget={widgetsObjects[row.id]} iconWidth={12} />}
+            editModal={(row) => <EditWidgetModal widget={widgetsObjects[row.id]} />}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
@@ -84,16 +74,14 @@ const EditorWidgetsObjectList: FC = () => {
                                   mapWidgetModuleToWidgetDictionary(widget);
 
                               return (
-                                  <Button
+                                  <EditorItemsListModalButton
                                       key={key}
+                                      buttonText={widget.name}
                                       onClick={() => {
                                           handleClickMenuItem(newWidget);
                                           state.handleClose();
                                       }}
-                                      {...styles.widgetButton}
-                                  >
-                                      {widget.name}
-                                  </Button>
+                                  />
                               );
                           })
                         : "No object widget available."}

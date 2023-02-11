@@ -7,13 +7,21 @@ export { default as Accordion, AccordionDetails, AccordionSummary } from "./Acco
 export * from "./Basics";
 export type { BoxProps } from "./Box/Box";
 export { default as Box } from "./Box/Box";
-export type { ButtonProps, IconButtonProps } from "./Button/Button";
-export { default as Button, IconButton } from "./Button/Button";
+export type { ButtonBaseProps, ButtonProps, IconButtonProps } from "./Button/Button";
+export { default as Button, ButtonBase, IconButton } from "./Button/Button";
 export type { CheckboxProps } from "./Checkbox/Checkbox";
 export { default as Checkbox } from "./Checkbox/Checkbox";
-export type { DialogProps } from "./Dialog/Dialog";
-export { default as Dialog } from "./Dialog/Dialog";
+export type {
+    DialogActionsProps,
+    DialogContentProps,
+    DialogProps,
+    DialogTitleProps,
+} from "./Dialog/Dialog";
+export { default as Dialog, DialogActions, DialogContent, DialogTitle } from "./Dialog/Dialog";
 export * from "./Form";
+export type { SvgIconProps } from "./Icon/Icon";
+export { SvgIcon } from "./Icon/Icon";
+export { Icons } from "./Icon/Icons";
 export * from "./List";
 export type { MenuItemProps } from "./MenuItem/MenuItem";
 export { default as MenuItem } from "./MenuItem/MenuItem";

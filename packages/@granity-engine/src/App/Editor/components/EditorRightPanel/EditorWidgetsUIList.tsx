@@ -1,4 +1,4 @@
-import { Box, BoxProps, Button, ButtonProps, pxToRem } from "@granity/ui";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -10,23 +10,13 @@ import { FC } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
+import EditorItemsListModalButton from "./EditorItemsListModalButton";
 
 type EditorWidgetsUIListStyles = {
-    widgetButton?: ButtonProps;
     itemWrapper?: BoxProps;
 };
 
 const styles: EditorWidgetsUIListStyles = {
-    widgetButton: {
-        sx: {
-            minHeight: pxToRem(105),
-            border: 1,
-
-            // "&:hover": {
-            //     backgroundColor: getColor("common.backgroundLight"),
-            // },
-        },
-    },
     itemWrapper: {
         sx: {
             display: "grid",
@@ -70,16 +60,14 @@ const EditorWidgetsUIList: FC = () => {
                                   mapWidgetModuleToWidgetDictionary(widget);
 
                               return (
-                                  <Button
+                                  <EditorItemsListModalButton
                                       key={key}
+                                      buttonText={widget.name}
                                       onClick={() => {
                                           handleClickMenuItem(newWidget);
                                           state.handleClose();
                                       }}
-                                      {...styles.widgetButton}
-                                  >
-                                      {widget.name}
-                                  </Button>
+                                  />
                               );
                           })
                         : "No UI widget available."}

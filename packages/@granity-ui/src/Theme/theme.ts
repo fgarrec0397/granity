@@ -104,11 +104,49 @@ const theme = createTheme({
                 variant: "contained",
             },
         },
+        MuiDialogActions: {
+            styleOverrides: {
+                root: {
+                    padding: 60,
+                    paddingTop: 0,
+                    justifyContent: "flex-start",
+                },
+            },
+        },
+        MuiDialogContent: {
+            styleOverrides: {
+                root: {
+                    padding: 60,
+                },
+            },
+        },
+        MuiDialogTitle: {
+            styleOverrides: {
+                root: {
+                    padding: 60,
+                    fontSize: 32,
+                },
+            },
+        },
         MuiList: {
             styleOverrides: {
                 root: {
                     paddingTop: 0,
                     paddingBottom: 0,
+                },
+            },
+        },
+        MuiListItemButton: {
+            styleOverrides: {
+                root: {
+                    paddingLeft: 10,
+                },
+            },
+        },
+        MuiListItemSecondaryAction: {
+            styleOverrides: {
+                root: {
+                    right: 0,
                 },
             },
         },
