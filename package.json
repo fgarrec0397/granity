@@ -1,6 +1,6 @@
 {
   "name": "granity",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": "Fabrice Garrec",
   "license": "MIT",
   "homepage": "https://github.com/fgarrec0397/Granity#readme",
@@ -21,8 +21,8 @@
     "format": "turbo run format",
     "prepare": "husky install",
     "release": "standard-version",
-    "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "storybook": "turbo run storybook",
     "update:check": "turbo run update:check",

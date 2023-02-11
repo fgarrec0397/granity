@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.3](https://github.com/fgarrec0397/granity/compare/v0.2.2...v0.2.3) (2023-02-11)
+
+
+### Features
+
+* **@granity-ui2:** cleaned and working ([28b2260](https://github.com/fgarrec0397/granity/commits/28b2260fe0090407c3c46ab855d39bbb2f2d41c3))
+* accordion adjustments + textfields started ([7c90dc4](https://github.com/fgarrec0397/granity/commits/7c90dc482b077c451910d7489a81d0b70b6bf6a2))
+* accordions added ([c0b8f42](https://github.com/fgarrec0397/granity/commits/c0b8f4205299a52e61200c3729e773e6e898cefb))
+* buttons stories ([c5f2c08](https://github.com/fgarrec0397/granity/commits/c5f2c083fbc2610bc1dd9e2a87c26d343588fd49))
+* fix alias issue in admin ([6bab48f](https://github.com/fgarrec0397/granity/commits/6bab48fd5c9ff97b0167b82d679346a69faff6d2))
+* fixing engine eslint errors ([1e96ba9](https://github.com/fgarrec0397/granity/commits/1e96ba901018a9980ab1f8ca4c3fad7365882f38))
+* fixing issues ([473a81a](https://github.com/fgarrec0397/granity/commits/473a81ac97378f268dfeb26dc13e55f68d144cf6))
+* menuitem + checkbox ([3c5bd80](https://github.com/fgarrec0397/granity/commits/3c5bd8094fdc0af279c8f1618a4fee8d4c57437a))
+* mui use styled-components instead of emotion ([3f2cd44](https://github.com/fgarrec0397/granity/commits/3f2cd4437ec3daf3e0d849e72aa8e793bdc1dcf4))
+* select component extracted from textfield ([5ebe023](https://github.com/fgarrec0397/granity/commits/5ebe02345676cb312e94e93f03252038a95c6989))
+* select fixed ([bddffbc](https://github.com/fgarrec0397/granity/commits/bddffbc486a29549520c2a2f205843f1500cebc9))
+* textfield select ([95c5e7f](https://github.com/fgarrec0397/granity/commits/95c5e7f1176fd6443e68a408dd08d709765880e7))
+
+
+### Bug Fixes
+
+* barrel for all atoms ([43ea6ef](https://github.com/fgarrec0397/granity/commits/43ea6efe75f1eef3d2af408629eac0a96de034c0))
+* box background props ([3423d7c](https://github.com/fgarrec0397/granity/commits/3423d7c6ad05eaaa2d38781b84544eaa02cfee11))
+* editor left panel ([75b3e81](https://github.com/fgarrec0397/granity/commits/75b3e813d7e954b46c4c5fc3800523bc5f7056be))
+* editor right panel ([770d994](https://github.com/fgarrec0397/granity/commits/770d99414a2af0e4d5d396ebed66de947135fb0f))
+* header ([e38f291](https://github.com/fgarrec0397/granity/commits/e38f2912f6d5e72c35a73360ec7a0f98575648ad))
+* header displaying again ([7273167](https://github.com/fgarrec0397/granity/commits/727316767041e9d547ec9e82af6842b29d695165))
+* left panel done ([97b92a0](https://github.com/fgarrec0397/granity/commits/97b92a013eef943351d848878f4517b2afb93734))
+* left panel in progress ([cc374c9](https://github.com/fgarrec0397/granity/commits/cc374c904ac4e2cd8e08a507c8917271274a2cc6))
+* right panel + dialog ([d2e698a](https://github.com/fgarrec0397/granity/commits/d2e698a08d42492ea83a79384843f6acaa0ac055))
+* right panel + modal ([7f235c4](https://github.com/fgarrec0397/granity/commits/7f235c4ecbd0f796092d08d87312575f63cfdf3a))
+* vite errors ([c5e5d5a](https://github.com/fgarrec0397/granity/commits/c5e5d5a9e8fde3b246cc1f10d19305e85069e3c5))
+
+
+### Refactor
+
+* @granity/widgets working ([4762676](https://github.com/fgarrec0397/granity/commits/4762676752967aa02c4ca16f8c4c98dff9ae5326))
+* all widgets extracted in its own package ([1267d99](https://github.com/fgarrec0397/granity/commits/1267d990629976f842ebb80521df256f5c4c32da))
+* engine renamed to admin ([a32fa76](https://github.com/fgarrec0397/granity/commits/a32fa767669b7809339505fe4fc5e16f766fcd1c))
+* fix some issues ([30775c1](https://github.com/fgarrec0397/granity/commits/30775c1a22b56146eef36b4c5f579500d8ecb20e))
+* game component reviewed ([b53bfe9](https://github.com/fgarrec0397/granity/commits/b53bfe9b69e904d0e0664d1c7b24ab6247678864))
+* game folder enhanced to support the app game package ([d3cbe54](https://github.com/fgarrec0397/granity/commits/d3cbe54eb093132b9ad62c6f8435488ee6584850))
+* game package fetching scenes data ([66cb50d](https://github.com/fgarrec0397/granity/commits/66cb50d3ed2133378e3fed4d3c841812f8cefddb))
+* prepare root Game component ([d485a4f](https://github.com/fgarrec0397/granity/commits/d485a4f952ad8fbeb25adf77b6afc67944014d72))
+
 ### [0.2.2](https://github.com/fgarrec0397/granity/compare/v0.2.1...v0.2.2) (2023-01-29)
 
 
