@@ -41,8 +41,6 @@
     "@testing-library/react": "^13.4.0",
     "@vitejs/plugin-react": "^3.0.1",
     "@vitest/coverage-c8": "^0.27.1",
-    "ariakit": "^2.0.0-next.43",
-    "ariakit-utils": "^0.17.0-next.27",
     "cors": "^2.8.5",
     "jsdom": "^21.0.0",
     "react": "^18.2.0",

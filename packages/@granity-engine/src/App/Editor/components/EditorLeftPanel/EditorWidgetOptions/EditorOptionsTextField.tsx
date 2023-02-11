@@ -17,7 +17,7 @@ const styles: EditorOptionsTextFieldStyles = {
     inputsWrapper: {
         sx: {
             marginTop: "1rem",
-            "&:first-child": {
+            "&:first-of-type": {
                 marginTop: 0,
             },
         },

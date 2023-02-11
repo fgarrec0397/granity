@@ -19,7 +19,7 @@ const styles: EditorOptionsCheckboxFieldStyles = {
         sx: {
             marginTop: "1rem",
 
-            "&:first-child": {
+            "&:first-of-type": {
                 marginTop: 0,
             },
         },
