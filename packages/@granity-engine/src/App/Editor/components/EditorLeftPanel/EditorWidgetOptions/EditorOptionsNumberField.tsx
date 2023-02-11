@@ -1,8 +1,7 @@
-import { FormField, StyledWrapper, StyledWrapperProps, TypographyStylesProps } from "@granity/ui";
+import { Box, BoxProps, TextField, TypographyProps } from "@granity/ui";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
 import { WidgetBaseOptions } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { ChangeEvent, FC } from "react";
-import { css } from "styled-components";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 
@@ -11,19 +10,19 @@ type Props = {
 };
 
 interface EditorOptionsNumberFieldStyles {
-    inputsWrapper?: StyledWrapperProps;
-    label?: TypographyStylesProps;
+    inputsWrapper?: BoxProps;
+    label?: TypographyProps;
 }
 
 const styles: EditorOptionsNumberFieldStyles = {
     inputsWrapper: {
-        css: css`
-            margin-top: 1rem;
+        sx: {
+            marginTop: "1rem",
 
-            &:first-child {
-                margin-top: 0;
-            }
-        `,
+            "&:first-child": {
+                marginTop: 0,
+            },
+        },
     },
     label: {},
 };
@@ -37,8 +36,8 @@ const EditorOptionsNumberField: FC<Props> = ({ option }) => {
 
     if (option.fieldType === FieldType.Number) {
         return (
-            <StyledWrapper {...styles.inputsWrapper}>
-                <FormField
+            <Box {...styles.inputsWrapper}>
+                <TextField
                     label={option.displayName}
                     inputProps={{
                         name: "displayName",
@@ -47,7 +46,7 @@ const EditorOptionsNumberField: FC<Props> = ({ option }) => {
                         onChange,
                     }}
                 />
-            </StyledWrapper>
+            </Box>
         );
     }
 

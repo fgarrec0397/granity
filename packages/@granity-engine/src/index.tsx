@@ -1,10 +1,17 @@
+import { CssBaseline, GlobalStyles } from "@granity/ui";
 import Core from "@granity-engine/App/Core/Core";
-import GlobalStyle from "@granity-engine/Themes/globalStyle";
 import { FC } from "react";
 
 export const GranityEngine: FC = () => (
     <>
-        <GlobalStyle />
+        <CssBaseline />
+        <GlobalStyles
+            styles={{
+                "& #root": {
+                    height: "100vh",
+                },
+            }}
+        />
         <Core />
     </>
 );

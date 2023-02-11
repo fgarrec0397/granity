@@ -1,74 +1,70 @@
-import { Icons, StyledWrapper, StyledWrapperProps } from "@granity/ui";
-import { layoutStyles } from "@granity-engine/Themes/mixins/layout";
-import { getCommon, pxToRem } from "@granity-engine/Themes/utils";
+import { Box, BoxProps, Icons, Paper, PaperProps, pxToRem } from "@granity/ui";
+import { GranityLogo } from "@granity-engine/Theme/components/Icons";
+import { layoutStyles } from "@granity-engine/Theme/mixins/layout";
+import { editorPadding } from "@granity-engine/Theme/themeConstants";
 import { FC } from "react";
-import { css } from "styled-components";
 
-import EditorPlayButton, { EditorPlayButtonProps } from "./EditorPlayButton";
-import EditorPreviewUIButton, { EditorPreviewUIButtonProps } from "./EditorPreviewUIButton";
+import EditorPlayButton from "./EditorPlayButton";
+import EditorPreviewButton from "./EditorPreviewButton";
+import EditorPreviewUIButton from "./EditorPreviewUIButton";
 
 type EditorStyles = {
-    wrapper?: StyledWrapperProps;
-    leftSection?: StyledWrapperProps;
-    centerSection?: StyledWrapperProps;
-    rightSection?: StyledWrapperProps;
-    uiPreviewButton?: EditorPreviewUIButtonProps;
-    playButton?: EditorPlayButtonProps;
+    wrapper?: PaperProps;
+    leftSection?: BoxProps;
+    centerSection?: BoxProps;
+    rightSection?: BoxProps;
 };
 
 const styles: EditorStyles = {
     wrapper: {
-        css: css`
-            ${layoutStyles(
-                {
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                },
-                false
-            )}
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: ${pxToRem(10, 30)};
-            backdrop-filter: blur(${getCommon("blur.heavy")});
-        `,
+        sx: {
+            ...layoutStyles({
+                top: editorPadding,
+                width: 280,
+                centered: true,
+            }),
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: pxToRem(10, 30),
+            color: "secondary.dark",
+        },
     },
     centerSection: {
-        css: css`
-            display: flex;
-            align-items: center;
-        `,
+        sx: {
+            display: "flex",
+            alignItems: "center",
+        },
     },
     leftSection: {
-        css: css`
-            display: flex;
-            align-items: center;
-        `,
+        sx: {
+            display: "flex",
+            alignItems: "center",
+        },
     },
-    playButton: {
-        styles: {
-            button: {
-                css: css`
-                    margin-left: ${pxToRem(25)};
-                `,
-            },
+    rightSection: {
+        sx: {
+            display: "flex",
+            alignItems: "center",
         },
     },
 };
 
 const EditorHeader: FC = () => {
     return (
-        <StyledWrapper {...styles.wrapper}>
-            <StyledWrapper {...styles.leftSection}>
-                <Icons.GranityLogo />
-            </StyledWrapper>
-            <StyledWrapper {...styles.centerSection}>
-                <EditorPreviewUIButton {...styles.uiPreviewButton} />
-                <EditorPlayButton {...styles.playButton} />
-            </StyledWrapper>
-            <StyledWrapper {...styles.rightSection}>Menu</StyledWrapper>
-        </StyledWrapper>
+        <Paper {...styles.wrapper}>
+            <Box {...styles.leftSection}>
+                <GranityLogo />
+            </Box>
+            <Box {...styles.centerSection}>
+                <EditorPreviewUIButton />
+                <EditorPlayButton />
+                <EditorPreviewButton />
+            </Box>
+            <Box {...styles.rightSection}>
+                <Icons.Settings />
+            </Box>
+        </Paper>
     );
 };
 

@@ -1,7 +1,6 @@
 {
   "name": "@granity/ui",
   "version": "0.0.0",
-  "type": "module",
   "main": "./src/index.ts",
   "scripts": {
     "audit": "npm audit",
@@ -10,32 +9,31 @@
     "build-storybook": "build-storybook",
     "lint": "eslint --ext .ts,.tsx src --fix",
     "format": "prettier --write ./src",
-    "test": "vitest run",
-    "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage",
     "update:check": "ncu",
     "update": "ncu -u"
   },
   "prettier": "@granity/prettier-config",
   "dependencies": {
+    "@granity/helpers": "*",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.7",
+    "@mui/styled-engine-sc": "latest",
     "@storybook/react": "^6.5.15",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@vitejs/plugin-react": "^3.0.1",
     "@vitest/coverage-c8": "^0.27.1",
-    "ariakit": "^2.0.0-next.43",
-    "ariakit-utils": "^0.17.0-next.27",
-    "@granity/helpers": "*",
     "jsdom": "^21.0.0",
+    "notistack": "^2.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-toastify": "^9.1.1",
     "styled-components": "^5.3.6",
-    "vite": "^4.0.4",
-    "vitest": "^0.27.1"
+    "vite": "^4.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
+    "@granity/eslint-config": "*",
+    "@granity/prettier-config": "*",
     "@storybook/addon-actions": "^6.5.15",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.5.15",
@@ -49,9 +47,7 @@
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^3.0.1",
     "babel-loader": "^9.1.2",
-    "@granity/eslint-config": "*",
     "npm-check-updates": "^16.6.2",
-    "@granity/prettier-config": "*",
     "typescript": "^4.9.4"
   }
 }

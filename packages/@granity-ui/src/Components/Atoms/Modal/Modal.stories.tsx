@@ -7,10 +7,8 @@ export default {
     component: Modal,
 } as ComponentMeta<typeof Modal>;
 
-const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
+const ModalTemplate: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
 
-export const Basic = Template.bind({});
-
-Basic.args = {
-    children: () => "Modal !",
-};
+export const PrimaryDefault: ComponentStory<typeof Modal> = () => (
+    <ModalTemplate>Primary Modal</ModalTemplate>
+);

@@ -1,9 +1,8 @@
-import { Panel, PanelStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import { layoutStyles } from "@granity-engine/Themes/mixins/layout";
-import { pxToRem } from "@granity-engine/Themes/utils";
+import { layoutSectionStyles, layoutStyles } from "@granity-engine/Theme/mixins/layout";
+import { editorPadding } from "@granity-engine/Theme/themeConstants";
 import { FC } from "react";
-import { css } from "styled-components";
 
 import EditorModeSelector from "./EditorModeSelector";
 import EditorSelectedWidget from "./EditorSelectedWidget";
@@ -11,28 +10,23 @@ import EditorWidgetOptions from "./EditorWidgetOptions/EditorWidgetOptions";
 import EditorWidgetProperties from "./EditorWidgetProperties/EditorWidgetProperties";
 
 type EditorLeftPanelStyles = {
-    wrapper: StyledWrapperProps;
-    panel: PanelStylesProps;
+    wrapper: BoxProps;
+    section: BoxProps;
 };
 
 const styles: EditorLeftPanelStyles = {
     wrapper: {
-        css: css`
-            width: 100%;
-            max-width: ${pxToRem(300)};
-
-            ${layoutStyles({ top: 110, left: 30 })}
-        `,
+        sx: {
+            ...layoutStyles({ top: 80, left: editorPadding, width: 280 }),
+        },
     },
-    panel: {
-        wrapper: {
-            css: css`
-                margin-bottom: ${pxToRem(15)};
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            `,
+    section: {
+        sx: {
+            ...layoutSectionStyles(),
+            marginBottom: pxToRem(15),
+            "&:last-child": {
+                marginBottom: 0,
+            },
         },
     },
 };
@@ -41,22 +35,16 @@ const EditorLeftPanel: FC = () => {
     const { selectedWidgets } = useWidgets();
 
     return (
-        <StyledWrapper {...styles.wrapper}>
-            <Panel {...styles.panel}>
+        <Box {...styles.wrapper}>
+            <Box {...styles.section}>
                 <EditorSelectedWidget />
-            </Panel>
-            <Panel {...styles.panel}>
+            </Box>
+            <Box {...styles.section}>
                 <EditorModeSelector />
-            </Panel>
-            <Panel {...styles.panel}>
                 <EditorWidgetProperties />
-            </Panel>
-            {selectedWidgets[0] && (
-                <Panel {...styles.panel}>
-                    <EditorWidgetOptions />
-                </Panel>
-            )}
-        </StyledWrapper>
+                {selectedWidgets[0] && <EditorWidgetOptions />}
+            </Box>
+        </Box>
     );
 };
 

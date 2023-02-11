@@ -1,25 +1,30 @@
-import { Checkbox, FormField, FormFieldStylesProps, pxToRem, StyledWrapper } from "@granity/ui";
+import {
+    Box,
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    pxToRem,
+    TextField,
+    TextFieldProps,
+} from "@granity/ui";
 import useScenes from "@granity-engine/App/Scenes/_actions/hooks/useScenes";
 import {
     ScenesDictionary,
     ScenesDictionaryItem,
 } from "@granity-engine/App/Scenes/_actions/scenesTypes";
 import { ChangeEvent, FC, useState } from "react";
-import { css } from "styled-components";
 
 import EditorItemsList from "./EditorItemsList";
 
 type EditorScenesListStyles = {
-    formField?: FormFieldStylesProps;
+    textField?: TextFieldProps;
 };
 
 const styles: EditorScenesListStyles = {
-    formField: {
-        styling: {
-            wrapperCss: css`
-                width: 100%;
-                max-width: ${pxToRem(300)};
-            `,
+    textField: {
+        sx: {
+            width: "100%",
+            maxWidth: pxToRem(300),
         },
     },
 };
@@ -63,23 +68,20 @@ const EditorScenesList: FC = () => {
             }}
         >
             {() => (
-                <StyledWrapper>
-                    <FormField
+                <Box>
+                    <TextField
                         label="Scene Name"
-                        inputProps={{
-                            name: "sceneName",
-                            placeholder: "Enter your scene name here...",
-                            onChange: (event) => setSceneName(event.target.value),
-                        }}
-                        {...styles.formField}
+                        onChange={(event) => setSceneName(event.target.value)}
+                        placeholder="Enter your scene name here..."
+                        {...styles.textField}
                     />
-                    <Checkbox
-                        label="Make it default scene"
-                        checkboxProp={{
-                            onChange: handleIsDefault,
-                        }}
-                    />
-                </StyledWrapper>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={<Checkbox onChange={handleIsDefault} />}
+                            label="Make it default scene"
+                        />
+                    </FormGroup>
+                </Box>
             )}
         </EditorItemsList>
     );

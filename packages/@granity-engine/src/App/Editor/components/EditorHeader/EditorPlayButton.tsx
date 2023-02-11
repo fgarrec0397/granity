@@ -1,16 +1,22 @@
-import { Button, ButtonStylesProps, Icons } from "@granity/ui";
+import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
 import useGame from "@granity-engine/App/Game/_actions/hooks/useGame";
+import { Play } from "@granity-engine/Theme/components/Icons";
 import { FC } from "react";
 
-export type EditorPlayButtonPropsStyles = {
-    button?: ButtonStylesProps;
+export type EditorPlayButtonStyles = {
+    button?: IconButtonProps;
 };
 
-export type EditorPlayButtonProps = {
-    styles?: EditorPlayButtonPropsStyles;
+const styles: EditorPlayButtonStyles = {
+    button: {
+        sx: {
+            padding: pxToRem(4),
+            color: "secondary.dark",
+        },
+    },
 };
 
-const EditorPlayButton: FC<EditorPlayButtonProps> = ({ styles }) => {
+const EditorPlayIconButton: FC = () => {
     const { startGame } = useGame();
 
     const onClickPlayHandler = () => {
@@ -18,10 +24,10 @@ const EditorPlayButton: FC<EditorPlayButtonProps> = ({ styles }) => {
     };
 
     return (
-        <Button onClick={onClickPlayHandler} styleType="none" {...styles?.button}>
-            <Icons.Play />
-        </Button>
+        <IconButton onClick={onClickPlayHandler} {...styles.button}>
+            <Play />
+        </IconButton>
     );
 };
 
-export default EditorPlayButton;
+export default EditorPlayIconButton;

@@ -1,33 +1,35 @@
 import { createWidget, useScenes, WidgetType } from "@granity/engine";
-import { Button, StyledWrapper, Typography } from "@granity/ui";
+import { Box, BoxProps, Button, pxToRem, Typography, TypographyProps } from "@granity/ui";
 import { FC } from "react";
-import { css } from "styled-components";
 
-const styles = {
-    wrapper: {
-        css: css`
-            position: absolute;
-            top: 40%;
-            right: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 200px;
-            height: 200px;
-            background-color: white;
-            border: 1px solid rgb(240, 240, 240);
-            transform: translate(50%, -50%);
-        `,
-    },
-    text: {
-        css: css`
-            margin-bottom: 1em;
-        `,
-    },
+type EndScreenStyles = {
+    wrapper?: BoxProps;
+    text?: TypographyProps;
 };
 
-// Reset scene and position on restart
+const styles: EndScreenStyles = {
+    wrapper: {
+        sx: {
+            position: "absolute",
+            top: "40%",
+            right: "50%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: pxToRem(200),
+            height: pxToRem(200),
+            backgroundColor: "white",
+            border: 1,
+            transform: "translate(50%, -50%)",
+        },
+    },
+    text: {
+        sx: {
+            marginBottom: 1,
+        },
+    },
+};
 
 const EndScreen: FC = () => {
     const { loadScene } = useScenes();
@@ -37,10 +39,10 @@ const EndScreen: FC = () => {
     };
 
     return (
-        <StyledWrapper {...styles.wrapper}>
+        <Box {...styles.wrapper}>
             <Typography {...styles.text}>Your died</Typography>
             <Button onClick={handleResetGame}>Play</Button>
-        </StyledWrapper>
+        </Box>
     );
 };
 

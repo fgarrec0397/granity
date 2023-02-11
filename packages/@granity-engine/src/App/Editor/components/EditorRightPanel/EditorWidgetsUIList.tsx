@@ -1,4 +1,4 @@
-import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -6,37 +6,23 @@ import {
     WidgetDictionary,
     WidgetDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { getColor, getTypography, pxToRem } from "@granity-engine/Themes/utils";
 import { FC } from "react";
-import { css } from "styled-components";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
+import EditorItemsListModalButton from "./EditorItemsListModalButton";
 
 type EditorWidgetsUIListStyles = {
-    widgetButton?: ButtonStylesProps;
-    itemWrapper?: StyledWrapperProps;
+    itemWrapper?: BoxProps;
 };
 
 const styles: EditorWidgetsUIListStyles = {
-    widgetButton: {
-        css: css`
-            min-height: ${pxToRem(105)};
-            border: ${pxToRem(1)} solid ${getColor("common.border")};
-            font-size: ${getTypography("size.large")};
-            font-weight: ${getTypography("weight.medium")};
-
-            &:hover {
-                background-color: ${getColor("common.backgroundLight")};
-            }
-        `,
-    },
     itemWrapper: {
-        css: css`
-            display: grid;
-            gap: ${pxToRem(20)};
-            grid-template-columns: repeat(4, 1fr);
-        `,
+        sx: {
+            display: "grid",
+            gap: pxToRem(20),
+            gridTemplateColumns: "repeat(4, 1fr)",
+        },
     },
 };
 
@@ -66,7 +52,7 @@ const EditorWidgetsUIList: FC = () => {
             }}
         >
             {(state) => (
-                <StyledWrapper {...styles.itemWrapper}>
+                <Box {...styles.itemWrapper}>
                     {widgetsUIModules.length > 0
                         ? widgetsUIModules.map((widget, index) => {
                               const key = `${index}-${widget.name}`;
@@ -74,21 +60,18 @@ const EditorWidgetsUIList: FC = () => {
                                   mapWidgetModuleToWidgetDictionary(widget);
 
                               return (
-                                  <Button
-                                      styleType="none"
+                                  <EditorItemsListModalButton
                                       key={key}
+                                      buttonText={widget.name}
                                       onClick={() => {
                                           handleClickMenuItem(newWidget);
-                                          state.hide();
+                                          state.handleClose();
                                       }}
-                                      {...styles.widgetButton}
-                                  >
-                                      {widget.name}
-                                  </Button>
+                                  />
                               );
                           })
                         : "No UI widget available."}
-                </StyledWrapper>
+                </Box>
             )}
         </EditorItemsList>
     );

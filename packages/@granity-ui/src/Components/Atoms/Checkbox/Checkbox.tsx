@@ -1,43 +1,36 @@
-import { uidGenerator } from "@granity/helpers";
-import { Checkbox as CheckboxLib, CheckboxProps as CheckboxLibProps } from "ariakit/checkbox";
-import { FC, useMemo } from "react";
+import pxToRem from "@granity-ui/Theme/utilities/pxToRem";
+import { styled } from "@mui/material";
+import CheckboxLib, { CheckboxProps as LibCheckboxProps } from "@mui/material/Checkbox";
+import { FC } from "react";
 
-import { ThemedFlattenInterpolation } from "../../../Themes/types";
-import Label, { LabelProps } from "../Label/Label";
+export type CheckboxProps = LibCheckboxProps;
 
-export type CheckboxStyles = {
-    styling?: {
-        wrapperCss?: ThemedFlattenInterpolation;
-        labelCss?: ThemedFlattenInterpolation;
-        checkboxCss?: ThemedFlattenInterpolation;
-    };
-};
+const StyledCheckbox = styled(CheckboxLib)`
+    &:hover {
+        background-color: transparent;
+    }
 
-export type CheckboxComponentProps = {
-    label?: string;
-    labelProps?: LabelProps;
-    checkboxProp?: CheckboxLibProps;
-};
+    &.Mui-disabled {
+        cursor: not-allowed;
+    }
 
-export type CheckboxProps = CheckboxComponentProps & CheckboxStyles;
+    &.Mui-checked {
+        color: ${({ theme }) => theme.palette.secondary.main};
 
-const Checkbox: FC<CheckboxProps> = ({ checkboxProp, label, labelProps, styling }) => {
-    const labelPropsMemo = useMemo(() => {
-        return {
-            ...labelProps,
-            name: labelProps?.name || uidGenerator(),
-        };
-    }, [labelProps]);
+        .MuiSvgIcon-root {
+            color: ${({ theme }) => theme.palette.secondary.main};
+        }
+    }
 
-    return (
-        <Label
-            labelPosition={labelProps?.labelPosition}
-            additionalCss={styling?.labelCss}
-            {...labelPropsMemo}
-        >
-            <CheckboxLib className="checkbox" {...checkboxProp} /> {label}
-        </Label>
-    );
+    .MuiSvgIcon-root {
+        color: ${({ theme }) => theme.custom.palette.background.textField};
+        background-color: ${({ theme }) => theme.custom.palette.background.textField};
+        border-radius: ${({ theme }) => pxToRem(theme.shape.borderRadius)};
+    }
+`;
+
+const Checkbox: FC<CheckboxProps> = (props) => {
+    return <StyledCheckbox {...props} />;
 };
 
 export default Checkbox;

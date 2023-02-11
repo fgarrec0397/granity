@@ -1,6 +1,6 @@
 import { GranityEngine, useScenes } from "@granity/engine";
 import { useQuery } from "@granity/helpers";
-import { Toaster } from "@granity/ui";
+import { useSnackbar } from "@granity/ui";
 import { FC, useEffect } from "react";
 
 const getScenes = async () => {
@@ -15,6 +15,7 @@ const getScenes = async () => {
 
 const App: FC = () => {
     const { initScenes } = useScenes();
+    const { enqueueSnackbar } = useSnackbar();
 
     const { data, status } = useQuery({
         queryKey: ["scenes"],
@@ -23,7 +24,7 @@ const App: FC = () => {
 
     useEffect(() => {
         if (status === "error") {
-            Toaster.toast.error("No connections");
+            enqueueSnackbar("No connections", { variant: "error" });
         }
 
         if (status === "success") {
@@ -31,14 +32,14 @@ const App: FC = () => {
                 const { sceneJsonString } = data;
 
                 if (!sceneJsonString) {
-                    Toaster.toast.warning("No scenes found");
+                    enqueueSnackbar("No scenes found", { variant: "error" });
                 }
 
                 const scenes = JSON.parse(sceneJsonString);
 
                 initScenes(scenes);
             } catch (errorParsing) {
-                Toaster.toast.error(errorParsing as string);
+                enqueueSnackbar(errorParsing as string, { variant: "error" });
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,33 +1,30 @@
-import { Button, ButtonStylesProps, FormField, Icons, Modal } from "@granity/ui";
+import { IconButton, Icons, SvgIconProps, TextField } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { getColor, pxToRem } from "@granity-engine/Themes/utils";
 import { ChangeEvent, FC, useState } from "react";
-import { css } from "styled-components";
+
+import EditorModal from "./EditorModal";
 
 export type EditWidgetModalProps = {
     widget: WidgetDictionaryItem;
-    iconWidth?: number;
+    iconSize?: SvgIconProps["fontSize"];
 };
 
-type EditWidgetModalStyles = {
-    triggerButton?: ButtonStylesProps;
-};
-
-const styles: EditWidgetModalStyles = {
-    triggerButton: {
-        css: css`
-            color: ${getColor("common.text")};
-        `,
-    },
-};
-
-const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconWidth = 18 }) => {
+const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconSize = "small" }) => {
     const [displayNameValue, setDisplayNameValue] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { displayWidgetName, getWidgetDictionaryFromWidget, updateWidget } = useWidgets();
 
     const onDisplayNameInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
         setDisplayNameValue(target.value);
+    };
+
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+    };
+    const handleModalClose = () => {
+        clearInput();
+        setIsModalOpen(false);
     };
 
     const onSave = () => {
@@ -35,66 +32,44 @@ const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconWidth = 18 }) =
             ...getWidgetDictionaryFromWidget(widget.id),
             displayName: displayNameValue,
         });
-        clearInput();
+        handleModalClose();
     };
 
     const onCancel = () => {
-        clearInput();
+        handleModalClose();
     };
 
     const clearInput = () => {
         setDisplayNameValue("");
     };
 
-    const triggerButtonStyles = {
-        ...styles.triggerButton,
-        css: css`
-            ${styles.triggerButton?.css}
-
-            max-width: ${pxToRem(iconWidth)};
-            max-height: ${pxToRem(iconWidth)};
-        `,
-    };
-
     return (
-        <Modal
-            title={`Edit ${displayWidgetName(widget.id)}`}
-            size="large"
-            acceptButton={{
-                text: "Save",
-                callback: onSave,
-            }}
-            cancelButton={{
-                text: "Cancel",
-                callback: onCancel,
-            }}
-            trigger={
-                <Button styleType="none" {...triggerButtonStyles}>
-                    <Icons.Edit />
-                </Button>
-            }
-            options={{
-                setOpen: (open) => {
-                    if (!open) {
-                        clearInput();
-                    }
-                },
-            }}
-        >
-            {() => {
-                return (
-                    <FormField
+        <>
+            <IconButton onClick={handleModalOpen}>
+                <Icons.Edit fontSize={iconSize} />
+            </IconButton>
+            <EditorModal
+                title={`Edit ${displayWidgetName(widget.id)}`}
+                open={isModalOpen}
+                onClose={handleModalClose}
+                acceptButton={{
+                    text: "Save",
+                    callback: onSave,
+                }}
+                cancelButton={{
+                    text: "Cancel",
+                    callback: onCancel,
+                }}
+            >
+                {() => (
+                    <TextField
                         label="Display Name"
-                        inputProps={{
-                            name: "displayName",
-                            type: "text",
-                            value: displayNameValue,
-                            onChange: onDisplayNameInputChange,
-                        }}
+                        onChange={onDisplayNameInputChange}
+                        value={displayNameValue}
                     />
-                );
-            }}
-        </Modal>
+                )}
+            </EditorModal>
+        </>
     );
 };
 

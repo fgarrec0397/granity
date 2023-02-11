@@ -1,15 +1,22 @@
-import { Button, ButtonStylesProps, Icons } from "@granity/ui";
+import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
 import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
+import { PreviewUI } from "@granity-engine/Theme/components/Icons";
 import { FC } from "react";
 
-export type EditorPreviewUIButtonPropsStyles = {
-    button?: ButtonStylesProps;
+export type EditorPreviewUIButtonStyles = {
+    button?: IconButtonProps;
 };
 
-export type EditorPreviewUIButtonProps = {
-    styles?: EditorPreviewUIButtonPropsStyles;
+const styles: EditorPreviewUIButtonStyles = {
+    button: {
+        sx: {
+            padding: pxToRem(4),
+            color: "secondary.dark",
+        },
+    },
 };
-const EditorPreviewButton: FC<EditorPreviewUIButtonProps> = ({ styles }) => {
+
+const EditorPreviewUIButton: FC = () => {
     const { openEditorUIPreview } = useEditor();
 
     const onClickPreviewUIHandler = () => {
@@ -17,10 +24,10 @@ const EditorPreviewButton: FC<EditorPreviewUIButtonProps> = ({ styles }) => {
     };
 
     return (
-        <Button onClick={onClickPreviewUIHandler} styleType="none" {...styles?.button}>
-            <Icons.PreviewUI />
-        </Button>
+        <IconButton onClick={onClickPreviewUIHandler} {...styles.button}>
+            <PreviewUI />
+        </IconButton>
     );
 };
 
-export default EditorPreviewButton;
+export default EditorPreviewUIButton;

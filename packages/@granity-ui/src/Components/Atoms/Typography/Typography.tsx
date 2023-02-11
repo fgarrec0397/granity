@@ -1,31 +1,10 @@
-import { FC, ReactNode } from "react";
-import styled from "styled-components";
+import TypographyLib, { TypographyProps as LibTypographyProps } from "@mui/material/Typography";
+import { FC } from "react";
 
-import { ThemedFlattenInterpolation } from "../../../Themes/types";
+export type TypographyProps = LibTypographyProps;
 
-export interface TypographyStylesProps {
-    css?: ThemedFlattenInterpolation;
-}
-
-export interface TypographyComponentProps {
-    as?: string;
-    children: ReactNode;
-}
-
-export type TypographyProps = TypographyComponentProps & TypographyStylesProps;
-
-const Typography: FC<TypographyProps> = ({ as = "span", css, children, ...props }) => {
-    const AsComponent: any = as;
-
-    return (
-        <AsComponent css={css} {...props}>
-            {children}
-        </AsComponent>
-    );
+const Typography: FC<TypographyProps> = (props) => {
+    return <TypographyLib {...props} />;
 };
 
-const StyledTypography = styled(Typography)`
-    ${(props) => props.css}
-`;
-
-export default StyledTypography;
+export default Typography;

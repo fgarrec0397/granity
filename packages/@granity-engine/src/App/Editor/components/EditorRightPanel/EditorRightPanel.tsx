@@ -1,58 +1,41 @@
-import {
-    layoutStyles,
-    Panel,
-    PanelStylesProps,
-    pxToRem,
-    StyledWrapper,
-    StyledWrapperProps,
-} from "@granity/ui";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
+import { layoutSectionStyles, layoutStyles } from "@granity-engine/Theme/mixins/layout";
+import { editorPadding } from "@granity-engine/Theme/themeConstants";
 import { FC } from "react";
-import { css } from "styled-components";
 
 import EditorScenesList from "./EditorScenesList";
 import EditorWidgetsObjectList from "./EditorWidgetsObjectList";
 import EditorWidgetsUIList from "./EditorWidgetsUIList";
 
 type EditorRightPanelStyles = {
-    wrapper?: StyledWrapperProps;
-    panel?: PanelStylesProps;
+    wrapper?: BoxProps;
+    section?: BoxProps;
 };
 
 const styles: EditorRightPanelStyles = {
     wrapper: {
-        css: css`
-            width: 100%;
-            max-width: ${pxToRem(275)};
-
-            ${layoutStyles({ top: 110, right: 30 })}
-        `,
+        sx: {
+            ...layoutStyles({ top: 80, right: editorPadding, width: 275 }),
+        },
     },
-    panel: {
-        wrapper: {
-            css: css`
-                margin-bottom: ${pxToRem(15)};
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            `,
+    section: {
+        sx: {
+            ...layoutSectionStyles(),
+            marginBottom: pxToRem(15),
+            "&:last-child": {
+                marginBottom: 0,
+            },
         },
     },
 };
 
 const EditorRightPanel: FC = () => {
     return (
-        <StyledWrapper {...styles.wrapper}>
-            <Panel {...styles.panel}>
-                <EditorWidgetsObjectList />
-            </Panel>
-            <Panel {...styles.panel}>
-                <EditorWidgetsUIList />
-            </Panel>
-            <Panel {...styles.panel}>
-                <EditorScenesList />
-            </Panel>
-        </StyledWrapper>
+        <Box {...styles.wrapper}>
+            <EditorWidgetsObjectList />
+            <EditorWidgetsUIList />
+            <EditorScenesList />
+        </Box>
     );
 };
 

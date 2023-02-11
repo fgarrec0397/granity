@@ -1,4 +1,4 @@
-import { Button, ButtonStylesProps, StyledWrapper, StyledWrapperProps } from "@granity/ui";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -7,37 +7,23 @@ import {
     WidgetDictionaryItem,
     WidgetObjectsDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { getColor, getTypography, pxToRem } from "@granity-engine/Themes/utils";
 import { FC } from "react";
-import { css } from "styled-components";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
+import EditorItemsListModalButton from "./EditorItemsListModalButton";
 
 type EditorWidgetsObjectListStyles = {
-    widgetButton?: ButtonStylesProps;
-    itemWrapper?: StyledWrapperProps;
+    itemWrapper?: BoxProps;
 };
 
 const styles: EditorWidgetsObjectListStyles = {
-    widgetButton: {
-        css: css`
-            min-height: ${pxToRem(105)};
-            border: ${pxToRem(1)} solid ${getColor("common.border")};
-            font-size: ${getTypography("size.large")};
-            font-weight: ${getTypography("weight.medium")};
-
-            &:hover {
-                background-color: ${getColor("common.backgroundLight")};
-            }
-        `,
-    },
     itemWrapper: {
-        css: css`
-            display: grid;
-            gap: ${pxToRem(20)};
-            grid-template-columns: repeat(4, 1fr);
-        `,
+        sx: {
+            display: "grid",
+            gap: pxToRem(20),
+            gridTemplateColumns: "repeat(4, 1fr)",
+        },
     },
 };
 
@@ -70,7 +56,7 @@ const EditorWidgetsObjectList: FC = () => {
             title="Objects Widgets"
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
-            editModal={(row) => <EditWidgetModal widget={widgetsObjects[row.id]} iconWidth={12} />}
+            editModal={(row) => <EditWidgetModal widget={widgetsObjects[row.id]} />}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
@@ -80,7 +66,7 @@ const EditorWidgetsObjectList: FC = () => {
             }}
         >
             {(state) => (
-                <StyledWrapper {...styles.itemWrapper}>
+                <Box {...styles.itemWrapper}>
                     {widgetsObjectModules.length > 0
                         ? widgetsObjectModules.map((widget, index) => {
                               const key = `${index}-${widget.name}`;
@@ -88,21 +74,18 @@ const EditorWidgetsObjectList: FC = () => {
                                   mapWidgetModuleToWidgetDictionary(widget);
 
                               return (
-                                  <Button
-                                      styleType="none"
+                                  <EditorItemsListModalButton
                                       key={key}
+                                      buttonText={widget.name}
                                       onClick={() => {
                                           handleClickMenuItem(newWidget);
-                                          state.hide();
+                                          state.handleClose();
                                       }}
-                                      {...styles.widgetButton}
-                                  >
-                                      {widget.name}
-                                  </Button>
+                                  />
                               );
                           })
                         : "No object widget available."}
-                </StyledWrapper>
+                </Box>
             )}
         </EditorItemsList>
     );

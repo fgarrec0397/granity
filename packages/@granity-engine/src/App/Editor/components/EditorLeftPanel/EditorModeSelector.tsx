@@ -1,35 +1,35 @@
-import { Collapse, Select } from "@granity/ui";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+} from "@granity/ui";
 import { ModesAvailable } from "@granity-engine/App/Editor/_actions/editorTypes";
 import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
+import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { FC } from "react";
 
 const EditorModeSelector: FC = () => {
     const { selectMode } = useEditor();
+    const openedAccordion = useAccordionDefaultOpened();
 
-    const handleChange = (value: ModesAvailable): void => {
-        selectMode(value);
+    const handleChange = (event: SelectChangeEvent) => {
+        selectMode(event.target.value as ModesAvailable);
     };
 
     return (
-        <Collapse title="Mode">
-            <Select
-                defaultValue={ModesAvailable.Translate}
-                options={[
-                    {
-                        value: "translate",
-                    },
-                    {
-                        value: "rotate",
-                    },
-                    {
-                        value: "scale",
-                    },
-                ]}
-                selectStateProps={{
-                    onChange: handleChange,
-                }}
-            />
-        </Collapse>
+        <Accordion {...openedAccordion}>
+            <AccordionSummary>Mode</AccordionSummary>
+            <AccordionDetails>
+                <Select onChange={handleChange} defaultValue={ModesAvailable.Translate}>
+                    <MenuItem value="translate">Translate</MenuItem>
+                    <MenuItem value="rotate">Rotate</MenuItem>
+                    <MenuItem value="Scale">Scale</MenuItem>
+                </Select>
+            </AccordionDetails>
+        </Accordion>
     );
 };
 

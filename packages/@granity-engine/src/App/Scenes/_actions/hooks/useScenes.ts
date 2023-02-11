@@ -1,5 +1,5 @@
 import { cloneDeep, isEqual, uidGenerator, usePrevious } from "@granity/helpers";
-import { Toaster } from "@granity/ui";
+import { useSnackbar } from "@granity/ui";
 import useCore from "@granity-engine/App/Core/_actions/hooks/useCore";
 import useInitWidgets from "@granity-engine/App/Widgets/_actions/hooks/useInitWidgets";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
@@ -26,6 +26,7 @@ export default () => {
         updateScene,
         remove,
     } = useScenesService();
+    const { enqueueSnackbar } = useSnackbar();
     const { initWidgets } = useInitWidgets();
     const { unserializeWidgets } = useWidgetsUtilities();
     const { widgets, widgetsObjectInfoDictionary, resetWidgets } = useWidgets();
@@ -225,11 +226,23 @@ export default () => {
                 },
             };
 
-            onSave?.(scenesClone);
+            const onSaveSuccess = onSave?.(scenesClone);
+
+            if (onSaveSuccess) {
+                enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
+            }
         } else {
-            Toaster.toast.error("Impossible to save without a scene");
+            enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
         }
-    }, [getCurrentScene, onSave, scenes, updateScene, widgets, widgetsObjectInfoDictionary]);
+    }, [
+        enqueueSnackbar,
+        getCurrentScene,
+        onSave,
+        scenes,
+        updateScene,
+        widgets,
+        widgetsObjectInfoDictionary,
+    ]);
 
     const removeScene = useCallback(
         (sceneId: string) => {
