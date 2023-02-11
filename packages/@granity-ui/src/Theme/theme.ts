@@ -1,14 +1,8 @@
-import { css } from "@mui/material";
 import createTheme from "@mui/material/styles/createTheme";
-
-import { ThemedFlattenInterpolation } from "./types";
 
 declare module "@mui/material/styles" {
     interface Theme {
         custom: {
-            mixins: {
-                inputStyles: () => ThemedFlattenInterpolation;
-            };
             palette: {
                 background: {
                     paperDark?: string;
@@ -22,9 +16,6 @@ declare module "@mui/material/styles" {
 
     interface ThemeOptions {
         custom?: {
-            mixins?: {
-                inputStyles?: () => ThemedFlattenInterpolation;
-            };
             palette?: {
                 background: {
                     paperDark?: string;
@@ -41,9 +32,6 @@ export const htmlFontSize = 16;
 
 const theme = createTheme({
     custom: {
-        mixins: {
-            inputStyles: () => css``,
-        },
         palette: {
             background: {
                 paperDark: "#292929",

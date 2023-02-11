@@ -1,5 +1,5 @@
 import { HasChildren } from "@granity/helpers";
-import { ThemeProvider } from "@granity/ui";
+import { Theme, ThemeProvider } from "@granity/ui";
 import { store } from "@granity-engine/App/Core/_actions/_data/state/store";
 import ProvidersBuilder from "@granity-engine/App/Core/Components/ProvidersBuilder";
 import HistoryDictionaryContextProvider from "@granity-engine/App/Editor/_actions/_data/providers/HistoryContextProvider";
@@ -16,13 +16,14 @@ import useInitCore from "./App/Core/_actions/hooks/useInitCore";
 
 type Props = HasChildren & {
     config?: EngineConfig;
+    theme?: Theme;
 };
 
 injectStore(store);
 
-const AppProvider: FC<Props> = ({ config, children }) => {
+const AppProvider: FC<Props> = ({ config, theme, children }) => {
     const Providers = ProvidersBuilder([
-        [ThemeProvider],
+        [ThemeProvider, { theme }],
         [ReduxProvider, { store }],
         [CoreContextProvider],
         [CamerasContextProvider],
