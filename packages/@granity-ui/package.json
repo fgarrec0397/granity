@@ -14,9 +14,11 @@
   },
   "prettier": "@granity/prettier-config",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@granity/helpers": "*",
     "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.11.7",
+    "@mui/material": "^5.11.8",
     "@mui/styled-engine-sc": "latest",
     "@storybook/react": "^6.5.15",
     "@testing-library/jest-dom": "^5.16.5",

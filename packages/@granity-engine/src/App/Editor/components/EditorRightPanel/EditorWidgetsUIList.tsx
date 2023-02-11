@@ -6,7 +6,7 @@ import {
     WidgetDictionary,
     WidgetDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
@@ -38,13 +38,17 @@ const EditorWidgetsUIList: FC = () => {
         removeWidget(widgetId);
     };
 
+    useEffect(() => {
+        console.log(widgetsUI, "widgetsUI");
+    }, [widgetsUI]);
+
     return (
         <EditorItemsList<WidgetDictionary>
             itemsDictionary={widgetsUI}
             title="UI Widgets"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add UI Widget"
-            editModal={(row) => <EditWidgetModal widget={widgetsUI[row.id]} iconWidth={12} />}
+            editModal={(row) => <EditWidgetModal widget={widgetsUI[row.id]} />}
             displayItemName={displayWidgetName}
             handleClickRemove={handleClickRemove}
             cancelButton={{

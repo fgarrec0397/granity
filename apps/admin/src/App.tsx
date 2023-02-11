@@ -32,14 +32,20 @@ const App: FC = () => {
                 const { sceneJsonString } = data;
 
                 if (!sceneJsonString) {
-                    enqueueSnackbar("No scenes found", { variant: "error" });
+                    enqueueSnackbar("No scenes found", { variant: "warning" });
+                    return;
                 }
 
                 const scenes = JSON.parse(sceneJsonString);
 
                 initScenes(scenes);
             } catch (errorParsing) {
-                enqueueSnackbar(errorParsing as string, { variant: "error" });
+                if (typeof errorParsing === "string") {
+                    enqueueSnackbar(errorParsing, { variant: "error" });
+                } else {
+                    // eslint-disable-next-line no-console
+                    console.error(errorParsing);
+                }
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
