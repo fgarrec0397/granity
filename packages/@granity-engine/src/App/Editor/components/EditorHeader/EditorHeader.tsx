@@ -1,36 +1,33 @@
-import { Box, BoxProps, pxToRem } from "@granity/ui";
+import { Box, BoxProps, Icons, Paper, PaperProps, pxToRem } from "@granity/ui";
 import { GranityLogo } from "@granity-engine/Theme/components/Icons";
 import { layoutStyles } from "@granity-engine/Theme/mixins/layout";
+import { editorPadding } from "@granity-engine/Theme/themeConstants";
 import { FC } from "react";
 
-import EditorPlayButton, { EditorPlayIconButtonProps } from "./EditorPlayButton";
-import EditorPreviewUIButton, { EditorPreviewUIButtonProps } from "./EditorPreviewUIButton";
+import EditorPlayButton from "./EditorPlayButton";
+import EditorPreviewButton from "./EditorPreviewButton";
+import EditorPreviewUIButton from "./EditorPreviewUIButton";
 
 type EditorStyles = {
-    wrapper?: BoxProps;
+    wrapper?: PaperProps;
     leftSection?: BoxProps;
     centerSection?: BoxProps;
     rightSection?: BoxProps;
-    uiPreviewButton?: EditorPreviewUIButtonProps;
-    playButton?: EditorPlayIconButtonProps;
 };
 
 const styles: EditorStyles = {
     wrapper: {
         sx: {
-            ...layoutStyles(
-                {
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                },
-                false
-            ),
+            ...layoutStyles({
+                top: editorPadding,
+                width: 280,
+                centered: true,
+            }),
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             padding: pxToRem(10, 30),
-            backdropFilter: "light",
+            color: "secondary.dark",
         },
     },
     centerSection: {
@@ -45,29 +42,29 @@ const styles: EditorStyles = {
             alignItems: "center",
         },
     },
-    playButton: {
-        styles: {
-            button: {
-                sx: {
-                    marginLeft: pxToRem(25),
-                },
-            },
+    rightSection: {
+        sx: {
+            display: "flex",
+            alignItems: "center",
         },
     },
 };
 
 const EditorHeader: FC = () => {
     return (
-        <Box {...styles.wrapper}>
+        <Paper {...styles.wrapper}>
             <Box {...styles.leftSection}>
                 <GranityLogo />
             </Box>
             <Box {...styles.centerSection}>
-                <EditorPreviewUIButton {...styles.uiPreviewButton} />
-                <EditorPlayButton {...styles.playButton} />
+                <EditorPreviewUIButton />
+                <EditorPlayButton />
+                <EditorPreviewButton />
             </Box>
-            <Box {...styles.rightSection}>Menu</Box>
-        </Box>
+            <Box {...styles.rightSection}>
+                <Icons.Settings />
+            </Box>
+        </Paper>
     );
 };
 

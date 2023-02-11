@@ -1,24 +1,19 @@
-import { SvgIcon, SvgIconProps } from "@granity/ui";
 import { FC, memo } from "react";
 
-type Props = SvgIconProps & {
-    backgroundColor?: string;
-    arrowColor?: string;
-};
-
-const Play: FC<Props> = ({
-    backgroundColor = "#292929",
-    arrowColor = "#A5A5A5",
-    ...svgIconProps
-}) => {
+const Play: FC = () => {
     return (
-        <SvgIcon {...svgIconProps}>
-            <circle cx="27.5" cy="27.5" r="27.5" fill={backgroundColor} />
+        <svg
+            width="26"
+            height="27"
+            viewBox="0 0 26 27"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <path
-                d="M37.5855 24.5857L23.1435 14.6987C22.4765 14.2418 21.8045 14 21.2459 14C20.1661 14 19.498 14.8667 19.498 16.3174V37.686C19.498 39.135 20.1652 40 21.2426 40C21.802 40 22.4633 39.758 23.1317 39.2998L37.5804 29.4131C38.5096 28.7762 39.0242 27.9192 39.0242 26.9988C39.0244 26.0791 38.5157 25.2223 37.5855 24.5857Z"
-                fill={arrowColor}
+                d="M20.5827 11.2837L9.59991 3.7649C9.09271 3.41742 8.58166 3.23352 8.15688 3.23352C7.33564 3.23352 6.82764 3.89262 6.82764 4.99586V21.2462C6.82764 22.3482 7.335 23.006 8.15432 23.006C8.57974 23.006 9.08262 22.8219 9.59095 22.4735L20.5789 14.9548C21.2855 14.4705 21.6769 13.8188 21.6769 13.1189C21.677 12.4194 21.2902 11.7679 20.5827 11.2837Z"
+                fill="currentColor"
             />
-        </SvgIcon>
+        </svg>
     );
 };
 

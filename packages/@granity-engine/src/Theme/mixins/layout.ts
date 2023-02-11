@@ -6,21 +6,33 @@ export type LayoutOptions = {
     bottom?: number;
     left?: number;
     width?: number;
+    autoWidth?: boolean;
+    centered?: boolean;
 };
 
 export const layoutStyles = (options: LayoutOptions) => {
-    const { top, right, bottom, left, width } = options;
+    const { top, right, bottom, left, width, autoWidth, centered } = options;
 
     return {
         position: "absolute",
         maxHeight: `calc(100vh - ${pxToRem(top || 0)} - ${pxToRem(bottom || 0)})`,
-        width: "100%",
-        maxWidth: `${width !== undefined && pxToRem(width)}`,
-        top: `${top !== undefined && pxToRem(top)}`,
-        right: `${right !== undefined && pxToRem(right)}`,
-        bottom: `${bottom !== undefined && pxToRem(bottom)}`,
-        left: `${left !== undefined && pxToRem(left)}`,
+        width: `${autoWidth ? "auto" : "100%"}`,
+        maxWidth: `${width !== undefined ? pxToRem(width) : "none"}`,
+        top: `${top !== undefined ? pxToRem(top) : "unset"}`,
+        bottom: `${bottom !== undefined ? pxToRem(bottom) : "unset"}`,
         userSelect: "none",
+        ...(!autoWidth
+            ? {
+                  right: `${right !== undefined ? pxToRem(right) : "unset"}`,
+                  left: `${left !== undefined ? pxToRem(left) : "unset"}`,
+              }
+            : {}),
+        ...(centered
+            ? {
+                  left: "50%",
+                  transform: "translateX(-50%)",
+              }
+            : {}),
     };
 };
 

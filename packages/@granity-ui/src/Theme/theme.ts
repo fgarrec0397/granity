@@ -9,13 +9,6 @@ declare module "@mui/material/styles" {
             mixins: {
                 inputStyles: () => ThemedFlattenInterpolation;
             };
-            layout: {
-                blur?: {
-                    light?: string;
-                    main?: string;
-                    heavy?: string;
-                };
-            };
             palette: {
                 background: {
                     paperDark?: string;
@@ -31,13 +24,6 @@ declare module "@mui/material/styles" {
         custom?: {
             mixins?: {
                 inputStyles?: () => ThemedFlattenInterpolation;
-            };
-            layout?: {
-                blur?: {
-                    light?: string;
-                    main?: string;
-                    heavy?: string;
-                };
             };
             palette?: {
                 background: {
@@ -57,13 +43,6 @@ const theme = createTheme({
     custom: {
         mixins: {
             inputStyles: () => css``,
-        },
-        layout: {
-            blur: {
-                light: "10px",
-                main: "25px",
-                heavy: "50px",
-            },
         },
         palette: {
             background: {
@@ -181,11 +160,6 @@ const theme = createTheme({
         button: {
             fontWeight: "bold",
             textTransform: "initial",
-        },
-    },
-    unstable_sxConfig: {
-        backdropFilter: {
-            themeKey: "custom.layout.blur",
         },
     },
 });

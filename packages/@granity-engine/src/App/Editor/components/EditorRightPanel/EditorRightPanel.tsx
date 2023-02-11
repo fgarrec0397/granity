@@ -1,5 +1,6 @@
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { layoutSectionStyles, layoutStyles } from "@granity-engine/Theme/mixins/layout";
+import { editorPadding } from "@granity-engine/Theme/themeConstants";
 import { FC } from "react";
 
 import EditorScenesList from "./EditorScenesList";
@@ -14,7 +15,7 @@ type EditorRightPanelStyles = {
 const styles: EditorRightPanelStyles = {
     wrapper: {
         sx: {
-            ...layoutStyles({ top: 110, right: 30, width: 275 }),
+            ...layoutStyles({ top: 80, right: editorPadding, width: 275 }),
         },
     },
     section: {
