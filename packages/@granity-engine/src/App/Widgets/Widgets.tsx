@@ -1,17 +1,16 @@
 import { FC } from "react";
 
-import { WidgetDictionary } from "./_actions/widgetsTypes";
 import WidgetItem from "./components/WidgetItem";
 
 type WidgetsProps = {
-    widgets: WidgetDictionary;
+    widgetsIds: string[];
 };
 
-const Widgets: FC<WidgetsProps> = ({ widgets }) => {
+const Widgets: FC<WidgetsProps> = ({ widgetsIds }) => {
     return (
         <>
-            {Object.keys(widgets).map((widgetId) => (
-                <WidgetItem key={widgetId} widget={widgets[widgetId]} />
+            {widgetsIds.map((widgetId) => (
+                <WidgetItem key={widgetId} widgetId={widgetId} />
             ))}
         </>
     );

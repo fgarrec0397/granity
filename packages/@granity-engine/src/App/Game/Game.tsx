@@ -26,7 +26,7 @@ export const Game: FC = () => {
 };
 
 export const GameUI: FC = () => {
-    const { widgetsUI } = useWidgets();
+    const { widgetsUIIds } = useWidgets();
 
-    return <Widgets widgets={widgetsUI} />;
+    return <Widgets widgetsIds={widgetsUIIds} />;
 };

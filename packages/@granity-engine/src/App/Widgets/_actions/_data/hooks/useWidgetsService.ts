@@ -1,6 +1,8 @@
+import { pull } from "@granity/helpers";
 import { useCallback, useMemo } from "react";
 
 import filterWidgets from "../../utilities/filterWidgets";
+import filterWidgetsIds from "../../utilities/filterWidgetsIds";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
@@ -14,8 +16,10 @@ import useWidgetsContext from "./useWidgetsContext";
 import useWidgetsSelector from "./useWidgetsSelector";
 
 export default () => {
-    const { currentWidgetProperties, widgetsObjectInfoDictionary } = useWidgetsSelector();
-    const { widgets, selectedWidgets, setWidgets, setSelectedWidgets } = useWidgetsContext();
+    const { currentWidgetProperties, widgetsObjectInfoDictionary, widgetsObjectInfoIds } =
+        useWidgetsSelector();
+    const { widgets, selectedWidgets, setWidgets, setSelectedWidgets, widgetsIds, setWidgetsIds } =
+        useWidgetsContext();
     const {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
@@ -28,6 +32,11 @@ export default () => {
 
     const { widgetsObjects, widgetsUI } = useMemo(() => filterWidgets(widgets), [widgets]);
 
+    const { widgetsObjectsIds, widgetsUIIds } = useMemo(
+        () => filterWidgetsIds(widgets, widgetsIds),
+        [widgets, widgetsIds]
+    );
+
     const add = useCallback(
         (newWidget: WidgetDictionaryItem, newWidgetObjectInfo?: WidgetObjectInfo) => {
             if (newWidgetObjectInfo) {
@@ -35,20 +44,24 @@ export default () => {
                     newWidgetObjectInfo as Required<WidgetObjectInfo>;
                 dispatchAddDictionary(requiredWidgetDictionaryItem);
             }
+
             setWidgets((prevWidgets) => ({
                 ...prevWidgets,
                 [newWidget.id]: { ...newWidget },
             }));
+
+            setWidgetsIds((prevIds) => [...prevIds, newWidget.id]);
         },
-        [dispatchAddDictionary, setWidgets]
+        [dispatchAddDictionary, setWidgets, setWidgetsIds]
     );
 
     const addBatch = useCallback(
         (newWidgets: WidgetDictionary, newWidgetsDictionary: WidgetObjectInfoDictionary) => {
             dispatchAddBatchDictionary(newWidgetsDictionary);
             setWidgets((prevWidgets) => ({ ...prevWidgets, ...newWidgets }));
+            setWidgetsIds((prevIds) => [...prevIds, ...Object.keys(newWidgets)]);
         },
-        [dispatchAddBatchDictionary, setWidgets]
+        [dispatchAddBatchDictionary, setWidgets, setWidgetsIds]
     );
 
     const update = useCallback(
@@ -75,8 +88,14 @@ export default () => {
             dispatchRemoveWidgetDictionary(widgetId);
 
             delete widgets[widgetId];
+
+            setWidgetsIds((prevIds) => {
+                const ids = prevIds.filter((x) => x !== widgetId);
+
+                return ids;
+            });
         },
-        [dispatchRemoveWidgetDictionary, removeSelection, widgets]
+        [dispatchRemoveWidgetDictionary, removeSelection, setWidgetsIds, widgets]
     );
 
     const removeBatch = useCallback(
@@ -85,9 +104,16 @@ export default () => {
 
             removeSelection();
             dispatchRemoveBatchWidgetDictionary(widgetsIdsToDelete);
+
             Object.keys(widgetsToDelete).forEach((x) => delete widgets[x]);
+
+            setWidgetsIds((prevIds) => {
+                const ids = pull(prevIds, ...Object.keys(widgetsToDelete));
+
+                return ids;
+            });
         },
-        [dispatchRemoveBatchWidgetDictionary, removeSelection, widgets]
+        [dispatchRemoveBatchWidgetDictionary, removeSelection, setWidgetsIds, widgets]
     );
 
     const removeAll = useCallback(() => {
@@ -123,10 +149,14 @@ export default () => {
         update,
         select,
         widgets,
+        widgetsIds,
         widgetsObjects,
         widgetsUI,
+        widgetsObjectsIds,
+        widgetsUIIds,
         currentWidgetProperties,
         widgetsObjectInfoDictionary,
+        widgetsObjectInfoIds,
         selectedWidgets,
         removeSelection,
         remove,

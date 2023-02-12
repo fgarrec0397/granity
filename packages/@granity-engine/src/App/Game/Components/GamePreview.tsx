@@ -4,22 +4,22 @@ import { Physics } from "@react-three/rapier";
 import { FC } from "react";
 
 const Game: FC = () => {
-    const { widgetsObjects } = useWidgets();
+    const { widgetsObjectsIds } = useWidgets();
 
     // TODO Implement a setting to activate the Debug through the editor
     return (
         <>
             <Physics>
-                <Widgets widgets={widgetsObjects} />
+                <Widgets widgetsIds={widgetsObjectsIds} />
             </Physics>
         </>
     );
 };
 
 const GameUI: FC = () => {
-    const { widgetsUI } = useWidgets();
+    const { widgetsUIIds } = useWidgets();
 
-    return <Widgets widgets={widgetsUI} />;
+    return <Widgets widgetsIds={widgetsUIIds} />;
 };
 
 export default { Game, GameUI };

@@ -9,7 +9,7 @@ import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateCha
 import EditorLayout from "./components/EditorLayout";
 
 const Editor: FC = () => {
-    const { widgetsObjects, selectWidgetFromMeshArr } = useWidgets();
+    const { widgetsObjectsIds, selectWidgetFromMeshArr } = useWidgets();
 
     useEditorKeyboardControls();
     useHandleEditorStateChange();
@@ -17,7 +17,7 @@ const Editor: FC = () => {
     return (
         <Select multiple onChange={selectWidgetFromMeshArr}>
             <SceneDefaultCamera />
-            <Widgets widgets={widgetsObjects} />
+            <Widgets widgetsIds={widgetsObjectsIds} />
         </Select>
     );
 };

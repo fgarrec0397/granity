@@ -5,13 +5,13 @@ import { Physics } from "@react-three/rapier";
 import { FC } from "react";
 
 const GameScene: FC = () => {
-    const { widgetsObjects } = useWidgets();
+    const { widgetsObjectsIds } = useWidgets();
 
     return (
         <>
             <Lights />
             <Physics>
-                <Widgets widgets={widgetsObjects} />
+                <Widgets widgetsIds={widgetsObjectsIds} />
             </Physics>
         </>
     );

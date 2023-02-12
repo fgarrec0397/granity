@@ -1,15 +1,23 @@
 import { FC } from "react";
 
+import { useWidgets } from "../_actions/hooks";
 import { WidgetType } from "../_actions/widgetsConstants";
-import { WidgetDictionaryItem } from "../_actions/widgetsTypes";
 import WidgetObjectRenderer from "./WidgetsRenderers/WidgetObjectRenderer";
 import WidgetUIRenderer from "./WidgetsRenderers/WidgetUIRenderer";
 
 interface WidgetItemProps {
-    widget: WidgetDictionaryItem;
+    widgetId: string;
 }
 
-const WidgetItem: FC<WidgetItemProps> = ({ widget }) => {
+const WidgetItem: FC<WidgetItemProps> = ({ widgetId }) => {
+    const { getWidgetById } = useWidgets();
+
+    const widget = getWidgetById(widgetId);
+
+    if (!widget) {
+        return null;
+    }
+
     if (widget.type === WidgetType.GameObject) {
         return <WidgetObjectRenderer widget={widget} />;
     }

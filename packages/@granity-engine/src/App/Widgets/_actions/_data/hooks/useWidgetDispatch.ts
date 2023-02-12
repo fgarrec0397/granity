@@ -10,7 +10,7 @@ import {
     removeBatchWidgetDictionary,
     removeWidgetDictionary,
     updateWidgetDictionaryV2,
-} from "../state/widgetsInfoDictionaryReducer";
+} from "../state/widgetsInfoDictionaryReducerV1";
 
 export default () => {
     const dispatch = useAppDispatch();

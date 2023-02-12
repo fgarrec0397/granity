@@ -7,3 +7,4 @@ export { default as isEqual } from "lodash/isEqual";
 export { default as merge } from "lodash/merge";
 export { default as mergeWith } from "lodash/mergeWith";
 export { default as partialRight } from "lodash/partialRight";
+export { default as pull } from "lodash/pull";

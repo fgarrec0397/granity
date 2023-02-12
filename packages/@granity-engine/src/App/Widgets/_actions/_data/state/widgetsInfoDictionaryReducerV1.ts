@@ -1,16 +1,13 @@
-import { clone, pull } from "@granity/helpers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { WidgetObjectInfo, WidgetObjectInfoDictionary } from "../../widgetsTypes";
 
 export interface WidgetObjectInfoDictionaryState {
-    byId: WidgetObjectInfoDictionary;
-    allIds: string[];
+    widgetsObjectInfoDictionary: WidgetObjectInfoDictionary;
 }
 
 export const widgetsInitialState: WidgetObjectInfoDictionaryState = {
-    byId: {},
-    allIds: [],
+    widgetsObjectInfoDictionary: {},
 };
 
 export const widgetsSlice = createSlice({
@@ -23,12 +20,10 @@ export const widgetsSlice = createSlice({
         ) => {
             const widgetObjectInfo = action.payload;
 
-            state.byId = {
-                ...state.byId,
+            state.widgetsObjectInfoDictionary = {
+                ...state.widgetsObjectInfoDictionary,
                 [widgetObjectInfo.id]: widgetObjectInfo,
             };
-
-            state.allIds.push(widgetObjectInfo.id);
         },
         addBatchWidgetDictionary: (
             state: WidgetObjectInfoDictionaryState,
@@ -36,12 +31,10 @@ export const widgetsSlice = createSlice({
         ) => {
             const newWidgetsDictionary = action.payload;
 
-            state.byId = {
-                ...state.byId,
+            state.widgetsObjectInfoDictionary = {
+                ...state.widgetsObjectInfoDictionary,
                 ...newWidgetsDictionary,
             };
-
-            state.allIds = [...state.allIds, ...Object.keys(newWidgetsDictionary)];
         },
         updateWidgetDictionaryV2: (
             state: WidgetObjectInfoDictionaryState,
@@ -53,16 +46,16 @@ export const widgetsSlice = createSlice({
             const { widgetId, value } = action.payload;
 
             if (value.displayName) {
-                state.byId[widgetId].displayName = value.displayName;
+                state.widgetsObjectInfoDictionary[widgetId].displayName = value.displayName;
             }
 
             if (value.properties) {
-                state.byId[widgetId].properties = value.properties;
+                state.widgetsObjectInfoDictionary[widgetId].properties = value.properties;
             }
 
             if (value.options) {
-                state.byId[widgetId].options = {
-                    ...state.byId[widgetId].options,
+                state.widgetsObjectInfoDictionary[widgetId].options = {
+                    ...state.widgetsObjectInfoDictionary[widgetId].options,
                     ...value.options,
                 };
             }
@@ -72,30 +65,20 @@ export const widgetsSlice = createSlice({
             action: PayloadAction<string>
         ) => {
             const id = action.payload;
-            delete state.byId[id];
-            state.allIds = state.allIds.filter((x) => x !== id);
+            delete state.widgetsObjectInfoDictionary[id];
         },
         removeBatchWidgetDictionary: (
             state: WidgetObjectInfoDictionaryState,
             action: PayloadAction<string[]>
         ) => {
             const ids = action.payload;
-            ids.forEach((x) => delete state.byId[x]);
-
-            const allIds = clone(state.allIds);
-            const newAllIds = pull(allIds, ...ids);
-
-            state.allIds = newAllIds;
+            ids.forEach((x) => delete state.widgetsObjectInfoDictionary[x]);
         },
         overrideWidgetDictionary: (
             state: WidgetObjectInfoDictionaryState,
             action: PayloadAction<WidgetObjectInfoDictionary>
         ) => {
-            const widgetDictionary = action.payload;
-
-            state.byId = widgetDictionary;
-
-            state.allIds = Object.keys(widgetDictionary);
+            state.widgetsObjectInfoDictionary = action.payload;
         },
     },
 });
