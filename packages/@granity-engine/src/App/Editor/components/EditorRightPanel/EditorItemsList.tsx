@@ -1,4 +1,4 @@
-import { DictionaryValue, HasCallableChildren } from "@granity/helpers";
+import { HasCallableChildren } from "@granity/helpers";
 import {
     Accordion,
     AccordionDetails,
@@ -14,8 +14,6 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { ScenesDictionary } from "@granity-engine/App/Scenes/_actions/scenesTypes";
-import { WidgetDictionary } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { ReactElement, useState } from "react";
 
@@ -26,18 +24,18 @@ export type EditorItemsListButtonProps = {
     callback?: () => void;
 };
 
-export type EditorItemsListProps<T extends WidgetDictionary | ScenesDictionary> = {
-    itemsDictionary: T;
+export type EditorItemsListProps = {
+    itemsDictionaryIds: string[];
     title: string;
     noItemsText: string;
     triggerButtonText: string;
-    editModal?: (row: DictionaryValue<T>) => ReactElement;
+    editModal?: (id: string) => ReactElement;
     acceptButton?: EditorItemsListButtonProps;
     cancelButton?: EditorItemsListButtonProps;
     displayItemName?: (id: string) => string | undefined;
-    handleClickRow?: (row: DictionaryValue<T>) => void;
+    handleClickRow?: (id: string) => void;
     handleClickRemove?: (id: string) => void;
-    isActionRowSelected?: (row: DictionaryValue<T>) => boolean;
+    isActionRowSelected?: (id: string) => boolean;
 } & HasCallableChildren<{
     handleClose: () => void;
     handleOpen: () => void;
@@ -69,8 +67,8 @@ const styles: EditorItemsListStyles = {
     },
 };
 
-const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
-    itemsDictionary,
+const EditorItemsList = ({
+    itemsDictionaryIds,
     title,
     noItemsText,
     triggerButtonText,
@@ -82,7 +80,7 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
     acceptButton,
     cancelButton,
     children,
-}: EditorItemsListProps<T>) => {
+}: EditorItemsListProps) => {
     const openedAccordion = useAccordionDefaultOpened();
     const [isEditorModalOpen, setIsEditorModalOpen] = useState(false);
 
@@ -94,18 +92,16 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
             <AccordionSummary>{title}</AccordionSummary>
             <AccordionDetails>
                 <List>
-                    {Object.keys(itemsDictionary).length > 0 ? (
-                        Object.keys(itemsDictionary).map((id) => {
-                            const itemName = displayItemName
-                                ? displayItemName(itemsDictionary[id].id)
-                                : itemsDictionary[id].name;
+                    {itemsDictionaryIds.length > 0 ? (
+                        itemsDictionaryIds.map((id) => {
+                            const itemName = displayItemName ? displayItemName(id) : undefined;
 
                             return (
                                 <ListItem
                                     key={id}
                                     secondaryAction={
                                         <>
-                                            {editModal?.(itemsDictionary[id] as DictionaryValue<T>)}
+                                            {editModal?.(id)}
                                             <IconButton onClick={() => handleClickRemove?.(id)}>
                                                 <Icons.Delete fontSize="small" />
                                             </IconButton>
@@ -114,14 +110,8 @@ const EditorItemsList = <T extends WidgetDictionary | ScenesDictionary>({
                                     disablePadding
                                 >
                                     <ListItemButton
-                                        onClick={() =>
-                                            handleClickRow?.(
-                                                itemsDictionary[id] as DictionaryValue<T>
-                                            )
-                                        }
-                                        selected={isActionRowSelected?.(
-                                            itemsDictionary[id] as DictionaryValue<T>
-                                        )}
+                                        onClick={() => handleClickRow?.(id)}
+                                        selected={isActionRowSelected?.(id)}
                                     >
                                         {itemName}
                                     </ListItemButton>

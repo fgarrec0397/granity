@@ -3,13 +3,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
 
 export interface ScenesState {
-    scenes: ScenesDictionary | null;
+    byId: ScenesDictionary;
+    allIds: string[];
     currentSceneId: string | null;
     currentDefaultSceneId: string | null;
 }
 
 const initialState: ScenesState = {
-    scenes: null,
+    byId: {},
+    allIds: [],
     currentSceneId: null,
     currentDefaultSceneId: null,
 };
@@ -21,18 +23,22 @@ export const scenesSlice = createSlice({
         addScene: (state: ScenesState, actions: PayloadAction<ScenesDictionaryItem>) => {
             const newScene = actions.payload;
 
-            state.scenes = {
-                ...state.scenes,
+            state.byId = {
+                ...state.byId,
                 [newScene.id]: newScene,
             };
+
+            state.allIds.push(newScene.id);
         },
         addScenesBatch: (state: ScenesState, actions: PayloadAction<ScenesDictionary>) => {
             const newScenes = actions.payload;
 
-            state.scenes = {
-                ...state.scenes,
+            state.byId = {
+                ...state.byId,
                 ...newScenes,
             };
+
+            state.allIds = [...state.allIds, ...Object.keys(newScenes)];
         },
         resetScenes: (
             state: ScenesState,
@@ -42,9 +48,9 @@ export const scenesSlice = createSlice({
 
             state.currentSceneId = currentSceneId;
 
-            state.scenes = {
-                ...scenes,
-            };
+            state.byId = scenes;
+
+            state.allIds = Object.keys(scenes);
         },
         setCurrentSceneId: (state: ScenesState, actions: PayloadAction<string>) => {
             state.currentSceneId = actions.payload;
@@ -53,21 +59,23 @@ export const scenesSlice = createSlice({
             state.currentDefaultSceneId = actions.payload;
         },
         updateScenes: (state: ScenesState, actions: PayloadAction<ScenesDictionary>) => {
-            state.scenes = actions.payload;
+            state.byId = actions.payload;
         },
         updateScene: (state: ScenesState, actions: PayloadAction<ScenesDictionaryItem>) => {
             const newScene = actions.payload;
 
-            if (state.scenes) {
-                state.scenes[newScene.id] = newScene;
+            if (state.byId) {
+                state.byId[newScene.id] = newScene;
             }
         },
         removeScene: (state: ScenesState, actions: PayloadAction<string>) => {
             const sceneId = actions.payload;
 
-            if (state.scenes) {
-                delete state.scenes[sceneId];
+            if (state.byId) {
+                delete state.byId[sceneId];
             }
+
+            state.allIds = state.allIds.filter((x) => x !== sceneId);
         },
     },
 });

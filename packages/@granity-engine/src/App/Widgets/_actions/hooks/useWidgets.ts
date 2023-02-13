@@ -71,6 +71,15 @@ export default () => {
         [widgetsObjectInfoDictionary]
     );
 
+    const isWidgetExist = useCallback(
+        (id: string | undefined) => {
+            if (id) {
+                return widgets[id] !== undefined;
+            }
+        },
+        [widgets]
+    );
+
     const displayWidgetName = useCallback(
         (widgetId: string) => {
             const widgetInfo = getWidgetInfoById(widgetId);
@@ -297,6 +306,7 @@ export default () => {
         displayWidgetName,
         selectWidget,
         selectWidgetFromMeshArr,
+        isWidgetExist,
         updateWidget,
         updateCurrentWidgetOptions,
         updateCurrentWidgetWithMesh,

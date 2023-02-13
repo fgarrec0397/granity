@@ -14,19 +14,19 @@ export default () => {
         dispatchUpdateScene,
         dispatchRemoveScene,
     } = useScenesDispatch();
-    const scenesData = useScenesSelector();
+    const { scenes, scenesIds, currentSceneId, currentDefaultSceneId } = useScenesSelector();
 
     const add = (scene: ScenesDictionaryItem) => {
         dispatchAddScene(scene);
     };
 
-    const addBatch = (scenes: ScenesDictionary) => {
-        dispatchAddScenesBatch(scenes);
+    const addBatch = (newScenes: ScenesDictionary) => {
+        dispatchAddScenesBatch(newScenes);
     };
 
     const reset = useCallback(
-        (scenes: ScenesDictionary, newCurrentSceneId: string) => {
-            dispatchResetScenes(scenes, newCurrentSceneId);
+        (newScenes: ScenesDictionary, newCurrentSceneId: string) => {
+            dispatchResetScenes(newScenes, newCurrentSceneId);
         },
         [dispatchResetScenes]
     );
@@ -51,7 +51,10 @@ export default () => {
     };
 
     return {
-        ...scenesData,
+        scenes,
+        scenesIds,
+        currentSceneId,
+        currentDefaultSceneId,
         add,
         addBatch,
         reset,

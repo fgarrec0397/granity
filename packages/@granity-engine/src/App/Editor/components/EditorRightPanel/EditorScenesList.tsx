@@ -8,10 +8,6 @@ import {
     TextFieldProps,
 } from "@granity/ui";
 import useScenes from "@granity-engine/App/Scenes/_actions/hooks/useScenes";
-import {
-    ScenesDictionary,
-    ScenesDictionaryItem,
-} from "@granity-engine/App/Scenes/_actions/scenesTypes";
 import { ChangeEvent, FC, useState } from "react";
 
 import EditorItemsList from "./EditorItemsList";
@@ -32,10 +28,21 @@ const styles: EditorScenesListStyles = {
 const EditorScenesList: FC = () => {
     const [sceneName, setSceneName] = useState("");
     const [isDefault, setIsDefault] = useState(false);
-    const { scenes, currentSceneId, addScene, loadScene, removeScene } = useScenes();
+    const {
+        scenes,
+        scenesIds,
+        currentSceneId,
+        addScene,
+        displaySceneName,
+        loadScene,
+        removeScene,
+    } = useScenes();
 
-    const handleClickRow = (scene: ScenesDictionaryItem) => {
-        loadScene(scene.id);
+    const handleClickRow = (id: string) => {
+        const scene = scenes?.[id];
+        if (scene) {
+            loadScene(scene.id);
+        }
     };
 
     const handleClickRemove = (sceneId: string) => {
@@ -51,14 +58,15 @@ const EditorScenesList: FC = () => {
     };
 
     return (
-        <EditorItemsList<ScenesDictionary>
-            itemsDictionary={scenes || {}}
+        <EditorItemsList
+            itemsDictionaryIds={scenesIds}
             title="Scenes"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add Scene"
             handleClickRow={handleClickRow}
+            displayItemName={displaySceneName}
             handleClickRemove={handleClickRemove}
-            isActionRowSelected={(row) => currentSceneId === row.id}
+            isActionRowSelected={(id) => currentSceneId === id}
             acceptButton={{
                 text: "Add scene",
                 callback: handleAddScene,

@@ -16,6 +16,7 @@ import getFirstNonDefaultScene from "../utilities/getFirstNonDefaultScene";
 export default () => {
     const {
         scenes,
+        scenesIds,
         currentSceneId,
         currentDefaultSceneId,
         add,
@@ -94,6 +95,19 @@ export default () => {
             updateScene(scene);
         }
     }, [getCurrentScene, updateScene, widgets, widgetsObjectInfoDictionary]);
+
+    const displaySceneName = useCallback(
+        (sceneId: string) => {
+            const scene = getSceneById(sceneId);
+
+            if (scene?.name) {
+                return scene.name;
+            }
+
+            return undefined;
+        },
+        [getSceneById]
+    );
 
     const loadScene = useCallback(
         (sceneNameOrId: string) => {
@@ -284,6 +298,7 @@ export default () => {
 
     return {
         scenes,
+        scenesIds,
         currentScene: getCurrentScene(),
         currentSceneId,
 
@@ -296,6 +311,7 @@ export default () => {
         getCurrentDefaultScene,
         resetScenes,
         saveScene,
+        displaySceneName,
         loadScene,
         removeScene,
         initScenes,

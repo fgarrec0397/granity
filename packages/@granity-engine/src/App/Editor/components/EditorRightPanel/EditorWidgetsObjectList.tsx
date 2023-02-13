@@ -3,7 +3,6 @@ import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
 import {
-    WidgetDictionary,
     WidgetDictionaryItem,
     WidgetObjectsDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
@@ -31,6 +30,7 @@ const EditorWidgetsObjectList: FC = () => {
     const {
         addWidget,
         displayWidgetName,
+        widgetsObjectsIds,
         widgetsObjects,
         selectWidget,
         selectedWidgets,
@@ -42,7 +42,8 @@ const EditorWidgetsObjectList: FC = () => {
         addWidget(widget);
     };
 
-    const handleClickRow = (widget: WidgetDictionaryItem) => {
+    const handleClickRow = (id: string) => {
+        const widget = widgetsObjects[id];
         selectWidget([widget as WidgetObjectsDictionaryItem]);
     };
 
@@ -51,16 +52,16 @@ const EditorWidgetsObjectList: FC = () => {
     };
 
     return (
-        <EditorItemsList<WidgetDictionary>
-            itemsDictionary={widgetsObjects}
+        <EditorItemsList
+            itemsDictionaryIds={widgetsObjectsIds}
             title="Objects Widgets"
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
-            editModal={(row) => <EditWidgetModal widget={widgetsObjects[row.id]} />}
+            editModal={(id) => <EditWidgetModal widget={widgetsObjects[id]} />}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
-            isActionRowSelected={(row) => widgetsObjects[row.id]?.id === selectedWidgets[0]?.id}
+            isActionRowSelected={(id) => widgetsObjects[id]?.id === selectedWidgets[0]?.id}
             cancelButton={{
                 text: "Cancel and close",
             }}
