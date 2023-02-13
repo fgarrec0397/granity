@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/fgarrec0397/granity/compare/v0.2.3...v0.2.4) (2023-02-13)
+
+
+### Bug Fixes
+
+* cleaning code + fix console warnings ([075f8a9](https://github.com/fgarrec0397/granity/commits/075f8a9cb0dc5f33b3e44c1f365d869b8f9c6c32))
+* onload crach foxed ([a35d3e3](https://github.com/fgarrec0397/granity/commits/a35d3e348631858d2a2b1a53000256176e770bd9))
+* onSave feedback + init issue ([6380611](https://github.com/fgarrec0397/granity/commits/63806116350a2b84f923190c4e28f5e4a36034fe))
+
+
+### Refactor
+
+* flattening scenes + widgets store ([1bd39f6](https://github.com/fgarrec0397/granity/commits/1bd39f67e4f051a6ca98c352c0663f9865715191))
+* widgets looping system ([2625c3a](https://github.com/fgarrec0397/granity/commits/2625c3a3013969c11d0d2586174963c9fcd7d068))
+
 ### [0.2.3](https://github.com/fgarrec0397/granity/compare/v0.2.2...v0.2.3) (2023-02-11)
 
 
