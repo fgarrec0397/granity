@@ -6,9 +6,9 @@ import gameReducer, { GameState } from "@granity-engine/App/Game/_actions/_data/
 import scenesReducer, {
     ScenesState,
 } from "@granity-engine/App/Scenes/_actions/_data/state/scenesReducer";
-import widgetsReducerV2, {
-    WidgetsStateV2,
-} from "@granity-engine/App/Widgets/_actions/_data/state/widgetsReducerV2";
+import widgetsReducer, {
+    WidgetsState,
+} from "@granity-engine/App/Widgets/_actions/_data/state/widgetsReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "redux";
@@ -17,7 +17,7 @@ type FeaturesState = any; // TODO fix that
 
 interface State {
     editor: EditorState;
-    widgets: WidgetsStateV2;
+    widgets: WidgetsState;
     scenes: ScenesState;
     game: GameState;
     features?: FeaturesState;
@@ -40,7 +40,7 @@ export type InjectableStore = Store<State, MyAction> & {
  */
 const staticReducers: ReducersMapObject<State, MyAction> = {
     editor: editorReducer,
-    widgets: widgetsReducerV2,
+    widgets: widgetsReducer,
     scenes: scenesReducer,
     game: gameReducer,
 };

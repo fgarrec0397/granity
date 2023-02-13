@@ -7,7 +7,7 @@ import widgetsInfoDictionaryReducer, {
     WidgetObjectInfoDictionaryState,
 } from "./widgetsInfoDictionaryReducer";
 
-export type WidgetsStateV2 = {
+export type WidgetsState = {
     displayedInformation: DisplayedInformationsState;
     widgetsObjectInfoDictionary: WidgetObjectInfoDictionaryState;
 };

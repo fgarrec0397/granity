@@ -138,9 +138,10 @@ export default () => {
             }
 
             setWidgets(newWidgets);
+            setWidgetsIds(Object.keys(newWidgets));
             dispatchOverrideWidgetDictionary(newWidgetsDictionary);
         },
-        [dispatchOverrideWidgetDictionary, removeAll, setWidgets]
+        [dispatchOverrideWidgetDictionary, removeAll, setWidgets, setWidgetsIds]
     );
 
     return {
