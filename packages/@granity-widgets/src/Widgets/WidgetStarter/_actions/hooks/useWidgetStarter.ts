@@ -1,11 +1,11 @@
 import useWidgetStarterService from "../_data/hooks/useWidgetStarterService";
 
 export default () => {
-    const { add } = useWidgetStarterService();
+    const { add, widgetStarterMessage } = useWidgetStarterService();
 
     const makeThisWidgetAlive = () => {
         add("Your widget behaviour here!");
     };
 
-    return { makeThisWidgetAlive };
+    return { makeThisWidgetAlive, widgetStarterMessage };
 };

@@ -1,5 +1,11 @@
 import { useGameInit } from "@granity/engine";
 
+import useWidgetStarter from "./useWidgetStarter";
+
 export default () => {
-    useGameInit(() => {});
+    const { makeThisWidgetAlive } = useWidgetStarter();
+
+    useGameInit(() => {
+        makeThisWidgetAlive();
+    });
 };
