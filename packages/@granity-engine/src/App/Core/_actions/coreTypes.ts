@@ -3,6 +3,17 @@ import { ScenesDictionary, WidgetModules } from "@granity-engine/api";
 
 import keyboardMappings from "../configs/keyboardMappings";
 
+// --- Store --- //
+
+// eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface
+export interface FeaturesState {}
+
+// export type FeaturesStateBuilder<State> = {
+//     [Property in keyof State]: State[Property];
+// };
+
+// --- Engine Configs --- //
+
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
     keyboardMappings?: KeyboardKeys;

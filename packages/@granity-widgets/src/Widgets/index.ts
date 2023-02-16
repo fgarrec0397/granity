@@ -15,12 +15,18 @@ export type FeaturesWidgetsProps = GeometryFormsProps &
     TerrainProps &
     WidgetStarterProps;
 
+declare module "@granity/engine" {
+    interface FeaturesState {
+        widgetStarter: WidgetStarterState;
+    }
+}
+
 /**
  * Add your Widgets reducers state here
  */
-export interface FeaturesState {
-    widgetStarter: WidgetStarterState;
-}
+// export interface FeaturesState {
+//     widgetStarter: WidgetStarterState;
+// }
 
 const resolveModules = () => {
     const widgetsModules: WidgetModules[] = [];
