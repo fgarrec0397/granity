@@ -16,8 +16,10 @@ export type FeaturesWidgetsProps = GeometryFormsProps &
     WidgetStarterProps;
 
 declare module "@granity/engine" {
-    interface FeaturesState {
-        widgetStarter: WidgetStarterState;
+    interface State {
+        features: {
+            widgetStarter: WidgetStarterState;
+        };
     }
 }
 

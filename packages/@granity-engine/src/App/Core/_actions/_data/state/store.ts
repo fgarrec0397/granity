@@ -19,7 +19,7 @@ export interface State {
     widgets: WidgetsState;
     scenes: ScenesState;
     game: GameState;
-    features?: FeaturesState;
+    // features?: FeaturesState;
 }
 
 type MyAction = AnyAction;

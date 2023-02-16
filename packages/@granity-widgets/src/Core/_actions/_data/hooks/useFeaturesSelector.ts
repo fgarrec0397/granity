@@ -9,6 +9,6 @@ export default () => {
     return useAppSelectorTest((state) => {
         console.log(state, "state");
 
-        return state.features;
+        return state.features.widgetStarter;
     });
 };
