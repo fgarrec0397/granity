@@ -24,21 +24,19 @@ type MyAction = AnyAction;
 
 export type ReducerManager = {
     getReducer: () => ReducersMapObject<State, MyAction>;
-    add: (key: string, reducer: ReducersMapObject<State, MyAction>) => void;
-    addIn: <ReducerState>(
+    add: <NewReducerState>(
         key: string,
-        subKey: string,
-        reducer: ReducersMapObject<ReducerState, MyAction>
+        reducer: ReducersMapObject<NewReducerState, MyAction>
+    ) => void;
+    addIn: <NewReducerState>(
+        key: string,
+        subKey: keyof NewReducerState,
+        reducer: ReducersMapObject<NewReducerState, MyAction>
     ) => void;
     remove: (key: keyof State) => void;
 };
 
 export type InjectableStore = Store<State, MyAction> & {
-    injectReducer?: (key: keyof State, reducer?: Reducer<State, AnyAction>) => void;
-    injectFeaturesReducer?: (
-        key: string,
-        featuresReducer: Reducer<FeaturesState, MyAction>
-    ) => void;
     reducerManager?: ReducerManager;
     asyncReducers?: Partial<ReducersMapObject<State, AnyAction>>;
     asyncFeaturesReducers?: Partial<ReducersMapObject<FeaturesState, MyAction>> | never;
@@ -90,9 +88,18 @@ export function initStore() {
                 };
 
                 (reducers as any)[key] = combineReducers(newReducer);
-
                 store.replaceReducer(createReducer(reducers, staticReducers));
+
+                return;
             }
+
+            const newReducer: ReducersMapObject<unknown, any> = {
+                ...(rootReducer as any),
+                [subKey]: reducer,
+            };
+
+            (reducers as any)[key] = createReducer(newReducer, rootReducer);
+            store.replaceReducer(createReducer(reducers, staticReducers));
         };
 
         const remove = (key: keyof State) => {
