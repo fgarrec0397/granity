@@ -28,7 +28,12 @@ export default <PropsType, RefType = null>(
 
     if (store) {
         if (widgetModule.reducer) {
-            store.injectFeaturesReducer?.(widgetModule.reducer.name, widgetModule.reducer.reducer);
+            store.reducerManager?.addIn?.(
+                "features",
+                widgetModule.reducer.name,
+                widgetModule.reducer.reducer
+            );
+            // store.reducerManager?.add?.("features", widgetModule.reducer.reducer);
         }
     }
 

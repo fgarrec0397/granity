@@ -1,3 +1,4 @@
+// import { FeaturesState } from "@features/Widgets" // TODO - fix that;
 import { FeaturesState } from "@granity-engine/App/Core";
 import editorReducer, {
     EditorState,
@@ -18,28 +19,17 @@ export interface State {
     widgets: WidgetsState;
     scenes: ScenesState;
     game: GameState;
+    // features?: FeaturesState;
 }
 
 type MyAction = AnyAction;
 
-export type ReducerManager = {
-    getReducer: () => ReducersMapObject<State, MyAction>;
-    add: (key: string, reducer: ReducersMapObject<State, MyAction>) => void;
-    addIn: <ReducerState>(
-        key: string,
-        subKey: string,
-        reducer: ReducersMapObject<ReducerState, MyAction>
-    ) => void;
-    remove: (key: keyof State) => void;
-};
-
 export type InjectableStore = Store<State, MyAction> & {
-    injectReducer?: (key: keyof State, reducer?: Reducer<State, AnyAction>) => void;
+    injectReducer?: (key: string, reducer?: Reducer<State, AnyAction>) => void;
     injectFeaturesReducer?: (
         key: string,
         featuresReducer: Reducer<FeaturesState, MyAction>
     ) => void;
-    reducerManager?: ReducerManager;
     asyncReducers?: Partial<ReducersMapObject<State, AnyAction>>;
     asyncFeaturesReducers?: Partial<ReducersMapObject<FeaturesState, MyAction>> | never;
 };
@@ -54,68 +44,38 @@ const staticReducers: ReducersMapObject<State, MyAction> = {
     game: gameReducer,
 };
 
-export function initStore() {
+/**
+ * Create a store which has a function to inject a pageReducer
+ */
+const initStore = (): InjectableStore => {
     const store: InjectableStore = configureStore({
         reducer: staticReducers,
     });
 
-    const createReducerManager = (initialReducers: ReducersMapObject<State, MyAction>) => {
-        const reducers = { ...initialReducers };
+    store.asyncReducers = {};
+    store.asyncFeaturesReducers = {};
 
-        const getReducer = () => reducers;
+    store.injectReducer = (key, asyncReducer) => {
+        if (store.asyncReducers) {
+            (store.asyncReducers as any)[key] = asyncReducer;
 
-        const add = <NewReducerState>(
-            key: string,
-            reducer: ReducersMapObject<NewReducerState, MyAction>
-        ) => {
-            if (!key || (reducers as any)[key]) {
-                return;
-            }
-
-            (reducers as any)[key] = reducer;
-
-            store.replaceReducer(createReducer(reducers, staticReducers));
-        };
-
-        const addIn = <NewReducerState>(
-            key: string,
-            subKey: keyof NewReducerState,
-            reducer: ReducersMapObject<NewReducerState, MyAction>
-        ) => {
-            const rootReducer = reducers[key as keyof State];
-
-            if (!rootReducer) {
-                const newReducer: ReducersMapObject<unknown, any> = {
-                    [subKey]: reducer,
-                };
-
-                (reducers as any)[key] = combineReducers(newReducer);
-
-                store.replaceReducer(createReducer(reducers, staticReducers));
-            }
-        };
-
-        const remove = (key: keyof State) => {
-            if (!key || !reducers[key]) {
-                return;
-            }
-
-            delete reducers[key];
-            store.replaceReducer(createReducer(reducers, staticReducers));
-        };
-
-        return {
-            getReducer,
-            add,
-            addIn,
-            remove,
-        };
+            store.replaceReducer(createReducer(store.asyncReducers, staticReducers));
+        }
     };
 
-    store.reducerManager = createReducerManager(staticReducers);
+    store.injectFeaturesReducer = (key, asyncReducer) => {
+        if (store.asyncFeaturesReducers) {
+            (store.asyncFeaturesReducers as any)[key] = asyncReducer;
+
+            store.injectReducer?.(
+                "features",
+                createReducer(store.asyncFeaturesReducers, staticReducers.features)
+            );
+        }
+    };
 
     return store;
-}
+};
 
 export const store = initStore();
 

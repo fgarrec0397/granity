@@ -1,5 +1,6 @@
 import { uidGenerator } from "@granity/helpers";
 import { useSnackbar } from "@granity/ui";
+import { useAppSelector } from "@granity-engine/api";
 import { useCallback } from "react";
 import { Object3D } from "three";
 
@@ -43,6 +44,8 @@ export default () => {
         reset,
     } = useWidgetsService();
     const { enqueueSnackbar } = useSnackbar();
+    const test = useAppSelector((x) => x);
+    console.log(test, "test");
 
     const getWidgetDictionaryFromWidget = useCallback(
         (widgetId: string | undefined) => {
