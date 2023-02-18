@@ -1,4 +1,3 @@
-import { FeaturesState } from "@granity-engine/App/Core";
 import editorReducer, {
     EditorState,
 } from "@granity-engine/App/Editor/_actions/_data/state/editorReducer";

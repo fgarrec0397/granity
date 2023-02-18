@@ -13,7 +13,6 @@ export const injectStore = (_store: InjectableStore) => {
 /**
  * A function helping you creating a widget.
  *
- * For now it only manage if your component is a forwarded one or a normal one, but in the future it could be more.
  */
 export default <PropsType, RefType = null>(
     widget: WidgetObjectModule<PropsType, RefType> | WidgetUIModule
@@ -33,7 +32,6 @@ export default <PropsType, RefType = null>(
                 widgetModule.reducer.name,
                 widgetModule.reducer
             );
-            // store.reducerManager?.add?.("features", widgetModule.reducer.reducer);
         }
     }
 

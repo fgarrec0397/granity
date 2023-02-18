@@ -8,24 +8,26 @@ import { WidgetStarter2State } from "./WidgetStarter2";
 
 const modules = import.meta.glob("./*/*.tsx", { eager: true });
 
-/**
- * Add your Widgets Props here as union types
- */
-export type FeaturesWidgetsProps = GeometryFormsProps &
-    CamerasProps &
-    TerrainProps &
-    WidgetStarterProps;
-
-/**
- * Add your Widgets reducers state here
- */
-
 declare module "@granity/engine" {
+    /**
+     * Add your Widgets reducers state here
+     */
+
     interface State {
         features: {
             widgetStarter: WidgetStarterState;
             widgetStarter2: WidgetStarter2State;
         };
+    }
+
+    /**
+     * Add your Widgets Props here as union types
+     */
+    interface WidgetProps {
+        geometryProps: GeometryFormsProps;
+        camerasProps: CamerasProps;
+        terrainProps: TerrainProps;
+        widgetStarterProps: WidgetStarterProps;
     }
 }
 

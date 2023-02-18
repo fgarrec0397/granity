@@ -7,7 +7,6 @@ export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 
 export default () => {
     return useAppSelector((state) => {
-        console.log(state, "state from widgets");
         return state.features;
     });
 };

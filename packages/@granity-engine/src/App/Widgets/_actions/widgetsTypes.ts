@@ -1,5 +1,4 @@
-// import { FeaturesWidgetsProps } from "@features/Widgets";
-import { Dictionary } from "@granity/helpers";
+import { Dictionary, UnionOfProperties } from "@granity/helpers";
 import { Vector3Array } from "@react-three/rapier";
 import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
@@ -7,14 +6,17 @@ import { Object3D } from "three";
 
 import { FieldType, HelpersTypes, WidgetType } from "./widgetsConstants";
 
-type FeaturesWidgetsProps = any; // TODO this temporary
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface WidgetProps {}
+
+export type DefaultWidgetProps = UnionOfProperties<WidgetProps>;
 
 /// ---------------------- Widget Module ---------------------- ///
 
 /**
  * Base widget type
  */
-export type Widget<Props = FeaturesWidgetsProps, Ref = null> = {
+export type Widget<Props = DefaultWidgetProps, Ref = null> = {
     component: WidgetComponent<Props, Ref>;
     reducer: Slice | null;
     name: string;
@@ -26,7 +28,7 @@ export type WidgetModules = WidgetObjectModule | WidgetUIModule;
 /**
  * A component type of a widget
  */
-export type WidgetComponent<Props = FeaturesWidgetsProps, Ref = null> =
+export type WidgetComponent<Props = DefaultWidgetProps, Ref = null> =
     | FC<Props>
     | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<Ref>>;
 
@@ -67,14 +69,12 @@ export type WidgetOptions = WidgetBaseOptions;
 /**
  * A dictionary containing informations about all widgets
  */
-export type WidgetDictionary<Props = FeaturesWidgetsProps> = Dictionary<
-    WidgetDictionaryItem<Props>
->;
+export type WidgetDictionary<Props = DefaultWidgetProps> = Dictionary<WidgetDictionaryItem<Props>>;
 
 /**
  * Informations of a widget
  */
-export type WidgetDictionaryItem<Props = FeaturesWidgetsProps> =
+export type WidgetDictionaryItem<Props = DefaultWidgetProps> =
     | WidgetObjectsDictionaryItem<Props>
     | WidgetUIDictionaryItem;
 
@@ -83,14 +83,14 @@ export type WidgetDictionaryItem<Props = FeaturesWidgetsProps> =
 /**
  * A dictionary containing informations about all widgets
  */
-export type SerializedWidgetDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+export type SerializedWidgetDictionary<Props = DefaultWidgetProps> = Dictionary<
     SerializedWidgetDictionaryItem<Props>
 >;
 
 /**
  * Informations of a widget
  */
-export type SerializedWidgetDictionaryItem<Props = FeaturesWidgetsProps> =
+export type SerializedWidgetDictionaryItem<Props = DefaultWidgetProps> =
     | SerializedWidgetObjectDictionaryItem<Props>
     | SerializedWidgetUIDictionaryItem;
 
@@ -99,7 +99,7 @@ export type SerializedWidgetDictionaryItem<Props = FeaturesWidgetsProps> =
 /**
  * A widget object that can be on the 3D scene.
  */
-export type WidgetObjectModule<Props = FeaturesWidgetsProps, Ref = null> = Widget<Props, Ref> & {
+export type WidgetObjectModule<Props = DefaultWidgetProps, Ref = null> = Widget<Props, Ref> & {
     hasRef?: true;
     editorOptions?: WidgetObjectEditorOptions;
     type: WidgetType.GameObject;
@@ -118,14 +118,14 @@ export type WidgetObjectEditorOptions = {
 /**
  * A dictionary containing informations about all WidgetObjectsDictionary
  */
-export type WidgetObjectsDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+export type WidgetObjectsDictionary<Props = DefaultWidgetProps> = Dictionary<
     WidgetObjectsDictionaryItem<Props>
 >;
 
 /**
  * Informations of a widget object on the scene
  */
-export type WidgetObjectsDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
+export type WidgetObjectsDictionaryItem<Props = DefaultWidgetProps> = Omit<
     WidgetObjectModule<Props>,
     "reducer"
 > & {
@@ -137,14 +137,14 @@ export type WidgetObjectsDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
 /**
  * A serialized dictionary containing informations about all WidgetObjectsDictionary
  */
-export type SerializedWidgetObjectsDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+export type SerializedWidgetObjectsDictionary<Props = DefaultWidgetProps> = Dictionary<
     SerializedWidgetObjectDictionaryItem<Props>
 >;
 
 /**
  * A serialized version of WidgetObjectsDictionaryItem type
  */
-export type SerializedWidgetObjectDictionaryItem<Props = FeaturesWidgetsProps> = Omit<
+export type SerializedWidgetObjectDictionaryItem<Props = DefaultWidgetProps> = Omit<
     WidgetObjectsDictionaryItem<Props>,
     "component" | "meshHolder"
 > & {
@@ -220,7 +220,7 @@ export type WidgetUIDictionaryItem = Omit<WidgetUIModule, "reducer"> & {
 /**
  * A serialized dictionary containing informations about all WidgetObjectsDictionary
  */
-export type SerializedWidgetUIDictionary<Props = FeaturesWidgetsProps> = Dictionary<
+export type SerializedWidgetUIDictionary<Props = DefaultWidgetProps> = Dictionary<
     SerializedWidgetObjectDictionaryItem<Props>
 >;
 
