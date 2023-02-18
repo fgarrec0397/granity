@@ -63,17 +63,19 @@ export function initStore() {
 
     const createReducerManager = (initialReducers: ReducersMapObject<State, MyAction>) => {
         const reducers = { ...initialReducers };
-        console.log(initialReducers, "initialReducers");
-        console.log(reducers, "reducers");
 
         const getReducer = () => reducers;
 
+        /**
+         * Add a root reducer
+         *
+         * @param key Key of the root reducer
+         * @param reducer The reducer to add
+         */
         const add = <NewReducerState>(
             key: string,
             reducer: ReducersMapObject<NewReducerState, MyAction>
         ) => {
-            // console.log((reducers as any)[key], "(reducers as any)[key]");
-
             if (!key || (reducers as any)[key]) {
                 return;
             }
@@ -82,11 +84,16 @@ export function initStore() {
 
             (reducers as any)[key] = reducer;
 
-            console.log(store.asyncReducers[key], "store.asyncReducers[key]");
-
             store.replaceReducer(createReducer(reducers, staticReducers));
         };
 
+        /**
+         * Add a reducer inside a root reducer
+         *
+         * @param key Key of the root reducer
+         * @param subKey Key of the root reducer's reducer
+         * @param reducer The reducer to add
+         */
         const addIn = <NewReducerState>(
             key: string,
             subKey: keyof NewReducerState,
@@ -103,7 +110,6 @@ export function initStore() {
 
                 (reducers as any)[key] = combineReducers(newReducer);
                 store.replaceReducer(createReducer(reducers, staticReducers));
-                // add(key, combineReducers(newReducer));
 
                 return;
             }
@@ -114,6 +120,11 @@ export function initStore() {
             store.replaceReducer(createReducer(reducers, staticReducers));
         };
 
+        /**
+         * Removes a reducer by its given key
+         *
+         * @param key The reducer's key to remove
+         */
         const remove = (key: keyof State) => {
             if (!key || !reducers[key]) {
                 return;
