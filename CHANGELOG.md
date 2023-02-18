@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/fgarrec0397/granity/compare/v0.2.4...v0.2.5) (2023-02-18)
+
+
+### Features
+
+* reducer manager ([7f2ef33](https://github.com/fgarrec0397/granity/commits/7f2ef33d201bb7f1149b998a91f10ff17a905bf7))
+
+
+### Bug Fixes
+
+* adding another reducer ([32baab7](https://github.com/fgarrec0397/granity/commits/32baab76ae11675a6b209c44dc1eebe99a11f87e))
+* module augmentation for typing reducer but not on useAppSelector ([eb03ac4](https://github.com/fgarrec0397/granity/commits/eb03ac44741b789125e6357f0ce17fbd3a030c1d))
+* preparing typings for [@granity-engine](https://github.com/granity-engine) ([f3d651a](https://github.com/fgarrec0397/granity/commits/f3d651a4a6c3af4df67ce8f87c80f62ee86992dc))
+* reducer manager addIn ([615f6a4](https://github.com/fgarrec0397/granity/commits/615f6a4d88a56d6580ae13ad5f33979316aa6061))
+* useAppSelector typing fix ([6a3687e](https://github.com/fgarrec0397/granity/commits/6a3687e7479e87a4ab1f613b9ad56c8958a51405))
+* widgetsProps types + code clean up ([268744d](https://github.com/fgarrec0397/granity/commits/268744def978e5b9ee56122588f030d69e2dc984))
+
+
+### Refactor
+
+* reducer manager code clean up ([5c1da38](https://github.com/fgarrec0397/granity/commits/5c1da38f800b69157a666c2fbdfa0d3b30d6cc7e))
+
 ### [0.2.4](https://github.com/fgarrec0397/granity/compare/v0.2.3...v0.2.4) (2023-02-13)
 
 
