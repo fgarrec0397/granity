@@ -9,7 +9,7 @@ import scenesReducer, {
 import widgetsReducer, {
     WidgetsState,
 } from "@granity-engine/App/Widgets/_actions/_data/state/widgetsReducer";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Slice } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "redux";
 
@@ -31,15 +31,17 @@ export type ReducerManager = {
     addIn: <NewReducerState>(
         key: string,
         subKey: keyof NewReducerState,
-        reducer: ReducersMapObject<NewReducerState, MyAction>
+        // reducer: ReducersMapObject<NewReducerState, MyAction>
+        reducer: Slice
     ) => void;
     remove: (key: keyof State) => void;
 };
 
-export type InjectableStore = Store<State, MyAction> & {
+export type InjectableStore<AdditionalState = any> = Store<State, MyAction> & {
     reducerManager?: ReducerManager;
-    asyncReducers?: Partial<ReducersMapObject<State, AnyAction>>;
-    asyncFeaturesReducers?: Partial<ReducersMapObject<FeaturesState, MyAction>> | never;
+    // asyncSubReducers?: Partial<ReducersMapObject<State, AnyAction>>;
+    // asyncReducers?: Partial<ReducersMapObject<AdditionalState, MyAction>> | never;
+    asyncReducers?: any;
 };
 
 /**
@@ -57,8 +59,12 @@ export function initStore() {
         reducer: staticReducers,
     });
 
+    store.asyncReducers = {};
+
     const createReducerManager = (initialReducers: ReducersMapObject<State, MyAction>) => {
         const reducers = { ...initialReducers };
+        console.log(initialReducers, "initialReducers");
+        console.log(reducers, "reducers");
 
         const getReducer = () => reducers;
 
@@ -66,11 +72,17 @@ export function initStore() {
             key: string,
             reducer: ReducersMapObject<NewReducerState, MyAction>
         ) => {
+            // console.log((reducers as any)[key], "(reducers as any)[key]");
+
             if (!key || (reducers as any)[key]) {
                 return;
             }
 
+            store.asyncReducers[key] = reducer;
+
             (reducers as any)[key] = reducer;
+
+            console.log(store.asyncReducers[key], "store.asyncReducers[key]");
 
             store.replaceReducer(createReducer(reducers, staticReducers));
         };
@@ -78,27 +90,27 @@ export function initStore() {
         const addIn = <NewReducerState>(
             key: string,
             subKey: keyof NewReducerState,
-            reducer: ReducersMapObject<NewReducerState, MyAction>
+            reducer: Slice
         ) => {
             const rootReducer = reducers[key as keyof State];
 
             if (!rootReducer) {
                 const newReducer: ReducersMapObject<unknown, any> = {
-                    [subKey]: reducer,
+                    [subKey]: reducer.reducer,
                 };
+
+                store.asyncReducers[key] = newReducer;
 
                 (reducers as any)[key] = combineReducers(newReducer);
                 store.replaceReducer(createReducer(reducers, staticReducers));
+                // add(key, combineReducers(newReducer));
 
                 return;
             }
 
-            const newReducer: ReducersMapObject<unknown, any> = {
-                ...(rootReducer as any),
-                [subKey]: reducer,
-            };
+            store.asyncReducers[key][subKey] = reducer.reducer;
 
-            (reducers as any)[key] = createReducer(newReducer, rootReducer);
+            (reducers as any)[key] = combineReducers(store.asyncReducers[key]);
             store.replaceReducer(createReducer(reducers, staticReducers));
         };
 

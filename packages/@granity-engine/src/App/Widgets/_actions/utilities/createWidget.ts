@@ -31,7 +31,7 @@ export default <PropsType, RefType = null>(
             store.reducerManager?.addIn?.(
                 "features",
                 widgetModule.reducer.name,
-                widgetModule.reducer.reducer
+                widgetModule.reducer
             );
             // store.reducerManager?.add?.("features", widgetModule.reducer.reducer);
         }
