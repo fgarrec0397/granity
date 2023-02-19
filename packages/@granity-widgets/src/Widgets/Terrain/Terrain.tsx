@@ -5,7 +5,7 @@ import {
     useGameUpdate,
     WidgetType,
 } from "@granity/engine";
-import { RigidBodyApi } from "@react-three/rapier";
+import { RapierRigidBody } from "@react-three/rapier";
 import { FC, useRef } from "react";
 import { Vector3 } from "three";
 
@@ -19,7 +19,7 @@ export type TerrainProps = EditableWidget & {
 type OwnProps = TerrainProps;
 
 const Terrain: FC<OwnProps> = ({ translateXOnPlay, color }) => {
-    const ref = useRef<RigidBodyApi>(null);
+    const ref = useRef<RapierRigidBody>(null);
 
     useGameUpdate(() => {
         if (ref.current && translateXOnPlay) {
@@ -28,7 +28,8 @@ const Terrain: FC<OwnProps> = ({ translateXOnPlay, color }) => {
                     ref.current.translation().x + 0.01,
                     ref.current.translation().y,
                     ref.current.translation().z
-                )
+                ),
+                true
             );
         }
     });

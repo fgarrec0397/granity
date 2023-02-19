@@ -1,6 +1,6 @@
 export * from "./Accordion";
 export * from "./Basics";
-export * from "./Box";
+// export * from "./Box";
 export * from "./Button";
 export * from "./Checkbox";
 export * from "./Dialog";
@@ -13,3 +13,4 @@ export * from "./Paper";
 export * from "./Select";
 export * from "./TextField";
 export * from "./Typography";
+export * from "./Wrapper";

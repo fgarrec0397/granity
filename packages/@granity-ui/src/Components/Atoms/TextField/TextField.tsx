@@ -10,7 +10,7 @@ export type TextFieldProps = LibTextFieldProps & {
 };
 export type InputLabelProps = LibInputLabelProps;
 
-const StyledTextField = styled(({ labelPosition, ...props }) => (
+const StyledTextField = styled(({ labelPosition, ...props }: TextFieldProps) => (
     <TextFieldLib {...props} />
 ))<TextFieldProps>`
     ${inputStyles()}

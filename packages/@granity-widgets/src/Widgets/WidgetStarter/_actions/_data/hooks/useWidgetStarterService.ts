@@ -3,11 +3,11 @@ import useWidgetStarterSelector from "./useWidgetStarterSelector";
 
 export default () => {
     const { dispatchAdd } = useWidgetStarterDispatch();
-    const { widgetStarterMessage } = useWidgetStarterSelector();
+    const widgetStarter = useWidgetStarterSelector();
 
     const add = (message: string) => {
         dispatchAdd(message);
     };
 
-    return { add, widgetStarterMessage };
+    return { add, widgetStarterMessage: widgetStarter?.widgetStarterMessage };
 };

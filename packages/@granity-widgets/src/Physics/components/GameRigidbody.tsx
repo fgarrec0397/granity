@@ -1,6 +1,6 @@
 import { useEditor } from "@granity/engine";
 import { HasChildren } from "@granity/helpers";
-import { RigidBody, RigidBodyApi, RigidBodyProps } from "@react-three/rapier";
+import { RapierRigidBody, RigidBody, RigidBodyProps } from "@react-three/rapier";
 import { forwardRef } from "react";
 
 type Props = RigidBodyProps &
@@ -8,7 +8,7 @@ type Props = RigidBodyProps &
         hasPhysic?: boolean;
     };
 
-const GameRigidbody = forwardRef<RigidBodyApi, Props>(({ children, ...rigidbodyProps }, ref) => {
+const GameRigidbody = forwardRef<RapierRigidBody, Props>(({ children, ...rigidbodyProps }, ref) => {
     const { isEditor } = useEditor();
 
     if (!isEditor) {

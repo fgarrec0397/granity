@@ -14,7 +14,7 @@ declare module "@granity/engine" {
      */
 
     interface State {
-        features: {
+        features?: {
             widgetStarter: WidgetStarterState;
             widgetStarter2: WidgetStarter2State;
         };

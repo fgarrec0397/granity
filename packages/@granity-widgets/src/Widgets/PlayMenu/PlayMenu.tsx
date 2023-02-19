@@ -1,9 +1,9 @@
 import { createWidget, FieldType, useScenes, WidgetType } from "@granity/engine";
-import { Box, BoxProps, Button, pxToRem } from "@granity/ui";
+import { Button, pxToRem, Wrapper, WrapperProps } from "@granity/ui";
 import { FC } from "react";
 
 type PlayMenuStyles = {
-    wrapper?: BoxProps;
+    wrapper?: WrapperProps;
 };
 
 const styles: PlayMenuStyles = {
@@ -32,9 +32,9 @@ const PlayMenu: FC = () => {
     };
 
     return (
-        <Box {...styles.wrapper}>
+        <Wrapper {...styles.wrapper}>
             <Button onClick={handleChangeScene}>Play</Button>
-        </Box>
+        </Wrapper>
     );
 };
 

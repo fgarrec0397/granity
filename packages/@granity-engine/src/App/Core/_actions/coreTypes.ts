@@ -8,10 +8,6 @@ import keyboardMappings from "../configs/keyboardMappings";
 // eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface
 export interface FeaturesState {}
 
-// export type FeaturesStateBuilder<State> = {
-//     [Property in keyof State]: State[Property];
-// };
-
 // --- Engine Configs --- //
 
 export type EngineConfig = {
@@ -20,7 +16,7 @@ export type EngineConfig = {
     onSave?: (scenes: ScenesDictionary | null) => Promise<{
         status: boolean;
         message: string;
-    }>;
+    }> | void;
 };
 
 // --- Key Bindings --- //

@@ -1,9 +1,9 @@
 import { createWidget, useScenes, WidgetType } from "@granity/engine";
-import { Box, BoxProps, Button, pxToRem, Typography, TypographyProps } from "@granity/ui";
+import { Button, pxToRem, Typography, TypographyProps, Wrapper, WrapperProps } from "@granity/ui";
 import { FC } from "react";
 
 type EndScreenStyles = {
-    wrapper?: BoxProps;
+    wrapper?: WrapperProps;
     text?: TypographyProps;
 };
 
@@ -39,10 +39,10 @@ const EndScreen: FC = () => {
     };
 
     return (
-        <Box {...styles.wrapper}>
+        <Wrapper {...styles.wrapper}>
             <Typography {...styles.text}>Your died</Typography>
             <Button onClick={handleResetGame}>Play</Button>
-        </Box>
+        </Wrapper>
     );
 };
 

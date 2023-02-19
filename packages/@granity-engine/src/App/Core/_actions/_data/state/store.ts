@@ -27,19 +27,12 @@ export type ReducerManager = {
         key: string,
         reducer: ReducersMapObject<NewReducerState, MyAction>
     ) => void;
-    addIn: <NewReducerState>(
-        key: string,
-        subKey: keyof NewReducerState,
-        // reducer: ReducersMapObject<NewReducerState, MyAction>
-        reducer: Slice
-    ) => void;
+    addIn: <NewReducerState>(key: string, subKey: keyof NewReducerState, reducer: Slice) => void;
     remove: (key: keyof State) => void;
 };
 
-export type InjectableStore<AdditionalState = any> = Store<State, MyAction> & {
+export type InjectableStore = Store<State, MyAction> & {
     reducerManager?: ReducerManager;
-    // asyncSubReducers?: Partial<ReducersMapObject<State, AnyAction>>;
-    // asyncReducers?: Partial<ReducersMapObject<AdditionalState, MyAction>> | never;
     asyncReducers?: any;
 };
 
