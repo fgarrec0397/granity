@@ -12,9 +12,9 @@
   "scripts": {
     "audit": "turbo run audit",
     "audit:fix": "turbo run audit:fix",
-    "build": "turbo run build",
+    "build": "turbo run build --concurrency=1",
     "dev": "turbo run dev",
-    "test": "turbo run test",
+    "test": "turbo run test --concurrency=1",
     "test:coverage": "turbo run test:coverage",
     "test:watch": "turbo run test:watch",
     "lint": "turbo run lint",
@@ -25,8 +25,8 @@
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "storybook": "turbo run storybook",
-    "update:check": "turbo run update:check",
-    "update": "turbo run update"
+    "update:check": "turbo run update:check --concurrency=1",
+    "update": "turbo run update --concurrency=1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
