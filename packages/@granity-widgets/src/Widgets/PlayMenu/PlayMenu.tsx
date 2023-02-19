@@ -1,13 +1,13 @@
 import { createWidget, FieldType, useScenes, WidgetType } from "@granity/engine";
-import { Button, pxToRem, Wrapper, WrapperProps } from "@granity/ui";
+import { Box, BoxProps, Button, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 type PlayMenuStyles = {
-    wrapper?: WrapperProps;
+    box?: BoxProps;
 };
 
 const styles: PlayMenuStyles = {
-    wrapper: {
+    box: {
         sx: {
             position: "absolute",
             top: "40%",
@@ -32,9 +32,9 @@ const PlayMenu: FC = () => {
     };
 
     return (
-        <Wrapper {...styles.wrapper}>
+        <Box {...styles.box}>
             <Button onClick={handleChangeScene}>Play</Button>
-        </Wrapper>
+        </Box>
     );
 };
 
@@ -47,7 +47,7 @@ export const widget = createWidget({
         {
             name: "translateXOnPlay",
             displayName: "Translate X on play",
-            fieldType: FieldType.Checkbox,
+            fieldType: FieldType.CheckBox,
             defaultValue: false,
         },
     ],
