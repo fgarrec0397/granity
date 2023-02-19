@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.6](https://github.com/fgarrec0397/granity/compare/v0.2.5...v0.2.6) (2023-02-19)
+
+
+### Bug Fixes
+
+* build passed for admin app ([9b2ba33](https://github.com/fgarrec0397/granity/commits/9b2ba33f603a0c7db59df724ff5ce5641266a62e))
+* mui/react-three-drei Box issue ([dd0b516](https://github.com/fgarrec0397/granity/commits/dd0b516d830041ea9d377e37fd6e328f59de3b9b))
+
+
+### Refactor
+
+* fix build ([1f0658e](https://github.com/fgarrec0397/granity/commits/1f0658e7883d69647fd659a248d9836a340666fd))
+
 ### [0.2.5](https://github.com/fgarrec0397/granity/compare/v0.2.4...v0.2.5) (2023-02-18)
 
 
