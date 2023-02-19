@@ -218,7 +218,7 @@ export default () => {
     );
 
     const selectWidgetFromMeshArr = useCallback(
-        (meshArray: THREE.Object3D[]) => {
+        (meshArray: Object3D[]) => {
             if (meshArray.length) {
                 const { widget } = getWidgetByMesh(meshArray[0]);
 

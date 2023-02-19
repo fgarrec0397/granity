@@ -11,6 +11,6 @@
   },
   "homepage": "https://github.com/fgarrec0397/Granity#readme",
   "dependencies": {
-    "jsdom": "^21.0.0"
+    "jsdom": "^21.1.0"
   }
 }

@@ -16,21 +16,21 @@
   "license": "ISC",
   "prettier": "@granity/prettier-config",
   "dependencies": {
-    "@tanstack/react-query": "^4.22.0",
+    "@tanstack/react-query": "^4.24.9",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@types/three": "^0.148.0",
-    "@vitejs/plugin-react": "^3.0.1",
-    "@vitest/coverage-c8": "^0.27.1",
-    "jsdom": "^21.0.0",
+    "@testing-library/react": "^14.0.0",
+    "@types/three": "^0.149.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "@vitest/coverage-c8": "^0.28.5",
+    "jsdom": "^21.1.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "vitest": "^0.27.1"
+    "vitest": "^0.28.5"
   },
   "devDependencies": {
     "@granity/eslint-config": "*",
     "@granity/prettier-config": "*",
     "@types/lodash": "^4.14.191",
-    "npm-check-updates": "^16.6.2"
+    "npm-check-updates": "^16.7.5"
   }
 }
