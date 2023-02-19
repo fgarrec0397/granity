@@ -1,0 +1,23 @@
+diff --git a/node_modules/@mui/material/Box/Box.d.ts b/node_modules/@mui/material/Box/Box.d.ts
+index bf71fee..a9bb369 100644
+--- a/node_modules/@mui/material/Box/Box.d.ts
++++ b/node_modules/@mui/material/Box/Box.d.ts
+@@ -13,11 +13,12 @@ import { Theme as MaterialTheme } from '../styles';
+  *
+  * - [Box API](https://mui.com/material-ui/api/box/)
+  */
+-declare const Box: OverridableComponent<BoxTypeMap<{}, 'div', MaterialTheme>>;
+-
++// declare const Box: OverridableComponent<BoxTypeMap<{}, 'div', MaterialTheme>>;
+ export type BoxProps<
+-  D extends React.ElementType = BoxTypeMap['defaultComponent'],
+-  P = {},
+-> = OverrideProps<BoxTypeMap<P, D, MaterialTheme>, D>;
++   D extends React.ElementType = BoxTypeMap['defaultComponent'],
++   P = {},
++ > = OverrideProps<BoxTypeMap<P, D>, D>;
++ 
++// -export default Box;
+ 
+-export default Box;
++export default function Box(props: BoxProps): JSX.Element;
