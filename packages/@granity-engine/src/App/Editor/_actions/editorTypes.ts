@@ -3,17 +3,6 @@ import {
     WidgetDictionary,
     WidgetInfoDictionary,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
-import { Vector3Array } from "@react-three/rapier";
-
-/**
- * Additional props that applies for widgets in the editor
- */
-export interface EditableWidget {
-    hovered: boolean;
-    position: Vector3Array;
-    rotation: Vector3Array;
-    scale: Vector3Array;
-}
 
 /**
  * Transform Controls Modes

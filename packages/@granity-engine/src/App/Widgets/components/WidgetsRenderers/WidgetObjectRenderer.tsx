@@ -17,16 +17,21 @@ type Props = {
 const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const componentRef = useRef(null!);
     const [hovered, setHover] = useState(false);
-    const { getWidgetDictionaryFromWidget } = useWidgets();
+    const { getWidgetDictionaryFromWidget, widgetsObjectInfoDictionary } = useWidgets();
     const { getWidgetProps } = useWidgetsUtilities();
     const { isEditor } = useEditor();
     const { component, id, editorOptions, hasRef } = widget;
     const name = getWidgetName(widget);
     const Component = component;
 
-    const helper = resolveHelper(editorOptions?.helper);
+    const helper =
+        typeof editorOptions?.helper === "function"
+            ? editorOptions?.helper(widgetsObjectInfoDictionary[id].options)
+            : editorOptions?.helper;
 
-    useEditorHelper(helper && (componentRef as MutableRefObject<Object3D>), helper);
+    const resolvedHelper = resolveHelper(helper);
+
+    useEditorHelper(resolvedHelper && (componentRef as MutableRefObject<Object3D>), resolvedHelper);
 
     const widgetProps = getWidgetProps(id);
 

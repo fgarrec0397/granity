@@ -2,6 +2,7 @@ import { WidgetModules } from "@granity/engine";
 
 import type { CamerasProps } from "./Cameras";
 import type { GeometryFormsProps } from "./GeometryForms";
+import { LightProps } from "./Light";
 import type { TerrainProps } from "./Terrain";
 import type { WidgetStarterProps, WidgetStarterState } from "./WidgetStarter";
 import { WidgetStarter2State } from "./WidgetStarter2";
@@ -26,6 +27,7 @@ declare module "@granity/engine" {
     interface WidgetProps {
         geometryProps: GeometryFormsProps;
         camerasProps: CamerasProps;
+        lightProps: LightProps;
         terrainProps: TerrainProps;
         widgetStarterProps: WidgetStarterProps;
     }

@@ -6,9 +6,18 @@ import { Object3D } from "three";
 
 import { FieldType, HelpersTypes, WidgetType } from "./widgetsConstants";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface WidgetProps {}
+/**
+ * Additional props that applies for widgets in the editor
+ */
+export interface EditableWidget {
+    hovered: boolean;
+    position: Vector3Array;
+    rotation: Vector3Array;
+    scale: Vector3Array;
+}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface WidgetProps extends EditableWidget {}
 export type DefaultWidgetProps = UnionOfProperties<WidgetProps>;
 
 /// ---------------------- Widget Module ---------------------- ///
@@ -109,7 +118,7 @@ export type WidgetObjectModule<Props = DefaultWidgetProps, Ref = null> = Widget<
  * Widget options to set in the editor
  */
 export type WidgetObjectEditorOptions = {
-    helper?: HelpersTypes;
+    helper?: ((options?: WidgetOptionsValues) => HelpersTypes) | HelpersTypes;
     meshHolder?: ReactNode | Object3D;
 };
 
