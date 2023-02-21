@@ -56,7 +56,7 @@ export const widget = createWidget<LightProps>({
             name: "intensity",
             displayName: "Intensity",
             fieldType: FieldType.Number,
-            defaultValue: 1,
+            defaultValue: 0,
         },
     ],
 });

@@ -6,6 +6,14 @@ import { Object3D } from "three";
 
 import { FieldType, HelpersTypes, WidgetType } from "./widgetsConstants";
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ---------------- Types for external typing ---------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
 /**
  * Additional props that applies for widgets in the editor
  */
@@ -20,19 +28,27 @@ export interface EditableWidget {
 export interface WidgetProps extends EditableWidget {}
 export type DefaultWidgetProps = UnionOfProperties<WidgetProps>;
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
 /// ---------------------- Widget Module ---------------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * Base widget type
  */
-export type Widget<Props = DefaultWidgetProps, Ref = null> = {
+export type Widget<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions> = {
     component: WidgetComponent<Props, Ref>;
     reducer: Slice | null;
     name: string;
-    options?: WidgetOptions[];
+    options?: Options[];
 };
 
-export type WidgetModules = WidgetObjectModule | WidgetUIModule;
+export type WidgetModules<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions> =
+    | WidgetObjectModule<Props, Ref>
+    | WidgetUIModule<Props, Ref, Options>;
 
 /**
  * A component type of a widget
@@ -41,39 +57,49 @@ export type WidgetComponent<Props = DefaultWidgetProps, Ref = null> =
     | FC<Props>
     | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<Ref>>;
 
-/**
- * Option for Select FieldType
- */
-export type SelectOptions = {
-    value: string;
-    name: string;
-};
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
-type WidgetAdditionnalOptions = WidgetSelectionOptions;
+/// --------------------- Widget Options ---------------------- ///
 
-export type WidgetOptionDefaultValue = string | number | boolean; // TODO - Readjust that in order to match the field type
-
-export type WidgetSelectionOptions = {
-    selectOptions?: SelectOptions[];
-};
-
-/**
- * Base interface for option object.
- */
-export type WidgetBaseOptions = WidgetAdditionnalOptions & {
-    name: string;
-    displayName: string;
-    fieldType: FieldType;
-    isVisible?: (options: WidgetBaseOptions[]) => boolean;
-    defaultValue: WidgetOptionDefaultValue;
-};
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * All options allowed for the widget in the editor
  */
-export type WidgetOptions = WidgetBaseOptions;
+// export type WidgetOptions = WidgetBaseOptions;
+export type WidgetOptions = TextFieldOption | NumberFieldOption | SelectionFieldOption;
 
-/// ---------------------- Widgets Dictionary ---------------------- ///
+/**
+ * Base interface for option object.
+ */
+export type WidgetBaseOptions<Type extends FieldType, TValue = string> = {
+    name: string;
+    displayName: string;
+    fieldType: Type;
+    // isVisible?: (options: WidgetBaseOptions[]) => boolean;
+    defaultValue: TValue;
+};
+
+export type NumberFieldOption = WidgetBaseOptions<FieldType.Number, number>;
+
+export type TextFieldOption = WidgetBaseOptions<FieldType.Text>;
+
+export type SelectionFieldOption = WidgetBaseOptions<FieldType.Select> & {
+    selectOptions?: {
+        value: string;
+        name: string;
+    }[];
+};
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ------------------- Widgets Dictionary -------------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * A dictionary containing informations about all widgets
@@ -87,7 +113,13 @@ export type WidgetDictionaryItem<Props = DefaultWidgetProps> =
     | WidgetObjectsDictionaryItem<Props>
     | WidgetUIDictionaryItem;
 
-/// ---------------------- Widgets Dictionary ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// -------------- Serialized Widgets Dictionary -------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * A dictionary containing informations about all widgets
@@ -103,7 +135,13 @@ export type SerializedWidgetDictionaryItem<Props = DefaultWidgetProps> =
     | SerializedWidgetObjectDictionaryItem<Props>
     | SerializedWidgetUIDictionaryItem;
 
-/// ---------------------- Widget Object Module ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ------------------ Widget Object Module ------------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * A widget object that can be on the 3D scene.
@@ -122,7 +160,13 @@ export type WidgetObjectEditorOptions = {
     meshHolder?: ReactNode | Object3D;
 };
 
-/// ---------------------- Widgets Object Dictionary ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ---------------- Widgets Object Dictionary ---------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * A dictionary containing informations about all WidgetObjectsDictionary
@@ -141,7 +185,13 @@ export type WidgetObjectsDictionaryItem<Props = DefaultWidgetProps> = Omit<
     id: string;
 };
 
-/// ---------------------- Serialized Widgets Objects Dictionary ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ---------- Serialized Widgets Objects Dictionary ---------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * A serialized dictionary containing informations about all WidgetObjectsDictionary
@@ -160,7 +210,13 @@ export type SerializedWidgetObjectDictionaryItem<Props = DefaultWidgetProps> = O
     meshHolder: string;
 };
 
-/// ---------------------- Widgets Info Dictionary ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ----------------- Widgets Info Dictionary ----------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * A dictionary containing editable informations about all Widget types
@@ -172,7 +228,13 @@ export type WidgetInfo = {
     displayName?: string;
 };
 
-/// ---------------------- Widgets Object Info Dictionary ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// -------------- Widgets Object Info Dictionary ------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * A dictionary containing editable informations about a WidgetObject
@@ -184,9 +246,9 @@ export type WidgetObjectInfo = WidgetInfo & {
     options?: WidgetOptionsValues;
 };
 
-export type WidgetOptionsValues = Dictionary<{
+export type WidgetOptionsValues<TValue = string> = Dictionary<{
     fieldType: FieldType;
-    value: WidgetOptionDefaultValue;
+    value: TValue;
 }>;
 
 export type WidgetProperties = {
@@ -195,22 +257,43 @@ export type WidgetProperties = {
     scale: Vector3Array;
 };
 
-/// ---------------------- Widgets UI Info Dictionary ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ---------------- Widgets UI Info Dictionary --------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 export type WidgetUIInfoDictionary = Dictionary<WidgetUIInfo>;
 
 export type WidgetUIInfo = WidgetInfo;
 
-/// ---------------------- Widget UI Module ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// -------------------- Widget UI Module --------------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * Widget module to generate UI elements
  */
-export type WidgetUIModule = Omit<Widget, "hasRef" | "editorOptions" | "type"> & {
+export type WidgetUIModule<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions> = Omit<
+    Widget<Props, Ref, Options>,
+    "hasRef" | "editorOptions" | "type"
+> & {
     type: WidgetType.UI;
 };
 
-// /// ---------------------- Widget UI Dictionary ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ------------------- Widget UI Dictionary ------------------ ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 // /**
 //  * A dictionary containing informations about all WidgetUIDictionaryItem
@@ -224,7 +307,13 @@ export type WidgetUIDictionaryItem = Omit<WidgetUIModule, "reducer"> & {
     id: string;
 };
 
-/// ---------------------- Serialized Widgets Objects Dictionary ---------------------- ///
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// ---------- Serialized Widgets Objects Dictionary ---------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 /**
  * A serialized dictionary containing informations about all WidgetObjectsDictionary
