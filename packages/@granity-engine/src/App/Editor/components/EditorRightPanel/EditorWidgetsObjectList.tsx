@@ -32,6 +32,8 @@ const EditorWidgetsObjectList: FC = () => {
         displayWidgetName,
         widgetsObjectsIds,
         widgetsObjects,
+        widgetsObjectInfoDictionary,
+        updateWidgetVisibility,
         selectWidget,
         selectedWidgets,
         removeWidget,
@@ -40,6 +42,12 @@ const EditorWidgetsObjectList: FC = () => {
 
     const handleClickMenuItem = (widget: WidgetDictionaryItem): void => {
         addWidget(widget);
+    };
+
+    const toggleVisibilityWidget = (id: string): void => {
+        if (id) {
+            updateWidgetVisibility(id, !widgetsObjectInfoDictionary[id].isVisible);
+        }
     };
 
     const handleClickRow = (id: string) => {
@@ -58,6 +66,8 @@ const EditorWidgetsObjectList: FC = () => {
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
             editModal={(id) => <EditWidgetModal widget={widgetsObjects[id]} />}
+            isVisible={(id) => widgetsObjectInfoDictionary[id].isVisible}
+            handleVisibility={toggleVisibilityWidget}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}

@@ -9,8 +9,9 @@ import {
     overrideWidgetDictionary,
     removeBatchWidgetDictionary,
     removeWidgetDictionary,
-    updateWidgetDictionaryV2,
+    updateWidgetDictionary,
 } from "../state/widgetsInfoDictionaryReducer";
+import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 
 export default () => {
     const dispatch = useAppDispatch();
@@ -30,8 +31,8 @@ export default () => {
     );
 
     const dispatchUpdateDictionary = useCallback(
-        (widgetId: string, value: Omit<WidgetObjectInfo, "id">) => {
-            return dispatch(updateWidgetDictionaryV2({ widgetId, value }));
+        (widgetId: string, value: UpdateWidgetParameter) => {
+            return dispatch(updateWidgetDictionary({ widgetId, value }));
         },
         [dispatch]
     );

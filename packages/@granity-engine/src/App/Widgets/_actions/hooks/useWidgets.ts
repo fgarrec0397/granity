@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { Object3D } from "three";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
+import { UpdateWidgetParameter } from "../_data/widgetsServiceParameters";
 import {
     buildWidgetDictionaryProperties,
     buildWidgetObjectInfo,
@@ -12,7 +13,6 @@ import widgetsConstants, { WidgetType } from "../widgetsConstants";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
-    WidgetObjectInfo,
     WidgetObjectInfoDictionary,
     WidgetObjectsDictionary,
     WidgetObjectsDictionaryItem,
@@ -116,7 +116,7 @@ export default () => {
     );
 
     const updateWidget = useCallback(
-        (widgetId: string, value: Omit<WidgetObjectInfo, "id">) => {
+        (widgetId: string, value: UpdateWidgetParameter) => {
             update(widgetId, value);
         },
         [update]
@@ -136,6 +136,13 @@ export default () => {
             update(currentWidget.id, { options: widgetOptions });
         },
         [selectedWidgets, update]
+    );
+
+    const updateWidgetVisibility = useCallback(
+        (widgetId: string, isVisible: boolean) => {
+            update(widgetId, { isVisible });
+        },
+        [update]
     );
 
     const updateCurrentWidgetWithMesh = useCallback(
@@ -309,6 +316,7 @@ export default () => {
         isWidgetExist,
         updateWidget,
         updateCurrentWidgetOptions,
+        updateWidgetVisibility,
         updateCurrentWidgetWithMesh,
         updateDisplayedProperties,
         copyWidget,

@@ -2,6 +2,7 @@ import { clone, pull } from "@granity/helpers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { WidgetObjectInfo, WidgetObjectInfoDictionary } from "../../widgetsTypes";
+import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 
 export interface WidgetObjectInfoDictionaryState {
     byId: WidgetObjectInfoDictionary;
@@ -43,11 +44,11 @@ export const widgetsSlice = createSlice({
 
             state.allIds = [...state.allIds, ...Object.keys(newWidgetsDictionary)];
         },
-        updateWidgetDictionaryV2: (
+        updateWidgetDictionary: (
             state: WidgetObjectInfoDictionaryState,
             action: PayloadAction<{
                 widgetId: string;
-                value: Omit<WidgetObjectInfo, "id">;
+                value: UpdateWidgetParameter;
             }>
         ) => {
             const { widgetId, value } = action.payload;
@@ -65,6 +66,10 @@ export const widgetsSlice = createSlice({
                     ...state.byId[widgetId].options,
                     ...value.options,
                 };
+            }
+
+            if (value.isVisible !== undefined) {
+                state.byId[widgetId].isVisible = value.isVisible;
             }
         },
         removeWidgetDictionary: (
@@ -103,7 +108,7 @@ export const widgetsSlice = createSlice({
 export const {
     addWidgetDictionary,
     addBatchWidgetDictionary,
-    updateWidgetDictionaryV2,
+    updateWidgetDictionary,
     removeWidgetDictionary,
     removeBatchWidgetDictionary,
     overrideWidgetDictionary,

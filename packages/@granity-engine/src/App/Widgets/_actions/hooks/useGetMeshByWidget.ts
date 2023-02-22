@@ -1,12 +1,12 @@
 import { useThree } from "@react-three/fiber";
 
 import getWidgetName from "../utilities/getWidgetName";
-import { WidgetDictionaryItem } from "../widgetsTypes";
+import { WidgetObjectsDictionaryItem } from "../widgetsTypes";
 
 export default () => {
     const { scene } = useThree();
 
-    const getMeshByWidget = (widget: WidgetDictionaryItem) => {
+    const getMeshByWidget = (widget: WidgetObjectsDictionaryItem) => {
         const meshName = getWidgetName(widget);
         return scene.getObjectByName(meshName);
     };

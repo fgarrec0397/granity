@@ -244,6 +244,7 @@ export type WidgetObjectInfoDictionary = Dictionary<WidgetObjectInfo>;
 export type WidgetObjectInfo = WidgetInfo & {
     properties?: WidgetProperties;
     options?: WidgetOptionsValues;
+    isVisible: boolean;
 };
 
 export type WidgetOptionsValues<TValue = string> = Dictionary<{

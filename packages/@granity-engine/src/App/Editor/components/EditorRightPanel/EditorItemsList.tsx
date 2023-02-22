@@ -30,6 +30,8 @@ export type EditorItemsListProps = {
     noItemsText: string;
     triggerButtonText: string;
     editModal?: (id: string) => ReactElement;
+    isVisible?: (id: string) => boolean | undefined;
+    handleVisibility?: (id: string) => void;
     acceptButton?: EditorItemsListButtonProps;
     cancelButton?: EditorItemsListButtonProps;
     displayItemName?: (id: string) => string | undefined;
@@ -73,6 +75,8 @@ const EditorItemsList = ({
     noItemsText,
     triggerButtonText,
     editModal,
+    isVisible,
+    handleVisibility,
     displayItemName,
     handleClickRow,
     handleClickRemove,
@@ -102,6 +106,15 @@ const EditorItemsList = ({
                                     secondaryAction={
                                         <>
                                             {editModal?.(id)}
+                                            {handleVisibility && (
+                                                <IconButton onClick={() => handleVisibility?.(id)}>
+                                                    {isVisible?.(id) ? (
+                                                        <Icons.Visibility fontSize="small" />
+                                                    ) : (
+                                                        <Icons.VisibilityOff fontSize="small" />
+                                                    )}
+                                                </IconButton>
+                                            )}
                                             <IconButton onClick={() => handleClickRemove?.(id)}>
                                                 <Icons.Delete fontSize="small" />
                                             </IconButton>
