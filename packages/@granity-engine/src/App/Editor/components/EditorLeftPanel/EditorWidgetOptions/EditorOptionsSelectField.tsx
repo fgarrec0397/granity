@@ -1,12 +1,12 @@
 import { Box, BoxProps, MenuItem, Select, SelectChangeEvent } from "@granity/ui";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { WidgetBaseOptions } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import { SelectionFieldOption } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 
-type Props = {
-    option: WidgetBaseOptions;
+export type EditorOptionsSelectFieldProps = {
+    option: SelectionFieldOption;
 };
 
 interface EditorOptionsSelectFieldStyles {
@@ -25,7 +25,7 @@ const styles: EditorOptionsSelectFieldStyles = {
     },
 };
 
-const EditorOptionsSelectField: FC<Props> = ({ option }) => {
+const EditorOptionsSelectField: FC<EditorOptionsSelectFieldProps> = ({ option }) => {
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
     const onChange = (event: SelectChangeEvent) => {

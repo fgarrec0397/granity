@@ -1,7 +1,7 @@
 import { Dictionary } from "@granity/helpers";
 import {
     WidgetDictionary,
-    WidgetInfoDictionary,
+    WidgetObjectInfoDictionary,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 
 /**
@@ -31,6 +31,6 @@ export type HistoryItem = {
  * A snapshot of a editor state
  */
 export type HistoryState = {
-    widgetsObjectInfoDictionary: WidgetInfoDictionary;
+    widgetsObjectInfoDictionary: WidgetObjectInfoDictionary;
     widgets: WidgetDictionary;
 };

@@ -1,12 +1,12 @@
 import { Box, BoxProps, TextField, TypographyProps } from "@granity/ui";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { WidgetBaseOptions } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import { NumberFieldOption } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { ChangeEvent, FC } from "react";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 
-type Props = {
-    option: WidgetBaseOptions;
+type EditorOptionsNumberFieldProps = {
+    option: NumberFieldOption;
 };
 
 interface EditorOptionsNumberFieldStyles {
@@ -27,7 +27,7 @@ const styles: EditorOptionsNumberFieldStyles = {
     label: {},
 };
 
-const EditorOptionsNumberField: FC<Props> = ({ option }) => {
+const EditorOptionsNumberField: FC<EditorOptionsNumberFieldProps> = ({ option }) => {
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
     const onChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ const EditorOptionsNumberField: FC<Props> = ({ option }) => {
                     inputProps={{
                         name: "displayName",
                         type: "number",
-                        value: optionsValues ? (optionsValues[option.name]?.value as number) : "",
+                        value: optionsValues ? optionsValues[option.name]?.value : "",
                         onChange,
                     }}
                 />

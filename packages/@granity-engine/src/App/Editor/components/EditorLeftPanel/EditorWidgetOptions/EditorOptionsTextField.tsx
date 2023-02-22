@@ -1,12 +1,12 @@
 import { Box, BoxProps, TextField } from "@granity/ui";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { WidgetBaseOptions } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import { TextFieldOption } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { ChangeEvent, FC } from "react";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 
-type Props = {
-    option: WidgetBaseOptions;
+type EditorOptionsTextFieldProps = {
+    option: TextFieldOption;
 };
 
 interface EditorOptionsTextFieldStyles {
@@ -24,7 +24,7 @@ const styles: EditorOptionsTextFieldStyles = {
     },
 };
 
-const EditorOptionsTextField: FC<Props> = ({ option }) => {
+const EditorOptionsTextField: FC<EditorOptionsTextFieldProps> = ({ option }) => {
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
     const onChange = ({ target }: ChangeEvent<HTMLInputElement>) => {

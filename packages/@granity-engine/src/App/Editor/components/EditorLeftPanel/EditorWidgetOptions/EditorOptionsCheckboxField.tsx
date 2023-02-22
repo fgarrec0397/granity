@@ -1,12 +1,12 @@
 import { Box, BoxProps, TextField, TypographyProps } from "@granity/ui";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { WidgetBaseOptions } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import { CheckboxFieldOption } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { ChangeEvent, FC } from "react";
 
 import useOptionsValues from "./hooks/useOptionsValues";
 
-type Props = {
-    option: WidgetBaseOptions;
+type EditorOptionsCheckboxFieldProps = {
+    option: CheckboxFieldOption;
 };
 
 interface EditorOptionsCheckboxFieldStyles {
@@ -27,7 +27,7 @@ const styles: EditorOptionsCheckboxFieldStyles = {
     label: {},
 };
 
-const EditorOptionsCheckboxField: FC<Props> = ({ option }) => {
+const EditorOptionsCheckboxField: FC<EditorOptionsCheckboxFieldProps> = ({ option }) => {
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
     const onChange = ({ target }: ChangeEvent<HTMLInputElement>) => {

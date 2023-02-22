@@ -69,7 +69,11 @@ export type WidgetComponent<Props = DefaultWidgetProps, Ref = null> =
  * All options allowed for the widget in the editor
  */
 // export type WidgetOptions = WidgetBaseOptions;
-export type WidgetOptions = TextFieldOption | NumberFieldOption | SelectionFieldOption;
+export type WidgetOptions =
+    | CheckboxFieldOption
+    | TextFieldOption
+    | NumberFieldOption
+    | SelectionFieldOption;
 
 /**
  * Base interface for option object.
@@ -78,13 +82,14 @@ export type WidgetBaseOptions<Type extends FieldType, TValue = string> = {
     name: string;
     displayName: string;
     fieldType: Type;
-    // isVisible?: (options: WidgetBaseOptions[]) => boolean;
     defaultValue: TValue;
 };
 
 export type NumberFieldOption = WidgetBaseOptions<FieldType.Number, number>;
 
 export type TextFieldOption = WidgetBaseOptions<FieldType.Text>;
+
+export type CheckboxFieldOption = WidgetBaseOptions<FieldType.Checkbox>;
 
 export type SelectionFieldOption = WidgetBaseOptions<FieldType.Select> & {
     selectOptions?: {
