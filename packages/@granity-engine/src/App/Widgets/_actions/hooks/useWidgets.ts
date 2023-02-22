@@ -130,7 +130,7 @@ export default () => {
     );
 
     const updateCurrentWidgetOptions = useCallback(
-        (widgetOptions: WidgetOptionsValues) => {
+        <TValue = string>(widgetOptions: WidgetOptionsValues<TValue>) => {
             const currentWidget = selectedWidgets[0];
 
             update(currentWidget.id, { options: widgetOptions });
@@ -162,10 +162,10 @@ export default () => {
     );
 
     const addWidget = useCallback(
-        (
+        <TValue = string>(
             widget: WidgetDictionaryItem,
             properties?: WidgetProperties,
-            options?: WidgetOptionsValues
+            options?: WidgetOptionsValues<TValue>
         ) => {
             const newWidget: WidgetDictionaryItem = { ...widget };
             let widgetOptions = options;
@@ -186,11 +186,11 @@ export default () => {
 
             if (!widgetOptions) {
                 if (newWidget.options?.length) {
-                    const defaultOptions: WidgetOptionsValues = {};
+                    const defaultOptions: WidgetOptionsValues<TValue> = {};
                     for (const option of newWidget.options) {
                         defaultOptions[option.name] = {
                             fieldType: option.fieldType,
-                            value: option.defaultValue,
+                            value: option.defaultValue as TValue,
                         };
                     }
                     widgetOptions = defaultOptions;

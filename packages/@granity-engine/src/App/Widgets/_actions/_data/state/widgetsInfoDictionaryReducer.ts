@@ -44,11 +44,11 @@ export const widgetsSlice = createSlice({
 
             state.allIds = [...state.allIds, ...Object.keys(newWidgetsDictionary)];
         },
-        updateWidgetDictionary: (
+        updateWidgetDictionary: <TValue = string>(
             state: WidgetObjectInfoDictionaryState,
             action: PayloadAction<{
                 widgetId: string;
-                value: UpdateWidgetParameter;
+                value: UpdateWidgetParameter<TValue>;
             }>
         ) => {
             const { widgetId, value } = action.payload;

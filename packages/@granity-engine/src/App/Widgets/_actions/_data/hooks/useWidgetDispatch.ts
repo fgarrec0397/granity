@@ -31,7 +31,7 @@ export default () => {
     );
 
     const dispatchUpdateDictionary = useCallback(
-        (widgetId: string, value: UpdateWidgetParameter) => {
+        <TValue = string>(widgetId: string, value: UpdateWidgetParameter<TValue>) => {
             return dispatch(updateWidgetDictionary({ widgetId, value }));
         },
         [dispatch]

@@ -89,7 +89,7 @@ export type NumberFieldOption = WidgetBaseOptions<FieldType.Number, number>;
 
 export type TextFieldOption = WidgetBaseOptions<FieldType.Text>;
 
-export type CheckboxFieldOption = WidgetBaseOptions<FieldType.Checkbox>;
+export type CheckboxFieldOption = WidgetBaseOptions<FieldType.Checkbox, boolean>;
 
 export type SelectionFieldOption = WidgetBaseOptions<FieldType.Select> & {
     selectOptions?: {
@@ -246,9 +246,9 @@ export type WidgetInfo = {
  */
 export type WidgetObjectInfoDictionary = Dictionary<WidgetObjectInfo>;
 
-export type WidgetObjectInfo = WidgetInfo & {
+export type WidgetObjectInfo<TValue = string> = WidgetInfo & {
     properties?: WidgetProperties;
-    options?: WidgetOptionsValues;
+    options?: WidgetOptionsValues<TValue>;
     isVisible: boolean;
 };
 

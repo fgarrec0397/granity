@@ -65,7 +65,7 @@ export const buildWidgetObjectInfo = (
         widgetProperties = builderOptions.properties;
     }
 
-    return { id: widget.id!, properties: widgetProperties, options };
+    return { id: widget.id!, properties: widgetProperties, options, isVisible: true };
 };
 
 /**

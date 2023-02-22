@@ -1,17 +1,17 @@
 import { HasChildren } from "@granity/helpers";
 import {
     WidgetDictionary,
-    WidgetDictionaryItem,
+    WidgetObjectsDictionaryItem,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
 export interface WidgetsContextModel {
     widgets: WidgetDictionary;
     widgetsIds: string[];
-    selectedWidgets: WidgetDictionaryItem[];
+    selectedWidgets: WidgetObjectsDictionaryItem[];
     setWidgetsIds: Dispatch<SetStateAction<string[]>>;
     setWidgets: Dispatch<SetStateAction<WidgetDictionary>>;
-    setSelectedWidgets: Dispatch<SetStateAction<WidgetDictionaryItem[]>>;
+    setSelectedWidgets: Dispatch<SetStateAction<WidgetObjectsDictionaryItem[]>>;
 }
 
 export const widgetsDefaultContext: WidgetsContextModel = {
@@ -30,7 +30,7 @@ type Props = HasChildren;
 const WidgetsContextProvider: FC<Props> = ({ children }) => {
     const [widgets, setWidgets] = useState<WidgetDictionary>({});
     const [widgetsIds, setWidgetsIds] = useState<string[]>([]);
-    const [selectedWidgets, setSelectedWidgets] = useState<WidgetDictionaryItem[]>([]);
+    const [selectedWidgets, setSelectedWidgets] = useState<WidgetObjectsDictionaryItem[]>([]);
 
     const providerValue: WidgetsContextModel = {
         widgets,
