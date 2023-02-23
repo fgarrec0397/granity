@@ -36,6 +36,10 @@ export default () => {
     const previousScenes = usePrevious(scenes);
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
 
+    const hasScenes = useCallback(() => {
+        return scenesIds.length > 0;
+    }, [scenesIds]);
+
     const getSceneById = useCallback(
         (sceneId: string | null) => {
             if (scenes && sceneId) {
@@ -301,6 +305,7 @@ export default () => {
         scenesIds,
         currentScene: getCurrentScene(),
         currentSceneId,
+        hasScenes,
 
         // Actions
         addScene,

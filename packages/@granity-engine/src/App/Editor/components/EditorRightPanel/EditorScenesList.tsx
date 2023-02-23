@@ -1,33 +1,13 @@
-import {
-    Box,
-    Checkbox,
-    FormControlLabel,
-    FormGroup,
-    pxToRem,
-    TextField,
-    TextFieldProps,
-} from "@granity/ui";
 import useScenes from "@granity-engine/App/Scenes/_actions/hooks/useScenes";
-import { ChangeEvent, FC, useState } from "react";
+import { FC } from "react";
 
+import EditorCreateSceneModalContent from "../EditorCommon/EditorCreateSceneModalContent";
+import useCreateScene from "../EditorCommon/hooks/useCreateScene";
 import EditorItemsList from "./EditorItemsList";
 
-type EditorScenesListStyles = {
-    textField?: TextFieldProps;
-};
-
-const styles: EditorScenesListStyles = {
-    textField: {
-        sx: {
-            width: "100%",
-            maxWidth: pxToRem(300),
-        },
-    },
-};
-
 const EditorScenesList: FC = () => {
-    const [sceneName, setSceneName] = useState("");
-    const [isDefault, setIsDefault] = useState(false);
+    const { sceneName, handleChangeName, isDefault, handleIsDefault } = useCreateScene();
+
     const {
         scenes,
         scenesIds,
@@ -49,10 +29,6 @@ const EditorScenesList: FC = () => {
         removeScene(sceneId);
     };
 
-    const handleIsDefault = (event: ChangeEvent<HTMLInputElement>): void => {
-        setIsDefault(event.target.checked);
-    };
-
     const handleAddScene = () => {
         addScene(sceneName, isDefault);
     };
@@ -60,7 +36,7 @@ const EditorScenesList: FC = () => {
     return (
         <EditorItemsList
             itemsDictionaryIds={scenesIds}
-            title="Scenes"
+            title="Create a scene"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add Scene"
             handleClickRow={handleClickRow}
@@ -76,20 +52,10 @@ const EditorScenesList: FC = () => {
             }}
         >
             {() => (
-                <Box>
-                    <TextField
-                        label="Scene Name"
-                        onChange={(event) => setSceneName(event.target.value)}
-                        placeholder="Enter your scene name here..."
-                        {...styles.textField}
-                    />
-                    <FormGroup>
-                        <FormControlLabel
-                            control={<Checkbox onChange={handleIsDefault} />}
-                            label="Make it default scene"
-                        />
-                    </FormGroup>
-                </Box>
+                <EditorCreateSceneModalContent
+                    onChangeName={handleChangeName}
+                    handleIsDefault={handleIsDefault}
+                />
             )}
         </EditorItemsList>
     );

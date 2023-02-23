@@ -12,6 +12,7 @@ import { FC, useState } from "react";
 export type EditorModalButtonProps = {
     text: string;
     callback?: () => void;
+    isDisabled?: boolean;
 };
 
 export type EditorModalProps = {
@@ -84,12 +85,21 @@ const EditorModal: FC<EditorModalProps> = ({
             </DialogContent>
             <DialogActions>
                 {acceptButton && (
-                    <Button onClick={handleAccept} {...styles.acceptButton}>
+                    <Button
+                        onClick={handleAccept}
+                        {...styles.acceptButton}
+                        disabled={acceptButton.isDisabled}
+                    >
                         {acceptButton.text}
                     </Button>
                 )}
                 {cancelButton && (
-                    <Button onClick={handleCancel} autoFocus {...styles.cancelButton}>
+                    <Button
+                        onClick={handleCancel}
+                        autoFocus
+                        {...styles.cancelButton}
+                        disabled={cancelButton.isDisabled}
+                    >
                         {cancelButton.text}
                     </Button>
                 )}
