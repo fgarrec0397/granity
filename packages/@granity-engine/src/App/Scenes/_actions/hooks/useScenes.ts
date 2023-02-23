@@ -37,7 +37,7 @@ export default () => {
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
 
     const hasScenes = useCallback(() => {
-        return scenesIds.length > 0;
+        return scenesIds !== undefined && scenesIds?.length > 0;
     }, [scenesIds]);
 
     const getSceneById = useCallback(

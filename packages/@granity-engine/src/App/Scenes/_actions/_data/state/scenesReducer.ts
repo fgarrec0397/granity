@@ -4,14 +4,14 @@ import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
 
 export interface ScenesState {
     byId: ScenesDictionary;
-    allIds: string[];
+    allIds: string[] | undefined;
     currentSceneId: string | null;
     currentDefaultSceneId: string | null;
 }
 
 const initialState: ScenesState = {
     byId: {},
-    allIds: [],
+    allIds: undefined,
     currentSceneId: null,
     currentDefaultSceneId: null,
 };
@@ -28,7 +28,7 @@ export const scenesSlice = createSlice({
                 [newScene.id]: newScene,
             };
 
-            state.allIds.push(newScene.id);
+            state.allIds?.push(newScene.id);
         },
         addScenesBatch: (state: ScenesState, actions: PayloadAction<ScenesDictionary>) => {
             const newScenes = actions.payload;
@@ -38,7 +38,7 @@ export const scenesSlice = createSlice({
                 ...newScenes,
             };
 
-            state.allIds = [...state.allIds, ...Object.keys(newScenes)];
+            state.allIds = [...(state.allIds ? state.allIds : []), ...Object.keys(newScenes)];
         },
         resetScenes: (
             state: ScenesState,
@@ -75,7 +75,7 @@ export const scenesSlice = createSlice({
                 delete state.byId[sceneId];
             }
 
-            state.allIds = state.allIds.filter((x) => x !== sceneId);
+            state.allIds = state.allIds?.filter((x) => x !== sceneId);
         },
     },
 });

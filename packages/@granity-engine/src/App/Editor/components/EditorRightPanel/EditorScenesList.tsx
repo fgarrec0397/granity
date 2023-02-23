@@ -35,7 +35,7 @@ const EditorScenesList: FC = () => {
 
     return (
         <EditorItemsList
-            itemsDictionaryIds={scenesIds}
+            itemsDictionaryIds={scenesIds || []}
             title="Create a scene"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add Scene"
