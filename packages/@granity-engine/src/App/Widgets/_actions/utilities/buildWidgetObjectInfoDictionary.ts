@@ -76,7 +76,7 @@ export const buildWidgetObjectInfo = (
 export const buildWidgetInfoDictionaryOptions = (
     widget: WidgetDictionaryItem | SerializedWidgetObjectDictionaryItem
 ) => {
-    const options: WidgetOptionsValues = {};
+    const options: WidgetOptionsValues<any> = {};
     const widgetOptions = widget.options;
 
     if (widgetOptions?.length) {

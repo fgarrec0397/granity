@@ -1,7 +1,11 @@
 import { clone, pull } from "@granity/helpers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { WidgetObjectInfo, WidgetObjectInfoDictionary } from "../../widgetsTypes";
+import {
+    WidgetObjectInfo,
+    WidgetObjectInfoDictionary,
+    WidgetOptionsValues,
+} from "../../widgetsTypes";
 import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 
 export interface WidgetObjectInfoDictionaryState {
@@ -64,7 +68,7 @@ export const widgetsSlice = createSlice({
             if (value.options) {
                 state.byId[widgetId].options = {
                     ...state.byId[widgetId].options,
-                    ...value.options,
+                    ...(value.options as WidgetOptionsValues<any>),
                 };
             }
 

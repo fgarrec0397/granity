@@ -19,8 +19,6 @@ export const widget = createWidget<LightProps>({
     type: WidgetType.GameObject,
     editorOptions: {
         helper: (options) => {
-            console.log(options, "options");
-
             return HelpersTypes.PointLightHelper;
         },
         meshHolder: (
