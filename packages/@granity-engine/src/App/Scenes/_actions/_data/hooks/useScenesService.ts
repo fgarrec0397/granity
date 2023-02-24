@@ -7,6 +7,7 @@ import useScenesSelector from "./useScenesSelector";
 export default () => {
     const {
         dispatchAddScene,
+        dispatchSetIsLoading,
         dispatchAddScenesBatch,
         dispatchResetScenes,
         dispatchSetCurrentSceneId,
@@ -14,10 +15,15 @@ export default () => {
         dispatchUpdateScene,
         dispatchRemoveScene,
     } = useScenesDispatch();
-    const { scenes, scenesIds, currentSceneId, currentDefaultSceneId } = useScenesSelector();
+    const { scenes, scenesIds, currentSceneId, currentDefaultSceneId, scenesLoading } =
+        useScenesSelector();
 
     const add = (scene: ScenesDictionaryItem) => {
         dispatchAddScene(scene);
+    };
+
+    const setIsLoading = (isLoading: boolean) => {
+        dispatchSetIsLoading(isLoading);
     };
 
     const addBatch = (newScenes: ScenesDictionary) => {
@@ -53,9 +59,11 @@ export default () => {
     return {
         scenes,
         scenesIds,
+        scenesLoading,
         currentSceneId,
         currentDefaultSceneId,
         add,
+        setIsLoading,
         addBatch,
         reset,
         updateScene,

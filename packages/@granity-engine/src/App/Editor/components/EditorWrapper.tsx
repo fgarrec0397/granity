@@ -9,8 +9,8 @@ import useCreateScene from "./EditorCommon/hooks/useCreateScene";
 type Props = HasChildren;
 
 const EditorWrapper: FC<Props> = ({ children }) => {
-    const { hasScenes, scenesIds } = useScenes();
-    const { handleChangeName, handleIsDefault, handleAddScene } = useCreateScene();
+    const { hasScenes, scenesLoading } = useScenes();
+    const { sceneName, handleChangeName, handleIsDefault, handleAddScene } = useCreateScene();
 
     useEffect(() => {}, []);
 
@@ -18,10 +18,11 @@ const EditorWrapper: FC<Props> = ({ children }) => {
         <>
             <EditorModal
                 title="Create a scene"
-                open={scenesIds !== undefined && !hasScenes()}
+                open={!scenesLoading && !hasScenes()}
                 acceptButton={{
                     text: "Add scene",
                     callback: handleAddScene,
+                    isDisabled: !sceneName,
                 }}
             >
                 {() => (

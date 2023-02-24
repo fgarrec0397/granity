@@ -16,10 +16,12 @@ import getFirstNonDefaultScene from "../utilities/getFirstNonDefaultScene";
 export default () => {
     const {
         scenes,
+        scenesLoading,
         scenesIds,
         currentSceneId,
         currentDefaultSceneId,
         add,
+        setIsLoading,
         addBatch,
         reset,
         updateCurrentSceneId,
@@ -37,8 +39,15 @@ export default () => {
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
 
     const hasScenes = useCallback(() => {
-        return scenesIds !== undefined && scenesIds?.length > 0;
+        return scenesIds.length > 0;
     }, [scenesIds]);
+
+    const setScenesLoading = useCallback(
+        (isLoading: boolean) => {
+            setIsLoading(isLoading);
+        },
+        [setIsLoading]
+    );
 
     const getSceneById = useCallback(
         (sceneId: string | null) => {
@@ -303,12 +312,14 @@ export default () => {
     return {
         scenes,
         scenesIds,
+        scenesLoading,
         currentScene: getCurrentScene(),
         currentSceneId,
         hasScenes,
 
         // Actions
         addScene,
+        setScenesLoading,
         addScenesBatch,
         changeDefaultScene,
         getSceneById,

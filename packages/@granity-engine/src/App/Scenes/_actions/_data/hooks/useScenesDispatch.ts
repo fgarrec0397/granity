@@ -8,6 +8,7 @@ import {
     resetScenes,
     setCurrentDefaultSceneId,
     setCurrentSceneId,
+    setScenesLoading,
     updateScene,
 } from "../state/scenesReducer";
 
@@ -16,6 +17,10 @@ export default () => {
 
     const dispatchAddScene = (scene: ScenesDictionaryItem) => {
         dispatch(addScene(scene));
+    };
+
+    const dispatchSetIsLoading = (isLoading: boolean) => {
+        dispatch(setScenesLoading(isLoading));
     };
 
     const dispatchAddScenesBatch = (scenes: ScenesDictionary) => {
@@ -44,6 +49,7 @@ export default () => {
 
     return {
         dispatchAddScene,
+        dispatchSetIsLoading,
         dispatchAddScenesBatch,
         dispatchResetScenes,
         dispatchUpdateScene,

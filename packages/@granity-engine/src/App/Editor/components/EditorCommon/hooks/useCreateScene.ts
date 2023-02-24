@@ -3,11 +3,13 @@ import { ChangeEvent, useState } from "react";
 
 export default () => {
     const { addScene } = useScenes();
-    const [sceneName, setSceneName] = useState("");
+    const [sceneName, setSceneName] = useState<string>();
     const [isDefault, setIsDefault] = useState(false);
 
     const handleAddScene = () => {
-        addScene(sceneName, isDefault);
+        if (sceneName) {
+            addScene(sceneName, isDefault);
+        }
     };
 
     const handleChangeName = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>

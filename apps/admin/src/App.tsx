@@ -14,15 +14,21 @@ const getScenes = async () => {
 };
 
 const App: FC = () => {
-    const { initScenes } = useScenes();
+    const { initScenes, setScenesLoading } = useScenes();
     const { enqueueSnackbar } = useSnackbar();
 
-    const { data, status } = useQuery({
+    const { data, status, isLoading } = useQuery({
         queryKey: ["scenes"],
         queryFn: () => getScenes(),
     });
 
     useEffect(() => {
+        setScenesLoading(isLoading);
+    }, [setScenesLoading, isLoading]);
+
+    useEffect(() => {
+        // console.log(isLoading, "isLoading");
+
         if (status === "error") {
             enqueueSnackbar("No connections", { variant: "error" });
         }

@@ -30,12 +30,14 @@ const EditorScenesList: FC = () => {
     };
 
     const handleAddScene = () => {
-        addScene(sceneName, isDefault);
+        if (sceneName) {
+            addScene(sceneName, isDefault);
+        }
     };
 
     return (
         <EditorItemsList
-            itemsDictionaryIds={scenesIds || []}
+            itemsDictionaryIds={scenesIds}
             title="Create a scene"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add Scene"
