@@ -1,6 +1,6 @@
 import { HasChildren } from "@granity/helpers";
 import { useScenes } from "@granity-engine/api";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import EditorCreateSceneModalContent from "./EditorCommon/EditorCreateSceneModalContent";
 import EditorModal from "./EditorCommon/EditorModal";
@@ -12,26 +12,28 @@ const EditorWrapper: FC<Props> = ({ children }) => {
     const { hasScenes, scenesLoading } = useScenes();
     const { sceneName, handleChangeName, handleIsDefault, handleAddScene } = useCreateScene();
 
-    useEffect(() => {}, []);
+    const openEditorModal = !scenesLoading && !hasScenes();
 
     return (
         <>
-            <EditorModal
-                title="Create a scene"
-                open={!scenesLoading && !hasScenes()}
-                acceptButton={{
-                    text: "Add scene",
-                    callback: handleAddScene,
-                    isDisabled: !sceneName,
-                }}
-            >
-                {() => (
-                    <EditorCreateSceneModalContent
-                        onChangeName={handleChangeName}
-                        handleIsDefault={handleIsDefault}
-                    />
-                )}
-            </EditorModal>
+            {openEditorModal && (
+                <EditorModal
+                    title="Create a scene"
+                    open={openEditorModal}
+                    acceptButton={{
+                        text: "Add scene",
+                        callback: handleAddScene,
+                        isDisabled: !sceneName,
+                    }}
+                >
+                    {() => (
+                        <EditorCreateSceneModalContent
+                            onChangeName={handleChangeName}
+                            handleIsDefault={handleIsDefault}
+                        />
+                    )}
+                </EditorModal>
+            )}
             {children}
         </>
     );
