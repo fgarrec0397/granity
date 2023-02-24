@@ -171,14 +171,13 @@ export default () => {
     }, [currentDefaultSceneId, getSceneById]);
 
     const removeCurrentDefaultScene = useCallback(() => {
-        const currentScene = getCurrentScene();
-        if (currentScene) {
+        if (currentDefaultSceneId) {
             updateScene({
-                ...currentScene,
+                ...scenes[currentDefaultSceneId],
                 isDefault: false,
             });
         }
-    }, [getCurrentScene, updateScene]);
+    }, [currentDefaultSceneId, scenes, updateScene]);
 
     const changeDefaultScene = useCallback(
         (scene: ScenesDictionaryItem) => {
@@ -194,24 +193,26 @@ export default () => {
 
     const addScene = useCallback(
         (name: string, isDefault: boolean) => {
+            const isSceneDefault = isDefault || !currentDefaultSceneId;
+
             const scene: ScenesDictionaryItem = {
                 id: uidGenerator(),
                 name,
-                isDefault,
+                isDefault: isSceneDefault,
                 data: {
                     serializedWidgets: {},
                     widgetsObjectInfoDictionary: {},
                 },
             };
 
-            if (isDefault) {
+            if (isSceneDefault) {
                 changeDefaultScene(scene);
             }
 
             add(scene);
             setLastSceneAdded(scene);
         },
-        [add, changeDefaultScene]
+        [add, changeDefaultScene, currentDefaultSceneId]
     );
 
     const addScenesBatch = useCallback(

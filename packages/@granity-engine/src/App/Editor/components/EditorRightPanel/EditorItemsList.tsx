@@ -11,6 +11,7 @@ import {
     List,
     ListItem,
     ListItemButton,
+    pxToRem,
     Typography,
     TypographyProps,
 } from "@granity/ui";
@@ -31,6 +32,7 @@ export type EditorItemsListProps = {
     triggerButtonText: string;
     editModal?: (id: string) => ReactElement;
     isVisible?: (id: string) => boolean | undefined;
+    isDefault?: (id: string) => boolean | undefined;
     handleVisibility?: (id: string) => void;
     acceptButton?: EditorItemsListButtonProps;
     cancelButton?: EditorItemsListButtonProps;
@@ -76,6 +78,7 @@ const EditorItemsList = ({
     triggerButtonText,
     editModal,
     isVisible,
+    isDefault,
     handleVisibility,
     displayItemName,
     handleClickRow,
@@ -127,6 +130,14 @@ const EditorItemsList = ({
                                         selected={isActionRowSelected?.(id)}
                                     >
                                         {itemName}
+                                        {isDefault?.(id) && (
+                                            <Icons.Star
+                                                sx={{
+                                                    fontSize: 10,
+                                                    marginLeft: pxToRem(5),
+                                                }}
+                                            />
+                                        )}
                                     </ListItemButton>
                                 </ListItem>
                             );
