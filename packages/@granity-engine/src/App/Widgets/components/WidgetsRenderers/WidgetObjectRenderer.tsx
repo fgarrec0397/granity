@@ -32,6 +32,8 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
             ? editorOptions?.helper(widgetsObjectInfoDictionary[id].options)
             : editorOptions?.helper;
 
+    // console.log(helper, "helper");
+
     const resolvedHelper = resolveHelper(helper);
 
     useEditorHelper(resolvedHelper && (componentRef as MutableRefObject<Object3D>), resolvedHelper);
@@ -57,9 +59,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
         setHover(false);
     };
 
-    const meshHolder = (
-        <>{isEditor && editorOptions?.meshHolder ? editorOptions?.meshHolder : null}</>
-    );
+    const gizmo = <>{isEditor && editorOptions?.gizmo ? editorOptions?.gizmo : null}</>;
 
     const widgetProperties = getWidgetDictionaryFromWidget(id!)?.properties;
 
@@ -77,7 +77,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
             onPointerOut={handleOnPointerOut}
             {...widgetProperties}
         >
-            {meshHolder}
+            {gizmo}
 
             <Component {...widgetProps} {...widgetProperties} hovered={hovered} {...ref} />
         </mesh>

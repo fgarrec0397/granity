@@ -14,35 +14,36 @@ import {
     SpotLightHelper,
 } from "three";
 
-import { HelpersTypes } from "../widgetsConstants";
+import { helpersTypes } from "../widgetsConstants";
+import { HelperTypeValue } from "../widgetsTypes";
 
-export default (helper?: HelpersTypes) => {
+export default (helper?: HelperTypeValue) => {
     switch (helper) {
-        case HelpersTypes.ArrowHelper:
+        case helpersTypes.ArrowHelper:
             return ArrowHelper;
-        case HelpersTypes.AxesHelper:
+        case helpersTypes.AxesHelper:
             return AxesHelper;
-        case HelpersTypes.BoxHelper:
+        case helpersTypes.BoxHelper:
             return BoxHelper;
-        case HelpersTypes.Box3Helper:
+        case helpersTypes.Box3Helper:
             return Box3Helper;
-        case HelpersTypes.CameraHelper:
+        case helpersTypes.CameraHelper:
             return CameraHelper;
-        case HelpersTypes.DirectionalLightHelper:
+        case helpersTypes.DirectionalLightHelper:
             return DirectionalLightHelper;
-        case HelpersTypes.GridHelper:
+        case helpersTypes.GridHelper:
             return GridHelper;
-        case HelpersTypes.PolarGridHelper:
+        case helpersTypes.PolarGridHelper:
             return PolarGridHelper;
-        case HelpersTypes.HemisphereLightHelper:
+        case helpersTypes.HemisphereLightHelper:
             return HemisphereLightHelper;
-        case HelpersTypes.PlaneHelper:
+        case helpersTypes.PlaneHelper:
             return PlaneHelper;
-        case HelpersTypes.PointLightHelper:
+        case helpersTypes.PointLightHelper:
             return PointLightHelper;
-        case HelpersTypes.SkeletonHelper:
+        case helpersTypes.SkeletonHelper:
             return SkeletonHelper;
-        case HelpersTypes.SpotLightHelper:
+        case helpersTypes.SpotLightHelper:
             return SpotLightHelper;
 
         default:

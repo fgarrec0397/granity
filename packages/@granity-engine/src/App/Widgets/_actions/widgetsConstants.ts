@@ -1,20 +1,20 @@
-import { WidgetProperties } from "./widgetsTypes";
+import { HelpersTypes, WidgetProperties } from "./widgetsTypes";
 
-export enum HelpersTypes {
-    ArrowHelper = "ArrowHelper",
-    AxesHelper = "AxesHelper",
-    BoxHelper = "BoxHelper",
-    Box3Helper = "Box3Helper",
-    CameraHelper = "CameraHelper",
-    DirectionalLightHelper = "DirectionalLightHelper",
-    GridHelper = "GridHelper",
-    PolarGridHelper = "PolarGridHelper",
-    HemisphereLightHelper = "HemisphereLightHelper",
-    PlaneHelper = "PlaneHelper",
-    PointLightHelper = "PointLightHelper",
-    SkeletonHelper = "SkeletonHelper",
-    SpotLightHelper = "SpotLightHelper",
-}
+export const helpersTypes: HelpersTypes = {
+    ArrowHelper: "ArrowHelper",
+    AxesHelper: "AxesHelper",
+    BoxHelper: "BoxHelper",
+    Box3Helper: "Box3Helper",
+    CameraHelper: "CameraHelper",
+    DirectionalLightHelper: "DirectionalLightHelper",
+    GridHelper: "GridHelper",
+    PolarGridHelper: "PolarGridHelper",
+    HemisphereLightHelper: "HemisphereLightHelper",
+    PlaneHelper: "PlaneHelper",
+    PointLightHelper: "PointLightHelper",
+    SkeletonHelper: "SkeletonHelper",
+    SpotLightHelper: "SpotLightHelper",
+};
 
 /**
  * Allowed Fieldtypes

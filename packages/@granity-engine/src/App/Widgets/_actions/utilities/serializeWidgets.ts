@@ -8,12 +8,12 @@ import {
     WidgetObjectEditorOptions,
 } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 
-export const serializeEditorOptions = ({ meshHolder, helper }: WidgetObjectEditorOptions) => {
-    if (meshHolder) {
-        const serializedMeshHolder = serialize(meshHolder as JSX.Element);
+export const serializeEditorOptions = ({ gizmo, helper }: WidgetObjectEditorOptions) => {
+    if (gizmo) {
+        const serializedMeshHolder = serialize(gizmo as JSX.Element);
 
         return {
-            meshHolder: serializedMeshHolder,
+            gizmo: serializedMeshHolder,
             helper,
         };
     }

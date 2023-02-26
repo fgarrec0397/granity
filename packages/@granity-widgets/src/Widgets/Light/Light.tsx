@@ -1,4 +1,5 @@
-import { createWidget, EditableWidget, FieldType, HelpersTypes, WidgetType } from "@granity/engine";
+import { createWidget, EditableWidget, FieldType, helpersTypes, WidgetType } from "@granity/engine";
+import { capitalizeString } from "@granity/helpers";
 import { FC } from "react";
 
 export type LightProps = EditableWidget & {
@@ -6,10 +7,46 @@ export type LightProps = EditableWidget & {
     intensity: number;
 };
 
-const Light: FC<LightProps> = ({ lightType, intensity }) => {
-    const LightComponent: any = lightType;
+const Light: FC<LightProps> = ({ lightType, intensity, rotation }, ref) => {
+    if (lightType === "spotlight") {
+        return (
+            <spotLight
+                ref={ref}
+                position={[0, 0, 0]}
+                intensity={0.2}
+                shadow-mapSize-width={64}
+                shadow-mapSize-height={64}
+                castShadow
+                shadow-bias={-0.001}
+            />
+        );
+    }
 
-    return <LightComponent intensity={intensity} />;
+    if (lightType === "directionalLight") {
+        return (
+            <directionalLight
+                ref={ref}
+                position={[0, 0, 0]}
+                intensity={0.2}
+                shadow-mapSize-width={64}
+                shadow-mapSize-height={64}
+                castShadow
+                shadow-bias={-0.001}
+            />
+        );
+    }
+
+    return (
+        <spotLight
+            ref={ref}
+            position={[0, 0, 0]}
+            intensity={0.2}
+            shadow-mapSize-width={64}
+            shadow-mapSize-height={64}
+            castShadow
+            shadow-bias={-0.001}
+        />
+    );
 };
 
 export const widget = createWidget<LightProps>({
@@ -19,9 +56,16 @@ export const widget = createWidget<LightProps>({
     type: WidgetType.GameObject,
     editorOptions: {
         helper: (options) => {
-            return HelpersTypes.PointLightHelper;
+            if (options?.lightType?.value) {
+                const capitalized = capitalizeString(options?.lightType?.value);
+                const helperTypesIndex = `${capitalized}Helper`;
+
+                return helpersTypes[helperTypesIndex];
+            }
+
+            return helpersTypes.DirectionalLightHelper;
         },
-        meshHolder: (
+        gizmo: (
             <mesh scale={[0.25, 0.25, 0.25]}>
                 <boxGeometry />
                 <meshBasicMaterial visible={false} />
@@ -48,7 +92,7 @@ export const widget = createWidget<LightProps>({
                     name: "Spot Light",
                 },
             ],
-            defaultValue: "ambientLight",
+            defaultValue: "spotLight",
         },
         {
             name: "intensity",

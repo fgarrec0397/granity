@@ -2,7 +2,7 @@ import {
     createWidget,
     EditableWidget,
     FieldType,
-    HelpersTypes,
+    helpersTypes,
     useCreateCamera,
     useGameUpdate,
     WidgetType,
@@ -42,8 +42,8 @@ export const widget = createWidget<CamerasProps, PerspectiveCamera>({
     reducer: null,
     type: WidgetType.GameObject,
     editorOptions: {
-        helper: HelpersTypes.CameraHelper,
-        meshHolder: (
+        helper: helpersTypes.CameraHelper,
+        gizmo: (
             <mesh scale={[0.25, 0.25, 0.25]}>
                 <boxGeometry />
                 <meshBasicMaterial visible={false} />

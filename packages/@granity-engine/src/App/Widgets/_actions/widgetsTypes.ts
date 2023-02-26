@@ -4,7 +4,7 @@ import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
 import { Object3D } from "three";
 
-import { FieldType, HelpersTypes, WidgetType } from "./widgetsConstants";
+import { FieldType, WidgetType } from "./widgetsConstants";
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -27,6 +27,20 @@ export interface EditableWidget {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WidgetProps extends EditableWidget {}
 export type DefaultWidgetProps = UnionOfProperties<WidgetProps>;
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+/// -------------------------- Misc --------------------------- ///
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+export type HelpersTypes = {
+    [key: string]: HelperTypeValue;
+};
+
+export type HelperTypeValue = string;
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -161,8 +175,8 @@ export type WidgetObjectModule<Props = DefaultWidgetProps, Ref = null> = Widget<
  * Widget options to set in the editor
  */
 export type WidgetObjectEditorOptions = {
-    helper?: ((options?: WidgetOptionsValues) => HelpersTypes) | HelpersTypes;
-    meshHolder?: ReactNode | Object3D;
+    helper?: ((options?: WidgetOptionsValues) => HelperTypeValue) | HelperTypeValue;
+    gizmo?: ReactNode | Object3D;
 };
 
 ///////////////////////////////////////////////////////////////////
@@ -210,9 +224,9 @@ export type SerializedWidgetObjectsDictionary<Props = DefaultWidgetProps> = Dict
  */
 export type SerializedWidgetObjectDictionaryItem<Props = DefaultWidgetProps> = Omit<
     WidgetObjectsDictionaryItem<Props>,
-    "component" | "meshHolder"
+    "component" | "gizmo"
 > & {
-    meshHolder: string;
+    gizmo: string;
 };
 
 ///////////////////////////////////////////////////////////////////
@@ -331,7 +345,4 @@ export type SerializedWidgetUIDictionary<Props = DefaultWidgetProps> = Dictionar
 /**
  * A serialized version of WidgetObjectsDictionaryItem type
  */
-export type SerializedWidgetUIDictionaryItem = Omit<
-    WidgetUIDictionaryItem,
-    "component" | "meshHolder"
->;
+export type SerializedWidgetUIDictionaryItem = Omit<WidgetUIDictionaryItem, "component" | "gizmo">;

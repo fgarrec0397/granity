@@ -5,6 +5,7 @@ import { Object3D } from "three";
 import useEditor from "./useEditor";
 
 type Constructor = new (...args: any[]) => any;
+type Rest<T> = T extends [infer _, ...infer R] ? R : never;
 type Helper = Object3D & {
     update: () => void;
 };
@@ -19,8 +20,8 @@ type Helper = Object3D & {
 
 export default <T extends Constructor>(
     object3D: MutableRefObject<Object3D>,
-    helperConstructor?: T,
-    additionnalCondition = true
+    helperConstructor: T,
+    ...args: Rest<ConstructorParameters<T>>
 ): MutableRefObject<Helper | undefined> | undefined => {
     const { isEditor } = useEditor();
 
@@ -28,5 +29,5 @@ export default <T extends Constructor>(
         return undefined;
     }
 
-    return useHelper(isEditor && additionnalCondition ? object3D : false, helperConstructor as any); // TODO -- fix any type here
+    return useHelper(isEditor ? object3D : false, helperConstructor, ...args);
 };
