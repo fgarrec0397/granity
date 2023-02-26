@@ -1,5 +1,6 @@
 import { updateArrayAt, Vector3Array } from "@granity/helpers";
 import { Accordion, AccordionDetails, AccordionSummary, Vector3Input } from "@granity/ui";
+import { WidgetProperties } from "@granity-engine/api";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { FC } from "react";
@@ -8,10 +9,10 @@ const EditorWidgetProperties: FC = () => {
     const { selectedWidgets, widgetPropertiesUI, updateWidget } = useWidgets();
     const openedAccordion = useAccordionDefaultOpened();
 
-    const positionChange = (inputValue: number, index: number) => {
+    const onChange = (propertiyKey: keyof WidgetProperties, inputValue: number, index: number) => {
         if (widgetPropertiesUI) {
-            const newPosition = updateArrayAt<Vector3Array>(
-                widgetPropertiesUI?.position || [0, 0, 0],
+            const newValue = updateArrayAt<Vector3Array>(
+                widgetPropertiesUI?.[propertiyKey] || [0, 0, 0],
                 inputValue,
                 index
             );
@@ -19,7 +20,7 @@ const EditorWidgetProperties: FC = () => {
             updateWidget(selectedWidgets[0].id, {
                 properties: {
                     ...widgetPropertiesUI,
-                    position: newPosition,
+                    [propertiyKey]: newValue,
                 },
             });
         }
@@ -33,10 +34,24 @@ const EditorWidgetProperties: FC = () => {
                     <Vector3Input
                         title="Position"
                         value={widgetPropertiesUI?.position}
-                        onChange={positionChange}
+                        onChange={(inputValue: number, index: number) =>
+                            onChange("position", inputValue, index)
+                        }
                     />
-                    <Vector3Input title="Rotation" value={widgetPropertiesUI?.rotation} />
-                    <Vector3Input title="Scale" value={widgetPropertiesUI?.scale} />
+                    <Vector3Input
+                        title="Rotation"
+                        value={widgetPropertiesUI?.rotation}
+                        onChange={(inputValue: number, index: number) =>
+                            onChange("rotation", inputValue, index)
+                        }
+                    />
+                    <Vector3Input
+                        title="Scale"
+                        value={widgetPropertiesUI?.scale}
+                        onChange={(inputValue: number, index: number) =>
+                            onChange("scale", inputValue, index)
+                        }
+                    />
                 </AccordionDetails>
             </Accordion>
         );
