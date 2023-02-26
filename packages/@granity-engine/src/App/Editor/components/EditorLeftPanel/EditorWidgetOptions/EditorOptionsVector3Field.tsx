@@ -35,8 +35,6 @@ const EditorOptionsVector3Field: FC<EditorOptionsVector3FieldProps> = ({ option 
             index
         );
 
-        vector3Value[index] = inputValue;
-
         updateOptionsValues<Vector3Array>(vector3Value, option);
     };
 
