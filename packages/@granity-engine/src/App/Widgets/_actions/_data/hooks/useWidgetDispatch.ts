@@ -2,7 +2,7 @@ import { useAppDispatch } from "@granity-engine/App/Core/_actions/_data/state/st
 import { useCallback } from "react";
 
 import { WidgetObjectInfo, WidgetObjectInfoDictionary, WidgetProperties } from "../../widgetsTypes";
-import { setCurrentWidgetProperties } from "../state/displayedInformationReducer";
+import { setPropertiesUI } from "../state/displayedInformationReducer";
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
@@ -60,9 +60,9 @@ export default () => {
         [dispatch]
     );
 
-    const dispatchSetCurrentWidgetProperties = useCallback(
+    const dispatchSetPropertiesUI = useCallback(
         (widgetProperties: WidgetProperties) => {
-            return dispatch(setCurrentWidgetProperties(widgetProperties));
+            return dispatch(setPropertiesUI(widgetProperties));
         },
         [dispatch]
     );
@@ -74,6 +74,6 @@ export default () => {
         dispatchRemoveWidgetDictionary,
         dispatchRemoveBatchWidgetDictionary,
         dispatchOverrideWidgetDictionary,
-        dispatchSetCurrentWidgetProperties,
+        dispatchSetPropertiesUI,
     };
 };

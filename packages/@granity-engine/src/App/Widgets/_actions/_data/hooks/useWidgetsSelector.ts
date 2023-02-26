@@ -11,6 +11,6 @@ export default () =>
         return {
             widgetsObjectInfoDictionary: widgetsObjectInfoDictionary.byId,
             widgetsObjectInfoIds: widgetsObjectInfoDictionary.allIds,
-            currentWidgetProperties: displayedInformations.currentWidgetProperties,
+            widgetPropertiesUI: displayedInformations.propertiesUI,
         };
     });

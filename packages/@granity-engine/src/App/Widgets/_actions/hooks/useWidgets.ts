@@ -33,13 +33,13 @@ export default () => {
         widgetsUI,
         widgetsObjectsIds,
         widgetsUIIds,
-        currentWidgetProperties,
+        widgetPropertiesUI,
         widgetsObjectInfoDictionary,
         selectedWidgets,
         removeSelection,
         update,
         remove,
-        updateCurrentProperties,
+        updatePropertiesUI,
         reset,
     } = useWidgetsService();
     const { enqueueSnackbar } = useSnackbar();
@@ -118,15 +118,12 @@ export default () => {
     const updateWidget = useCallback(
         (widgetId: string, value: UpdateWidgetParameter) => {
             update(widgetId, value);
-        },
-        [update]
-    );
 
-    const updateDisplayedProperties = useCallback(
-        (widgetProperties: WidgetProperties) => {
-            updateCurrentProperties(widgetProperties);
+            if (value.properties) {
+                updatePropertiesUI(value.properties);
+            }
         },
-        [updateCurrentProperties]
+        [update, updatePropertiesUI]
     );
 
     const updateCurrentWidgetOptions = useCallback(
@@ -138,27 +135,19 @@ export default () => {
         [selectedWidgets, update]
     );
 
-    const updateWidgetVisibility = useCallback(
-        (widgetId: string, isVisible: boolean) => {
-            update(widgetId, { isVisible });
-        },
-        [update]
-    );
-
-    const updateCurrentWidgetWithMesh = useCallback(
-        (mesh: Object3D | undefined, updateOnlyProperties?: boolean) => {
+    const updatetWidgetWithMesh = useCallback(
+        (widgetId: string, mesh: Object3D | undefined, updateOnlyUI?: boolean) => {
             if (mesh) {
-                const currentWidget = selectedWidgets[0];
                 const widgetProperties = buildWidgetDictionaryProperties(mesh);
 
-                if (updateOnlyProperties) {
-                    updateCurrentProperties(widgetProperties);
+                if (updateOnlyUI) {
+                    updatePropertiesUI(widgetProperties);
                 } else {
-                    updateWidget(currentWidget.id, { properties: widgetProperties });
+                    updateWidget(widgetId, { properties: widgetProperties });
                 }
             }
         },
-        [selectedWidgets, updateCurrentProperties, updateWidget]
+        [updatePropertiesUI, updateWidget]
     );
 
     const addWidget = useCallback(
@@ -217,11 +206,11 @@ export default () => {
             select(widgetsToSelect);
 
             if (properties) {
-                updateCurrentProperties(properties);
+                updatePropertiesUI(properties);
                 updateWidget(widgetsToSelect[0].id, { properties });
             }
         },
-        [widgetsObjectInfoDictionary, select, updateCurrentProperties, updateWidget]
+        [widgetsObjectInfoDictionary, select, updatePropertiesUI, updateWidget]
     );
 
     const selectWidgetFromMeshArr = useCallback(
@@ -293,7 +282,7 @@ export default () => {
     return {
         selectedWidgets,
         firstCurrentWidget: selectedWidgets[0],
-        currentWidgetProperties,
+        widgetPropertiesUI,
         widgets,
         widgetsIds,
         widgetsObjects,
@@ -316,9 +305,7 @@ export default () => {
         isWidgetExist,
         updateWidget,
         updateCurrentWidgetOptions,
-        updateWidgetVisibility,
-        updateCurrentWidgetWithMesh,
-        updateDisplayedProperties,
+        updatetWidgetWithMesh,
         copyWidget,
         removeselectedWidgets,
         removeWidget,

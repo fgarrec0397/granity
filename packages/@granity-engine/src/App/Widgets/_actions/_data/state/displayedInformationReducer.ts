@@ -3,26 +3,26 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WidgetProperties } from "../../widgetsTypes";
 
 export interface DisplayedInformationsState {
-    currentWidgetProperties: WidgetProperties | null;
+    propertiesUI: WidgetProperties | null;
 }
 
 export const displayedInformationsInitialState: DisplayedInformationsState = {
-    currentWidgetProperties: null,
+    propertiesUI: null,
 };
 
 export const displayedInformationsSlice = createSlice({
     name: "displayedInformations",
     initialState: displayedInformationsInitialState,
     reducers: {
-        setCurrentWidgetProperties: (
+        setPropertiesUI: (
             state: DisplayedInformationsState,
             action: PayloadAction<WidgetProperties>
         ) => {
-            state.currentWidgetProperties = action.payload;
+            state.propertiesUI = action.payload;
         },
     },
 });
 
-export const { setCurrentWidgetProperties } = displayedInformationsSlice.actions;
+export const { setPropertiesUI } = displayedInformationsSlice.actions;
 
 export default displayedInformationsSlice.reducer;

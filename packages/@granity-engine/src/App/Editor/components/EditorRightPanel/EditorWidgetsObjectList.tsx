@@ -33,7 +33,7 @@ const EditorWidgetsObjectList: FC = () => {
         widgetsObjectsIds,
         widgetsObjects,
         widgetsObjectInfoDictionary,
-        updateWidgetVisibility,
+        updateWidget,
         selectWidget,
         selectedWidgets,
         removeWidget,
@@ -46,7 +46,7 @@ const EditorWidgetsObjectList: FC = () => {
 
     const toggleVisibilityWidget = (id: string): void => {
         if (id) {
-            updateWidgetVisibility(id, !widgetsObjectInfoDictionary[id].isVisible);
+            updateWidget(id, { isVisible: !widgetsObjectInfoDictionary[id].isVisible });
         }
     };
 

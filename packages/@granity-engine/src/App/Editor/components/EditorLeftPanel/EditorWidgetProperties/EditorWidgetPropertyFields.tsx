@@ -5,9 +5,9 @@ import { FC } from "react";
 type Props = Vector3InputProps;
 
 const EditorWidgetPropertyFields: FC<Props> = ({ title, value }) => {
-    const { selectedWidgets, currentWidgetProperties } = useWidgets();
+    const { selectedWidgets, widgetPropertiesUI } = useWidgets();
 
-    if (selectedWidgets[0] && currentWidgetProperties) {
+    if (selectedWidgets[0] && widgetPropertiesUI) {
         return <Vector3Input title={title} value={value} />;
     }
 

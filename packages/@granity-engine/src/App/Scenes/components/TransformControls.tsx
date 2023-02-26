@@ -13,7 +13,7 @@ type Props = {
 
 const TransformControlsComponent: FC<Props> = ({ children }) => {
     const { camera, scene, gl } = useThree();
-    const { selectedWidgets, firstCurrentWidget, updateCurrentWidgetWithMesh } = useWidgets();
+    const { selectedWidgets, firstCurrentWidget, updatetWidgetWithMesh } = useWidgets();
     const getMeshByWidget = useGetWidgets();
     const { setIsEditing, currentMode } = useEditor();
     const [meshToAttach, setMeshToAttach] = useState<Object3D>();
@@ -85,14 +85,14 @@ const TransformControlsComponent: FC<Props> = ({ children }) => {
      */
     useEffect(() => {
         const onObjectChangeHandler = () => {
-            updateCurrentWidgetWithMesh(meshToAttach, true);
+            updatetWidgetWithMesh(selectedWidgets[0].id, meshToAttach, true);
         };
 
         const debouncedObjectChange = debounce(onObjectChangeHandler, 40);
 
         const onTransformControlMouseUp = () => {
             if (meshToAttach) {
-                updateCurrentWidgetWithMesh(meshToAttach);
+                updatetWidgetWithMesh(selectedWidgets[0].id, meshToAttach);
             }
             debouncedObjectChange.cancel();
         };
@@ -110,7 +110,7 @@ const TransformControlsComponent: FC<Props> = ({ children }) => {
             transformControls?.removeEventListener("dragging-changed", onDraggingChangedHandler);
             transformControls?.removeEventListener("objectChange", debouncedObjectChange);
         };
-    }, [transformControls, meshToAttach, updateCurrentWidgetWithMesh, setIsEditing]);
+    }, [transformControls, meshToAttach, updatetWidgetWithMesh, setIsEditing, selectedWidgets]);
 
     return <>{children}</>;
 };
