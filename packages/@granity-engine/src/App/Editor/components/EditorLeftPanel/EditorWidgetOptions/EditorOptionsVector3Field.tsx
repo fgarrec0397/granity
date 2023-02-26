@@ -1,4 +1,4 @@
-import { Vector3Array } from "@granity/helpers";
+import { updateArrayAt, Vector3Array } from "@granity/helpers";
 import { Box, BoxProps, Vector3Input } from "@granity/ui";
 import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
 import { Vector3FieldOption } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
@@ -29,9 +29,11 @@ const EditorOptionsVector3Field: FC<EditorOptionsVector3FieldProps> = ({ option 
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
     const inputChange = (inputValue: number, index: number) => {
-        const vector3Value: Vector3Array = [
-            ...((optionsValues?.[option.name]?.value as Vector3Array) || [0, 0, 0]),
-        ];
+        const vector3Value = updateArrayAt<Vector3Array>(
+            (optionsValues?.[option.name]?.value as Vector3Array) || [0, 0, 0],
+            inputValue,
+            index
+        );
 
         vector3Value[index] = inputValue;
 
