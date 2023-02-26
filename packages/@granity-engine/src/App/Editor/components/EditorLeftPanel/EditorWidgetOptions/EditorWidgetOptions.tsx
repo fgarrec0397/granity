@@ -8,6 +8,7 @@ import EditorOptionsCheckboxField from "./EditorOptionsCheckboxField";
 import EditorOptionsNumberField from "./EditorOptionsNumberField";
 import EditorOptionsSelectField from "./EditorOptionsSelectField";
 import EditorOptionsTextField from "./EditorOptionsTextField";
+import EditorOptionsVector3Field from "./EditorOptionsVector3Field";
 
 const EditorWidgetOptions: FC = () => {
     const openedAccordion = useAccordionDefaultOpened();
@@ -24,41 +25,27 @@ const EditorWidgetOptions: FC = () => {
                         </Typography>
                     ) : (
                         selectedWidgets.length > 0 &&
-                        selectedWidgets[0].options?.map((option) => {
+                        selectedWidgets[0].options?.map((option, index) => {
+                            const key = `${option.displayName}-${index}`;
+
                             if (option.fieldType === FieldType.Text) {
-                                return (
-                                    <EditorOptionsTextField
-                                        key={option.displayName}
-                                        option={option}
-                                    />
-                                );
+                                return <EditorOptionsTextField key={key} option={option} />;
                             }
 
                             if (option.fieldType === FieldType.Number) {
-                                return (
-                                    <EditorOptionsNumberField
-                                        key={option.displayName}
-                                        option={option}
-                                    />
-                                );
+                                return <EditorOptionsNumberField key={key} option={option} />;
                             }
 
                             if (option.fieldType === FieldType.Checkbox) {
-                                return (
-                                    <EditorOptionsCheckboxField
-                                        key={option.displayName}
-                                        option={option}
-                                    />
-                                );
+                                return <EditorOptionsCheckboxField key={key} option={option} />;
+                            }
+
+                            if (option.fieldType === FieldType.Vector3) {
+                                return <EditorOptionsVector3Field key={key} option={option} />;
                             }
 
                             if (option.fieldType === FieldType.Select) {
-                                return (
-                                    <EditorOptionsSelectField
-                                        key={option.displayName}
-                                        option={option}
-                                    />
-                                );
+                                return <EditorOptionsSelectField key={key} option={option} />;
                             }
 
                             return null;

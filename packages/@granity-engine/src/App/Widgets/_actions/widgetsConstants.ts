@@ -24,6 +24,7 @@ export enum FieldType {
     Number = "Number",
     Select = "Select",
     Checkbox = "Checkbox",
+    Vector3 = "Vector3",
 }
 
 export enum WidgetType {

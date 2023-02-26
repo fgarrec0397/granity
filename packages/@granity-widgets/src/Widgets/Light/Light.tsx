@@ -1,13 +1,14 @@
 import { createWidget, EditableWidget, FieldType, helpersTypes, WidgetType } from "@granity/engine";
-import { capitalizeString } from "@granity/helpers";
+import { capitalizeString, Vector3Array } from "@granity/helpers";
 import { FC } from "react";
 
 export type LightProps = EditableWidget & {
     lightType: string;
     intensity: number;
+    direction: Vector3Array;
 };
 
-const Light: FC<LightProps> = ({ lightType, intensity, rotation }, ref) => {
+const Light: FC<LightProps> = ({ lightType, intensity, direction }, ref) => {
     if (lightType === "spotlight") {
         return (
             <spotLight
@@ -32,6 +33,7 @@ const Light: FC<LightProps> = ({ lightType, intensity, rotation }, ref) => {
                 shadow-mapSize-height={64}
                 castShadow
                 shadow-bias={-0.001}
+                target-position={direction || [0, 0, 0]}
             />
         );
     }
@@ -99,6 +101,12 @@ export const widget = createWidget<LightProps>({
             displayName: "Intensity",
             fieldType: FieldType.Number,
             defaultValue: 0,
+        },
+        {
+            name: "direction",
+            displayName: "Direction",
+            fieldType: FieldType.Vector3,
+            defaultValue: [0, 0, 0],
         },
     ],
 });

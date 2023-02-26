@@ -15,7 +15,7 @@ export default () => {
         setOptionsValues(options);
     }, [selectedWidgets, getWidgetDictionaryFromWidget]);
 
-    const updateOptionsValues = (value: string | number | boolean, option: WidgetOptions) => {
+    const updateOptionsValues = <TValue = string>(value: TValue, option: WidgetOptions) => {
         setOptionsValues({
             ...optionsValues,
             [option.name]: {
