@@ -14,7 +14,7 @@ const Light: FC<LightProps> = ({ lightType, intensity, direction }, ref) => {
             <spotLight
                 ref={ref}
                 position={[0, 0, 0]}
-                intensity={0.2}
+                intensity={intensity}
                 shadow-mapSize-width={64}
                 shadow-mapSize-height={64}
                 castShadow
@@ -28,7 +28,7 @@ const Light: FC<LightProps> = ({ lightType, intensity, direction }, ref) => {
             <directionalLight
                 ref={ref}
                 position={[0, 0, 0]}
-                intensity={0.2}
+                intensity={intensity}
                 shadow-mapSize-width={64}
                 shadow-mapSize-height={64}
                 castShadow
@@ -42,7 +42,7 @@ const Light: FC<LightProps> = ({ lightType, intensity, direction }, ref) => {
         <spotLight
             ref={ref}
             position={[0, 0, 0]}
-            intensity={0.2}
+            intensity={intensity}
             shadow-mapSize-width={64}
             shadow-mapSize-height={64}
             castShadow
@@ -101,6 +101,13 @@ export const widget = createWidget<LightProps>({
             displayName: "Intensity",
             fieldType: FieldType.Number,
             defaultValue: 0,
+            isVisible: (options) => {
+                if (options?.lightType?.value === "spotLight") {
+                    return false;
+                }
+
+                return true;
+            },
         },
         {
             name: "direction",

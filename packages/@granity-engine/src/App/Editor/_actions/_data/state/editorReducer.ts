@@ -8,6 +8,7 @@ export interface EditorState {
     isEditing: boolean;
     isGameUIPreview: boolean;
     isMultipleSelect: boolean;
+    isGridEnabled: boolean;
     currentMode: ModesAvailable;
 }
 
@@ -18,6 +19,7 @@ const initialState: EditorState = {
     isEditing: false,
     isGameUIPreview: false,
     isMultipleSelect: false,
+    isGridEnabled: false,
     currentMode: ModesAvailable.Translate,
 };
 
@@ -43,6 +45,9 @@ export const sceneSlice = createSlice({
         setIsMultipleSelect: (state: EditorState, action: PayloadAction<boolean>) => {
             state.isMultipleSelect = action.payload;
         },
+        setIsGridEnabled: (state: EditorState, action: PayloadAction<boolean>) => {
+            state.isGridEnabled = action.payload;
+        },
         setCurrentMode: (state: EditorState, action: PayloadAction<ModesAvailable>) => {
             state.currentMode = action.payload;
         },
@@ -56,6 +61,7 @@ export const {
     setHasEditorOpened,
     setHasEdited,
     setIsMultipleSelect,
+    setIsGridEnabled,
     setCurrentMode,
 } = sceneSlice.actions;
 

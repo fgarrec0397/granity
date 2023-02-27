@@ -98,6 +98,7 @@ export type WidgetBaseOptions<Type extends FieldType, TValue = string> = {
     displayName: string;
     fieldType: Type;
     defaultValue: TValue;
+    isVisible?: ((options?: WidgetOptionsValues) => boolean | undefined) | boolean;
 };
 
 export type NumberFieldOption = WidgetBaseOptions<FieldType.Number, number>;

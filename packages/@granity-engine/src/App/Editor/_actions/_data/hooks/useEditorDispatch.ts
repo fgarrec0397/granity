@@ -8,6 +8,7 @@ import {
     setIsEditing,
     setIsEditor,
     setIsGameUIPreview,
+    setIsGridEnabled,
     setIsMultipleSelect,
 } from "../state/editorReducer";
 
@@ -26,6 +27,8 @@ export default () => {
 
     const dispatchSetIsMultipleSelect = (value: boolean) => dispatch(setIsMultipleSelect(value));
 
+    const dispatchSetIsGridEnabled = (value: boolean) => dispatch(setIsGridEnabled(value));
+
     const dispatchSetCurrentMode = (mode: ModesAvailable) => dispatch(setCurrentMode(mode));
 
     return {
@@ -35,6 +38,7 @@ export default () => {
         dispatchSetIsGameUIPreview,
         dispatchSetHasEdited,
         dispatchSetIsMultipleSelect,
+        dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
     };
 };

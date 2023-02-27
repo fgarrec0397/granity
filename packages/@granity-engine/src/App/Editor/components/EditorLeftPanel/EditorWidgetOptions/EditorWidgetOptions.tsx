@@ -9,10 +9,18 @@ import EditorOptionsNumberField from "./EditorOptionsNumberField";
 import EditorOptionsSelectField from "./EditorOptionsSelectField";
 import EditorOptionsTextField from "./EditorOptionsTextField";
 import EditorOptionsVector3Field from "./EditorOptionsVector3Field";
+import useOptionsValues from "./hooks/useOptionsValues";
 
 const EditorWidgetOptions: FC = () => {
     const openedAccordion = useAccordionDefaultOpened();
     const { selectedWidgets } = useWidgets();
+    const { optionsValues } = useOptionsValues();
+
+    if (!selectedWidgets[0]) {
+        return null;
+    }
+
+    const options = selectedWidgets[0].options;
 
     return (
         <Accordion {...openedAccordion}>
@@ -25,8 +33,18 @@ const EditorWidgetOptions: FC = () => {
                         </Typography>
                     ) : (
                         selectedWidgets.length > 0 &&
-                        selectedWidgets[0].options?.map((option, index) => {
+                        options?.map((option, index) => {
                             const key = `${option.displayName}-${index}`;
+                            const isOptionVisible =
+                                typeof option.isVisible === "function"
+                                    ? option.isVisible(optionsValues)
+                                    : option.isVisible !== undefined
+                                    ? option.isVisible
+                                    : true;
+
+                            if (!isOptionVisible) {
+                                return null;
+                            }
 
                             if (option.fieldType === FieldType.Text) {
                                 return <EditorOptionsTextField key={key} option={option} />;

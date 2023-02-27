@@ -10,6 +10,13 @@ export default {
             preventDefault: false,
         },
         {
+            name: "toggleGrid",
+            code: "KeyG",
+            ctrlKey: false,
+            shiftKey: true,
+            preventDefault: false,
+        },
+        {
             name: "copyWidget",
             code: "KeyC",
             ctrlKey: true,

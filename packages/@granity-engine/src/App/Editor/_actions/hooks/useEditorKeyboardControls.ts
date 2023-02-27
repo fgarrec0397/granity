@@ -8,10 +8,13 @@ import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { useState } from "react";
 
+import useEditor from "./useEditor";
+
 export default () => {
     const { setNextCamera, setPrevCamera } = useCameras();
     const { selectedWidgets, firstCurrentWidget, widgets, removeselectedWidgets, copyWidget } =
         useWidgets();
+    const { toggleGrid } = useEditor();
     const { setPrevHistoryItem, setNextHistoryItem, shouldAddHistoryState } = useHistory();
     const [, setCopiedWidgets] = useState<WidgetDictionaryItem[]>([]);
     const { startGame } = useGame();
@@ -21,6 +24,8 @@ export default () => {
         (keyMapping: ClientKeyMappings) => {
             if (keyMapping.toggleEditor) {
                 startGame();
+            } else if (keyMapping.toggleGrid) {
+                toggleGrid();
             } else if (keyMapping.copyWidget) {
                 if (selectedWidgets.length > 0) {
                     setCopiedWidgets(selectedWidgets);

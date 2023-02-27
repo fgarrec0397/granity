@@ -26,7 +26,7 @@ const EditorModeSelector: FC = () => {
                 <Select onChange={handleChange} defaultValue={ModesAvailable.Translate}>
                     <MenuItem value="translate">Translate</MenuItem>
                     <MenuItem value="rotate">Rotate</MenuItem>
-                    <MenuItem value="Scale">Scale</MenuItem>
+                    <MenuItem value="scale">Scale</MenuItem>
                 </Select>
             </AccordionDetails>
         </Accordion>

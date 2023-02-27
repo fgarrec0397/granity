@@ -18,6 +18,8 @@ export default () => {
         updatedIsGameUIPreview,
         updateHasEditorOpened,
         updateCurrentMode,
+        updatedIsGridEnabled,
+        isGridEnabled,
     } = useEditorService();
     const { removeWidgetSelection } = useWidgets();
 
@@ -41,6 +43,10 @@ export default () => {
         },
         [updateIsEditing]
     );
+
+    const toggleGrid = useCallback(() => {
+        updatedIsGridEnabled(!isGridEnabled);
+    }, [isGridEnabled, updatedIsGridEnabled]);
 
     const openEditorUIPreview = useCallback(() => {
         updatedIsGameUIPreview(true);
@@ -84,5 +90,7 @@ export default () => {
         setHasEditorOpened,
         selectMode,
         onEditorPointerMissed,
+        toggleGrid,
+        isGridEnabled,
     };
 };

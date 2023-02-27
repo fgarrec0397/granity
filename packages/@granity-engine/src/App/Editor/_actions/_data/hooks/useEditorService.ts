@@ -12,10 +12,18 @@ export default () => {
         dispatchSetIsGameUIPreview,
         dispatchSetHasEdited,
         dispatchSetIsMultipleSelect,
+        dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
     } = useEditorDispatch();
-    const { isEditor, hasEdited, hasEditorOpened, isGameUIPreview, isEditing, currentMode } =
-        useEditorSelector();
+    const {
+        isEditor,
+        hasEdited,
+        hasEditorOpened,
+        isGameUIPreview,
+        isEditing,
+        currentMode,
+        isGridEnabled,
+    } = useEditorSelector();
 
     const updateIsEditor = (value: boolean) => {
         dispatchSetIsEditor(value);
@@ -31,6 +39,10 @@ export default () => {
 
     const updatedIsGameUIPreview = (value: boolean) => {
         dispatchSetIsGameUIPreview(value);
+    };
+
+    const updatedIsGridEnabled = (value: boolean) => {
+        dispatchSetIsGridEnabled(value);
     };
 
     const updateHasEdited = useCallback(
@@ -55,11 +67,13 @@ export default () => {
         isEditing,
         isGameUIPreview,
         currentMode,
+        isGridEnabled,
         updateIsEditor,
         updateIsEditing,
         updatedIsGameUIPreview,
         updateHasEditorOpened,
         updateHasEdited,
+        updatedIsGridEnabled,
         updateIsMultipleSelect,
         updateCurrentMode,
     };

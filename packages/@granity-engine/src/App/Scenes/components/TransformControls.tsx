@@ -3,15 +3,11 @@ import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
 import useGetWidgets from "@granity-engine/App/Widgets/_actions/hooks/useGetMeshByWidget";
 import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { useThree } from "@react-three/fiber";
-import { FC, ReactNode, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Object3D } from "three";
 import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 
-type Props = {
-    children?: ReactNode;
-};
-
-const TransformControlsComponent: FC<Props> = ({ children }) => {
+const TransformControlsComponent: FC = () => {
     const { camera, scene, gl } = useThree();
     const { selectedWidgets, firstCurrentWidget, updatetWidgetWithMesh } = useWidgets();
     const getMeshByWidget = useGetWidgets();
@@ -112,7 +108,7 @@ const TransformControlsComponent: FC<Props> = ({ children }) => {
         };
     }, [transformControls, meshToAttach, updatetWidgetWithMesh, setIsEditing, selectedWidgets]);
 
-    return <>{children}</>;
+    return null;
 };
 
 export default TransformControlsComponent;

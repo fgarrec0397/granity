@@ -14,6 +14,7 @@ export const helpersTypes: HelpersTypes = {
     PointLightHelper: "PointLightHelper",
     SkeletonHelper: "SkeletonHelper",
     SpotLightHelper: "SpotLightHelper",
+    AmbientLightHelper: "PointLightHelper",
 };
 
 /**
