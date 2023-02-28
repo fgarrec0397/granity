@@ -4,12 +4,13 @@ import { FC } from "react";
 
 type WidgetsGizmoProps = {
     text: string;
+    onClick?: () => void;
 };
 
-const WidgetsGizmo: FC<WidgetsGizmoProps> = ({ text }) => {
+const WidgetsGizmo: FC<WidgetsGizmoProps> = ({ text, onClick }) => {
     return (
-        <Html zIndexRange={[0]}>
-            <Chip label={text} clickable color="primary" />
+        <Html material={<meshPhysicalMaterial opacity={0.1} />} zIndexRange={[0]}>
+            <Chip label={text} clickable onClick={onClick} color="primary" />
         </Html>
     );
 };

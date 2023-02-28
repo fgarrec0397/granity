@@ -24,6 +24,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
         widgetsObjectInfoDictionary,
         widgetsObjects,
         displayWidgetName,
+        selectWidget,
     } = useWidgets();
     const { getWidgetProps } = useWidgetsUtilities();
     const getMeshByWidget = useGetMeshByWidget();
@@ -66,13 +67,17 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
 
     const resolveGizmoText = () => {
         if (typeof gizmo === "undefined" || typeof gizmo === "boolean") {
-            return displayWidgetName(widget.id) || widget.name;
+            return displayWidgetName(id) || widget.name;
         }
 
         return gizmo.text;
     };
 
     const widgetProperties = getWidgetDictionaryFromWidget(id!)?.properties;
+
+    const onGizmoClick = () => {
+        selectWidget([widgetsObjects[id]]);
+    };
 
     const ref =
         hasRef || editorOptions?.helper
@@ -88,7 +93,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
             onPointerOut={handleOnPointerOut}
             {...widgetProperties}
         >
-            {isEditor && gizmo && <WidgetsGizmo text={resolveGizmoText()} />}
+            {isEditor && gizmo && <WidgetsGizmo text={resolveGizmoText()} onClick={onGizmoClick} />}
 
             <Component {...widgetProps} {...widgetProperties} hovered={hovered} {...ref} />
         </mesh>

@@ -17,7 +17,9 @@ const CoreCanvas: FC<Props> = ({ contexts }) => {
     const ContextBridge = useContextBridge(...contexts);
 
     const onPointerMissed = (event: MouseEvent) => {
-        onCorePointerMissed(event);
+        if ((event.target as Element)?.tagName === "CANVAS") {
+            onCorePointerMissed(event);
+        }
     };
 
     return (
