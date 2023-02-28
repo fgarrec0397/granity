@@ -3,6 +3,7 @@ export * from "./Basics";
 export * from "./Box";
 export * from "./Button";
 export * from "./Checkbox";
+export * from "./Chip";
 export * from "./Dialog";
 export * from "./Form";
 export * from "./Icon";

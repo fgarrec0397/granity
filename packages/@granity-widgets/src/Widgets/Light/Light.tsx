@@ -67,12 +67,7 @@ export const widget = createWidget<LightProps>({
 
             return helpersTypes.DirectionalLightHelper;
         },
-        gizmo: (
-            <mesh scale={[0.25, 0.25, 0.25]}>
-                <boxGeometry />
-                <meshBasicMaterial visible={false} />
-            </mesh>
-        ),
+        gizmo: true,
     },
     name: "Light",
     options: [

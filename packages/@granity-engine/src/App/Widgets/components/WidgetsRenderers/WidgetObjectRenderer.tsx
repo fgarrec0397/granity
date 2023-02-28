@@ -10,6 +10,7 @@ import { useGetMeshByWidget } from "../../_actions/hooks";
 import useWidgets from "../../_actions/hooks/useWidgets";
 import useWidgetsUtilities from "../../_actions/hooks/useWidgetsUtilities";
 import resolveHelper from "../../_actions/utilities/resolveHelper";
+import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
     widget: WidgetObjectsDictionaryItem;
@@ -18,8 +19,12 @@ type Props = {
 const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const componentRef = useRef(null!);
     const [hovered, setHover] = useState(false);
-    const { getWidgetDictionaryFromWidget, widgetsObjectInfoDictionary, widgetsObjects } =
-        useWidgets();
+    const {
+        getWidgetDictionaryFromWidget,
+        widgetsObjectInfoDictionary,
+        widgetsObjects,
+        displayWidgetName,
+    } = useWidgets();
     const { getWidgetProps } = useWidgetsUtilities();
     const getMeshByWidget = useGetMeshByWidget();
     const { isEditor } = useEditor();
@@ -31,8 +36,6 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
         typeof editorOptions?.helper === "function"
             ? editorOptions?.helper(widgetsObjectInfoDictionary[id].options)
             : editorOptions?.helper;
-
-    // console.log(helper, "helper");
 
     const resolvedHelper = resolveHelper(helper);
 
@@ -59,7 +62,15 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
         setHover(false);
     };
 
-    const gizmo = <>{isEditor && editorOptions?.gizmo ? editorOptions?.gizmo : null}</>;
+    const gizmo = editorOptions?.gizmo;
+
+    const resolveGizmoText = () => {
+        if (typeof gizmo === "undefined" || typeof gizmo === "boolean") {
+            return displayWidgetName(widget.id) || widget.name;
+        }
+
+        return gizmo.text;
+    };
 
     const widgetProperties = getWidgetDictionaryFromWidget(id!)?.properties;
 
@@ -77,7 +88,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
             onPointerOut={handleOnPointerOut}
             {...widgetProperties}
         >
-            {gizmo}
+            {isEditor && gizmo && <WidgetsGizmo text={resolveGizmoText()} />}
 
             <Component {...widgetProps} {...widgetProperties} hovered={hovered} {...ref} />
         </mesh>

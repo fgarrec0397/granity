@@ -1,8 +1,7 @@
 import { Dictionary, UnionOfProperties } from "@granity/helpers";
 import { Vector3Array } from "@react-three/rapier";
 import { Slice } from "@reduxjs/toolkit";
-import { FC, ForwardRefExoticComponent, PropsWithoutRef, ReactNode, RefAttributes } from "react";
-import { Object3D } from "three";
+import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
 
 import { FieldType, WidgetType } from "./widgetsConstants";
 
@@ -180,7 +179,14 @@ export type WidgetObjectModule<Props = DefaultWidgetProps, Ref = null> = Widget<
  */
 export type WidgetObjectEditorOptions = {
     helper?: ((options?: WidgetOptionsValues) => HelperTypeValue) | HelperTypeValue;
-    gizmo?: ReactNode | Object3D;
+    gizmo?: boolean | GizmoConfig;
+};
+
+/**
+ * Gizmo config object type
+ */
+export type GizmoConfig = {
+    text: string;
 };
 
 ///////////////////////////////////////////////////////////////////
