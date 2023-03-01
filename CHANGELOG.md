@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.8](https://github.com/fgarrec0397/granity/compare/v0.2.7...v0.2.8) (2023-03-01)
+
+
+### Features
+
+* sky widget ([23d0f63](https://github.com/fgarrec0397/granity/commits/23d0f634b9100a8c2d70cc53b8d8111bb0af47f9))
+
 ### [0.2.7](https://github.com/fgarrec0397/granity/compare/v0.2.6...v0.2.7) (2023-03-01)
 
 
