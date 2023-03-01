@@ -43,12 +43,7 @@ export const widget = createWidget<CamerasProps, PerspectiveCamera>({
     type: WidgetType.GameObject,
     editorOptions: {
         helper: helpersTypes.CameraHelper,
-        gizmo: (
-            <mesh scale={[0.25, 0.25, 0.25]}>
-                <boxGeometry />
-                <meshBasicMaterial visible={false} />
-            </mesh>
-        ),
+        gizmo: true,
     },
     name: "Cameras",
     options: [
