@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.7](https://github.com/fgarrec0397/granity/compare/v0.2.6...v0.2.7) (2023-03-01)
+
+
+### Features
+
+* clickable gizmo ([dcbf538](https://github.com/fgarrec0397/granity/commits/dcbf538bf792f81d29fd94a452c3c24da2dec5be))
+* editable widget properties through the UI ([5d930ec](https://github.com/fgarrec0397/granity/commits/5d930ece163d9e2efb43ea27ec800822e204f04e))
+* gizmo reworked ([dc9c3c1](https://github.com/fgarrec0397/granity/commits/dc9c3c1789ebd9f4763c65473edec81f00858ac6))
+* grid helper, isVisible option on fields ([cb1d822](https://github.com/fgarrec0397/granity/commits/cb1d82257b79f2e05f7f4ea83435f28db3223276))
+* helper for lights / refactor: meshHolder switched to gizmos ([b463402](https://github.com/fgarrec0397/granity/commits/b463402b13643c8dc55f58afc9057b44da937d8f))
+* open create scene modal when no scene ([4eb5aed](https://github.com/fgarrec0397/granity/commits/4eb5aedaa0d826cf4b4babe9db3e53156e16a393))
+* toggle widgetsObject visibility ([76fc381](https://github.com/fgarrec0397/granity/commits/76fc381a6e473fdd67355f3e2b63c1e876d0c204))
+* updateArrayAt helper ([c065783](https://github.com/fgarrec0397/granity/commits/c0657832f44533036ea97a0c8eaf391edaf1811c))
+* vector3Input + vector3Field ([e4aa123](https://github.com/fgarrec0397/granity/commits/e4aa123a625a05fe74714d32c9ee91a9aab22c23))
+
+
+### Bug Fixes
+
+* build ([ff0a465](https://github.com/fgarrec0397/granity/commits/ff0a465b13a78d6b3bcce092b591309bd747c868))
+* build issues ([5879e73](https://github.com/fgarrec0397/granity/commits/5879e733fe8deaa1f7e81436c20783a525bd9588))
+* default scene process ([cd0c068](https://github.com/fgarrec0397/granity/commits/cd0c0682973b090f197c86ac554c5a6d750eb203))
+* dialog still on the dom when closed ([df0977e](https://github.com/fgarrec0397/granity/commits/df0977ec10ffa3d2f2b678ef55397394a3e78f55))
+* scene modal flickering on load ([ed8352e](https://github.com/fgarrec0397/granity/commits/ed8352e1a9930693c3d3069a96e27eaa86647ac7))
+* typings build issues ([08e2205](https://github.com/fgarrec0397/granity/commits/08e220521bb1ff52d63a6579d12765c9b3f0a25d))
+* widgets options linter issues ([b905b02](https://github.com/fgarrec0397/granity/commits/b905b020949c5c4f23a2992fdbe5c283cc61af1b))
+* **wip:** update widget position by ui ([ed75870](https://github.com/fgarrec0397/granity/commits/ed758709596c74f6b3e5d90d6ec79262f8e17f2a))
+
+
+### Refactor
+
+* adding a loading state on the scenes ([79bcff2](https://github.com/fgarrec0397/granity/commits/79bcff2b021bcd7083f5c31ccf7c456cfdbbec62))
+* generic widget options types ([a11a5ce](https://github.com/fgarrec0397/granity/commits/a11a5ce8451094885fe43db1af7240856c9da8b5))
+* update widgets ([e353ea0](https://github.com/fgarrec0397/granity/commits/e353ea0ce2989da6196d6075f3b4c3abd3fabb05))
+* widget helper can possibly be a function + Light widget ([3d65c61](https://github.com/fgarrec0397/granity/commits/3d65c61a109215dcec9782e43d0d25b1e2575780))
+
 ### [0.2.6](https://github.com/fgarrec0397/granity/compare/v0.2.5...v0.2.6) (2023-02-19)
 
 
