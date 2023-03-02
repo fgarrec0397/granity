@@ -61,7 +61,8 @@ const TransformControlsComponent: FC = () => {
     useEffect(() => {
         if (
             selectedWidgets.length &&
-            (!previousSelectedWidgets || !isEqual(selectedWidgets, previousSelectedWidgets))
+            (!previousSelectedWidgets || !isEqual(selectedWidgets, previousSelectedWidgets)) &&
+            !selectedWidgets[0].isFrozen
         ) {
             setMeshToAttach(getMeshByWidget(selectedWidgets[0]));
         } else if (previousSelectedWidgets?.length && !selectedWidgets.length) {

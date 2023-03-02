@@ -200,8 +200,18 @@ export default () => {
         [addBatch]
     );
 
+    const removeWidgetSelection = useCallback(() => {
+        removeSelection();
+    }, [removeSelection]);
+
     const selectWidget = useCallback(
-        (widgetsToSelect: WidgetObjectsDictionaryItem[]) => {
+        (widgetsToSelect: WidgetObjectsDictionaryItem[], forceSelect = false) => {
+            if (!forceSelect && widgetsToSelect[0].isFrozen) {
+                removeWidgetSelection();
+
+                return;
+            }
+
             const { properties } = widgetsObjectInfoDictionary[widgetsToSelect[0].id];
             select(widgetsToSelect);
 
@@ -210,7 +220,13 @@ export default () => {
                 updateWidget(widgetsToSelect[0].id, { properties });
             }
         },
-        [widgetsObjectInfoDictionary, select, updatePropertiesUI, updateWidget]
+        [
+            widgetsObjectInfoDictionary,
+            select,
+            removeWidgetSelection,
+            updatePropertiesUI,
+            updateWidget,
+        ]
     );
 
     const selectWidgetFromMeshArr = useCallback(
@@ -263,10 +279,6 @@ export default () => {
             enqueueSnackbar("No mesh found", { variant: "error" });
         }
     }, [enqueueSnackbar, removeWidget, selectedWidgets]);
-
-    const removeWidgetSelection = useCallback(() => {
-        removeSelection();
-    }, [removeSelection]);
 
     const resetWidgets = useCallback(
         (

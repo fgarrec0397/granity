@@ -11,5 +11,6 @@ export const widget = createWidget({
     hasRef: true,
     reducer: null,
     type: WidgetType.GameObject,
+    isFrozen: true,
     name: "Sky",
 });

@@ -32,42 +32,56 @@ const EditorWidgetOptions: FC = () => {
                             {"Impossible to edit widget while more than one is selected"}
                         </Typography>
                     ) : (
-                        selectedWidgets.length > 0 &&
-                        options?.map((option, index) => {
-                            const key = `${option.displayName}-${index}`;
-                            const isOptionVisible =
-                                typeof option.isVisible === "function"
-                                    ? option.isVisible(optionsValues)
-                                    : option.isVisible !== undefined
-                                    ? option.isVisible
-                                    : true;
+                        <>
+                            {!options?.length ? (
+                                <Typography>{"No options"}</Typography>
+                            ) : (
+                                selectedWidgets.length > 0 &&
+                                options?.map((option, index) => {
+                                    const key = `${option.displayName}-${index}`;
+                                    const isOptionVisible =
+                                        typeof option.isVisible === "function"
+                                            ? option.isVisible(optionsValues)
+                                            : option.isVisible !== undefined
+                                            ? option.isVisible
+                                            : true;
 
-                            if (!isOptionVisible) {
-                                return null;
-                            }
+                                    if (!isOptionVisible) {
+                                        return null;
+                                    }
 
-                            if (option.fieldType === FieldType.Text) {
-                                return <EditorOptionsTextField key={key} option={option} />;
-                            }
+                                    if (option.fieldType === FieldType.Text) {
+                                        return <EditorOptionsTextField key={key} option={option} />;
+                                    }
 
-                            if (option.fieldType === FieldType.Number) {
-                                return <EditorOptionsNumberField key={key} option={option} />;
-                            }
+                                    if (option.fieldType === FieldType.Number) {
+                                        return (
+                                            <EditorOptionsNumberField key={key} option={option} />
+                                        );
+                                    }
 
-                            if (option.fieldType === FieldType.Checkbox) {
-                                return <EditorOptionsCheckboxField key={key} option={option} />;
-                            }
+                                    if (option.fieldType === FieldType.Checkbox) {
+                                        return (
+                                            <EditorOptionsCheckboxField key={key} option={option} />
+                                        );
+                                    }
 
-                            if (option.fieldType === FieldType.Vector3) {
-                                return <EditorOptionsVector3Field key={key} option={option} />;
-                            }
+                                    if (option.fieldType === FieldType.Vector3) {
+                                        return (
+                                            <EditorOptionsVector3Field key={key} option={option} />
+                                        );
+                                    }
 
-                            if (option.fieldType === FieldType.Select) {
-                                return <EditorOptionsSelectField key={key} option={option} />;
-                            }
+                                    if (option.fieldType === FieldType.Select) {
+                                        return (
+                                            <EditorOptionsSelectField key={key} option={option} />
+                                        );
+                                    }
 
-                            return null;
-                        })
+                                    return null;
+                                })
+                            )}
+                        </>
                     )}
                 </>
             </AccordionDetails>

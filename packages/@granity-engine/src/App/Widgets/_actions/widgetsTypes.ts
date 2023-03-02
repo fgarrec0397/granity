@@ -172,6 +172,7 @@ export type WidgetObjectModule<Props = DefaultWidgetProps, Ref = null> = Widget<
     hasRef?: true;
     editorOptions?: WidgetObjectEditorOptions;
     type: WidgetType.GameObject;
+    isFrozen?: boolean;
 };
 
 /**

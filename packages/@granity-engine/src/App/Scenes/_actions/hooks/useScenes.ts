@@ -296,6 +296,11 @@ export default () => {
                 const newCurrentSceneId = getDefaultSceneId(initialScenes);
                 const newCurrentScene = initialScenes[newCurrentSceneId];
 
+                console.log({
+                    serializedWidgets: newCurrentScene.data.serializedWidgets,
+                    widgetsObjectInfoDictionary: newCurrentScene.data.widgetsObjectInfoDictionary,
+                });
+
                 initWidgets(
                     newCurrentScene.data.serializedWidgets,
                     newCurrentScene.data.widgetsObjectInfoDictionary

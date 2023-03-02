@@ -52,7 +52,7 @@ const EditorWidgetsObjectList: FC = () => {
 
     const handleClickRow = (id: string) => {
         const widget = widgetsObjects[id];
-        selectWidget([widget as WidgetObjectsDictionaryItem]);
+        selectWidget([widget as WidgetObjectsDictionaryItem], true);
     };
 
     const handleClickRemove = (widgetId: string) => {
