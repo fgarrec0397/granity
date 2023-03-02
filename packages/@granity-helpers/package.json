@@ -16,7 +16,7 @@
   "license": "ISC",
   "prettier": "@granity/prettier-config",
   "dependencies": {
-    "@tanstack/react-query": "^4.24.9",
+    "@tanstack/react-query": "^4.24.10",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/three": "^0.149.0",
@@ -31,6 +31,6 @@
     "@granity/eslint-config": "*",
     "@granity/prettier-config": "*",
     "@types/lodash": "^4.14.191",
-    "npm-check-updates": "^16.7.5"
+    "npm-check-updates": "^16.7.10"
   }
 }

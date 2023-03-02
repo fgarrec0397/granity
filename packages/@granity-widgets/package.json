@@ -14,17 +14,17 @@
     "@granity/eslint-config": "*",
     "@granity/prettier-config": "*",
     "@granity/ui": "*",
-    "@reduxjs/toolkit": "^1.9.2",
-    "@react-three/drei": "9.56.25",
-    "@react-three/fiber": "8.11.2",
+    "@reduxjs/toolkit": "^1.9.3",
+    "@react-three/drei": "9.57.0",
+    "@react-three/fiber": "8.11.5",
     "@react-three/rapier": "^0.13.2",
     "react-redux": "^8.0.5",
-    "styled-components": "^5.3.6",
+    "styled-components": "^5.3.8",
     "three": "^0.149.0",
     "three-stdlib": "^2.21.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "vite": "^4.1.2"
+    "vite": "^4.1.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
