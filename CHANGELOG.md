@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.9](https://github.com/fgarrec0397/granity/compare/v0.2.8...v0.2.9) (2023-03-02)
+
+
+### Features
+
+* isFrozen widget option ([016031d](https://github.com/fgarrec0397/granity/commits/016031dfd6b53291a6818d81b19ebb94e3d91111))
+
+
+### Refactor
+
+* code cleanup ([3a4074e](https://github.com/fgarrec0397/granity/commits/3a4074e384d7ee68a21094b8ddce7d381a4a60c9))
+
 ### [0.2.8](https://github.com/fgarrec0397/granity/compare/v0.2.7...v0.2.8) (2023-03-01)
 
 
