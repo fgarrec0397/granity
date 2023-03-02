@@ -62,12 +62,11 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [x] Refactor project in monorepo
 - [x] Extract App folder into its own package
 - [x] Having a site for the admin and the game separatly
-- [ ] Remake the UI
-- [ ] Having multiple themes (one for the game, another for the editor)
-- [ ] Control Lights by widget instead of hardcoded default ones
-- [ ] Select multiple widgets at the time
-- [ ] Be able to manipulate the widgets through the UI
-- [ ] Group widgets together
+- [x] Remake the UI
+- [x] Having multiple themes (one for the game, another for the editor)
+- [x] Control Lights by widget instead of hardcoded default ones
+- [x] Be able to manipulate the widgets through the UI
+
 
 ### 0.3.0
 - [ ] Add a dashboard to control some settings such as key bindings
@@ -78,6 +77,8 @@ The roadmap elements below are classed in order, but are may subject to change.
 - [ ] Make the app deployable
 
 ### 0.4.0
+- [ ] Select multiple widgets at the time
+- [ ] Group widgets together
 - [ ] Support multiplayer
 
 ### In a near future
