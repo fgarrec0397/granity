@@ -8,18 +8,40 @@ interface IProps {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-const LoginPage = ({ searchParams }: IProps) => {
+type CreateAccountParameters = {
+  username: string;
+  password: string;
+}
+
+const createAccount = async (params: CreateAccountParameters) => {
+  const result = await fetch("/server/auth/createUser", {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  })
+
+  const content = await result.json();
+
+  console.log(content, "content");
+}
+
+const CreateAccountPage = ({ searchParams }: IProps) => {
   const userName = useRef("");
   const pass = useRef("");
 
   const onSubmit = async () => {
-    const result = await signIn("credentials", {
+    const result = await createAccount({
       username: userName.current,
       password: pass.current,
-      redirect: false,
-      callbackUrl: "/",
     });
+
+    // console.log(result, "create account result");
+    
   };
+
   return (
     <div className={"flex flex-col justify-center items-center  h-screen bg-gradient-to-br gap-1 from-cyan-300 to-sky-600"}>
       {searchParams?.message && <p className="text-red-700 bg-red-100 py-2 px-5 rounded-md">{searchParams?.message}</p>}
@@ -32,4 +54,4 @@ const LoginPage = ({ searchParams }: IProps) => {
   );
 };
 
-export default LoginPage;
+export default CreateAccountPage;

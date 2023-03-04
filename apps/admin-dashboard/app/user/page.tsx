@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { User } from "types/intefaces";
 
-const page = () => {
+const UserPage = () => {
   const { data: session } = useSession();
   const [userData, setUserData] = useState<User>();
 
@@ -38,4 +38,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserPage;

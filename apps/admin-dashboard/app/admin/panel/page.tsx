@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { User } from "types/intefaces";
 
-const page = () => {
+const AdminPanelPage = () => {
   const { data: session } = useSession();
   const [userData, setUserData] = useState<User>();
 
@@ -39,4 +39,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AdminPanelPage;

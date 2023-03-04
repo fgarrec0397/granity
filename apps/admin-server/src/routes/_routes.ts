@@ -6,7 +6,7 @@ const routes = () => {
     const router = express.Router();
 
     router.use("/scene", sceneRoutes());
-    router.use("/auth/login", authRoutes());
+    router.use("/auth", authRoutes());
 
     return router;
 };

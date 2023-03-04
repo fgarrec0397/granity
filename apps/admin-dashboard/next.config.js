@@ -5,6 +5,18 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/server/:path*',
+        destination: 'http://localhost:5000'
+      },
+      // {
+      //   source: '/:path*',
+      //   destination: 'http://localhost:3000/:path*'
+      // },
+    ]
+  }
 };
 
 module.exports = nextConfig;

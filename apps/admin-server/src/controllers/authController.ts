@@ -7,16 +7,16 @@ export const createUser = async (req: Request, res: Response) => {
     console.log("------- create a user -------");
     try {
         // Get user input
-        const { first_name, last_name, email, password } = req.body;
+        const { username, password } = req.body;
 
         // Validate user input
-        if (!(email && password && first_name && last_name)) {
+        if (!(username && password)) {
             res.status(400).send("All input is required");
         }
 
         // check if user already exist
         // Validate if user exist in our database
-        const oldUser = await userModel.findOne({ email });
+        const oldUser = await userModel.findOne({ username });
 
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
@@ -27,14 +27,12 @@ export const createUser = async (req: Request, res: Response) => {
 
         // Create user in our database
         const user = await userModel.create({
-            first_name,
-            last_name,
-            email: email.toLowerCase(), // sanitize: convert email to lowercase
+            username: username.toLowerCase(), // sanitize: convert email to lowercase
             password: encryptedPassword,
         });
 
         // Create token
-        const token = jwt.sign({ user_id: user._id, email }, process.env?.TOKEN_KEY || "", {
+        const token = jwt.sign({ user_id: user._id, username }, process.env?.TOKEN_KEY || "", {
             expiresIn: "2h",
         });
         // save user token

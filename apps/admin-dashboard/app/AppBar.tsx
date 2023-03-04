@@ -27,9 +27,14 @@ const AppBar = () => {
             </button>
           </>
         ) : (
-          <button className="text-green-600" onClick={() => signIn()}>
-            Sign In
-          </button>
+          <>
+            <Link className="text-green-600" href="/auth/createAccount">
+              Create Account
+            </Link>
+            <button className="text-green-600" onClick={() => signIn()}>
+              Sign In
+            </button>
+          </>
         )}
       </div>
     </div>

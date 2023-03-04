@@ -4,16 +4,9 @@ import type { NextAuthOptions } from "next-auth";
 import { User } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
   providers: [
-    // ...add more providers here
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         username: {
           label: "Username",
@@ -27,7 +20,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         const { username, password } = credentials as any;
-        const res = await fetch("http://localhost:5000/api/createUser", {
+        const res = await fetch("/server/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -54,7 +47,6 @@ export const authOptions: NextAuthOptions = {
       return { ...token, ...user };
     },
     async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
       session.user = token;
 
       return session;
@@ -63,6 +55,7 @@ export const authOptions: NextAuthOptions = {
 
   pages: {
     signIn: "/auth/login",
+    error: '/auth/error',
   },
 };
 
