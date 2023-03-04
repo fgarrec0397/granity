@@ -9,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: '/server/:path*',
-        destination: 'http://localhost:5000'
+        destination: 'http://localhost:5000/:path*',
       },
       // {
       //   source: '/:path*',
