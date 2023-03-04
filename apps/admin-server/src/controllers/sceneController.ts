@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
-import mongoose from "mongoose";
-
-const schema = new mongoose.Schema({ sceneJsonString: "string" }, { timestamps: true });
-const model = mongoose.model("Scene", schema);
+import sceneModel from "../model/sceneModel";
 
 export const getScene = async (req: Request, res: Response) => {
-    const oldestScene = await model.findOne({}, {}, { sort: { createdAt: -1 } }).exec();
+    const oldestScene = await sceneModel.findOne({}, {}, { sort: { createdAt: -1 } }).exec();
 
     if (oldestScene == null) {
         res.send({
@@ -20,9 +17,9 @@ export const getScene = async (req: Request, res: Response) => {
 
 export const saveScene = async (req: Request, res: Response) => {
     const sceneJsonString = JSON.stringify(req.body);
-    const sceneModel = new model({ sceneJsonString });
+    const newSceneModel = new sceneModel({ sceneJsonString });
 
-    sceneModel.save(function (err: any) {
+    newSceneModel.save(function (err: any) {
         if (err) return console.log(err, "err");
     });
 

@@ -2,11 +2,11 @@
   "name": "admin",
   "version": "0.1.0",
   "main": "./src/api.ts",
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:5001",
   "scripts": {
     "audit": "npm audit",
     "audit:fix": "npm audit fix",
-    "dev": "vite --port 3000",
+    "dev": "vite --port 3009",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx src --fix",

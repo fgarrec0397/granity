@@ -1,6 +1,6 @@
 import express from "express";
 import Database from "./Database/Database";
-import routes from "./routes/routes";
+import routes from "./routes/_routes";
 import "dotenv/config";
 import mongoose from "mongoose";
 
