@@ -27,8 +27,6 @@ const App: FC = () => {
     }, [setScenesLoading, isLoading]);
 
     useEffect(() => {
-        // console.log(isLoading, "isLoading");
-
         if (status === "error") {
             enqueueSnackbar("No connections", { variant: "error" });
         }

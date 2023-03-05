@@ -1,11 +1,10 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth";
-import type { NextAuthOptions } from "next-auth";
-import { User } from "next-auth";
 
-export const authOptions: NextAuthOptions = {
+export default NextAuth({
   providers: [
     CredentialsProvider({
+      id: "username-login",
       name: "Credentials",
       credentials: {
         username: {
@@ -20,7 +19,8 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         const { username, password } = credentials as any;
-        const res = await fetch("/server/auth/login", {
+        
+        const res = await fetch("http://localhost:5000/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -32,8 +32,6 @@ export const authOptions: NextAuthOptions = {
         });
 
         const user = await res.json();
-
-        console.log({ user });
 
         if (res.ok && user) {
           return user;
@@ -57,6 +55,4 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/login",
     error: '/auth/error',
   },
-};
-
-export default NextAuth(authOptions);
+});

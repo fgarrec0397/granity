@@ -11,10 +11,6 @@ const nextConfig = {
         source: '/server/:path*',
         destination: 'http://localhost:5000/:path*',
       },
-      // {
-      //   source: '/:path*',
-      //   destination: 'http://localhost:3000/:path*'
-      // },
     ]
   }
 };

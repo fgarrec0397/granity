@@ -27,7 +27,7 @@ export const createUser = async (req: Request, res: Response) => {
 
         // Create user in our database
         const user = await userModel.create({
-            username: username.toLowerCase(), // sanitize: convert email to lowercase
+            username: username.toLowerCase(), // sanitize: convert username to lowercase
             password: encryptedPassword,
         });
 
@@ -46,20 +46,22 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
+    console.log("---- login ----");
+
     try {
         // Get user input
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
         // Validate user input
-        if (!(email && password)) {
+        if (!(username && password)) {
             res.status(400).send("All input is required");
         }
         // Validate if user exist in our database
-        const user = await userModel.findOne({ email });
+        const user = await userModel.findOne({ username });
 
         if (user && user.password && (await bcrypt.compare(password, user.password))) {
             // Create token
-            const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN_KEY || "", {
+            const token = jwt.sign({ user_id: user._id, username }, process.env.TOKEN_KEY || "", {
                 expiresIn: "2h",
             });
 
@@ -67,7 +69,10 @@ export const login = async (req: Request, res: Response) => {
             user.token = token;
 
             // user
+            console.log(user, "user");
+
             res.status(200).json(user);
+            return;
         }
         res.status(400).send("Invalid Credentials");
     } catch (err) {

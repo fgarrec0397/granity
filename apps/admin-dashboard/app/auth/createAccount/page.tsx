@@ -25,7 +25,6 @@ const createAccount = async (params: CreateAccountParameters) => {
 
   const content = await result.json();
 
-  console.log(content, "content");
 }
 
 const CreateAccountPage = ({ searchParams }: IProps) => {
@@ -36,10 +35,7 @@ const CreateAccountPage = ({ searchParams }: IProps) => {
     const result = await createAccount({
       username: userName.current,
       password: pass.current,
-    });
-
-    // console.log(result, "create account result");
-    
+    });    
   };
 
   return (

@@ -13,10 +13,10 @@ const LoginPage = ({ searchParams }: IProps) => {
   const pass = useRef("");
 
   const onSubmit = async () => {
-    const result = await signIn("credentials", {
+    const result = await signIn("username-login", {
       username: userName.current,
       password: pass.current,
-      redirect: false,
+      redirect: true,
       callbackUrl: "/",
     });
   };
