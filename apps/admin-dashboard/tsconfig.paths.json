@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@elements/*": [
+                "components/elements/*"
+            ],
+            "@granity-engine/*": ["../../packages/@granity-engine/src/*"],
+            "@granity-ui/*": ["../../packages/@granity-ui/src/*"],
+            "@granity-widgets/*": ["../../packages/@granity-widgets/src/*"],
+        }
+    }
+}

@@ -7,7 +7,7 @@ import type { TerrainProps } from "./Terrain";
 import type { WidgetStarterProps, WidgetStarterState } from "./WidgetStarter";
 import { WidgetStarter2State } from "./WidgetStarter2";
 
-const modules = import.meta.glob("./*/*.tsx", { eager: true });
+// const modules = import.meta.glob("./*/*.tsx", { eager: true });
 
 declare module "@granity/engine" {
     /**
@@ -35,10 +35,10 @@ declare module "@granity/engine" {
 
 const resolveModules = () => {
     const widgetsModules: WidgetModules[] = [];
-    for (const path in modules) {
-        const { widget } = modules[path] as any;
-        widgetsModules.push(widget);
-    }
+    // for (const path in modules) {
+    //     const { widget } = modules[path] as any;
+    //     widgetsModules.push(widget);
+    // }
 
     return widgetsModules;
 };

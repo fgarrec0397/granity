@@ -20,7 +20,7 @@ type Vector3InputStyles = {
 const styles: Vector3InputStyles = {
     section: {
         sx: {
-            marginBottom: pxToRem(12),
+            // marginBottom: pxToRem(12),
             "&:last-child": {
                 marginBottom: 0,
             },
@@ -35,13 +35,13 @@ const styles: Vector3InputStyles = {
     formField: {
         sx: {
             width: "100%",
-            maxWidth: `calc(100% / 3 - ${pxToRem(12)})`,
-            marginRight: pxToRem(12),
+            // maxWidth: `calc(100% / 3 - ${pxToRem(12)})`,
+            // marginRight: pxToRem(12),
         },
     },
     title: {
         sx: {
-            marginBottom: pxToRem(8),
+            // marginBottom: pxToRem(8),
         },
     },
 };

@@ -4,6 +4,14 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     appDir: true,
+    transpilePackages: [
+      "@granity-engine",
+      "@granity-eslint-config", 
+      "@granity-helpers", 
+      "@granity-prettier-config", 
+      "@granity-ui", 
+      "@granity-widgets"
+    ]
   },
   async rewrites() {
     return [
