@@ -1,5 +1,5 @@
-import { styled } from "@mui/material";
 import MenuItemLib, { MenuItemProps as LibMenuItemProps } from "@mui/material/MenuItem";
+import { styled } from "@mui/material/styles";
 import { FC } from "react";
 
 export type MenuItemProps = LibMenuItemProps;

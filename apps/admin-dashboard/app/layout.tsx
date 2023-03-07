@@ -1,5 +1,4 @@
 "use client";
-import "../styles/globals.css";
 
 import { EngineConfig, GranityEngineProvider, ScenesDictionary } from "@granity/engine";
 import { QueryClient, QueryClientProvider } from "@granity/helpers";

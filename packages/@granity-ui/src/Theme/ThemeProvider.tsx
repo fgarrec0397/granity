@@ -1,5 +1,5 @@
 import { HasChildren } from "@granity/helpers";
-import { Theme as ThemeLib, ThemeProvider as ThemeProviderLib } from "@mui/material";
+import { Theme as ThemeLib, ThemeProvider as ThemeProviderLib } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
 import { FC } from "react";
 

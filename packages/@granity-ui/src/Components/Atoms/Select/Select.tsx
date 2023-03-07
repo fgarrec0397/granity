@@ -1,10 +1,10 @@
 import { inputStyles } from "@granity-ui/Theme/mixins/form";
 import pxToRem from "@granity-ui/Theme/utilities/pxToRem";
-import { styled } from "@mui/material";
 import SelectLib, {
     SelectChangeEvent as SelectChangeEventLib,
     SelectProps as LibSelectProps,
 } from "@mui/material/Select";
+import { styled } from "@mui/material/styles";
 import { FC } from "react";
 
 export type SelectProps = LibSelectProps;

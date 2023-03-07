@@ -1,7 +1,7 @@
 import { pxToRem } from "@granity-ui/Theme";
 import { inputStyles } from "@granity-ui/Theme/mixins/form";
-import { css, styled } from "@mui/material";
 import InputLabelLib, { InputLabelProps as LibInputLabelProps } from "@mui/material/InputLabel";
+import { css, styled } from "@mui/material/styles";
 import TextFieldLib, { TextFieldProps as LibTextFieldProps } from "@mui/material/TextField";
 import { FC } from "react";
 

@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    swcMinify: true,
+    // swcMinify: true,
     experimental: {
         appDir: true,
         transpilePackages: [
             "@granity-engine",
-            "@granity-eslint-config",
-            "@granity-helpers",
-            "@granity-prettier-config",
+            // "@granity-eslint-config",
+            // "@granity-helpers",
+            // "@granity-prettier-config",
             "@granity-ui",
             "@granity-widgets",
         ],
@@ -16,9 +16,9 @@ const nextConfig = {
             lodash: {
                 transform: "lodash/{{member}}",
             },
-            // '@mui/material': {
-            //   transform: '@mui/material/{{member}}'
-            // },
+            "@mui/material": {
+                transform: "@mui/material/{{member}}",
+            },
             "@mui/lab": {
                 transform: "@mui/lab/{{member}}",
             },

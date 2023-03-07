@@ -1,6 +1,6 @@
 import pxToRem from "@granity-ui/Theme/utilities/pxToRem";
-import { styled } from "@mui/material";
 import CheckboxLib, { CheckboxProps as LibCheckboxProps } from "@mui/material/Checkbox";
+import { styled } from "@mui/material/styles";
 import { FC } from "react";
 
 export type CheckboxProps = LibCheckboxProps;
