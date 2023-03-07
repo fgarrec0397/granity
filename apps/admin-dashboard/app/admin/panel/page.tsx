@@ -1,64 +1,66 @@
 "use client";
-import { GranityEngine, useScenes } from "@granity/engine";
+// import { GranityEngine, useScenes } from "@granity/engine";
 import { useQuery } from "@granity/helpers";
-import { useSnackbar } from "@granity/ui";
+// import { useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
 
 const getScenes = async () => {
-  const response = await fetch("api/scene");
+    const response = await fetch("api/scene");
 
-  if (!response.ok) {
-      throw new Error("No connection");
-  }
+    if (!response.ok) {
+        throw new Error("No connection");
+    }
 
-  return response.json();
+    return response.json();
 };
 
 const AdminPanelPage = () => {
-  console.log("AdminPanelPage");
-  
-  const { initScenes, setScenesLoading } = useScenes();
-    const { enqueueSnackbar } = useSnackbar();
+    console.log("AdminPanelPage");
 
-    const { data, status, isLoading } = useQuery({
-        queryKey: ["scenes"],
-        queryFn: () => getScenes(),
-    });
+    // const { initScenes, setScenesLoading } = useScenes();
+    //   const { enqueueSnackbar } = useSnackbar();
 
-    useEffect(() => {
-        setScenesLoading(isLoading);
-    }, [setScenesLoading, isLoading]);
+    // const { data, status, isLoading } = useQuery({
+    //     queryKey: ["scenes"],
+    //     queryFn: () => getScenes(),
+    // });
 
-    useEffect(() => {
-        if (status === "error") {
-            enqueueSnackbar("No connections", { variant: "error" });
-        }
+    // useEffect(() => {
+    //     setScenesLoading(isLoading);
+    // }, [setScenesLoading, isLoading]);
 
-        if (status === "success") {
-            try {
-                const { sceneJsonString } = data;
+    // useEffect(() => {
+    //     if (status === "error") {
+    //         enqueueSnackbar("No connections", { variant: "error" });
+    //     }
 
-                if (!sceneJsonString) {
-                    enqueueSnackbar("No scenes found", { variant: "warning" });
-                    return;
-                }
+    //     if (status === "success") {
+    //         try {
+    //             const { sceneJsonString } = data;
 
-                const scenes = JSON.parse(sceneJsonString);
+    //             if (!sceneJsonString) {
+    //                 enqueueSnackbar("No scenes found", { variant: "warning" });
+    //                 return;
+    //             }
 
-                initScenes(scenes);
-            } catch (errorParsing) {
-                if (typeof errorParsing === "string") {
-                    enqueueSnackbar(errorParsing, { variant: "error" });
-                } else {
-                    // eslint-disable-next-line no-console
-                    console.error(errorParsing);
-                }
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [status]);
+    //             const scenes = JSON.parse(sceneJsonString);
 
-    return <GranityEngine />;
+    //             initScenes(scenes);
+    //         } catch (errorParsing) {
+    //             if (typeof errorParsing === "string") {
+    //                 enqueueSnackbar(errorParsing, { variant: "error" });
+    //             } else {
+    //                 // eslint-disable-next-line no-console
+    //                 console.error(errorParsing);
+    //             }
+    //         }
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [status]);
+
+    // return <GranityEngine />;
+
+    return <></>;
 };
 
 export default AdminPanelPage;
