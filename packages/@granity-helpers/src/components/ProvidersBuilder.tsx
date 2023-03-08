@@ -1,5 +1,4 @@
 // TODO - fix these any types
-// TODO - export this file into @granity-helpers
 const ProvidersBuilder: any = (providers: any) => {
     if (providers.length === 1) {
         return providers[0][0];
