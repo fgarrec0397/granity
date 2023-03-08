@@ -1,5 +1,5 @@
-import { HasChildren } from "@granity/helpers";
-import { Theme, ThemeProvider } from "@granity/ui";
+import { HasChildren } from "@granity/helpers/src/types/react";
+import { Theme, ThemeProvider } from "@granity/ui/src/Theme";
 import { store } from "@granity-engine/App/Core/_actions/_data/state/store";
 import ProvidersBuilder from "@granity-engine/App/Core/Components/ProvidersBuilder";
 import HistoryDictionaryContextProvider from "@granity-engine/App/Editor/_actions/_data/providers/HistoryContextProvider";
@@ -10,7 +10,7 @@ import { injectStore } from "@granity-engine/App/Widgets/_actions/utilities/crea
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 
-import { CoreContextProvider } from "./App/Core/_actions/_data/providers";
+import CoreContextProvider from "./App/Core/_actions/_data/providers/CoreContextProvider";
 import { EngineConfig } from "./App/Core/_actions/coreTypes";
 import useInitCore from "./App/Core/_actions/hooks/useInitCore";
 

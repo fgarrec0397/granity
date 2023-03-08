@@ -6,14 +6,17 @@ import {
     BoxProps,
     Button,
     ButtonProps,
+    DeleteIcon,
     IconButton,
-    Icons,
     List,
     ListItem,
     ListItemButton,
     pxToRem,
+    StarIcon,
     Typography,
     TypographyProps,
+    VisibilityIcon,
+    VisibilityOffIcon,
 } from "@granity/ui";
 import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { ReactElement, useState } from "react";
@@ -112,14 +115,14 @@ const EditorItemsList = ({
                                             {handleVisibility && (
                                                 <IconButton onClick={() => handleVisibility?.(id)}>
                                                     {isVisible?.(id) ? (
-                                                        <Icons.Visibility fontSize="small" />
+                                                        <VisibilityIcon fontSize="small" />
                                                     ) : (
-                                                        <Icons.VisibilityOff fontSize="small" />
+                                                        <VisibilityOffIcon fontSize="small" />
                                                     )}
                                                 </IconButton>
                                             )}
                                             <IconButton onClick={() => handleClickRemove?.(id)}>
-                                                <Icons.Delete fontSize="small" />
+                                                <DeleteIcon fontSize="small" />
                                             </IconButton>
                                         </>
                                     }
@@ -131,7 +134,7 @@ const EditorItemsList = ({
                                     >
                                         {itemName}
                                         {isDefault?.(id) && (
-                                            <Icons.Star
+                                            <StarIcon
                                                 sx={{
                                                     fontSize: 10,
                                                     marginLeft: pxToRem(5),

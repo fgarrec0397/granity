@@ -1,4 +1,4 @@
-import { useWidgetsModules } from "@granity-engine/api";
+import { useWidgetsModules } from "@granity-engine/App/Widgets/_actions/hooks";
 import { useEffect } from "react";
 
 import { EngineConfig } from "../coreTypes";

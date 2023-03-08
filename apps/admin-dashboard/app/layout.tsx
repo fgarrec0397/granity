@@ -73,7 +73,7 @@ export default function RootLayout({ children }: IProps) {
             <body>
                 <SessionProvider>
                     <QueryClientProvider client={queryClient}>
-                        <GranityEngineProvider config={config}>
+                        <GranityEngineProvider>
                             <AppBar />
                             <div className={"  h-screen "}>{children}</div>
                         </GranityEngineProvider>

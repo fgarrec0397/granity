@@ -1,4 +1,4 @@
-import { Box, BoxProps, Icons, Paper, PaperProps, pxToRem } from "@granity/ui";
+import { Box, BoxProps, Paper, PaperProps, pxToRem, SettingsIcon } from "@granity/ui";
 import { GranityLogo } from "@granity-engine/Theme/components/Icons";
 import { layoutStyles } from "@granity-engine/Theme/mixins/layout";
 import { editorPadding } from "@granity-engine/Theme/themeConstants";
@@ -62,7 +62,7 @@ const EditorHeader: FC = () => {
                 <EditorPreviewButton />
             </Box>
             <Box {...styles.rightSection}>
-                <Icons.Settings />
+                <SettingsIcon />
             </Box>
         </Paper>
     );
