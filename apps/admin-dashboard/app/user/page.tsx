@@ -1,5 +1,4 @@
 "use client";
-import Button from "@elements/Button";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -10,8 +9,6 @@ const UserPage = () => {
     const [userData, setUserData] = useState<User>();
 
     const fetchUserProfile = async () => {
-        console.log(session);
-
         const res = await fetch(`http://localhost:8000/user/${session?.user.userName}`, {
             method: "GET",
             headers: {
@@ -27,7 +24,7 @@ const UserPage = () => {
             <p className="flex justify-center items-center p-5 text-sky-500 text-lg font-bold">
                 This is user Panel
             </p>
-            <Button onClick={fetchUserProfile}>Get User Profile</Button>
+            <button onClick={fetchUserProfile}>Get User Profile</button>
             <div className="grid grid-cols-5">
                 <p className="text-slate-600">UserName:</p>
                 <p className="col-span-4 text-sky-600">{userData?.userName}</p>

@@ -5,7 +5,7 @@ import { useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
 
 const getScenes = async () => {
-    const response = await fetch("api/scene");
+    const response = await fetch("/server/scene");
 
     if (!response.ok) {
         throw new Error("No connection");
@@ -15,8 +15,6 @@ const getScenes = async () => {
 };
 
 const AdminPanelPage = () => {
-    console.log("AdminPanelPage");
-
     const { initScenes, setScenesLoading } = useScenes();
     const { enqueueSnackbar } = useSnackbar();
 

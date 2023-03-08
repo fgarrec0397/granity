@@ -1,8 +1,13 @@
 "use client";
 
-import { EngineConfig, GranityEngineProvider, ScenesDictionary } from "@granity/engine";
+import {
+    EngineConfig,
+    GranityEngineProvider,
+    ScenesDictionary,
+    WidgetModules,
+} from "@granity/engine";
 import { QueryClient, QueryClientProvider } from "@granity/helpers";
-import { widgetsModules } from "@granity/widgets";
+// import { widgetsModules } from "@granity/widgets";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 
@@ -11,8 +16,22 @@ interface IProps {
     children: ReactNode;
 }
 
+let widgetsModules: WidgetModules[] = [];
+
+function importAll(r) {
+    const modules = {};
+    r.keys().forEach((key) => (modules[key] = r(key)));
+    console.log(modules, "modules require context");
+    widgetsModules = Object.keys(modules).map((x) => modules[x].widget);
+}
+
+importAll(require.context("../../../packages/@granity-widgets/src/Widgets", true, /\.tsx$/));
+
+console.log("after importAll");
+console.log(widgetsModules, "widgets");
+
 const postScenes = async (scenes: ScenesDictionary) => {
-    const rawResponse = await fetch("api/scene", {
+    const rawResponse = await fetch("/server/scene", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -36,6 +55,7 @@ const postScenes = async (scenes: ScenesDictionary) => {
         };
     }
 };
+// console.log(widgetsModules, "widgetsModules");
 
 const config: EngineConfig = {
     widgetsModules,
@@ -73,7 +93,7 @@ export default function RootLayout({ children }: IProps) {
             <body>
                 <SessionProvider>
                     <QueryClientProvider client={queryClient}>
-                        <GranityEngineProvider>
+                        <GranityEngineProvider config={config}>
                             <AppBar />
                             <div className={"  h-screen "}>{children}</div>
                         </GranityEngineProvider>
