@@ -1,33 +1,11 @@
 "use client";
 
-import { GranityEngineProvider } from "@granity/engine";
-import { ProvidersBuilder, QueryClient, QueryClientProvider } from "@granity/helpers";
-import { granityConfig } from "config/granity";
-import { SessionProvider } from "next-auth/react";
-import { ReactNode } from "react";
+import { HasChildren } from "@granity/helpers";
 
-import AppBar from "./AppBar";
-interface IProps {
-    children: ReactNode;
-}
+import Core from "../core/Core";
 
-const queryClient = new QueryClient();
+type Props = HasChildren;
 
-export default function RootLayout({ children }: IProps) {
-    const Providers = ProvidersBuilder([
-        [SessionProvider],
-        [QueryClientProvider, { client: queryClient }],
-        [GranityEngineProvider, { config: granityConfig }],
-    ]);
-
-    return (
-        <html lang="en">
-            <body>
-                <Providers>
-                    <AppBar />
-                    <div className={"  h-screen "}>{children}</div>
-                </Providers>
-            </body>
-        </html>
-    );
+export default function RootLayout({ children }: Props) {
+    return <Core>{children}</Core>;
 }

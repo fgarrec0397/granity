@@ -1,47 +1,17 @@
 import createTheme from "@mui/material/styles/createTheme";
 
 declare module "@mui/material/styles" {
-    interface Theme {
-        custom: {
-            palette: {
-                background: {
-                    paperDark?: string;
-                    paperDarker?: string;
-                    textField?: string;
-                    gradient?: string;
-                };
-            };
-        };
-    }
-
-    interface ThemeOptions {
-        custom?: {
-            palette?: {
-                background: {
-                    paperDark?: string;
-                    paperDarker?: string;
-                    textField?: string;
-                    gradient?: string;
-                };
-            };
-        };
+    interface TypeBackground {
+        paperDark?: string;
+        paperDarker?: string;
+        textField?: string;
+        gradient?: string;
     }
 }
 
 export const htmlFontSize = 16;
 
 const theme = createTheme({
-    custom: {
-        palette: {
-            background: {
-                paperDark: "#292929",
-                paperDarker: "#1c1c1c",
-                textField: "#454545",
-                gradient:
-                    "radial-gradient(152.41% 152.41% at 50% 50%, #7C7C7C 0%, #525252 25.15%, #323232 42.89%)",
-            },
-        },
-    },
     palette: {
         mode: "dark",
         primary: {
@@ -57,6 +27,12 @@ const theme = createTheme({
         background: {
             paper: "#292929",
             default: "#323232",
+            // custom
+            paperDark: "#292929",
+            paperDarker: "#1c1c1c",
+            textField: "#454545",
+            gradient:
+                "radial-gradient(152.41% 152.41% at 50% 50%, #7C7C7C 0%, #525252 25.15%, #323232 42.89%)",
         },
         divider: "#555555",
         action: {

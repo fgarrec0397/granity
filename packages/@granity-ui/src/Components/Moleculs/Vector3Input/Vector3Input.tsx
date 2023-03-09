@@ -47,8 +47,8 @@ const styles: Vector3InputStyles = {
 };
 
 export type Vector3InputProps = {
-    title: string;
-    value: Vector3Array;
+    title?: string;
+    value?: Vector3Array;
     onChange?: (inputValue: number, index: number) => void;
 };
 
@@ -68,9 +68,9 @@ const mapVector3ArrayLabel = (index: number) => {
 const Vector3Input: FC<Vector3InputProps> = ({ title, value, onChange }) => {
     return (
         <Box {...styles.section}>
-            <Typography {...styles.title}>{title}</Typography>
+            {title !== undefined && <Typography {...styles.title}>{title}</Typography>}
             <Box {...styles.inputGroup}>
-                {value.map((x, i) => (
+                {(value || []).map((x, i) => (
                     <TextField
                         key={i}
                         label={mapVector3ArrayLabel(i)}

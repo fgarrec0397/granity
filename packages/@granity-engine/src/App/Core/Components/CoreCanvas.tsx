@@ -25,7 +25,7 @@ const CoreCanvas: FC<Props> = ({ contexts }) => {
     return (
         <Canvas
             style={{
-                background: theme.custom.palette.background.gradient,
+                background: theme.palette.background.gradient,
             }}
             {...canvasConfig}
             onPointerMissed={onPointerMissed}

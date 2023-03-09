@@ -1,6 +1,7 @@
 "use client";
 import Button from "@elements/Button";
 import TextBox from "@elements/TextBox";
+import { Box, BoxProps } from "@granity-ui/Components";
 import { signIn } from "next-auth/react";
 import { useRef } from "react";
 
@@ -8,12 +9,24 @@ interface IProps {
     searchParams?: { [key: string]: string | string[] | undefined };
 }
 
+type LoginPageStyles = {
+    background?: BoxProps;
+};
+
+const styles: LoginPageStyles = {
+    background: {
+        sx: (theme) => ({
+            background: theme.palette.background.gradient,
+        }),
+    },
+};
+
 const LoginPage = ({ searchParams }: IProps) => {
     const userName = useRef("");
     const pass = useRef("");
 
     const onSubmit = async () => {
-        const result = await signIn("username-login", {
+        await signIn("username-login", {
             username: userName.current,
             password: pass.current,
             redirect: true,
@@ -21,11 +34,7 @@ const LoginPage = ({ searchParams }: IProps) => {
         });
     };
     return (
-        <div
-            className={
-                "flex flex-col justify-center items-center  h-screen bg-gradient-to-br gap-1 from-cyan-300 to-sky-600"
-            }
-        >
+        <Box {...styles.background}>
             {searchParams?.message && (
                 <p className="text-red-700 bg-red-100 py-2 px-5 rounded-md">
                     {searchParams?.message}
@@ -43,7 +52,7 @@ const LoginPage = ({ searchParams }: IProps) => {
                 />
                 <Button onClick={onSubmit}>Login</Button>
             </div>
-        </div>
+        </Box>
     );
 };
 
