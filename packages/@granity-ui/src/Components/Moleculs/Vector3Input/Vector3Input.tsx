@@ -2,12 +2,11 @@ import { Vector3Array } from "@granity/helpers";
 import {
     Box,
     BoxProps,
-    pxToRem,
     TextField,
     TextFieldProps,
     Typography,
     TypographyProps,
-} from "@granity/ui";
+} from "@granity-ui/Components";
 import { ChangeEvent, FC } from "react";
 
 type Vector3InputStyles = {

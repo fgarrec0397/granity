@@ -23,8 +23,8 @@ const StyledCheckbox = styled(CheckboxLib)`
     }
 
     .MuiSvgIcon-root {
-        color: ${({ theme }) => theme.custom.palette.background.textField};
-        background-color: ${({ theme }) => theme.custom.palette.background.textField};
+        color: ${({ theme }) => theme.palette.background.textField};
+        background-color: ${({ theme }) => theme.palette.background.textField};
         border-radius: ${({ theme }) => pxToRem(theme.shape.borderRadius)};
     }
 `;

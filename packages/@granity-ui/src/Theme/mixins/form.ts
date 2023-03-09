@@ -31,8 +31,8 @@ export const inputStyles = () => (props: ThemeProps<Theme>) =>
             padding-right: ${pxToRem(12)};
             padding-bottom: ${pxToRem(7)};
             padding-left: ${pxToRem(12)};
-            background-color: ${props.theme.custom.palette.background.textField};
-            border: ${pxToRem(1)} solid ${props.theme.custom.palette.background.textField};
+            background-color: ${props.theme.palette.background.textField};
+            border: ${pxToRem(1)} solid ${props.theme.palette.background.textField};
             border-radius: ${pxToRem(4)};
             transition: ${props.theme.transitions.create([
                 "border-color",

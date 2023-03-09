@@ -17,7 +17,7 @@ const styles: EditorSelectedWidgetStyles = {
             justifyContent: "space-between",
             minHeight: pxToRem(80),
             padding: pxToRem(20, 16),
-            backgroundColor: theme.custom.palette.background.paperDarker,
+            backgroundColor: theme.palette.background.paperDarker,
         }),
     },
     text: {

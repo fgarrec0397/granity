@@ -31,7 +31,7 @@ const Accordion: FC<AccordionProps> = ({ children, ...props }) => {
 
 const StyledAccordionSummary = styled(AccordionSummaryLib)`
     min-height: ${pxToRem(37)};
-    background-color: ${({ theme }) => theme.custom.palette.background.paperDark};
+    background-color: ${({ theme }) => theme.palette.background.paperDark};
 
     &.Mui-expanded {
         min-height: ${pxToRem(37)};

@@ -1,7 +1,7 @@
 "use client";
-import Button from "@elements/Button";
-import TextBox from "@elements/TextBox";
-import { Box, BoxProps } from "@granity-ui/Components";
+// import Button from "@elements/Button";
+// import TextBox from "@elements/TextBox";
+import { Box, BoxProps, Button, TextField } from "@granity-ui/Components";
 import { signIn } from "next-auth/react";
 import { useRef } from "react";
 
@@ -41,12 +41,12 @@ const LoginPage = ({ searchParams }: IProps) => {
                 </p>
             )}
             <div className="px-7 py-4 shadow bg-white rounded-md flex flex-col gap-2">
-                <TextBox
-                    lableText="User Name"
+                <TextField
+                    label="User Name"
                     onChange={(e) => (userName.current = e.target.value)}
                 />
-                <TextBox
-                    lableText="Password"
+                <TextField
+                    label="Password"
                     type={"password"}
                     onChange={(e) => (pass.current = e.target.value)}
                 />
