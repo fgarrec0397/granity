@@ -1,6 +1,5 @@
 "use client";
-// import Button from "@elements/Button";
-// import TextBox from "@elements/TextBox";
+import { GranityLogo } from "@granity-engine/Theme/components/Icons";
 import {
     Box,
     BoxProps,
@@ -9,6 +8,8 @@ import {
     Paper,
     PaperProps,
     TextField,
+    Typography,
+    TypographyProps,
 } from "@granity-ui/Components";
 import { pxToRem } from "@granity-ui/Theme";
 import { signIn } from "next-auth/react";
@@ -23,6 +24,8 @@ interface Props {
 type LoginPageStyles = {
     background?: BoxProps;
     formWrapper?: PaperProps;
+    formHeader?: BoxProps;
+    formHeaderText?: TypographyProps;
     submitButton?: ButtonProps;
 };
 
@@ -32,6 +35,7 @@ const styles: LoginPageStyles = {
             height: "100vh",
             backgroundImage: `url(${backgroundImage.src}), ${theme.palette.background.gradient}`,
             backgroundSize: "cover",
+            backgroundPosition: "center",
         }),
     },
     formWrapper: {
@@ -45,6 +49,19 @@ const styles: LoginPageStyles = {
             alignItems: "flex-start",
             maxWidth: pxToRem(350),
             padding: pxToRem(60, 50),
+        },
+    },
+    formHeader: {
+        sx: {
+            display: "flex",
+            alignItems: "center",
+            marginBottom: pxToRem(30),
+        },
+    },
+    formHeaderText: {
+        fontSize: pxToRem(23),
+        sx: {
+            marginLeft: pxToRem(12),
         },
     },
     submitButton: {
@@ -70,11 +87,10 @@ const LoginPage = ({ searchParams }: Props) => {
     return (
         <Box {...styles.background}>
             <Paper {...styles.formWrapper}>
-                {searchParams?.message && (
-                    <p className="text-red-700 bg-red-100 py-2 px-5 rounded-md">
-                        {searchParams?.message}
-                    </p>
-                )}
+                <Box {...styles.formHeader}>
+                    <GranityLogo />
+                    <Typography {...styles.formHeaderText}>Granity</Typography>
+                </Box>
                 <TextField
                     label="User Name"
                     onChange={(e) => (userName.current = e.target.value)}
