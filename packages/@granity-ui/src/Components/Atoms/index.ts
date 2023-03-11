@@ -1,4 +1,5 @@
 export * from "./Accordion";
+export * from "./Alert";
 export * from "./Basics";
 export * from "./Box";
 export * from "./Button";
@@ -14,4 +15,3 @@ export * from "./Paper";
 export * from "./Select";
 export * from "./TextField";
 export * from "./Typography";
-// export * from "./Vector3Input";

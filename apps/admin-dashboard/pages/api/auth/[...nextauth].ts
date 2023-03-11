@@ -18,34 +18,58 @@ export default NextAuth({
                 },
             },
             async authorize(credentials, req) {
-                const { username, password } = credentials as any;
+                if (credentials) {
+                    const { username, password } = credentials;
 
-                const res = await fetch("http://localhost:5000/auth/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        username,
-                        password,
-                    }),
-                });
+                    const res = await fetch("http://localhost:5000/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            username,
+                            password,
+                        }),
+                    });
 
-                const user = await res.json();
+                    // console.log(res, "res");
+                    const user = await res.json();
 
-                if (res.ok && user) {
-                    return user;
-                } else return null;
+                    console.log(user, "user");
+                    // return user;
+                    if (res.ok && user) {
+                        return user;
+                    }
+
+                    Promise.reject(new Error("fail"));
+
+                    // return "error";
+                }
             },
         }),
     ],
 
     callbacks: {
+        async signIn(params) {
+            const isAllowedToSignIn = true;
+            console.log(params, "params in sign in");
+
+            if (isAllowedToSignIn) {
+                return true;
+            } else {
+                // Return false to display a default error message
+                return false;
+                // Or you can return a URL to redirect to:
+                // return '/unauthorized'
+            }
+        },
         async jwt({ token, user }) {
             return { ...token, ...user };
         },
         async session({ session, token, user }) {
             session.user = token;
+
+            console.log(user, "user in session");
 
             return session;
         },

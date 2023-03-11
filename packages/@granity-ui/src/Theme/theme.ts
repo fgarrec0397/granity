@@ -1,5 +1,7 @@
 import createTheme from "@mui/material/styles/createTheme";
 
+import { pxToRem } from "./utilities";
+
 declare module "@mui/material/styles" {
     interface TypeBackground {
         paperDark?: string;
@@ -42,6 +44,27 @@ const theme = createTheme({
         },
     },
     components: {
+        MuiAlert: {
+            defaultProps: {
+                variant: "outlined",
+            },
+            styleOverrides: {
+                icon: {
+                    marginRight: 8,
+                },
+                root: {
+                    width: "100%",
+                    padding: "0 8px",
+                    "&:not(:last-child)": {
+                        marginBottom: 20,
+                    },
+                },
+                message: {
+                    display: "flex",
+                    alignItems: "center",
+                },
+            },
+        },
         MuiButton: {
             defaultProps: {
                 variant: "contained",

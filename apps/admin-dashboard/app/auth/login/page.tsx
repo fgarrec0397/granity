@@ -1,10 +1,11 @@
 "use client";
 import { GranityLogo } from "@granity-engine/Theme/components/Icons";
 import {
+    Alert,
     Box,
     BoxProps,
-    Button,
-    ButtonProps,
+    LoadingButton,
+    LoadingButtonProps,
     Paper,
     PaperProps,
     TextField,
@@ -12,8 +13,9 @@ import {
     TypographyProps,
 } from "@granity-ui/Components";
 import { pxToRem } from "@granity-ui/Theme";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import backgroundImage from "../../../public/images/login-background.svg";
 
@@ -26,7 +28,7 @@ type LoginPageStyles = {
     formWrapper?: PaperProps;
     formHeader?: BoxProps;
     formHeaderText?: TypographyProps;
-    submitButton?: ButtonProps;
+    submitButton?: LoadingButtonProps;
 };
 
 const styles: LoginPageStyles = {
@@ -66,6 +68,7 @@ const styles: LoginPageStyles = {
     },
     submitButton: {
         fullWidth: false,
+        variant: "contained",
         sx: {
             marginTop: pxToRem(30),
         },
@@ -74,15 +77,34 @@ const styles: LoginPageStyles = {
 
 const LoginPage = ({ searchParams }: Props) => {
     const userName = useRef("");
-    const pass = useRef("");
+    const password = useRef("");
+    const router = useRouter();
+    const [isLoading, setSetIsLoading] = useState(false);
+    const [hasError, setSetHasError] = useState(false);
 
     const onSubmit = async () => {
-        await signIn("username-login", {
+        setSetIsLoading(true);
+        const signinResult = await signIn("username-login", {
             username: userName.current,
-            password: pass.current,
-            redirect: true,
+            password: password.current,
+            redirect: false,
             callbackUrl: "/",
         });
+
+        if (!signinResult) {
+            setSetIsLoading(false);
+            return;
+        }
+
+        if (!signinResult.ok) {
+            setSetHasError(true);
+        }
+
+        if (signinResult.ok) {
+            router.push(signinResult.url || "/");
+        }
+
+        setSetIsLoading(false);
     };
     return (
         <Box {...styles.background}>
@@ -91,6 +113,7 @@ const LoginPage = ({ searchParams }: Props) => {
                     <GranityLogo />
                     <Typography {...styles.formHeaderText}>Granity</Typography>
                 </Box>
+                {hasError && <Alert severity="error">Invalid Credentials</Alert>}
                 <TextField
                     label="User Name"
                     onChange={(e) => (userName.current = e.target.value)}
@@ -99,12 +122,12 @@ const LoginPage = ({ searchParams }: Props) => {
                 <TextField
                     label="Password"
                     type={"password"}
-                    onChange={(e) => (pass.current = e.target.value)}
+                    onChange={(e) => (password.current = e.target.value)}
                     fullWidth
                 />
-                <Button onClick={onSubmit} {...styles.submitButton}>
+                <LoadingButton onClick={onSubmit} loading={isLoading} {...styles.submitButton}>
                     Login
-                </Button>
+                </LoadingButton>
             </Paper>
         </Box>
     );
