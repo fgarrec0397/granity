@@ -1,5 +1,4 @@
 "use client";
-import { GranityLogo } from "@granity-engine/Theme/components/Icons";
 import {
     Alert,
     Box,
@@ -9,25 +8,18 @@ import {
     Paper,
     PaperProps,
     TextField,
-    Typography,
-    TypographyProps,
 } from "@granity-ui/Components";
 import { pxToRem } from "@granity-ui/Theme";
+import Logo from "components/Logo";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useRef, useState } from "react";
 
 import backgroundImage from "../../../public/images/login-background.svg";
 
-interface Props {
-    searchParams?: { [key: string]: string | string[] | undefined };
-}
-
 type LoginPageStyles = {
     background?: BoxProps;
     formWrapper?: PaperProps;
-    formHeader?: BoxProps;
-    formHeaderText?: TypographyProps;
     submitButton?: LoadingButtonProps;
 };
 
@@ -53,19 +45,6 @@ const styles: LoginPageStyles = {
             padding: pxToRem(60, 50),
         },
     },
-    formHeader: {
-        sx: {
-            display: "flex",
-            alignItems: "center",
-            marginBottom: pxToRem(30),
-        },
-    },
-    formHeaderText: {
-        fontSize: pxToRem(23),
-        sx: {
-            marginLeft: pxToRem(12),
-        },
-    },
     submitButton: {
         fullWidth: false,
         variant: "contained",
@@ -75,7 +54,7 @@ const styles: LoginPageStyles = {
     },
 };
 
-const LoginPage = ({ searchParams }: Props) => {
+const LoginPage = () => {
     const userName = useRef("");
     const password = useRef("");
     const router = useRouter();
@@ -109,10 +88,7 @@ const LoginPage = ({ searchParams }: Props) => {
     return (
         <Box {...styles.background}>
             <Paper {...styles.formWrapper}>
-                <Box {...styles.formHeader}>
-                    <GranityLogo />
-                    <Typography {...styles.formHeaderText}>Granity</Typography>
-                </Box>
+                <Logo />
                 {hasError && <Alert severity="error">Invalid Credentials</Alert>}
                 <TextField
                     label="User Name"

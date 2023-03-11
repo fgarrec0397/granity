@@ -1,7 +1,5 @@
 import createTheme from "@mui/material/styles/createTheme";
 
-import { pxToRem } from "./utilities";
-
 declare module "@mui/material/styles" {
     interface TypeBackground {
         paperDark?: string;

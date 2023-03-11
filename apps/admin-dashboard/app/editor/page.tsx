@@ -14,7 +14,7 @@ const getScenes = async () => {
     return response.json();
 };
 
-const AdminPanelPage = () => {
+const EditorPage = () => {
     const { initScenes, setScenesLoading } = useScenes();
     const { enqueueSnackbar } = useSnackbar();
 
@@ -61,4 +61,4 @@ const AdminPanelPage = () => {
     // return <></>;
 };
 
-export default AdminPanelPage;
+export default EditorPage;
