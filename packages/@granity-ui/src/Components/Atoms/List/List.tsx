@@ -6,6 +6,9 @@ import ListItemButtonLib, {
 import ListItemIconLib, {
     ListItemIconProps as LibListItemIconProps,
 } from "@mui/material/ListItemIcon";
+import ListItemTextLib, {
+    ListItemTextProps as LibListItemTextProps,
+} from "@mui/material/ListItemText";
 import { styled } from "@mui/material/styles";
 import { FC } from "react";
 
@@ -13,6 +16,7 @@ export type ListProps = LibListProps;
 export type ListItemProps = LibListItemProps;
 export type ListItemButtonProps = LibListItemButtonProps;
 export type ListItemIconProps = LibListItemIconProps;
+export type ListItemTextProps = LibListItemTextProps;
 
 const StyledListItemButton = styled(ListItemButtonLib)`
     &.Mui-selected,
@@ -36,6 +40,10 @@ export const ListItemButton: FC<ListItemButtonProps> = (props) => {
 
 export const ListItemIcon: FC<ListItemIconProps> = (props) => {
     return <ListItemIconLib {...props} />;
+};
+
+export const ListItemText: FC<ListItemTextProps> = (props) => {
+    return <ListItemTextLib {...props} />;
 };
 
 export default List;

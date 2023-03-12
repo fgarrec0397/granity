@@ -1,2 +1,8 @@
-export type { ListItemButtonProps, ListItemIconProps, ListItemProps, ListProps } from "./List";
-export { default as List, ListItem, ListItemButton, ListItemIcon } from "./List";
+export type {
+    ListItemButtonProps,
+    ListItemIconProps,
+    ListItemProps,
+    ListItemTextProps,
+    ListProps,
+} from "./List";
+export { default as List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "./List";

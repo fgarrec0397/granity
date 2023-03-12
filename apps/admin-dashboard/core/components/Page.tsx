@@ -1,5 +1,5 @@
 import { HasChildren } from "@granity/helpers";
-import { Box, BoxProps } from "@granity-ui/Components";
+import { Box, BoxProps, Paper, PaperProps } from "@granity-ui/Components";
 import { pxToRem } from "@granity-ui/Theme";
 import { FC } from "react";
 
@@ -11,7 +11,7 @@ type Props = HasChildren;
 type PageStyles = {
     page?: BoxProps;
     wrapper?: BoxProps;
-    main?: BoxProps;
+    main?: PaperProps;
 };
 
 const styles: PageStyles = {
@@ -19,15 +19,17 @@ const styles: PageStyles = {
         sx: {
             display: "flex",
             padding: pxToRem(0, 100),
+            height: "100vh",
         },
     },
     wrapper: {
         width: "100%",
     },
     main: {
-        sx: {
-            backgroundColor: "yellow",
-        },
+        sx: (theme) => ({
+            backgroundColor: theme.palette.background.default,
+            height: "650px",
+        }),
     },
 };
 
@@ -37,7 +39,7 @@ const Page: FC<Props> = ({ children }) => {
             <SideBar />
             <Box {...styles.wrapper}>
                 <AppBar />
-                <Box {...styles.main}>{children}</Box>
+                <Paper {...styles.main}>{children}</Paper>
             </Box>
         </Box>
     );

@@ -2,13 +2,19 @@
 import { GranityLogo } from "@granity-engine/Theme/components/Icons";
 import { Box, BoxProps, Typography, TypographyProps } from "@granity-ui/Components";
 import { pxToRem } from "@granity-ui/Theme";
+import useMergeStyles from "@granity-ui/Theme/hooks/useMergeStyles";
+import { FC } from "react";
 
-type LogoStyles = {
+type Props = {
+    stylesOverrides?: LogoStyles;
+};
+
+export type LogoStyles = {
     logoWrapper?: BoxProps;
     logoText?: TypographyProps;
 };
 
-const styles: LogoStyles = {
+const logoStyles: LogoStyles = {
     logoWrapper: {
         sx: {
             display: "flex",
@@ -24,7 +30,9 @@ const styles: LogoStyles = {
     },
 };
 
-const Logo = () => {
+const Logo: FC<Props> = ({ stylesOverrides }) => {
+    const styles = useMergeStyles(logoStyles, stylesOverrides);
+
     return (
         <Box {...styles.logoWrapper}>
             <GranityLogo />
