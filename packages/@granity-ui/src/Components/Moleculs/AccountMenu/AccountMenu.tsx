@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { IconButton, Menu, MenuItem, PaperProps, Tooltip } from "../../Atoms";
+import { IconButton, ListItemIcon, Menu, MenuItem, PaperProps, Tooltip } from "../../Atoms";
 
 export type AccountMenuListModel = {
     text: string;
@@ -21,6 +21,7 @@ export type AccountMenuStyles = {
 
 const styles: AccountMenuStyles = {
     menuPaper: {
+        elevation: 0,
         sx: {
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
@@ -48,7 +49,6 @@ const styles: AccountMenuStyles = {
 };
 
 const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
-    const IconTrigger = icon;
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -70,7 +70,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                 >
-                    <IconTrigger />
+                    {icon}
                 </IconButton>
             </Tooltip>
             <Menu
@@ -85,7 +85,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
             >
                 {menuItems.map((x) => (
                     <MenuItem key={x.text} onClick={x.onClick}>
-                        {x.icon}
+                        <ListItemIcon>{x.icon}</ListItemIcon>
                         {x.text}
                     </MenuItem>
                 ))}

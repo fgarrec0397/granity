@@ -1,4 +1,5 @@
 export { default as LaunchEditorIcon } from "./LaunchEditor";
+export { default as DashboardIcon } from "@mui/icons-material/Dashboard";
 export { default as DeleteIcon } from "@mui/icons-material/Delete";
 export { default as EditIcon } from "@mui/icons-material/Edit";
 export { default as HomeIcon } from "@mui/icons-material/Home";
