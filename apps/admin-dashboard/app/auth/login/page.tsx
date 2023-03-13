@@ -10,11 +10,11 @@ import {
     TextField,
 } from "@granity-ui/Components";
 import { pxToRem } from "@granity-ui/Theme";
-import Logo from "components/Logo";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 
+import Logo from "../../../core/components/Logo";
 import backgroundImage from "../../../public/images/login-background.svg";
 
 type LoginPageStyles = {
@@ -61,7 +61,8 @@ const LoginPage = () => {
     const [isLoading, setSetIsLoading] = useState(false);
     const [hasError, setSetHasError] = useState(false);
 
-    const onSubmit = async () => {
+    const onSubmit = async (event: FormEvent) => {
+        event.preventDefault();
         setSetIsLoading(true);
         const signinResult = await signIn("username-login", {
             username: userName.current,
@@ -86,7 +87,7 @@ const LoginPage = () => {
         setSetIsLoading(false);
     };
     return (
-        <Box {...styles.background}>
+        <Box component="form" onSubmit={onSubmit} {...styles.background}>
             <Paper {...styles.formWrapper}>
                 <Logo />
                 {hasError && <Alert severity="error">Invalid Credentials</Alert>}
@@ -101,7 +102,7 @@ const LoginPage = () => {
                     onChange={(e) => (password.current = e.target.value)}
                     fullWidth
                 />
-                <LoadingButton onClick={onSubmit} loading={isLoading} {...styles.submitButton}>
+                <LoadingButton type="submit" loading={isLoading} {...styles.submitButton}>
                     Login
                 </LoadingButton>
             </Paper>

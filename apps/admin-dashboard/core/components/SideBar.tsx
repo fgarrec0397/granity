@@ -9,7 +9,7 @@ import {
 } from "@granity-ui/Components";
 import { pxToRem } from "@granity-ui/Theme";
 
-import Logo, { LogoStyles } from "../../components/Logo";
+import Logo, { LogoStyles } from "./Logo";
 
 type SideBarStyles = {
     wrapper?: BoxProps;
