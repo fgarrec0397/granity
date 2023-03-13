@@ -1,4 +1,4 @@
-import { ModesAvailable } from "@granity-engine/App/Editor/_actions/editorTypes";
+import { ModesAvailable } from "@granity/engine/App/Editor/_actions/editorTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface EditorState {

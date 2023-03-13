@@ -1,7 +1,7 @@
+import { FieldType } from "@granity/engine/App/Widgets/_actions/widgetsConstants";
+import { Vector3FieldOption } from "@granity/engine/App/Widgets/_actions/widgetsTypes";
 import { updateArrayAt, Vector3Array } from "@granity/helpers";
 import { Box, BoxProps, Vector3Input } from "@granity/ui";
-import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { Vector3FieldOption } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
 
 import useOptionsValues from "./hooks/useOptionsValues";

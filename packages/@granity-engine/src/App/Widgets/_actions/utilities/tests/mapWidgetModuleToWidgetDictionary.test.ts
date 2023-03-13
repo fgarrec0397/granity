@@ -1,4 +1,4 @@
-import { widgetsModulesTest } from "@granity-engine/Tests/utilities/widgets/widgetsModulesTest";
+import { widgetsModulesTest } from "@granity/engine/Tests/utilities/widgets/widgetsModulesTest";
 
 import mapWidgetModuleToWidgetDictionary from "../mapWidgetModuleToWidgetDictionary";
 

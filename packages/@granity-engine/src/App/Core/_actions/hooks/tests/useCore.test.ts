@@ -1,4 +1,4 @@
-import { act, appRenderHook } from "@granity-engine/Tests/testing";
+import { act, appRenderHook } from "@granity/engine/Tests/testing";
 import { beforeEach, describe, expect, it } from "vitest";
 
 import useCore from "../useCore";

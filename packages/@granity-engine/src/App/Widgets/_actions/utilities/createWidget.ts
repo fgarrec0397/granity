@@ -1,5 +1,5 @@
+import { InjectableStore } from "@granity/engine/App/Core/_actions/_data/state/store";
 import { clone } from "@granity/helpers";
-import { InjectableStore } from "@granity-engine/App/Core/_actions/_data/state/store";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
 import { WidgetComponent, WidgetObjectModule, WidgetUIModule } from "../widgetsTypes";

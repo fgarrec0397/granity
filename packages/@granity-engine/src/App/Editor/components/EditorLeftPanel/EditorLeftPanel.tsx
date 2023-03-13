@@ -1,6 +1,6 @@
+import { layoutSectionStyles, layoutStyles } from "@granity/engine/Theme/mixins/layout";
+import { editorPadding } from "@granity/engine/Theme/themeConstants";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
-import { layoutSectionStyles, layoutStyles } from "@granity-engine/Theme/mixins/layout";
-import { editorPadding } from "@granity-engine/Theme/themeConstants";
 import { FC } from "react";
 
 import EditorModeSelector from "./EditorModeSelector";

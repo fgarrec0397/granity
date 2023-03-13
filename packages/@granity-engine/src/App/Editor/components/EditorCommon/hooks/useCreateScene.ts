@@ -1,4 +1,4 @@
-import { useScenes } from "@granity-engine/api";
+import { useScenes } from "@granity/engine/api";
 import { ChangeEvent, useState } from "react";
 
 export default () => {

@@ -1,8 +1,8 @@
+import { WidgetProperties } from "@granity/engine/api";
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
+import { useAccordionDefaultOpened } from "@granity/engine/Theme/hooks/accordion";
 import { updateArrayAt, Vector3Array } from "@granity/helpers";
 import { Accordion, AccordionDetails, AccordionSummary, Vector3Input } from "@granity/ui";
-import { WidgetProperties } from "@granity-engine/api";
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { FC } from "react";
 
 const EditorWidgetProperties: FC = () => {

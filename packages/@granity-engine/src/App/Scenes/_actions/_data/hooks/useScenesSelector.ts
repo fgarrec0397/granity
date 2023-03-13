@@ -1,4 +1,4 @@
-import { AppState, useAppSelector } from "@granity-engine/App/Core/_actions/_data/state/store";
+import { AppState, useAppSelector } from "@granity/engine/App/Core/_actions/_data/state/store";
 
 const scenesSelector = (state: AppState) => state.scenes.byId;
 const scenesIdsSelector = (state: AppState) => state.scenes.allIds;

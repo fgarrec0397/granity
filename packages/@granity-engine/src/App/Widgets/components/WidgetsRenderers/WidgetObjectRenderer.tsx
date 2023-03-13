@@ -1,7 +1,7 @@
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
-import useEditorHelper from "@granity-engine/App/Editor/_actions/hooks/useEditorHelper";
-import getWidgetName from "@granity-engine/App/Widgets/_actions/utilities/getWidgetName";
-import { WidgetObjectsDictionaryItem } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import useEditor from "@granity/engine/App/Editor/_actions/hooks/useEditor";
+import useEditorHelper from "@granity/engine/App/Editor/_actions/hooks/useEditorHelper";
+import getWidgetName from "@granity/engine/App/Widgets/_actions/utilities/getWidgetName";
+import { WidgetObjectsDictionaryItem } from "@granity/engine/App/Widgets/_actions/widgetsTypes";
 import { ThreeEvent } from "@react-three/fiber";
 import { FC, MutableRefObject, useRef, useState } from "react";
 import { Object3D } from "three";

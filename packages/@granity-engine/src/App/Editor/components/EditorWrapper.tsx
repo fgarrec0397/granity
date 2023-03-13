@@ -1,5 +1,5 @@
+import { useScenes } from "@granity/engine/api";
 import { HasChildren } from "@granity/helpers";
-import { useScenes } from "@granity-engine/api";
 import { FC } from "react";
 
 import EditorCreateSceneModalContent from "./EditorCommon/EditorCreateSceneModalContent";

@@ -1,6 +1,6 @@
-import SceneDefaultCamera from "@granity-engine/App/Scenes/components/SceneDefaultCamera";
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import Widgets from "@granity-engine/App/Widgets/Widgets";
+import SceneDefaultCamera from "@granity/engine/App/Scenes/components/SceneDefaultCamera";
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
+import Widgets from "@granity/engine/App/Widgets/Widgets";
 import { Grid, Select } from "@react-three/drei";
 import { FC } from "react";
 

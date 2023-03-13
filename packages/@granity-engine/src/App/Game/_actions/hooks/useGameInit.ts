@@ -1,4 +1,4 @@
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
+import useEditor from "@granity/engine/App/Editor/_actions/hooks/useEditor";
 import { useEffect } from "react";
 
 /**

@@ -1,6 +1,6 @@
+import { FieldType } from "@granity/engine/App/Widgets/_actions/widgetsConstants";
+import { SelectionFieldOption } from "@granity/engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, MenuItem, Select, SelectChangeEvent } from "@granity/ui";
-import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { SelectionFieldOption } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
 
 import useOptionsValues from "./hooks/useOptionsValues";

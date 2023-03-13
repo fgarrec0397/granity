@@ -1,8 +1,8 @@
-import { Dictionary } from "@granity/helpers";
 import {
     WidgetDictionary,
     WidgetObjectInfoDictionary,
-} from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+} from "@granity/engine/App/Widgets/_actions/widgetsTypes";
+import { Dictionary } from "@granity/helpers";
 
 /**
  * Transform Controls Modes

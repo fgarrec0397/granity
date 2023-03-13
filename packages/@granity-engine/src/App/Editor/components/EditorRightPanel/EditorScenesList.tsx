@@ -1,4 +1,4 @@
-import useScenes from "@granity-engine/App/Scenes/_actions/hooks/useScenes";
+import useScenes from "@granity/engine/App/Scenes/_actions/hooks/useScenes";
 import { FC } from "react";
 
 import EditorCreateSceneModalContent from "../EditorCommon/EditorCreateSceneModalContent";

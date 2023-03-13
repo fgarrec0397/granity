@@ -1,6 +1,6 @@
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
+import { WidgetDictionaryItem } from "@granity/engine/App/Widgets/_actions/widgetsTypes";
 import { EditIcon, IconButton, SvgIconProps, TextField } from "@granity/ui";
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import { WidgetDictionaryItem } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
 import { ChangeEvent, FC, useState } from "react";
 
 import EditorModal from "./EditorModal";

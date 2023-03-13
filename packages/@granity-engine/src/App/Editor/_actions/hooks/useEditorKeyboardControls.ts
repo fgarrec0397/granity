@@ -1,11 +1,11 @@
-import { ClientKeyMappings } from "@granity-engine/App/Core/_actions/coreTypes";
-import useKeyboardMapping from "@granity-engine/App/Core/_actions/hooks/useKeyboardMapping";
-import useHistory from "@granity-engine/App/Editor/_actions/hooks/useHistory";
-import useGame from "@granity-engine/App/Game/_actions/hooks/useGame";
-import useCameras from "@granity-engine/App/Scenes/_actions/hooks/useCameras";
-import useScenes from "@granity-engine/App/Scenes/_actions/hooks/useScenes";
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import { WidgetDictionaryItem } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import { ClientKeyMappings } from "@granity/engine/App/Core/_actions/coreTypes";
+import useKeyboardMapping from "@granity/engine/App/Core/_actions/hooks/useKeyboardMapping";
+import useHistory from "@granity/engine/App/Editor/_actions/hooks/useHistory";
+import useGame from "@granity/engine/App/Game/_actions/hooks/useGame";
+import useCameras from "@granity/engine/App/Scenes/_actions/hooks/useCameras";
+import useScenes from "@granity/engine/App/Scenes/_actions/hooks/useScenes";
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
+import { WidgetDictionaryItem } from "@granity/engine/App/Widgets/_actions/widgetsTypes";
 import { useState } from "react";
 
 import useEditor from "./useEditor";

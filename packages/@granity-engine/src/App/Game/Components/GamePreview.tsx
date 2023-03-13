@@ -1,5 +1,5 @@
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import Widgets from "@granity-engine/App/Widgets/Widgets";
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
+import Widgets from "@granity/engine/App/Widgets/Widgets";
 import { Physics } from "@react-three/rapier";
 import { FC } from "react";
 

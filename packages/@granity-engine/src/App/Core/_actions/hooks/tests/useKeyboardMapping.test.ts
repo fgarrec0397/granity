@@ -1,4 +1,4 @@
-import { appRenderHook } from "@granity-engine/Tests/testing";
+import { appRenderHook } from "@granity/engine/Tests/testing";
 import { act } from "react-dom/test-utils";
 import { describe, it } from "vitest";
 

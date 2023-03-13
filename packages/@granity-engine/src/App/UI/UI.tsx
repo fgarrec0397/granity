@@ -1,5 +1,5 @@
-import Editor from "@granity-engine/App/Editor/Editor";
-import { GamePreview } from "@granity-engine/App/Game/Components";
+import Editor from "@granity/engine/App/Editor/Editor";
+import { GamePreview } from "@granity/engine/App/Game/Components";
 import { FC } from "react";
 
 import useUI from "./_actions/hooks/useUI";

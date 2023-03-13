@@ -1,4 +1,4 @@
-import widgetDictionaryItemTest from "@granity-engine/Tests/utilities/widgets/widgetDictionaryItemTest";
+import widgetDictionaryItemTest from "@granity/engine/Tests/utilities/widgets/widgetDictionaryItemTest";
 
 import widgetsConstants from "../../widgetsConstants";
 import getWidgetName from "../getWidgetName";

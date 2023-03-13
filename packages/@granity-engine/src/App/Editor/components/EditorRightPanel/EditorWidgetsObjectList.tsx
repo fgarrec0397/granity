@@ -1,11 +1,11 @@
-import { Box, BoxProps, pxToRem } from "@granity/ui";
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import useWidgetsModules from "@granity-engine/App/Widgets/_actions/hooks/useWidgetsModules";
-import mapWidgetModuleToWidgetDictionary from "@granity-engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
+import useWidgetsModules from "@granity/engine/App/Widgets/_actions/hooks/useWidgetsModules";
+import mapWidgetModuleToWidgetDictionary from "@granity/engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
 import {
     WidgetDictionaryItem,
     WidgetObjectsDictionaryItem,
-} from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+} from "@granity/engine/App/Widgets/_actions/widgetsTypes";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";

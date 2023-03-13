@@ -1,5 +1,5 @@
+import defaultKeyboardMappings from "@granity/engine/App/Core/configs/keyboardMappings";
 import { HasChildren } from "@granity/helpers";
-import defaultKeyboardMappings from "@granity-engine/App/Core/configs/keyboardMappings";
 import { createContext, Dispatch, FC, SetStateAction, useReducer, useState } from "react";
 
 import { EngineConfig, KeyboardKeys } from "../../coreTypes";

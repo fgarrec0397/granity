@@ -1,4 +1,4 @@
-import { widgetsDictionaryTest } from "@granity-engine/Tests/utilities/widgets/widgetsDictionaryTest";
+import { widgetsDictionaryTest } from "@granity/engine/Tests/utilities/widgets/widgetsDictionaryTest";
 
 import filterWidgets from "../filterWidgets";
 

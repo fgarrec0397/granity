@@ -1,4 +1,4 @@
-import TestWidgetComponent from "@granity-engine/Tests/utilities/widgets/TestWidgetComponent";
+import TestWidgetComponent from "@granity/engine/Tests/utilities/widgets/TestWidgetComponent";
 import { describe } from "vitest";
 
 import { WidgetType } from "../../widgetsConstants";

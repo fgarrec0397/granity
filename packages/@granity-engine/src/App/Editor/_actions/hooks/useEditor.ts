@@ -1,4 +1,4 @@
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
 import { useCallback, useEffect } from "react";
 
 import useEditorService from "../_data/hooks/useEditorService";

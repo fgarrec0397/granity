@@ -4,7 +4,7 @@ import {
     cameraName2,
     camerasTestWithIsDefaultToTrue,
     camerasTestWithoutIsDefaultToTrue,
-} from "@granity-engine/Tests/utilities/scenes/camerasTest";
+} from "@granity/engine/Tests/utilities/scenes/camerasTest";
 import { describe, it } from "vitest";
 
 import getStartingCamera from "../getStartingCamera";

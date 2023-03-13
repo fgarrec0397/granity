@@ -1,4 +1,4 @@
-import { WidgetUIDictionaryItem } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import { WidgetUIDictionaryItem } from "@granity/engine/App/Widgets/_actions/widgetsTypes";
 import { FC } from "react";
 
 import useWidgetsUtilities from "../../_actions/hooks/useWidgetsUtilities";

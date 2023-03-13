@@ -1,5 +1,5 @@
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
 import { usePrevious } from "@granity/helpers";
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
 import { useEffect } from "react";
 
 import useHistory from "./useHistory";

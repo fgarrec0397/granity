@@ -1,3 +1,4 @@
+import { useAccordionDefaultOpened } from "@granity/engine/Theme/hooks/accordion";
 import { HasCallableChildren } from "@granity/helpers";
 import {
     Accordion,
@@ -18,7 +19,6 @@ import {
     VisibilityIcon,
     VisibilityOffIcon,
 } from "@granity/ui";
-import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { ReactElement, useState } from "react";
 
 import EditorModal from "../EditorCommon/EditorModal";

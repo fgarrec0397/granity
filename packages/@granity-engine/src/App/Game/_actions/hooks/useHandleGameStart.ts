@@ -1,5 +1,5 @@
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
-import useCameras from "@granity-engine/App/Scenes/_actions/hooks/useCameras";
+import useEditor from "@granity/engine/App/Editor/_actions/hooks/useEditor";
+import useCameras from "@granity/engine/App/Scenes/_actions/hooks/useCameras";
 import { useEffect } from "react";
 
 import getStartingCamera from "../utilities/getStartingCamera";

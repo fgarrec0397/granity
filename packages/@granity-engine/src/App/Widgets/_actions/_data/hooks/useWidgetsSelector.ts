@@ -1,4 +1,4 @@
-import { AppState, useAppSelector } from "@granity-engine/App/Core/_actions/_data/state/store";
+import { AppState, useAppSelector } from "@granity/engine/App/Core/_actions/_data/state/store";
 
 const widgetsInfoSelector = (state: AppState) => state.widgets.widgetsObjectInfoDictionary;
 const displayedInformationSelector = (state: AppState) => state.widgets.displayedInformation;

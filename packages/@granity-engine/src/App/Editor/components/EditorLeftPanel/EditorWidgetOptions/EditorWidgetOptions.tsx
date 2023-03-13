@@ -1,7 +1,7 @@
+import useWidgets from "@granity/engine/App/Widgets/_actions/hooks/useWidgets";
+import { FieldType } from "@granity/engine/App/Widgets/_actions/widgetsConstants";
+import { useAccordionDefaultOpened } from "@granity/engine/Theme/hooks/accordion";
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@granity/ui";
-import useWidgets from "@granity-engine/App/Widgets/_actions/hooks/useWidgets";
-import { FieldType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { FC } from "react";
 
 import EditorOptionsCheckboxField from "./EditorOptionsCheckboxField";

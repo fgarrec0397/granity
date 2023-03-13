@@ -1,4 +1,4 @@
-import { useAppDispatch } from "@granity-engine/App/Core/_actions/_data/state/store";
+import { useAppDispatch } from "@granity/engine/App/Core/_actions/_data/state/store";
 
 import { ModesAvailable } from "../../editorTypes";
 import {

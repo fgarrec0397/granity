@@ -1,6 +1,6 @@
+import useEditor from "@granity/engine/App/Editor/_actions/hooks/useEditor";
+import { PreviewUI } from "@granity/engine/Theme/components/Icons";
 import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
-import { PreviewUI } from "@granity-engine/Theme/components/Icons";
 import { FC } from "react";
 
 export type EditorPreviewUIButtonStyles = {

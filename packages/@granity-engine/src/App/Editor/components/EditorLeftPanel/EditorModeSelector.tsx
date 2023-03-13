@@ -1,3 +1,6 @@
+import { ModesAvailable } from "@granity/engine/App/Editor/_actions/editorTypes";
+import useEditor from "@granity/engine/App/Editor/_actions/hooks/useEditor";
+import { useAccordionDefaultOpened } from "@granity/engine/Theme/hooks/accordion";
 import {
     Accordion,
     AccordionDetails,
@@ -6,9 +9,6 @@ import {
     Select,
     SelectChangeEvent,
 } from "@granity/ui";
-import { ModesAvailable } from "@granity-engine/App/Editor/_actions/editorTypes";
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
-import { useAccordionDefaultOpened } from "@granity-engine/Theme/hooks/accordion";
 import { FC } from "react";
 
 const EditorModeSelector: FC = () => {

@@ -1,11 +1,11 @@
-import { defaultKeyMappingObj } from "@granity-engine/App/Core/_actions/coreConstants";
+import { defaultKeyMappingObj } from "@granity/engine/App/Core/_actions/coreConstants";
 import {
     ClientKeyMappings,
     KeyboardMappingHandler,
     KeyboardMappings,
     KeyboardType,
-} from "@granity-engine/App/Core/_actions/coreTypes";
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
+} from "@granity/engine/App/Core/_actions/coreTypes";
+import useEditor from "@granity/engine/App/Editor/_actions/hooks/useEditor";
 import { DependencyList, useCallback, useEffect, useMemo, useState } from "react";
 
 import useCore from "./useCore";

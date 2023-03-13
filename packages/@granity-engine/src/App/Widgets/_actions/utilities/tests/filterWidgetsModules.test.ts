@@ -1,4 +1,4 @@
-import { widgetsModulesTest } from "@granity-engine/Tests/utilities/widgets/widgetsModulesArrayTest";
+import { widgetsModulesTest } from "@granity/engine/Tests/utilities/widgets/widgetsModulesArrayTest";
 
 import filterWidgetsModules from "../filterWidgetsModules";
 

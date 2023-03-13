@@ -1,4 +1,4 @@
-import getWidgetName from "@granity-engine/App/Widgets/_actions/utilities/getWidgetName";
+import getWidgetName from "@granity/engine/App/Widgets/_actions/utilities/getWidgetName";
 import * as THREE from "three";
 
 import widgetDictionaryItemTest from "../widgets/widgetDictionaryItemTest";

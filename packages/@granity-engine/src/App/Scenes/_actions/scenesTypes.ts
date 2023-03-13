@@ -1,8 +1,8 @@
-import { Dictionary, Vector3Array } from "@granity/helpers";
 import {
     SerializedWidgetDictionary,
     WidgetObjectInfoDictionary,
-} from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+} from "@granity/engine/App/Widgets/_actions/widgetsTypes";
+import { Dictionary, Vector3Array } from "@granity/helpers";
 import { Camera } from "@react-three/fiber";
 import { MutableRefObject } from "react";
 

@@ -1,5 +1,5 @@
+import { GranityEngineProvider } from "@granity/engine/api";
 import { HasChildren } from "@granity/helpers";
-import { GranityEngineProvider } from "@granity-engine/api";
 import { render, renderHook, RenderOptions } from "@testing-library/react";
 import { FC, ReactElement } from "react";
 

@@ -2,7 +2,7 @@ import {
     widgetsDictionaryTest,
     widgetTestId1,
     widgetTestId2,
-} from "@granity-engine/Tests/utilities/widgets/widgetsDictionaryTest";
+} from "@granity/engine/Tests/utilities/widgets/widgetsDictionaryTest";
 import { describe } from "vitest";
 
 import { FieldType } from "../../widgetsConstants";

@@ -1,4 +1,4 @@
-import object3DTestObject from "@granity-engine/Tests/utilities/threeJS/object3DTestObject";
+import object3DTestObject from "@granity/engine/Tests/utilities/threeJS/object3DTestObject";
 
 import getWidgetIdFromName from "../getWidgetIdFromName";
 

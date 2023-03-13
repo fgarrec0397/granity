@@ -1,5 +1,5 @@
-import { WidgetType } from "@granity-engine/App/Widgets/_actions/widgetsConstants";
-import { WidgetModules } from "@granity-engine/App/Widgets/_actions/widgetsTypes";
+import { WidgetType } from "@granity/engine/App/Widgets/_actions/widgetsConstants";
+import { WidgetModules } from "@granity/engine/App/Widgets/_actions/widgetsTypes";
 
 import TestWidgetComponent from "./TestWidgetComponent";
 

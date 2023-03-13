@@ -1,5 +1,5 @@
-import defaultKeyboardMappings from "@granity-engine/App/Core/configs/keyboardMappings";
-import useEditor from "@granity-engine/App/Editor/_actions/hooks/useEditor";
+import defaultKeyboardMappings from "@granity/engine/App/Core/configs/keyboardMappings";
+import useEditor from "@granity/engine/App/Editor/_actions/hooks/useEditor";
 import { useCallback } from "react";
 
 import useCoreService from "../_data/hooks/useCoreService";
