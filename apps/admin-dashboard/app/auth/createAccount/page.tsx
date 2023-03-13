@@ -1,6 +1,5 @@
 "use client";
-import Button from "@elements/Button";
-import TextBox from "@elements/TextBox";
+import { LoadingButton, TextField } from "@granity-ui/Components";
 import { signIn } from "next-auth/react";
 import { useRef } from "react";
 
@@ -49,16 +48,16 @@ const CreateAccountPage = ({ searchParams }: IProps) => {
                 </p>
             )}
             <div className="px-7 py-4 shadow bg-white rounded-md flex flex-col gap-2">
-                <TextBox
-                    lableText="User Name"
+                <TextField
+                    label="User Name"
                     onChange={(e) => (userName.current = e.target.value)}
                 />
-                <TextBox
-                    lableText="Password"
+                <TextField
+                    label="Password"
                     type={"password"}
                     onChange={(e) => (pass.current = e.target.value)}
                 />
-                <Button onClick={onSubmit}>Login</Button>
+                <LoadingButton onClick={onSubmit}>Login</LoadingButton>
             </div>
         </div>
     );

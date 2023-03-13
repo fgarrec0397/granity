@@ -7,13 +7,14 @@ const EditorSettingsButton: FC = () => {
             title="Editor settings"
             id="editor-menu"
             icon={<SettingsIcon />}
-            menuItems={[
-                {
-                    text: "Go to dashboard",
-                    onClick: () => signOut(),
-                    icon: <DashboardIcon fontSize="small" />,
-                },
-            ]}
+            menuItems={[]}
+            // [
+            //     {
+            //         text: "Go to dashboard",
+            //         onClick: () => signOut(),
+            //         icon: <DashboardIcon fontSize="small" />,
+            //     },
+            // ]
         />
     );
 };
