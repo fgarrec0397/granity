@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/fgarrec0397/granity/compare/v0.3.0...v0.3.1) (2023-03-15)
+
+
+### Refactor
+
+* engine package ([7309581](https://github.com/fgarrec0397/granity/commits/73095819c72a5f2cea2c0d7d92ad4dbc636c2504))
+* fix aliases ([52b4ac6](https://github.com/fgarrec0397/granity/commits/52b4ac68b455638878b140907c6fceeb0a57f991))
+* ui package renamed ([71a89b9](https://github.com/fgarrec0397/granity/commits/71a89b9e523d02b69af880a846aee8042d0253b2))
+* wdgets + helpers packages renamed ([f509d1e](https://github.com/fgarrec0397/granity/commits/f509d1e58ec2f636669dc4c2984353a5195f8889))
+
 ## [0.3.0](https://github.com/fgarrec0397/granity/compare/v0.2.9...v0.3.0) (2023-03-02)
 
 ### [0.2.9](https://github.com/fgarrec0397/granity/compare/v0.2.8...v0.2.9) (2023-03-02)
