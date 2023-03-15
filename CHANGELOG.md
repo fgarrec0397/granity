@@ -113,7 +113,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **@granity-ui2:** cleaned and working ([28b2260](https://github.com/fgarrec0397/granity/commits/28b2260fe0090407c3c46ab855d39bbb2f2d41c3))
+* **@ui2:** cleaned and working ([28b2260](https://github.com/fgarrec0397/granity/commits/28b2260fe0090407c3c46ab855d39bbb2f2d41c3))
 * accordion adjustments + textfields started ([7c90dc4](https://github.com/fgarrec0397/granity/commits/7c90dc482b077c451910d7489a81d0b70b6bf6a2))
 * accordions added ([c0b8f42](https://github.com/fgarrec0397/granity/commits/c0b8f4205299a52e61200c3729e773e6e898cefb))
 * buttons stories ([c5f2c08](https://github.com/fgarrec0397/granity/commits/c5f2c083fbc2610bc1dd9e2a87c26d343588fd49))

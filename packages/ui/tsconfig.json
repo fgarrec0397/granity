@@ -22,5 +22,4 @@
     "vite.config.ts",
     ".storybook"
   ],
-  "references": [{ "path": "./tsconfig.vite.json" }]
 }

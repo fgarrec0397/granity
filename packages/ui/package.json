@@ -30,7 +30,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.6",
-    "vite": "^4.1.4"
+    "vite": "^4.1.4",
+    "vitest": "^0.28.5"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",

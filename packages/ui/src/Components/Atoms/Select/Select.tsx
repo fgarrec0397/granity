@@ -1,5 +1,5 @@
-import { inputStyles } from "@granity-ui/Theme/mixins/form";
-import pxToRem from "@granity-ui/Theme/utilities/pxToRem";
+import { inputStyles } from "@ui/Theme/mixins/form";
+import pxToRem from "@ui/Theme/utilities/pxToRem";
 import { styled } from "@mui/material";
 import SelectLib, {
     SelectChangeEvent as SelectChangeEventLib,

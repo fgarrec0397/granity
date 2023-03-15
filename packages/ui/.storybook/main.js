@@ -22,7 +22,7 @@ module.exports = {
     return mergeConfig(config, {
       resolve: {
         alias: {
-            "@granity-ui": path.resolve(__dirname, "../src"), // TODO - dynamically import from the defined config
+            "@ui": path.resolve(__dirname, "../src"), // TODO - dynamically import from the defined config
         },
       },
     });

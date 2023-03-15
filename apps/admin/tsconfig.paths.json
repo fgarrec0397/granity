@@ -3,7 +3,7 @@
         "baseUrl": "./src",
         "paths": {
             "@engine/*": ["../../../packages/engine/src/*"],
-            "@granity-ui/*": ["../../../packages/@granity-ui/src/*"],
+            "@ui/*": ["../../../packages/ui/src/*"],
             "@granity-widgets/*": ["../../../packages/@granity-widgets/src/*"],
         }
     }

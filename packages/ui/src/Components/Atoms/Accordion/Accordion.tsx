@@ -1,4 +1,4 @@
-import pxToRem from "@granity-ui/Theme/utilities/pxToRem";
+import pxToRem from "@ui/Theme/utilities/pxToRem";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AccordionLib, { AccordionProps as LibAccordionProps } from "@mui/material/Accordion";
 import AccordionDetailsLib, {
