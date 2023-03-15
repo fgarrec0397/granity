@@ -23,7 +23,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "@granity-engine": path.resolve(__dirname, "../../packages/@granity-engine/src"),
+            "@engine": path.resolve(__dirname, "../../packages/engine/src"),
             "@granity-ui": path.resolve(__dirname, "../../packages/@granity-ui/src"),
             "@granity-widgets": path.resolve(__dirname, "../../packages/@granity-widgets/src"),
         },

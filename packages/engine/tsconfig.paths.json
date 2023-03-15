@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@engine/*": ["./*"],
+            "@granity-ui/*": ["../../packages/@granity-ui/src/*"],
+        },
+    }
+}
