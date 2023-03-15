@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
     resolve: {
         alias: {
-            "@granity-widgets": path.resolve(__dirname, "./src"),
+            "@widgets": path.resolve(__dirname, "./src"),
         },
     },
 });

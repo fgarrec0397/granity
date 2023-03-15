@@ -4,7 +4,7 @@
         "paths": {
             "@engine/*": ["../../../packages/engine/src/*"],
             "@ui/*": ["../../../packages/ui/src/*"],
-            "@granity-widgets/*": ["../../../packages/@granity-widgets/src/*"],
+            "@widgets/*": ["../../../packages/widgets/src/*"],
         }
     }
 }
