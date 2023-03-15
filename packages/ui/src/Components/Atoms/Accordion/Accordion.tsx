@@ -1,4 +1,3 @@
-import pxToRem from "@ui/Theme/utilities/pxToRem";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AccordionLib, { AccordionProps as LibAccordionProps } from "@mui/material/Accordion";
 import AccordionDetailsLib, {
@@ -8,6 +7,7 @@ import AccordionSummaryLib, {
     AccordionSummaryProps as LibAccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
+import pxToRem from "@ui/Theme/utilities/pxToRem";
 import { FC } from "react";
 
 export type AccordionProps = LibAccordionProps;

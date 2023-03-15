@@ -1,8 +1,5 @@
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
-import {
-    WidgetOptions,
-    WidgetOptionsValues,
-} from "@engine/App/Widgets/_actions/widgetsTypes";
+import { WidgetOptions, WidgetOptionsValues } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { useEffect, useState } from "react";
 
 export default () => {

@@ -1,5 +1,5 @@
-import { Paper, PaperProps, pxToRem, Typography, TypographyProps } from "@granity/ui";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
+import { Paper, PaperProps, pxToRem, Typography, TypographyProps } from "@granity/ui";
 import { FC } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";

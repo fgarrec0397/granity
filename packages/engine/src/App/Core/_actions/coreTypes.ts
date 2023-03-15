@@ -1,5 +1,5 @@
-import { Dictionary } from "@granity/helpers";
 import { ScenesDictionary, WidgetModules } from "@engine/api";
+import { Dictionary } from "@granity/helpers";
 
 import keyboardMappings from "../configs/keyboardMappings";
 

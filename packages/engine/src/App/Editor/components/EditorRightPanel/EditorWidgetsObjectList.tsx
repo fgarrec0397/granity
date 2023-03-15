@@ -1,4 +1,3 @@
-import { Box, BoxProps, pxToRem } from "@granity/ui";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
@@ -6,6 +5,7 @@ import {
     WidgetDictionaryItem,
     WidgetObjectsDictionaryItem,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";

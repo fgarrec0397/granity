@@ -1,6 +1,6 @@
-import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
 import useGame from "@engine/App/Game/_actions/hooks/useGame";
 import { Play } from "@engine/Theme/components/Icons";
+import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 export type EditorPlayButtonStyles = {

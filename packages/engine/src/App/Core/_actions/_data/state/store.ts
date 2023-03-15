@@ -1,10 +1,6 @@
-import editorReducer, {
-    EditorState,
-} from "@engine/App/Editor/_actions/_data/state/editorReducer";
+import editorReducer, { EditorState } from "@engine/App/Editor/_actions/_data/state/editorReducer";
 import gameReducer, { GameState } from "@engine/App/Game/_actions/_data/state/gameReducer";
-import scenesReducer, {
-    ScenesState,
-} from "@engine/App/Scenes/_actions/_data/state/scenesReducer";
+import scenesReducer, { ScenesState } from "@engine/App/Scenes/_actions/_data/state/scenesReducer";
 import widgetsReducer, {
     WidgetsState,
 } from "@engine/App/Widgets/_actions/_data/state/widgetsReducer";

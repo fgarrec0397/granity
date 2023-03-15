@@ -1,5 +1,5 @@
-import { CssBaseline, GlobalStyles } from "@granity/ui";
 import Core from "@engine/App/Core/Core";
+import { CssBaseline, GlobalStyles } from "@granity/ui";
 import { FC } from "react";
 
 export const GranityEngine: FC = () => (

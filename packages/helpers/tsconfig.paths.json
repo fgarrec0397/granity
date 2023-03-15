@@ -2,8 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
-            "@engine/*": ["./*"],
-            "@ui/*": ["../../ui/src/*"],
+            "@helpers/*": ["./*"],
         },
     }
 }

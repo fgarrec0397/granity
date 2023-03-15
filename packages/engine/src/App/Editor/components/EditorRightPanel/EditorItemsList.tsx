@@ -1,3 +1,4 @@
+import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
 import { HasCallableChildren } from "@granity/helpers";
 import {
     Accordion,
@@ -15,7 +16,6 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
 import { ReactElement, useState } from "react";
 
 import EditorModal from "../EditorCommon/EditorModal";

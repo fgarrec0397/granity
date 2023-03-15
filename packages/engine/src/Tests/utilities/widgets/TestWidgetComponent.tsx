@@ -1,5 +1,5 @@
-import { FC } from "react";
+import { WidgetObjectsDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
 
-const TestWidgetComponent: FC = () => <>test</>;
+const TestWidgetComponent: WidgetObjectsDictionaryItem["component"] = () => <>test</>;
 
 export default TestWidgetComponent;

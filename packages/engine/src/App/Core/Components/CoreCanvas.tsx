@@ -1,6 +1,6 @@
-import { useTheme } from "@granity/ui";
 import canvasConfig from "@engine/App/Core/configs/canvas";
 import Scenes from "@engine/App/Scenes/Scenes";
+import { useTheme } from "@granity/ui";
 import { useContextBridge } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Context, FC } from "react";

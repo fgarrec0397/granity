@@ -1,6 +1,6 @@
-import { IconButton, Icons, SvgIconProps, TextField } from "@granity/ui";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { IconButton, Icons, SvgIconProps, TextField } from "@granity/ui";
 import { ChangeEvent, FC, useState } from "react";
 
 import EditorModal from "./EditorModal";

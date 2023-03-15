@@ -1,6 +1,6 @@
-import { Box, BoxProps, TextField } from "@granity/ui";
 import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { TextFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { Box, BoxProps, TextField } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
 
 import useOptionsValues from "./hooks/useOptionsValues";

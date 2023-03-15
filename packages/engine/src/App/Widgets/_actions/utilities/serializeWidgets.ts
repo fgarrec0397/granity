@@ -1,10 +1,10 @@
-import { SetOptionalPropertyFrom } from "@granity/helpers";
 import {
     SerializedWidgetDictionary,
     SerializedWidgetDictionaryItem,
     WidgetDictionary,
     WidgetDictionaryItem,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { SetOptionalPropertyFrom } from "@granity/helpers";
 
 export default (widgets: WidgetDictionary) => {
     const serializedWidgets: SerializedWidgetDictionary = {};

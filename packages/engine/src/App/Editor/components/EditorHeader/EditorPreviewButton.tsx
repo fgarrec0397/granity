@@ -1,5 +1,5 @@
-import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
 import { Preview } from "@engine/Theme/components/Icons";
+import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 export type EditorPreviewButtonStyles = {
