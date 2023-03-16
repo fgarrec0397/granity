@@ -12,26 +12,15 @@
     "@granity/engine": "*",
     "@granity/helpers": "*",
     "@granity/eslint-config": "*",
-    "@granity/prettier-config": "*",
     "@granity/ui": "*",
-    "@reduxjs/toolkit": "^1.9.3",
-    "@react-three/drei": "9.57.0",
-    "@react-three/fiber": "8.11.5",
-    "@react-three/rapier": "^0.13.2",
-    "react-redux": "^8.0.5",
-    "styled-components": "^5.3.8",
-    "three": "^0.149.0",
-    "three-stdlib": "^2.21.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "vite": "^4.1.4"
+    "@granity/prettier-config": "*",
+    "@react-three/rapier": "^0.13.2"
   },
-  "devDependencies": {
+  "peerDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/three": "^0.149.0",
     "@types/styled-components": "^5.1.26",
-    "@vitejs/plugin-react": "^3.1.0",
     "typescript": "^4.9.5"
   }
 }
