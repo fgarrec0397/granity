@@ -2,9 +2,9 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
-            "@granity-engine/*": ["../../../packages/@granity-engine/src/*"],
-            "@granity-ui/*": ["../../../packages/@granity-ui/src/*"],
-            "@granity-widgets/*": ["../../../packages/@granity-widgets/src/*"],
+            "@engine/*": ["../../../packages/engine/src/*"],
+            "@ui/*": ["../../../packages/ui/src/*"],
+            "@widgets/*": ["../../../packages/widgets/src/*"],
         }
     }
 }

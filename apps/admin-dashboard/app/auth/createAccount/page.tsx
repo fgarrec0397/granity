@@ -1,7 +1,5 @@
 "use client";
-import Button from "@elements/Button";
-import TextBox from "@elements/TextBox";
-import { signIn } from "next-auth/react";
+import { Button, TextField } from "@granity/ui";
 import { useRef } from "react";
 
 interface IProps {
@@ -14,7 +12,7 @@ type CreateAccountParameters = {
 };
 
 const createAccount = async (params: CreateAccountParameters) => {
-    const result = await fetch("/server/auth/createUser", {
+    await fetch("/server/auth/createUser", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -22,8 +20,6 @@ const createAccount = async (params: CreateAccountParameters) => {
         },
         body: JSON.stringify(params),
     });
-
-    const content = await result.json();
 };
 
 const CreateAccountPage = ({ searchParams }: IProps) => {
@@ -31,7 +27,7 @@ const CreateAccountPage = ({ searchParams }: IProps) => {
     const pass = useRef("");
 
     const onSubmit = async () => {
-        const result = await createAccount({
+        await createAccount({
             username: userName.current,
             password: pass.current,
         });
@@ -49,12 +45,12 @@ const CreateAccountPage = ({ searchParams }: IProps) => {
                 </p>
             )}
             <div className="px-7 py-4 shadow bg-white rounded-md flex flex-col gap-2">
-                <TextBox
-                    lableText="User Name"
+                <TextField
+                    label="User Name"
                     onChange={(e) => (userName.current = e.target.value)}
                 />
-                <TextBox
-                    lableText="Password"
+                <TextField
+                    label="Password"
                     type={"password"}
                     onChange={(e) => (pass.current = e.target.value)}
                 />

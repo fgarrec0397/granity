@@ -7,14 +7,14 @@ import {
     LoadingButtonProps,
     Paper,
     PaperProps,
+    pxToRem,
     TextField,
-} from "@granity-ui/Components";
-import { pxToRem } from "@granity-ui/Theme";
-import Logo from "components/Logo";
+} from "@granity/ui";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useRef, useState } from "react";
 
+import Logo from "../../../components/Logo";
 import backgroundImage from "../../../public/images/login-background.svg";
 
 type LoginPageStyles = {

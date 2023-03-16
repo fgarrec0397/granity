@@ -1,9 +1,9 @@
 import { GranityEngineProvider } from "@granity/engine";
 import { HasChildren, ProvidersBuilder, QueryClient, QueryClientProvider } from "@granity/helpers";
-import { granityConfig } from "config/granity";
 import { SessionProvider } from "next-auth/react";
 import { FC } from "react";
 
+import { granityConfig } from "./../config/granity";
 import CoreLayout from "./components/CoreLayout";
 
 type Props = HasChildren;

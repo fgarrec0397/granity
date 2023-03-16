@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, BoxProps, Typography, TypographyProps } from "@granity-ui/Components";
+import { Box, BoxProps, Typography, TypographyProps } from "@granity/ui";
 
 import Page from "../core/components/Page";
 

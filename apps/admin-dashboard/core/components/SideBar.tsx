@@ -6,8 +6,8 @@ import {
     ListItemText,
     MenuItem,
     MenuList,
-} from "@granity-ui/Components";
-import { pxToRem } from "@granity-ui/Theme";
+    pxToRem,
+} from "@granity/ui";
 
 import Logo, { LogoStyles } from "../../components/Logo";
 

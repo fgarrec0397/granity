@@ -9,10 +9,10 @@ import {
     LogoutIcon,
     Menu,
     MenuItem,
+    pxToRem,
     SvgIconProps,
     Tooltip,
-} from "@granity-ui/Components";
-import { pxToRem } from "@granity-ui/Theme";
+} from "@granity/ui";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

@@ -5,12 +5,12 @@ const nextConfig = {
     experimental: {
         appDir: true,
         transpilePackages: [
-            "@granity-engine",
-            "@granity-eslint-config",
-            "@granity-helpers",
-            "@granity-prettier-config",
-            "@granity-ui",
-            "@granity-widgets",
+            "@granity/engine",
+            "@granity/eslint-config",
+            "@granity/helpers",
+            "@granity/prettier-config",
+            "@granity/ui",
+            "@granity/widgets",
         ],
         // modularizeImports: {
         //     lodash: {

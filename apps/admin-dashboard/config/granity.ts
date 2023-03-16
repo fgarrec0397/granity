@@ -1,5 +1,6 @@
 import { EngineConfig, WidgetModules } from "@granity/engine";
-import { saveScenes } from "services/scenes";
+
+import { saveScenes } from "../services/scenes";
 
 let widgetsModules: WidgetModules[] = [];
 
@@ -9,9 +10,7 @@ const importWidgetsModules = (requireContext: any) => {
     widgetsModules = Object.keys(modules).map((x) => (modules as any)[x].widget);
 };
 
-importWidgetsModules(
-    require.context("../../../packages/@granity-widgets/src/Widgets", true, /\.tsx$/)
-);
+importWidgetsModules(require.context("../../../packages/widgets/src/Widgets", true, /\.tsx$/));
 
 export const granityConfig: EngineConfig = {
     widgetsModules,

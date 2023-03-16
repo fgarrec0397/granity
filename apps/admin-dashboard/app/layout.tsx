@@ -1,7 +1,7 @@
 "use client";
 
 import { HasChildren } from "@granity/helpers";
-import { CssBaseline } from "@granity-ui/Components";
+import { CssBaseline } from "@granity/ui";
 
 import Core from "../core/Core";
 

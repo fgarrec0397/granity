@@ -1,6 +1,5 @@
 import { HasChildren } from "@granity/helpers";
-import { Box, BoxProps, Paper, PaperProps } from "@granity-ui/Components";
-import { pxToRem } from "@granity-ui/Theme";
+import { Box, BoxProps, Paper, PaperProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 import AppBar from "./AppBar";

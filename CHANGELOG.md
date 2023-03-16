@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/fgarrec0397/granity/compare/v0.3.0...v0.3.1) (2023-03-15)
+
+
+### Refactor
+
+* engine package ([7309581](https://github.com/fgarrec0397/granity/commits/73095819c72a5f2cea2c0d7d92ad4dbc636c2504))
+* fix aliases ([52b4ac6](https://github.com/fgarrec0397/granity/commits/52b4ac68b455638878b140907c6fceeb0a57f991))
+* ui package renamed ([71a89b9](https://github.com/fgarrec0397/granity/commits/71a89b9e523d02b69af880a846aee8042d0253b2))
+* wdgets + helpers packages renamed ([f509d1e](https://github.com/fgarrec0397/granity/commits/f509d1e58ec2f636669dc4c2984353a5195f8889))
+
 ## [0.3.0](https://github.com/fgarrec0397/granity/compare/v0.2.9...v0.3.0) (2023-03-02)
 
 ### [0.2.9](https://github.com/fgarrec0397/granity/compare/v0.2.8...v0.2.9) (2023-03-02)
@@ -83,7 +93,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * adding another reducer ([32baab7](https://github.com/fgarrec0397/granity/commits/32baab76ae11675a6b209c44dc1eebe99a11f87e))
 * module augmentation for typing reducer but not on useAppSelector ([eb03ac4](https://github.com/fgarrec0397/granity/commits/eb03ac44741b789125e6357f0ce17fbd3a030c1d))
-* preparing typings for [@granity-engine](https://github.com/granity-engine) ([f3d651a](https://github.com/fgarrec0397/granity/commits/f3d651a4a6c3af4df67ce8f87c80f62ee86992dc))
+* preparing typings for [@engine](https://github.com/granity-engine) ([f3d651a](https://github.com/fgarrec0397/granity/commits/f3d651a4a6c3af4df67ce8f87c80f62ee86992dc))
 * reducer manager addIn ([615f6a4](https://github.com/fgarrec0397/granity/commits/615f6a4d88a56d6580ae13ad5f33979316aa6061))
 * useAppSelector typing fix ([6a3687e](https://github.com/fgarrec0397/granity/commits/6a3687e7479e87a4ab1f613b9ad56c8958a51405))
 * widgetsProps types + code clean up ([268744d](https://github.com/fgarrec0397/granity/commits/268744def978e5b9ee56122588f030d69e2dc984))
@@ -113,7 +123,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **@granity-ui2:** cleaned and working ([28b2260](https://github.com/fgarrec0397/granity/commits/28b2260fe0090407c3c46ab855d39bbb2f2d41c3))
+* **@ui2:** cleaned and working ([28b2260](https://github.com/fgarrec0397/granity/commits/28b2260fe0090407c3c46ab855d39bbb2f2d41c3))
 * accordion adjustments + textfields started ([7c90dc4](https://github.com/fgarrec0397/granity/commits/7c90dc482b077c451910d7489a81d0b70b6bf6a2))
 * accordions added ([c0b8f42](https://github.com/fgarrec0397/granity/commits/c0b8f4205299a52e61200c3729e773e6e898cefb))
 * buttons stories ([c5f2c08](https://github.com/fgarrec0397/granity/commits/c5f2c083fbc2610bc1dd9e2a87c26d343588fd49))
@@ -168,9 +178,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Refactor
 
-* [@granity-engine](https://github.com/granity-engine) working from another package ([167a147](https://github.com/fgarrec0397/granity/commits/167a147e6c9537bfc3dbba1e66816a198a7774b6))
-* **@granity-engine:** clean up + exportable scenes ([d04462b](https://github.com/fgarrec0397/granity/commits/d04462b5096a6fe55c945614f6264f32e4f95fa0))
-* can save scene from outside [@granity-engine](https://github.com/granity-engine) ([a528949](https://github.com/fgarrec0397/granity/commits/a5289495488687609a16050a31ce69c63fa3e61e))
+* [@engine](https://github.com/granity-engine) working from another package ([167a147](https://github.com/fgarrec0397/granity/commits/167a147e6c9537bfc3dbba1e66816a198a7774b6))
+* **@engine:** clean up + exportable scenes ([d04462b](https://github.com/fgarrec0397/granity/commits/d04462b5096a6fe55c945614f6264f32e4f95fa0))
+* can save scene from outside [@engine](https://github.com/granity-engine) ([a528949](https://github.com/fgarrec0397/granity/commits/a5289495488687609a16050a31ce69c63fa3e61e))
 * clean up + investigation ([2ee9063](https://github.com/fgarrec0397/granity/commits/2ee90637abd01c1dfcb4eefd06e12b5d7461a22e))
 * engine-test package ([92cedc5](https://github.com/fgarrec0397/granity/commits/92cedc58825ee5a5d7e41548c777f53d54f86a4c))
 * **engine:** bring Features folder with all widgets ([b6f7031](https://github.com/fgarrec0397/granity/commits/b6f7031791847313fc746dcff8828483dd06cacc))
