@@ -1,3 +1,4 @@
+export { default as GranityLogo } from "./GranityLogo";
 export { default as LaunchEditorIcon } from "./LaunchEditor";
 export { default as DashboardIcon } from "@mui/icons-material/Dashboard";
 export { default as DeleteIcon } from "@mui/icons-material/Delete";

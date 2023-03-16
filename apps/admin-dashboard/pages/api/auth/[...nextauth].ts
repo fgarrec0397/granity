@@ -17,7 +17,7 @@ export default NextAuth({
                     type: "password",
                 },
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 if (credentials) {
                     const { username, password } = credentials;
 
@@ -32,45 +32,33 @@ export default NextAuth({
                         }),
                     });
 
-                    // console.log(res, "res");
                     const user = await res.json();
 
-                    console.log(user, "user");
-                    // return user;
                     if (res.ok && user) {
                         return user;
                     }
 
                     Promise.reject(new Error("fail"));
-
-                    // return "error";
                 }
             },
         }),
     ],
 
     callbacks: {
-        async signIn(params) {
+        async signIn() {
             const isAllowedToSignIn = true;
-            console.log(params, "params in sign in");
 
             if (isAllowedToSignIn) {
                 return true;
             } else {
-                // Return false to display a default error message
                 return false;
-                // Or you can return a URL to redirect to:
-                // return '/unauthorized'
             }
         },
         async jwt({ token, user }) {
             return { ...token, ...user };
         },
-        async session({ session, token, user }) {
+        async session({ session, token }) {
             session.user = token;
-
-            console.log(user, "user in session");
-
             return session;
         },
     },

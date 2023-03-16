@@ -1,8 +1,13 @@
 "use client";
-import { GranityLogo } from "@granity/engine/Theme/components/Icons";
-import { Box, BoxProps, Typography, TypographyProps } from "@granity-ui/Components";
-import { pxToRem } from "@granity-ui/Theme";
-import useMergeStyles from "@granity-ui/Theme/hooks/useMergeStyles";
+import {
+    Box,
+    BoxProps,
+    GranityLogo,
+    pxToRem,
+    Typography,
+    TypographyProps,
+    useMergeStyles,
+} from "@granity/ui";
 import { FC } from "react";
 
 type Props = {

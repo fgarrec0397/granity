@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useRef, useState } from "react";
 
-import Logo from "../../../components/Logo";
+import Logo from "../../../core/components/Logo";
 import backgroundImage from "../../../public/images/login-background.svg";
 
 type LoginPageStyles = {

@@ -1,7 +1,6 @@
-import { GranityLogo } from "@engine/Theme/components/Icons";
 import { layoutStyles } from "@engine/Theme/mixins/layout";
 import { editorPadding } from "@engine/Theme/themeConstants";
-import { Box, BoxProps, Paper, PaperProps, pxToRem, SettingsIcon } from "@granity/ui";
+import { Box, BoxProps, GranityLogo, Paper, PaperProps, pxToRem, SettingsIcon } from "@granity/ui";
 import { FC } from "react";
 
 import EditorPlayButton from "./EditorPlayButton";
