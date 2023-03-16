@@ -3,7 +3,7 @@ import { HasChildren, ProvidersBuilder, QueryClient, QueryClientProvider } from 
 import { SessionProvider } from "next-auth/react";
 import { FC } from "react";
 
-import { granityConfig } from "./../config/granity";
+import { granityConfig } from "../config/granity";
 import CoreLayout from "./components/CoreLayout";
 
 type Props = HasChildren;
