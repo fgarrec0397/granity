@@ -1,11 +1,12 @@
 import { layoutStyles } from "@engine/Theme/mixins/layout";
 import { editorPadding } from "@engine/Theme/themeConstants";
-import { Box, BoxProps, GranityLogo, Paper, PaperProps, pxToRem, SettingsIcon } from "@granity/ui";
+import { Box, BoxProps, GranityLogo, Paper, PaperProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 import EditorPlayButton from "./EditorPlayButton";
 import EditorPreviewButton from "./EditorPreviewButton";
 import EditorPreviewUIButton from "./EditorPreviewUIButton";
+import EditorSettingsButton from "./EditorSettingsButton";
 
 type EditorStyles = {
     wrapper?: PaperProps;
@@ -61,7 +62,7 @@ const EditorHeader: FC = () => {
                 <EditorPreviewButton />
             </Box>
             <Box {...styles.rightSection}>
-                <SettingsIcon />
+                <EditorSettingsButton />
             </Box>
         </Paper>
     );

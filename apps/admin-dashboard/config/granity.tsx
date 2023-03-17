@@ -1,4 +1,6 @@
 import { EngineConfig, WidgetModules } from "@granity/engine";
+import { LogoutIcon } from "@ui/Components";
+import { signOut } from "next-auth/react";
 
 import { saveScenes } from "../services/scenes";
 
@@ -14,6 +16,13 @@ importWidgetsModules(require.context("../../../packages/widgets/src/Widgets", tr
 
 export const granityConfig: EngineConfig = {
     widgetsModules,
+    mainMenu: [
+        {
+            text: "Logout",
+            onClick: () => signOut(),
+            icon: <LogoutIcon fontSize="small" />,
+        },
+    ],
     onSave: async (scenes) => {
         if (scenes) {
             const response = await saveScenes(scenes);

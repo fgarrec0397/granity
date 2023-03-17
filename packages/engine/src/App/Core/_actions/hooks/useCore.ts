@@ -8,7 +8,14 @@ import overrideKeyboardMapping from "../utilities/overrideKeyboardMapping";
 
 export default () => {
     const { onEditorPointerMissed, isEditor } = useEditor();
-    const { onSave, updateOnSave, updateKeyboardMappings, keyboardMappings } = useCoreService();
+    const {
+        onSave,
+        updateOnSave,
+        updateKeyboardMappings,
+        keyboardMappings,
+        mainMenu,
+        updateMainMenu,
+    } = useCoreService();
 
     const onCorePointerMissed = useCallback(
         (event: MouseEvent) => {
@@ -38,11 +45,20 @@ export default () => {
         [updateKeyboardMappings]
     );
 
+    const initMainMenu = useCallback(
+        (newMainMenu: EngineConfig["mainMenu"]) => {
+            updateMainMenu(newMainMenu);
+        },
+        [updateMainMenu]
+    );
+
     return {
         keyboardMappings,
         onCorePointerMissed,
         onSave,
         initOnSave,
         initKeyboardMappings,
+        initMainMenu,
+        mainMenu,
     };
 };

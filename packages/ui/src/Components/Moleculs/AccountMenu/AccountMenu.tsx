@@ -1,17 +1,17 @@
-import { FC, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 
 import { IconButton, ListItemIcon, Menu, MenuItem, PaperProps, Tooltip } from "../../Atoms";
 
 export type AccountMenuListModel = {
     text: string;
     onClick: () => void;
-    icon: any;
+    icon?: ReactNode;
 };
 
 export type AccountMenuProps = {
     title: string;
     id: string;
-    icon: any; // TODO
+    icon: ReactNode;
     menuItems: AccountMenuListModel[];
 };
 
@@ -85,7 +85,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
             >
                 {menuItems.map((x) => (
                     <MenuItem key={x.text} onClick={x.onClick}>
-                        <ListItemIcon>{x.icon}</ListItemIcon>
+                        {x.icon && <ListItemIcon>{x.icon}</ListItemIcon>}
                         {x.text}
                     </MenuItem>
                 ))}

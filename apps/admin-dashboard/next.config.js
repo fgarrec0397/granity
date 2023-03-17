@@ -2,16 +2,16 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    transpilePackages: [
-        "@granity/engine",
-        "@granity/eslint-config",
-        "@granity/helpers",
-        "@granity/prettier-config",
-        "@granity/ui",
-        "@granity/widgets",
-    ],
     experimental: {
         appDir: true,
+        transpilePackages: [
+            "@granity/engine",
+            "@granity/eslint-config",
+            "@granity/helpers",
+            "@granity/prettier-config",
+            "@granity/ui",
+            "@granity/widgets",
+        ],
     },
     async rewrites() {
         return [

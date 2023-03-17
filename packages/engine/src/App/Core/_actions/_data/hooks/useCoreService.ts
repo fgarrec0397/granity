@@ -9,6 +9,8 @@ export default () => {
         reducer: [state, dispatch],
         keyboardMappings,
         setKeyboardMappings,
+        mainMenu,
+        setMainMenu,
     } = useCoreContext();
 
     const updateOnSave = useCallback(
@@ -28,10 +30,19 @@ export default () => {
         [setKeyboardMappings]
     );
 
+    const updateMainMenu = useCallback(
+        (newMainMenu: EngineConfig["mainMenu"]) => {
+            setMainMenu(newMainMenu);
+        },
+        [setMainMenu]
+    );
+
     return {
         onSave: state.onSave,
         updateOnSave,
         updateKeyboardMappings,
         keyboardMappings,
+        updateMainMenu,
+        mainMenu,
     };
 };

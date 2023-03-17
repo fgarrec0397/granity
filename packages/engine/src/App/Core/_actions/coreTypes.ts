@@ -1,18 +1,27 @@
-import { ScenesDictionary, WidgetModules } from "@engine/api";
+import { ScenesDictionary } from "@engine/App/Scenes/_actions/scenesTypes";
+import { WidgetModules } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary } from "@granity/helpers";
+import { ReactNode } from "react";
 
 import keyboardMappings from "../configs/keyboardMappings";
 
 // --- Store --- //
 
 // eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface
-export interface FeaturesState {}
+export interface FeaturesState {} // This interface make sure module augmentation is possible
 
 // --- Engine Configs --- //
+
+export type EngineMainMenuItem = {
+    text: string;
+    onClick: () => void;
+    icon?: ReactNode;
+};
 
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
     keyboardMappings?: KeyboardKeys;
+    mainMenu: EngineMainMenuItem[];
     onSave?: (scenes: ScenesDictionary | null) => Promise<{
         status: boolean;
         message: string;
