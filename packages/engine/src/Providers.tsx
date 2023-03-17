@@ -46,8 +46,6 @@ type InitializerProps = {
 
 // Need this component to init the data within the context
 const Initializer: FC<InitializerProps> = ({ config, children }) => {
-    console.log(config, "config");
-
     useInitCore(config);
 
     return <>{children}</>;

@@ -1,5 +1,6 @@
 import { EngineConfig, WidgetModules } from "@granity/engine";
-import { LogoutIcon } from "@ui/Components";
+import { HomeIcon, LogoutIcon } from "@ui/Components";
+import Router from "next/router";
 import { signOut } from "next-auth/react";
 
 import { saveScenes } from "../services/scenes";
@@ -17,6 +18,11 @@ importWidgetsModules(require.context("../../../packages/widgets/src/Widgets", tr
 export const granityConfig: EngineConfig = {
     widgetsModules,
     mainMenu: [
+        {
+            text: "Home",
+            onClick: () => (window.location.href = "/"),
+            icon: <HomeIcon fontSize="small" />,
+        },
         {
             text: "Logout",
             onClick: () => signOut(),

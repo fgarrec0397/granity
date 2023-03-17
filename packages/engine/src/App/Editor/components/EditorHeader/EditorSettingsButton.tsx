@@ -5,8 +5,6 @@ import { FC } from "react";
 const EditorSettingsButton: FC = () => {
     const { mainMenu } = useCore();
 
-    console.log(mainMenu, "mainMenu");
-
     if (!mainMenu.length) {
         return null;
     }

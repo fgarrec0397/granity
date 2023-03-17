@@ -1,6 +1,14 @@
 import { FC, ReactNode, useState } from "react";
 
-import { IconButton, ListItemIcon, Menu, MenuItem, PaperProps, Tooltip } from "../../Atoms";
+import {
+    IconButton,
+    IconButtonProps,
+    ListItemIcon,
+    Menu,
+    MenuItem,
+    PaperProps,
+    Tooltip,
+} from "../../Atoms";
 
 export type AccountMenuListModel = {
     text: string;
@@ -17,6 +25,7 @@ export type AccountMenuProps = {
 
 export type AccountMenuStyles = {
     menuPaper?: PaperProps;
+    iconButton?: IconButtonProps;
 };
 
 const styles: AccountMenuStyles = {
@@ -46,6 +55,10 @@ const styles: AccountMenuStyles = {
             },
         },
     },
+    iconButton: {
+        size: "large",
+        color: "inherit",
+    },
 };
 
 const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
@@ -64,11 +77,10 @@ const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
             <Tooltip title={title}>
                 <IconButton
                     onClick={handleClick}
-                    size="large"
-                    sx={{ ml: 2 }}
                     aria-controls={open ? id : undefined}
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
+                    {...styles.iconButton}
                 >
                     {icon}
                 </IconButton>

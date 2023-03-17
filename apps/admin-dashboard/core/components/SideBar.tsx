@@ -3,8 +3,11 @@ import {
     BoxProps,
     HomeIcon,
     ListItemIcon,
+    ListItemIconProps,
     ListItemText,
+    ListItemTextProps,
     MenuItem,
+    MenuItemProps,
     MenuList,
     pxToRem,
 } from "@granity/ui";
@@ -15,6 +18,9 @@ type SideBarStyles = {
     wrapper?: BoxProps;
     logoWrapper?: BoxProps;
     logo?: LogoStyles;
+    menuItem?: MenuItemProps;
+    listItemIcon?: ListItemIconProps;
+    listItemText?: ListItemTextProps;
 };
 
 const styles: SideBarStyles = {
@@ -37,6 +43,24 @@ const styles: SideBarStyles = {
             },
         },
     },
+    menuItem: {
+        sx: {
+            paddingLeft: pxToRem(9),
+            paddingRight: pxToRem(9),
+            "&:not(:last-of-type)": {
+                marginBottom: pxToRem(34),
+            },
+        },
+    },
+    listItemIcon: {},
+    listItemText: {
+        primaryTypographyProps: {
+            sx: {
+                fontSize: pxToRem(16),
+                fontWeight: "bold",
+            },
+        },
+    },
 };
 
 const SideBar = () => {
@@ -47,30 +71,14 @@ const SideBar = () => {
             </Box>
 
             <MenuList>
-                <MenuItem>
-                    <ListItemIcon>
-                        <HomeIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Home</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <HomeIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Home</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <HomeIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Home</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <HomeIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Home</ListItemText>
-                </MenuItem>
+                {[0, 1, 2].map((x) => (
+                    <MenuItem key={x} {...styles.menuItem}>
+                        <ListItemIcon {...styles.listItemIcon}>
+                            <HomeIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText {...styles.listItemText}>Home</ListItemText>
+                    </MenuItem>
+                ))}
             </MenuList>
         </Box>
     );
