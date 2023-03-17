@@ -12,7 +12,7 @@ export interface FeaturesState {} // This interface make sure module augmentatio
 
 // --- Engine Configs --- //
 
-export type EngineMainMenuItem = {
+export type EditorMainMenuItem = {
     text: string;
     onClick: () => void;
     icon?: ReactNode;
@@ -21,7 +21,7 @@ export type EngineMainMenuItem = {
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
     keyboardMappings?: KeyboardKeys;
-    mainMenu: EngineMainMenuItem[];
+    editorMainMenu?: EditorMainMenuItem[];
     onSave?: (scenes: ScenesDictionary | null) => Promise<{
         status: boolean;
         message: string;

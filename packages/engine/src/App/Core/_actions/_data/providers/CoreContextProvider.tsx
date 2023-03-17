@@ -7,17 +7,17 @@ import { EngineConfig, KeyboardKeys } from "../../coreTypes";
 export type CoreContextModel = {
     reducer: [CoreReducerState, Dispatch<CoreReducerAction>];
     keyboardMappings: KeyboardKeys;
-    mainMenu: EngineConfig["mainMenu"];
+    editorMainMenu: EngineConfig["editorMainMenu"];
     setKeyboardMappings: (() => void) | Dispatch<SetStateAction<KeyboardKeys>>;
-    setMainMenu: (() => void) | Dispatch<SetStateAction<EngineConfig["mainMenu"]>>;
+    setEditorMainMenu: (() => void) | Dispatch<SetStateAction<EngineConfig["editorMainMenu"]>>;
 };
 
 export const CoreContext = createContext<CoreContextModel>({
     reducer: [{ onSave: () => {} }, () => {}],
     keyboardMappings: defaultKeyboardMappings,
-    mainMenu: [],
+    editorMainMenu: [],
     setKeyboardMappings: () => {},
-    setMainMenu: () => {},
+    setEditorMainMenu: () => {},
 });
 
 export enum CoreAction {
@@ -46,14 +46,14 @@ type Props = HasChildren;
 const CoreContextProvider: FC<Props> = ({ children }) => {
     const reducer = useReducer(coreReducer, { onSave: () => {} });
     const [keyboardMappings, setKeyboardMappings] = useState<KeyboardKeys>(defaultKeyboardMappings);
-    const [mainMenu, setMainMenu] = useState<EngineConfig["mainMenu"]>([]);
+    const [editorMainMenu, setEditorMainMenu] = useState<EngineConfig["editorMainMenu"]>([]);
 
     const providerValue: CoreContextModel = {
         reducer,
         keyboardMappings,
-        mainMenu,
+        editorMainMenu,
         setKeyboardMappings,
-        setMainMenu,
+        setEditorMainMenu,
     };
 
     return <CoreContext.Provider value={providerValue}>{children}</CoreContext.Provider>;

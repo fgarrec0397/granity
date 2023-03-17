@@ -17,7 +17,7 @@ importWidgetsModules(require.context("../../../packages/widgets/src/Widgets", tr
 
 export const granityConfig: EngineConfig = {
     widgetsModules,
-    mainMenu: [
+    editorMainMenu: [
         {
             text: "Home",
             onClick: () => (window.location.href = "/"),

@@ -5,6 +5,7 @@ const nextConfig = {
     experimental: {
         appDir: true,
         transpilePackages: [
+            "@mui/material",
             "@granity/engine",
             "@granity/eslint-config",
             "@granity/helpers",

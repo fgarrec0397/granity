@@ -27,8 +27,8 @@ export default (config?: EngineConfig) => {
     }, [config?.keyboardMappings, initKeyboardMappings]);
 
     useEffect(() => {
-        if (config?.mainMenu) {
-            initMainMenu(config.mainMenu);
+        if (config?.editorMainMenu) {
+            initMainMenu(config.editorMainMenu);
         }
-    }, [config?.mainMenu, initKeyboardMappings, initMainMenu]);
+    }, [config?.editorMainMenu, initKeyboardMappings, initMainMenu]);
 };

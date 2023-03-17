@@ -1,7 +1,7 @@
 "use client";
 import { GranityEngine, useScenes } from "@granity/engine";
 import { useQuery } from "@granity/helpers";
-import { useSnackbar } from "@granity/ui";
+import { Box, useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
 
 const getScenes = async () => {
@@ -56,9 +56,20 @@ const EditorPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status]);
 
-    return <GranityEngine />;
-
-    // return <></>;
+    return (
+        <Box
+            sx={{
+                "& > div:first-child": {
+                    minHeight: "100vh",
+                    "& > div": {
+                        minHeight: "100vh",
+                    },
+                },
+            }}
+        >
+            <GranityEngine />
+        </Box>
+    );
 };
 
 export default EditorPage;

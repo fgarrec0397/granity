@@ -9,8 +9,8 @@ export default () => {
         reducer: [state, dispatch],
         keyboardMappings,
         setKeyboardMappings,
-        mainMenu,
-        setMainMenu,
+        editorMainMenu,
+        setEditorMainMenu,
     } = useCoreContext();
 
     const updateOnSave = useCallback(
@@ -30,11 +30,11 @@ export default () => {
         [setKeyboardMappings]
     );
 
-    const updateMainMenu = useCallback(
-        (newMainMenu: EngineConfig["mainMenu"]) => {
-            setMainMenu(newMainMenu);
+    const updateEditorMainMenu = useCallback(
+        (newEditorMainMenu: EngineConfig["editorMainMenu"]) => {
+            setEditorMainMenu(newEditorMainMenu);
         },
-        [setMainMenu]
+        [setEditorMainMenu]
     );
 
     return {
@@ -42,7 +42,7 @@ export default () => {
         updateOnSave,
         updateKeyboardMappings,
         keyboardMappings,
-        updateMainMenu,
-        mainMenu,
+        updateEditorMainMenu,
+        editorMainMenu,
     };
 };

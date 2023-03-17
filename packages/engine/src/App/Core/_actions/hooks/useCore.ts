@@ -13,8 +13,8 @@ export default () => {
         updateOnSave,
         updateKeyboardMappings,
         keyboardMappings,
-        mainMenu,
-        updateMainMenu,
+        editorMainMenu,
+        updateEditorMainMenu,
     } = useCoreService();
 
     const onCorePointerMissed = useCallback(
@@ -46,10 +46,10 @@ export default () => {
     );
 
     const initMainMenu = useCallback(
-        (newMainMenu: EngineConfig["mainMenu"]) => {
-            updateMainMenu(newMainMenu);
+        (newEditorMainMenu: EngineConfig["editorMainMenu"]) => {
+            updateEditorMainMenu(newEditorMainMenu);
         },
-        [updateMainMenu]
+        [updateEditorMainMenu]
     );
 
     return {
@@ -59,6 +59,6 @@ export default () => {
         initOnSave,
         initKeyboardMappings,
         initMainMenu,
-        mainMenu,
+        editorMainMenu,
     };
 };

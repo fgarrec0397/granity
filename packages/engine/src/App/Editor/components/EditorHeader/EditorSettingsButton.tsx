@@ -3,9 +3,9 @@ import { AccountMenu, SettingsIcon } from "@granity/ui";
 import { FC } from "react";
 
 const EditorSettingsButton: FC = () => {
-    const { mainMenu } = useCore();
+    const { editorMainMenu } = useCore();
 
-    if (!mainMenu.length) {
+    if (!editorMainMenu?.length) {
         return null;
     }
 
@@ -14,7 +14,7 @@ const EditorSettingsButton: FC = () => {
             title="Editor settings"
             id="editor-menu"
             icon={<SettingsIcon />}
-            menuItems={mainMenu}
+            menuItems={editorMainMenu}
         />
     );
 };

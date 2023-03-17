@@ -1,4 +1,4 @@
-import { IconButton, Menu, MenuItem, PaperProps, Tooltip } from "@granity-ui/Components";
+import { IconButton, Menu, MenuItem, PaperProps, Tooltip } from "@granity/ui";
 import { FC, useState } from "react";
 
 export type CommonMenuList = {
