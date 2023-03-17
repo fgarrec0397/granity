@@ -12,7 +12,7 @@
   "scripts": {
     "audit": "turbo run audit",
     "audit:fix": "turbo run audit:fix",
-    "build": "turbo run build --concurrency=1",
+    "build": "npm run patch && turbo run build --concurrency=1",
     "dev": "turbo run dev",
     "test": "turbo run test --concurrency=1",
     "test:coverage": "turbo run test:coverage",
@@ -20,6 +20,7 @@
     "lint": "turbo run lint",
     "format": "turbo run format",
     "prepare": "husky install",
+    "patch": "patch-package",
     "release": "standard-version",
     "release:patch": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
@@ -36,6 +37,7 @@
     "turbo": "^1.7.4"
   },
   "dependencies": {
+    "patch-package": "^6.5.1",
     "workspaces": "^0.1.0"
   },
   "workspaces": [
