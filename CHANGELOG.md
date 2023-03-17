@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/fgarrec0397/granity/compare/v0.3.1...v0.4.0) (2023-03-17)
+
+
+### Features
+
+* global layout WIP ([a7b1704](https://github.com/fgarrec0397/granity/commits/a7b1704d65304e38ce917e69b5d049571a563772))
+* login page styling done ([d8a9a65](https://github.com/fgarrec0397/granity/commits/d8a9a65bb6de197038a16dc289fac7f9edcde2ef))
+* nextjs installed in temp admin-dashboard ([11c60fd](https://github.com/fgarrec0397/granity/commits/11c60fdad43f479bb2ae53d437dc47b3764faa26))
+* styling started ([ddeb326](https://github.com/fgarrec0397/granity/commits/ddeb326bda890008e151958c16194250d7c095ef))
+* **WIP:** adding engine to dashboard ([fdc0239](https://github.com/fgarrec0397/granity/commits/fdc02396506ba1b35c585e2429709642a6870702))
+* **WIP:** nextjs installed + auth back-end ([6914799](https://github.com/fgarrec0397/granity/commits/691479983ea6dfbbd15619d75e7a8bb612d6bebb))
+
+
+### Bug Fixes
+
+* [@mui](https://github.com/mui) imports / refactor: removed tailwind ([799ca57](https://github.com/fgarrec0397/granity/commits/799ca57601476712d652e52cad906f86337d0e60))
+* account menu in editor ([39b87eb](https://github.com/fgarrec0397/granity/commits/39b87eb17281cd940ad24bf4933e1b569d863999))
+* account menu in editor + mainMenu config ([4299678](https://github.com/fgarrec0397/granity/commits/4299678ae65da4d6257e4b459ea629417127d465))
+* api issues / feat(WIP): create account, login process ([13973ed](https://github.com/fgarrec0397/granity/commits/13973ed86cadb223be9fb40416696c66100d5a60))
+* build ([fb22072](https://github.com/fgarrec0397/granity/commits/fb22072a7ddc5e9fb9c58adcb8dab736233813ce))
+* custom colors + Vector3Input imports ([5a4935d](https://github.com/fgarrec0397/granity/commits/5a4935d19aa8b1bb8832866a95d5a5a649b0e34c))
+* **dashboard:** build ([ccaea1f](https://github.com/fgarrec0397/granity/commits/ccaea1f32cb598f3dfff140a04ee5d8320cd5829))
+* import widgets + load scene ([a53d349](https://github.com/fgarrec0397/granity/commits/a53d3493cc9e3fd9bb932a791fa22cc3244b61e9))
+* imports + missing code ([30eba96](https://github.com/fgarrec0397/granity/commits/30eba9603cd586872b65d32a5c365df7eac38586))
+* login ([1160d11](https://github.com/fgarrec0397/granity/commits/1160d118c54b59c566d5576631a7ca9af91102ab))
+* redirect + loading state ([c9c2b80](https://github.com/fgarrec0397/granity/commits/c9c2b80fc4c8a08ad23942e51f74de93abfc06bd))
+* sidebar + editor header ([d958696](https://github.com/fgarrec0397/granity/commits/d95869631b65f32499faa1ca6ab3af559ee1e38e))
+* slow nextjs build ([31e0420](https://github.com/fgarrec0397/granity/commits/31e0420272ef19203a4be2352c7b23dddc09e56b))
+* **WIP:** create account working ([63030c5](https://github.com/fgarrec0397/granity/commits/63030c57318a9307fb1ed710435f0fd086f1847e))
+
+
+### Refactor
+
+* accountMenu component ([35bbb70](https://github.com/fgarrec0397/granity/commits/35bbb70eccd42c16cd3ddac614de5706a806fed2))
+* changed [@granity-engine](https://github.com/granity-engine) to @granity/engine to fix unresolved issues ([974021f](https://github.com/fgarrec0397/granity/commits/974021fb18e9cdbe80567b8ebd109184aa490491))
+* **dashboard:** root layout component + providersBuilder ([00970c3](https://github.com/fgarrec0397/granity/commits/00970c32685fcab343c6a7d724e3e51345ffbdc5))
+* global layout ([7d37ad0](https://github.com/fgarrec0397/granity/commits/7d37ad04a574d3dda8a75f9d462c88f4ffe54dbd))
+* start styling ([2517c12](https://github.com/fgarrec0397/granity/commits/2517c12c8707d57e673ab097fbd672661af05ec0))
+
 ### [0.3.1](https://github.com/fgarrec0397/granity/compare/v0.3.0...v0.3.1) (2023-03-15)
 
 
