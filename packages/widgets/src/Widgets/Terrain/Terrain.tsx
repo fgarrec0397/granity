@@ -5,11 +5,16 @@ import {
     useGameUpdate,
     WidgetType,
 } from "@granity/engine";
-import { RapierRigidBody } from "@react-three/rapier";
-import { FC, useRef } from "react";
+// import { RapierRigidBody } from "@react-three/rapier";
+import { FC, lazy, useRef } from "react";
 import { Vector3 } from "three";
 
-import GameRigidbody from "../../Physics/components/GameRigidbody";
+// const GameRigidbody = lazy(() => import("@granity/physics"));
+const GameRigidbody = lazy(() =>
+    import("@granity/physics").then((module) => {
+        return { default: module.RigidBody };
+    })
+);
 
 export type TerrainProps = EditableWidget & {
     translateXOnPlay: boolean;
@@ -19,7 +24,7 @@ export type TerrainProps = EditableWidget & {
 type OwnProps = TerrainProps;
 
 const Terrain: FC<OwnProps> = ({ translateXOnPlay, color }) => {
-    const ref = useRef<RapierRigidBody>(null);
+    const ref = useRef<any>(null);
 
     useGameUpdate(() => {
         if (ref.current && translateXOnPlay) {

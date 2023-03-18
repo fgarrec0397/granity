@@ -1,9 +1,14 @@
 import { createWidget, EditableWidget, FieldType, WidgetType } from "@granity/engine";
 import { unSerializeVector3 } from "@granity/helpers";
-import { RapierRigidBody } from "@react-three/rapier";
-import { FC, useEffect, useRef } from "react";
+// import { RapierRigidBody } from "@react-three/rapier";
+import { FC, lazy, useEffect, useRef } from "react";
 
-import GameRigidbody from "../../Physics/components/GameRigidbody";
+// import GameRigidbody from "../../Physics/components/GameRigidbody";
+const GameRigidbody = lazy(() =>
+    import("@granity/physics").then((module) => {
+        return { default: module.RigidBody };
+    })
+);
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
@@ -15,7 +20,7 @@ type OwnProps = GeometryFormsProps;
 
 const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale, position }) => {
     const GeometryComponent = shape;
-    const colliderRef = useRef<RapierRigidBody>(null);
+    const colliderRef = useRef<any>(null);
 
     useEffect(() => {
         if (colliderRef.current) {

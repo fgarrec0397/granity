@@ -4,6 +4,13 @@ import { widgetsModules } from "@granity/widgets";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
+// const widgetsModules = import("@granity/widgets")
+//     .then((module) => {
+//         return { default: module.widgetsModules };
+//     })
+//     .finally(() => {
+//         return [];
+//     }) as any;
 import App from "./App";
 
 const container = document.getElementById("root") as Element | DocumentFragment;

@@ -1,7 +1,8 @@
 import { useEditor } from "@granity/engine";
 import { HasChildren } from "@granity/helpers";
-import { RapierRigidBody, RigidBody, RigidBodyProps } from "@react-three/rapier";
 import { forwardRef } from "react";
+
+import { RapierRigidBody, RigidBody, RigidBodyProps } from "../lib";
 
 type Props = RigidBodyProps &
     HasChildren & {

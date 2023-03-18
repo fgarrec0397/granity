@@ -1,6 +1,7 @@
-import Core from "@engine/App/Core/Core";
 import { CssBaseline, GlobalStyles } from "@granity/ui";
-import { FC } from "react";
+import { FC, lazy, Suspense } from "react";
+
+const Core = lazy(() => import("@engine/App/Core/Core"));
 
 export const GranityEngine: FC = () => (
     <>
@@ -12,6 +13,8 @@ export const GranityEngine: FC = () => (
                 },
             }}
         />
-        <Core />
+        <Suspense fallback={<>Loading...</>}>
+            <Core />
+        </Suspense>
     </>
 );
