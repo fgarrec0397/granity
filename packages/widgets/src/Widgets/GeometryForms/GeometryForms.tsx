@@ -1,14 +1,5 @@
 import { createWidget, EditableWidget, FieldType, WidgetType } from "@granity/engine";
-import { unSerializeVector3 } from "@granity/helpers";
-// import { RapierRigidBody } from "@react-three/rapier";
-import { FC, lazy, useEffect, useRef } from "react";
-
-// import GameRigidbody from "../../Physics/components/GameRigidbody";
-const GameRigidbody = lazy(() =>
-    import("@granity/physics").then((module) => {
-        return { default: module.RigidBody };
-    })
-);
+import { FC } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
@@ -18,23 +9,14 @@ export interface GeometryFormsProps extends EditableWidget {
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, gravityScale, position }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color }) => {
     const GeometryComponent = shape;
-    const colliderRef = useRef<any>(null);
-
-    useEffect(() => {
-        if (colliderRef.current) {
-            colliderRef.current.setTranslation(unSerializeVector3(position), true);
-        }
-    }, [position]);
 
     return (
-        <GameRigidbody ref={colliderRef} gravityScale={gravityScale}>
-            <mesh position={[0, 0, 0]}>
-                <GeometryComponent />
-                <meshStandardMaterial color={color} />
-            </mesh>
-        </GameRigidbody>
+        <mesh position={[0, 0, 0]}>
+            <GeometryComponent />
+            <meshStandardMaterial color={color} />
+        </mesh>
     );
 };
 
@@ -49,12 +31,6 @@ export const widget = createWidget({
             displayName: "Color",
             fieldType: FieldType.Text,
             defaultValue: "white",
-        },
-        {
-            name: "gravityScale",
-            displayName: "Gravity Scale",
-            fieldType: FieldType.Number,
-            defaultValue: 1,
         },
         {
             name: "shape",

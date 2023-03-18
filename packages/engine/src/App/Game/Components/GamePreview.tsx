@@ -1,6 +1,5 @@
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import Widgets from "@engine/App/Widgets/Widgets";
-import { Physics } from "@react-three/rapier";
 import { FC } from "react";
 
 const Game: FC = () => {
@@ -9,9 +8,7 @@ const Game: FC = () => {
     // TODO Implement a setting to activate the Debug through the editor
     return (
         <>
-            <Physics>
-                <Widgets widgetsIds={widgetsObjectsIds} />
-            </Physics>
+            <Widgets widgetsIds={widgetsObjectsIds} />
         </>
     );
 };

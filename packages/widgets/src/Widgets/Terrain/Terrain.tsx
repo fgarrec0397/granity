@@ -1,20 +1,5 @@
-import {
-    createWidget,
-    EditableWidget,
-    FieldType,
-    useGameUpdate,
-    WidgetType,
-} from "@granity/engine";
-// import { RapierRigidBody } from "@react-three/rapier";
-import { FC, lazy, useRef } from "react";
-import { Vector3 } from "three";
-
-// const GameRigidbody = lazy(() => import("@granity/physics"));
-const GameRigidbody = lazy(() =>
-    import("@granity/physics").then((module) => {
-        return { default: module.RigidBody };
-    })
-);
+import { createWidget, EditableWidget, FieldType, WidgetType } from "@granity/engine";
+import { FC } from "react";
 
 export type TerrainProps = EditableWidget & {
     translateXOnPlay: boolean;
@@ -23,29 +8,12 @@ export type TerrainProps = EditableWidget & {
 
 type OwnProps = TerrainProps;
 
-const Terrain: FC<OwnProps> = ({ translateXOnPlay, color }) => {
-    const ref = useRef<any>(null);
-
-    useGameUpdate(() => {
-        if (ref.current && translateXOnPlay) {
-            ref.current.setTranslation(
-                new Vector3(
-                    ref.current.translation().x + 0.01,
-                    ref.current.translation().y,
-                    ref.current.translation().z
-                ),
-                true
-            );
-        }
-    });
-
+const Terrain: FC<OwnProps> = ({ color }) => {
     return (
-        <GameRigidbody ref={ref} lockRotations>
-            <mesh>
-                <planeBufferGeometry />
-                <meshStandardMaterial color={color} />
-            </mesh>
-        </GameRigidbody>
+        <mesh>
+            <planeBufferGeometry />
+            <meshStandardMaterial color={color} />
+        </mesh>
     );
 };
 
@@ -55,12 +23,6 @@ export const widget = createWidget({
     type: WidgetType.GameObject,
     name: "Terrain",
     options: [
-        {
-            name: "translateXOnPlay",
-            displayName: "Translate X on play",
-            fieldType: FieldType.Checkbox,
-            defaultValue: false,
-        },
         {
             name: "color",
             displayName: "Color",
