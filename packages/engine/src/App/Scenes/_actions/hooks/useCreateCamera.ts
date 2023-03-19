@@ -1,6 +1,5 @@
-import { uidGenerator, useForwardedRef } from "@granity/helpers";
+import { uidGenerator, useForwardedRef, Vector3Array } from "@granity/helpers";
 import { useThree } from "@react-three/fiber";
-import { Vector3Array } from "@react-three/rapier";
 import { ForwardedRef, MutableRefObject, useEffect } from "react";
 import { PerspectiveCamera } from "three";
 

@@ -1,5 +1,4 @@
-import { Dictionary, UnionOfProperties } from "@granity/helpers";
-import { Vector3Array } from "@react-three/rapier";
+import { Dictionary, UnionOfProperties, Vector3Array } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
 

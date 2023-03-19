@@ -4,19 +4,12 @@ import Editor from "@engine/App/Editor/Editor";
 import { GamePreview } from "@engine/App/Game";
 import { FC, Suspense } from "react";
 
-import Lights from "./Lights";
-
 const Scene: FC = () => {
     const { isEditor } = useEditor();
 
     useHandleEditor();
 
-    return (
-        <Suspense>
-            <Lights />
-            {isEditor ? <Editor.Editor /> : <GamePreview.Game />}
-        </Suspense>
-    );
+    return <Suspense>{isEditor ? <Editor.Editor /> : <GamePreview.Game />}</Suspense>;
 };
 
 export default Scene;
