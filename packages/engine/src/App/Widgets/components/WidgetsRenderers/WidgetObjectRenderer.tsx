@@ -2,9 +2,9 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
 import getWidgetName from "@engine/App/Widgets/_actions/utilities/getWidgetName";
 import { WidgetObjectsDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { Object3D } from "@granity/three";
 import { ThreeEvent } from "@react-three/fiber";
 import { FC, MutableRefObject, useRef, useState } from "react";
-import { Object3D } from "three";
 
 import { useGetMeshByWidget } from "../../_actions/hooks";
 import useWidgets from "../../_actions/hooks/useWidgets";

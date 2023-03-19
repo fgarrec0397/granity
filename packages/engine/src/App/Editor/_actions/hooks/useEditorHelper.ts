@@ -1,6 +1,6 @@
+import { Object3D } from "@granity/three";
 import { useHelper } from "@react-three/drei";
 import { MutableRefObject } from "react";
-import { Object3D } from "three";
 
 import useEditor from "./useEditor";
 

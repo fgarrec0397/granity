@@ -12,7 +12,7 @@ import {
     PolarGridHelper,
     SkeletonHelper,
     SpotLightHelper,
-} from "three";
+} from "@granity/three";
 
 import { helpersTypes } from "../widgetsConstants";
 import { HelperTypeValue } from "../widgetsTypes";

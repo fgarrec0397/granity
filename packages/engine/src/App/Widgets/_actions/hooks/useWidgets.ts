@@ -1,7 +1,7 @@
 import { uidGenerator } from "@granity/helpers";
+import { Object3D } from "@granity/three";
 import { useSnackbar } from "@granity/ui";
 import { useCallback } from "react";
-import { Object3D } from "three";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
 import { UpdateWidgetParameter } from "../_data/widgetsServiceParameters";

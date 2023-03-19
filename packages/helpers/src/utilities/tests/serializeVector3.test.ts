@@ -1,4 +1,4 @@
-import { Vector3 } from "three/src/Three";
+import { Vector3 } from "@granity/three/src/Three";
 
 import serializeVector3 from "../serializeVector3";
 

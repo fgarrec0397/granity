@@ -1,0 +1,16 @@
+{
+  "name": "@granity/three",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "prettier": "@granity/prettier-config",
+  "dependencies": {
+    "@granity/eslint-config": "*",
+    "@granity/prettier-config": "*",
+    "three": "^0.150.1",
+    "three-stdlib": "^2.21.8"
+  },
+  "devDependencies": {
+    "@types/three": "^0.149.0"
+  }
+}

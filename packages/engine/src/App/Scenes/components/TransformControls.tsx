@@ -2,10 +2,9 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useGetWidgets from "@engine/App/Widgets/_actions/hooks/useGetMeshByWidget";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { debounce, isEqual, usePrevious } from "@granity/helpers";
+import { Object3D, TransformControls } from "@granity/three";
 import { useThree } from "@react-three/fiber";
 import { FC, useEffect, useMemo, useState } from "react";
-import { Object3D } from "three";
-import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 
 const TransformControlsComponent: FC = () => {
     const { camera, scene, gl } = useThree();

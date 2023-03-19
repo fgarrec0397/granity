@@ -7,8 +7,8 @@ import {
     useGameUpdate,
     WidgetType,
 } from "@granity/engine";
+import { PerspectiveCamera } from "@granity/three";
 import { FC, Ref, useEffect } from "react";
-import { PerspectiveCamera } from "three";
 
 export type CamerasProps = EditableWidget & {
     translateXOnPlay: boolean;
