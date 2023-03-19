@@ -2,11 +2,6 @@
   "extends": "@granity/typescript-config/base.json",
   "compilerOptions": {
     "baseUrl": "./src",
-    "paths": {
-        "@engine/*": ["./*"],
-        "@ui/*": ["../../ui/src/*"],
-    },
-    "types": ["vite/client", "vite-plugin-svgr/client", "vitest/globals"],
   },
   "include": [
     "./src"

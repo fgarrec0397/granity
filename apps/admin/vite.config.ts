@@ -7,6 +7,9 @@ import svgrPlugin from "vite-plugin-svgr";
 export default defineConfig({
     build: {
         outDir: "build",
+        rollupOptions: {
+            treeshake: "smallest",
+        },
     },
     plugins: [
         react(),

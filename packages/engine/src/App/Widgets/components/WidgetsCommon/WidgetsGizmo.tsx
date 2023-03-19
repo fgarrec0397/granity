@@ -1,5 +1,5 @@
+import { Html } from "@granity/three/src/drei";
 import { Chip } from "@granity/ui";
-import { Html } from "@react-three/drei";
 import { FC } from "react";
 
 type WidgetsGizmoProps = {

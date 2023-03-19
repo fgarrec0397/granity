@@ -1,4 +1,4 @@
-import { useThree } from "@react-three/fiber";
+import { useThree } from "@granity/three/src/fiber";
 
 import getWidgetName from "../utilities/getWidgetName";
 import { WidgetObjectsDictionaryItem } from "../widgetsTypes";

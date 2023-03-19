@@ -14,11 +14,9 @@
     "@granity/eslint-config": "*",
     "@granity/ui": "*",
     "@granity/prettier-config": "*",
-    "@granity/physics": "*",
+    "@granity/three": "*",
     "@granity/typescript-config": "*",
     "@reduxjs/toolkit": "^1.9.3",
-    "@react-three/drei": "9.57.0",
-    "@react-three/fiber": "8.11.5",
     "@types/react": "^18.0.28",
     "@types/three": "^0.149.0",
     "react-redux": "^8.0.5"

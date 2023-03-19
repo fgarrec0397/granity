@@ -21,7 +21,9 @@ const Scenes: FC = () => {
 
     useHandleEditor();
 
-    return <Suspense>{isEditor ? <Editor /> : <GamePreview />}</Suspense>;
+    return (
+        <Suspense fallback={<>is loading...</>}>{isEditor ? <Editor /> : <GamePreview />}</Suspense>
+    );
 };
 
 export default Scenes;

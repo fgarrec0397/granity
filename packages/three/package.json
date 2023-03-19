@@ -7,8 +7,9 @@
   "dependencies": {
     "@granity/eslint-config": "*",
     "@granity/prettier-config": "*",
-    "three": "^0.150.1",
-    "three-stdlib": "^2.21.8"
+    "@react-three/drei": "9.57.3",
+    "@react-three/fiber": "8.12",
+    "three": "^0.150.1"
   },
   "devDependencies": {
     "@types/three": "^0.149.0"

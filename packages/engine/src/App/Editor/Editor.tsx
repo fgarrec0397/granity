@@ -1,7 +1,7 @@
 import SceneDefaultCamera from "@engine/App/Scenes/components/SceneDefaultCamera";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import Widgets from "@engine/App/Widgets/Widgets";
-import { Grid, Select } from "@react-three/drei";
+import { Grid, Select } from "@granity/three/src/drei";
 import { FC } from "react";
 
 import { useEditor } from "./_actions/hooks";
