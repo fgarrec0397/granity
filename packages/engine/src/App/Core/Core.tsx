@@ -1,12 +1,11 @@
-import { FC, lazy, Suspense } from "react";
+import { FC } from "react";
 import { ReactReduxContext } from "react-redux";
 
 import { HistoryDictionaryContext } from "../Editor/_actions/_data/providers/HistoryContextProvider";
 import { CamerasContext } from "../Scenes/_actions/_data/providers/CamerasContextProvider";
+import UI from "../UI/UI";
 import { WidgetsContext, WidgetsModulesContext } from "../Widgets/_actions/_data/providers";
-
-const CoreCanvas = lazy(() => import("./Components/CoreCanvas"));
-const UI = lazy(() => import("../UI/UI"));
+import CoreCanvas from "./Components/CoreCanvas";
 
 const Core: FC = () => {
     const contexts = [
@@ -18,10 +17,10 @@ const Core: FC = () => {
     ];
 
     return (
-        <Suspense fallback={<>loading...</>}>
+        <>
             <CoreCanvas contexts={contexts} />
             <UI />
-        </Suspense>
+        </>
     );
 };
 
