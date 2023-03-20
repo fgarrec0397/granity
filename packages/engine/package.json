@@ -54,5 +54,6 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/use-sync-external-store": "^0.0.3",
     "npm-check-updates": "^16.7.10"
-  }
+  },
+  "sideEffects": "false"
 }
