@@ -1,5 +1,5 @@
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
-import { RenderCallback, useFrame } from "@granity/three/src/fiber";
+import { RenderCallback, useFrame } from "@granity/three/fiber";
 
 /**
  * This hook is executed on each frame when the game is running.

@@ -1,6 +1,6 @@
 import { uidGenerator, useForwardedRef, Vector3Array } from "@granity/helpers";
 import { PerspectiveCamera } from "@granity/three";
-import { useThree } from "@granity/three/src/fiber";
+import { useThree } from "@granity/three/fiber";
 import { ForwardedRef, MutableRefObject, useEffect } from "react";
 
 import { SceneCamera, SceneCameraRef } from "../scenesTypes";

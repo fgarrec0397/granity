@@ -1,4 +1,4 @@
-import { Html } from "@granity/three/src/drei";
+import { Html } from "@granity/three/drei";
 import { Chip } from "@granity/ui";
 import { FC } from "react";
 

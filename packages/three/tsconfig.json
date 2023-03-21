@@ -1,9 +1,8 @@
 {
   "extends": "@granity/typescript-config/base.json",
-  "compilerOptions": {
-    "baseUrl": "./src",
-  },
   "include": [
-    "./src"
+    "index.ts",
+    "drei",
+    "fiber",
   ]
 }

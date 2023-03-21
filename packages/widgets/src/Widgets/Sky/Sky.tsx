@@ -1,5 +1,5 @@
 import { createWidget, WidgetType } from "@granity/engine";
-import { Sky as SkyComponent } from "@granity/three/src/drei";
+import { Sky as SkyComponent } from "@granity/three/drei";
 import { FC } from "react";
 
 const Sky: FC = () => {

@@ -1,4 +1,4 @@
-import { useThree } from "@granity/three/src/fiber";
+import { useThree } from "@granity/three/fiber";
 
 import getWidgetName from "../utilities/getWidgetName";
 import { WidgetObjectsDictionaryItem } from "../widgetsTypes";

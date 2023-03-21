@@ -3,7 +3,7 @@ import useGetWidgets from "@engine/App/Widgets/_actions/hooks/useGetMeshByWidget
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { debounce, isEqual, usePrevious } from "@granity/helpers";
 import { Object3D, TransformControls } from "@granity/three";
-import { useThree } from "@granity/three/src/fiber";
+import { useThree } from "@granity/three/fiber";
 import { FC, useEffect, useMemo, useState } from "react";
 
 const TransformControlsComponent: FC = () => {

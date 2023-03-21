@@ -2,7 +2,7 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useCameras from "@engine/App/Scenes/_actions/hooks/useCameras";
 import { uidGenerator } from "@granity/helpers";
 import { PerspectiveCamera as PerspectiveCameraType, Vector3 } from "@granity/three";
-import { OrbitControls, PerspectiveCamera } from "@granity/three/src/drei";
+import { OrbitControls, PerspectiveCamera } from "@granity/three/drei";
 import { FC, useEffect, useRef } from "react";
 
 import { DefaultCameras } from "../_actions/scenesConstants";

@@ -1,5 +1,5 @@
 import { Vector3Array } from "@granity/helpers";
-import { useThree } from "@granity/three/src/fiber";
+import { useThree } from "@granity/three/fiber";
 import { useCallback } from "react";
 
 import useCamerasService from "../_data/hooks/useCamerasService";

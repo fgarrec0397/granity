@@ -1,1 +1,1 @@
-export * from "notistack";
+export { useSnackbar } from "notistack";

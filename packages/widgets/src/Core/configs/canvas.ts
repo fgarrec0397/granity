@@ -1,4 +1,4 @@
-import { Props as CanvasProps } from "@granity/three/src/fiber";
+import { Props as CanvasProps } from "@granity/three/fiber";
 
 /**
  * Props applied to the canvas

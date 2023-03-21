@@ -3,7 +3,7 @@ import {
     WidgetObjectInfoDictionary,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary, Vector3Array } from "@granity/helpers";
-import { Camera } from "@granity/three/src/fiber";
+import { Camera } from "@granity/three/fiber";
 import { MutableRefObject } from "react";
 
 // --------------- Cameras types --------------- //
