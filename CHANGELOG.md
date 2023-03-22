@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/fgarrec0397/granity/compare/v0.4.1...v0.4.2) (2023-03-22)
+
+
+### Bug Fixes
+
+* build ([ef5afff](https://github.com/fgarrec0397/granity/commits/ef5afffd01f4dd13342add29ce327b496d014e36))
+
+
+### Refactor
+
+* flattening three packages imports ([faf0df8](https://github.com/fgarrec0397/granity/commits/faf0df8b475d8a72a1fbc0a1251d20e1d327261b))
+* physics removed ([2d0e974](https://github.com/fgarrec0397/granity/commits/2d0e9744f690dec7987871841e42826992e2046b))
+* react-three-fuber + drei extracted ([be66b0b](https://github.com/fgarrec0397/granity/commits/be66b0b2c5bf0c161007495fc618cf8fd2c0ff23))
+* removed old admin app + lower case ui folders names ([d9047ca](https://github.com/fgarrec0397/granity/commits/d9047cac2e6e4b1d0718a139c983617afb1dbd18))
+* testing dynamic imports ([323b4c1](https://github.com/fgarrec0397/granity/commits/323b4c1c62a37b3bc60445d1c3d718026325307c))
+* threejs extracted in its own package ([3d67a50](https://github.com/fgarrec0397/granity/commits/3d67a503a169c4536a74e69b8e93fc1f8af640bc))
+
 ### [0.4.1](https://github.com/fgarrec0397/granity/compare/v0.4.0...v0.4.1) (2023-03-17)
 
 ## [0.4.0](https://github.com/fgarrec0397/granity/compare/v0.3.1...v0.4.0) (2023-03-17)
