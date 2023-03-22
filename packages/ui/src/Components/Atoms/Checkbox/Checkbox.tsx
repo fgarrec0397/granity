@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import CheckboxLib, { CheckboxProps as LibCheckboxProps } from "@mui/material/Checkbox";
-import pxToRem from "@ui/Theme/utilities/pxToRem";
+import pxToRem from "@ui/theme/utilities/pxToRem";
 import { FC } from "react";
 
 export type CheckboxProps = LibCheckboxProps;

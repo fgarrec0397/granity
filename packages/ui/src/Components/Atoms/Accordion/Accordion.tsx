@@ -7,7 +7,7 @@ import AccordionSummaryLib, {
     AccordionSummaryProps as LibAccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
-import pxToRem from "@ui/Theme/utilities/pxToRem";
+import pxToRem from "@ui/theme/utilities/pxToRem";
 import { FC } from "react";
 
 export type AccordionProps = LibAccordionProps;

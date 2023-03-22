@@ -8,7 +8,7 @@ import {
     MenuItem,
     PaperProps,
     Tooltip,
-} from "../../Atoms";
+} from "../../atoms";
 
 export type AccountMenuListModel = {
     text: string;

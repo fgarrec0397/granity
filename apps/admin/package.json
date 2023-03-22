@@ -1,63 +1,40 @@
 {
-  "name": "admin",
-  "version": "0.1.0",
-  "main": "./src/api.ts",
-  "proxy": "http://localhost:5001",
-  "scripts": {
-    "audit": "npm audit",
-    "audit:fix": "npm audit fix",
-    "dev": "vite --port 3009",
-    "build": "tsc && vite build",
-    "serve": "vite preview",
-    "lint": "eslint --ext .ts,.tsx src --fix",
-    "format": "prettier --write ./src",
-    "update:check": "ncu",
-    "update": "ncu -u"
-  },
-  "prettier": "@granity/prettier-config",
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "dependencies": {
-    "@granity/engine": "*",
-    "@granity/ui": "*",
-    "@granity/widgets": "*",
-    "@granity/eslint-config": "*",
-    "@granity/helpers": "*",
-    "@granity/prettier-config": "*",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
-    "@vitejs/plugin-react": "^3.1.0",
-    "@vitest/coverage-c8": "^0.28.5",
-    "cors": "^2.8.5",
-    "jsdom": "^21.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5",
-    "react-router-dom": "^6.8.2",
-    "react-toastify": "^9.1.1",
-    "redux": "^4.2.1",
-    "redux-thunk": "^2.4.2",
-    "typescript": "^4.9.5",
-    "vite": "^4.1.4",
-    "vite-plugin-svgr": "^2.4.0",
-    "vitest": "^0.28.5"
-  },
-  "devDependencies": {
-    "@types/node": "^18.14.2",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "@types/three": "^0.149.0",
-    "@types/use-sync-external-store": "^0.0.3",
-    "npm-check-updates": "^16.7.10"
-  }
+    "name": "admin",
+    "version": "0.1.0",
+    "private": true,
+    "proxy": "http://localhost:5000",
+    "scripts": {
+        "audit": "npm audit",
+        "audit:fix": "npm audit fix",
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "eslint --ext .ts,.tsx --fix",
+        "format": "prettier --write ./",
+        "update:check": "ncu",
+        "update": "ncu -u"
+    },
+    "prettier": "@granity/prettier-config",
+    "dependencies": {
+        "@granity/engine": "*",
+        "@granity/eslint-config": "*",
+        "@granity/helpers": "*",
+        "@granity/prettier-config": "*",
+        "@granity/typescript-config": "*",
+        "@granity/ui": "*",
+        "@granity/widgets": "*",
+        "@next/bundle-analyzer": "^13.2.4",
+        "@types/node": "18.11.9",
+        "@types/react": "18.0.25",
+        "@types/react-dom": "18.0.8",
+        "cors": "^2.8.5",
+        "eslint": "8.26.0",
+        "eslint-config-next": "^13.2.4",
+        "next": "13.0.2",
+        "next-auth": "^4.15.1",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "typescript": "4.8.4"
+    },
+    "sideEffects": false
 }

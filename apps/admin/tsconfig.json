@@ -1,33 +1,34 @@
 {
-  "extends": "./tsconfig.paths.json",
+  "extends": "@granity/typescript-config/nextjs.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": ["vite/client", "vite-plugin-svgr/client", "vitest/globals"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "checkJs": false
+    "baseUrl": ".",
+    "paths": {
+      "@engine/*": [
+        "../../packages/engine/src/*"
+      ],
+      "@ui/*": [
+        "../../packages/ui/src/*"
+      ],
+      "@widgets/*": [
+        "../../packages/widgets/src/*"
+      ]
+    },
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "./src",
-    "./vite.config.ts",
-    "./vitest.config.ts"
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types/next-auth.d.ts",
+    "next.config.js"
   ],
-  "exclude": ["node_modules"],
-  "references": [{ "path": "./tsconfig.vite.json" }]
+  "exclude": [
+    "node_modules"
+  ]
 }

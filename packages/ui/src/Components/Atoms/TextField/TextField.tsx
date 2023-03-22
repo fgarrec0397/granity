@@ -1,8 +1,8 @@
 import InputLabelLib, { InputLabelProps as LibInputLabelProps } from "@mui/material/InputLabel";
 import { css, styled } from "@mui/material/styles";
 import TextFieldLib, { TextFieldProps as LibTextFieldProps } from "@mui/material/TextField";
-import { pxToRem } from "@ui/Theme";
-import { inputStyles } from "@ui/Theme/mixins/form";
+import { pxToRem } from "@ui/theme";
+import { inputStyles } from "@ui/theme/mixins/form";
 import { FC } from "react";
 
 export type TextFieldProps = LibTextFieldProps & {

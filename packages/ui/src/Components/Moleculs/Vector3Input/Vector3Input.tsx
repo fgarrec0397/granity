@@ -6,8 +6,8 @@ import {
     TextFieldProps,
     Typography,
     TypographyProps,
-} from "@ui/Components/Atoms";
-import { pxToRem } from "@ui/Theme";
+} from "@ui/components/atoms";
+import { pxToRem } from "@ui/theme";
 import { ChangeEvent, FC } from "react";
 
 type Vector3InputStyles = {

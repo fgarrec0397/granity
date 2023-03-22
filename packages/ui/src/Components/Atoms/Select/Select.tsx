@@ -3,8 +3,8 @@ import SelectLib, {
     SelectChangeEvent as SelectChangeEventLib,
     SelectProps as LibSelectProps,
 } from "@mui/material/Select";
-import { inputStyles } from "@ui/Theme/mixins/form";
-import pxToRem from "@ui/Theme/utilities/pxToRem";
+import { inputStyles } from "@ui/theme/mixins/form";
+import pxToRem from "@ui/theme/utilities/pxToRem";
 import { FC } from "react";
 
 export type SelectProps = LibSelectProps;
