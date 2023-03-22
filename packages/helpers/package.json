@@ -35,5 +35,5 @@
     "@types/lodash": "^4.14.191",
     "npm-check-updates": "^16.7.10"
   },
-  "sideEffects": "false"
+  "sideEffects": false
 }

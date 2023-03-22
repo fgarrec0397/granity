@@ -55,5 +55,5 @@
     "@types/use-sync-external-store": "^0.0.3",
     "npm-check-updates": "^16.7.10"
   },
-  "sideEffects": "false"
+  "sideEffects": false
 }

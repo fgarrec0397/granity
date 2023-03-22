@@ -1,3 +1,3 @@
 export * from "./Components";
-export * from "./Lib";
+export * from "./lib";
 export * from "./Theme";

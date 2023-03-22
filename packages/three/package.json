@@ -2,7 +2,7 @@
   "name": "@granity/three",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/index.ts",
+  "main": "./index.ts",
   "prettier": "@granity/prettier-config",
   "dependencies": {
     "@granity/eslint-config": "*",
@@ -14,5 +14,5 @@
   "devDependencies": {
     "@types/three": "^0.149.0"
   },
-  "sideEffects": "false"
+  "sideEffects": false
 }
