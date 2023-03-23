@@ -16,6 +16,10 @@ export default (widgetModules: WidgetModules[]) => {
     };
 
     widgetModules.forEach((x) => {
+        if (!x.type) {
+            return;
+        }
+
         switch (x.type) {
             case WidgetType.GameObject:
                 filteredModules.widgetsObjectModules.push(x);

@@ -12,7 +12,9 @@ const importWidgetsModules = (requireContext: any) => {
     widgetsModules = Object.keys(modules).map((x) => (modules as any)[x].widget);
 };
 
-importWidgetsModules(require.context("../../../packages/widgets/src/Widgets", true, /\.tsx$/));
+importWidgetsModules(
+    require.context("../../../packages/widgets/src/Widgets", true, /\.widget\.tsx$/)
+);
 
 export const granityConfig: EngineConfig = {
     widgetsModules,

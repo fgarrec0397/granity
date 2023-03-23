@@ -3,6 +3,7 @@ import { FC } from "react";
 
 import widgetStarter2Reducer from "./_actions/_data/state/widgetStarter2Reducer";
 import useWidgetStarter2Init from "./_actions/hooks/useWidgetStarter2Init";
+import { Toilet } from "./Toilet";
 
 export type WidgetStarter2Props = EditableWidget;
 
@@ -15,12 +16,7 @@ const test: FeaturesState = {
 const WidgetStarter2: FC<WidgetStarter2Props> = () => {
     useWidgetStarter2Init();
 
-    return (
-        <mesh position={[0, 0, 0]}>
-            <boxGeometry />
-            <meshStandardMaterial color="pink" />
-        </mesh>
-    );
+    return <Toilet />;
 };
 
 export const widget = createWidget({

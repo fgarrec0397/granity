@@ -15,7 +15,7 @@ import { signIn } from "next-auth/react";
 import { useRef, useState } from "react";
 
 import Logo from "../../../core/components/Logo";
-import backgroundImage from "../../../public/images/login-background.svg";
+import backgroundImage from "../../../public/static/login-background.svg";
 
 type LoginPageStyles = {
     background?: BoxProps;

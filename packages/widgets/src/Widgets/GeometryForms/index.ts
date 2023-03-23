@@ -1,2 +1,2 @@
-export type { GeometryFormsProps } from "./GeometryForms";
-export { widget as default } from "./GeometryForms";
+export type { GeometryFormsProps } from "./GeometryForms.widget";
+export { widget as default } from "./GeometryForms.widget";

@@ -1,2 +1,2 @@
-export type { CamerasProps } from "./Cameras";
-export { widget as default } from "./Cameras";
+export type { CamerasProps } from "./Cameras.widget";
+export { widget as default } from "./Cameras.widget";

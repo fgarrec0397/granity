@@ -1,1 +1,1 @@
-export { widget as default } from "./Sky";
+export { widget as default } from "./Sky.widget";

@@ -47,7 +47,7 @@ export const widget = createWidget({
         {
             name: "translateXOnPlay",
             displayName: "Translate X on play",
-            fieldType: FieldType.CheckBox,
+            fieldType: FieldType.Checkbox,
             defaultValue: false,
         },
     ],

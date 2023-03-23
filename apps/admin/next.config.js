@@ -10,13 +10,15 @@ const nextConfig = {
     experimental: {
         appDir: true,
         transpilePackages: [
-            "@mui/material",
             "@granity/engine",
             "@granity/eslint-config",
             "@granity/helpers",
             "@granity/prettier-config",
+            "@granity/three",
             "@granity/ui",
             "@granity/widgets",
+            "@react-three/drei",
+            "@mui/material",
         ],
     },
     async rewrites() {
