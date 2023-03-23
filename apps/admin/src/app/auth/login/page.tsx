@@ -14,8 +14,8 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useRef, useState } from "react";
 
+import backgroundImage from "../../../../public/static/login-background.svg";
 import Logo from "../../../core/components/Logo";
-import backgroundImage from "../../../public/static/login-background.svg";
 
 type LoginPageStyles = {
     background?: BoxProps;

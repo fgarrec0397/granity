@@ -13,7 +13,7 @@ const importWidgetsModules = (requireContext: any) => {
 };
 
 importWidgetsModules(
-    require.context("../../../packages/widgets/src/Widgets", true, /\.widget\.tsx$/)
+    require.context("../../../../packages/widgets/src/Widgets", true, /\.widget\.tsx$/)
 );
 
 export const granityConfig: EngineConfig = {

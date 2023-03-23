@@ -7,7 +7,7 @@ import { useGLTF } from "@granity/three/drei";
 import { useRef } from "react";
 
 export function Toilet(props: any) {
-    const { nodes, materials } = useGLTF("/Toilet-transformed.glb") as any;
+    const { nodes, materials } = useGLTF("/assets/Toilet-transformed.glb") as any;
     return (
         <group {...props} dispose={null}>
             <mesh
@@ -32,4 +32,4 @@ export function Toilet(props: any) {
     );
 }
 
-useGLTF.preload("/Toilet-transformed.glb");
+useGLTF.preload("/assets/Toilet-transformed.glb");
