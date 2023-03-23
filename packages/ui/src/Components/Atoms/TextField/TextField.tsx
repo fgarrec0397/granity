@@ -15,10 +15,6 @@ const StyledTextField = styled(({ labelPosition, ...props }: TextFieldProps) => 
 ))<TextFieldProps>`
     ${inputStyles()}
 
-    &:not(:last-of-type) {
-        margin-bottom: ${pxToRem(20)};
-    }
-
     ${({ labelPosition }) => {
         if (labelPosition === "left") {
             return css`

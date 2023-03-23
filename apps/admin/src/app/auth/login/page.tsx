@@ -43,6 +43,7 @@ const styles: LoginPageStyles = {
             alignItems: "flex-start",
             maxWidth: pxToRem(350),
             padding: pxToRem(60, 50),
+            "& .MuiTextField-root:not(:last-of-type)": { mb: 2 },
         },
     },
     submitButton: {
