@@ -5,6 +5,7 @@ import {
     ButtonBase,
     ButtonBaseProps,
     Container,
+    DefaultImage,
     Divider,
     Drawer,
     FolderIcon,
@@ -30,6 +31,7 @@ type EditorBottomPanellStyles = {
     folderBoxInfo?: BoxProps;
     folderButtonIcon?: SvgIconProps;
     folderActionButton?: IconButtonProps;
+    fileBox?: BoxProps;
 };
 
 const styles: EditorBottomPanellStyles = {
@@ -95,6 +97,20 @@ const styles: EditorBottomPanellStyles = {
             marginRight: pxToRem(-16),
         },
     },
+    fileBox: {
+        sx: {
+            display: "flex",
+            justifyContent: "space-between",
+            padding: pxToRem(5),
+            width: "100%",
+            border: 1,
+            fontSize: 16,
+
+            "&:hover": {
+                backgroundColor: "action.hover",
+            },
+        },
+    },
 };
 
 const EditorBottomPanell: FC = () => {
@@ -122,7 +138,7 @@ const EditorBottomPanell: FC = () => {
                         <Typography {...styles.subTitle}>Folders</Typography>
                         <Grid container spacing={2}>
                             {[1, 2, 3, 4, 5, 6, 7].map((x) => (
-                                <Grid key={x} item xs={6} md={3} lg={2}>
+                                <Grid key={x} item xs={6} sm={4} lg={3}>
                                     <Box {...styles.folderBox}>
                                         <Box {...styles.folderBoxInfo}>
                                             <FolderIcon {...styles.folderButtonIcon} />
@@ -131,6 +147,21 @@ const EditorBottomPanell: FC = () => {
                                         <IconButton {...styles.folderActionButton}>
                                             <MoreVertIcon />
                                         </IconButton>
+                                    </Box>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Box>
+                    <Box {...styles.section}>
+                        <Typography {...styles.subTitle}>Files</Typography>
+                        <Grid container spacing={2}>
+                            {[1, 2, 3, 4, 5, 6, 7].map((x) => (
+                                <Grid key={x} item xs={6} sm={3} lg={2}>
+                                    <Box {...styles.fileBox}>
+                                        <DefaultImage />
+                                        {/* <IconButton {...styles.folderActionButton}>
+                                            <MoreVertIcon />
+                                        </IconButton> */}
                                     </Box>
                                 </Grid>
                             ))}

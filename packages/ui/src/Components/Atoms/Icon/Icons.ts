@@ -1,3 +1,4 @@
+export { default as DefaultImage } from "./DefaultImage";
 export { default as GranityLogo } from "./GranityLogo";
 export { default as GranityLogoWithText } from "./GranityLogoWithText";
 export { default as LaunchEditorIcon } from "./LaunchEditor";
