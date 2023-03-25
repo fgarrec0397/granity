@@ -30,8 +30,9 @@ type EditorBottomPanellStyles = {
     folderBox?: BoxProps;
     folderBoxInfo?: BoxProps;
     folderButtonIcon?: SvgIconProps;
-    folderActionButton?: IconButtonProps;
+    itemActionButton?: IconButtonProps;
     fileBox?: BoxProps;
+    fileBoxInfo?: BoxProps;
 };
 
 const styles: EditorBottomPanellStyles = {
@@ -92,15 +93,8 @@ const styles: EditorBottomPanellStyles = {
             marginRight: pxToRem(16),
         },
     },
-    folderActionButton: {
-        sx: {
-            marginRight: pxToRem(-16),
-        },
-    },
     fileBox: {
         sx: {
-            display: "flex",
-            justifyContent: "space-between",
             padding: pxToRem(5),
             width: "100%",
             border: 1,
@@ -109,6 +103,19 @@ const styles: EditorBottomPanellStyles = {
             "&:hover": {
                 backgroundColor: "action.hover",
             },
+        },
+    },
+    fileBoxInfo: {
+        sx: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: pxToRem(0, 10),
+        },
+    },
+    itemActionButton: {
+        sx: {
+            marginRight: pxToRem(-8),
         },
     },
 };
@@ -144,7 +151,7 @@ const EditorBottomPanell: FC = () => {
                                             <FolderIcon {...styles.folderButtonIcon} />
                                             Folder {x}
                                         </Box>
-                                        <IconButton {...styles.folderActionButton}>
+                                        <IconButton {...styles.itemActionButton}>
                                             <MoreVertIcon />
                                         </IconButton>
                                     </Box>
@@ -159,9 +166,12 @@ const EditorBottomPanell: FC = () => {
                                 <Grid key={x} item xs={6} sm={3} lg={2}>
                                     <Box {...styles.fileBox}>
                                         <DefaultImage />
-                                        {/* <IconButton {...styles.folderActionButton}>
-                                            <MoreVertIcon />
-                                        </IconButton> */}
+                                        <Box {...styles.fileBoxInfo}>
+                                            My Nice Image
+                                            <IconButton {...styles.itemActionButton}>
+                                                <MoreVertIcon />
+                                            </IconButton>
+                                        </Box>
                                     </Box>
                                 </Grid>
                             ))}

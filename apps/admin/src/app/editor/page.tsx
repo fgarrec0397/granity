@@ -3,6 +3,7 @@ import { GranityEngine, useScenes } from "@granity/engine";
 import { useQuery } from "@granity/helpers";
 import { Box, useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
+import useSWR from "swr";
 
 const getScenes = async () => {
     const response = await fetch("/server/scene");
@@ -17,6 +18,10 @@ const getScenes = async () => {
 const EditorPage = () => {
     const { initScenes, setScenesLoading } = useScenes();
     const { enqueueSnackbar } = useSnackbar();
+    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const swr = useSWR("/api/readfiles", fetcher);
+
+    console.log(swr.data, "swr");
 
     const { data, status, isLoading } = useQuery({
         queryKey: ["scenes"],
