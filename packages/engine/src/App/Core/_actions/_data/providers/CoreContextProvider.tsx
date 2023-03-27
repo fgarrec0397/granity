@@ -13,7 +13,7 @@ export type CoreContextModel = {
 };
 
 export const CoreContext = createContext<CoreContextModel>({
-    reducer: [{ onSave: () => {} }, () => {}],
+    reducer: [{}, () => {}],
     keyboardMappings: defaultKeyboardMappings,
     editorMainMenu: [],
     setKeyboardMappings: () => {},
@@ -22,21 +22,28 @@ export const CoreContext = createContext<CoreContextModel>({
 
 export enum CoreAction {
     ON_SAVE = "ON_SAVE",
+    GET_FILES = "GET_FILES",
 }
 
 type CoreReducerAction = {
     type: CoreAction;
-    payload?: EngineConfig["onSave"];
+    payload?: {
+        onSave?: EngineConfig["onSave"];
+        getFiles?: EngineConfig["getFiles"];
+    };
 };
 
 type CoreReducerState = {
-    onSave: EngineConfig["onSave"];
+    onSave?: EngineConfig["onSave"];
+    getFiles?: EngineConfig["getFiles"];
 };
 
 const coreReducer = (state: CoreReducerState, action: CoreReducerAction) => {
     switch (action.type) {
         case "ON_SAVE":
-            return { onSave: action.payload };
+            return { onSave: action.payload?.onSave };
+        case "GET_FILES":
+            return { getFiles: action.payload?.getFiles };
         default:
             return state;
     }

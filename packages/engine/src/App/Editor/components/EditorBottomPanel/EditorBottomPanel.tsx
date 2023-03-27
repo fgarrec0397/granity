@@ -1,7 +1,11 @@
+import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { layoutStyles } from "@engine/Theme/mixins/layout";
+import { useQuery } from "@granity/helpers";
 import {
     Box,
     BoxProps,
+    Breadcrumbs,
+    BreadcrumbsProps,
     ButtonBase,
     ButtonBaseProps,
     Container,
@@ -13,17 +17,20 @@ import {
     IconButton,
     IconButtonProps,
     KeyboardDoubleArrowUpIcon,
+    Link,
     MoreVertIcon,
     pxToRem,
     SvgIconProps,
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 type EditorBottomPanellStyles = {
     wrapper?: BoxProps;
     section?: BoxProps;
+    header?: BoxProps;
+    breadcrumbs?: BreadcrumbsProps;
     button?: ButtonBaseProps;
     title?: TypographyProps;
     subTitle?: TypographyProps;
@@ -42,7 +49,20 @@ const styles: EditorBottomPanellStyles = {
         },
     },
     section: {
-        margin: pxToRem(25, 0),
+        sx: {
+            margin: pxToRem(25, 0),
+        },
+    },
+    header: {
+        sx: {
+            display: "flex",
+            alignItems: "center",
+        },
+    },
+    breadcrumbs: {
+        sx: {
+            marginLeft: pxToRem(32),
+        },
     },
     button: {
         sx: {
@@ -122,9 +142,24 @@ const styles: EditorBottomPanellStyles = {
 
 const EditorBottomPanell: FC = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const { getFiles } = useCore();
+    const path = undefined;
+
+    const { data, status, isLoading } = useQuery(["files"], () => getFiles?.(path));
+
+    console.log(data, "data");
 
     const openDrawer = () => setIsDrawerOpen(true);
     const closeDrawer = () => setIsDrawerOpen(false);
+
+    // useEffect(() => {
+    //     const init = async () => {
+    //         const files = await getFiles?.();
+    //         console.log(files, "files from component");
+    //     };
+
+    //     init();
+    // }, [getFiles]);
 
     const onClick = () => {
         openDrawer();
@@ -138,7 +173,28 @@ const EditorBottomPanell: FC = () => {
             <Drawer anchor="bottom" open={isDrawerOpen} onClose={closeDrawer}>
                 <Container>
                     <Box {...styles.section}>
-                        <Typography {...styles.title}>Assets</Typography>
+                        <Box {...styles.header}>
+                            <Typography {...styles.title}>Assets</Typography>
+                            <Breadcrumbs separator=">" {...styles.breadcrumbs}>
+                                <Link underline="hover" key="1" color="inherit" href="/">
+                                    MUI
+                                </Link>
+                                ,
+                                <Link
+                                    underline="hover"
+                                    key="2"
+                                    color="inherit"
+                                    href="/material-ui/getting-started/installation/"
+                                >
+                                    Core
+                                </Link>
+                                ,
+                                <Typography key="3" color="text.primary">
+                                    Breadcrumb
+                                </Typography>
+                                ,
+                            </Breadcrumbs>
+                        </Box>
                     </Box>
                     <Divider />
                     <Box {...styles.section}>
@@ -159,6 +215,7 @@ const EditorBottomPanell: FC = () => {
                             ))}
                         </Grid>
                     </Box>
+                    <Divider />
                     <Box {...styles.section}>
                         <Typography {...styles.subTitle}>Files</Typography>
                         <Grid container spacing={2}>

@@ -1,0 +1,77 @@
+import { Request, Response } from "express";
+import path from "path";
+import fs from "fs";
+
+type ResponseData = {
+    currentRootPath: string;
+    folders: FileItem[];
+    files: FileItem[];
+};
+
+type FileItem = {
+    path: string;
+    name: string;
+    type: string;
+};
+
+const getFileExtension = (fileName: string) => {
+    const fileNameSplit = fileName.split(".");
+
+    return fileNameSplit[fileNameSplit.length - 1];
+};
+
+const rootFolderName = "assets";
+
+const getRootFilesFolder = () => {
+    return path.resolve("../admin", "public", rootFolderName);
+};
+
+export const getFiles = async ({ query }: Request, result: Response<ResponseData>) => {
+    console.log(
+        typeof query.pathToFolderToLoad,
+        query.pathToFolderToLoad,
+        "query.pathToFolderToLoad"
+    );
+
+    const pathToFolderToLoad =
+        query.pathToFolderToLoad !== "undefined" ? String(query.pathToFolderToLoad) : "";
+    const relativePathFromPublicFolder = `${rootFolderName}${
+        pathToFolderToLoad ? "/" + pathToFolderToLoad : ""
+    }`;
+
+    const directory = getRootFilesFolder();
+
+    const directoryData = fs.readdirSync(directory, { withFileTypes: true });
+
+    const foundFiles = directoryData.filter((x) => x.isFile());
+    const foundDirectories = directoryData.filter((x) => x.isDirectory());
+
+    const files = foundFiles.map((x) => {
+        const itemPath = path.join("/", pathToFolderToLoad, x.name);
+        const file: FileItem = {
+            path: itemPath,
+            name: x.name,
+            type: getFileExtension(x.name),
+        };
+
+        return file;
+    });
+
+    const folders = foundDirectories.map((x) => {
+        const itemPath = path.join("/", pathToFolderToLoad, x.name);
+        const file: FileItem = {
+            path: itemPath,
+            name: x.name,
+            type: "folder",
+        };
+
+        return file;
+    });
+
+    result.statusCode = 200;
+    result.json({
+        currentRootPath: relativePathFromPublicFolder,
+        files,
+        folders,
+    });
+};

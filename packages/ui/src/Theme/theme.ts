@@ -63,6 +63,13 @@ const theme = createTheme({
                 },
             },
         },
+        MuiBreadcrumbs: {
+            styleOverrides: {
+                li: {
+                    lineHeight: 1,
+                },
+            },
+        },
         MuiButton: {
             defaultProps: {
                 variant: "contained",

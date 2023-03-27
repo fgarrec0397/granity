@@ -11,6 +11,8 @@ export default () => {
     const {
         onSave,
         updateOnSave,
+        updateGetFiles,
+        getFiles,
         updateKeyboardMappings,
         keyboardMappings,
         editorMainMenu,
@@ -52,13 +54,22 @@ export default () => {
         [updateEditorMainMenu]
     );
 
+    const initGetFiles = useCallback(
+        (newGetFilesCallback: EngineConfig["getFiles"]) => {
+            updateGetFiles(newGetFilesCallback);
+        },
+        [updateGetFiles]
+    );
+
     return {
         keyboardMappings,
         onCorePointerMissed,
         onSave,
+        getFiles,
         initOnSave,
         initKeyboardMappings,
         initMainMenu,
         editorMainMenu,
+        initGetFiles,
     };
 };

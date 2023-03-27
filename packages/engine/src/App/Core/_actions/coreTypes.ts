@@ -18,10 +18,28 @@ export type EditorMainMenuItem = {
     icon?: ReactNode;
 };
 
+export type FileItem = {
+    path: string;
+    name: string;
+    type: string;
+};
+
+export type GetFilesResult = {
+    currentRootPath: string;
+    files: FileItem[];
+    folders: FileItem[];
+};
+
+export type EditorFilesManager = {
+    getFiles: (path: string) => Promise<GetFilesResult>;
+};
+
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
     keyboardMappings?: KeyboardKeys;
     editorMainMenu?: EditorMainMenuItem[];
+    // filesManager?: EditorFilesManager;
+    getFiles: (path?: string) => Promise<GetFilesResult | undefined>;
     onSave?: (scenes: ScenesDictionary | null) => Promise<{
         status: boolean;
         message: string;

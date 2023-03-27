@@ -1,4 +1,4 @@
-import { EngineConfig, WidgetModules } from "@granity/engine";
+import { EngineConfig, GetFilesResult, WidgetModules } from "@granity/engine";
 import { HomeIcon, LogoutIcon } from "@granity/ui";
 import { signOut } from "next-auth/react";
 
@@ -30,6 +30,14 @@ export const granityConfig: EngineConfig = {
             icon: <LogoutIcon fontSize="small" />,
         },
     ],
+    getFiles: async (path) => {
+        const result = await fetch(`/server/files?pathToFolderToLoad=${path}`);
+        const files = result.json();
+
+        return files as Promise<GetFilesResult>;
+    },
+    // filesManager: {
+    // },
     onSave: async (scenes) => {
         if (scenes) {
             const response = await saveScenes(scenes);

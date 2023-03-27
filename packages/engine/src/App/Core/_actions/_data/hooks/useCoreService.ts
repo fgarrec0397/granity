@@ -17,7 +17,17 @@ export default () => {
         (onSaveCallback: EngineConfig["onSave"]) => {
             dispatch({
                 type: CoreAction.ON_SAVE,
-                payload: onSaveCallback,
+                payload: { onSave: onSaveCallback },
+            });
+        },
+        [dispatch]
+    );
+
+    const updateGetFiles = useCallback(
+        (getFilesCallback: EngineConfig["getFiles"]) => {
+            dispatch({
+                type: CoreAction.GET_FILES,
+                payload: { getFiles: getFilesCallback },
             });
         },
         [dispatch]
@@ -39,7 +49,9 @@ export default () => {
 
     return {
         onSave: state.onSave,
+        getFiles: state.getFiles,
         updateOnSave,
+        updateGetFiles,
         updateKeyboardMappings,
         keyboardMappings,
         updateEditorMainMenu,

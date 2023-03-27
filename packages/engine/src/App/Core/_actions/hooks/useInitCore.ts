@@ -6,7 +6,7 @@ import useCore from "./useCore";
 
 export default (config?: EngineConfig) => {
     const { initWidgetsModules } = useWidgetsModules();
-    const { initOnSave, initKeyboardMappings, initMainMenu } = useCore();
+    const { initOnSave, initKeyboardMappings, initMainMenu, initGetFiles } = useCore();
 
     useEffect(() => {
         if (config?.widgetsModules) {
@@ -18,7 +18,7 @@ export default (config?: EngineConfig) => {
         if (config?.onSave) {
             initOnSave(config.onSave);
         }
-    }, [initOnSave, config?.onSave]);
+    }, [config?.onSave, initOnSave]);
 
     useEffect(() => {
         if (config?.keyboardMappings) {
@@ -30,5 +30,11 @@ export default (config?: EngineConfig) => {
         if (config?.editorMainMenu) {
             initMainMenu(config.editorMainMenu);
         }
-    }, [config?.editorMainMenu, initKeyboardMappings, initMainMenu]);
+    }, [config?.editorMainMenu, initMainMenu]);
+
+    useEffect(() => {
+        if (config?.getFiles) {
+            initGetFiles(config.getFiles);
+        }
+    }, [config?.getFiles, initGetFiles]);
 };

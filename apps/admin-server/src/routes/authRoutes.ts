@@ -1,6 +1,5 @@
 import express from "express";
 import { createUser, login } from "../controllers/authController";
-// import { getScene, saveScene } from "../controllers/sceneController";
 
 const authRoutes = () => {
     const router = express.Router();
