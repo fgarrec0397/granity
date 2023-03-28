@@ -141,17 +141,15 @@ const styles: EditorBottomPanellStyles = {
 };
 
 const EditorBottomPanell: FC = () => {
-    const [currentFolder, setCurrentFolder] = useState<string>("assets");
+    const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { getFiles } = useCore();
 
-    const { data } = useQuery(["files", currentFolder], () => getFiles?.(currentFolder), {
+    const { data } = useQuery(["files", currentPath], () => getFiles?.(currentPath), {
         enabled: getFiles !== undefined,
     });
 
-    console.log(data, "data");
-
-    const currentRootPathLinks = data?.currentRootPath.split("/");
+    const currentRootPathLinks = data?.currentRootPath?.split("/");
 
     const openDrawer = () => setIsDrawerOpen(true);
     const closeDrawer = () => setIsDrawerOpen(false);
@@ -161,11 +159,22 @@ const EditorBottomPanell: FC = () => {
     };
 
     const onClickBreadcrumbsElement = (folder: string) => {
-        setCurrentFolder(folder);
+        const currentFolderIndex = currentRootPathLinks?.findIndex((x) => x === folder);
+
+        if (currentFolderIndex !== undefined) {
+            const clonedCurrentRootPathLinks = [...(currentRootPathLinks || [])];
+
+            clonedCurrentRootPathLinks.splice(currentFolderIndex + 1);
+            const newPath = clonedCurrentRootPathLinks?.join("/");
+
+            setCurrentPath(newPath);
+        }
     };
 
     const onClickFolder = (folderPath: string) => {
-        setCurrentFolder(folderPath);
+        if (data?.currentRootPath) {
+            setCurrentPath(`${data?.currentRootPath}/${folderPath}`);
+        }
     };
 
     return (
@@ -203,28 +212,32 @@ const EditorBottomPanell: FC = () => {
                         </Box>
                     </Box>
                     <Divider />
-                    <Box {...styles.section}>
-                        <Typography {...styles.subTitle}>Folders</Typography>
-                        <Grid container spacing={2}>
-                            {data?.folders.map((x) => (
-                                <Grid key={x.path} item xs={6} sm={4} lg={3}>
-                                    <Box
-                                        {...styles.folderBox}
-                                        onClick={() => onClickFolder(x.path)}
-                                    >
-                                        <Box {...styles.folderBoxInfo}>
-                                            <FolderIcon {...styles.folderButtonIcon} />
-                                            {x.name}
-                                        </Box>
-                                        <IconButton {...styles.itemActionButton}>
-                                            <MoreVertIcon />
-                                        </IconButton>
-                                    </Box>
+                    {data?.folders?.length && data?.folders?.length > 0 ? (
+                        <>
+                            <Box {...styles.section}>
+                                <Typography {...styles.subTitle}>Folders</Typography>
+                                <Grid container spacing={2}>
+                                    {data?.folders.map((x) => (
+                                        <Grid key={x.path} item xs={6} sm={4} lg={3}>
+                                            <Box
+                                                {...styles.folderBox}
+                                                onClick={() => onClickFolder(x.name)}
+                                            >
+                                                <Box {...styles.folderBoxInfo}>
+                                                    <FolderIcon {...styles.folderButtonIcon} />
+                                                    {x.name}
+                                                </Box>
+                                                <IconButton {...styles.itemActionButton}>
+                                                    <MoreVertIcon />
+                                                </IconButton>
+                                            </Box>
+                                        </Grid>
+                                    ))}
                                 </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-                    <Divider />
+                            </Box>
+                            <Divider />
+                        </>
+                    ) : null}
                     <Box {...styles.section}>
                         <Typography {...styles.subTitle}>Files</Typography>
                         <Grid container spacing={2}>
