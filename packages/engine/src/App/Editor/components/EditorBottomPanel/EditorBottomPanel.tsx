@@ -1,6 +1,6 @@
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { layoutStyles } from "@engine/Theme/mixins/layout";
-import { useQuery } from "@granity/helpers";
+import { capitalizeString, useQuery } from "@granity/helpers";
 import {
     Box,
     BoxProps,
@@ -24,7 +24,7 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
 type EditorBottomPanellStyles = {
     wrapper?: BoxProps;
@@ -141,28 +141,31 @@ const styles: EditorBottomPanellStyles = {
 };
 
 const EditorBottomPanell: FC = () => {
+    const [currentFolder, setCurrentFolder] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { getFiles } = useCore();
-    const path = undefined;
 
-    const { data, status, isLoading } = useQuery(["files"], () => getFiles?.(path));
+    const { data } = useQuery(["files", currentFolder], () => getFiles?.(currentFolder), {
+        enabled: getFiles !== undefined,
+    });
 
     console.log(data, "data");
+
+    const currentRootPathLinks = data?.currentRootPath.split("/");
 
     const openDrawer = () => setIsDrawerOpen(true);
     const closeDrawer = () => setIsDrawerOpen(false);
 
-    // useEffect(() => {
-    //     const init = async () => {
-    //         const files = await getFiles?.();
-    //         console.log(files, "files from component");
-    //     };
-
-    //     init();
-    // }, [getFiles]);
-
     const onClick = () => {
         openDrawer();
+    };
+
+    const onClickBreadcrumbsElement = (folder: string) => {
+        setCurrentFolder(folder);
+    };
+
+    const onClickFolder = (folderPath: string) => {
+        setCurrentFolder(folderPath);
     };
 
     return (
@@ -176,23 +179,26 @@ const EditorBottomPanell: FC = () => {
                         <Box {...styles.header}>
                             <Typography {...styles.title}>Assets</Typography>
                             <Breadcrumbs separator=">" {...styles.breadcrumbs}>
-                                <Link underline="hover" key="1" color="inherit" href="/">
-                                    MUI
-                                </Link>
-                                ,
-                                <Link
-                                    underline="hover"
-                                    key="2"
-                                    color="inherit"
-                                    href="/material-ui/getting-started/installation/"
-                                >
-                                    Core
-                                </Link>
-                                ,
-                                <Typography key="3" color="text.primary">
-                                    Breadcrumb
-                                </Typography>
-                                ,
+                                {currentRootPathLinks?.map((x, index) => {
+                                    if (index === currentRootPathLinks.length - 1) {
+                                        return (
+                                            <Typography key={index} color="text.primary">
+                                                {capitalizeString(x)}
+                                            </Typography>
+                                        );
+                                    }
+
+                                    return (
+                                        <Link
+                                            underline="hover"
+                                            key={index}
+                                            color="inherit"
+                                            onClick={() => onClickBreadcrumbsElement(x)}
+                                        >
+                                            {capitalizeString(x)}
+                                        </Link>
+                                    );
+                                })}
                             </Breadcrumbs>
                         </Box>
                     </Box>
@@ -200,12 +206,15 @@ const EditorBottomPanell: FC = () => {
                     <Box {...styles.section}>
                         <Typography {...styles.subTitle}>Folders</Typography>
                         <Grid container spacing={2}>
-                            {[1, 2, 3, 4, 5, 6, 7].map((x) => (
-                                <Grid key={x} item xs={6} sm={4} lg={3}>
-                                    <Box {...styles.folderBox}>
+                            {data?.folders.map((x) => (
+                                <Grid key={x.path} item xs={6} sm={4} lg={3}>
+                                    <Box
+                                        {...styles.folderBox}
+                                        onClick={() => onClickFolder(x.path)}
+                                    >
                                         <Box {...styles.folderBoxInfo}>
                                             <FolderIcon {...styles.folderButtonIcon} />
-                                            Folder {x}
+                                            {x.name}
                                         </Box>
                                         <IconButton {...styles.itemActionButton}>
                                             <MoreVertIcon />
@@ -219,12 +228,12 @@ const EditorBottomPanell: FC = () => {
                     <Box {...styles.section}>
                         <Typography {...styles.subTitle}>Files</Typography>
                         <Grid container spacing={2}>
-                            {[1, 2, 3, 4, 5, 6, 7].map((x) => (
-                                <Grid key={x} item xs={6} sm={3} lg={2}>
+                            {data?.files.map((x) => (
+                                <Grid key={x.name} item xs={6} sm={3} lg={2}>
                                     <Box {...styles.fileBox}>
                                         <DefaultImage />
                                         <Box {...styles.fileBoxInfo}>
-                                            My Nice Image
+                                            {x.name}
                                             <IconButton {...styles.itemActionButton}>
                                                 <MoreVertIcon />
                                             </IconButton>
@@ -234,7 +243,6 @@ const EditorBottomPanell: FC = () => {
                             ))}
                         </Grid>
                     </Box>
-                    <Divider />
                 </Container>
             </Drawer>
         </Box>

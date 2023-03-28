@@ -39,7 +39,7 @@ export type EngineConfig = {
     keyboardMappings?: KeyboardKeys;
     editorMainMenu?: EditorMainMenuItem[];
     // filesManager?: EditorFilesManager;
-    getFiles: (path?: string) => Promise<GetFilesResult | undefined>;
+    getFiles: (path: string) => Promise<GetFilesResult | undefined>;
     onSave?: (scenes: ScenesDictionary | null) => Promise<{
         status: boolean;
         message: string;

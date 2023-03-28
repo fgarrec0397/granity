@@ -2,11 +2,13 @@ import { Request, Response } from "express";
 import path from "path";
 import fs from "fs";
 
-type ResponseData = {
-    currentRootPath: string;
-    folders: FileItem[];
-    files: FileItem[];
-};
+type ResponseData =
+    | {
+          currentRootPath: string;
+          folders: FileItem[];
+          files: FileItem[];
+      }
+    | string;
 
 type FileItem = {
     path: string;
@@ -34,17 +36,27 @@ export const getFiles = async ({ query }: Request, result: Response<ResponseData
     );
 
     const pathToFolderToLoad =
-        query.pathToFolderToLoad !== "undefined" ? String(query.pathToFolderToLoad) : "";
+        query.pathToFolderToLoad !== rootFolderName ? String(query.pathToFolderToLoad) : "";
     const relativePathFromPublicFolder = `${rootFolderName}${
         pathToFolderToLoad ? "/" + pathToFolderToLoad : ""
     }`;
 
-    const directory = getRootFilesFolder();
+    const directoryToRead = path.resolve(getRootFilesFolder(), pathToFolderToLoad);
 
-    const directoryData = fs.readdirSync(directory, { withFileTypes: true });
+    console.log(directoryToRead, "directoryToRead");
+
+    if (!fs.existsSync(directoryToRead)) {
+        result.statusCode = 404;
+        result.json("folder does not exist");
+    }
+
+    const directoryData = fs.readdirSync(directoryToRead, { withFileTypes: true });
 
     const foundFiles = directoryData.filter((x) => x.isFile());
     const foundDirectories = directoryData.filter((x) => x.isDirectory());
+
+    console.log(foundFiles, "foundFiles");
+    console.log(foundDirectories, "foundDirectories");
 
     const files = foundFiles.map((x) => {
         const itemPath = path.join("/", pathToFolderToLoad, x.name);

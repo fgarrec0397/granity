@@ -36,8 +36,6 @@ export const granityConfig: EngineConfig = {
 
         return files as Promise<GetFilesResult>;
     },
-    // filesManager: {
-    // },
     onSave: async (scenes) => {
         if (scenes) {
             const response = await saveScenes(scenes);
