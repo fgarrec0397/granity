@@ -16,6 +16,7 @@ import {
     Grid,
     IconButton,
     IconButtonProps,
+    Input,
     KeyboardDoubleArrowUpIcon,
     Link,
     MoreVertIcon,
@@ -24,7 +25,7 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { FC, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 
 type EditorBottomPanellStyles = {
     wrapper?: BoxProps;
@@ -177,6 +178,29 @@ const EditorBottomPanell: FC = () => {
         }
     };
 
+    const onUploadFile = (event: ChangeEvent<HTMLInputElement>) => {
+        const formData = new FormData();
+
+        // formData.append("files", event.target.files);
+        if (event.target.files?.length) {
+            for (let i = 0; i < event.target.files?.length; i++) {
+                console.log(event.target.files[i], "event.target.files[i]");
+
+                formData.append(`filesToUpload`, event.target.files[i]);
+                formData.append(`filesToUpload`, event.target.files[i]);
+            }
+            console.log(event.target.files, "event.target.files");
+            console.log(formData, "formData");
+            fetch("/server/files", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Content-Type": "multipart/form-data boundary=MyBoundary",
+                },
+            }).then((res) => console.log(res));
+        }
+    };
+
     return (
         <Box {...styles.wrapper}>
             <ButtonBase onClick={onClick} {...styles.button}>
@@ -233,6 +257,9 @@ const EditorBottomPanell: FC = () => {
                                             </Box>
                                         </Grid>
                                     ))}
+                                    <Grid item xs={6} sm={4} lg={3}>
+                                        <input type="file" onChange={onUploadFile} multiple />
+                                    </Grid>
                                 </Grid>
                             </Box>
                             <Divider />

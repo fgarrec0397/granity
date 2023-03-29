@@ -70,3 +70,10 @@ export const getFiles = async ({ query }: Request, result: Response<ResponseData
         folders,
     });
 };
+
+export const postFiles = (request: Request, result: Response) => {
+    console.log(request.body, "body");
+    console.log(request.files, "files");
+    result.statusCode = 200;
+    result.json("postFiles");
+};
