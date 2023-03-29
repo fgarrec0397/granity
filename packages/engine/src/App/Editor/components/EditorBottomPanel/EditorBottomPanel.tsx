@@ -25,7 +25,7 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useRef, useState } from "react";
 
 type EditorBottomPanellStyles = {
     wrapper?: BoxProps;
@@ -142,6 +142,7 @@ const styles: EditorBottomPanellStyles = {
 };
 
 const EditorBottomPanell: FC = () => {
+    const ref = useRef<HTMLInputElement>(null);
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { getFiles } = useCore();
@@ -182,14 +183,18 @@ const EditorBottomPanell: FC = () => {
         const formData = new FormData();
 
         // formData.append("files", event.target.files);
-        if (event.target.files?.length) {
-            for (let i = 0; i < event.target.files?.length; i++) {
-                console.log(event.target.files[i], "event.target.files[i]");
+        if (ref.current?.files?.length) {
+            for (let i = 0; i < ref.current?.files?.length; i++) {
+                console.log(ref.current?.files[i], "event.target.files[i]");
 
-                formData.append(`filesToUpload`, event.target.files[i]);
-                formData.append(`filesToUpload`, event.target.files[i]);
+                formData.append(`filesToUpload`, ref.current?.files[i]);
+                // formData.append(`filesToUpload`, event.target.files[i]);
             }
-            console.log(event.target.files, "event.target.files");
+            for (const key of formData.entries()) {
+                console.log(key[0] + ", " + key[1]);
+            }
+
+            // formData.append(`filesToUpload`, event.target.files[0]);
             console.log(formData, "formData");
             fetch("/server/files", {
                 method: "POST",
@@ -258,7 +263,12 @@ const EditorBottomPanell: FC = () => {
                                         </Grid>
                                     ))}
                                     <Grid item xs={6} sm={4} lg={3}>
-                                        <input type="file" onChange={onUploadFile} multiple />
+                                        <input
+                                            ref={ref}
+                                            type="file"
+                                            onChange={onUploadFile}
+                                            multiple
+                                        />
                                     </Grid>
                                 </Grid>
                             </Box>

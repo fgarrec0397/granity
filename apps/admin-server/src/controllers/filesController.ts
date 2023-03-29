@@ -74,6 +74,7 @@ export const getFiles = async ({ query }: Request, result: Response<ResponseData
 export const postFiles = (request: Request, result: Response) => {
     console.log(request.body, "body");
     console.log(request.files, "files");
+    console.log(request.body.file, "req.body.file");
     result.statusCode = 200;
     result.json("postFiles");
 };
