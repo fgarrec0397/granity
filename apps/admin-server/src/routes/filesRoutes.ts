@@ -1,32 +1,21 @@
 import express from "express";
 import { getFiles, postFiles } from "../controllers/filesController";
 import multer from "multer";
+import path from "path";
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        console.log({ req, file, cb }, "destination");
-        cb(null, "/filepath");
+    destination: (req, file, cb) => {
+        const storagePath = path.resolve("../admin", "public");
+        console.log({ storagePath });
+
+        cb(null, storagePath);
     },
-
-    filename: function (req, file, cb) {
-        const filename = "filenametogive";
-        req.body.file = filename;
-        console.log({ req, file, cb }, "filename");
-
-        // console.log({ file: req.body.file, filename }, "filename");
-
-        cb(null, filename);
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
     },
 });
 
-const storage2 = multer.diskStorage({
-    destination: "./upload",
-    filename: function (req, file, cb) {
-        return cb(null, file.originalname);
-    },
-});
-
-const upload = multer({ storage: storage2 });
+const upload = multer({ storage: storage });
 
 const sceneRoutes = () => {
     const router = express.Router();

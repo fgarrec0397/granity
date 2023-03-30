@@ -19,6 +19,8 @@ app.use(
 
 mongoose.set("strictQuery", false);
 
+app.use(cors());
+
 const main = async () => {
     Database.getInstance();
 

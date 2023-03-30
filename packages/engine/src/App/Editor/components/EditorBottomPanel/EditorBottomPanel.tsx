@@ -16,7 +16,6 @@ import {
     Grid,
     IconButton,
     IconButtonProps,
-    Input,
     KeyboardDoubleArrowUpIcon,
     Link,
     MoreVertIcon,
@@ -182,26 +181,14 @@ const EditorBottomPanell: FC = () => {
     const onUploadFile = (event: ChangeEvent<HTMLInputElement>) => {
         const formData = new FormData();
 
-        // formData.append("files", event.target.files);
-        if (ref.current?.files?.length) {
-            for (let i = 0; i < ref.current?.files?.length; i++) {
-                console.log(ref.current?.files[i], "event.target.files[i]");
-
-                formData.append(`filesToUpload`, ref.current?.files[i]);
-                // formData.append(`filesToUpload`, event.target.files[i]);
-            }
-            for (const key of formData.entries()) {
-                console.log(key[0] + ", " + key[1]);
+        if (event.target.files?.length) {
+            for (let i = 0; i < event.target.files.length; i++) {
+                formData.append(`filesToUpload`, event.target.files[i]);
             }
 
-            // formData.append(`filesToUpload`, event.target.files[0]);
-            console.log(formData, "formData");
             fetch("/server/files", {
                 method: "POST",
                 body: formData,
-                headers: {
-                    "Content-Type": "multipart/form-data boundary=MyBoundary",
-                },
             }).then((res) => console.log(res));
         }
     };
