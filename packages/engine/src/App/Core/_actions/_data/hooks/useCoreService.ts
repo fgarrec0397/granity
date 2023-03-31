@@ -23,11 +23,11 @@ export default () => {
         [dispatch]
     );
 
-    const updateGetFiles = useCallback(
-        (getFilesCallback: EngineConfig["getFiles"]) => {
+    const updateFilesManager = useCallback(
+        (newFilesManager: EngineConfig["filesManager"]) => {
             dispatch({
-                type: CoreAction.GET_FILES,
-                payload: { getFiles: getFilesCallback },
+                type: CoreAction.FILES_MANAGER,
+                payload: { filesManager: newFilesManager },
             });
         },
         [dispatch]
@@ -49,9 +49,10 @@ export default () => {
 
     return {
         onSave: state.onSave,
-        getFiles: state.getFiles,
+        getFiles: state.filesManager?.getFiles,
+        saveFiles: state.filesManager?.saveFiles,
         updateOnSave,
-        updateGetFiles,
+        updateFilesManager,
         updateKeyboardMappings,
         keyboardMappings,
         updateEditorMainMenu,

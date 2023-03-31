@@ -11,8 +11,9 @@ export default () => {
     const {
         onSave,
         updateOnSave,
-        updateGetFiles,
+        updateFilesManager,
         getFiles,
+        saveFiles,
         updateKeyboardMappings,
         keyboardMappings,
         editorMainMenu,
@@ -54,11 +55,11 @@ export default () => {
         [updateEditorMainMenu]
     );
 
-    const initGetFiles = useCallback(
-        (newGetFilesCallback: EngineConfig["getFiles"]) => {
-            updateGetFiles(newGetFilesCallback);
+    const initFilesManager = useCallback(
+        (newFilesManager: EngineConfig["filesManager"]) => {
+            updateFilesManager(newFilesManager);
         },
-        [updateGetFiles]
+        [updateFilesManager]
     );
 
     return {
@@ -66,10 +67,11 @@ export default () => {
         onCorePointerMissed,
         onSave,
         getFiles,
+        saveFiles,
         initOnSave,
         initKeyboardMappings,
         initMainMenu,
         editorMainMenu,
-        initGetFiles,
+        initFilesManager,
     };
 };

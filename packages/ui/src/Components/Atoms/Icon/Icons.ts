@@ -2,6 +2,7 @@ export { default as DefaultImage } from "./DefaultImage";
 export { default as GranityLogo } from "./GranityLogo";
 export { default as GranityLogoWithText } from "./GranityLogoWithText";
 export { default as LaunchEditorIcon } from "./LaunchEditor";
+export { default as AddCircleIcon } from "@mui/icons-material/AddCircle";
 export { default as DashboardIcon } from "@mui/icons-material/Dashboard";
 export { default as DeleteIcon } from "@mui/icons-material/Delete";
 export { default as EditIcon } from "@mui/icons-material/Edit";

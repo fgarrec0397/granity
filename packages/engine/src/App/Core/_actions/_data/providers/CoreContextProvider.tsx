@@ -22,28 +22,28 @@ export const CoreContext = createContext<CoreContextModel>({
 
 export enum CoreAction {
     ON_SAVE = "ON_SAVE",
-    GET_FILES = "GET_FILES",
+    FILES_MANAGER = "FILES_MANAGER",
 }
 
 type CoreReducerAction = {
     type: CoreAction;
     payload?: {
         onSave?: EngineConfig["onSave"];
-        getFiles?: EngineConfig["getFiles"];
+        filesManager?: EngineConfig["filesManager"];
     };
 };
 
 type CoreReducerState = {
     onSave?: EngineConfig["onSave"];
-    getFiles?: EngineConfig["getFiles"];
+    filesManager?: EngineConfig["filesManager"];
 };
 
 const coreReducer = (state: CoreReducerState, action: CoreReducerAction) => {
     switch (action.type) {
         case "ON_SAVE":
             return { onSave: action.payload?.onSave };
-        case "GET_FILES":
-            return { getFiles: action.payload?.getFiles };
+        case "FILES_MANAGER":
+            return { filesManager: action.payload?.filesManager };
         default:
             return state;
     }

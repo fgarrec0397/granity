@@ -144,7 +144,7 @@ const EditorBottomPanell: FC = () => {
     const ref = useRef<HTMLInputElement>(null);
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const { getFiles } = useCore();
+    const { getFiles, saveFiles } = useCore();
 
     const { data } = useQuery(["files", currentPath], () => getFiles?.(currentPath), {
         enabled: getFiles !== undefined,
@@ -178,7 +178,7 @@ const EditorBottomPanell: FC = () => {
         }
     };
 
-    const onUploadFile = (event: ChangeEvent<HTMLInputElement>) => {
+    const onUploadFile = async (event: ChangeEvent<HTMLInputElement>) => {
         const formData = new FormData();
 
         if (event.target.files?.length) {
@@ -186,10 +186,7 @@ const EditorBottomPanell: FC = () => {
                 formData.append(`filesToUpload`, event.target.files[i]);
             }
 
-            fetch("/server/files", {
-                method: "POST",
-                body: formData,
-            }).then((res) => console.log(res));
+            await saveFiles?.(formData);
         }
     };
 
@@ -225,6 +222,7 @@ const EditorBottomPanell: FC = () => {
                                     );
                                 })}
                             </Breadcrumbs>
+                            <input ref={ref} type="file" onChange={onUploadFile} multiple />
                         </Box>
                     </Box>
                     <Divider />

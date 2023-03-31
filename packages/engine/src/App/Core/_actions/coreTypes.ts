@@ -31,15 +31,18 @@ export type GetFilesResult = {
 };
 
 export type EditorFilesManager = {
-    getFiles: (path: string) => Promise<GetFilesResult>;
+    saveFiles: (formData: FormData) => Promise<{
+        status: boolean;
+        message: string;
+    }> | void;
+    getFiles: (path: string) => Promise<GetFilesResult | undefined>;
 };
 
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
     keyboardMappings?: KeyboardKeys;
     editorMainMenu?: EditorMainMenuItem[];
-    // filesManager?: EditorFilesManager;
-    getFiles: (path: string) => Promise<GetFilesResult | undefined>;
+    filesManager?: EditorFilesManager;
     onSave?: (scenes: ScenesDictionary | null) => Promise<{
         status: boolean;
         message: string;

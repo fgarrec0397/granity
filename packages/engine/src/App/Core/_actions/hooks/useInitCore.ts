@@ -6,7 +6,7 @@ import useCore from "./useCore";
 
 export default (config?: EngineConfig) => {
     const { initWidgetsModules } = useWidgetsModules();
-    const { initOnSave, initKeyboardMappings, initMainMenu, initGetFiles } = useCore();
+    const { initOnSave, initKeyboardMappings, initMainMenu, initFilesManager } = useCore();
 
     useEffect(() => {
         if (config?.widgetsModules) {
@@ -33,8 +33,8 @@ export default (config?: EngineConfig) => {
     }, [config?.editorMainMenu, initMainMenu]);
 
     useEffect(() => {
-        if (config?.getFiles) {
-            initGetFiles(config.getFiles);
+        if (config?.filesManager) {
+            initFilesManager(config.filesManager);
         }
-    }, [config?.getFiles, initGetFiles]);
+    }, [config?.filesManager, initFilesManager]);
 };

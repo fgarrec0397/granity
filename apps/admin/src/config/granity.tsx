@@ -2,6 +2,7 @@ import { EngineConfig, GetFilesResult, WidgetModules } from "@granity/engine";
 import { HomeIcon, LogoutIcon } from "@granity/ui";
 import { signOut } from "next-auth/react";
 
+import { getFiles, saveFiles } from "../services/files";
 import { saveScenes } from "../services/scenes";
 
 let widgetsModules: WidgetModules[] = [];
@@ -30,11 +31,33 @@ export const granityConfig: EngineConfig = {
             icon: <LogoutIcon fontSize="small" />,
         },
     ],
-    getFiles: async (path) => {
-        const result = await fetch(`/server/files?pathToFolderToLoad=${path}`);
-        const files = result.json();
+    filesManager: {
+        saveFiles: async (formData: FormData) => {
+            const response = await saveFiles(formData);
 
-        return files as Promise<GetFilesResult>;
+            if (!response.success) {
+                return {
+                    status: false,
+                    message: response.errorMessage as string,
+                };
+            }
+
+            if (response.success) {
+                return {
+                    status: true,
+                    message: "Scenes saved with success!",
+                };
+            }
+
+            return {
+                status: false,
+                message: "An error occured",
+            };
+        },
+        getFiles: async (path) => {
+            const files = await getFiles(path);
+            return files as Promise<GetFilesResult>;
+        },
     },
     onSave: async (scenes) => {
         if (scenes) {
