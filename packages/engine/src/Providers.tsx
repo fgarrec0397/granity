@@ -15,7 +15,7 @@ import { EngineConfig } from "./App/Core/_actions/coreTypes";
 import useInitCore from "./App/Core/_actions/hooks/useInitCore";
 
 type Props = HasChildren & {
-    config?: EngineConfig;
+    config: EngineConfig;
     theme?: Theme;
 };
 
@@ -40,7 +40,7 @@ const AppProvider: FC<Props> = ({ config, theme, children }) => {
 };
 
 type InitializerProps = {
-    config?: EngineConfig;
+    config: EngineConfig;
     children: React.ReactNode;
 };
 

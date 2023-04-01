@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { EngineConfig } from "../coreTypes";
 import useCore from "./useCore";
 
-export default (config?: EngineConfig) => {
+export default (config: EngineConfig) => {
     const { initWidgetsModules } = useWidgetsModules();
     const { initOnSave, initKeyboardMappings, initMainMenu, initFilesManager } = useCore();
 
@@ -33,8 +33,6 @@ export default (config?: EngineConfig) => {
     }, [config?.editorMainMenu, initMainMenu]);
 
     useEffect(() => {
-        if (config?.filesManager) {
-            initFilesManager(config.filesManager);
-        }
-    }, [config?.filesManager, initFilesManager]);
+        initFilesManager(config.filesManager);
+    }, [config.filesManager, initFilesManager]);
 };

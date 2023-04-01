@@ -10,7 +10,7 @@ type ResponseData =
       }
     | string;
 
-type FileItem = {
+export type FileItem = {
     path: string;
     name: string;
     type: string;
@@ -22,19 +22,19 @@ const getFileExtension = (fileName: string) => {
     return fileNameSplit[fileNameSplit.length - 1];
 };
 
-const getRootFilesFolder = () => {
+export const getRootFilesFolder = () => {
     return path.resolve("../admin", "public");
 };
 
-export const getFiles = async ({ query }: Request, result: Response<ResponseData>) => {
-    const pathToFolderToLoad = String(query.pathToFolderToLoad);
+const loadFolder = (pathToFolderToLoad: string) => {
+    // const pathToFolderToLoad = String(query.pathToFolderToLoad);
 
     const directoryToRead = path.join(getRootFilesFolder(), pathToFolderToLoad);
 
-    if (!fs.existsSync(directoryToRead)) {
-        result.statusCode = 404;
-        return result.json("Folder does not exist");
-    }
+    // if (!fs.existsSync(directoryToRead)) {
+    //     result.statusCode = 404;
+    //     return result.json("Folder does not exist");
+    // }
 
     const directoryData = fs.readdirSync(directoryToRead, { withFileTypes: true });
 
@@ -63,15 +63,36 @@ export const getFiles = async ({ query }: Request, result: Response<ResponseData
         return file;
     });
 
-    result.statusCode = 200;
-    result.json({
+    return {
         currentRootPath: pathToFolderToLoad,
         files,
         folders,
-    });
+    };
+};
+
+export const getFiles = async ({ query }: Request, result: Response<ResponseData>) => {
+    const pathToFolderToLoad = String(query.pathToFolderToLoad);
+
+    const directoryToRead = path.join(getRootFilesFolder(), pathToFolderToLoad);
+
+    if (!fs.existsSync(directoryToRead)) {
+        result.statusCode = 404;
+        return result.json("Folder does not exist");
+    }
+
+    const folderData = loadFolder(pathToFolderToLoad);
+
+    result.statusCode = 200;
+    result.json(folderData);
 };
 
 export const postFiles = (request: Request, result: Response) => {
+    const pathToFolderToLoad = String(request.body.currentPath);
+
+    console.log(request.files, "request.files");
+    console.log(request.file, "request.file");
+
+    // const folderData = loadFolder(pathToFolderToLoad);
     result.statusCode = 200;
-    result.json("postFiles");
+    result.json(request.files);
 };

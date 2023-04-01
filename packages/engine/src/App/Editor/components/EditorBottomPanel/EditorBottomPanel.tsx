@@ -1,7 +1,8 @@
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { layoutStyles } from "@engine/Theme/mixins/layout";
-import { capitalizeString, useQuery } from "@granity/helpers";
+import { capitalizeString, useMutation, useQuery, useQueryClient } from "@granity/helpers";
 import {
+    AddCircleIcon,
     Box,
     BoxProps,
     Breadcrumbs,
@@ -16,6 +17,8 @@ import {
     Grid,
     IconButton,
     IconButtonProps,
+    InputLabel,
+    InputLabelProps,
     KeyboardDoubleArrowUpIcon,
     Link,
     MoreVertIcon,
@@ -39,6 +42,9 @@ type EditorBottomPanellStyles = {
     folderButtonIcon?: SvgIconProps;
     itemActionButton?: IconButtonProps;
     fileBox?: BoxProps;
+    addFileButton?: InputLabelProps;
+    addFileButtonInfo?: BoxProps;
+    addIcon?: SvgIconProps;
     fileBoxInfo?: BoxProps;
 };
 
@@ -117,12 +123,36 @@ const styles: EditorBottomPanellStyles = {
         sx: {
             padding: pxToRem(5),
             width: "100%",
+            height: "100%",
             border: 1,
             fontSize: 16,
 
             "&:hover": {
                 backgroundColor: "action.hover",
             },
+        },
+    },
+    addFileButton: {
+        sx: (theme) => ({
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: theme.typography.fontWeightBold,
+            color: theme.palette.text.primary,
+        }),
+    },
+    addFileButtonInfo: {
+        sx: {
+            display: "flex",
+            alignItems: "center",
+        },
+    },
+    addIcon: {
+        sx: {
+            marginRight: pxToRem(5),
         },
     },
     fileBoxInfo: {
@@ -145,9 +175,16 @@ const EditorBottomPanell: FC = () => {
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { getFiles, saveFiles } = useCore();
+    const queryClient = useQueryClient();
 
     const { data } = useQuery(["files", currentPath], () => getFiles?.(currentPath), {
         enabled: getFiles !== undefined,
+    });
+
+    const mutation = useMutation(saveFiles, {
+        onSuccess: (data) => {
+            queryClient.setQueryData(["files", { id: 5 }], data);
+        },
     });
 
     const currentRootPathLinks = data?.currentRootPath?.split("/");
@@ -182,11 +219,14 @@ const EditorBottomPanell: FC = () => {
         const formData = new FormData();
 
         if (event.target.files?.length) {
+            formData.append("currentPath", currentPath);
+
             for (let i = 0; i < event.target.files.length; i++) {
+                // Need to send files after all other inputs because Multer does not support it
                 formData.append(`filesToUpload`, event.target.files[i]);
             }
 
-            await saveFiles?.(formData);
+            const response = await saveFiles?.(formData);
         }
     };
 
@@ -222,44 +262,33 @@ const EditorBottomPanell: FC = () => {
                                     );
                                 })}
                             </Breadcrumbs>
-                            <input ref={ref} type="file" onChange={onUploadFile} multiple />
                         </Box>
                     </Box>
                     <Divider />
-                    {data?.folders?.length && data?.folders?.length > 0 ? (
-                        <>
-                            <Box {...styles.section}>
-                                <Typography {...styles.subTitle}>Folders</Typography>
-                                <Grid container spacing={2}>
-                                    {data?.folders.map((x) => (
-                                        <Grid key={x.path} item xs={6} sm={4} lg={3}>
-                                            <Box
-                                                {...styles.folderBox}
-                                                onClick={() => onClickFolder(x.name)}
-                                            >
-                                                <Box {...styles.folderBoxInfo}>
-                                                    <FolderIcon {...styles.folderButtonIcon} />
-                                                    {x.name}
-                                                </Box>
-                                                <IconButton {...styles.itemActionButton}>
-                                                    <MoreVertIcon />
-                                                </IconButton>
-                                            </Box>
-                                        </Grid>
-                                    ))}
-                                    <Grid item xs={6} sm={4} lg={3}>
-                                        <input
-                                            ref={ref}
-                                            type="file"
-                                            onChange={onUploadFile}
-                                            multiple
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Divider />
-                        </>
-                    ) : null}
+                    <Box {...styles.section}>
+                        <Typography {...styles.subTitle}>Folders</Typography>
+                        <Grid container spacing={2}>
+                            {data?.folders?.length && data?.folders?.length > 0
+                                ? data?.folders.map((x) => (
+                                      <Grid key={x.path} item xs={6} sm={4} lg={3}>
+                                          <Box
+                                              {...styles.folderBox}
+                                              onClick={() => onClickFolder(x.name)}
+                                          >
+                                              <Box {...styles.folderBoxInfo}>
+                                                  <FolderIcon {...styles.folderButtonIcon} />
+                                                  {x.name}
+                                              </Box>
+                                              <IconButton {...styles.itemActionButton}>
+                                                  <MoreVertIcon />
+                                              </IconButton>
+                                          </Box>
+                                      </Grid>
+                                  ))
+                                : null}
+                        </Grid>
+                    </Box>
+                    <Divider />
                     <Box {...styles.section}>
                         <Typography {...styles.subTitle}>Files</Typography>
                         <Grid container spacing={2}>
@@ -276,6 +305,23 @@ const EditorBottomPanell: FC = () => {
                                     </Box>
                                 </Grid>
                             ))}
+                            <Grid item xs={6} sm={3} lg={2}>
+                                <Box {...styles.fileBox}>
+                                    <InputLabel {...styles.addFileButton}>
+                                        <Box {...styles.addFileButtonInfo}>
+                                            <AddCircleIcon {...styles.addIcon} />
+                                            New File
+                                        </Box>
+                                        <input
+                                            ref={ref}
+                                            type="file"
+                                            onChange={onUploadFile}
+                                            multiple
+                                            hidden
+                                        />
+                                    </InputLabel>
+                                </Box>
+                            </Grid>
                         </Grid>
                     </Box>
                 </Container>
