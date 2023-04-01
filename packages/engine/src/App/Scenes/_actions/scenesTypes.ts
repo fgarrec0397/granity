@@ -23,6 +23,10 @@ export type SceneCamera = {
     position: Vector3Array;
 };
 
+// --------------- Scenes Reducer --------------- //
+
+export type ScenesStatus = "isLoading" | "isSuccess" | "isError";
+
 // --------------- Scenes types --------------- //
 
 /**

@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem, ScenesStatus } from "../../scenesTypes";
 
 export interface ScenesState {
     byId: ScenesDictionary;
     allIds: string[];
-    isLoading: boolean;
+    status: ScenesStatus;
     currentSceneId: string | null;
     currentDefaultSceneId: string | null;
 }
@@ -13,7 +13,7 @@ export interface ScenesState {
 const initialState: ScenesState = {
     byId: {},
     allIds: [],
-    isLoading: false,
+    status: "isLoading",
     currentSceneId: null,
     currentDefaultSceneId: null,
 };
@@ -32,10 +32,10 @@ export const scenesSlice = createSlice({
 
             state.allIds.push(newScene.id);
         },
-        setScenesLoading: (state: ScenesState, actions: PayloadAction<boolean>) => {
-            const isLoading = actions.payload;
+        setScenesStatus: (state: ScenesState, actions: PayloadAction<ScenesState["status"]>) => {
+            const status = actions.payload;
 
-            state.isLoading = isLoading;
+            state.status = status;
         },
         addScenesBatch: (state: ScenesState, actions: PayloadAction<ScenesDictionary>) => {
             const newScenes = actions.payload;
@@ -89,7 +89,7 @@ export const scenesSlice = createSlice({
 
 export const {
     addScene,
-    setScenesLoading,
+    setScenesStatus,
     addScenesBatch,
     resetScenes,
     setCurrentSceneId,

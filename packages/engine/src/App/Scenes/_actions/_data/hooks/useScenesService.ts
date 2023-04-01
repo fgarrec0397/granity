@@ -2,7 +2,7 @@ import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
 import { useMutation } from "@granity/helpers";
 import { useCallback } from "react";
 
-import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem, ScenesStatus } from "../../scenesTypes";
 import { saveScenes } from "../scenesService";
 import useScenesDispatch from "./useScenesDispatch";
 import useScenesSelector from "./useScenesSelector";
@@ -10,7 +10,7 @@ import useScenesSelector from "./useScenesSelector";
 export default () => {
     const {
         dispatchAddScene,
-        dispatchSetIsLoading,
+        dispatchSetScenesStatus,
         dispatchAddScenesBatch,
         dispatchResetScenes,
         dispatchSetCurrentSceneId,
@@ -18,7 +18,7 @@ export default () => {
         dispatchUpdateScene,
         dispatchRemoveScene,
     } = useScenesDispatch();
-    const { scenes, scenesIds, currentSceneId, currentDefaultSceneId, scenesLoading } =
+    const { scenes, scenesIds, currentSceneId, currentDefaultSceneId, scenesStatus } =
         useScenesSelector();
     const { endpoints } = useConfig();
     const scenesMutation = useMutation(saveScenes);
@@ -27,8 +27,8 @@ export default () => {
         dispatchAddScene(scene);
     };
 
-    const setIsLoading = (isLoading: boolean) => {
-        dispatchSetIsLoading(isLoading);
+    const setStatus = (status: ScenesStatus) => {
+        dispatchSetScenesStatus(status);
     };
 
     const addBatch = (newScenes: ScenesDictionary) => {
@@ -73,11 +73,11 @@ export default () => {
     return {
         scenes,
         scenesIds,
-        scenesLoading,
+        scenesStatus,
         currentSceneId,
         currentDefaultSceneId,
         add,
-        setIsLoading,
+        setStatus,
         addBatch,
         reset,
         updateScene,

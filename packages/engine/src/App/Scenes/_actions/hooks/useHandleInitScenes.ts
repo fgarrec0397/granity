@@ -7,7 +7,7 @@ import { getScenes } from "../_data/scenesService";
 import useScenes from "./useScenes";
 
 export default () => {
-    const { initScenes, setScenesLoading } = useScenes();
+    const { initScenes, setScenesStatus } = useScenes();
     const { enqueueSnackbar } = useSnackbar();
     const { endpoints } = useConfig();
 
@@ -17,8 +17,8 @@ export default () => {
     });
 
     useEffect(() => {
-        setScenesLoading(isLoading);
-    }, [setScenesLoading, isLoading]);
+        setScenesStatus("isLoading");
+    }, [isLoading, setScenesStatus]);
 
     useEffect(() => {
         if (status === "error") {
@@ -37,12 +37,14 @@ export default () => {
                 const scenes = JSON.parse(sceneJsonString);
 
                 initScenes(scenes);
+                setScenesStatus("isSuccess");
             } catch (errorParsing) {
                 if (typeof errorParsing === "string") {
                     enqueueSnackbar(errorParsing, { variant: "error" });
                 } else {
                     // eslint-disable-next-line no-console
                     console.error(errorParsing);
+                    setScenesStatus("isError");
                 }
             }
         }

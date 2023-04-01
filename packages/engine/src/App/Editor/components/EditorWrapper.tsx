@@ -9,10 +9,10 @@ import useCreateScene from "./EditorCommon/hooks/useCreateScene";
 type Props = HasChildren;
 
 const EditorWrapper: FC<Props> = ({ children }) => {
-    const { hasScenes, scenesLoading } = useScenes();
+    const { hasScenes, scenesStatus } = useScenes();
     const { sceneName, handleChangeName, handleIsDefault, handleAddScene } = useCreateScene();
 
-    const openEditorModal = !scenesLoading && !hasScenes();
+    const openEditorModal = scenesStatus === "isSuccess" && !hasScenes();
 
     return (
         <>

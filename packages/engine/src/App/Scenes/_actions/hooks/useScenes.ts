@@ -8,19 +8,19 @@ import { useSnackbar } from "@granity/ui";
 import { useCallback, useEffect, useState } from "react";
 
 import useScenesService from "../_data/hooks/useScenesService";
-import { ScenesDictionary, ScenesDictionaryItem } from "../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem, ScenesStatus } from "../scenesTypes";
 import getDefaultSceneId from "../utilities/getDefaultSceneId";
 import getFirstNonDefaultScene from "../utilities/getFirstNonDefaultScene";
 
 export default () => {
     const {
         scenes,
-        scenesLoading,
+        scenesStatus,
         scenesIds,
         currentSceneId,
         currentDefaultSceneId,
         add,
-        setIsLoading,
+        setStatus,
         addBatch,
         reset,
         updateCurrentSceneId,
@@ -41,11 +41,11 @@ export default () => {
         return scenesIds.length > 0;
     }, [scenesIds]);
 
-    const setScenesLoading = useCallback(
-        (isLoading: boolean) => {
-            setIsLoading(isLoading);
+    const setScenesStatus = useCallback(
+        (status: ScenesStatus) => {
+            setStatus(status);
         },
-        [setIsLoading]
+        [setStatus]
     );
 
     const getSceneById = useCallback(
@@ -310,14 +310,14 @@ export default () => {
     return {
         scenes,
         scenesIds,
-        scenesLoading,
+        scenesStatus,
         currentScene: getCurrentScene(),
         currentSceneId,
         hasScenes,
 
         // Actions
         addScene,
-        setScenesLoading,
+        setScenesStatus,
         addScenesBatch,
         changeDefaultScene,
         getSceneById,

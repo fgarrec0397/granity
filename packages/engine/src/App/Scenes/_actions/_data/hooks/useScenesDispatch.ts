@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 
-import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem, ScenesStatus } from "../../scenesTypes";
 import {
     addScene,
     addScenesBatch,
@@ -8,7 +8,7 @@ import {
     resetScenes,
     setCurrentDefaultSceneId,
     setCurrentSceneId,
-    setScenesLoading,
+    setScenesStatus,
     updateScene,
 } from "../state/scenesReducer";
 
@@ -19,8 +19,8 @@ export default () => {
         dispatch(addScene(scene));
     };
 
-    const dispatchSetIsLoading = (isLoading: boolean) => {
-        dispatch(setScenesLoading(isLoading));
+    const dispatchSetScenesStatus = (status: ScenesStatus) => {
+        dispatch(setScenesStatus(status));
     };
 
     const dispatchAddScenesBatch = (scenes: ScenesDictionary) => {
@@ -49,7 +49,7 @@ export default () => {
 
     return {
         dispatchAddScene,
-        dispatchSetIsLoading,
+        dispatchSetScenesStatus,
         dispatchAddScenesBatch,
         dispatchResetScenes,
         dispatchUpdateScene,
