@@ -8,6 +8,7 @@ import {
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import { DependencyList, useCallback, useEffect, useMemo, useState } from "react";
 
+import useConfig from "./useConfig";
 import useCore from "./useCore";
 
 const triggerAllMappedKeys = (
@@ -33,7 +34,7 @@ export default (handler: KeyboardMappingHandler, dependencies: DependencyList) =
     const handlerCallback = useCallback(handler, [handler, ...dependencies]);
     const [keyboardType, setKeyboardType] = useState<KeyboardType>("editor");
     const { isEditor } = useEditor();
-    const { keyboardMappings } = useCore();
+    const { keyboardMappings } = useConfig();
 
     useEffect(() => {
         if (isEditor) {
@@ -46,7 +47,7 @@ export default (handler: KeyboardMappingHandler, dependencies: DependencyList) =
     const keysMapping = useMemo((): KeyboardMappings => {
         const newMapping = defaultKeyMappingObj;
 
-        keyboardMappings[keyboardType].forEach((x) => {
+        keyboardMappings?.[keyboardType].forEach((x) => {
             newMapping[keyboardType][x.name] = {
                 trigger: (event: KeyboardEvent) => {
                     const hasCtrlKey = x.ctrlKey ? event.ctrlKey : !event.ctrlKey;

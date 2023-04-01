@@ -1,4 +1,3 @@
-import { ScenesDictionary } from "@engine/App/Scenes/_actions/scenesTypes";
 import { WidgetModules } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary } from "@granity/helpers";
 import { ReactNode } from "react";
@@ -30,23 +29,22 @@ export type GetFilesResult = {
     folders: FileItem[];
 };
 
-export type EditorFilesManager = {
-    saveFiles: (formData: FormData) => Promise<{
-        status: boolean;
-        message: string;
-    }>;
-    getFiles: (path: string) => Promise<GetFilesResult | undefined>;
+export type EngineEndpoints = {
+    files: {
+        get: string;
+        save: string;
+    };
+    scenes: {
+        get: string;
+        save: string;
+    };
 };
 
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
     keyboardMappings?: KeyboardKeys;
     editorMainMenu?: EditorMainMenuItem[];
-    filesManager: EditorFilesManager;
-    onSave?: (scenes: ScenesDictionary | null) => Promise<{
-        status: boolean;
-        message: string;
-    }> | void;
+    endpoints: EngineEndpoints;
 };
 
 // --- Key Bindings --- //

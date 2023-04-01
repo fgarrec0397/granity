@@ -1,1 +1,1 @@
-export { CoreAction, CoreContext, default as CoreContextProvider } from "./CoreContextProvider";
+export { ConfigContext, default as ConfigContextProvider } from "./ConfigContextProvider";

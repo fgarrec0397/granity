@@ -1,6 +1,9 @@
+import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
+import { useMutation } from "@granity/helpers";
 import { useCallback } from "react";
 
 import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
+import { saveScenes } from "../scenesService";
 import useScenesDispatch from "./useScenesDispatch";
 import useScenesSelector from "./useScenesSelector";
 
@@ -17,6 +20,8 @@ export default () => {
     } = useScenesDispatch();
     const { scenes, scenesIds, currentSceneId, currentDefaultSceneId, scenesLoading } =
         useScenesSelector();
+    const { endpoints } = useConfig();
+    const scenesMutation = useMutation(saveScenes);
 
     const add = (scene: ScenesDictionaryItem) => {
         dispatchAddScene(scene);
@@ -56,6 +61,10 @@ export default () => {
         dispatchRemoveScene(sceneId);
     };
 
+    const save = (newScenes: ScenesDictionary) => {
+        scenesMutation.mutate({ endpoint: endpoints.scenes.save, scenes: newScenes });
+    };
+
     return {
         scenes,
         scenesIds,
@@ -70,5 +79,6 @@ export default () => {
         updateCurrentDefaultSceneId,
         updateCurrentSceneId,
         remove,
+        save,
     };
 };

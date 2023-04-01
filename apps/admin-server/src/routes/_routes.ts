@@ -6,7 +6,7 @@ import sceneRoutes from "./sceneRoutes";
 const routes = () => {
     const router = express.Router();
 
-    router.use("/scene", sceneRoutes());
+    router.use("/scenes", sceneRoutes());
     router.use("/auth", authRoutes());
     router.use("/files", filesRoutes());
 

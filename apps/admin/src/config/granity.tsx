@@ -1,9 +1,6 @@
-import { EngineConfig, GetFilesResult, WidgetModules } from "@granity/engine";
+import { EngineConfig, WidgetModules } from "@granity/engine";
 import { HomeIcon, LogoutIcon } from "@granity/ui";
 import { signOut } from "next-auth/react";
-
-import { getFiles, saveFiles } from "../services/files";
-import { saveScenes } from "../services/scenes";
 
 let widgetsModules: WidgetModules[] = [];
 
@@ -31,56 +28,66 @@ export const granityConfig: EngineConfig = {
             icon: <LogoutIcon fontSize="small" />,
         },
     ],
-    filesManager: {
-        saveFiles: async (formData: FormData) => {
-            const response = await saveFiles(formData);
-
-            if (!response.success) {
-                return {
-                    status: false,
-                    message: response.errorMessage as string,
-                };
-            }
-
-            if (response.success) {
-                return {
-                    status: true,
-                    message: "Scenes saved with success!",
-                };
-            }
-
-            return {
-                status: false,
-                message: "An error occured",
-            };
+    endpoints: {
+        files: {
+            save: "/server/files",
+            get: "/server/files",
         },
-        getFiles: async (path) => {
-            const files = await getFiles(path);
-            return files as Promise<GetFilesResult>;
+        scenes: {
+            get: "/server/scenes",
+            save: "/server/scenes",
         },
     },
-    onSave: async (scenes) => {
-        if (scenes) {
-            const response = await saveScenes(scenes);
+    // filesManager: {
+    //     saveFiles: async (formData: FormData) => {
+    //         const response = await saveFiles(formData);
 
-            if (!response.success) {
-                return {
-                    status: false,
-                    message: response.errorMessage as string,
-                };
-            }
+    //         if (!response.success) {
+    //             return {
+    //                 status: false,
+    //                 message: response.errorMessage as string,
+    //             };
+    //         }
 
-            if (response.success) {
-                return {
-                    status: true,
-                    message: "Scenes saved with success!",
-                };
-            }
-        }
+    //         if (response.success) {
+    //             return {
+    //                 status: true,
+    //                 message: "Scenes saved with success!",
+    //             };
+    //         }
 
-        return {
-            status: false,
-            message: "An error occured",
-        };
-    },
+    //         return {
+    //             status: false,
+    //             message: "An error occured",
+    //         };
+    //     },
+    //     getFiles: async (path) => {
+    //         const files = await getFiles(path);
+    //         return files as Promise<GetFilesResult>;
+    //     },
+    // },
+    // onSave: async (scenes) => {
+    //     if (scenes) {
+    //         const response = await saveScenes(scenes);
+
+    //         if (!response.success) {
+    //             return {
+    //                 status: false,
+    //                 message: response.errorMessage as string,
+    //             };
+    //         }
+
+    //         if (response.success) {
+    //             return {
+    //                 status: true,
+    //                 message: "Scenes saved with success!",
+    //             };
+    //         }
+    //     }
+
+    //     return {
+    //         status: false,
+    //         message: "An error occured",
+    //     };
+    // },
 };

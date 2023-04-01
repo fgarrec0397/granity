@@ -20,6 +20,7 @@ export default () => {
         updateCurrentMode,
         updatedIsGridEnabled,
         isGridEnabled,
+        getFiles,
     } = useEditorService();
     const { removeWidgetSelection } = useWidgets();
 
@@ -75,6 +76,13 @@ export default () => {
         [removeWidgetSelection]
     );
 
+    const files = useCallback(
+        (path: string) => {
+            return getFiles(path);
+        },
+        [getFiles]
+    );
+
     return {
         isEditor,
         isEditing,
@@ -82,6 +90,7 @@ export default () => {
         hasEditorOpened,
         currentMode,
         isGameUIPreview,
+        files,
         openEditor,
         closeEditor,
         openEditorUIPreview,

@@ -4,10 +4,13 @@ import Editor from "@engine/App/Editor/Editor";
 import { GamePreview } from "@engine/App/Game";
 import { FC } from "react";
 
+import useHandleInitScenes from "./_actions/hooks/useHandleInitScenes";
+
 const Scenes: FC = () => {
     const { isEditor } = useEditor();
 
     useHandleEditor();
+    useHandleInitScenes();
 
     return <>{isEditor ? <Editor.Editor /> : <GamePreview.Game />}</>;
 };

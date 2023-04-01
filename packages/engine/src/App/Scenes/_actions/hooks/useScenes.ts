@@ -28,13 +28,13 @@ export default () => {
         updateCurrentDefaultSceneId,
         updateScene,
         remove,
+        save,
     } = useScenesService();
     const { enqueueSnackbar } = useSnackbar();
     const { initWidgets } = useInitWidgets();
     const { unserializeWidgets } = useWidgetsUtilities();
     const { widgets, widgetsObjectInfoDictionary, resetWidgets } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
-    const { onSave } = useCore();
     const previousScenes = usePrevious(scenes);
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
 
@@ -254,18 +254,18 @@ export default () => {
                 },
             };
 
-            const onSaveSuccess = onSave?.(scenesClone);
+            const onSaveSuccess = save(scenesClone);
 
-            if (onSaveSuccess) {
-                enqueueSnackbar("Successfully saved", { variant: "success" });
-            }
+            // if (onSaveSuccess) {
+            //     enqueueSnackbar("Successfully saved", { variant: "success" });
+            // }
         } else {
             enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
         }
     }, [
         enqueueSnackbar,
         getCurrentScene,
-        onSave,
+        save,
         scenes,
         updateScene,
         widgets,

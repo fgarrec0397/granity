@@ -1,3 +1,4 @@
+import { useQuery } from "@granity/helpers";
 import { useCallback } from "react";
 
 import { ModesAvailable } from "../../editorTypes";
@@ -60,6 +61,17 @@ export default () => {
         dispatchSetCurrentMode(value);
     };
 
+    const getFiles = useCallback((path: string) => {
+        const { data } = useQuery(["files"], () => async () => {
+            const result = await fetch(`/server/files?pathToFolderToLoad=${path}`);
+            return result.json();
+        });
+
+        console.log(data, "data");
+
+        return data;
+    }, []);
+
     return {
         isEditor,
         hasEdited,
@@ -76,5 +88,6 @@ export default () => {
         updatedIsGridEnabled,
         updateIsMultipleSelect,
         updateCurrentMode,
+        getFiles,
     };
 };

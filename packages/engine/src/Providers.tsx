@@ -10,9 +10,9 @@ import { Theme, ThemeProvider } from "@granity/ui";
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 
-import CoreContextProvider from "./App/Core/_actions/_data/providers/CoreContextProvider";
+import ConfigContextProvider from "./App/Core/_actions/_data/providers/ConfigContextProvider";
 import { EngineConfig } from "./App/Core/_actions/coreTypes";
-import useInitCore from "./App/Core/_actions/hooks/useInitCore";
+import useInitConfig from "./App/Core/_actions/hooks/useInitConfig";
 
 type Props = HasChildren & {
     config: EngineConfig;
@@ -25,7 +25,7 @@ const AppProvider: FC<Props> = ({ config, theme, children }) => {
     const Providers = ProvidersBuilder([
         [ThemeProvider, { theme }],
         [ReduxProvider, { store }],
-        [CoreContextProvider],
+        [ConfigContextProvider],
         [CamerasContextProvider],
         [WidgetsContextProvider],
         [WidgetsModulesContextProvider],
@@ -46,7 +46,7 @@ type InitializerProps = {
 
 // Need this component to init the data within the context
 const Initializer: FC<InitializerProps> = ({ config, children }) => {
-    useInitCore(config);
+    useInitConfig(config);
 
     return <>{children}</>;
 };

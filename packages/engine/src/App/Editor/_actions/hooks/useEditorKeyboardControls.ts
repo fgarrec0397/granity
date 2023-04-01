@@ -49,6 +49,8 @@ export default () => {
             } else if (keyMapping.prevCamera) {
                 setPrevCamera();
             } else if (keyMapping.saveScene) {
+                console.log("saveScene");
+
                 saveScene();
             }
         },
