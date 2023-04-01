@@ -61,8 +61,13 @@ export default () => {
         dispatchRemoveScene(sceneId);
     };
 
-    const save = (newScenes: ScenesDictionary) => {
-        scenesMutation.mutate({ endpoint: endpoints.scenes.save, scenes: newScenes });
+    const save = async (newScenes: ScenesDictionary) => {
+        const data = await scenesMutation.mutateAsync({
+            endpoint: endpoints.scenes.save,
+            scenes: newScenes,
+        });
+
+        return data;
     };
 
     return {

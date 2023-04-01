@@ -42,6 +42,6 @@ export const saveScenes = async ({ endpoint, scenes }: SaveScenesParameters) => 
 
     return {
         status: false,
-        message: "An error occured",
+        message: "An error occured. The scenes were not saved",
     };
 };

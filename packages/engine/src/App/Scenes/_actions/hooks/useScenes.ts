@@ -1,4 +1,3 @@
-import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import useInitWidgets from "@engine/App/Widgets/_actions/hooks/useInitWidgets";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@engine/App/Widgets/_actions/hooks/useWidgetsModules";
@@ -254,11 +253,9 @@ export default () => {
                 },
             };
 
-            const onSaveSuccess = save(scenesClone);
+            const result = await save(scenesClone);
 
-            // if (onSaveSuccess) {
-            //     enqueueSnackbar("Successfully saved", { variant: "success" });
-            // }
+            enqueueSnackbar(result.message, { variant: result.status ? "success" : "error" });
         } else {
             enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
         }
