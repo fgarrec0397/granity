@@ -118,7 +118,6 @@ export default () => {
 
     const saveFiles = useCallback(
         async (formData: FormData) => {
-            // dispatchSetFilesDataStatus("");
             const data = await filesMutation.mutateAsync({
                 endpoint: endpoints.files.save,
                 formData,

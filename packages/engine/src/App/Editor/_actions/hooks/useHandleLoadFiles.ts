@@ -6,13 +6,15 @@ import { useEffect } from "react";
 import { FilesService } from "../_data/filesService";
 import useEditor from "./useEditor";
 
-export default () => {
+export default (pathToLoad = "assets") => {
     const { enqueueSnackbar } = useSnackbar();
     const { endpoints } = useConfig();
     const { updateFilesStatus, updateFiles } = useEditor();
+    console.log(pathToLoad, "pathToLoad");
+
     const { data, status, isLoading } = useQuery({
-        queryKey: ["files"],
-        queryFn: () => FilesService.get({ endpoint: endpoints.files.get, path: "assets" }),
+        queryKey: ["files", pathToLoad],
+        queryFn: () => FilesService.get({ endpoint: endpoints.files.get, path: pathToLoad }),
     });
 
     useEffect(() => {

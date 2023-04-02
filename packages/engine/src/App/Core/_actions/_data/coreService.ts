@@ -28,7 +28,7 @@ export const get = async <RequestHeaders extends HeadersInit>(
     }
 };
 
-export const post = async <Parameters, RequestHeaders extends HeadersInit>(
+export const post = async <Parameters extends BodyInit, RequestHeaders extends HeadersInit>(
     url: string,
     parameters: Parameters,
     headers?: RequestHeaders
@@ -38,12 +38,15 @@ export const post = async <Parameters, RequestHeaders extends HeadersInit>(
         "Content-Type": "application/json",
     };
 
+    console.log(requestHeaders, "requestHeaders");
+
     const rawResponse = await fetch(url, {
         method: "POST",
         headers: {
             ...requestHeaders,
         },
-        body: JSON.stringify(parameters),
+        // body: JSON.stringify(parameters),
+        body: parameters,
     });
 
     try {

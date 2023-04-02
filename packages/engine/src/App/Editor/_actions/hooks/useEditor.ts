@@ -25,6 +25,7 @@ export default () => {
         setFilesDataStatus,
         setFilesData,
         getFilesData,
+        saveFiles,
     } = useEditorService();
     const { removeWidgetSelection } = useWidgets();
 
@@ -122,5 +123,6 @@ export default () => {
         updateFiles,
         updateFilesStatus,
         loadFiles,
+        saveFiles,
     };
 };

@@ -6,10 +6,15 @@ import {
     BoxProps,
     Breadcrumbs,
     BreadcrumbsProps,
+    Button,
     ButtonBase,
     ButtonBaseProps,
     Container,
     DefaultImage,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
     Divider,
     Drawer,
     FolderIcon,
@@ -23,6 +28,7 @@ import {
     MoreVertIcon,
     pxToRem,
     SvgIconProps,
+    TextField,
     Typography,
     TypographyProps,
 } from "@granity/ui";
@@ -45,6 +51,7 @@ type EditorBottomPanellStyles = {
     itemActionButton?: IconButtonProps;
     fileBox?: BoxProps;
     addFileButton?: InputLabelProps;
+    addFolderButton?: ButtonBaseProps;
     addFileButtonInfo?: BoxProps;
     addIcon?: SvgIconProps;
     fileBoxInfo?: BoxProps;
@@ -97,6 +104,20 @@ const styles: EditorBottomPanellStyles = {
         },
     },
     folderBox: {
+        sx: {
+            display: "flex",
+            justifyContent: "space-between",
+            padding: pxToRem(8, 16),
+            width: "100%",
+            border: 1,
+            fontSize: 16,
+
+            "&:hover": {
+                backgroundColor: "action.hover",
+            },
+        },
+    },
+    addFolderButton: {
         sx: {
             display: "flex",
             justifyContent: "space-between",
@@ -174,11 +195,16 @@ const styles: EditorBottomPanellStyles = {
 
 const EditorBottomPanell: FC = () => {
     const ref = useRef<HTMLInputElement>(null);
+    const [newFolderName, setNewFolderName] = useState<string>();
+    const [isCreateForlderModalOpen, setIsCreateForlderModalOpen] = useState(false);
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const { filesData } = useEditor();
+    const { filesData, saveFiles } = useEditor();
+    console.log(currentPath, "currentPath");
 
-    useHandleLoadFiles();
+    console.log(filesData, "filesData");
+
+    useHandleLoadFiles(currentPath);
 
     const currentRootPathLinks = filesData?.currentRootPath?.split("/");
 
@@ -208,8 +234,28 @@ const EditorBottomPanell: FC = () => {
         }
     };
 
-    const onAddFolder = () => {
-        console.log("onAddFolder");
+    const onAddFolder = async () => {
+        if (newFolderName) {
+            const formData = new FormData();
+
+            formData.append("addFolder", "true");
+            formData.append("folderName", newFolderName);
+            formData.append("currentPath", currentPath);
+
+            await saveFiles(formData);
+        }
+    };
+
+    const onChangeNewFolderName = (event: ChangeEvent<HTMLInputElement>) => {
+        setNewFolderName(event.target.value);
+    };
+
+    const openCreateFolderModal = () => {
+        setIsCreateForlderModalOpen(true);
+    };
+
+    const closeCreateFolderModal = () => {
+        setIsCreateForlderModalOpen(false);
     };
 
     const onUploadFile = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -222,6 +268,8 @@ const EditorBottomPanell: FC = () => {
                 // Need to send files after all other inputs because Multer does not support it
                 formData.append(`filesToUpload`, event.target.files[i]);
             }
+
+            await saveFiles(formData);
         }
     };
 
@@ -282,12 +330,15 @@ const EditorBottomPanell: FC = () => {
                                   ))
                                 : null}
                             <Grid item xs={6} sm={4} lg={3}>
-                                <Box {...styles.folderBox} onClick={onAddFolder}>
+                                <ButtonBase
+                                    {...styles.addFolderButton}
+                                    onClick={openCreateFolderModal}
+                                >
                                     <Box {...styles.addFileButtonInfo}>
                                         <AddCircleIcon {...styles.addIcon} />
                                         New File
                                     </Box>
-                                </Box>
+                                </ButtonBase>
                             </Grid>
                         </Grid>
                     </Box>
@@ -329,6 +380,18 @@ const EditorBottomPanell: FC = () => {
                     </Box>
                 </Container>
             </Drawer>
+            <Dialog open={isCreateForlderModalOpen} onClose={closeCreateFolderModal}>
+                <DialogTitle>New Folder</DialogTitle>
+                <DialogContent>
+                    <TextField onChange={onChangeNewFolderName} value={newFolderName} />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onAddFolder}>Create</Button>
+                    <Button variant="outlined" onClick={closeCreateFolderModal}>
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 };

@@ -27,14 +27,7 @@ export const getRootFilesFolder = () => {
 };
 
 const loadFolder = (pathToFolderToLoad: string) => {
-    // const pathToFolderToLoad = String(query.pathToFolderToLoad);
-
     const directoryToRead = path.join(getRootFilesFolder(), pathToFolderToLoad);
-
-    // if (!fs.existsSync(directoryToRead)) {
-    //     result.statusCode = 404;
-    //     return result.json("Folder does not exist");
-    // }
 
     const directoryData = fs.readdirSync(directoryToRead, { withFileTypes: true });
 
@@ -87,10 +80,23 @@ export const getFiles = async ({ query }: Request, result: Response<ResponseData
 };
 
 export const postFiles = (request: Request, result: Response) => {
-    const pathToFolderToLoad = String(request.body.currentPath);
+    const currentPath = request.body.currentPath;
+    const folderName = request.body.folderName || "New Folder";
+    const storagePath = path.resolve("../admin", "public", currentPath, folderName);
 
-    console.log(request.files, "request.files");
-    console.log(request.file, "request.file");
+    console.log(currentPath, "currentPath");
+    console.log(storagePath, "storagePath");
+    // console.log(request.files, "request.files");
+    // console.log(request.body.addFolder, "request.body.addFolder");
+    // console.log(typeof request.body.addFolder, "typeof request.body.addFolder");
+
+    if (request.body.addFolder === "true") {
+        console.log("adding a new folder");
+
+        if (!fs.existsSync(storagePath)) {
+            fs.mkdirSync(storagePath);
+        }
+    }
 
     // const folderData = loadFolder(pathToFolderToLoad);
     result.statusCode = 200;
