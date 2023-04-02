@@ -1,8 +1,9 @@
+import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
 import { useMutation } from "@granity/helpers";
 import { useCallback } from "react";
 
-import { ScenesDictionary, ScenesDictionaryItem, ScenesStatus } from "../../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
 import { saveScenes } from "../scenesService";
 import useScenesDispatch from "./useScenesDispatch";
 import useScenesSelector from "./useScenesSelector";
@@ -27,7 +28,7 @@ export default () => {
         dispatchAddScene(scene);
     };
 
-    const setStatus = (status: ScenesStatus) => {
+    const setStatus = (status: FetchStatus) => {
         dispatchSetScenesStatus(status);
     };
 

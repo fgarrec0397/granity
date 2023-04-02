@@ -1,7 +1,5 @@
-import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
-import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { layoutStyles } from "@engine/Theme/mixins/layout";
-import { capitalizeString, useMutation, useQuery, useQueryClient } from "@granity/helpers";
+import { capitalizeString } from "@granity/helpers";
 import {
     AddCircleIcon,
     Box,
@@ -28,10 +26,10 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, useRef, useState } from "react";
 
-import useEditorService from "../../_actions/_data/hooks/useEditorService";
 import { useEditor } from "../../_actions/hooks";
+import useHandleLoadFiles from "../../_actions/hooks/useHandleLoadFiles";
 
 type EditorBottomPanellStyles = {
     wrapper?: BoxProps;
@@ -178,35 +176,11 @@ const EditorBottomPanell: FC = () => {
     const ref = useRef<HTMLInputElement>(null);
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const { loadFiles } = useEditor();
-    const { getFiles } = useEditorService();
-    const queryClient = useQueryClient();
+    const { filesData } = useEditor();
 
-    // const files = {
-    //     currentRootPath: "",
-    //     folders: [],
-    //     files: [],
-    // };
+    useHandleLoadFiles();
 
-    // const files = loadFiles(currentPath);
-
-    useEffect(() => {
-        loadFiles(currentPath);
-    }, [currentPath, loadFiles]);
-
-    const test = getFiles("assets");
-    // console.log(files, "files");
-    // console.log(test, "test");
-
-    // console.log(files., "files");
-
-    // const mutation = useMutation(saveFiles, {
-    //     onSuccess: (files) => {
-    //         queryClient.setQueryData(["files", { id: 5 }], data);
-    //     },
-    // });
-
-    const currentRootPathLinks = files?.currentRootPath?.split("/");
+    const currentRootPathLinks = filesData?.currentRootPath?.split("/");
 
     const openDrawer = () => setIsDrawerOpen(true);
     const closeDrawer = () => setIsDrawerOpen(false);
@@ -229,9 +203,13 @@ const EditorBottomPanell: FC = () => {
     };
 
     const onClickFolder = (folderPath: string) => {
-        if (files?.currentRootPath) {
-            setCurrentPath(`${files?.currentRootPath}/${folderPath}`);
+        if (filesData?.currentRootPath) {
+            setCurrentPath(`${filesData?.currentRootPath}/${folderPath}`);
         }
+    };
+
+    const onAddFolder = () => {
+        console.log("onAddFolder");
     };
 
     const onUploadFile = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -244,8 +222,6 @@ const EditorBottomPanell: FC = () => {
                 // Need to send files after all other inputs because Multer does not support it
                 formData.append(`filesToUpload`, event.target.files[i]);
             }
-
-            // const response = await saveFiles?.(formData);
         }
     };
 
@@ -287,8 +263,8 @@ const EditorBottomPanell: FC = () => {
                     <Box {...styles.section}>
                         <Typography {...styles.subTitle}>Folders</Typography>
                         <Grid container spacing={2}>
-                            {files?.folders?.length && files?.folders?.length > 0
-                                ? files?.folders.map((x: any) => (
+                            {filesData?.folders?.length && filesData?.folders?.length > 0
+                                ? filesData?.folders.map((x: any) => (
                                       <Grid key={x.path} item xs={6} sm={4} lg={3}>
                                           <Box
                                               {...styles.folderBox}
@@ -305,13 +281,21 @@ const EditorBottomPanell: FC = () => {
                                       </Grid>
                                   ))
                                 : null}
+                            <Grid item xs={6} sm={4} lg={3}>
+                                <Box {...styles.folderBox} onClick={onAddFolder}>
+                                    <Box {...styles.addFileButtonInfo}>
+                                        <AddCircleIcon {...styles.addIcon} />
+                                        New File
+                                    </Box>
+                                </Box>
+                            </Grid>
                         </Grid>
                     </Box>
                     <Divider />
                     <Box {...styles.section}>
                         <Typography {...styles.subTitle}>Files</Typography>
                         <Grid container spacing={2}>
-                            {files?.files.map((x: any) => (
+                            {filesData?.files.map((x: any) => (
                                 <Grid key={x.name} item xs={6} sm={3} lg={2}>
                                     <Box {...styles.fileBox}>
                                         <DefaultImage />

@@ -1,8 +1,9 @@
+import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
-import { useMutation, useQuery } from "@granity/helpers";
+import { useMutation, useQueryClient } from "@granity/helpers";
 import { useCallback } from "react";
 
-import { ModesAvailable } from "../../editorTypes";
+import { FilesData, ModesAvailable } from "../../editorTypes";
 import { FilesService } from "../filesService";
 import useEditorDispatch from "./useEditorDispatch";
 import useEditorSelector from "./useEditorSelector";
@@ -18,6 +19,7 @@ export default () => {
         dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
         dispatchSetFilesData,
+        dispatchSetFilesDataStatus,
     } = useEditorDispatch();
     const {
         isEditor,
@@ -28,7 +30,9 @@ export default () => {
         currentMode,
         isGridEnabled,
         filesData,
+        filesDataStatus,
     } = useEditorSelector();
+    const queryClient = useQueryClient();
     const { endpoints } = useConfig();
 
     const filesMutation = useMutation({
@@ -71,25 +75,50 @@ export default () => {
         dispatchSetCurrentMode(value);
     };
 
-    const getFiles = useCallback(
-        (path: string) => {
-            const { data } = useQuery(["files"], () =>
-                // TODO - set datafiles in the redux store. Just need to find the good way to fetch them
-                //  Continue here
-                FilesService.get({ endpoint: endpoints.files.get, path })
-            );
+    const setFilesData = useCallback(
+        (newFilesData: FilesData) => {
+            dispatchSetFilesData(newFilesData);
+        },
+        [dispatchSetFilesData]
+    );
+
+    const setFilesDataStatus = useCallback(
+        (status: FetchStatus) => {
+            dispatchSetFilesDataStatus(status);
+        },
+        [dispatchSetFilesDataStatus]
+    );
+
+    const getFilesData = useCallback(
+        async (path: string) => {
+            dispatchSetFilesDataStatus("isLoading");
+            const data = await queryClient.fetchQuery(["files"], {
+                queryFn: () => FilesService.get({ endpoint: endpoints.files.get, path }),
+            });
 
             if (data) {
                 dispatchSetFilesData(data);
+                setFilesDataStatus("isSuccess");
+            }
+
+            if (!data) {
+                setFilesDataStatus("isError");
             }
 
             return data;
         },
-        [dispatchSetFilesData, endpoints.files.get]
+        [
+            dispatchSetFilesData,
+            dispatchSetFilesDataStatus,
+            endpoints.files.get,
+            queryClient,
+            setFilesDataStatus,
+        ]
     );
 
     const saveFiles = useCallback(
         async (formData: FormData) => {
+            // dispatchSetFilesDataStatus("");
             const data = await filesMutation.mutateAsync({
                 endpoint: endpoints.files.save,
                 formData,
@@ -116,7 +145,11 @@ export default () => {
         updatedIsGridEnabled,
         updateIsMultipleSelect,
         updateCurrentMode,
-        getFiles,
+        setFilesData,
+        setFilesDataStatus,
+        filesDataStatus,
         saveFiles,
+        filesData,
+        getFilesData,
     };
 };

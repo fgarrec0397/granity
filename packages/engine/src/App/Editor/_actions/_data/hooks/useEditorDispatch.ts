@@ -1,9 +1,10 @@
 import { useAppDispatch } from "@engine/App/Core/_actions/_data/state/store";
+import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
+import { useCallback } from "react";
 
 import { FilesData, ModesAvailable } from "../../editorTypes";
 import {
     setCurrentMode,
-    setFilesData,
     setHasEdited,
     setHasEditorOpened,
     setIsEditing,
@@ -11,7 +12,8 @@ import {
     setIsGameUIPreview,
     setIsGridEnabled,
     setIsMultipleSelect,
-} from "../state/editorReducer";
+} from "../state/editorUtilsReducer";
+import { setFilesData, setStatus } from "../state/filesReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
@@ -34,6 +36,11 @@ export default () => {
 
     const dispatchSetFilesData = (filesData: FilesData) => dispatch(setFilesData(filesData));
 
+    const dispatchSetFilesDataStatus = useCallback(
+        (status: FetchStatus) => dispatch(setStatus(status)),
+        [dispatch]
+    );
+
     return {
         dispatchSetIsEditor,
         dispatchSetIsEditing,
@@ -44,5 +51,6 @@ export default () => {
         dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
         dispatchSetFilesData,
+        dispatchSetFilesDataStatus,
     };
 };

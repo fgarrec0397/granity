@@ -1,8 +1,9 @@
+import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { useCallback, useEffect } from "react";
 
 import useEditorService from "../_data/hooks/useEditorService";
-import { ModesAvailable } from "../editorTypes";
+import { FilesData, ModesAvailable } from "../editorTypes";
 
 export default () => {
     const {
@@ -20,7 +21,10 @@ export default () => {
         updateCurrentMode,
         updatedIsGridEnabled,
         isGridEnabled,
-        getFiles,
+        filesData,
+        setFilesDataStatus,
+        setFilesData,
+        getFilesData,
     } = useEditorService();
     const { removeWidgetSelection } = useWidgets();
 
@@ -76,11 +80,25 @@ export default () => {
         [removeWidgetSelection]
     );
 
+    const updateFilesStatus = useCallback(
+        (newFilesStatus: FetchStatus) => {
+            setFilesDataStatus(newFilesStatus);
+        },
+        [setFilesDataStatus]
+    );
+
+    const updateFiles = useCallback(
+        (newFilesData: FilesData) => {
+            setFilesData(newFilesData);
+        },
+        [setFilesData]
+    );
+
     const loadFiles = useCallback(
         (path: string) => {
-            return getFiles(path);
+            getFilesData(path);
         },
-        [getFiles]
+        [getFilesData]
     );
 
     return {
@@ -90,7 +108,6 @@ export default () => {
         hasEditorOpened,
         currentMode,
         isGameUIPreview,
-        loadFiles,
         openEditor,
         closeEditor,
         openEditorUIPreview,
@@ -101,5 +118,9 @@ export default () => {
         onEditorPointerMissed,
         toggleGrid,
         isGridEnabled,
+        filesData,
+        updateFiles,
+        updateFilesStatus,
+        loadFiles,
     };
 };

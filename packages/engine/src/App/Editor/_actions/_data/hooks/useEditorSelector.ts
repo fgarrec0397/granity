@@ -1,3 +1,15 @@
-import { useAppSelector } from "@engine/App/Core/_actions/_data/state/store";
+import { AppState, useAppSelector } from "@engine/App/Core/_actions/_data/state/store";
 
-export default () => useAppSelector((state) => state.editor);
+const filesSelector = (state: AppState) => state.editor.files;
+const utilsSelector = (state: AppState) => state.editor.utils;
+
+export default () =>
+    useAppSelector((state) => {
+        return {
+            ...{
+                ...filesSelector(state),
+                filesDataStatus: filesSelector(state).status,
+            },
+            ...utilsSelector(state),
+        };
+    });

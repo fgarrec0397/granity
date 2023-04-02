@@ -83,3 +83,7 @@ export type ClientKeyMappings = EditorClientKeyMappings | GameClientKeyMappings;
 export type KeyboardMappingHandler = (keyMapping: ClientKeyMappings) => void;
 
 export type KeyboardType = keyof typeof keyboardMappings;
+
+// --- API --- //
+
+export type FetchStatus = "isLoading" | "isSuccess" | "isError";

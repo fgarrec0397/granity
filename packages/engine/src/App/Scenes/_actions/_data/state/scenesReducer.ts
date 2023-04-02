@@ -1,11 +1,12 @@
+import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ScenesDictionary, ScenesDictionaryItem, ScenesStatus } from "../../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
 
 export interface ScenesState {
     byId: ScenesDictionary;
     allIds: string[];
-    status: ScenesStatus;
+    status: FetchStatus;
     currentSceneId: string | null;
     currentDefaultSceneId: string | null;
 }

@@ -1,6 +1,6 @@
-import { useSnackbar } from "@engine/../../ui/src";
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
 import { useQuery } from "@granity/helpers";
+import { useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
 
 import { getScenes } from "../_data/scenesService";
