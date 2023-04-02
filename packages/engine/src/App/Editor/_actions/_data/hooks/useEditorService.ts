@@ -1,7 +1,9 @@
-import { useQuery } from "@granity/helpers";
+import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
+import { useMutation, useQuery } from "@granity/helpers";
 import { useCallback } from "react";
 
 import { ModesAvailable } from "../../editorTypes";
+import { FilesService } from "../filesService";
 import useEditorDispatch from "./useEditorDispatch";
 import useEditorSelector from "./useEditorSelector";
 
@@ -15,6 +17,7 @@ export default () => {
         dispatchSetIsMultipleSelect,
         dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
+        dispatchSetFilesData,
     } = useEditorDispatch();
     const {
         isEditor,
@@ -24,7 +27,14 @@ export default () => {
         isEditing,
         currentMode,
         isGridEnabled,
+        filesData,
     } = useEditorSelector();
+    const { endpoints } = useConfig();
+
+    const filesMutation = useMutation({
+        mutationKey: ["files"],
+        mutationFn: FilesService.save,
+    });
 
     const updateIsEditor = (value: boolean) => {
         dispatchSetIsEditor(value);
@@ -61,16 +71,34 @@ export default () => {
         dispatchSetCurrentMode(value);
     };
 
-    const getFiles = useCallback((path: string) => {
-        const { data } = useQuery(["files"], () => async () => {
-            const result = await fetch(`/server/files?pathToFolderToLoad=${path}`);
-            return result.json();
-        });
+    const getFiles = useCallback(
+        (path: string) => {
+            const { data } = useQuery(["files"], () =>
+                // TODO - set datafiles in the redux store. Just need to find the good way to fetch them
+                //  Continue here
+                FilesService.get({ endpoint: endpoints.files.get, path })
+            );
 
-        console.log(data, "data");
+            if (data) {
+                dispatchSetFilesData(data);
+            }
 
-        return data;
-    }, []);
+            return data;
+        },
+        [dispatchSetFilesData, endpoints.files.get]
+    );
+
+    const saveFiles = useCallback(
+        async (formData: FormData) => {
+            const data = await filesMutation.mutateAsync({
+                endpoint: endpoints.files.save,
+                formData,
+            });
+
+            return data;
+        },
+        [endpoints.files.save, filesMutation]
+    );
 
     return {
         isEditor,
@@ -89,5 +117,6 @@ export default () => {
         updateIsMultipleSelect,
         updateCurrentMode,
         getFiles,
+        saveFiles,
     };
 };

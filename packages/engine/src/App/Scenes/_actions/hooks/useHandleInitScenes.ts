@@ -23,6 +23,7 @@ export default () => {
     useEffect(() => {
         if (status === "error") {
             enqueueSnackbar("No connections", { variant: "error" });
+            setScenesStatus("isError");
         }
 
         if (status === "success") {

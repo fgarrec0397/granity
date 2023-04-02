@@ -1,8 +1,9 @@
 import { useAppDispatch } from "@engine/App/Core/_actions/_data/state/store";
 
-import { ModesAvailable } from "../../editorTypes";
+import { FilesData, ModesAvailable } from "../../editorTypes";
 import {
     setCurrentMode,
+    setFilesData,
     setHasEdited,
     setHasEditorOpened,
     setIsEditing,
@@ -31,6 +32,8 @@ export default () => {
 
     const dispatchSetCurrentMode = (mode: ModesAvailable) => dispatch(setCurrentMode(mode));
 
+    const dispatchSetFilesData = (filesData: FilesData) => dispatch(setFilesData(filesData));
+
     return {
         dispatchSetIsEditor,
         dispatchSetIsEditing,
@@ -40,5 +43,6 @@ export default () => {
         dispatchSetIsMultipleSelect,
         dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
+        dispatchSetFilesData,
     };
 };

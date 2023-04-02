@@ -28,8 +28,9 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { ChangeEvent, FC, useRef, useState } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 
+import useEditorService from "../../_actions/_data/hooks/useEditorService";
 import { useEditor } from "../../_actions/hooks";
 
 type EditorBottomPanellStyles = {
@@ -177,16 +178,35 @@ const EditorBottomPanell: FC = () => {
     const ref = useRef<HTMLInputElement>(null);
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const { files } = useEditor();
+    const { loadFiles } = useEditor();
+    const { getFiles } = useEditorService();
     const queryClient = useQueryClient();
 
+    // const files = {
+    //     currentRootPath: "",
+    //     folders: [],
+    //     files: [],
+    // };
+
+    // const files = loadFiles(currentPath);
+
+    useEffect(() => {
+        loadFiles(currentPath);
+    }, [currentPath, loadFiles]);
+
+    const test = getFiles("assets");
+    // console.log(files, "files");
+    // console.log(test, "test");
+
+    // console.log(files., "files");
+
     // const mutation = useMutation(saveFiles, {
-    //     onSuccess: (data) => {
+    //     onSuccess: (files) => {
     //         queryClient.setQueryData(["files", { id: 5 }], data);
     //     },
     // });
 
-    // const currentRootPathLinks = files?.currentRootPath?.split("/");
+    const currentRootPathLinks = files?.currentRootPath?.split("/");
 
     const openDrawer = () => setIsDrawerOpen(true);
     const closeDrawer = () => setIsDrawerOpen(false);
@@ -195,138 +215,138 @@ const EditorBottomPanell: FC = () => {
         openDrawer();
     };
 
-    // const onClickBreadcrumbsElement = (folder: string) => {
-    //     const currentFolderIndex = currentRootPathLinks?.findIndex((x) => x === folder);
+    const onClickBreadcrumbsElement = (folder: string) => {
+        const currentFolderIndex = currentRootPathLinks?.findIndex((x) => x === folder);
 
-    //     if (currentFolderIndex !== undefined) {
-    //         const clonedCurrentRootPathLinks = [...(currentRootPathLinks || [])];
+        if (currentFolderIndex !== undefined) {
+            const clonedCurrentRootPathLinks = [...(currentRootPathLinks || [])];
 
-    //         clonedCurrentRootPathLinks.splice(currentFolderIndex + 1);
-    //         const newPath = clonedCurrentRootPathLinks?.join("/");
+            clonedCurrentRootPathLinks.splice(currentFolderIndex + 1);
+            const newPath = clonedCurrentRootPathLinks?.join("/");
 
-    //         setCurrentPath(newPath);
-    //     }
-    // };
+            setCurrentPath(newPath);
+        }
+    };
 
-    // const onClickFolder = (folderPath: string) => {
-    //     if (data?.currentRootPath) {
-    //         setCurrentPath(`${data?.currentRootPath}/${folderPath}`);
-    //     }
-    // };
+    const onClickFolder = (folderPath: string) => {
+        if (files?.currentRootPath) {
+            setCurrentPath(`${files?.currentRootPath}/${folderPath}`);
+        }
+    };
 
-    // const onUploadFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    //     const formData = new FormData();
+    const onUploadFile = async (event: ChangeEvent<HTMLInputElement>) => {
+        const formData = new FormData();
 
-    //     if (event.target.files?.length) {
-    //         formData.append("currentPath", currentPath);
+        if (event.target.files?.length) {
+            formData.append("currentPath", currentPath);
 
-    //         for (let i = 0; i < event.target.files.length; i++) {
-    //             // Need to send files after all other inputs because Multer does not support it
-    //             formData.append(`filesToUpload`, event.target.files[i]);
-    //         }
+            for (let i = 0; i < event.target.files.length; i++) {
+                // Need to send files after all other inputs because Multer does not support it
+                formData.append(`filesToUpload`, event.target.files[i]);
+            }
 
-    //         const response = await saveFiles?.(formData);
-    //     }
-    // };
-    return null;
-    // return (
-    //     <Box {...styles.wrapper}>
-    //         <ButtonBase onClick={onClick} {...styles.button}>
-    //             <KeyboardDoubleArrowUpIcon fontSize="large" />
-    //         </ButtonBase>
-    //         <Drawer anchor="bottom" open={isDrawerOpen} onClose={closeDrawer}>
-    //             <Container>
-    //                 <Box {...styles.section}>
-    //                     <Box {...styles.header}>
-    //                         <Typography {...styles.title}>Assets</Typography>
-    //                         <Breadcrumbs separator=">" {...styles.breadcrumbs}>
-    //                             {currentRootPathLinks?.map((x, index) => {
-    //                                 if (index === currentRootPathLinks.length - 1) {
-    //                                     return (
-    //                                         <Typography key={index} color="text.primary">
-    //                                             {capitalizeString(x)}
-    //                                         </Typography>
-    //                                     );
-    //                                 }
+            // const response = await saveFiles?.(formData);
+        }
+    };
 
-    //                                 return (
-    //                                     <Link
-    //                                         underline="hover"
-    //                                         key={index}
-    //                                         color="inherit"
-    //                                         onClick={() => onClickBreadcrumbsElement(x)}
-    //                                     >
-    //                                         {capitalizeString(x)}
-    //                                     </Link>
-    //                                 );
-    //                             })}
-    //                         </Breadcrumbs>
-    //                     </Box>
-    //                 </Box>
-    //                 <Divider />
-    //                 <Box {...styles.section}>
-    //                     <Typography {...styles.subTitle}>Folders</Typography>
-    //                     <Grid container spacing={2}>
-    //                         {data?.folders?.length && data?.folders?.length > 0
-    //                             ? data?.folders.map((x) => (
-    //                                   <Grid key={x.path} item xs={6} sm={4} lg={3}>
-    //                                       <Box
-    //                                           {...styles.folderBox}
-    //                                           onClick={() => onClickFolder(x.name)}
-    //                                       >
-    //                                           <Box {...styles.folderBoxInfo}>
-    //                                               <FolderIcon {...styles.folderButtonIcon} />
-    //                                               {x.name}
-    //                                           </Box>
-    //                                           <IconButton {...styles.itemActionButton}>
-    //                                               <MoreVertIcon />
-    //                                           </IconButton>
-    //                                       </Box>
-    //                                   </Grid>
-    //                               ))
-    //                             : null}
-    //                     </Grid>
-    //                 </Box>
-    //                 <Divider />
-    //                 <Box {...styles.section}>
-    //                     <Typography {...styles.subTitle}>Files</Typography>
-    //                     <Grid container spacing={2}>
-    //                         {data?.files.map((x) => (
-    //                             <Grid key={x.name} item xs={6} sm={3} lg={2}>
-    //                                 <Box {...styles.fileBox}>
-    //                                     <DefaultImage />
-    //                                     <Box {...styles.fileBoxInfo}>
-    //                                         {x.name}
-    //                                         <IconButton {...styles.itemActionButton}>
-    //                                             <MoreVertIcon />
-    //                                         </IconButton>
-    //                                     </Box>
-    //                                 </Box>
-    //                             </Grid>
-    //                         ))}
-    //                         <Grid item xs={6} sm={3} lg={2}>
-    //                             <Box {...styles.fileBox}>
-    //                                 <InputLabel {...styles.addFileButton}>
-    //                                     <Box {...styles.addFileButtonInfo}>
-    //                                         <AddCircleIcon {...styles.addIcon} />
-    //                                         New File
-    //                                     </Box>
-    //                                     <input
-    //                                         ref={ref}
-    //                                         type="file"
-    //                                         onChange={onUploadFile}
-    //                                         multiple
-    //                                         hidden
-    //                                     />
-    //                                 </InputLabel>
-    //                             </Box>
-    //                         </Grid>
-    //                     </Grid>
-    //                 </Box>
-    //             </Container>
-    //         </Drawer>
-    //     </Box>
-    // );
+    return (
+        <Box {...styles.wrapper}>
+            <ButtonBase onClick={onClick} {...styles.button}>
+                <KeyboardDoubleArrowUpIcon fontSize="large" />
+            </ButtonBase>
+            <Drawer anchor="bottom" open={isDrawerOpen} onClose={closeDrawer}>
+                <Container>
+                    <Box {...styles.section}>
+                        <Box {...styles.header}>
+                            <Typography {...styles.title}>Assets</Typography>
+                            <Breadcrumbs separator=">" {...styles.breadcrumbs}>
+                                {currentRootPathLinks?.map((x, index) => {
+                                    if (index === currentRootPathLinks.length - 1) {
+                                        return (
+                                            <Typography key={index} color="text.primary">
+                                                {capitalizeString(x)}
+                                            </Typography>
+                                        );
+                                    }
+
+                                    return (
+                                        <Link
+                                            underline="hover"
+                                            key={index}
+                                            color="inherit"
+                                            onClick={() => onClickBreadcrumbsElement(x)}
+                                        >
+                                            {capitalizeString(x)}
+                                        </Link>
+                                    );
+                                })}
+                            </Breadcrumbs>
+                        </Box>
+                    </Box>
+                    <Divider />
+                    <Box {...styles.section}>
+                        <Typography {...styles.subTitle}>Folders</Typography>
+                        <Grid container spacing={2}>
+                            {files?.folders?.length && files?.folders?.length > 0
+                                ? files?.folders.map((x: any) => (
+                                      <Grid key={x.path} item xs={6} sm={4} lg={3}>
+                                          <Box
+                                              {...styles.folderBox}
+                                              onClick={() => onClickFolder(x.name)}
+                                          >
+                                              <Box {...styles.folderBoxInfo}>
+                                                  <FolderIcon {...styles.folderButtonIcon} />
+                                                  {x.name}
+                                              </Box>
+                                              <IconButton {...styles.itemActionButton}>
+                                                  <MoreVertIcon />
+                                              </IconButton>
+                                          </Box>
+                                      </Grid>
+                                  ))
+                                : null}
+                        </Grid>
+                    </Box>
+                    <Divider />
+                    <Box {...styles.section}>
+                        <Typography {...styles.subTitle}>Files</Typography>
+                        <Grid container spacing={2}>
+                            {files?.files.map((x: any) => (
+                                <Grid key={x.name} item xs={6} sm={3} lg={2}>
+                                    <Box {...styles.fileBox}>
+                                        <DefaultImage />
+                                        <Box {...styles.fileBoxInfo}>
+                                            {x.name}
+                                            <IconButton {...styles.itemActionButton}>
+                                                <MoreVertIcon />
+                                            </IconButton>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                            ))}
+                            <Grid item xs={6} sm={3} lg={2}>
+                                <Box {...styles.fileBox}>
+                                    <InputLabel {...styles.addFileButton}>
+                                        <Box {...styles.addFileButtonInfo}>
+                                            <AddCircleIcon {...styles.addIcon} />
+                                            New File
+                                        </Box>
+                                        <input
+                                            ref={ref}
+                                            type="file"
+                                            onChange={onUploadFile}
+                                            multiple
+                                            hidden
+                                        />
+                                    </InputLabel>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
+            </Drawer>
+        </Box>
+    );
 };
 
 export default EditorBottomPanell;

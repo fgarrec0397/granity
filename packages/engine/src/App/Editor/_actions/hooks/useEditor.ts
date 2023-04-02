@@ -76,7 +76,7 @@ export default () => {
         [removeWidgetSelection]
     );
 
-    const files = useCallback(
+    const loadFiles = useCallback(
         (path: string) => {
             return getFiles(path);
         },
@@ -90,7 +90,7 @@ export default () => {
         hasEditorOpened,
         currentMode,
         isGameUIPreview,
-        files,
+        loadFiles,
         openEditor,
         closeEditor,
         openEditorUIPreview,

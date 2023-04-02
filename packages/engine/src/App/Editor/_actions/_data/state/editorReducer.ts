@@ -1,4 +1,4 @@
-import { ModesAvailable } from "@engine/App/Editor/_actions/editorTypes";
+import { FilesData, ModesAvailable } from "@engine/App/Editor/_actions/editorTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface EditorState {
@@ -10,6 +10,7 @@ export interface EditorState {
     isMultipleSelect: boolean;
     isGridEnabled: boolean;
     currentMode: ModesAvailable;
+    filesData?: FilesData;
 }
 
 const initialState: EditorState = {
@@ -21,9 +22,10 @@ const initialState: EditorState = {
     isMultipleSelect: false,
     isGridEnabled: false,
     currentMode: ModesAvailable.Translate,
+    filesData: undefined,
 };
 
-export const sceneSlice = createSlice({
+export const editorSlice = createSlice({
     name: "editor",
     initialState,
     reducers: {
@@ -51,6 +53,9 @@ export const sceneSlice = createSlice({
         setCurrentMode: (state: EditorState, action: PayloadAction<ModesAvailable>) => {
             state.currentMode = action.payload;
         },
+        setFilesData: (state: EditorState, actions: PayloadAction<FilesData>) => {
+            state.filesData = actions.payload;
+        },
     },
 });
 
@@ -63,6 +68,7 @@ export const {
     setIsMultipleSelect,
     setIsGridEnabled,
     setCurrentMode,
-} = sceneSlice.actions;
+    setFilesData,
+} = editorSlice.actions;
 
-export default sceneSlice.reducer;
+export default editorSlice.reducer;
