@@ -38,14 +38,11 @@ export const post = async <Parameters extends BodyInit, RequestHeaders extends H
         "Content-Type": "application/json",
     };
 
-    console.log(requestHeaders, "requestHeaders");
-
     const rawResponse = await fetch(url, {
         method: "POST",
         headers: {
             ...requestHeaders,
         },
-        // body: JSON.stringify(parameters),
         body: parameters,
     });
 
@@ -54,8 +51,11 @@ export const post = async <Parameters extends BodyInit, RequestHeaders extends H
             throw new Error("An error occured.");
         }
 
+        const result = await rawResponse.json();
+
         return {
             success: true,
+            result,
         };
     } catch (error: any) {
         return {

@@ -10,7 +10,6 @@ export default (pathToLoad = "assets") => {
     const { enqueueSnackbar } = useSnackbar();
     const { endpoints } = useConfig();
     const { updateFilesStatus, updateFiles } = useEditor();
-    console.log(pathToLoad, "pathToLoad");
 
     const { data, status, isLoading } = useQuery({
         queryKey: ["files", pathToLoad],

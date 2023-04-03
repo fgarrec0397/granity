@@ -22,6 +22,8 @@ export class FilesService {
         const rawResponse = await post(endpoint, formData, {});
 
         try {
+            console.log(rawResponse, "save rawResponse");
+
             if (!rawResponse.success) {
                 throw new Error("An error occured.");
             }

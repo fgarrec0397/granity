@@ -123,6 +123,8 @@ export default () => {
                 formData,
             });
 
+            console.log(data, "saveFiles data");
+
             return data;
         },
         [endpoints.files.save, filesMutation]
