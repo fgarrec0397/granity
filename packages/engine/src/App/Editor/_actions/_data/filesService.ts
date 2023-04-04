@@ -1,4 +1,5 @@
 import { post } from "@engine/App/Core/_actions/_data/coreService";
+import { EmptyObject } from "@granity/helpers";
 
 import { FilesData } from "../editorTypes";
 
@@ -19,18 +20,14 @@ export class FilesService {
     }
 
     static async save({ endpoint, formData }: SaveFilesParameters) {
-        const rawResponse = await post(endpoint, formData, {});
+        const response = await post<FilesData, FormData, EmptyObject>(endpoint, formData, {});
 
         try {
-            console.log(rawResponse, "save rawResponse");
-
-            if (!rawResponse.success) {
+            if (!response.success) {
                 throw new Error("An error occured.");
             }
 
-            return {
-                success: true,
-            };
+            return response;
         } catch (error: any) {
             return {
                 success: false,

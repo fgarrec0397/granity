@@ -28,7 +28,11 @@ export const get = async <RequestHeaders extends HeadersInit>(
     }
 };
 
-export const post = async <Parameters extends BodyInit, RequestHeaders extends HeadersInit>(
+export const post = async <
+    ReturnValue,
+    Parameters extends BodyInit,
+    RequestHeaders extends HeadersInit
+>(
     url: string,
     parameters: Parameters,
     headers?: RequestHeaders
@@ -51,7 +55,7 @@ export const post = async <Parameters extends BodyInit, RequestHeaders extends H
             throw new Error("An error occured.");
         }
 
-        const result = await rawResponse.json();
+        const result: ReturnValue = await rawResponse.json();
 
         return {
             success: true,

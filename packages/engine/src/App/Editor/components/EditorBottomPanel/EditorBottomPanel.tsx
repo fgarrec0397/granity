@@ -8,6 +8,7 @@ import {
     FilesManager,
     KeyboardDoubleArrowUpIcon,
     pxToRem,
+    useSnackbar,
 } from "@granity/ui";
 import { ChangeEvent, FC, useState } from "react";
 
@@ -46,6 +47,7 @@ const EditorBottomPanell: FC = () => {
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { filesData, saveFiles } = useEditor();
+    const { enqueueSnackbar } = useSnackbar();
 
     useHandleLoadFiles(currentPath);
 
@@ -86,6 +88,8 @@ const EditorBottomPanell: FC = () => {
             formData.append("currentPath", currentPath);
 
             await saveFiles(formData);
+            closeCreateFolderModal();
+            enqueueSnackbar("Folder successfully created", { variant: "success" });
         }
     };
 

@@ -38,6 +38,9 @@ export default () => {
     const filesMutation = useMutation({
         mutationKey: ["files"],
         mutationFn: FilesService.save,
+        onSuccess: (data) => {
+            queryClient.setQueryData(["files", data.result?.currentRootPath], data.result);
+        },
     });
 
     const updateIsEditor = (value: boolean) => {
@@ -118,14 +121,10 @@ export default () => {
 
     const saveFiles = useCallback(
         async (formData: FormData) => {
-            const data = await filesMutation.mutateAsync({
+            await filesMutation.mutateAsync({
                 endpoint: endpoints.files.save,
                 formData,
             });
-
-            console.log(data, "saveFiles data");
-
-            return data;
         },
         [endpoints.files.save, filesMutation]
     );

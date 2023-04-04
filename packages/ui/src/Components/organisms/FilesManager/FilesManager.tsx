@@ -270,19 +270,21 @@ const FilesManager: FC<FilesManagerProps> = ({
             <Box {...styles.section}>
                 <Typography {...styles.subTitle}>Files</Typography>
                 <Grid container spacing={2}>
-                    {filesData?.files.map((x: any) => (
-                        <Grid key={x.name} item xs={6} sm={3} lg={2}>
-                            <Box {...styles.fileBox}>
-                                <DefaultImage />
-                                <Box {...styles.fileBoxInfo}>
-                                    {x.name}
-                                    <IconButton {...styles.itemActionButton}>
-                                        <MoreVertIcon />
-                                    </IconButton>
-                                </Box>
-                            </Box>
-                        </Grid>
-                    ))}
+                    {filesData?.files?.length && filesData?.files?.length > 0
+                        ? filesData?.files?.map((x: any) => (
+                              <Grid key={x.name} item xs={6} sm={3} lg={2}>
+                                  <Box {...styles.fileBox}>
+                                      <DefaultImage />
+                                      <Box {...styles.fileBoxInfo}>
+                                          {x.name}
+                                          <IconButton {...styles.itemActionButton}>
+                                              <MoreVertIcon />
+                                          </IconButton>
+                                      </Box>
+                                  </Box>
+                              </Grid>
+                          ))
+                        : null}
                     <Grid item xs={6} sm={3} lg={2}>
                         <InputLabel {...styles.addButton}>
                             <Box {...styles.addFileButtonInfo}>
