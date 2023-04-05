@@ -30,7 +30,7 @@ import {
 } from "@ui/components/atoms";
 import { Theme } from "@ui/theme/ThemeProvider";
 import pxToRem from "@ui/theme/utilities/pxToRem";
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, MouseEvent, useState } from "react";
 
 type FilesData = {
     currentRootPath: string;
@@ -60,12 +60,13 @@ export type FilesManagerProps = {
 
 export type FilesManagerStyles = {
     section?: BoxProps;
-    header?: BoxProps;
     breadcrumbs?: BreadcrumbsProps;
     title?: TypographyProps;
     subTitle?: TypographyProps;
     folderBox?: BoxProps;
+    selectedFolderBox?: BoxProps;
     folderBoxInfo?: BoxProps;
+    folderName?: TypographyProps;
     folderButtonIcon?: SvgIconProps;
     itemActionButton?: IconButtonProps;
     fileBox?: BoxProps;
@@ -104,17 +105,6 @@ const styles: FilesManagerStyles = {
             margin: pxToRem(25, 0),
         },
     },
-    header: {
-        sx: {
-            display: "flex",
-            alignItems: "center",
-        },
-    },
-    breadcrumbs: {
-        sx: {
-            marginLeft: pxToRem(32),
-        },
-    },
     title: {
         sx: {
             fontSize: pxToRem(24),
@@ -128,9 +118,6 @@ const styles: FilesManagerStyles = {
     },
     folderBox: {
         sx: {
-            display: "flex",
-            justifyContent: "space-between",
-            padding: pxToRem(8, 16),
             width: "100%",
             border: 1,
             fontSize: 16,
@@ -138,6 +125,15 @@ const styles: FilesManagerStyles = {
             "&:hover": {
                 backgroundColor: "action.hover",
             },
+        },
+    },
+    selectedFolderBox: {
+        sx: {
+            width: "100%",
+            border: 1,
+            fontSize: 16,
+            fontWeight: "bold",
+            backgroundColor: "background.paperLight",
         },
     },
     addFolderButton: {
@@ -149,6 +145,13 @@ const styles: FilesManagerStyles = {
         sx: {
             display: "flex",
             alignItems: "center",
+            padding: pxToRem(8, 16),
+        },
+    },
+    folderName: {
+        noWrap: true,
+        sx: {
+            flexGrow: 1,
         },
     },
     folderButtonIcon: {
@@ -205,53 +208,71 @@ const FilesManager: FC<FilesManagerProps> = ({
     onUploadFile,
     onAddFolder,
 }) => {
+    const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
+
+    const onClickFolderHandler = (name: string, index: number) => {
+        if (!selectedFolderIndex || index !== selectedFolderIndex) {
+            setSelectedFolderIndex(index);
+            return;
+        }
+
+        onClickFolder?.(name);
+        setSelectedFolderIndex(undefined);
+    };
+
+    const onClickMoreOptions = (event: MouseEvent) => {
+        event.stopPropagation();
+    };
+
     return (
         <Container>
             <Box {...styles.section}>
-                <Box {...styles.header}>
-                    <Typography {...styles.title}>Assets</Typography>
-                    <Breadcrumbs separator=">" {...styles.breadcrumbs}>
-                        {breadcrumbsLinks?.map((x, index) => {
-                            if (index === breadcrumbsLinks.length - 1) {
-                                return (
-                                    <Typography key={index} color="text.primary">
-                                        {capitalizeString(x)}
-                                    </Typography>
-                                );
-                            }
-
+                <Breadcrumbs separator=">" {...styles.breadcrumbs}>
+                    {breadcrumbsLinks?.map((x, index) => {
+                        if (index === breadcrumbsLinks.length - 1) {
                             return (
-                                <Link
-                                    underline="hover"
-                                    key={index}
-                                    color="inherit"
-                                    onClick={() => onClickBreadcrumbsElement(x)}
-                                >
+                                <Typography key={index} color="text.primary">
                                     {capitalizeString(x)}
-                                </Link>
+                                </Typography>
                             );
-                        })}
-                    </Breadcrumbs>
-                </Box>
+                        }
+
+                        return (
+                            <Link
+                                underline="hover"
+                                key={index}
+                                color="inherit"
+                                onClick={() => onClickBreadcrumbsElement(x)}
+                            >
+                                {capitalizeString(x)}
+                            </Link>
+                        );
+                    })}
+                </Breadcrumbs>
             </Box>
             <Divider />
             <Box {...styles.section}>
                 <Typography {...styles.subTitle}>Folders</Typography>
                 <Grid container spacing={2}>
                     {filesData?.folders?.length && filesData?.folders?.length > 0
-                        ? filesData?.folders.map((x: any) => (
+                        ? filesData?.folders.map((x, index) => (
                               <Grid key={x.path} item xs={6} sm={4} lg={3}>
                                   <Box
-                                      {...styles.folderBox}
-                                      onClick={() => onClickFolder?.(x.name)}
+                                      {...(selectedFolderIndex && selectedFolderIndex === index
+                                          ? styles.selectedFolderBox
+                                          : styles.folderBox)}
+                                      onClick={() => onClickFolderHandler(x.name, index)}
                                   >
                                       <Box {...styles.folderBoxInfo}>
                                           <FolderIcon {...styles.folderButtonIcon} />
-                                          {x.name}
+                                          <Typography {...styles.folderName}>{x.name}</Typography>
+                                          <IconButton
+                                              {...styles.itemActionButton}
+                                              onClick={(event) => onClickMoreOptions(event)}
+                                          >
+                                              <MoreVertIcon />
+                                          </IconButton>
                                       </Box>
-                                      <IconButton {...styles.itemActionButton}>
-                                          <MoreVertIcon />
-                                      </IconButton>
                                   </Box>
                               </Grid>
                           ))
@@ -271,12 +292,12 @@ const FilesManager: FC<FilesManagerProps> = ({
                 <Typography {...styles.subTitle}>Files</Typography>
                 <Grid container spacing={2}>
                     {filesData?.files?.length && filesData?.files?.length > 0
-                        ? filesData?.files?.map((x: any) => (
+                        ? filesData?.files?.map((x) => (
                               <Grid key={x.name} item xs={6} sm={3} lg={2}>
                                   <Box {...styles.fileBox}>
                                       <DefaultImage />
                                       <Box {...styles.fileBoxInfo}>
-                                          {x.name}
+                                          <Typography noWrap>{x.name}</Typography>
                                           <IconButton {...styles.itemActionButton}>
                                               <MoreVertIcon />
                                           </IconButton>

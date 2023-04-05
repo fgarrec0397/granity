@@ -2,6 +2,7 @@ import createTheme from "@mui/material/styles/createTheme";
 
 declare module "@mui/material/styles" {
     interface TypeBackground {
+        paperLight?: string;
         paperDark?: string;
         paperDarker?: string;
         textField?: string;
@@ -28,6 +29,7 @@ const theme = createTheme({
             paper: "#292929",
             default: "#323232",
             // custom
+            paperLight: "#787878",
             paperDark: "#292929",
             paperDarker: "#1c1c1c",
             textField: "#454545",
