@@ -1,7 +1,9 @@
 import defaultKeyboardMappings from "@engine/App/Core/configs/keyboardMappings";
+import { merge } from "@granity/helpers";
 import { useCallback } from "react";
 
 import useConfigService from "../_data/hooks/useConfigService";
+import { ConfigContexEndpoints, defaultEnpoints } from "../_data/providers/ConfigContextProvider";
 import { EngineConfig, KeyboardKeys } from "../coreTypes";
 import overrideKeyboardMapping from "../utilities/overrideKeyboardMapping";
 
@@ -17,7 +19,8 @@ export default () => {
 
     const initEndpoints = useCallback(
         (newEndpoints: EngineConfig["endpoints"]) => {
-            updateEndpoints(newEndpoints);
+            const mergedEndpoints: ConfigContexEndpoints = merge(defaultEnpoints, newEndpoints);
+            updateEndpoints(mergedEndpoints);
         },
         [updateEndpoints]
     );

@@ -6,10 +6,10 @@ export type UnionOfProperties<Type> = {
 }[keyof Type];
 
 /**
- * Remove all nullable types from properties
+ * Recursively remove all nullable and/or undefined types from object
  */
-export type MapPropertiesToNonNullable<Type> = {
-    [Property in keyof Type]: NonNullable<Type[Property]>;
+export type DeepNonNullable<T> = {
+    [K in keyof T]-?: DeepNonNullable<T[K]>;
 };
 
 /**

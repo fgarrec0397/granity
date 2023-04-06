@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 
 import { EngineConfig, KeyboardKeys } from "../../coreTypes";
+import { ConfigContexEndpoints } from "../providers/ConfigContextProvider";
 import useConfigContext from "./useConfigContext";
 
 export default () => {
@@ -14,7 +15,7 @@ export default () => {
     } = useConfigContext();
 
     const updateEndpoints = useCallback(
-        (newEndpoints: EngineConfig["endpoints"]) => {
+        (newEndpoints: ConfigContexEndpoints) => {
             setEndpoints(newEndpoints);
         },
         [setEndpoints]

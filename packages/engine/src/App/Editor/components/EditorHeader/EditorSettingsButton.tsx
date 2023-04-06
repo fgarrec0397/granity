@@ -1,9 +1,9 @@
-import useCore from "@engine/App/Core/_actions/hooks/useCore";
+import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
 import { AccountMenu, SettingsIcon } from "@granity/ui";
 import { FC } from "react";
 
 const EditorSettingsButton: FC = () => {
-    const { editorMainMenu } = useCore();
+    const { editorMainMenu } = useConfig();
 
     if (!editorMainMenu?.length) {
         return null;

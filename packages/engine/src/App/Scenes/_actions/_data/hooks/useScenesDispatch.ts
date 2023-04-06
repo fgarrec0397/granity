@@ -1,6 +1,7 @@
+import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import { useDispatch } from "react-redux";
 
-import { ScenesDictionary, ScenesDictionaryItem, ScenesStatus } from "../../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
 import {
     addScene,
     addScenesBatch,
@@ -19,7 +20,7 @@ export default () => {
         dispatch(addScene(scene));
     };
 
-    const dispatchSetScenesStatus = (status: ScenesStatus) => {
+    const dispatchSetScenesStatus = (status: FetchStatus) => {
         dispatch(setScenesStatus(status));
     };
 

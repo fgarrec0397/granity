@@ -80,7 +80,6 @@ export type WidgetComponent<Props = DefaultWidgetProps, Ref = null> =
 /**
  * All options allowed for the widget in the editor
  */
-// export type WidgetOptions = WidgetBaseOptions;
 export type WidgetOptions =
     | CheckboxFieldOption
     | TextFieldOption

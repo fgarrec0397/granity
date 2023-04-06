@@ -5,7 +5,7 @@ import CamerasContextProvider from "@engine/App/Scenes/_actions/_data/providers/
 import WidgetsModulesContextProvider from "@engine/App/Widgets/_actions/_data/providers/WidgetsModulesProvider";
 import WidgetsContextProvider from "@engine/App/Widgets/_actions/_data/providers/WidgetsProvider";
 import { injectStore } from "@engine/App/Widgets/_actions/utilities/createWidget";
-import { HasChildren } from "@granity/helpers";
+import { HasChildren, QueryClient, QueryClientProvider } from "@granity/helpers";
 import { Theme, ThemeProvider } from "@granity/ui";
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
@@ -21,10 +21,13 @@ type Props = HasChildren & {
 
 injectStore(store);
 
+const queryClient = new QueryClient();
+
 const AppProvider: FC<Props> = ({ config, theme, children }) => {
     const Providers = ProvidersBuilder([
         [ThemeProvider, { theme }],
         [ReduxProvider, { store }],
+        [QueryClientProvider, { client: queryClient }],
         [ConfigContextProvider],
         [CamerasContextProvider],
         [WidgetsContextProvider],

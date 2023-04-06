@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const createUser = async (req: Request, res: Response) => {
-    console.log("------- create a user -------");
     try {
         const { username, password } = req.body;
 
@@ -38,14 +37,12 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-    console.log("---- login ----");
-
     try {
         const { username, password } = req.body;
 
         if (!(username && password)) {
             res.status(400).send("All input is required");
-            console.log("All input is required");
+            console.error("All input is required");
 
             return;
         }
@@ -58,18 +55,15 @@ export const login = async (req: Request, res: Response) => {
 
             user.token = token;
 
-            console.log("status 200");
-
             res.status(200).json(user);
             return;
         }
 
-        console.log("Invalid Credentials");
+        console.error("Invalid Credentials");
 
         res.status(400).send("Invalid Credentials");
     } catch (err) {
-        console.log(err, "err");
-
+        res.status(404).send("No user found with this email");
         console.log(err);
     }
 };

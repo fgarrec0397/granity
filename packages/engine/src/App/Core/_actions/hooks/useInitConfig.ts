@@ -12,21 +12,21 @@ export default (config: EngineConfig) => {
         if (config.widgetsModules) {
             initWidgetsModules(config.widgetsModules);
         }
-    }, [config.widgetsModules, initWidgetsModules]);
+    }, [config?.widgetsModules, initWidgetsModules]);
 
     useEffect(() => {
         initEndpoints(config.endpoints);
-    }, [config.endpoints, initEndpoints]);
+    }, [config?.endpoints, initEndpoints]);
 
     useEffect(() => {
         if (config.keyboardMappings) {
             initKeyboardMappings(config.keyboardMappings);
         }
-    }, [config.keyboardMappings, initKeyboardMappings]);
+    }, [config?.keyboardMappings, initKeyboardMappings]);
 
     useEffect(() => {
         if (config.editorMainMenu) {
             initMainMenu(config.editorMainMenu);
         }
-    }, [config.editorMainMenu, initMainMenu]);
+    }, [config?.editorMainMenu, initMainMenu]);
 };

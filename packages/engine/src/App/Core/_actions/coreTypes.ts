@@ -17,26 +17,14 @@ export type EditorMainMenuItem = {
     icon?: ReactNode;
 };
 
-export type FileItem = {
-    path: string;
-    name: string;
-    type: string;
-};
-
-export type GetFilesResult = {
-    currentRootPath: string;
-    files: FileItem[];
-    folders: FileItem[];
-};
-
 export type EngineEndpoints = {
-    files: {
-        get: string;
-        save: string;
+    files?: {
+        get?: string;
+        save?: string;
     };
-    scenes: {
-        get: string;
-        save: string;
+    scenes?: {
+        get?: string;
+        save?: string;
     };
 };
 
@@ -44,7 +32,7 @@ export type EngineConfig = {
     widgetsModules: WidgetModules[];
     keyboardMappings?: KeyboardKeys;
     editorMainMenu?: EditorMainMenuItem[];
-    endpoints: EngineEndpoints;
+    endpoints?: EngineEndpoints;
 };
 
 // --- Key Bindings --- //

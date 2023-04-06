@@ -9,7 +9,6 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import { DependencyList, useCallback, useEffect, useMemo, useState } from "react";
 
 import useConfig from "./useConfig";
-import useCore from "./useCore";
 
 const triggerAllMappedKeys = (
     keyMapped: KeyboardMappings,

@@ -23,7 +23,7 @@ export const getScenes = async ({ endpoint }: GetScenesParameters) => {
 
 export const saveScenes = async ({ endpoint, scenes }: SaveScenesParameters) => {
     if (scenes) {
-        const response = await post(endpoint, scenes);
+        const response = await post(endpoint, JSON.stringify(scenes));
 
         if (!response.success) {
             return {

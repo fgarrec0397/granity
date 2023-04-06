@@ -1,3 +1,4 @@
+import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import useInitWidgets from "@engine/App/Widgets/_actions/hooks/useInitWidgets";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@engine/App/Widgets/_actions/hooks/useWidgetsModules";
@@ -8,7 +9,7 @@ import { useSnackbar } from "@granity/ui";
 import { useCallback, useEffect, useState } from "react";
 
 import useScenesService from "../_data/hooks/useScenesService";
-import { ScenesDictionary, ScenesDictionaryItem, ScenesStatus } from "../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem } from "../scenesTypes";
 import getDefaultSceneId from "../utilities/getDefaultSceneId";
 import getFirstNonDefaultScene from "../utilities/getFirstNonDefaultScene";
 
@@ -42,7 +43,7 @@ export default () => {
     }, [scenesIds]);
 
     const setScenesStatus = useCallback(
-        (status: ScenesStatus) => {
+        (status: FetchStatus) => {
             setStatus(status);
         },
         [setStatus]

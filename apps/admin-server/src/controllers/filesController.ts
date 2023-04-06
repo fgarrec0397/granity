@@ -85,22 +85,13 @@ export const postFiles = (request: Request, result: Response) => {
     const currentFolderPath = path.resolve("../admin", "public", currentPath);
     const newFolderPath = path.resolve(currentFolderPath, folderName);
 
-    console.log(currentPath, "currentPath");
-    console.log(newFolderPath, "newFolderPath");
-    // console.log(request.files, "request.files");
-    // console.log(request.body.addFolder, "request.body.addFolder");
-    // console.log(typeof request.body.addFolder, "typeof request.body.addFolder");
-
     if (request.body.addFolder === "true") {
-        console.log("adding a new folder");
-
         if (!fs.existsSync(newFolderPath)) {
             fs.mkdirSync(newFolderPath);
         }
     }
 
     const folderData = loadFolder(currentPath);
-    console.log(folderData, "folderData");
 
     result.statusCode = 200;
     result.json(folderData);
