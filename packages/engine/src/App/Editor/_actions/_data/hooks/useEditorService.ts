@@ -39,7 +39,8 @@ export default () => {
         mutationKey: ["files"],
         mutationFn: FilesService.save,
         onSuccess: (data) => {
-            queryClient.setQueryData(["files", data.result?.currentRootPath], data.result);
+            console.log(data, "data");
+            queryClient.setQueryData(["files", data.currentRootPath], data);
         },
     });
 

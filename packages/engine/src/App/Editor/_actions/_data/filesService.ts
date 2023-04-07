@@ -1,5 +1,5 @@
-import { deleteRequest, post } from "@engine/App/Core/_actions/_data/coreService";
-import { EmptyObject } from "@granity/helpers";
+import { deleteRequest } from "@engine/App/Core/_actions/_data/coreService";
+import { EmptyObject, Fetcher } from "@granity/helpers";
 
 import { FilesData } from "../editorTypes";
 
@@ -25,20 +25,11 @@ export class FilesService {
     }
 
     static async save({ endpoint, formData }: SaveFilesParameters) {
-        const response = await post<FilesData, FormData, EmptyObject>(endpoint, formData, {});
+        const response = await Fetcher.post<FormData, FilesData>(endpoint, formData);
+        console.log(response, "response");
+        console.log(response.data, "response.data");
 
-        try {
-            if (!response.success) {
-                throw new Error("An error occured.");
-            }
-
-            return response;
-        } catch (error: any) {
-            return {
-                success: false,
-                errorMessage: error,
-            };
-        }
+        return response.data;
     }
 
     static async delete({ endpoint, formData }: DeleteFilesParameters) {
