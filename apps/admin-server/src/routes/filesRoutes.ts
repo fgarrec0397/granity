@@ -1,5 +1,5 @@
 import express from "express";
-import { getFiles, postFiles } from "../controllers/filesController";
+import { getFiles, postFiles, deleteFiles } from "../controllers/filesController";
 import filesMiddleware from "../middlewares/filesMiddleware";
 
 const sceneRoutes = () => {
@@ -7,6 +7,7 @@ const sceneRoutes = () => {
 
     router.get("/", getFiles);
     router.post("/", filesMiddleware("filesToUpload"), postFiles);
+    router.delete("/", deleteFiles);
 
     return router;
 };

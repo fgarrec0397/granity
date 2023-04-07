@@ -40,7 +40,7 @@ export default () => {
                 setPrevHistoryItem();
             } else if (keyMapping.cancelUndo) {
                 setNextHistoryItem();
-            } else if (keyMapping.deleteWidget) {
+            } else if (keyMapping.delete) {
                 if (selectedWidgets.length > 0) {
                     removeselectedWidgets();
                 }

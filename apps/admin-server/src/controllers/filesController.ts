@@ -96,3 +96,32 @@ export const postFiles = (request: Request, result: Response) => {
     result.statusCode = 200;
     result.json(folderData);
 };
+
+export const deleteFiles = (request: Request, result: Response) => {
+    const filePath = request.body.path;
+    console.log(filePath, "filePath");
+    console.log(request.body, "request.body");
+    // const folderPathToDelete = path.resolve("../admin", "public", filePath);
+
+    // if (!fs.existsSync(folderPathToDelete)) {
+    //     fs.rmdir(folderPathToDelete, { recursive: true }, (err) => {
+    //         if (err) {
+    //             throw err;
+    //         }
+
+    //         console.log(`${folderPathToDelete} is deleted!`);
+    //     });
+    // }
+
+    // // if (request.body.addFolder === "true") {
+    // //     if (!fs.existsSync(newFolderPath)) {
+    // //         fs.mkdirSync(newFolderPath);
+    // //     }
+    // // }
+
+    // // const folderData = loadFolder(folderPathToDelete);
+
+    // result.statusCode = 200;
+    // // result.json(folderData);
+    result.json("file deleted");
+};

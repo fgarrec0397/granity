@@ -44,7 +44,7 @@ export default {
             shiftKey: true,
         },
         {
-            name: "deleteWidget",
+            name: "delete",
             code: "Delete",
             ctrlKey: false,
             shiftKey: false,

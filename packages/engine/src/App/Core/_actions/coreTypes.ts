@@ -17,15 +17,11 @@ export type EditorMainMenuItem = {
     icon?: ReactNode;
 };
 
+export type BaseEnpoints = { get?: string; save?: string; delete?: string };
+
 export type EngineEndpoints = {
-    files?: {
-        get?: string;
-        save?: string;
-    };
-    scenes?: {
-        get?: string;
-        save?: string;
-    };
+    files?: BaseEnpoints;
+    scenes?: BaseEnpoints;
 };
 
 export type EngineConfig = {

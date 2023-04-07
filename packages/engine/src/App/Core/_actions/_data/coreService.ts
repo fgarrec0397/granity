@@ -1,4 +1,4 @@
-export const get = async <RequestHeaders extends HeadersInit>(
+export const get = async <ReturnValue, RequestHeaders extends HeadersInit>(
     url: string,
     headers?: RequestHeaders
 ) => {
@@ -11,6 +11,8 @@ export const get = async <RequestHeaders extends HeadersInit>(
         },
     });
 
+    const response = rawResponse.json() as ReturnValue;
+
     try {
         if (!rawResponse.ok) {
             throw new Error("An error occured.");
@@ -18,7 +20,7 @@ export const get = async <RequestHeaders extends HeadersInit>(
 
         return {
             success: true,
-            data: rawResponse.json(),
+            data: response,
         };
     } catch (error: any) {
         return {
@@ -44,6 +46,45 @@ export const post = async <
 
     const rawResponse = await fetch(url, {
         method: "POST",
+        headers: {
+            ...requestHeaders,
+        },
+        body: parameters,
+    });
+
+    try {
+        if (!rawResponse.ok) {
+            throw new Error("An error occured.");
+        }
+
+        const result: ReturnValue = await rawResponse.json();
+
+        return {
+            success: true,
+            result,
+        };
+    } catch (error: any) {
+        return {
+            success: false,
+            errorMessage: error,
+        };
+    }
+};
+
+export const deleteRequest = async <ReturnValue, Parameters, RequestHeaders extends HeadersInit>(
+    url: string,
+    parameters: Parameters,
+    headers?: RequestHeaders
+) => {
+    const requestHeaders = headers ?? {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+
+    console.log(parameters, "parameters");
+
+    const rawResponse = await fetch(url, {
+        method: "DELETE",
         headers: {
             ...requestHeaders,
         },

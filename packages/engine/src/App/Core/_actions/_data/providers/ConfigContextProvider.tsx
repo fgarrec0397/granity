@@ -21,10 +21,12 @@ export const defaultEnpoints: ConfigContexEndpoints = {
     files: {
         save: "/server/files",
         get: "/server/files",
+        delete: "/server/files",
     },
     scenes: {
         save: "/server/scenes",
         get: "/server/scenes",
+        delete: "/server/scenes",
     },
 };
 

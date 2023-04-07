@@ -1,3 +1,5 @@
+import { ClientKeyMappings } from "@engine/App/Core/_actions/coreTypes";
+import useKeyboardMapping from "@engine/App/Core/_actions/hooks/useKeyboardMapping";
 import { layoutStyles } from "@engine/Theme/mixins/layout";
 import {
     Box,
@@ -42,14 +44,32 @@ const styles: EditorBottomPanellStyles = {
 };
 
 const EditorBottomPanell: FC = () => {
+    const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
     const [newFolderName, setNewFolderName] = useState<string>("");
     const [isCreateFolderModalOpen, setIsCreateForlderModalOpen] = useState(false);
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const { filesData, saveFiles } = useEditor();
+    const { filesData, saveFiles, deleteFile } = useEditor();
     const { enqueueSnackbar } = useSnackbar();
 
     useHandleLoadFiles(currentPath);
+
+    useKeyboardMapping(
+        async (keyMapping: ClientKeyMappings) => {
+            if (keyMapping.delete && selectedFolderIndex !== undefined) {
+                const selectedFolder = filesData.folders[selectedFolderIndex];
+
+                if (!selectedFolder) {
+                    return;
+                }
+
+                await deleteFile(selectedFolder.path);
+
+                console.log("delete", filesData.folders[selectedFolderIndex]);
+            }
+        },
+        [selectedFolderIndex]
+    );
 
     const currentRootPathLinks = filesData?.currentRootPath?.split("/");
 
@@ -138,6 +158,8 @@ const EditorBottomPanell: FC = () => {
                     onClickBreadcrumbsElement={onClickBreadcrumbsElement}
                     onUploadFile={onUploadFile}
                     onAddFolder={onAddFolder}
+                    selectedFolderIndex={selectedFolderIndex}
+                    setSelectedFolderIndex={setSelectedFolderIndex}
                 />
             </Drawer>
         </Box>

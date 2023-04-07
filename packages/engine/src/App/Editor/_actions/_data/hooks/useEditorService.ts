@@ -35,9 +35,17 @@ export default () => {
     const queryClient = useQueryClient();
     const { endpoints } = useConfig();
 
-    const filesMutation = useMutation({
+    const saveFilesMutation = useMutation({
         mutationKey: ["files"],
         mutationFn: FilesService.save,
+        onSuccess: (data) => {
+            queryClient.setQueryData(["files", data.result?.currentRootPath], data.result);
+        },
+    });
+
+    const deleteFilesMutation = useMutation({
+        mutationKey: ["files"],
+        mutationFn: FilesService.delete,
         onSuccess: (data) => {
             queryClient.setQueryData(["files", data.result?.currentRootPath], data.result);
         },
@@ -121,12 +129,26 @@ export default () => {
 
     const saveFiles = useCallback(
         async (formData: FormData) => {
-            await filesMutation.mutateAsync({
+            await saveFilesMutation.mutateAsync({
                 endpoint: endpoints.files.save,
                 formData,
             });
         },
-        [endpoints.files.save, filesMutation]
+        [endpoints.files.save, saveFilesMutation]
+    );
+
+    const deleteFile = useCallback(
+        async (path: string) => {
+            const formData = new FormData();
+
+            formData.append("path", path);
+
+            await deleteFilesMutation.mutateAsync({
+                endpoint: endpoints.files.delete,
+                formData,
+            });
+        },
+        [deleteFilesMutation, endpoints.files.delete]
     );
 
     return {
@@ -149,6 +171,7 @@ export default () => {
         setFilesDataStatus,
         filesDataStatus,
         saveFiles,
+        deleteFile,
         filesData,
         getFilesData,
     };

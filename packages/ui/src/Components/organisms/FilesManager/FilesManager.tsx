@@ -22,15 +22,16 @@ import {
     InputLabel,
     InputLabelProps,
     Link,
+    LinkProps,
     MoreVertIcon,
     SvgIconProps,
     TextField,
     Typography,
     TypographyProps,
-} from "@ui/components/atoms";
+} from "@granity/ui";
 import { Theme } from "@ui/theme/ThemeProvider";
 import pxToRem from "@ui/theme/utilities/pxToRem";
-import { ChangeEvent, FC, MouseEvent, useState } from "react";
+import { ChangeEvent, FC, MouseEvent } from "react";
 
 type FilesData = {
     currentRootPath: string;
@@ -49,6 +50,7 @@ export type FilesManagerProps = {
     breadcrumbsLinks: string[];
     filesData: FilesData | undefined;
     newFolderName: string;
+    selectedFolderIndex?: number;
     openCreateFolderModal: () => void;
     closeCreateFolderModal: () => void;
     onChangeNewFolderName: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -56,11 +58,13 @@ export type FilesManagerProps = {
     onClickBreadcrumbsElement: (folder: string) => void;
     onUploadFile: (event: ChangeEvent<HTMLInputElement>) => void;
     onAddFolder: () => Promise<void>;
+    setSelectedFolderIndex: (index?: number) => void;
 };
 
 export type FilesManagerStyles = {
     section?: BoxProps;
     breadcrumbs?: BreadcrumbsProps;
+    breadcrumbsLink?: LinkProps;
     title?: TypographyProps;
     subTitle?: TypographyProps;
     folderBox?: BoxProps;
@@ -108,6 +112,13 @@ const styles: FilesManagerStyles = {
     title: {
         sx: {
             fontSize: pxToRem(24),
+        },
+    },
+    breadcrumbsLink: {
+        underline: "hover",
+        color: "inherit",
+        sx: {
+            cursor: "pointer",
         },
     },
     subTitle: {
@@ -207,12 +218,21 @@ const FilesManager: FC<FilesManagerProps> = ({
     onClickBreadcrumbsElement,
     onUploadFile,
     onAddFolder,
+    selectedFolderIndex,
+    setSelectedFolderIndex,
 }) => {
-    const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
+    const isNotSelected = (index: number) => {
+        return selectedFolderIndex === undefined || index !== selectedFolderIndex;
+    };
+
+    const isSelected = (index: number) => {
+        return selectedFolderIndex !== undefined && selectedFolderIndex === index;
+    };
 
     const onClickFolderHandler = (name: string, index: number) => {
-        if (!selectedFolderIndex || index !== selectedFolderIndex) {
+        if (isNotSelected(index)) {
             setSelectedFolderIndex(index);
+
             return;
         }
 
@@ -239,10 +259,9 @@ const FilesManager: FC<FilesManagerProps> = ({
 
                         return (
                             <Link
-                                underline="hover"
                                 key={index}
-                                color="inherit"
                                 onClick={() => onClickBreadcrumbsElement(x)}
+                                {...styles.breadcrumbsLink}
                             >
                                 {capitalizeString(x)}
                             </Link>
@@ -258,7 +277,7 @@ const FilesManager: FC<FilesManagerProps> = ({
                         ? filesData?.folders.map((x, index) => (
                               <Grid key={x.path} item xs={6} sm={4} lg={3}>
                                   <Box
-                                      {...(selectedFolderIndex && selectedFolderIndex === index
+                                      {...(isSelected(index)
                                           ? styles.selectedFolderBox
                                           : styles.folderBox)}
                                       onClick={() => onClickFolderHandler(x.name, index)}
