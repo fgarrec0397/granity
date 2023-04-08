@@ -29,7 +29,7 @@ export class Fetcher {
         endpoint: string,
         config: FetchRequestConfig<DataType>
     ) {
-        const response = axios.delete<DataType, ResponseType>(endpoint, config);
+        const response = axios.delete<DataType, FetchResponse<ResponseType>>(endpoint, config);
         return response;
     }
 

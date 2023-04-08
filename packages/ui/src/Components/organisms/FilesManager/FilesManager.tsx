@@ -31,7 +31,7 @@ import {
 } from "@granity/ui";
 import { Theme } from "@ui/theme/ThemeProvider";
 import pxToRem from "@ui/theme/utilities/pxToRem";
-import { ChangeEvent, FC, MouseEvent } from "react";
+import { ChangeEvent, FC, FormEvent, MouseEvent, useRef } from "react";
 
 type FilesData = {
     currentRootPath: string;
@@ -221,6 +221,10 @@ const FilesManager: FC<FilesManagerProps> = ({
     selectedFolderIndex,
     setSelectedFolderIndex,
 }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    console.log(inputRef, "inputRef");
+
     const isNotSelected = (index: number) => {
         return selectedFolderIndex === undefined || index !== selectedFolderIndex;
     };
@@ -242,6 +246,11 @@ const FilesManager: FC<FilesManagerProps> = ({
 
     const onClickMoreOptions = (event: MouseEvent) => {
         event.stopPropagation();
+    };
+
+    const onSubmitAddFolderForm = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        onAddFolder();
     };
 
     return (
@@ -337,16 +346,27 @@ const FilesManager: FC<FilesManagerProps> = ({
                 </Grid>
             </Box>
             <Dialog open={isCreateFolderModalOpen} onClose={closeCreateFolderModal}>
-                <DialogTitle>New Folder</DialogTitle>
-                <DialogContent>
-                    <TextField onChange={onChangeNewFolderName} value={newFolderName} />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onAddFolder}>Create</Button>
-                    <Button variant="outlined" onClick={closeCreateFolderModal}>
-                        Cancel
-                    </Button>
-                </DialogActions>
+                <form onSubmit={onSubmitAddFolderForm}>
+                    <DialogTitle>New Folder</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            ref={inputRef}
+                            id="folderName"
+                            onChange={onChangeNewFolderName}
+                            value={newFolderName}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button type="submit">Create</Button>
+                        <Button
+                            color="secondary"
+                            variant="outlined"
+                            onClick={closeCreateFolderModal}
+                        >
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </form>
             </Dialog>
         </Container>
     );

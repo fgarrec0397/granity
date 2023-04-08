@@ -97,7 +97,7 @@ export const postFiles = (request: Request, result: Response) => {
     result.json(folderData);
 };
 
-export const deleteFiles = async (request: Request, result: Response) => {
+export const deleteFiles = (request: Request, result: Response) => {
     const relativePathOfItem = request.body.path;
     console.log(relativePathOfItem, "relativePathOfItem");
 
@@ -120,12 +120,7 @@ export const deleteFiles = async (request: Request, result: Response) => {
     console.log(resolvedPathToItem, "resolvedPathToItem");
 
     if (fs.existsSync(resolvedPathToItem)) {
-        await fs.rm(resolvedPathToItem, { recursive: true }, (err) => {
-            if (err) {
-                throw err;
-            }
-            console.log(`${resolvedPathToItem} is deleted!`);
-        });
+        fs.rmSync(resolvedPathToItem, { recursive: true });
         // // if (request.body.addFolder === "true") {
         // //     if (!fs.existsSync(newFolderPath)) {
         // //         fs.mkdirSync(newFolderPath);

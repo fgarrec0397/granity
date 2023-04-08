@@ -108,6 +108,7 @@ const EditorBottomPanell: FC = () => {
             await saveFiles(formData);
             closeCreateFolderModal();
             enqueueSnackbar("Folder successfully created", { variant: "success" });
+            setNewFolderName("");
         }
     };
 

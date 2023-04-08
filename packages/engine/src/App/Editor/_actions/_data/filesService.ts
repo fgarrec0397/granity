@@ -1,5 +1,4 @@
-import { deleteRequest } from "@engine/App/Core/_actions/_data/coreService";
-import { EmptyObject, Fetcher } from "@granity/helpers";
+import { Fetcher } from "@granity/helpers";
 
 import { FilesData } from "../editorTypes";
 
@@ -45,8 +44,6 @@ export class FilesService {
             },
         });
 
-        console.log(response, "response");
-
-        return response;
+        return response.data;
     }
 }
