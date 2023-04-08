@@ -39,7 +39,6 @@ export default () => {
         mutationKey: ["files"],
         mutationFn: FilesService.save,
         onSuccess: (data) => {
-            console.log(data, "data");
             queryClient.setQueryData(["files", data.currentRootPath], data);
         },
     });
@@ -48,7 +47,7 @@ export default () => {
         mutationKey: ["files"],
         mutationFn: FilesService.delete,
         onSuccess: (data) => {
-            queryClient.setQueryData(["files", data.result?.currentRootPath], data.result);
+            queryClient.setQueryData(["files", data.currentRootPath], data);
         },
     });
 
@@ -146,7 +145,7 @@ export default () => {
 
             await deleteFilesMutation.mutateAsync({
                 endpoint: endpoints.files.delete,
-                formData,
+                path,
             });
         },
         [deleteFilesMutation, endpoints.files.delete]

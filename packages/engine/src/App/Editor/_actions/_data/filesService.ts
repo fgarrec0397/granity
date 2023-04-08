@@ -15,41 +15,38 @@ export type SaveFilesParameters = {
 
 export type DeleteFilesParameters = {
     endpoint: string;
-    formData: FormData;
+    path: string;
 };
 
 export class FilesService {
-    static async get({ endpoint, path }: GetFilesParameters): Promise<FilesData> {
-        const result = await fetch(`${endpoint}?pathToFolderToLoad=${path}`);
-        return result.json();
-    }
-
-    static async save({ endpoint, formData }: SaveFilesParameters) {
-        const response = await Fetcher.post<FormData, FilesData>(endpoint, formData);
-        console.log(response, "response");
-        console.log(response.data, "response.data");
+    static async get({ endpoint, path }: GetFilesParameters) {
+        const response = await Fetcher.get<any, FilesData>(
+            `${endpoint}?pathToFolderToLoad=${path}`
+        );
 
         return response.data;
     }
 
-    static async delete({ endpoint, formData }: DeleteFilesParameters) {
-        const response = await deleteRequest<FilesData, FormData, EmptyObject>(
-            endpoint,
-            formData,
-            {}
-        );
+    static async save({ endpoint, formData }: SaveFilesParameters) {
+        const response = await Fetcher.post<FormData, FilesData>(endpoint, formData);
 
-        try {
-            if (!response.success) {
-                throw new Error("An error occured.");
-            }
+        return response.data;
+    }
 
-            return response;
-        } catch (error: any) {
-            return {
-                success: false,
-                errorMessage: error,
-            };
-        }
+    static async delete({ endpoint, path }: DeleteFilesParameters) {
+        const response = await Fetcher.delete<
+            {
+                path: string;
+            },
+            FilesData
+        >(endpoint, {
+            data: {
+                path,
+            },
+        });
+
+        console.log(response, "response");
+
+        return response;
     }
 }

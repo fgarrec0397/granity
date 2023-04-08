@@ -64,8 +64,6 @@ const EditorBottomPanell: FC = () => {
                 }
 
                 await deleteFile(selectedFolder.path);
-
-                console.log("delete", filesData.folders[selectedFolderIndex]);
             }
         },
         [selectedFolderIndex]

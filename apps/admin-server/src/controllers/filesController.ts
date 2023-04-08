@@ -97,31 +97,49 @@ export const postFiles = (request: Request, result: Response) => {
     result.json(folderData);
 };
 
-export const deleteFiles = (request: Request, result: Response) => {
-    const filePath = request.body.path;
-    console.log(filePath, "filePath");
-    console.log(request.body, "request.body");
-    // const folderPathToDelete = path.resolve("../admin", "public", filePath);
+export const deleteFiles = async (request: Request, result: Response) => {
+    const relativePathOfItem = request.body.path;
+    console.log(relativePathOfItem, "relativePathOfItem");
 
-    // if (!fs.existsSync(folderPathToDelete)) {
-    //     fs.rmdir(folderPathToDelete, { recursive: true }, (err) => {
-    //         if (err) {
-    //             throw err;
-    //         }
+    const relativePathArray = relativePathOfItem.split(/\/{1,}|\\{1,}/);
+    relativePathArray.pop();
 
-    //         console.log(`${folderPathToDelete} is deleted!`);
-    //     });
-    // }
+    if (relativePathArray[0] === "") {
+        relativePathArray.shift();
+    }
+    // .join("/");
+    // const pathToItem = relativePathOfItem.split("/").pop().join("/");
+    console.log(relativePathArray, "relativePathArray");
 
-    // // if (request.body.addFolder === "true") {
-    // //     if (!fs.existsSync(newFolderPath)) {
-    // //         fs.mkdirSync(newFolderPath);
-    // //     }
-    // // }
+    console.log(relativePathArray.join("/"), "relativePathArray.join");
 
-    // // const folderData = loadFolder(folderPathToDelete);
+    const deletedElementPath = relativePathArray.join("/");
 
-    // result.statusCode = 200;
-    // // result.json(folderData);
-    result.json("file deleted");
+    const absolutePathToItem = path.join("../admin", "public", relativePathOfItem);
+    const resolvedPathToItem = path.resolve(absolutePathToItem);
+    console.log(resolvedPathToItem, "resolvedPathToItem");
+
+    if (fs.existsSync(resolvedPathToItem)) {
+        await fs.rm(resolvedPathToItem, { recursive: true }, (err) => {
+            if (err) {
+                throw err;
+            }
+            console.log(`${resolvedPathToItem} is deleted!`);
+        });
+        // // if (request.body.addFolder === "true") {
+        // //     if (!fs.existsSync(newFolderPath)) {
+        // //         fs.mkdirSync(newFolderPath);
+        // //     }
+        // // }
+
+        console.log(deletedElementPath, "deletedElementPath");
+        const folderData = loadFolder(deletedElementPath);
+
+        console.log(folderData);
+
+        result.statusCode = 200;
+        return result.json(folderData);
+    }
+    result.statusCode = 404;
+    return result.json("Folder not found");
 };

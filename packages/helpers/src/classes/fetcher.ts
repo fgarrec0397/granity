@@ -6,9 +6,9 @@ export type FetchResponse<Data = any> = AxiosResponse<Data>;
 export class Fetcher {
     static async get<DataType = any, ResponseType = FetchResponse<DataType>>(
         endpoint: string,
-        config: FetchRequestConfig<DataType>
+        config?: FetchRequestConfig<DataType>
     ) {
-        const response = axios.get<DataType, ResponseType>(endpoint, config);
+        const response = axios.get<DataType, FetchResponse<ResponseType>>(endpoint, config);
         return response;
     }
 
