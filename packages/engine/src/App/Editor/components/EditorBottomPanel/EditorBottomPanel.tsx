@@ -44,6 +44,7 @@ const styles: EditorBottomPanellStyles = {
 };
 
 const EditorBottomPanell: FC = () => {
+    const [selectedFileIndex, setSelectedFileIndex] = useState<number>();
     const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
     const [newFolderName, setNewFolderName] = useState<string>("");
     const [isCreateFolderModalOpen, setIsCreateForlderModalOpen] = useState(false);
@@ -159,6 +160,8 @@ const EditorBottomPanell: FC = () => {
                     onAddFolder={onAddFolder}
                     selectedFolderIndex={selectedFolderIndex}
                     setSelectedFolderIndex={setSelectedFolderIndex}
+                    selectedFileIndex={selectedFileIndex}
+                    setSelectedFileIndex={setSelectedFileIndex}
                 />
             </Drawer>
         </Box>

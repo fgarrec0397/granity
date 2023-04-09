@@ -31,7 +31,7 @@ import {
 } from "@granity/ui";
 import { Theme } from "@ui/theme/ThemeProvider";
 import pxToRem from "@ui/theme/utilities/pxToRem";
-import { ChangeEvent, FC, FormEvent, MouseEvent, useRef } from "react";
+import { ChangeEvent, FC, FormEvent, MouseEvent } from "react";
 
 type FilesData = {
     currentRootPath: string;
@@ -51,6 +51,7 @@ export type FilesManagerProps = {
     filesData: FilesData | undefined;
     newFolderName: string;
     selectedFolderIndex?: number;
+    selectedFileIndex?: number;
     openCreateFolderModal: () => void;
     closeCreateFolderModal: () => void;
     onChangeNewFolderName: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -59,6 +60,7 @@ export type FilesManagerProps = {
     onUploadFile: (event: ChangeEvent<HTMLInputElement>) => void;
     onAddFolder: () => Promise<void>;
     setSelectedFolderIndex: (index?: number) => void;
+    setSelectedFileIndex: (index?: number) => void;
 };
 
 export type FilesManagerStyles = {
@@ -67,41 +69,69 @@ export type FilesManagerStyles = {
     breadcrumbsLink?: LinkProps;
     title?: TypographyProps;
     subTitle?: TypographyProps;
-    folderBox?: BoxProps;
-    selectedFolderBox?: BoxProps;
-    folderBoxInfo?: BoxProps;
-    folderName?: TypographyProps;
-    folderButtonIcon?: SvgIconProps;
+    itemButton?: (isFile: boolean) => ButtonBaseProps;
+    selectedItemButton?: (isFile: boolean) => ButtonBaseProps;
+    itemName?: TypographyProps;
+    itemButtonIcon?: SvgIconProps;
     itemActionButton?: IconButtonProps;
-    fileBox?: BoxProps;
-    addButton?: InputLabelProps;
-    addFolderButton?: ButtonBaseProps;
-    addFileButtonInfo?: BoxProps;
+    addItemButton?: (isFile: boolean) => ButtonBaseProps;
     addIcon?: SvgIconProps;
     fileBoxInfo?: BoxProps;
 };
 
-const fileBoxStyles = {
-    padding: pxToRem(5),
-    width: "100%",
-    height: "100%",
-    border: 1,
-    fontSize: 16,
+const itemButtonStyles = (isFile: boolean) => {
+    const baseStyles = {
+        height: "100%",
+        width: "100%",
+        border: 1,
+        fontSize: 16,
 
-    "&:hover": {
-        backgroundColor: "action.hover",
-    },
+        "&:hover": {
+            backgroundColor: "action.hover",
+        },
+    };
+
+    const itemStyles = isFile
+        ? {
+              display: "block",
+              padding: pxToRem(5),
+          }
+        : {
+              display: "flex",
+              alignItems: "center",
+              padding: pxToRem(8, 16),
+          };
+
+    return {
+        ...baseStyles,
+        ...itemStyles,
+    };
 };
 
-const addButtonStyles = (theme: Theme) => ({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    color: theme.palette.text.primary,
-    cursor: "pointer",
-    ...fileBoxStyles,
-});
+const addButtonStyles = (theme: Theme, isFile: boolean) => {
+    const baseStyles = {
+        display: "flex",
+        color: theme.palette.text.primary,
+        cursor: "pointer",
+
+        alignItems: "center",
+        justifyContent: "center",
+    };
+
+    const itemStyles = isFile
+        ? {
+              justifyContent: "center",
+          }
+        : {
+              justifyContent: "flex-start",
+          };
+
+    return {
+        ...itemButtonStyles(isFile),
+        ...baseStyles,
+        ...itemStyles,
+    };
+};
 
 const styles: FilesManagerStyles = {
     section: {
@@ -127,63 +157,35 @@ const styles: FilesManagerStyles = {
             marginBottom: pxToRem(12),
         },
     },
-    folderBox: {
+    itemButton: (isFile) => ({
+        sx: itemButtonStyles(isFile),
+    }),
+    selectedItemButton: (isFile) => ({
         sx: {
-            width: "100%",
-            border: 1,
-            fontSize: 16,
-
-            "&:hover": {
-                backgroundColor: "action.hover",
-            },
-        },
-    },
-    selectedFolderBox: {
-        sx: {
-            width: "100%",
-            border: 1,
-            fontSize: 16,
+            ...itemButtonStyles(isFile),
             fontWeight: "bold",
             backgroundColor: "background.paperLight",
+
+            "&:hover": {
+                backgroundColor: "background.paperLight",
+            },
         },
-    },
-    addFolderButton: {
+    }),
+    addItemButton: (isFile) => ({
         sx: (theme) => ({
-            ...addButtonStyles(theme),
+            ...addButtonStyles(theme, isFile),
         }),
-    },
-    folderBoxInfo: {
-        sx: {
-            display: "flex",
-            alignItems: "center",
-            padding: pxToRem(8, 16),
-        },
-    },
-    folderName: {
+    }),
+    itemName: {
         noWrap: true,
+        textAlign: "left",
         sx: {
             flexGrow: 1,
         },
     },
-    folderButtonIcon: {
+    itemButtonIcon: {
         sx: {
             marginRight: pxToRem(16),
-        },
-    },
-    fileBox: {
-        sx: {
-            ...fileBoxStyles,
-        },
-    },
-    addButton: {
-        sx: (theme) => ({
-            ...addButtonStyles(theme),
-        }),
-    },
-    addFileButtonInfo: {
-        sx: {
-            display: "flex",
-            alignItems: "center",
         },
     },
     addIcon: {
@@ -220,21 +222,31 @@ const FilesManager: FC<FilesManagerProps> = ({
     onAddFolder,
     selectedFolderIndex,
     setSelectedFolderIndex,
+    selectedFileIndex,
+    setSelectedFileIndex,
 }) => {
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    console.log(inputRef, "inputRef");
-
-    const isNotSelected = (index: number) => {
+    const isFolderNotSelected = (index: number) => {
         return selectedFolderIndex === undefined || index !== selectedFolderIndex;
     };
 
-    const isSelected = (index: number) => {
+    const isFolderSelected = (index: number) => {
         return selectedFolderIndex !== undefined && selectedFolderIndex === index;
     };
 
+    const isFileNotSelected = (index: number) => {
+        return selectedFileIndex === undefined || index !== selectedFileIndex;
+    };
+
+    const isFileSelected = (index: number) => {
+        return selectedFileIndex !== undefined && selectedFileIndex === index;
+    };
+
     const onClickFolderHandler = (name: string, index: number) => {
-        if (isNotSelected(index)) {
+        if (selectedFileIndex !== undefined) {
+            setSelectedFileIndex(undefined);
+        }
+
+        if (isFolderNotSelected(index)) {
             setSelectedFolderIndex(index);
 
             return;
@@ -242,6 +254,20 @@ const FilesManager: FC<FilesManagerProps> = ({
 
         onClickFolder?.(name);
         setSelectedFolderIndex(undefined);
+    };
+
+    const onClickFileHandler = (name: string, index: number) => {
+        if (selectedFolderIndex !== undefined) {
+            setSelectedFolderIndex(undefined);
+        }
+
+        if (isFileNotSelected(index)) {
+            setSelectedFileIndex(index);
+
+            return;
+        }
+
+        setSelectedFileIndex(undefined);
     };
 
     const onClickMoreOptions = (event: MouseEvent) => {
@@ -285,32 +311,31 @@ const FilesManager: FC<FilesManagerProps> = ({
                     {filesData?.folders?.length && filesData?.folders?.length > 0
                         ? filesData?.folders.map((x, index) => (
                               <Grid key={x.path} item xs={6} sm={4} lg={3}>
-                                  <Box
-                                      {...(isSelected(index)
-                                          ? styles.selectedFolderBox
-                                          : styles.folderBox)}
+                                  <ButtonBase
+                                      {...(isFolderSelected(index)
+                                          ? styles.selectedItemButton?.(false)
+                                          : styles.itemButton?.(false))}
                                       onClick={() => onClickFolderHandler(x.name, index)}
                                   >
-                                      <Box {...styles.folderBoxInfo}>
-                                          <FolderIcon {...styles.folderButtonIcon} />
-                                          <Typography {...styles.folderName}>{x.name}</Typography>
-                                          <IconButton
-                                              {...styles.itemActionButton}
-                                              onClick={(event) => onClickMoreOptions(event)}
-                                          >
-                                              <MoreVertIcon />
-                                          </IconButton>
-                                      </Box>
-                                  </Box>
+                                      <FolderIcon {...styles.itemButtonIcon} />
+                                      <Typography {...styles.itemName}>{x.name}</Typography>
+                                      <IconButton
+                                          {...styles.itemActionButton}
+                                          onClick={(event) => onClickMoreOptions(event)}
+                                      >
+                                          <MoreVertIcon />
+                                      </IconButton>
+                                  </ButtonBase>
                               </Grid>
                           ))
                         : null}
                     <Grid item xs={6} sm={4} lg={3}>
-                        <ButtonBase {...styles.addFolderButton} onClick={openCreateFolderModal}>
-                            <Box {...styles.addFileButtonInfo}>
-                                <AddCircleIcon {...styles.addIcon} />
-                                New Folder
-                            </Box>
+                        <ButtonBase
+                            {...styles.addItemButton?.(false)}
+                            onClick={openCreateFolderModal}
+                        >
+                            <AddCircleIcon {...styles.addIcon} />
+                            New Folder
                         </ButtonBase>
                     </Grid>
                 </Grid>
@@ -320,26 +345,29 @@ const FilesManager: FC<FilesManagerProps> = ({
                 <Typography {...styles.subTitle}>Files</Typography>
                 <Grid container spacing={2}>
                     {filesData?.files?.length && filesData?.files?.length > 0
-                        ? filesData?.files?.map((x) => (
+                        ? filesData?.files?.map((x, index) => (
                               <Grid key={x.name} item xs={6} sm={3} lg={2}>
-                                  <Box {...styles.fileBox}>
+                                  <ButtonBase
+                                      {...(isFileSelected(index)
+                                          ? styles.selectedItemButton?.(true)
+                                          : styles.itemButton?.(true))}
+                                      onClick={() => onClickFileHandler(x.name, index)}
+                                  >
                                       <DefaultImage />
                                       <Box {...styles.fileBoxInfo}>
-                                          <Typography noWrap>{x.name}</Typography>
+                                          <Typography {...styles.itemName}>{x.name}</Typography>
                                           <IconButton {...styles.itemActionButton}>
                                               <MoreVertIcon />
                                           </IconButton>
                                       </Box>
-                                  </Box>
+                                  </ButtonBase>
                               </Grid>
                           ))
                         : null}
                     <Grid item xs={6} sm={3} lg={2}>
-                        <InputLabel {...styles.addButton}>
-                            <Box {...styles.addFileButtonInfo}>
-                                <AddCircleIcon {...styles.addIcon} />
-                                New File
-                            </Box>
+                        <InputLabel {...(styles.addItemButton?.(true) as InputLabelProps)}>
+                            <AddCircleIcon {...styles.addIcon} />
+                            New File
                             <input type="file" onChange={onUploadFile} multiple hidden />
                         </InputLabel>
                     </Grid>
@@ -349,12 +377,7 @@ const FilesManager: FC<FilesManagerProps> = ({
                 <form onSubmit={onSubmitAddFolderForm}>
                     <DialogTitle>New Folder</DialogTitle>
                     <DialogContent>
-                        <TextField
-                            ref={inputRef}
-                            id="folderName"
-                            onChange={onChangeNewFolderName}
-                            value={newFolderName}
-                        />
+                        <TextField onChange={onChangeNewFolderName} value={newFolderName} />
                     </DialogContent>
                     <DialogActions>
                         <Button type="submit">Create</Button>
