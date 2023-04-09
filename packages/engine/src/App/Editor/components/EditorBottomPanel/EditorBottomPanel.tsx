@@ -138,6 +138,11 @@ const EditorBottomPanell: FC = () => {
         await deleteFile(item.path, item.type === "folder");
     };
 
+    const onEdit = async (item: FileItem) => {
+        console.log(item, "item onEdit");
+        // await deleteFile(item.path, item.type === "folder");
+    };
+
     return (
         <Box {...styles.wrapper}>
             <ButtonBase onClick={onClick} {...styles.button}>
@@ -161,6 +166,7 @@ const EditorBottomPanell: FC = () => {
                     selectedFileIndex={selectedFileIndex}
                     setSelectedFileIndex={setSelectedFileIndex}
                     onDelete={onDelete}
+                    onEdit={onEdit}
                 />
             </Drawer>
         </Box>

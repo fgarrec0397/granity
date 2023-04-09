@@ -98,6 +98,15 @@ export const postFiles = (request: Request, result: Response) => {
     result.json(folderData);
 };
 
+export const editFile = (request: Request, result: Response) => {
+    const relativePathOfItem = request.body.path;
+    const newFolderName = request.body.newFolderName;
+    const fileName = request.params.fileName;
+    result.statusCode = 200;
+
+    return result.json("file edited");
+};
+
 export const deleteFiles = (request: Request, result: Response) => {
     const relativePathOfItem = request.body.path;
     const isDeletingFolder = request.body.deleteFolder;

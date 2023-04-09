@@ -45,6 +45,7 @@ export type FilesManagerProps = {
     setSelectedFolderIndex: (index?: number) => void;
     setSelectedFileIndex: (index?: number) => void;
     onDelete: (item: FileItem) => void;
+    onEdit: (item: FileItem) => void;
 };
 
 export type FilesManagerStyles = {
@@ -98,6 +99,7 @@ const FilesManager: FC<FilesManagerProps> = ({
     selectedFileIndex,
     setSelectedFileIndex,
     onDelete,
+    onEdit,
 }) => {
     const isFolderNotSelected = (index: number) => {
         return selectedFolderIndex === undefined || index !== selectedFolderIndex;
@@ -153,6 +155,10 @@ const FilesManager: FC<FilesManagerProps> = ({
         onDelete(item);
     };
 
+    const onEditItem = (item: FileItem) => {
+        onEdit(item);
+    };
+
     return (
         <Container>
             <Box {...styles.section}>
@@ -194,6 +200,10 @@ const FilesManager: FC<FilesManagerProps> = ({
                                           {
                                               name: "Delete",
                                               onClick: onDeleteItem,
+                                          },
+                                          {
+                                              name: "Edit",
+                                              onClick: onEditItem,
                                           },
                                       ]}
                                   />
