@@ -2,23 +2,25 @@ import { Fetcher } from "@granity/helpers";
 
 import { FilesData } from "../editorTypes";
 
-export type GetFilesParameters = {
+export type FilesServiceParameters<MethodParameters> = MethodParameters & {
     endpoint: string;
+};
+
+export type GetFilesParameters = {
     path: string;
 };
 
 export type SaveFilesParameters = {
-    endpoint: string;
     formData: FormData;
 };
 
 export type DeleteFilesParameters = {
-    endpoint: string;
     path: string;
+    deleteFolder?: "true" | "false";
 };
 
 export class FilesService {
-    static async get({ endpoint, path }: GetFilesParameters) {
+    static async get({ endpoint, path }: FilesServiceParameters<GetFilesParameters>) {
         const response = await Fetcher.get<any, FilesData>(
             `${endpoint}?pathToFolderToLoad=${path}`
         );
@@ -26,21 +28,21 @@ export class FilesService {
         return response.data;
     }
 
-    static async save({ endpoint, formData }: SaveFilesParameters) {
+    static async save({ endpoint, formData }: FilesServiceParameters<SaveFilesParameters>) {
         const response = await Fetcher.post<FormData, FilesData>(endpoint, formData);
 
         return response.data;
     }
 
-    static async delete({ endpoint, path }: DeleteFilesParameters) {
-        const response = await Fetcher.delete<
-            {
-                path: string;
-            },
-            FilesData
-        >(endpoint, {
+    static async delete({
+        endpoint,
+        path,
+        deleteFolder,
+    }: FilesServiceParameters<DeleteFilesParameters>) {
+        const response = await Fetcher.delete<DeleteFilesParameters, FilesData>(endpoint, {
             data: {
                 path,
+                deleteFolder,
             },
         });
 

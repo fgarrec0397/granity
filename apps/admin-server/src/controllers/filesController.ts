@@ -81,11 +81,12 @@ export const getFiles = async ({ query }: Request, result: Response<ResponseData
 
 export const postFiles = (request: Request, result: Response) => {
     const currentPath = request.body.currentPath;
+    const isAddingFolder = request.body.addFolder;
     const folderName = request.body.folderName || "New Folder";
     const currentFolderPath = path.resolve("../admin", "public", currentPath);
     const newFolderPath = path.resolve(currentFolderPath, folderName);
 
-    if (request.body.addFolder === "true") {
+    if (isAddingFolder === "true") {
         if (!fs.existsSync(newFolderPath)) {
             fs.mkdirSync(newFolderPath);
         }
@@ -99,7 +100,7 @@ export const postFiles = (request: Request, result: Response) => {
 
 export const deleteFiles = (request: Request, result: Response) => {
     const relativePathOfItem = request.body.path;
-    console.log(relativePathOfItem, "relativePathOfItem");
+    const isDeletingFolder = request.body.deleteFolder;
 
     const relativePathArray = relativePathOfItem.split(/\/{1,}|\\{1,}/);
     relativePathArray.pop();
@@ -107,34 +108,36 @@ export const deleteFiles = (request: Request, result: Response) => {
     if (relativePathArray[0] === "") {
         relativePathArray.shift();
     }
-    // .join("/");
-    // const pathToItem = relativePathOfItem.split("/").pop().join("/");
-    console.log(relativePathArray, "relativePathArray");
-
-    console.log(relativePathArray.join("/"), "relativePathArray.join");
 
     const deletedElementPath = relativePathArray.join("/");
 
     const absolutePathToItem = path.join("../admin", "public", relativePathOfItem);
     const resolvedPathToItem = path.resolve(absolutePathToItem);
-    console.log(resolvedPathToItem, "resolvedPathToItem");
 
-    if (fs.existsSync(resolvedPathToItem)) {
-        fs.rmSync(resolvedPathToItem, { recursive: true });
-        // // if (request.body.addFolder === "true") {
-        // //     if (!fs.existsSync(newFolderPath)) {
-        // //         fs.mkdirSync(newFolderPath);
-        // //     }
-        // // }
+    if (isDeletingFolder === "true" && fs.existsSync(resolvedPathToItem)) {
+        try {
+            fs.rmSync(resolvedPathToItem, { recursive: true });
+        } catch (error) {
+            result.statusCode = 404;
 
-        console.log(deletedElementPath, "deletedElementPath");
-        const folderData = loadFolder(deletedElementPath);
-
-        console.log(folderData);
-
-        result.statusCode = 200;
-        return result.json(folderData);
+            return result.json("Folder not found");
+        }
     }
-    result.statusCode = 404;
-    return result.json("Folder not found");
+
+    if (isDeletingFolder !== "true") {
+        try {
+            fs.unlinkSync(resolvedPathToItem);
+        } catch (error) {
+            console.error(error);
+            result.statusCode = 404;
+
+            return result.json("Folder not found");
+        }
+    }
+
+    const folderData = loadFolder(deletedElementPath);
+
+    result.statusCode = 200;
+
+    return result.json(folderData);
 };

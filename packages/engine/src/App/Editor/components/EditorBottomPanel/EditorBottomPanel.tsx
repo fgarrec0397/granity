@@ -14,6 +14,7 @@ import {
 } from "@granity/ui";
 import { ChangeEvent, FC, useState } from "react";
 
+import { FileItem } from "../../_actions/editorTypes";
 import { useEditor } from "../../_actions/hooks";
 import useHandleLoadFiles from "../../_actions/hooks/useHandleLoadFiles";
 
@@ -64,10 +65,18 @@ const EditorBottomPanell: FC = () => {
                     return;
                 }
 
-                await deleteFile(selectedFolder.path);
+                await deleteFile(selectedFolder.path, true);
+            } else if (keyMapping.delete && selectedFileIndex !== undefined) {
+                const selectedFile = filesData.files[selectedFileIndex];
+
+                if (!selectedFile) {
+                    return;
+                }
+
+                await deleteFile(selectedFile.path);
             }
         },
-        [selectedFolderIndex]
+        [selectedFolderIndex, selectedFileIndex]
     );
 
     const currentRootPathLinks = filesData?.currentRootPath?.split("/");
@@ -100,13 +109,7 @@ const EditorBottomPanell: FC = () => {
 
     const onAddFolder = async () => {
         if (newFolderName) {
-            const formData = new FormData();
-
-            formData.append("addFolder", "true");
-            formData.append("folderName", newFolderName);
-            formData.append("currentPath", currentPath);
-
-            await saveFiles(formData);
+            await saveFiles(currentPath, undefined, newFolderName, true);
             closeCreateFolderModal();
             enqueueSnackbar("Folder successfully created", { variant: "success" });
             setNewFolderName("");
@@ -126,18 +129,13 @@ const EditorBottomPanell: FC = () => {
     };
 
     const onUploadFile = async (event: ChangeEvent<HTMLInputElement>) => {
-        const formData = new FormData();
-
         if (event.target.files?.length) {
-            formData.append("currentPath", currentPath);
-
-            for (let i = 0; i < event.target.files.length; i++) {
-                // Need to send files after all other inputs because Multer does not support it
-                formData.append(`filesToUpload`, event.target.files[i]);
-            }
-
-            await saveFiles(formData);
+            await saveFiles(currentPath, event.target.files);
         }
+    };
+
+    const onDelete = async (item: FileItem) => {
+        await deleteFile(item.path, item.type === "folder");
     };
 
     return (
@@ -162,6 +160,7 @@ const EditorBottomPanell: FC = () => {
                     setSelectedFolderIndex={setSelectedFolderIndex}
                     selectedFileIndex={selectedFileIndex}
                     setSelectedFileIndex={setSelectedFileIndex}
+                    onDelete={onDelete}
                 />
             </Drawer>
         </Box>

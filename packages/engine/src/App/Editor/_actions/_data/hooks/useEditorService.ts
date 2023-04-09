@@ -128,7 +128,31 @@ export default () => {
     );
 
     const saveFiles = useCallback(
-        async (formData: FormData) => {
+        async (
+            currentPath: string,
+            files?: FileList,
+            newFolderName?: string,
+            isAddingFolder?: boolean
+        ) => {
+            const formData = new FormData();
+
+            formData.append("currentPath", currentPath);
+
+            if (isAddingFolder) {
+                formData.append("addFolder", String(isAddingFolder));
+            }
+
+            if (newFolderName) {
+                formData.append("folderName", newFolderName);
+            }
+
+            if (files) {
+                for (let i = 0; i < files.length; i++) {
+                    // Need to send files after all other inputs because Multer does not support it
+                    formData.append(`filesToUpload`, files[i]);
+                }
+            }
+
             await saveFilesMutation.mutateAsync({
                 endpoint: endpoints.files.save,
                 formData,
@@ -138,14 +162,11 @@ export default () => {
     );
 
     const deleteFile = useCallback(
-        async (path: string) => {
-            const formData = new FormData();
-
-            formData.append("path", path);
-
+        async (path: string, deleteFolder?: boolean) => {
             await deleteFilesMutation.mutateAsync({
                 endpoint: endpoints.files.delete,
                 path,
+                deleteFolder: String(deleteFolder) as "true" | "false",
             });
         },
         [deleteFilesMutation, endpoints.files.delete]

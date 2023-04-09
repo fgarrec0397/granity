@@ -62,7 +62,7 @@ const styles: AccountMenuStyles = {
 };
 
 const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
