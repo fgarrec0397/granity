@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import path from "path";
 import fs from "fs";
+import { editOrDeleteLastItemOfPath, getFilesPath, loadFolder } from "../utilities/files";
 
 type ResponseData =
     | {
@@ -16,57 +17,9 @@ export type FileItem = {
     type: string;
 };
 
-const getFileExtension = (fileName: string) => {
-    const fileNameSplit = fileName.split(".");
-
-    return fileNameSplit[fileNameSplit.length - 1];
-};
-
-export const getRootFilesFolder = () => {
-    return path.resolve("../admin", "public");
-};
-
-const loadFolder = (pathToFolderToLoad: string) => {
-    const directoryToRead = path.join(getRootFilesFolder(), pathToFolderToLoad);
-
-    const directoryData = fs.readdirSync(directoryToRead, { withFileTypes: true });
-
-    const foundFiles = directoryData.filter((x) => x.isFile());
-    const foundDirectories = directoryData.filter((x) => x.isDirectory());
-
-    const files = foundFiles.map((x) => {
-        const itemPath = path.join("/", pathToFolderToLoad, x.name);
-        const file: FileItem = {
-            path: itemPath,
-            name: x.name,
-            type: getFileExtension(x.name),
-        };
-
-        return file;
-    });
-
-    const folders = foundDirectories.map((x) => {
-        const itemPath = path.join("/", pathToFolderToLoad, x.name);
-        const file: FileItem = {
-            path: itemPath,
-            name: x.name,
-            type: "folder",
-        };
-
-        return file;
-    });
-
-    return {
-        currentRootPath: pathToFolderToLoad,
-        files,
-        folders,
-    };
-};
-
 export const getFiles = async ({ query }: Request, result: Response<ResponseData>) => {
     const pathToFolderToLoad = String(query.pathToFolderToLoad);
-
-    const directoryToRead = path.join(getRootFilesFolder(), pathToFolderToLoad);
+    const directoryToRead = getFilesPath(pathToFolderToLoad);
 
     if (!fs.existsSync(directoryToRead)) {
         result.statusCode = 404;
@@ -102,28 +55,15 @@ export const editFile = (request: Request, result: Response) => {
     const data = request.body.data;
     const relativePathOfItem = data.path;
     const newFileName = data.newName;
-    console.log(data, "data");
 
-    const absolutePathToItem = path.join("../admin", "public", relativePathOfItem);
-    const resolvedPathToItem = path.resolve(absolutePathToItem);
+    const pathToItem = getFilesPath(relativePathOfItem);
 
-    const relativePathArray = relativePathOfItem.split(/\/{1,}|\\{1,}/);
-    relativePathArray.pop();
-    relativePathArray.push(newFileName);
+    const editedElementPath = editOrDeleteLastItemOfPath(relativePathOfItem, newFileName);
 
-    if (relativePathArray[0] === "") {
-        relativePathArray.shift();
-    }
+    const newPathToItem = getFilesPath(editedElementPath);
 
-    const editedElementPath = relativePathArray.join("/");
-
-    const newAbsolutePathToItem = path.join("../admin", "public", editedElementPath);
-    const newResolvedPathToItem = path.resolve(newAbsolutePathToItem);
-
-    console.log({ newAbsolutePathToItem, newResolvedPathToItem });
-
-    if (fs.existsSync(resolvedPathToItem)) {
-        fs.renameSync(resolvedPathToItem, newResolvedPathToItem);
+    if (fs.existsSync(pathToItem)) {
+        fs.renameSync(pathToItem, newPathToItem);
     }
 
     result.statusCode = 200;
@@ -135,21 +75,13 @@ export const deleteFiles = (request: Request, result: Response) => {
     const relativePathOfItem = request.body.path;
     const isDeletingFolder = request.body.deleteFolder;
 
-    const relativePathArray = relativePathOfItem.split(/\/{1,}|\\{1,}/);
-    relativePathArray.pop();
+    const deletedElementPath = editOrDeleteLastItemOfPath(relativePathOfItem);
 
-    if (relativePathArray[0] === "") {
-        relativePathArray.shift();
-    }
+    const pathToItem = getFilesPath(relativePathOfItem);
 
-    const deletedElementPath = relativePathArray.join("/");
-
-    const absolutePathToItem = path.join("../admin", "public", relativePathOfItem);
-    const resolvedPathToItem = path.resolve(absolutePathToItem);
-
-    if (isDeletingFolder === "true" && fs.existsSync(resolvedPathToItem)) {
+    if (isDeletingFolder === "true" && fs.existsSync(pathToItem)) {
         try {
-            fs.rmSync(resolvedPathToItem, { recursive: true });
+            fs.rmSync(pathToItem, { recursive: true });
         } catch (error) {
             result.statusCode = 404;
 
@@ -159,7 +91,7 @@ export const deleteFiles = (request: Request, result: Response) => {
 
     if (isDeletingFolder !== "true") {
         try {
-            fs.unlinkSync(resolvedPathToItem);
+            fs.unlinkSync(pathToItem);
         } catch (error) {
             console.error(error);
             result.statusCode = 404;
