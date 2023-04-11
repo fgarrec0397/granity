@@ -17,7 +17,7 @@ export type EditorMainMenuItem = {
     icon?: ReactNode;
 };
 
-export type BaseEnpoints = { get?: string; save?: string; delete?: string };
+export type BaseEnpoints = { get?: string; save?: string; patch?: string; delete?: string };
 
 export type EngineEndpoints = {
     files?: BaseEnpoints;

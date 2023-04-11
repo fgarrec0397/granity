@@ -51,7 +51,7 @@ const EditorBottomPanell: FC = () => {
     const [isCreateFolderModalOpen, setIsCreateForlderModalOpen] = useState(false);
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const { filesData, saveFiles, deleteFile } = useEditor();
+    const { filesData, saveFiles, editFile, deleteFile } = useEditor();
     const { enqueueSnackbar } = useSnackbar();
 
     useHandleLoadFiles(currentPath);
@@ -138,9 +138,9 @@ const EditorBottomPanell: FC = () => {
         await deleteFile(item.path, item.type === "folder");
     };
 
-    const onEdit = async (item: FileItem) => {
-        console.log(item, "item onEdit");
-        // await deleteFile(item.path, item.type === "folder");
+    const onEdit = async (item: FileItem, newName: string) => {
+        console.log({ item, newName }, "item onEdit");
+        await editFile(item.path, newName);
     };
 
     return (

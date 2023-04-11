@@ -7,7 +7,7 @@ const sceneRoutes = () => {
 
     router.get("/", getFiles);
     router.post("/", filesMiddleware("filesToUpload"), postFiles);
-    router.patch("/:fileName", editFile);
+    router.patch("/", editFile);
     router.delete("/", deleteFiles);
 
     return router;

@@ -37,7 +37,7 @@ export class Fetcher {
         endpoint: string,
         config: FetchRequestConfig<DataType>
     ) {
-        const response = axios.patch<DataType, ResponseType>(endpoint, config);
+        const response = axios.patch<DataType, FetchResponse<ResponseType>>(endpoint, config);
         return response;
     }
 
@@ -45,7 +45,7 @@ export class Fetcher {
         endpoint: string,
         config: FetchRequestConfig<DataType>
     ) {
-        const response = axios.put<DataType, ResponseType>(endpoint, config);
+        const response = axios.put<DataType, FetchResponse<ResponseType>>(endpoint, config);
         return response;
     }
 }

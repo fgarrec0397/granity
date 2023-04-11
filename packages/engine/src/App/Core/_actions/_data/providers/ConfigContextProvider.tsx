@@ -19,13 +19,15 @@ export type ConfigContextModel = {
 
 export const defaultEnpoints: ConfigContexEndpoints = {
     files: {
-        save: "/server/files",
         get: "/server/files",
+        save: "/server/files",
+        patch: "/server/files",
         delete: "/server/files",
     },
     scenes: {
         save: "/server/scenes",
         get: "/server/scenes",
+        patch: "/server/scenes",
         delete: "/server/scenes",
     },
 };

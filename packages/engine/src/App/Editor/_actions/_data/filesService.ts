@@ -14,6 +14,11 @@ export type SaveFilesParameters = {
     formData: FormData;
 };
 
+export type EditFilesParameters = {
+    path: string;
+    newName?: string;
+};
+
 export type DeleteFilesParameters = {
     path: string;
     deleteFolder?: "true" | "false";
@@ -28,8 +33,19 @@ export class FilesService {
         return response.data;
     }
 
-    static async save({ endpoint, formData }: FilesServiceParameters<SaveFilesParameters>) {
+    static async post({ endpoint, formData }: FilesServiceParameters<SaveFilesParameters>) {
         const response = await Fetcher.post<FormData, FilesData>(endpoint, formData);
+
+        return response.data;
+    }
+
+    static async patch({ endpoint, path, newName }: FilesServiceParameters<EditFilesParameters>) {
+        const response = await Fetcher.patch<EditFilesParameters, FilesData>(endpoint, {
+            data: {
+                path,
+                newName,
+            },
+        });
 
         return response.data;
     }

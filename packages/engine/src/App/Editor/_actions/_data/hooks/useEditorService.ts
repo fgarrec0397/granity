@@ -37,7 +37,15 @@ export default () => {
 
     const saveFilesMutation = useMutation({
         mutationKey: ["files"],
-        mutationFn: FilesService.save,
+        mutationFn: FilesService.post,
+        onSuccess: (data) => {
+            queryClient.setQueryData(["files", data.currentRootPath], data);
+        },
+    });
+
+    const editFilesMutation = useMutation({
+        mutationKey: ["files"],
+        mutationFn: FilesService.patch,
         onSuccess: (data) => {
             queryClient.setQueryData(["files", data.currentRootPath], data);
         },
@@ -161,6 +169,17 @@ export default () => {
         [endpoints.files.save, saveFilesMutation]
     );
 
+    const editFile = useCallback(
+        async (path: string, newName: string) => {
+            await editFilesMutation.mutateAsync({
+                endpoint: endpoints.files.patch,
+                path,
+                newName,
+            });
+        },
+        [editFilesMutation, endpoints.files.patch]
+    );
+
     const deleteFile = useCallback(
         async (path: string, deleteFolder?: boolean) => {
             await deleteFilesMutation.mutateAsync({
@@ -192,6 +211,7 @@ export default () => {
         setFilesDataStatus,
         filesDataStatus,
         saveFiles,
+        editFile,
         deleteFile,
         filesData,
         getFilesData,

@@ -99,9 +99,33 @@ export const postFiles = (request: Request, result: Response) => {
 };
 
 export const editFile = (request: Request, result: Response) => {
-    const relativePathOfItem = request.body.path;
-    const newFolderName = request.body.newFolderName;
-    const fileName = request.params.fileName;
+    const data = request.body.data;
+    const relativePathOfItem = data.path;
+    const newFileName = data.newName;
+    console.log(data, "data");
+
+    const absolutePathToItem = path.join("../admin", "public", relativePathOfItem);
+    const resolvedPathToItem = path.resolve(absolutePathToItem);
+
+    const relativePathArray = relativePathOfItem.split(/\/{1,}|\\{1,}/);
+    relativePathArray.pop();
+    relativePathArray.push(newFileName);
+
+    if (relativePathArray[0] === "") {
+        relativePathArray.shift();
+    }
+
+    const editedElementPath = relativePathArray.join("/");
+
+    const newAbsolutePathToItem = path.join("../admin", "public", editedElementPath);
+    const newResolvedPathToItem = path.resolve(newAbsolutePathToItem);
+
+    console.log({ newAbsolutePathToItem, newResolvedPathToItem });
+
+    if (fs.existsSync(resolvedPathToItem)) {
+        fs.renameSync(resolvedPathToItem, newResolvedPathToItem);
+    }
+
     result.statusCode = 200;
 
     return result.json("file edited");

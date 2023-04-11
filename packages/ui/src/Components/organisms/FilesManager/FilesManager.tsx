@@ -20,7 +20,7 @@ import {
 } from "@granity/ui";
 import FileManagerItem, { FileItem } from "@ui/components/moleculs/FileManagerItem/FileManagerItem";
 import pxToRem from "@ui/theme/utilities/pxToRem";
-import { ChangeEvent, FC, FormEvent } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 
 type FilesData = {
     currentRootPath: string;
@@ -45,7 +45,7 @@ export type FilesManagerProps = {
     setSelectedFolderIndex: (index?: number) => void;
     setSelectedFileIndex: (index?: number) => void;
     onDelete: (item: FileItem) => void;
-    onEdit: (item: FileItem) => void;
+    onEdit: (item: FileItem, newName: string) => void;
 };
 
 export type FilesManagerStyles = {
@@ -101,6 +101,10 @@ const FilesManager: FC<FilesManagerProps> = ({
     onDelete,
     onEdit,
 }) => {
+    const [editingItem, setEditingItem] = useState<FileItem>();
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [newName, setNewName] = useState(editingItem?.name || "");
+
     const isFolderNotSelected = (index: number) => {
         return selectedFolderIndex === undefined || index !== selectedFolderIndex;
     };
@@ -155,8 +159,25 @@ const FilesManager: FC<FilesManagerProps> = ({
         onDelete(item);
     };
 
-    const onEditItem = (item: FileItem) => {
-        onEdit(item);
+    const onEditItem = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (editingItem) {
+            onEdit(editingItem, newName);
+        }
+    };
+
+    const onOpenEditModal = (item: FileItem) => {
+        setIsEditModalOpen(true);
+        setEditingItem(item);
+    };
+
+    const onCloseEditModal = () => {
+        setIsEditModalOpen(false);
+    };
+
+    const onChangeEditingName = (event: ChangeEvent<HTMLInputElement>) => {
+        setNewName(event.target.value);
     };
 
     return (
@@ -203,7 +224,7 @@ const FilesManager: FC<FilesManagerProps> = ({
                                           },
                                           {
                                               name: "Edit",
-                                              onClick: onEditItem,
+                                              onClick: onOpenEditModal,
                                           },
                                       ]}
                                   />
@@ -236,6 +257,22 @@ const FilesManager: FC<FilesManagerProps> = ({
                     </Grid>
                 </Grid>
             </Box>
+            {editingItem && (
+                <Dialog open={isEditModalOpen} onClose={onCloseEditModal}>
+                    <form onSubmit={onEditItem}>
+                        <DialogTitle>Edit {editingItem.name}</DialogTitle>
+                        <DialogContent>
+                            <TextField onChange={onChangeEditingName} value={newName} />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button type="submit">Save</Button>
+                            <Button color="secondary" variant="outlined" onClick={onCloseEditModal}>
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </form>
+                </Dialog>
+            )}
             <Dialog open={isCreateFolderModalOpen} onClose={closeCreateFolderModal}>
                 <form onSubmit={onSubmitAddFolderForm}>
                     <DialogTitle>New Folder</DialogTitle>
