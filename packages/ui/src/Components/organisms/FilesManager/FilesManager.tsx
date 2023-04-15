@@ -29,14 +29,14 @@ type FilesData = {
 };
 
 export type FilesManagerProps = {
-    isCreateFolderModalOpen: boolean;
+    // isCreateFolderModalOpen: boolean;
     breadcrumbsLinks: string[];
     filesData: FilesData | undefined;
     newFolderName: string;
     selectedFolderIndex?: number;
     selectedFileIndex?: number;
-    openCreateFolderModal: () => void;
-    closeCreateFolderModal: () => void;
+    // openCreateFolderModal: () => void;
+    // closeCreateFolderModal: () => void;
     onChangeNewFolderName: (event: ChangeEvent<HTMLInputElement>) => void;
     onClickFolder: (folderPath: string) => void;
     onClickBreadcrumbsElement: (folder: string) => void;
@@ -83,12 +83,12 @@ const styles: FilesManagerStyles = {
 };
 
 const FilesManager: FC<FilesManagerProps> = ({
-    isCreateFolderModalOpen,
+    // isCreateFolderModalOpen,
     breadcrumbsLinks,
     filesData,
     newFolderName,
-    openCreateFolderModal,
-    closeCreateFolderModal,
+    // openCreateFolderModal,
+    // closeCreateFolderModal,
     onChangeNewFolderName,
     onClickFolder,
     onClickBreadcrumbsElement,
@@ -102,6 +102,7 @@ const FilesManager: FC<FilesManagerProps> = ({
     onEdit,
 }) => {
     const [editingItem, setEditingItem] = useState<FileItem>();
+    const [isCreateFolderModalOpen, setIsCreateForlderModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [newName, setNewName] = useState(editingItem?.name || "");
 
@@ -153,6 +154,7 @@ const FilesManager: FC<FilesManagerProps> = ({
     const onSubmitAddFolderForm = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         onAddFolder();
+        closeCreateFolderModal();
     };
 
     const onDeleteItem = (item: FileItem) => {
@@ -164,7 +166,16 @@ const FilesManager: FC<FilesManagerProps> = ({
 
         if (editingItem) {
             onEdit(editingItem, newName);
+            onCloseEditModal();
         }
+    };
+
+    const openCreateFolderModal = () => {
+        setIsCreateForlderModalOpen(true);
+    };
+
+    const closeCreateFolderModal = () => {
+        setIsCreateForlderModalOpen(false);
     };
 
     const onOpenEditModal = (item: FileItem) => {
@@ -258,40 +269,63 @@ const FilesManager: FC<FilesManagerProps> = ({
                 </Grid>
             </Box>
             {editingItem && (
-                <Dialog open={isEditModalOpen} onClose={onCloseEditModal}>
-                    <form onSubmit={onEditItem}>
-                        <DialogTitle>Edit {editingItem.name}</DialogTitle>
-                        <DialogContent>
-                            <TextField onChange={onChangeEditingName} value={newName} />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button type="submit">Save</Button>
-                            <Button color="secondary" variant="outlined" onClick={onCloseEditModal}>
-                                Cancel
-                            </Button>
-                        </DialogActions>
-                    </form>
-                </Dialog>
+                <FileManagerFormModal
+                    title={`Edit ${editingItem.name}`}
+                    buttonText="Create"
+                    onChange={onChangeEditingName}
+                    value={newName}
+                    isModalOpen={isEditModalOpen}
+                    onClose={onCloseEditModal}
+                    onSubmit={onEditItem}
+                />
             )}
-            <Dialog open={isCreateFolderModalOpen} onClose={closeCreateFolderModal}>
-                <form onSubmit={onSubmitAddFolderForm}>
-                    <DialogTitle>New Folder</DialogTitle>
-                    <DialogContent>
-                        <TextField onChange={onChangeNewFolderName} value={newFolderName} />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button type="submit">Create</Button>
-                        <Button
-                            color="secondary"
-                            variant="outlined"
-                            onClick={closeCreateFolderModal}
-                        >
-                            Cancel
-                        </Button>
-                    </DialogActions>
-                </form>
-            </Dialog>
+            <FileManagerFormModal
+                title="New Folder"
+                buttonText="Create"
+                onChange={onChangeNewFolderName}
+                value={newFolderName}
+                isModalOpen={isCreateFolderModalOpen}
+                onClose={closeCreateFolderModal}
+                onSubmit={onSubmitAddFolderForm}
+            />
         </Container>
+    );
+};
+
+export type FileManagerFormModalProps = {
+    title: string;
+    buttonText: string;
+    value: string;
+    isModalOpen: boolean;
+    onClose?: () => void;
+    onSubmit?: (event: FormEvent<HTMLFormElement>) => void;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+
+const FileManagerFormModal: FC<FileManagerFormModalProps> = ({
+    title,
+    buttonText,
+    value,
+    isModalOpen,
+    onClose,
+    onSubmit,
+    onChange,
+}) => {
+    return (
+        <Dialog open={isModalOpen} onClose={onClose}>
+            <form onSubmit={onSubmit}>
+                <DialogTitle>{title}</DialogTitle>
+                <DialogContent>
+                    <TextField onChange={onChange} value={value} />
+                </DialogContent>
+                <DialogActions>
+                    <Button type="submit">{buttonText}</Button>
+                    <Button color="secondary" variant="outlined" onClick={onClose}>
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </form>
+        </Dialog>
     );
 };
 

@@ -48,7 +48,6 @@ const EditorBottomPanell: FC = () => {
     const [selectedFileIndex, setSelectedFileIndex] = useState<number>();
     const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
     const [newFolderName, setNewFolderName] = useState<string>("");
-    const [isCreateFolderModalOpen, setIsCreateForlderModalOpen] = useState(false);
     const [currentPath, setCurrentPath] = useState<string>("assets");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { filesData, saveFiles, editFile, deleteFile } = useEditor();
@@ -110,7 +109,6 @@ const EditorBottomPanell: FC = () => {
     const onAddFolder = async () => {
         if (newFolderName) {
             await saveFiles(currentPath, undefined, newFolderName, true);
-            closeCreateFolderModal();
             enqueueSnackbar("Folder successfully created", { variant: "success" });
             setNewFolderName("");
         }
@@ -118,14 +116,6 @@ const EditorBottomPanell: FC = () => {
 
     const onChangeNewFolderName = (event: ChangeEvent<HTMLInputElement>) => {
         setNewFolderName(event.target.value);
-    };
-
-    const openCreateFolderModal = () => {
-        setIsCreateForlderModalOpen(true);
-    };
-
-    const closeCreateFolderModal = () => {
-        setIsCreateForlderModalOpen(false);
     };
 
     const onUploadFile = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -139,7 +129,6 @@ const EditorBottomPanell: FC = () => {
     };
 
     const onEdit = async (item: FileItem, newName: string) => {
-        console.log({ item, newName }, "item onEdit");
         await editFile(item.path, newName);
     };
 
@@ -150,12 +139,9 @@ const EditorBottomPanell: FC = () => {
             </ButtonBase>
             <Drawer anchor="bottom" open={isDrawerOpen} onClose={closeDrawer}>
                 <FilesManager
-                    isCreateFolderModalOpen={isCreateFolderModalOpen}
                     breadcrumbsLinks={currentRootPathLinks}
                     filesData={filesData}
                     newFolderName={newFolderName}
-                    openCreateFolderModal={openCreateFolderModal}
-                    closeCreateFolderModal={closeCreateFolderModal}
                     onChangeNewFolderName={onChangeNewFolderName}
                     onClickFolder={onClickFolder}
                     onClickBreadcrumbsElement={onClickBreadcrumbsElement}

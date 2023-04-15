@@ -58,6 +58,7 @@ export const editFile = (request: Request, result: Response) => {
 
     const pathToItem = getFilesPath(relativePathOfItem);
 
+    const elementPath = editOrDeleteLastItemOfPath(relativePathOfItem);
     const editedElementPath = editOrDeleteLastItemOfPath(relativePathOfItem, newFileName);
 
     const newPathToItem = getFilesPath(editedElementPath);
@@ -66,9 +67,11 @@ export const editFile = (request: Request, result: Response) => {
         fs.renameSync(pathToItem, newPathToItem);
     }
 
+    const folderData = loadFolder(elementPath);
+
     result.statusCode = 200;
 
-    return result.json("file edited");
+    return result.json(folderData);
 };
 
 export const deleteFiles = (request: Request, result: Response) => {
