@@ -2,12 +2,8 @@ import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
 import { AccountMenu, SettingsIcon } from "@granity/ui";
 import { FC } from "react";
 
-const EditorSettingsButton: FC = () => {
+const EditorMainMenuButton: FC = () => {
     const { editorMainMenu } = useConfig();
-
-    if (!editorMainMenu?.length) {
-        return null;
-    }
 
     return (
         <AccountMenu
@@ -19,4 +15,4 @@ const EditorSettingsButton: FC = () => {
     );
 };
 
-export default EditorSettingsButton;
+export default EditorMainMenuButton;

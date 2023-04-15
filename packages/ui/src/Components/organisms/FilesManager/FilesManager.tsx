@@ -104,7 +104,7 @@ const FilesManager: FC<FilesManagerProps> = ({
     const [editingItem, setEditingItem] = useState<FileItem>();
     const [isCreateFolderModalOpen, setIsCreateForlderModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [newName, setNewName] = useState(editingItem?.name || "");
+    const [newName, setNewName] = useState("");
 
     const isFolderNotSelected = (index: number) => {
         return selectedFolderIndex === undefined || index !== selectedFolderIndex;
@@ -181,6 +181,7 @@ const FilesManager: FC<FilesManagerProps> = ({
     const onOpenEditModal = (item: FileItem) => {
         setIsEditModalOpen(true);
         setEditingItem(item);
+        setNewName(item.name);
     };
 
     const onCloseEditModal = () => {
@@ -230,12 +231,12 @@ const FilesManager: FC<FilesManagerProps> = ({
                                       onClick={() => onClickFolderHandler(x.name, index)}
                                       options={[
                                           {
-                                              name: "Delete",
-                                              onClick: onDeleteItem,
-                                          },
-                                          {
                                               name: "Edit",
                                               onClick: onOpenEditModal,
+                                          },
+                                          {
+                                              name: "Delete",
+                                              onClick: onDeleteItem,
                                           },
                                       ]}
                                   />
@@ -259,6 +260,16 @@ const FilesManager: FC<FilesManagerProps> = ({
                                       type="file"
                                       isSelected={isFileSelected(index)}
                                       onClick={() => onClickFileHandler(x.name, index)}
+                                      options={[
+                                          {
+                                              name: "Delete",
+                                              onClick: onDeleteItem,
+                                          },
+                                          {
+                                              name: "Edit",
+                                              onClick: onOpenEditModal,
+                                          },
+                                      ]}
                                   />
                               </Grid>
                           ))
@@ -271,7 +282,7 @@ const FilesManager: FC<FilesManagerProps> = ({
             {editingItem && (
                 <FileManagerFormModal
                     title={`Edit ${editingItem.name}`}
-                    buttonText="Create"
+                    buttonText="Confirm"
                     onChange={onChangeEditingName}
                     value={newName}
                     isModalOpen={isEditModalOpen}

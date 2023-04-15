@@ -227,7 +227,13 @@ const FileManagerItem: FC<FileManagerItemProps> = ({
             {isFile ? (
                 <Box {...styles.fileBoxInfo}>
                     <Typography {...styles.itemName}>{item.name}</Typography>
-                    <IconButton {...styles.itemActionButton}>
+                    <IconButton
+                        onClick={(event) => onClickMoreOptions(event)}
+                        aria-controls={isMoreOptionsMenuOpen ? moreOptionsMenuId : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={isMoreOptionsMenuOpen ? "true" : undefined}
+                        {...styles.itemActionButton}
+                    >
                         <MoreVertIcon />
                     </IconButton>
                 </Box>

@@ -20,7 +20,7 @@ export type AccountMenuProps = {
     title: string;
     id: string;
     icon: ReactNode;
-    menuItems: AccountMenuListModel[];
+    menuItems?: AccountMenuListModel[];
 };
 
 export type AccountMenuStyles = {
@@ -72,6 +72,10 @@ const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
         setAnchorEl(null);
     };
 
+    if (!menuItems?.length) {
+        return null;
+    }
+
     return (
         <>
             <Tooltip title={title}>
@@ -85,23 +89,25 @@ const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
                     {icon}
                 </IconButton>
             </Tooltip>
-            <Menu
-                anchorEl={anchorEl}
-                id={id}
-                open={open}
-                onClose={handleClose}
-                onClick={handleClose}
-                PaperProps={styles.menuPaper}
-                transformOrigin={{ horizontal: "right", vertical: "top" }}
-                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-            >
-                {menuItems.map((x) => (
-                    <MenuItem key={x.text} onClick={x.onClick}>
-                        {x.icon && <ListItemIcon>{x.icon}</ListItemIcon>}
-                        {x.text}
-                    </MenuItem>
-                ))}
-            </Menu>
+            {menuItems?.length ? (
+                <Menu
+                    anchorEl={anchorEl}
+                    id={id}
+                    open={open}
+                    onClose={handleClose}
+                    onClick={handleClose}
+                    PaperProps={styles.menuPaper}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                >
+                    {menuItems.map((x) => (
+                        <MenuItem key={x.text} onClick={x.onClick}>
+                            {x.icon && <ListItemIcon>{x.icon}</ListItemIcon>}
+                            {x.text}
+                        </MenuItem>
+                    ))}
+                </Menu>
+            ) : null}
         </>
     );
 };
