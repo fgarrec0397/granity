@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.3](https://github.com/fgarrec0397/granity/compare/v0.4.2...v0.4.3) (2023-04-15)
+
+
+### Features
+
+* bottom drawer + folders ([ebba834](https://github.com/fgarrec0397/granity/commits/ebba8346e7a7d8fd1dc7d5a62e1a70bf7b29312a))
+* create folder ([87edabb](https://github.com/fgarrec0397/granity/commits/87edabb159da83fa032b975dd3d02d5c87ca83bf))
+* delete folder in progress ([0672f4c](https://github.com/fgarrec0397/granity/commits/0672f4c64891732a149ad6eb3bb3d5f534f90766))
+* edit folder name fixed ([8c883cd](https://github.com/fgarrec0397/granity/commits/8c883cd0c48ac09942cb1c5b9a282bff16d70f7f))
+* files started ([43a0da7](https://github.com/fgarrec0397/granity/commits/43a0da7d810f887fc602fd1d7cdf00611cbecf5c))
+* **POC:**  read files ([7cb944c](https://github.com/fgarrec0397/granity/commits/7cb944c1ffff7c264211132d5a6e20dd7b4afcef))
+* **POC:** add file ([bba0f0b](https://github.com/fgarrec0397/granity/commits/bba0f0b9963c3eb4ac3b6b86b4d563ce14a75ab1))
+* **WIP:** deleting folders ([3d1c3d8](https://github.com/fgarrec0397/granity/commits/3d1c3d862452b714aec12700bc25f03583ea68d3))
+* **WIP:** displaying files and folders to the front-end ([23c4275](https://github.com/fgarrec0397/granity/commits/23c4275d35615c0af91a691ab904de0292af83cf))
+* **WIP:** edit folder name ([b29a776](https://github.com/fgarrec0397/granity/commits/b29a7768ed0a223910496d565a29450a0344d878))
+* **WIP:** edit items started ([02c11bf](https://github.com/fgarrec0397/granity/commits/02c11bf0003de10aff52b0e03f9313b4f7b6e105))
+* **WIP:** fetching files and send data to the engine ([3986cbb](https://github.com/fgarrec0397/granity/commits/3986cbb2aedeb77607305fd5e74ce3b0b18079de))
+* **WIP:** folder structure is navigable ([f4b49b2](https://github.com/fgarrec0397/granity/commits/f4b49b287ed8616bf3ce7979922280255d67ce17))
+* **WIP:** investigation file upload ([7c1b66c](https://github.com/fgarrec0397/granity/commits/7c1b66c3f6abed5cf76f43e516b5b7110d63d018))
+* **WIP:** upload working and removed files from assets folder ([a54ab54](https://github.com/fgarrec0397/granity/commits/a54ab54bf73f18784c2baea8a4f998a9cf9ad420))
+
+
+### Bug Fixes
+
+* build ([c4cd613](https://github.com/fgarrec0397/granity/commits/c4cd613752032aa70c8f86e80df3109d25f7c712))
+* deleted files fixes + ux improvements ([738b091](https://github.com/fgarrec0397/granity/commits/738b09193ba1a8371b5f2143dacfd11646b0a920))
+* double click folder + fix some styling ([60c9a04](https://github.com/fgarrec0397/granity/commits/60c9a0438660e8b4e8cee74f9336b7308a882989))
+* minor styles adjustments ([48952a4](https://github.com/fgarrec0397/granity/commits/48952a4c8536e15f445e8429a78b32f2d85a0574))
+* saved scenes feedback ([46b7790](https://github.com/fgarrec0397/granity/commits/46b779032895d3f9fb4bed445293111778e2d9a7))
+* updating files and folders when uploaded and created ([9628449](https://github.com/fgarrec0397/granity/commits/9628449404e6ae10add569ef11ac63dfa2ff8fd2))
+* upload file to the good folder ([a7df898](https://github.com/fgarrec0397/granity/commits/a7df8981a2120b5f5128a90887dc9d5bdd547067))
+* vector3Input + removed margin directly on the input ([cec5d36](https://github.com/fgarrec0397/granity/commits/cec5d3601929987f4380948c0a754c5c1a725d0b))
+
+
+### Refactor
+
+* **admin:** add files in src folder ([2357863](https://github.com/fgarrec0397/granity/commits/23578638700989bf259ffeddff123e215dbfb959))
+* all widgets files renamed to .widget.tsx + transpilePackages @react-three/drei ([15790ed](https://github.com/fgarrec0397/granity/commits/15790edd17ff78f557fc130416e68b5c708698b0))
+* config workflow ([6d5be24](https://github.com/fgarrec0397/granity/commits/6d5be2416e3d4a647f0036a11a75b955a1b8e8bd))
+* filemanageritem extracted + deleting file fixed ([d5a1071](https://github.com/fgarrec0397/granity/commits/d5a10719fb867c0cbd9230eba86a8ce7c9e94eed))
+* files controller ([13e1f7a](https://github.com/fgarrec0397/granity/commits/13e1f7aca2c3a3203adc8d2798af8fffd0e97fa7))
+* filesmanager extract from engine / refactor(WIP): standardizing api calls ([41ac7f1](https://github.com/fgarrec0397/granity/commits/41ac7f1fe2d4778661171182da5bced92a60ba9a))
+* getFiles callback refactored to files manager ([e8b9f57](https://github.com/fgarrec0397/granity/commits/e8b9f573bf0b349767873a68190d1b82029c6b00))
+* save and get functions ([d0278b5](https://github.com/fgarrec0397/granity/commits/d0278b5b84bb6cd14535f50e1eaf45a57e2cffec))
+* scenes status ([d08d48f](https://github.com/fgarrec0397/granity/commits/d08d48f6b9ab6703ab494fa2534b5d61fbbea3b8))
+* solidifying filesManager styles ([893419f](https://github.com/fgarrec0397/granity/commits/893419f15e8dd4a2adc2a4ec94bd2987cab56cbc))
+* use axios for http calls ([bc40cd5](https://github.com/fgarrec0397/granity/commits/bc40cd5861e89d0e4e0605e016d02aeb58dd90b6))
+* **WIP:** load files and display them ([684934c](https://github.com/fgarrec0397/granity/commits/684934c9d5af7589d33049341648d33baa9cfb5e))
+
 ### [0.4.2](https://github.com/fgarrec0397/granity/compare/v0.4.1...v0.4.2) (2023-03-22)
 
 
