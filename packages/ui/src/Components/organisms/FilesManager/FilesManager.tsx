@@ -4,20 +4,15 @@ import {
     BoxProps,
     Breadcrumbs,
     BreadcrumbsProps,
-    Button,
     Container,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
     Divider,
     Grid,
     Link,
     LinkProps,
-    TextField,
     Typography,
     TypographyProps,
 } from "@granity/ui";
+import FileManagerFormModal from "@ui/components/moleculs/FileManagerFormModal/FileManagerFormModal";
 import FileManagerItem, { FileItem } from "@ui/components/moleculs/FileManagerItem/FileManagerItem";
 import pxToRem from "@ui/theme/utilities/pxToRem";
 import { ChangeEvent, FC, FormEvent, useState } from "react";
@@ -29,14 +24,11 @@ type FilesData = {
 };
 
 export type FilesManagerProps = {
-    // isCreateFolderModalOpen: boolean;
     breadcrumbsLinks: string[];
     filesData: FilesData | undefined;
     newFolderName: string;
     selectedFolderIndex?: number;
     selectedFileIndex?: number;
-    // openCreateFolderModal: () => void;
-    // closeCreateFolderModal: () => void;
     onChangeNewFolderName: (event: ChangeEvent<HTMLInputElement>) => void;
     onClickFolder: (folderPath: string) => void;
     onClickBreadcrumbsElement: (folder: string) => void;
@@ -83,12 +75,9 @@ const styles: FilesManagerStyles = {
 };
 
 const FilesManager: FC<FilesManagerProps> = ({
-    // isCreateFolderModalOpen,
     breadcrumbsLinks,
     filesData,
     newFolderName,
-    // openCreateFolderModal,
-    // closeCreateFolderModal,
     onChangeNewFolderName,
     onClickFolder,
     onClickBreadcrumbsElement,
@@ -300,43 +289,6 @@ const FilesManager: FC<FilesManagerProps> = ({
                 onSubmit={onSubmitAddFolderForm}
             />
         </Container>
-    );
-};
-
-export type FileManagerFormModalProps = {
-    title: string;
-    buttonText: string;
-    value: string;
-    isModalOpen: boolean;
-    onClose?: () => void;
-    onSubmit?: (event: FormEvent<HTMLFormElement>) => void;
-    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-};
-
-const FileManagerFormModal: FC<FileManagerFormModalProps> = ({
-    title,
-    buttonText,
-    value,
-    isModalOpen,
-    onClose,
-    onSubmit,
-    onChange,
-}) => {
-    return (
-        <Dialog open={isModalOpen} onClose={onClose}>
-            <form onSubmit={onSubmit}>
-                <DialogTitle>{title}</DialogTitle>
-                <DialogContent>
-                    <TextField onChange={onChange} value={value} />
-                </DialogContent>
-                <DialogActions>
-                    <Button type="submit">{buttonText}</Button>
-                    <Button color="secondary" variant="outlined" onClick={onClose}>
-                        Cancel
-                    </Button>
-                </DialogActions>
-            </form>
-        </Dialog>
     );
 };
 
