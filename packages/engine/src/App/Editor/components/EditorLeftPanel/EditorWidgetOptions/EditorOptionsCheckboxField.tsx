@@ -1,6 +1,6 @@
 import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { CheckboxFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Box, BoxProps, TextField, TypographyProps } from "@granity/ui";
+import { Box, BoxProps, Checkbox, FormControlLabel, FormGroup, TypographyProps } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
 
 import useOptionsValues from "./hooks/useOptionsValues";
@@ -31,17 +31,27 @@ const EditorOptionsCheckboxField: FC<EditorOptionsCheckboxFieldProps> = ({ optio
     const { optionsValues, updateOptionsValues } = useOptionsValues();
 
     const onChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-        updateOptionsValues(target.value, option);
+        updateOptionsValues(target.checked, option);
     };
 
     if (option.fieldType === FieldType.Checkbox) {
         return (
             <Box {...styles.inputsWrapper}>
-                <TextField
-                    label={option.displayName}
-                    value={optionsValues ? (optionsValues[option.name]?.value as string) : ""}
-                    onChange={onChange}
-                />
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value={
+                                    optionsValues
+                                        ? (optionsValues[option.name]?.value as string)
+                                        : ""
+                                }
+                                onChange={onChange}
+                            />
+                        }
+                        label={option.displayName}
+                    />
+                </FormGroup>
             </Box>
         );
     }

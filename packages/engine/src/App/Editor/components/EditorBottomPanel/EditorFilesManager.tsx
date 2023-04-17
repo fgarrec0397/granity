@@ -11,11 +11,12 @@ import {
     pxToRem,
     useSnackbar,
 } from "@granity/ui";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 
 import { FileItem } from "../../_actions/editorTypes";
 import { useEditor } from "../../_actions/hooks";
 import useHandleLoadFiles from "../../_actions/hooks/useHandleLoadFiles";
+import EditorGLBFileProcessor from "./EditorGLBFileProcessor";
 
 type EditorFilesManagerStyles = {
     wrapper?: BoxProps;
@@ -44,6 +45,8 @@ const styles: EditorFilesManagerStyles = {
 };
 
 const EditorFilesManager: FC = () => {
+    const [glbFiles, setGlbFiles] = useState<File[]>([]);
+    const [isGlbFileProcessorOpen, setIsGlbFileProcessorOpen] = useState(false);
     const [selectedFileIndex, setSelectedFileIndex] = useState<number>();
     const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
     const [newFolderName, setNewFolderName] = useState<string>("");
@@ -51,6 +54,14 @@ const EditorFilesManager: FC = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { filesData, saveFiles, editFile, deleteFile } = useEditor();
     const { enqueueSnackbar } = useSnackbar();
+
+    const currentRootPathLinks = filesData?.currentRootPath?.split("/");
+
+    const openDrawer = () => setIsDrawerOpen(true);
+    const closeDrawer = () => setIsDrawerOpen(false);
+
+    const openUploadActionsModal = () => setIsGlbFileProcessorOpen(true);
+    const closeGlbFileProcessor = () => setIsGlbFileProcessorOpen(false);
 
     useHandleLoadFiles(currentPath);
 
@@ -77,10 +88,11 @@ const EditorFilesManager: FC = () => {
         [selectedFolderIndex, selectedFileIndex]
     );
 
-    const currentRootPathLinks = filesData?.currentRootPath?.split("/");
-
-    const openDrawer = () => setIsDrawerOpen(true);
-    const closeDrawer = () => setIsDrawerOpen(false);
+    useEffect(() => {
+        if (glbFiles.length) {
+            openUploadActionsModal();
+        }
+    }, [glbFiles]);
 
     const onClick = () => {
         openDrawer();
@@ -119,7 +131,11 @@ const EditorFilesManager: FC = () => {
 
     const onUploadFile = async (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files?.length) {
-            await saveFiles(currentPath, event.target.files);
+            applyActionsAfterFileUpload(event.target.files, async () => {
+                if (event.target.files) {
+                    await saveFiles(currentPath, event.target.files);
+                }
+            });
         }
     };
 
@@ -129,6 +145,22 @@ const EditorFilesManager: FC = () => {
 
     const onEdit = async (item: FileItem, newName: string) => {
         await editFile(item.path, newName);
+    };
+
+    const applyActionsAfterFileUpload = (files: FileList, callback: () => void) => {
+        const tempGlbFiles: File[] = [];
+        for (let index = 0; index < files.length; index++) {
+            const element = files[index];
+            const extension = element.name.split(".").pop();
+
+            if (extension === "glb") {
+                tempGlbFiles.push(element);
+            }
+        }
+
+        setGlbFiles(tempGlbFiles);
+
+        callback();
     };
 
     return (
@@ -154,6 +186,11 @@ const EditorFilesManager: FC = () => {
                     onEdit={onEdit}
                 />
             </Drawer>
+            <EditorGLBFileProcessor
+                isOpen={isGlbFileProcessorOpen}
+                files={glbFiles}
+                onClose={closeGlbFileProcessor}
+            />
         </>
     );
 };

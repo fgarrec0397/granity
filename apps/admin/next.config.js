@@ -29,10 +29,6 @@ const nextConfig = {
             },
         ];
     },
-    webpack: (config) => ({
-        ...config,
-        mode: "production",
-    }),
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
