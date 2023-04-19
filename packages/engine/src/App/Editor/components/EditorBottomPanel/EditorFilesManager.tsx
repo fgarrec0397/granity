@@ -187,6 +187,7 @@ const EditorFilesManager: FC = () => {
                 />
             </Drawer>
             <EditorGLBFileProcessor
+                currentPath={currentPath}
                 isOpen={isGlbFileProcessorOpen}
                 files={glbFiles}
                 onClose={closeGlbFileProcessor}

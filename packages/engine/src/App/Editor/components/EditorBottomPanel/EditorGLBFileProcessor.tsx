@@ -1,36 +1,24 @@
-import { ProcessesService } from "@engine/App/Core/_actions/_data/processesService";
-import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
-import { useMutation, useQueryClient } from "@granity/helpers";
+import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { ChangeEvent, FC, useState } from "react";
 
 import EditorModal from "../EditorCommon/EditorModal";
 import EditorUploadFileActionsStepper from "./EditorUploadFileActionsStepper";
 
 type Props = {
+    currentPath: string;
     isOpen: boolean;
     files: File[];
     onClose: () => void;
 };
 
-const EditorGLBFileProcessor: FC<Props> = ({ isOpen, files, onClose }) => {
+const EditorGLBFileProcessor: FC<Props> = ({ currentPath, isOpen, files, onClose }) => {
     const [generateComponentCheckboxValue, setGenerateComponentCheckboxValue] = useState(false);
-    const queryClient = useQueryClient();
-    const { endpoints } = useConfig();
-
-    const postProcessMutation = useMutation({
-        mutationKey: ["process"],
-        mutationFn: ProcessesService.post,
-        onSuccess: (data) => {
-            queryClient.setQueryData(["process"], data);
-        },
-    });
+    const { generateJsxFromGlb } = useCore();
 
     const handleConfirmClick = async () => {
-        console.log(generateComponentCheckboxValue, "generateComponentCheckboxValue confirmed");
-        await postProcessMutation.mutateAsync({
-            endpoint: endpoints.processes.generateJsxFromGlb,
-            processName: "test process",
-        });
+        if (generateComponentCheckboxValue) {
+            await generateJsxFromGlb(`${currentPath}/${files[0].name}`);
+        }
     };
 
     const onGenerateComponentCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
