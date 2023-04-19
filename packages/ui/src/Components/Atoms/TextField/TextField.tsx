@@ -3,7 +3,7 @@ import { css, styled } from "@mui/material/styles";
 import TextFieldLib, { TextFieldProps as LibTextFieldProps } from "@mui/material/TextField";
 import { pxToRem } from "@ui/theme";
 import { inputStyles } from "@ui/theme/mixins/form";
-import { FC, forwardRef } from "react";
+import { FC } from "react";
 
 export type TextFieldProps = LibTextFieldProps & {
     labelPosition?: "top" | "left";
@@ -30,13 +30,9 @@ const StyledTextField = styled(({ labelPosition, ...props }: TextFieldProps) => 
     }}
 `;
 
-const TextField = forwardRef<HTMLInputElement, TextFieldProps>(({ children, ...props }, ref) => {
-    return (
-        <StyledTextField ref={ref} {...props}>
-            {children}
-        </StyledTextField>
-    );
-});
+const TextField: FC<TextFieldProps> = ({ children, ...props }) => {
+    return <StyledTextField {...props}>{children}</StyledTextField>;
+};
 
 TextField.displayName = "TextField";
 
