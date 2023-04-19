@@ -12,10 +12,11 @@ import { ChangeEvent, FC, useState } from "react";
 
 type Props = {
     files: File[];
+    checkboxValue: boolean;
+    onCheckboxChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const EditorUploadFileActionsStepper: FC<Props> = ({ files }) => {
-    const [generateComponentCheckboxValue, setGenerateComponentCheckboxValue] = useState(false);
+const EditorUploadFileActionsStepper: FC<Props> = ({ files, checkboxValue, onCheckboxChange }) => {
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState(new Set<number>());
 
@@ -61,10 +62,6 @@ const EditorUploadFileActionsStepper: FC<Props> = ({ files }) => {
         setActiveStep(0);
     };
 
-    const onGenerateComponentCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.checked);
-    };
-
     return (
         <>
             {files.length > 1 ? (
@@ -96,12 +93,7 @@ const EditorUploadFileActionsStepper: FC<Props> = ({ files }) => {
             <Box>
                 <FormGroup>
                     <FormControlLabel
-                        control={
-                            <Checkbox
-                                value={generateComponentCheckboxValue}
-                                onChange={onGenerateComponentCheckboxChange}
-                            />
-                        }
+                        control={<Checkbox value={checkboxValue} onChange={onCheckboxChange} />}
                         label="Generate a JSX component from this .glb file?"
                     />
                 </FormGroup>

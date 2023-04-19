@@ -1,4 +1,7 @@
-import { FC } from "react";
+import { ProcessesService } from "@engine/App/Core/_actions/_data/processesService";
+import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
+import { useMutation, useQueryClient } from "@granity/helpers";
+import { ChangeEvent, FC, useState } from "react";
 
 import EditorModal from "../EditorCommon/EditorModal";
 import EditorUploadFileActionsStepper from "./EditorUploadFileActionsStepper";
@@ -10,8 +13,28 @@ type Props = {
 };
 
 const EditorGLBFileProcessor: FC<Props> = ({ isOpen, files, onClose }) => {
-    const handleConfirmClick = () => {
-        console.log("confirmed");
+    const [generateComponentCheckboxValue, setGenerateComponentCheckboxValue] = useState(false);
+    const queryClient = useQueryClient();
+    const { endpoints } = useConfig();
+
+    const postProcessMutation = useMutation({
+        mutationKey: ["process"],
+        mutationFn: ProcessesService.post,
+        onSuccess: (data) => {
+            queryClient.setQueryData(["process"], data);
+        },
+    });
+
+    const handleConfirmClick = async () => {
+        console.log(generateComponentCheckboxValue, "generateComponentCheckboxValue confirmed");
+        await postProcessMutation.mutateAsync({
+            endpoint: endpoints.processes.generateJsxFromGlb,
+            processName: "test process",
+        });
+    };
+
+    const onGenerateComponentCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setGenerateComponentCheckboxValue(event.target.checked);
     };
 
     return (
@@ -27,7 +50,13 @@ const EditorGLBFileProcessor: FC<Props> = ({ isOpen, files, onClose }) => {
                 text: "Cancel",
             }}
         >
-            {() => <EditorUploadFileActionsStepper files={files} />}
+            {() => (
+                <EditorUploadFileActionsStepper
+                    files={files}
+                    checkboxValue={generateComponentCheckboxValue}
+                    onCheckboxChange={onGenerateComponentCheckboxChange}
+                />
+            )}
         </EditorModal>
     );
 };

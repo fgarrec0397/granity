@@ -17,6 +17,7 @@ export type ConfigContextModel = {
     setEndpoints: (() => void) | Dispatch<SetStateAction<ConfigContexEndpoints>>;
 };
 
+// TODO - Check why these values are not overridable
 export const defaultEnpoints: ConfigContexEndpoints = {
     files: {
         get: "/server/files",
@@ -29,6 +30,9 @@ export const defaultEnpoints: ConfigContexEndpoints = {
         get: "/server/scenes",
         patch: "/server/scenes",
         delete: "/server/scenes",
+    },
+    processes: {
+        generateJsxFromGlb: "/server/processes/runGltfjsx",
     },
 };
 
