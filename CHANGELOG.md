@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.4](https://github.com/fgarrec0397/granity/compare/v0.4.3...v0.4.4) (2023-04-19)
+
+
+### Features
+
+* generate jsx from glb file ([2f438a3](https://github.com/fgarrec0397/granity/commits/2f438a3f4bdeb0bf9955d18743fab45cb04e498f))
+* **WIP:** glb file processor started / fix: checkbox widget option fixed ([7fb9567](https://github.com/fgarrec0397/granity/commits/7fb95671a14ab7d340abf23fefd7dbb66f24f536))
+* **WIP:** processes api call initiated ([4a09680](https://github.com/fgarrec0397/granity/commits/4a096809418283f96ea453cf2db362ca16af33df))
+
+
+### Refactor
+
+* code clean up ([0130c80](https://github.com/fgarrec0397/granity/commits/0130c80b6178079ea0e5c242eea96751713ec7d8))
+
 ### [0.4.3](https://github.com/fgarrec0397/granity/compare/v0.4.2...v0.4.3) (2023-04-15)
 
 
