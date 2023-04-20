@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/fgarrec0397/granity/compare/v0.4.4...v0.4.5) (2023-04-20)
+
+
+### Refactor
+
+* remove console.log ([2e1ed48](https://github.com/fgarrec0397/granity/commits/2e1ed482fde23091b61f1af0d4ef8a68f854784e))
+* scenesService refactored / fix(WIP): unserialized object in redux store ([45316e2](https://github.com/fgarrec0397/granity/commits/45316e28ad7f855eeb36d1e0fa3a8f44c456547a))
+
 ### [0.4.4](https://github.com/fgarrec0397/granity/compare/v0.4.3...v0.4.4) (2023-04-19)
 
 
