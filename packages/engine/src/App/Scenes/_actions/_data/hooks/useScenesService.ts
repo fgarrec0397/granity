@@ -1,10 +1,10 @@
 import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
-import { useMutation } from "@granity/helpers";
+import { useMutation, useQueryClient } from "@granity/helpers";
 import { useCallback } from "react";
 
 import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
-import { saveScenes } from "../scenesService";
+import { ScenesService } from "../scenesService";
 import useScenesDispatch from "./useScenesDispatch";
 import useScenesSelector from "./useScenesSelector";
 
@@ -22,7 +22,15 @@ export default () => {
     const { scenes, scenesIds, currentSceneId, currentDefaultSceneId, scenesStatus } =
         useScenesSelector();
     const { endpoints } = useConfig();
-    const scenesMutation = useMutation(saveScenes);
+    const queryClient = useQueryClient();
+
+    const saveScenesMutation = useMutation({
+        mutationKey: ["scenes"],
+        mutationFn: ScenesService.post,
+        onSuccess: (data) => {
+            queryClient.setQueryData(["scenes"], data);
+        },
+    });
 
     const add = (scene: ScenesDictionaryItem) => {
         dispatchAddScene(scene);
@@ -63,7 +71,7 @@ export default () => {
     };
 
     const save = async (newScenes: ScenesDictionary) => {
-        const data = await scenesMutation.mutateAsync({
+        const data = await saveScenesMutation.mutateAsync({
             endpoint: endpoints.scenes.save,
             scenes: newScenes,
         });

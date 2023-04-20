@@ -66,7 +66,7 @@ const EditorWidgetsObjectList: FC = () => {
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
             editModal={(id) => <EditWidgetModal widget={widgetsObjects[id]} />}
-            isVisible={(id) => widgetsObjectInfoDictionary[id].isVisible}
+            isVisible={(id) => widgetsObjectInfoDictionary[id]?.isVisible}
             handleVisibility={toggleVisibilityWidget}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}

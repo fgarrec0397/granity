@@ -3,7 +3,7 @@ import { useQuery } from "@granity/helpers";
 import { useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
 
-import { getScenes } from "../_data/scenesService";
+import { ScenesService } from "../_data/scenesService";
 import useScenes from "./useScenes";
 
 export default () => {
@@ -13,7 +13,7 @@ export default () => {
 
     const { data, status, isLoading } = useQuery({
         queryKey: ["scenes", endpoints.scenes.get],
-        queryFn: () => getScenes({ endpoint: endpoints.scenes.get }),
+        queryFn: () => ScenesService.get({ endpoint: endpoints.scenes.get }),
     });
 
     useEffect(() => {

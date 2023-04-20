@@ -14,7 +14,17 @@ export default (widgets: WidgetDictionary) => {
             ...widgets[key],
         };
 
+        console.log(widget, "widget");
+
         delete widget.component;
+
+        if ("editorOptions" in widget) {
+            delete widget.editorOptions;
+        }
+
+        if ("reducer" in widget) {
+            delete widget.reducer;
+        }
 
         serializedWidgets[widget.id] = widget as SerializedWidgetDictionaryItem;
     }

@@ -254,9 +254,9 @@ export default () => {
                 },
             };
 
-            const result = await save(scenesClone);
+            await save(scenesClone);
 
-            enqueueSnackbar(result.message, { variant: result.status ? "success" : "error" });
+            enqueueSnackbar("Scenes successfully saved", { variant: "success" });
         } else {
             enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
         }

@@ -1,86 +1,33 @@
+import { Fetcher } from "@granity/helpers";
+
 import { ScenesDictionary } from "../scenesTypes";
+
+export type ScenesServiceParameters<MethodParameters> = MethodParameters & {
+    endpoint: string;
+};
 
 export type GetScenesParameters = {
     endpoint: string;
 };
 
-export type SaveScenesParameters = {
-    endpoint: string;
+export type GetScenesResponse = {
+    sceneJsonString: string;
+};
+
+export type PostScenesParameters = {
     scenes: ScenesDictionary;
 };
 
-export const getScenes = async ({ endpoint }: GetScenesParameters) => {
-    const response = await fetch(endpoint);
+export class ScenesService {
+    static async get({ endpoint }: ScenesServiceParameters<any>) {
+        const response = await Fetcher.get<any, GetScenesResponse>(endpoint);
 
-    if (!response.ok) {
-        throw new Error("No connection");
+        return response.data;
     }
 
-    return response.json();
-};
+    static async post({ endpoint, scenes }: ScenesServiceParameters<PostScenesParameters>) {
+        const response = await Fetcher.post<ScenesDictionary, ScenesDictionary>(endpoint, scenes);
 
-export const saveScenes = async ({ endpoint, scenes }: SaveScenesParameters) => {
-    if (scenes) {
-        const response = await post(endpoint, JSON.stringify(scenes));
-
-        if (!response.success) {
-            return {
-                status: false,
-                message: response.errorMessage as string,
-            };
-        }
-
-        if (response.success) {
-            return {
-                status: true,
-                message: "Scenes saved with success!",
-            };
-        }
+        return response.data;
     }
-
-    return {
-        status: false,
-        message: "An error occured. The scenes were not saved",
-    };
-};
-
-export const post = async <
-    ReturnValue,
-    Parameters extends BodyInit,
-    RequestHeaders extends HeadersInit
->(
-    url: string,
-    parameters: Parameters,
-    headers?: RequestHeaders
-) => {
-    const requestHeaders = headers ?? {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-    };
-
-    const rawResponse = await fetch(url, {
-        method: "POST",
-        headers: {
-            ...requestHeaders,
-        },
-        body: parameters,
-    });
-
-    try {
-        if (!rawResponse.ok) {
-            throw new Error("An error occured.");
-        }
-
-        const result: ReturnValue = await rawResponse.json();
-
-        return {
-            success: true,
-            result,
-        };
-    } catch (error: any) {
-        return {
-            success: false,
-            errorMessage: error,
-        };
-    }
-};
+}
