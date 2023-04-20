@@ -14,8 +14,6 @@ export default (widgets: WidgetDictionary) => {
             ...widgets[key],
         };
 
-        console.log(widget, "widget");
-
         delete widget.component;
 
         if ("editorOptions" in widget) {
