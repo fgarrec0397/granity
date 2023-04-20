@@ -1,4 +1,3 @@
-import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { NumberFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, TextField, TypographyProps } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
@@ -34,21 +33,19 @@ const EditorOptionsNumberField: FC<EditorOptionsNumberFieldProps> = ({ option })
         updateOptionsValues(target.value, option);
     };
 
-    if (option.fieldType === FieldType.Number) {
-        return (
-            <Box {...styles.inputsWrapper}>
-                <TextField
-                    label={option.displayName}
-                    inputProps={{
-                        name: "displayName",
-                        type: "number",
-                        value: optionsValues ? optionsValues[option.name]?.value : "",
-                        onChange,
-                    }}
-                />
-            </Box>
-        );
-    }
+    return (
+        <Box {...styles.inputsWrapper}>
+            <TextField
+                label={option.displayName}
+                inputProps={{
+                    name: "displayName",
+                    type: "number",
+                    value: optionsValues ? optionsValues[option.name]?.value : "",
+                    onChange,
+                }}
+            />
+        </Box>
+    );
 
     return null;
 };

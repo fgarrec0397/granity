@@ -5,6 +5,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@gran
 import { FC } from "react";
 
 import EditorOptionsCheckboxField from "./EditorOptionsCheckboxField";
+import EditorOptionsFileField from "./EditorOptionsFileField";
 import EditorOptionsNumberField from "./EditorOptionsNumberField";
 import EditorOptionsSelectField from "./EditorOptionsSelectField";
 import EditorOptionsTextField from "./EditorOptionsTextField";
@@ -70,6 +71,10 @@ const EditorWidgetOptions: FC = () => {
                                         return (
                                             <EditorOptionsVector3Field key={key} option={option} />
                                         );
+                                    }
+
+                                    if (option.fieldType === FieldType.File) {
+                                        return <EditorOptionsFileField key={key} option={option} />;
                                     }
 
                                     if (option.fieldType === FieldType.Select) {

@@ -85,6 +85,7 @@ export type WidgetOptions =
     | TextFieldOption
     | NumberFieldOption
     | Vector3FieldOption
+    | FileFieldOption
     | SelectionFieldOption;
 
 /**
@@ -105,6 +106,8 @@ export type TextFieldOption = WidgetBaseOptions<FieldType.Text>;
 export type CheckboxFieldOption = WidgetBaseOptions<FieldType.Checkbox, boolean>;
 
 export type Vector3FieldOption = WidgetBaseOptions<FieldType.Vector3, Vector3Array>;
+
+export type FileFieldOption = WidgetBaseOptions<FieldType.File, string>;
 
 export type SelectionFieldOption = WidgetBaseOptions<FieldType.Select> & {
     selectOptions?: {

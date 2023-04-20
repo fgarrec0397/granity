@@ -1,4 +1,3 @@
-import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { CheckboxFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, Checkbox, FormControlLabel, FormGroup, TypographyProps } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
@@ -34,29 +33,23 @@ const EditorOptionsCheckboxField: FC<EditorOptionsCheckboxFieldProps> = ({ optio
         updateOptionsValues(target.checked, option);
     };
 
-    if (option.fieldType === FieldType.Checkbox) {
-        return (
-            <Box {...styles.inputsWrapper}>
-                <FormGroup>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                value={
-                                    optionsValues
-                                        ? (optionsValues[option.name]?.value as string)
-                                        : ""
-                                }
-                                onChange={onChange}
-                            />
-                        }
-                        label={option.displayName}
-                    />
-                </FormGroup>
-            </Box>
-        );
-    }
-
-    return null;
+    return (
+        <Box {...styles.inputsWrapper}>
+            <FormGroup>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            value={
+                                optionsValues ? (optionsValues[option.name]?.value as string) : ""
+                            }
+                            onChange={onChange}
+                        />
+                    }
+                    label={option.displayName}
+                />
+            </FormGroup>
+        </Box>
+    );
 };
 
 export default EditorOptionsCheckboxField;

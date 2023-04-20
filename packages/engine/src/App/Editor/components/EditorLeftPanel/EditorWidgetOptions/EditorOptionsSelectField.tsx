@@ -1,4 +1,3 @@
-import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { SelectionFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, MenuItem, Select, SelectChangeEvent } from "@granity/ui";
 import { FC } from "react";
@@ -32,25 +31,21 @@ const EditorOptionsSelectField: FC<EditorOptionsSelectFieldProps> = ({ option })
         updateOptionsValues(event.target.value as string, option);
     };
 
-    if (option.fieldType === FieldType.Select) {
-        return (
-            <Box {...styles.inputsWrapper}>
-                <Select
-                    label={option.displayName}
-                    value={optionsValues ? (optionsValues[option.name]?.value as string) : ""}
-                    onChange={onChange}
-                >
-                    {(option.selectOptions || []).map((selectOpion) => (
-                        <MenuItem key={selectOpion.value} value={selectOpion.value}>
-                            {selectOpion.name}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </Box>
-        );
-    }
-
-    return null;
+    return (
+        <Box {...styles.inputsWrapper}>
+            <Select
+                label={option.displayName}
+                value={optionsValues ? (optionsValues[option.name]?.value as string) : ""}
+                onChange={onChange}
+            >
+                {(option.selectOptions || []).map((selectOpion) => (
+                    <MenuItem key={selectOpion.value} value={selectOpion.value}>
+                        {selectOpion.name}
+                    </MenuItem>
+                ))}
+            </Select>
+        </Box>
+    );
 };
 
 export default EditorOptionsSelectField;

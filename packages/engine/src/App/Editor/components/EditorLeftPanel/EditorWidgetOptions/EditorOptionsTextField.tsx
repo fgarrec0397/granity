@@ -1,4 +1,3 @@
-import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { TextFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, TextField } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
@@ -31,19 +30,15 @@ const EditorOptionsTextField: FC<EditorOptionsTextFieldProps> = ({ option }) => 
         updateOptionsValues(target.value, option);
     };
 
-    if (option.fieldType === FieldType.Text) {
-        return (
-            <Box {...styles.inputsWrapper}>
-                <TextField
-                    label={option.displayName}
-                    value={optionsValues ? (optionsValues[option.name]?.value as string) : ""}
-                    onChange={onChange}
-                />
-            </Box>
-        );
-    }
-
-    return null;
+    return (
+        <Box {...styles.inputsWrapper}>
+            <TextField
+                label={option.displayName}
+                value={optionsValues ? (optionsValues[option.name]?.value as string) : ""}
+                onChange={onChange}
+            />
+        </Box>
+    );
 };
 
 export default EditorOptionsTextField;

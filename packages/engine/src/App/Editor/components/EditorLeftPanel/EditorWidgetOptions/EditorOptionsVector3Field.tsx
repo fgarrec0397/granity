@@ -1,4 +1,3 @@
-import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { Vector3FieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { updateArrayAt, Vector3Array } from "@granity/helpers";
 import { Box, BoxProps, Vector3Input } from "@granity/ui";
@@ -42,15 +41,11 @@ const EditorOptionsVector3Field: FC<EditorOptionsVector3FieldProps> = ({ option 
         ? optionsValues?.[option.name]?.value
         : [0, 0, 0];
 
-    if (option.fieldType === FieldType.Vector3) {
-        return (
-            <Box {...styles.inputsWrapper}>
-                <Vector3Input title={option.displayName} value={value} onChange={inputChange} />
-            </Box>
-        );
-    }
-
-    return null;
+    return (
+        <Box {...styles.inputsWrapper}>
+            <Vector3Input title={option.displayName} value={value} onChange={inputChange} />
+        </Box>
+    );
 };
 
 export default EditorOptionsVector3Field;
