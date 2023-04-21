@@ -1,64 +1,30 @@
 import { ClientKeyMappings } from "@engine/App/Core/_actions/coreTypes";
 import useKeyboardMapping from "@engine/App/Core/_actions/hooks/useKeyboardMapping";
-import { layoutStyles } from "@engine/Theme/mixins/layout";
-import {
-    BoxProps,
-    ButtonBase,
-    ButtonBaseProps,
-    Drawer,
-    FilesManager,
-    KeyboardDoubleArrowUpIcon,
-    pxToRem,
-    useSnackbar,
-} from "@granity/ui";
+import { Drawer, FilesManager, useSnackbar } from "@granity/ui";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 
 import { FileItem } from "../../_actions/editorTypes";
 import { useEditor } from "../../_actions/hooks";
 import useHandleLoadFiles from "../../_actions/hooks/useHandleLoadFiles";
-import EditorGLBFileProcessor from "./EditorGLBFileProcessor";
+import EditorGLBFileProcessor from "../EditorBottomPanel/EditorGLBFileProcessor";
 
-type EditorFilesManagerStyles = {
-    wrapper?: BoxProps;
-    button?: ButtonBaseProps;
+type Props = {
+    title?: string;
+    isOpen: boolean;
+    onClose: () => void;
 };
 
-const styles: EditorFilesManagerStyles = {
-    wrapper: {
-        sx: {
-            ...layoutStyles({ bottom: 0 }),
-        },
-    },
-    button: {
-        sx: {
-            width: "100%",
-            minHeight: pxToRem(90),
-            background:
-                "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.404511) 130.67%, #000 192%)",
-            opacity: 0.5,
-            transition: "opacity .3s ease-in",
-            "&:hover": {
-                opacity: 1,
-            },
-        },
-    },
-};
-
-const EditorFilesManager: FC = () => {
+const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose }) => {
     const [glbFiles, setGlbFiles] = useState<File[]>([]);
     const [isGlbFileProcessorOpen, setIsGlbFileProcessorOpen] = useState(false);
     const [selectedFileIndex, setSelectedFileIndex] = useState<number>();
     const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
     const [newFolderName, setNewFolderName] = useState<string>("");
     const [currentPath, setCurrentPath] = useState<string>("assets");
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { filesData, saveFiles, editFile, deleteFile } = useEditor();
     const { enqueueSnackbar } = useSnackbar();
 
     const currentRootPathLinks = filesData?.currentRootPath?.split("/");
-
-    const openDrawer = () => setIsDrawerOpen(true);
-    const closeDrawer = () => setIsDrawerOpen(false);
 
     const openUploadActionsModal = () => setIsGlbFileProcessorOpen(true);
     const closeGlbFileProcessor = () => setIsGlbFileProcessorOpen(false);
@@ -93,10 +59,6 @@ const EditorFilesManager: FC = () => {
             openUploadActionsModal();
         }
     }, [glbFiles]);
-
-    const onClick = () => {
-        openDrawer();
-    };
 
     const onClickBreadcrumbsElement = (folder: string) => {
         const currentFolderIndex = currentRootPathLinks?.findIndex((x) => x === folder);
@@ -165,11 +127,9 @@ const EditorFilesManager: FC = () => {
 
     return (
         <>
-            <ButtonBase onClick={onClick} {...styles.button}>
-                <KeyboardDoubleArrowUpIcon fontSize="large" />
-            </ButtonBase>
-            <Drawer anchor="bottom" open={isDrawerOpen} onClose={closeDrawer}>
+            <Drawer anchor="bottom" open={isOpen} onClose={onClose}>
                 <FilesManager
+                    title={title}
                     breadcrumbsLinks={currentRootPathLinks}
                     filesData={filesData}
                     newFolderName={newFolderName}

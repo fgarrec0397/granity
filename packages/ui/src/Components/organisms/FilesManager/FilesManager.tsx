@@ -24,6 +24,7 @@ type FilesData = {
 };
 
 export type FilesManagerProps = {
+    title?: string;
     breadcrumbsLinks: string[];
     filesData: FilesData | undefined;
     newFolderName: string;
@@ -42,6 +43,7 @@ export type FilesManagerProps = {
 
 export type FilesManagerStyles = {
     section?: BoxProps;
+    headerSection?: BoxProps;
     breadcrumbs?: BreadcrumbsProps;
     breadcrumbsLink?: LinkProps;
     title?: TypographyProps;
@@ -54,9 +56,16 @@ const styles: FilesManagerStyles = {
             margin: pxToRem(25, 0),
         },
     },
+    headerSection: {
+        sx: {
+            display: "flex",
+            alignItems: "center",
+        },
+    },
     title: {
         sx: {
             fontSize: pxToRem(24),
+            marginRight: pxToRem(32),
         },
     },
     breadcrumbsLink: {
@@ -75,6 +84,7 @@ const styles: FilesManagerStyles = {
 };
 
 const FilesManager: FC<FilesManagerProps> = ({
+    title,
     breadcrumbsLinks,
     filesData,
     newFolderName,
@@ -184,27 +194,30 @@ const FilesManager: FC<FilesManagerProps> = ({
     return (
         <Container>
             <Box {...styles.section}>
-                <Breadcrumbs separator=">" {...styles.breadcrumbs}>
-                    {breadcrumbsLinks?.map((x, index) => {
-                        if (index === breadcrumbsLinks.length - 1) {
-                            return (
-                                <Typography key={index} color="text.primary">
-                                    {capitalizeString(x)}
-                                </Typography>
-                            );
-                        }
+                <Box {...styles.headerSection}>
+                    {title && <Typography {...styles.title}>{title}</Typography>}
+                    <Breadcrumbs separator=">" {...styles.breadcrumbs}>
+                        {breadcrumbsLinks?.map((x, index) => {
+                            if (index === breadcrumbsLinks.length - 1) {
+                                return (
+                                    <Typography key={index} color="text.primary">
+                                        {capitalizeString(x)}
+                                    </Typography>
+                                );
+                            }
 
-                        return (
-                            <Link
-                                key={index}
-                                onClick={() => onClickBreadcrumbsElement(x)}
-                                {...styles.breadcrumbsLink}
-                            >
-                                {capitalizeString(x)}
-                            </Link>
-                        );
-                    })}
-                </Breadcrumbs>
+                            return (
+                                <Link
+                                    key={index}
+                                    onClick={() => onClickBreadcrumbsElement(x)}
+                                    {...styles.breadcrumbsLink}
+                                >
+                                    {capitalizeString(x)}
+                                </Link>
+                            );
+                        })}
+                    </Breadcrumbs>
+                </Box>
             </Box>
             <Divider />
             <Box {...styles.section}>
