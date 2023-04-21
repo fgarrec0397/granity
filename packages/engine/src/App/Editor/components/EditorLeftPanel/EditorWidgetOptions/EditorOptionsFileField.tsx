@@ -1,7 +1,15 @@
-import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
+import { FileItem } from "@engine/api";
 import { FileFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { updateArrayAt, Vector3Array } from "@granity/helpers";
-import { Box, BoxProps, Button, TextField, Vector3Input } from "@granity/ui";
+import {
+    Box,
+    BoxProps,
+    Button,
+    ButtonProps,
+    pxToRem,
+    TextField,
+    TextFieldProps,
+} from "@granity/ui";
+import path from "path";
 import { ChangeEvent, FC, useState } from "react";
 
 import EditorFilesManager from "../../EditorCommon/EditorFilesManager";
@@ -13,6 +21,9 @@ type EditorOptionsFileFieldProps = {
 
 interface EditorOptionsFileFieldStyles {
     inputsWrapper?: BoxProps;
+    fileFieldWrapper?: BoxProps;
+    textField?: TextFieldProps;
+    button?: ButtonProps;
 }
 
 const styles: EditorOptionsFileFieldStyles = {
@@ -22,6 +33,24 @@ const styles: EditorOptionsFileFieldStyles = {
             "&:first-of-type": {
                 marginTop: 0,
             },
+        },
+    },
+    fileFieldWrapper: {
+        sx: {
+            display: "flex",
+            alignItems: "flex-end",
+        },
+    },
+    textField: {
+        sx: {
+            marginRight: pxToRem(10),
+        },
+    },
+    button: {
+        color: "secondary",
+        variant: "outlined",
+        sx: {
+            whiteSpace: "nowrap",
         },
     },
 };
@@ -38,26 +67,35 @@ const EditorOptionsFileField: FC<EditorOptionsFileFieldProps> = ({ option }) => 
     };
 
     const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value, "event.target.value");
-
-        // updateOptionsValues<Vector3Array>(vector3Value, option);
+        updateOptionsValues(event.target.value, option);
     };
 
-    console.log(option.name, "option.name");
-    console.log(optionsValues, "optionsValues");
+    const onSelectFile = (file: FileItem) => {
+        const normalizedPath = path.normalize(file.path);
+        updateOptionsValues(normalizedPath, option);
+        closeFilesManager();
+    };
 
     const value = optionsValues?.[option.name]?.value ? optionsValues?.[option.name]?.value : "";
 
-    console.log(value, "value");
-
     return (
         <Box {...styles.inputsWrapper}>
-            <TextField label={option.displayName} value={value} onChange={inputChange} />
-            <Button onClick={onClick}>Select a file</Button>
+            <Box {...styles.fileFieldWrapper}>
+                <TextField
+                    label={option.displayName}
+                    value={value}
+                    onChange={inputChange}
+                    {...styles.textField}
+                />
+                <Button onClick={onClick} {...styles.button}>
+                    Select a file
+                </Button>
+            </Box>
             <EditorFilesManager
                 title="Select a file"
                 isOpen={isFileManagerOpen}
                 onClose={closeFilesManager}
+                onSelectFile={onSelectFile}
             />
         </Box>
     );

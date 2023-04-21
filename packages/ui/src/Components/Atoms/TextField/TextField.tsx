@@ -1,3 +1,6 @@
+import InputAdornmentLib, {
+    InputAdornmentProps as LibInputAdornmentProps,
+} from "@mui/material/InputAdornment";
 import InputLabelLib, { InputLabelProps as LibInputLabelProps } from "@mui/material/InputLabel";
 import { css, styled } from "@mui/material/styles";
 import TextFieldLib, { TextFieldProps as LibTextFieldProps } from "@mui/material/TextField";
@@ -9,6 +12,7 @@ export type TextFieldProps = LibTextFieldProps & {
     labelPosition?: "top" | "left";
 };
 export type InputLabelProps = LibInputLabelProps;
+export type InputAdornmentProps = LibInputAdornmentProps;
 
 const StyledTextField = styled(({ labelPosition, ...props }: TextFieldProps) => (
     <TextFieldLib {...props} />
@@ -38,6 +42,10 @@ TextField.displayName = "TextField";
 
 export const InputLabel: FC<InputLabelProps> = ({ children, ...props }) => {
     return <InputLabelLib {...props}>{children}</InputLabelLib>;
+};
+
+export const InputAdornment: FC<InputAdornmentProps> = ({ children, ...props }) => {
+    return <InputAdornmentLib {...props}>{children}</InputAdornmentLib>;
 };
 
 export default TextField;

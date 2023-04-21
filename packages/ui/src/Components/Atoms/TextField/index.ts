@@ -1,2 +1,2 @@
-export type { InputLabelProps, TextFieldProps } from "./TextField";
-export { InputLabel, default as TextField } from "./TextField";
+export type { InputAdornmentProps, InputLabelProps, TextFieldProps } from "./TextField";
+export { InputAdornment, InputLabel, default as TextField } from "./TextField";

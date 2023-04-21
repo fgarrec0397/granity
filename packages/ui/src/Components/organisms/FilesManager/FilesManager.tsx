@@ -39,6 +39,7 @@ export type FilesManagerProps = {
     setSelectedFileIndex: (index?: number) => void;
     onDelete: (item: FileItem) => void;
     onEdit: (item: FileItem, newName: string) => void;
+    onSelectFile?: (file: FileItem) => void;
 };
 
 export type FilesManagerStyles = {
@@ -99,6 +100,7 @@ const FilesManager: FC<FilesManagerProps> = ({
     setSelectedFileIndex,
     onDelete,
     onEdit,
+    onSelectFile,
 }) => {
     const [editingItem, setEditingItem] = useState<FileItem>();
     const [isCreateFolderModalOpen, setIsCreateForlderModalOpen] = useState(false);
@@ -136,7 +138,7 @@ const FilesManager: FC<FilesManagerProps> = ({
         setSelectedFolderIndex(undefined);
     };
 
-    const onClickFileHandler = (name: string, index: number) => {
+    const onClickFileHandler = (file: FileItem, index: number) => {
         if (selectedFolderIndex !== undefined) {
             setSelectedFolderIndex(undefined);
         }
@@ -146,6 +148,8 @@ const FilesManager: FC<FilesManagerProps> = ({
 
             return;
         }
+
+        onSelectFile?.(file);
 
         setSelectedFileIndex(undefined);
     };
@@ -261,7 +265,7 @@ const FilesManager: FC<FilesManagerProps> = ({
                                       item={x}
                                       type="file"
                                       isSelected={isFileSelected(index)}
-                                      onClick={() => onClickFileHandler(x.name, index)}
+                                      onClick={() => onClickFileHandler(x, index)}
                                       options={[
                                           {
                                               name: "Delete",

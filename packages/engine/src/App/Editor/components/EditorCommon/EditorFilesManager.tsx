@@ -12,9 +12,10 @@ type Props = {
     title?: string;
     isOpen: boolean;
     onClose: () => void;
+    onSelectFile?: (file: FileItem) => void;
 };
 
-const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose }) => {
+const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile }) => {
     const [glbFiles, setGlbFiles] = useState<File[]>([]);
     const [isGlbFileProcessorOpen, setIsGlbFileProcessorOpen] = useState(false);
     const [selectedFileIndex, setSelectedFileIndex] = useState<number>();
@@ -144,6 +145,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose }) => {
                     setSelectedFileIndex={setSelectedFileIndex}
                     onDelete={onDelete}
                     onEdit={onEdit}
+                    onSelectFile={onSelectFile}
                 />
             </Drawer>
             <EditorGLBFileProcessor
