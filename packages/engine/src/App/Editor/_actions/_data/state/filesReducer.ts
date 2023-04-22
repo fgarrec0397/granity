@@ -2,16 +2,18 @@ import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import { FilesData } from "@engine/App/Editor/_actions/editorTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { rootFolderName } from "../../editorConstants";
+
 export interface FilesState {
-    pathToLoad: string;
+    pathToLoadFiles: string;
     filesData: FilesData;
     status: FetchStatus;
 }
 
 const initialState: FilesState = {
-    pathToLoad: "assets",
+    pathToLoadFiles: rootFolderName,
     filesData: {
-        currentRootPath: "assets",
+        currentRootPath: "",
         files: [],
         folders: [],
     },
@@ -22,8 +24,8 @@ export const filesSlice = createSlice({
     name: "files",
     initialState,
     reducers: {
-        setPathToLoad: (state: FilesState, actions: PayloadAction<string>) => {
-            state.pathToLoad = actions.payload;
+        setPathToLoadFiles: (state: FilesState, actions: PayloadAction<string>) => {
+            state.pathToLoadFiles = actions.payload;
         },
         setFilesData: (state: FilesState, actions: PayloadAction<FilesData>) => {
             state.filesData = actions.payload;
@@ -34,6 +36,6 @@ export const filesSlice = createSlice({
     },
 });
 
-export const { setPathToLoad, setFilesData, setStatus } = filesSlice.actions;
+export const { setPathToLoadFiles, setFilesData, setStatus } = filesSlice.actions;
 
 export default filesSlice.reducer;

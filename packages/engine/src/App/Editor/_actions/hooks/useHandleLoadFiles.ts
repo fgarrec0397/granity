@@ -9,11 +9,11 @@ import useEditor from "./useEditor";
 export default () => {
     const { enqueueSnackbar } = useSnackbar();
     const { endpoints } = useConfig();
-    const { updateFilesStatus, updateFiles, pathToLoad } = useEditor();
+    const { updateFilesStatus, updateFiles, pathToLoadFiles } = useEditor();
 
     const { data, status, isLoading } = useQuery({
-        queryKey: ["files", pathToLoad],
-        queryFn: () => FilesService.get({ endpoint: endpoints.files.get, path: pathToLoad }),
+        queryKey: ["files", pathToLoadFiles],
+        queryFn: () => FilesService.get({ endpoint: endpoints.files.get, path: pathToLoadFiles }),
     });
 
     useEffect(() => {

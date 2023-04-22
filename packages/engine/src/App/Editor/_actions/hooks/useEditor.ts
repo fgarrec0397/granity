@@ -22,7 +22,7 @@ export default () => {
         updatedIsGridEnabled,
         isGridEnabled,
         filesData,
-        pathToLoad,
+        pathToLoadFiles,
         setPathToLoad,
         setFilesDataStatus,
         setFilesData,
@@ -138,6 +138,6 @@ export default () => {
         editFile,
         deleteFile,
         updatePathToLoad,
-        pathToLoad,
+        pathToLoadFiles,
     };
 };

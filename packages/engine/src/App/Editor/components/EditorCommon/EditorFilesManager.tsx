@@ -3,6 +3,7 @@ import useKeyboardMapping from "@engine/App/Core/_actions/hooks/useKeyboardMappi
 import { Drawer, FilesManager, useSnackbar } from "@granity/ui";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 
+import { rootFolderName } from "../../_actions/editorConstants";
 import { FileItem } from "../../_actions/editorTypes";
 import { useEditor } from "../../_actions/hooks";
 import useHandleLoadFiles from "../../_actions/hooks/useHandleLoadFiles";
@@ -21,7 +22,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
     const [selectedFileIndex, setSelectedFileIndex] = useState<number>();
     const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
     const [newFolderName, setNewFolderName] = useState<string>("");
-    const { filesData, saveFiles, editFile, deleteFile, pathToLoad, updatePathToLoad } =
+    const { filesData, saveFiles, editFile, deleteFile, pathToLoadFiles, updatePathToLoadFiles } =
         useEditor();
     const { enqueueSnackbar } = useSnackbar();
 
@@ -63,7 +64,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
 
     const onCloseHandler = () => {
         onClose();
-        updatePathToLoad("assets");
+        updatePathToLoadFiles(rootFolderName);
     };
 
     const onClickBreadcrumbsElement = (folder: string) => {
@@ -75,19 +76,19 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
             clonedCurrentRootPathLinks.splice(currentFolderIndex + 1);
             const newPath = clonedCurrentRootPathLinks?.join("/");
 
-            updatePathToLoad(newPath);
+            updatePathToLoadFiles(newPath);
         }
     };
 
     const onClickFolder = (folderPath: string) => {
         if (filesData?.currentRootPath) {
-            updatePathToLoad(`${filesData?.currentRootPath}/${folderPath}`);
+            updatePathToLoadFiles(`${filesData?.currentRootPath}/${folderPath}`);
         }
     };
 
     const onAddFolder = async () => {
         if (newFolderName) {
-            await saveFiles(pathToLoad, undefined, newFolderName, true);
+            await saveFiles(pathToLoadFiles, undefined, newFolderName, true);
             enqueueSnackbar("Folder successfully created", { variant: "success" });
             setNewFolderName("");
         }
@@ -101,7 +102,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
         if (event.target.files?.length) {
             applyActionsAfterFileUpload(event.target.files, async () => {
                 if (event.target.files) {
-                    await saveFiles(pathToLoad, event.target.files);
+                    await saveFiles(pathToLoadFiles, event.target.files);
                 }
             });
         }
@@ -154,7 +155,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
                 />
             </Drawer>
             <EditorGLBFileProcessor
-                currentPath={pathToLoad}
+                currentPath={pathToLoadFiles}
                 isOpen={isGlbFileProcessorOpen}
                 files={glbFiles}
                 onClose={closeGlbFileProcessor}

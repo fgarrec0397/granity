@@ -19,7 +19,7 @@ export default () => {
         dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
         dispatchSetFilesData,
-        dispatchSetPathToLoad,
+        dispatchSetPathToLoadFiles,
         dispatchSetFilesDataStatus,
     } = useEditorDispatch();
     const {
@@ -31,7 +31,7 @@ export default () => {
         currentMode,
         isGridEnabled,
         filesData,
-        pathToLoad,
+        pathToLoadFiles,
         filesDataStatus,
     } = useEditorSelector();
     const queryClient = useQueryClient();
@@ -103,11 +103,11 @@ export default () => {
         [dispatchSetFilesData]
     );
 
-    const setPathToLoad = useCallback(
+    const setPathToLoadFiles = useCallback(
         (newPathToLoad: string) => {
-            dispatchSetPathToLoad(newPathToLoad);
+            dispatchSetPathToLoadFiles(newPathToLoad);
         },
-        [dispatchSetPathToLoad]
+        [dispatchSetPathToLoadFiles]
     );
 
     const setFilesDataStatus = useCallback(
@@ -217,14 +217,14 @@ export default () => {
         updateIsMultipleSelect,
         updateCurrentMode,
         setFilesData,
-        setPathToLoad,
+        setPathToLoadFiles,
         setFilesDataStatus,
         filesDataStatus,
         saveFiles,
         editFile,
         deleteFile,
         filesData,
-        pathToLoad,
+        pathToLoadFiles,
         getFilesData,
     };
 };
