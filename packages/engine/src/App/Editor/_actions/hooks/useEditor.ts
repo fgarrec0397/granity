@@ -22,6 +22,8 @@ export default () => {
         updatedIsGridEnabled,
         isGridEnabled,
         filesData,
+        pathToLoad,
+        setPathToLoad,
         setFilesDataStatus,
         setFilesData,
         getFilesData,
@@ -97,6 +99,13 @@ export default () => {
         [setFilesData]
     );
 
+    const updatePathToLoad = useCallback(
+        (newPathToLoad: string) => {
+            setPathToLoad(newPathToLoad);
+        },
+        [setPathToLoad]
+    );
+
     const loadFiles = useCallback(
         (path: string) => {
             getFilesData(path);
@@ -128,5 +137,7 @@ export default () => {
         saveFiles,
         editFile,
         deleteFile,
+        updatePathToLoad,
+        pathToLoad,
     };
 };

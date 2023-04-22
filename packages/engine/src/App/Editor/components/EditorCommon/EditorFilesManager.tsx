@@ -21,8 +21,8 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
     const [selectedFileIndex, setSelectedFileIndex] = useState<number>();
     const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
     const [newFolderName, setNewFolderName] = useState<string>("");
-    const [currentPath, setCurrentPath] = useState<string>("assets");
-    const { filesData, saveFiles, editFile, deleteFile } = useEditor();
+    const { filesData, saveFiles, editFile, deleteFile, pathToLoad, updatePathToLoad } =
+        useEditor();
     const { enqueueSnackbar } = useSnackbar();
 
     const currentRootPathLinks = filesData?.currentRootPath?.split("/");
@@ -30,7 +30,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
     const openUploadActionsModal = () => setIsGlbFileProcessorOpen(true);
     const closeGlbFileProcessor = () => setIsGlbFileProcessorOpen(false);
 
-    useHandleLoadFiles(currentPath);
+    useHandleLoadFiles();
 
     useKeyboardMapping(
         async (keyMapping: ClientKeyMappings) => {
@@ -61,6 +61,11 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
         }
     }, [glbFiles]);
 
+    const onCloseHandler = () => {
+        onClose();
+        updatePathToLoad("assets");
+    };
+
     const onClickBreadcrumbsElement = (folder: string) => {
         const currentFolderIndex = currentRootPathLinks?.findIndex((x) => x === folder);
 
@@ -70,19 +75,19 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
             clonedCurrentRootPathLinks.splice(currentFolderIndex + 1);
             const newPath = clonedCurrentRootPathLinks?.join("/");
 
-            setCurrentPath(newPath);
+            updatePathToLoad(newPath);
         }
     };
 
     const onClickFolder = (folderPath: string) => {
         if (filesData?.currentRootPath) {
-            setCurrentPath(`${filesData?.currentRootPath}/${folderPath}`);
+            updatePathToLoad(`${filesData?.currentRootPath}/${folderPath}`);
         }
     };
 
     const onAddFolder = async () => {
         if (newFolderName) {
-            await saveFiles(currentPath, undefined, newFolderName, true);
+            await saveFiles(pathToLoad, undefined, newFolderName, true);
             enqueueSnackbar("Folder successfully created", { variant: "success" });
             setNewFolderName("");
         }
@@ -96,7 +101,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
         if (event.target.files?.length) {
             applyActionsAfterFileUpload(event.target.files, async () => {
                 if (event.target.files) {
-                    await saveFiles(currentPath, event.target.files);
+                    await saveFiles(pathToLoad, event.target.files);
                 }
             });
         }
@@ -128,7 +133,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
 
     return (
         <>
-            <Drawer anchor="bottom" open={isOpen} onClose={onClose}>
+            <Drawer anchor="bottom" open={isOpen} onClose={onCloseHandler}>
                 <FilesManager
                     title={title}
                     breadcrumbsLinks={currentRootPathLinks}
@@ -149,7 +154,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
                 />
             </Drawer>
             <EditorGLBFileProcessor
-                currentPath={currentPath}
+                currentPath={pathToLoad}
                 isOpen={isGlbFileProcessorOpen}
                 files={glbFiles}
                 onClose={closeGlbFileProcessor}

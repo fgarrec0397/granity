@@ -13,7 +13,7 @@ import {
     setIsGridEnabled,
     setIsMultipleSelect,
 } from "../state/editorUtilsReducer";
-import { setFilesData, setStatus } from "../state/filesReducer";
+import { setFilesData, setPathToLoad, setStatus } from "../state/filesReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
@@ -36,6 +36,8 @@ export default () => {
 
     const dispatchSetFilesData = (filesData: FilesData) => dispatch(setFilesData(filesData));
 
+    const dispatchSetPathToLoad = (pathToLoad: string) => dispatch(setPathToLoad(pathToLoad));
+
     const dispatchSetFilesDataStatus = useCallback(
         (status: FetchStatus) => dispatch(setStatus(status)),
         [dispatch]
@@ -51,6 +53,7 @@ export default () => {
         dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
         dispatchSetFilesData,
+        dispatchSetPathToLoad,
         dispatchSetFilesDataStatus,
     };
 };

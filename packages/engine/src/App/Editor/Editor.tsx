@@ -7,12 +7,14 @@ import { FC } from "react";
 import { useEditor } from "./_actions/hooks";
 import useEditorKeyboardControls from "./_actions/hooks/useEditorKeyboardControls";
 import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateChange";
+import useHandleLoadFiles from "./_actions/hooks/useHandleLoadFiles";
 import EditorLayout from "./components/EditorLayout";
 
 const Editor: FC = () => {
     const { widgetsObjectsIds, selectWidgetFromMeshArr } = useWidgets();
     const { isGridEnabled } = useEditor();
 
+    useHandleLoadFiles();
     useEditorKeyboardControls();
     useHandleEditorStateChange();
 

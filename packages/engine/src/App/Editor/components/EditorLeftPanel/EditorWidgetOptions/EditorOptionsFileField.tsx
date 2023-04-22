@@ -91,6 +91,7 @@ const EditorOptionsFileField: FC<EditorOptionsFileFieldProps> = ({ option }) => 
                     Select a file
                 </Button>
             </Box>
+
             <EditorFilesManager
                 title="Select a file"
                 isOpen={isFileManagerOpen}
