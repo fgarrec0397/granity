@@ -2,10 +2,19 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
 import getWidgetName from "@engine/App/Widgets/_actions/utilities/getWidgetName";
 import { WidgetObjectsDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { ErrorBoundary } from "@granity/helpers";
+import { ErrorBoundary, FallbackProps } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 import { Html } from "@granity/three/drei";
 import { ThreeEvent } from "@granity/three/fiber";
+import {
+    Button,
+    ButtonProps,
+    Paper,
+    PaperProps,
+    pxToRem,
+    Typography,
+    TypographyProps,
+} from "@granity/ui";
 import { FC, MutableRefObject, useRef, useState } from "react";
 
 import { useGetMeshByWidget } from "../../_actions/hooks";
@@ -16,6 +25,32 @@ import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
     widget: WidgetObjectsDictionaryItem;
+};
+
+type WidgetObjectRendererStyles = {
+    errorWrapper?: PaperProps;
+    errorText?: TypographyProps;
+    errorResetButton?: ButtonProps;
+};
+
+const styles: WidgetObjectRendererStyles = {
+    errorText: {
+        sx: (theme) => ({
+            color: theme.palette.error.main,
+        }),
+    },
+    errorWrapper: {
+        sx: (theme) => ({
+            width: pxToRem(200),
+            padding: 1,
+            backgroundColor: theme.palette.background.paperDarker,
+        }),
+    },
+    errorResetButton: {
+        sx: {
+            mt: 1,
+        },
+    },
 };
 
 const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
@@ -104,12 +139,17 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     );
 };
 
-function fallbackRender({ error, resetErrorBoundary }: any) {
+function fallbackRender({ resetErrorBoundary }: FallbackProps) {
     // Call resetErrorBoundary() to reset the error boundary and retry the render.
 
     return (
         <Html role="alert">
-            <p style={{ color: "red" }}>Something went wrong</p>
+            <Paper {...styles.errorWrapper}>
+                <Typography {...styles.errorText}>Something went wrong</Typography>
+                <Button variant="text" onClick={resetErrorBoundary} {...styles.errorResetButton}>
+                    Reload
+                </Button>
+            </Paper>
         </Html>
     );
 }
