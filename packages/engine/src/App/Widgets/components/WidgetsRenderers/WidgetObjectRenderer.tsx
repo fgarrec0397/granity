@@ -2,7 +2,9 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
 import getWidgetName from "@engine/App/Widgets/_actions/utilities/getWidgetName";
 import { WidgetObjectsDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { ErrorBoundary } from "@granity/helpers";
 import { Object3D } from "@granity/three";
+import { Html } from "@granity/three/drei";
 import { ThreeEvent } from "@granity/three/fiber";
 import { FC, MutableRefObject, useRef, useState } from "react";
 
@@ -95,8 +97,21 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
         >
             {isEditor && gizmo && <WidgetsGizmo text={resolveGizmoText()} onClick={onGizmoClick} />}
 
-            <Component {...widgetProps} {...widgetProperties} hovered={hovered} {...ref} />
+            <ErrorBoundary fallbackRender={fallbackRender}>
+                <Component {...widgetProps} {...widgetProperties} hovered={hovered} {...ref} />
+            </ErrorBoundary>
         </mesh>
     );
 };
+
+function fallbackRender({ error, resetErrorBoundary }: any) {
+    // Call resetErrorBoundary() to reset the error boundary and retry the render.
+
+    return (
+        <Html role="alert">
+            <p style={{ color: "red" }}>Something went wrong</p>
+        </Html>
+    );
+}
+
 export default WidgetObjectRenderer;

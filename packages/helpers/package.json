@@ -27,6 +27,7 @@
     "jsdom": "^21.1.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
+    "react-error-boundary": "^4.0.4",
     "vitest": "^0.28.5"
   },
   "devDependencies": {

@@ -9,7 +9,6 @@ import {
     TextField,
     TextFieldProps,
 } from "@granity/ui";
-import path from "path";
 import { ChangeEvent, FC, useState } from "react";
 
 import EditorFilesManager from "../../EditorCommon/EditorFilesManager";
@@ -71,8 +70,7 @@ const EditorOptionsFileField: FC<EditorOptionsFileFieldProps> = ({ option }) => 
     };
 
     const onSelectFile = (file: FileItem) => {
-        const normalizedPath = path.normalize(file.path);
-        updateOptionsValues(normalizedPath, option);
+        updateOptionsValues(file.path, option);
         closeFilesManager();
     };
 

@@ -12,9 +12,9 @@ export type WidgetStarter2Props = EditableWidget & {
 const WidgetStarter2: FC<WidgetStarter2Props> = ({ model }) => {
     useWidgetStarter2Init();
 
-    console.log(model, "model");
+    // console.log(model, "model");
 
-    return <Toilet />;
+    return <Toilet model={model} />;
 };
 
 export const widget = createWidget({

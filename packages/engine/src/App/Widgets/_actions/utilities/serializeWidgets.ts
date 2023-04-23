@@ -16,14 +16,6 @@ export default (widgets: WidgetDictionary) => {
 
         delete widget.component;
 
-        if ("editorOptions" in widget) {
-            delete widget.editorOptions;
-        }
-
-        if ("reducer" in widget) {
-            delete widget.reducer;
-        }
-
         serializedWidgets[widget.id] = widget as SerializedWidgetDictionaryItem;
     }
 
