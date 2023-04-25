@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.6](https://github.com/fgarrec0397/granity/compare/v0.4.5...v0.4.6) (2023-04-25)
+
+
+### Features
+
+* add widget name to error boundary / refactor: remove unused code ([c5185b3](https://github.com/fgarrec0397/granity/commits/c5185b372a503117f537790946b3b5e73c888f5d))
+* error stylized ([7c18ece](https://github.com/fgarrec0397/granity/commits/7c18ece57be90f459820bccda855c836e55b881f))
+* onSelectFile props added to the FilesManager ([a5f6a4f](https://github.com/fgarrec0397/granity/commits/a5f6a4fd8ab3ca8198367d1149e75ce98c7b14ba))
+* use the editor option field to display glb / fix: error boundary to catch not found glb files ([e2b026c](https://github.com/fgarrec0397/granity/commits/e2b026c1381eca2cfb96c6f2e1f00f45f477899d))
+
+
+### Bug Fixes
+
+* infinite loop fixed ([d3b55fe](https://github.com/fgarrec0397/granity/commits/d3b55fe6170ca79bac8f2c89c037bc84d57d4e17))
+* **WIP:** remove the nextjs error overlay ([42fc2d0](https://github.com/fgarrec0397/granity/commits/42fc2d02c243751a1fa2018d5c8a55651bf53cc9))
+
+
+### Refactor
+
+* configurable option to hide the nextjs error overlay ([1652d6a](https://github.com/fgarrec0397/granity/commits/1652d6ad5d027ddf59949f68f512c05fefc02743))
+* editor files manager reusable + title option added ([45790b2](https://github.com/fgarrec0397/granity/commits/45790b2de74ae6d975c50c0c8d6c85f86aba664d))
+* pathToLoad to pathToLoadFiles + rootFolderName constant ([060e874](https://github.com/fgarrec0397/granity/commits/060e8749127c6450f42ae9c62d52f66a9c09a7ba))
+* removed useless condition in options fields / feat(WIP): file field option started ([9fb7537](https://github.com/fgarrec0397/granity/commits/9fb7537e192d7fe89d3f10ea1d29e33836fab1df))
+
 ### [0.4.5](https://github.com/fgarrec0397/granity/compare/v0.4.4...v0.4.5) (2023-04-20)
 
 
