@@ -15,7 +15,7 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { FC, MutableRefObject, useRef, useState } from "react";
+import { FC, MutableRefObject, ReactNode, useRef, useState } from "react";
 
 import { useGetMeshByWidget } from "../../_actions/hooks";
 import useWidgets from "../../_actions/hooks/useWidgets";
@@ -132,26 +132,36 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
         >
             {isEditor && gizmo && <WidgetsGizmo text={resolveGizmoText()} onClick={onGizmoClick} />}
 
-            <ErrorBoundary fallbackRender={fallbackRender}>
+            <ErrorBoundary
+                fallbackRender={(fallbackProps) =>
+                    widgetFallbackRender(fallbackProps, displayWidgetName(id))
+                }
+            >
                 <Component {...widgetProps} {...widgetProperties} hovered={hovered} {...ref} />
             </ErrorBoundary>
         </mesh>
     );
 };
 
-function fallbackRender({ resetErrorBoundary }: FallbackProps) {
-    // Call resetErrorBoundary() to reset the error boundary and retry the render.
+type WidgetFallbackRender = (fallbackProps: FallbackProps, widgetName?: string) => ReactNode;
 
+const widgetFallbackRender: WidgetFallbackRender = (fallbackProps, widgetName) => {
     return (
         <Html role="alert">
             <Paper {...styles.errorWrapper}>
-                <Typography {...styles.errorText}>Something went wrong</Typography>
-                <Button variant="text" onClick={resetErrorBoundary} {...styles.errorResetButton}>
+                <Typography {...styles.errorText}>
+                    Something went wrong {widgetName ? `in ${widgetName}` : undefined}
+                </Typography>
+                <Button
+                    variant="text"
+                    onClick={fallbackProps.resetErrorBoundary}
+                    {...styles.errorResetButton}
+                >
                     Reload
                 </Button>
             </Paper>
         </Html>
     );
-}
+};
 
 export default WidgetObjectRenderer;
