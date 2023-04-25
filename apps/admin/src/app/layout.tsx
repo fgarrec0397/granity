@@ -1,4 +1,5 @@
 "use client";
+import "./styles.css";
 
 import { HasChildren } from "@granity/helpers";
 import { CssBaseline } from "@granity/ui";

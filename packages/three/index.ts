@@ -1,4 +1,5 @@
 export { TransformControls } from "three/examples/jsm/controls/TransformControls.js";
+export { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 export { PerspectiveCamera } from "three/src/cameras/PerspectiveCamera.js";
 export { Object3D } from "three/src/core/Object3D.js";
 export { ArrowHelper } from "three/src/helpers/ArrowHelper.js";
