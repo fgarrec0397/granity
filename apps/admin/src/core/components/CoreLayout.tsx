@@ -6,7 +6,15 @@ type Props = HasChildren;
 const CoreLayout: FC<Props> = ({ children }) => {
     return (
         <html lang="en">
-            <body>{children}</body>
+            <body
+                className={
+                    process.env.HIDE_NEXT_ERROR_OVERLAY === "true"
+                        ? "hide-nextjs-portal"
+                        : undefined
+                }
+            >
+                {children}
+            </body>
         </html>
     );
 };
