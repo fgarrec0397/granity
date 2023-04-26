@@ -2,6 +2,8 @@ import { Preview } from "@engine/Theme/components/Icons";
 import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
+import { useEditor } from "../../_actions/hooks";
+
 export type EditorPreviewButtonStyles = {
     button?: IconButtonProps;
 };
@@ -16,8 +18,10 @@ const styles: EditorPreviewButtonStyles = {
 };
 
 const EditorPreviewButton: FC = () => {
+    const { setPreviewStatus } = useEditor();
+
     const onClickPreviewUIHandler = () => {
-        console.log("preview");
+        setPreviewStatus();
     };
 
     return (

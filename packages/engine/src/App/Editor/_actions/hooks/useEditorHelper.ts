@@ -23,11 +23,13 @@ export default <T extends Constructor>(
     helperConstructor: T,
     ...args: Rest<ConstructorParameters<T>>
 ): MutableRefObject<Helper | undefined> | undefined => {
-    const { isEditor } = useEditor();
+    const { isEditor, isPreview } = useEditor();
+
+    const displayHelper = isEditor || isPreview;
 
     if (object3D === null) {
         return undefined;
     }
 
-    return useHelper(isEditor ? object3D : false, helperConstructor, ...args);
+    return useHelper(displayHelper ? object3D : false, helperConstructor, ...args);
 };

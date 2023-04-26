@@ -32,12 +32,13 @@ export default () => {
     } = useEditorService();
     const { removeWidgetSelection } = useWidgets();
     const isEditor = useMemo(() => editorStatus === EditorStatus.IsEditor, [editorStatus]);
-    const IsPreview = useMemo(() => editorStatus === EditorStatus.IsPreview, [editorStatus]);
+    const isGame = useMemo(() => editorStatus === EditorStatus.IsGame, [editorStatus]);
+    const isPreview = useMemo(() => editorStatus === EditorStatus.IsPreview, [editorStatus]);
     const isGamePreview = useMemo(
         () => editorStatus === EditorStatus.IsGamePreview,
         [editorStatus]
     );
-    const IsUIPreview = useMemo(() => editorStatus === EditorStatus.IsUIPreview, [editorStatus]);
+    const isUIPreview = useMemo(() => editorStatus === EditorStatus.IsUIPreview, [editorStatus]);
 
     useEffect(() => {
         if (isEditing && !hasEdited) {
@@ -47,6 +48,10 @@ export default () => {
 
     const setEditorStatus = useCallback(() => {
         updateEditorStatus(EditorStatus.IsEditor);
+    }, [updateEditorStatus]);
+
+    const setGameStatus = useCallback(() => {
+        updateEditorStatus(EditorStatus.IsGame);
     }, [updateEditorStatus]);
 
     const setPreviewStatus = useCallback(() => {
@@ -122,14 +127,16 @@ export default () => {
     return {
         editorStatus,
         isEditor,
-        IsPreview,
+        isGame,
+        isPreview,
         isGamePreview,
-        IsUIPreview,
+        isUIPreview,
         isEditing,
         hasEdited,
         hasEditorOpened,
         currentMode,
         setEditorStatus,
+        setGameStatus,
         setPreviewStatus,
         setGamePreviewStatus,
         setUIPreviewStatus,

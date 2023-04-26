@@ -4,15 +4,25 @@ import { useEffect } from "react";
 import useEditor from "./useEditor";
 
 export default () => {
-    const { isEditor } = useEditor();
+    const { isEditor, isGamePreview, isPreview, isUIPreview } = useEditor();
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         if (isEditor) {
             document.exitPointerLock();
-            enqueueSnackbar("Edit mode", { variant: "info" });
-        } else {
-            enqueueSnackbar("Game mode", { variant: "info" });
+            enqueueSnackbar("Editor Mode", { variant: "info" });
         }
-    }, [enqueueSnackbar, isEditor]);
+
+        if (isGamePreview) {
+            enqueueSnackbar("Game Preview Mode", { variant: "info" });
+        }
+
+        if (isPreview) {
+            enqueueSnackbar("Preview Mode", { variant: "info" });
+        }
+
+        if (isUIPreview) {
+            enqueueSnackbar("UI Preview Mode", { variant: "info" });
+        }
+    }, [enqueueSnackbar, isEditor, isGamePreview, isPreview, isUIPreview]);
 };

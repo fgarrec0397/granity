@@ -14,4 +14,5 @@ export enum EditorStatus {
     IsPreview = "IsPreview",
     IsGamePreview = "IsGamePreview",
     IsUIPreview = "IsUIPreview",
+    IsGame = "IsGame",
 }

@@ -1,11 +1,11 @@
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 
 export default () => {
-    const { isEditor, IsUIPreview } = useEditor();
+    const { isEditor, isUIPreview, isPreview, isGamePreview, isGame } = useEditor();
 
     return {
-        showEditorUI: isEditor && !IsUIPreview,
-        showGameUI: !isEditor || IsUIPreview,
-        IsUIPreview,
+        showEditorUI: isEditor || isPreview,
+        showGameUI: isGamePreview || isGame,
+        isUIPreview,
     };
 };

@@ -1,4 +1,5 @@
 import canvasConfig from "@engine/App/Core/configs/canvas";
+import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import Scenes from "@engine/App/Scenes/Scenes";
 import { useContextBridge } from "@granity/three/drei";
 import { Canvas } from "@granity/three/fiber";
@@ -14,6 +15,7 @@ type Props = {
 const CoreCanvas: FC<Props> = ({ contexts }) => {
     const theme = useTheme();
     const { onCorePointerMissed } = useCore();
+    const { isPreview } = useEditor();
     const ContextBridge = useContextBridge(...contexts);
 
     const onPointerMissed = (event: MouseEvent) => {
@@ -26,6 +28,11 @@ const CoreCanvas: FC<Props> = ({ contexts }) => {
         <Canvas
             style={{
                 background: theme.palette.background.gradient,
+                ...(isPreview
+                    ? {
+                          boxShadow: `${theme.palette.warning.main} 0px 0px 0px 2px inset`,
+                      }
+                    : {}),
             }}
             {...canvasConfig}
             onPointerMissed={onPointerMissed}

@@ -15,7 +15,11 @@ const EditorWrapper: FC<Props> = ({ children }) => {
     const openEditorModal = scenesStatus === "isSuccess" && !hasScenes();
 
     return (
-        <>
+        <div
+            style={{
+                boxShadow: "inset 0px 0px 0px 2px #f00",
+            }}
+        >
             {openEditorModal && (
                 <EditorModal
                     title="Create a scene"
@@ -35,7 +39,7 @@ const EditorWrapper: FC<Props> = ({ children }) => {
                 </EditorModal>
             )}
             {children}
-        </>
+        </div>
     );
 };
 

@@ -11,7 +11,7 @@ import TransformControls from "./TransformControls";
 
 const EditorCamera: FC = () => {
     const { addCamera, removeCamera, setCurrentCamera } = useCameras();
-    const { isEditor, isEditing, hasEditorOpened, setHasEditorOpened } = useEditor();
+    const { isEditor, isPreview, isEditing, hasEditorOpened, setHasEditorOpened } = useEditor();
     const cameraRef = useRef<PerspectiveCameraType>(null!);
 
     useEffect(() => {
@@ -41,7 +41,9 @@ const EditorCamera: FC = () => {
         }
     }, [hasEditorOpened, isEditor, setHasEditorOpened]);
 
-    if (isEditor) {
+    console.log(isEditing, "isEditing");
+
+    if (isEditor || isPreview) {
         return (
             <>
                 <PerspectiveCamera ref={cameraRef} />
