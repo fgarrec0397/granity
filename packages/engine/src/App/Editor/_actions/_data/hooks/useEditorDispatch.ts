@@ -2,14 +2,14 @@ import { useAppDispatch } from "@engine/App/Core/_actions/_data/state/store";
 import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import { useCallback } from "react";
 
-import { FilesData, ModesAvailable } from "../../editorTypes";
+import { EditorModesAvailable, EditorStatus } from "../../editorConstants";
+import { FilesData } from "../../editorTypes";
 import {
     setCurrentMode,
+    setEditorStatus,
     setHasEdited,
     setHasEditorOpened,
     setIsEditing,
-    setIsEditor,
-    setIsGameUIPreview,
     setIsGridEnabled,
     setIsMultipleSelect,
 } from "../state/editorUtilsReducer";
@@ -18,13 +18,11 @@ import { setFilesData, setPathToLoadFiles, setStatus } from "../state/filesReduc
 export default () => {
     const dispatch = useAppDispatch();
 
-    const dispatchSetIsEditor = (value: boolean) => dispatch(setIsEditor(value));
+    const dispatchSetEditorStatus = (value: EditorStatus) => dispatch(setEditorStatus(value));
 
     const dispatchSetIsEditing = (value: boolean) => dispatch(setIsEditing(value));
 
     const dispatchSetHasEditorOpened = () => dispatch(setHasEditorOpened());
-
-    const dispatchSetIsGameUIPreview = (value: boolean) => dispatch(setIsGameUIPreview(value));
 
     const dispatchSetHasEdited = (value: boolean) => dispatch(setHasEdited(value));
 
@@ -32,7 +30,7 @@ export default () => {
 
     const dispatchSetIsGridEnabled = (value: boolean) => dispatch(setIsGridEnabled(value));
 
-    const dispatchSetCurrentMode = (mode: ModesAvailable) => dispatch(setCurrentMode(mode));
+    const dispatchSetCurrentMode = (mode: EditorModesAvailable) => dispatch(setCurrentMode(mode));
 
     const dispatchSetFilesData = (filesData: FilesData) => dispatch(setFilesData(filesData));
 
@@ -45,10 +43,9 @@ export default () => {
     );
 
     return {
-        dispatchSetIsEditor,
+        dispatchSetEditorStatus,
         dispatchSetIsEditing,
         dispatchSetHasEditorOpened,
-        dispatchSetIsGameUIPreview,
         dispatchSetHasEdited,
         dispatchSetIsMultipleSelect,
         dispatchSetIsGridEnabled,

@@ -17,10 +17,10 @@ const styles: EditorPreviewUIButtonStyles = {
 };
 
 const EditorPreviewUIButton: FC = () => {
-    const { openEditorUIPreview } = useEditor();
+    const { setUIPreviewStatus } = useEditor();
 
     const onClickPreviewUIHandler = () => {
-        openEditorUIPreview();
+        setUIPreviewStatus();
     };
 
     return (

@@ -17,10 +17,10 @@ const styles: EditorPlayButtonStyles = {
 };
 
 const EditorPlayIconButton: FC = () => {
-    const { startGame } = useGame();
+    const { runGamePreview } = useGame();
 
     const onClickPlayHandler = () => {
-        startGame();
+        runGamePreview();
     };
 
     return (

@@ -1,43 +1,39 @@
-import { ModesAvailable } from "@engine/App/Editor/_actions/editorTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { EditorModesAvailable, EditorStatus } from "../../editorConstants";
+
 export interface EditorUtilsState {
-    isEditor: boolean;
+    editorStatus: EditorStatus;
     hasEditorOpened: boolean;
     hasEdited: boolean;
     isEditing: boolean;
-    isGameUIPreview: boolean;
     isMultipleSelect: boolean;
     isGridEnabled: boolean;
-    currentMode: ModesAvailable;
+    currentMode: EditorModesAvailable;
 }
 
 const initialState: EditorUtilsState = {
-    isEditor: true,
+    editorStatus: EditorStatus.IsEditor,
     hasEditorOpened: false,
     hasEdited: false,
     isEditing: false,
-    isGameUIPreview: false,
     isMultipleSelect: false,
     isGridEnabled: false,
-    currentMode: ModesAvailable.Translate,
+    currentMode: EditorModesAvailable.Translate,
 };
 
 export const editorSlice = createSlice({
     name: "editor",
     initialState,
     reducers: {
-        setIsEditor: (state: EditorUtilsState, actions: PayloadAction<boolean>) => {
-            state.isEditor = actions.payload;
+        setEditorStatus: (state: EditorUtilsState, actions: PayloadAction<EditorStatus>) => {
+            state.editorStatus = actions.payload;
         },
         setIsEditing: (state: EditorUtilsState, action: PayloadAction<boolean>) => {
             state.isEditing = action.payload;
         },
-        setIsGameUIPreview: (state: EditorUtilsState, action: PayloadAction<boolean>) => {
-            state.isGameUIPreview = action.payload;
-        },
         setHasEditorOpened: (state: EditorUtilsState) => {
-            state.isEditing = !state.isEditor;
+            state.hasEditorOpened = !(state.editorStatus === EditorStatus.IsEditor);
         },
         setHasEdited: (state: EditorUtilsState, actions: PayloadAction<boolean>) => {
             state.hasEdited = actions.payload;
@@ -48,16 +44,15 @@ export const editorSlice = createSlice({
         setIsGridEnabled: (state: EditorUtilsState, action: PayloadAction<boolean>) => {
             state.isGridEnabled = action.payload;
         },
-        setCurrentMode: (state: EditorUtilsState, action: PayloadAction<ModesAvailable>) => {
+        setCurrentMode: (state: EditorUtilsState, action: PayloadAction<EditorModesAvailable>) => {
             state.currentMode = action.payload;
         },
     },
 });
 
 export const {
-    setIsEditor,
+    setEditorStatus,
     setIsEditing,
-    setIsGameUIPreview,
     setHasEditorOpened,
     setHasEdited,
     setIsMultipleSelect,

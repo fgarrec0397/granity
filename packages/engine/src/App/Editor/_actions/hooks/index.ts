@@ -1,4 +1,3 @@
-export { default as useCurrentMode } from "./useCurrentMode";
 export { default as useEditor } from "./useEditor";
 export { default as useEditorHelper } from "./useEditorHelper";
 export { default as useEditorKeyboardControls } from "./useEditorKeyboardControls";

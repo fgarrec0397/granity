@@ -5,15 +5,6 @@ import {
 import { Dictionary } from "@granity/helpers";
 
 /**
- * Transform Controls Modes
- */
-export enum ModesAvailable {
-    Translate = "translate",
-    Rotate = "rotate",
-    Scale = "scale",
-}
-
-/**
  * The History dictionary containing all actions done by the user
  */
 export type HistoryDictionary = Dictionary<HistoryItem>;

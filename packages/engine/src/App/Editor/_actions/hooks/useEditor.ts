@@ -1,22 +1,21 @@
 import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import useEditorService from "../_data/hooks/useEditorService";
-import { FilesData, ModesAvailable } from "../editorTypes";
+import { EditorModesAvailable, EditorStatus } from "../editorConstants";
+import { FilesData } from "../editorTypes";
 
 export default () => {
     const {
-        isEditor,
+        editorStatus,
         hasEdited,
         hasEditorOpened,
         isEditing,
-        isGameUIPreview,
         currentMode,
-        updateIsEditor,
+        updateEditorStatus,
         updateHasEdited,
         updateIsEditing,
-        updatedIsGameUIPreview,
         updateHasEditorOpened,
         updateCurrentMode,
         updatedIsGridEnabled,
@@ -32,6 +31,13 @@ export default () => {
         deleteFile,
     } = useEditorService();
     const { removeWidgetSelection } = useWidgets();
+    const isEditor = useMemo(() => editorStatus === EditorStatus.IsEditor, [editorStatus]);
+    const IsPreview = useMemo(() => editorStatus === EditorStatus.IsPreview, [editorStatus]);
+    const isGamePreview = useMemo(
+        () => editorStatus === EditorStatus.IsGamePreview,
+        [editorStatus]
+    );
+    const IsUIPreview = useMemo(() => editorStatus === EditorStatus.IsUIPreview, [editorStatus]);
 
     useEffect(() => {
         if (isEditing && !hasEdited) {
@@ -39,13 +45,21 @@ export default () => {
         }
     }, [isEditing, hasEdited, updateHasEdited]);
 
-    const openEditor = useCallback(() => {
-        updateIsEditor(true);
-    }, [updateIsEditor]);
+    const setEditorStatus = useCallback(() => {
+        updateEditorStatus(EditorStatus.IsEditor);
+    }, [updateEditorStatus]);
 
-    const closeEditor = useCallback(() => {
-        updateIsEditor(false);
-    }, [updateIsEditor]);
+    const setPreviewStatus = useCallback(() => {
+        updateEditorStatus(EditorStatus.IsPreview);
+    }, [updateEditorStatus]);
+
+    const setGamePreviewStatus = useCallback(() => {
+        updateEditorStatus(EditorStatus.IsGamePreview);
+    }, [updateEditorStatus]);
+
+    const setUIPreviewStatus = useCallback(() => {
+        updateEditorStatus(EditorStatus.IsUIPreview);
+    }, [updateEditorStatus]);
 
     const setIsEditing = useCallback(
         (value: boolean) => {
@@ -58,20 +72,12 @@ export default () => {
         updatedIsGridEnabled(!isGridEnabled);
     }, [isGridEnabled, updatedIsGridEnabled]);
 
-    const openEditorUIPreview = useCallback(() => {
-        updatedIsGameUIPreview(true);
-    }, [updatedIsGameUIPreview]);
-
-    const closeEditorUIPreview = useCallback(() => {
-        updatedIsGameUIPreview(false);
-    }, [updatedIsGameUIPreview]);
-
     const setHasEditorOpened = useCallback(() => {
         updateHasEditorOpened();
     }, [updateHasEditorOpened]);
 
     const selectMode = useCallback(
-        (mode: ModesAvailable) => {
+        (mode: EditorModesAvailable) => {
             updateCurrentMode(mode);
         },
         [updateCurrentMode]
@@ -114,16 +120,19 @@ export default () => {
     );
 
     return {
+        editorStatus,
         isEditor,
+        IsPreview,
+        isGamePreview,
+        IsUIPreview,
         isEditing,
         hasEdited,
         hasEditorOpened,
         currentMode,
-        isGameUIPreview,
-        openEditor,
-        closeEditor,
-        openEditorUIPreview,
-        closeEditorUIPreview,
+        setEditorStatus,
+        setPreviewStatus,
+        setGamePreviewStatus,
+        setUIPreviewStatus,
         setIsEditing,
         setHasEditorOpened,
         selectMode,

@@ -3,10 +3,10 @@ import { Button } from "@granity/ui";
 import { FC } from "react";
 
 const UIClosePreviewButton: FC = () => {
-    const { closeEditorUIPreview } = useEditor();
+    const { setEditorStatus } = useEditor();
 
     const onClickHandler = () => {
-        closeEditorUIPreview();
+        setEditorStatus();
     };
 
     return <Button onClick={onClickHandler}>Close UI Preview</Button>;

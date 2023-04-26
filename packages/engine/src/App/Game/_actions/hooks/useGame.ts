@@ -6,11 +6,11 @@ import useGameService from "../_data/hooks/useGameService";
 export default () => {
     const { updateIsGamePaused } = useGameService();
 
-    const { closeEditor } = useEditor();
+    const { setGamePreviewStatus } = useEditor();
 
     // This function is called when the game init
-    const startGame = () => {
-        closeEditor();
+    const runGamePreview = () => {
+        setGamePreviewStatus();
     };
 
     // Put the current game on pause
@@ -24,7 +24,7 @@ export default () => {
     }, [updateIsGamePaused]);
 
     return {
-        startGame,
+        runGamePreview,
         pauseGame,
         playGame,
     };

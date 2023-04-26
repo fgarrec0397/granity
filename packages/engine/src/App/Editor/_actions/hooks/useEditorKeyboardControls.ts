@@ -17,13 +17,13 @@ export default () => {
     const { toggleGrid } = useEditor();
     const { setPrevHistoryItem, setNextHistoryItem, shouldAddHistoryState } = useHistory();
     const [, setCopiedWidgets] = useState<WidgetDictionaryItem[]>([]);
-    const { startGame } = useGame();
+    const { runGamePreview } = useGame();
     const { saveScene } = useScenes();
 
     useKeyboardMapping(
         (keyMapping: ClientKeyMappings) => {
             if (keyMapping.toggleEditor) {
-                startGame();
+                runGamePreview();
             } else if (keyMapping.toggleGrid) {
                 toggleGrid();
             } else if (keyMapping.copyWidget) {

@@ -6,13 +6,13 @@ import useUI from "./_actions/hooks/useUI";
 import UIClosePreviewButton from "./Components/UIClosePreviewButton";
 
 const UI: FC = () => {
-    const { showEditorUI, showGameUI, isGameUIPreview } = useUI();
+    const { showEditorUI, showGameUI, IsUIPreview } = useUI();
 
     return (
         <>
             {showEditorUI && <Editor.EditorUI />}
             {showGameUI && <GamePreview.GameUI />}
-            {isGameUIPreview && <UIClosePreviewButton />}
+            {IsUIPreview && <UIClosePreviewButton />}
         </>
     );
 };

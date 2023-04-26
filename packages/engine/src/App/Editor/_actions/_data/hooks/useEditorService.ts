@@ -3,17 +3,17 @@ import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
 import { useMutation, useQueryClient } from "@granity/helpers";
 import { useCallback } from "react";
 
-import { FilesData, ModesAvailable } from "../../editorTypes";
+import { EditorModesAvailable, EditorStatus } from "../../editorConstants";
+import { FilesData } from "../../editorTypes";
 import { FilesService } from "../filesService";
 import useEditorDispatch from "./useEditorDispatch";
 import useEditorSelector from "./useEditorSelector";
 
 export default () => {
     const {
-        dispatchSetIsEditor,
+        dispatchSetEditorStatus,
         dispatchSetIsEditing,
         dispatchSetHasEditorOpened,
-        dispatchSetIsGameUIPreview,
         dispatchSetHasEdited,
         dispatchSetIsMultipleSelect,
         dispatchSetIsGridEnabled,
@@ -23,10 +23,9 @@ export default () => {
         dispatchSetFilesDataStatus,
     } = useEditorDispatch();
     const {
-        isEditor,
+        editorStatus,
         hasEdited,
         hasEditorOpened,
-        isGameUIPreview,
         isEditing,
         currentMode,
         isGridEnabled,
@@ -61,8 +60,8 @@ export default () => {
         },
     });
 
-    const updateIsEditor = (value: boolean) => {
-        dispatchSetIsEditor(value);
+    const updateEditorStatus = (status: EditorStatus) => {
+        dispatchSetEditorStatus(status);
     };
 
     const updateIsEditing = (value: boolean) => {
@@ -71,10 +70,6 @@ export default () => {
 
     const updateHasEditorOpened = () => {
         dispatchSetHasEditorOpened();
-    };
-
-    const updatedIsGameUIPreview = (value: boolean) => {
-        dispatchSetIsGameUIPreview(value);
     };
 
     const updatedIsGridEnabled = (value: boolean) => {
@@ -92,7 +87,7 @@ export default () => {
         dispatchSetIsMultipleSelect(value);
     };
 
-    const updateCurrentMode = (value: ModesAvailable) => {
+    const updateCurrentMode = (value: EditorModesAvailable) => {
         dispatchSetCurrentMode(value);
     };
 
@@ -201,16 +196,14 @@ export default () => {
     );
 
     return {
-        isEditor,
+        editorStatus,
         hasEdited,
         hasEditorOpened,
         isEditing,
-        isGameUIPreview,
         currentMode,
         isGridEnabled,
-        updateIsEditor,
+        updateEditorStatus,
         updateIsEditing,
-        updatedIsGameUIPreview,
         updateHasEditorOpened,
         updateHasEdited,
         updatedIsGridEnabled,
