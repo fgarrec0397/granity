@@ -2,7 +2,7 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import { Button } from "@granity/ui";
 import { FC } from "react";
 
-const UIClosePreviewButton: FC = () => {
+const UIPreview: FC = () => {
     const { setEditorStatus } = useEditor();
 
     const onClickHandler = () => {
@@ -12,4 +12,4 @@ const UIClosePreviewButton: FC = () => {
     return <Button onClick={onClickHandler}>Close UI Preview</Button>;
 };
 
-export default UIClosePreviewButton;
+export default UIPreview;

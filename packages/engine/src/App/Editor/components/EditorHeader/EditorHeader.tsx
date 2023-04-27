@@ -3,10 +3,8 @@ import { editorPadding } from "@engine/Theme/themeConstants";
 import { Box, BoxProps, GranityLogo, Paper, PaperProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
-import EditorMainMenuButton from "./EditorMainMenuButton";
-import EditorPlayButton from "./EditorPlayButton";
-import EditorPreviewButton from "./EditorPreviewButton";
-import EditorPreviewUIButton from "./EditorPreviewUIButton";
+import EditorControls from "../EditorCommon/EditorControls";
+import EditorMainMenu from "./EditorMainMenu";
 
 type EditorStyles = {
     wrapper?: PaperProps;
@@ -57,12 +55,10 @@ const EditorHeader: FC = () => {
                 <GranityLogo />
             </Box>
             <Box {...styles.centerSection}>
-                <EditorPreviewUIButton />
-                <EditorPlayButton />
-                <EditorPreviewButton />
+                <EditorControls />
             </Box>
             <Box {...styles.rightSection}>
-                <EditorMainMenuButton />
+                <EditorMainMenu />
             </Box>
         </Paper>
     );

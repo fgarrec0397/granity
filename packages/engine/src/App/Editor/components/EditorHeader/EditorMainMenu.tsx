@@ -4,7 +4,7 @@ import { FC } from "react";
 
 import { useEditor } from "../../_actions/hooks";
 
-const EditorMainMenuButton: FC = () => {
+const EditorMainMenu: FC = () => {
     const { editorMainMenu } = useConfig();
     const { isEditor } = useEditor();
 
@@ -19,4 +19,4 @@ const EditorMainMenuButton: FC = () => {
     );
 };
 
-export default EditorMainMenuButton;
+export default EditorMainMenu;

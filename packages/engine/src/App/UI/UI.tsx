@@ -3,7 +3,7 @@ import { GamePreview } from "@engine/App/Game/Components";
 import { FC } from "react";
 
 import useUI from "./_actions/hooks/useUI";
-import UIClosePreviewButton from "./Components/UIClosePreviewButton";
+import UIPreview from "./Components/UIPreview";
 
 const UI: FC = () => {
     const { showEditorUI, showGameUI, isUIPreview } = useUI();
@@ -12,7 +12,7 @@ const UI: FC = () => {
         <>
             {showEditorUI && <Editor.EditorUI />}
             {showGameUI && <GamePreview.GameUI />}
-            {isUIPreview && <UIClosePreviewButton />}
+            {isUIPreview && <UIPreview />}
         </>
     );
 };
