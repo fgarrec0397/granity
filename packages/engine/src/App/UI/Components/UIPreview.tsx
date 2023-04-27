@@ -21,6 +21,9 @@ const styles: UIPreviewStyles = {
             alignItems: "center",
             height: pxToRem(60),
             transition: "top .3s ease",
+            "&:hover": {
+                top: editorPadding,
+            },
         },
     }),
 };
@@ -34,7 +37,9 @@ const UIPreview: FC = () => {
                 return setDisplayControls(true);
             }
 
-            setDisplayControls(false);
+            if (displayControls && event.clientY >= 100) {
+                setDisplayControls(false);
+            }
         };
 
         window.addEventListener("mousemove", onMouseMove);

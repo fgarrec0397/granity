@@ -17,20 +17,22 @@ export default <T>(
     onUnMountCallback?: (data: T) => void,
     ignoreEditor?: boolean
 ) => {
-    const { isEditor } = useEditor();
+    const { isGame, isGamePreview, isPreview } = useEditor();
+
+    const shouldInitGame = isGame || isGamePreview || isPreview;
 
     useEffect(() => {
         let returnedValue: T;
 
-        if (!isEditor || ignoreEditor) {
+        if (shouldInitGame || ignoreEditor) {
             returnedValue = onMountCallback();
         }
 
         return () => {
-            if (!isEditor) {
+            if (shouldInitGame) {
                 onUnMountCallback?.(returnedValue);
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isEditor]);
+    }, [shouldInitGame]);
 };

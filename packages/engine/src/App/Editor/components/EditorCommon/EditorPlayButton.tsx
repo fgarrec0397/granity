@@ -19,10 +19,14 @@ const styles: EditorPlayButtonStyles = {
 };
 
 const EditorPlayIconButton: FC = () => {
-    const { isEditor, isGamePreview } = useEditor();
+    const { isEditor, isGamePreview, setEditorStatus } = useEditor();
     const { runGamePreview } = useGame();
 
     const onClickPlayHandler = () => {
+        if (isGamePreview) {
+            return setEditorStatus();
+        }
+
         runGamePreview();
     };
 

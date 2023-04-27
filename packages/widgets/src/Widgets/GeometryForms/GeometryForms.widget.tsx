@@ -1,4 +1,4 @@
-import { createWidget, EditableWidget, FieldType, WidgetType } from "@granity/engine";
+import { createWidget, EditableWidget, FieldType, useGameInit, WidgetType } from "@granity/engine";
 import { FC, useEffect } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
@@ -13,9 +13,9 @@ type OwnProps = GeometryFormsProps;
 const GeometryForms: FC<OwnProps> = ({ shape, color, testCheckbox }) => {
     const GeometryComponent = shape;
 
-    useEffect(() => {
-        console.log(testCheckbox, "testCheckbox");
-    }, [testCheckbox]);
+    useGameInit(() => {
+        console.log(testCheckbox, "game init");
+    });
 
     return (
         <mesh position={[0, 0, 0]}>

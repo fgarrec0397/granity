@@ -6,13 +6,13 @@ import useUI from "./_actions/hooks/useUI";
 import UIPreview from "./Components/UIPreview";
 
 const UI: FC = () => {
-    const { showEditorUI, showGameUI, isUIPreview } = useUI();
+    const { showEditorUI, showGameUI, showUIPreview } = useUI();
 
     return (
         <>
             {showEditorUI && <Editor.EditorUI />}
             {showGameUI && <GamePreview.GameUI />}
-            {isUIPreview && <UIPreview />}
+            {showUIPreview && <UIPreview />}
         </>
     );
 };

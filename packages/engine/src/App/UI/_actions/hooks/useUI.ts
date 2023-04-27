@@ -6,6 +6,6 @@ export default () => {
     return {
         showEditorUI: isEditor || isPreview,
         showGameUI: isGamePreview || isGame || isUIPreview,
-        isUIPreview,
+        showUIPreview: isGamePreview || isUIPreview,
     };
 };
