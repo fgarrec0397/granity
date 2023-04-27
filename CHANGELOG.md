@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.7](https://github.com/fgarrec0397/granity/compare/v0.4.6...v0.4.7) (2023-04-27)
+
+
+### Features
+
+* displaying the editor controls only if the mouse is on top of the page ([b4295d3](https://github.com/fgarrec0397/granity/commits/b4295d35138305bd762dc8fffb750d072d78910b))
+* editor header UX enhancement ([41ff540](https://github.com/fgarrec0397/granity/commits/41ff540c73b50158776b2708b0cb30acfa69a554))
+* preview status ([2a4558e](https://github.com/fgarrec0397/granity/commits/2a4558ee515735e077ada519a1309ffa7d4d17e7))
+
+
+### Bug Fixes
+
+* editor header styling ([8d6a064](https://github.com/fgarrec0397/granity/commits/8d6a064e5eea82b5a13d6bad03142cb078c9d97d))
+* game preview cancel ([ac77b92](https://github.com/fgarrec0397/granity/commits/ac77b92bdca80b48a3d29b6058737ae868734fae))
+
+
+### Refactor
+
+* account menu to app menu / feat: settings menu added ([6eee3b1](https://github.com/fgarrec0397/granity/commits/6eee3b1df3a48c362fd3b151bb3c03e64f31495e))
+* editor conditions ([97df934](https://github.com/fgarrec0397/granity/commits/97df9342774128ce787af71c296829e23eee3b78))
+* editor header options extracted to EditorControls ([94376c4](https://github.com/fgarrec0397/granity/commits/94376c4350f1eb2180088ecb7218b4479ec55014))
+
 ### [0.4.6](https://github.com/fgarrec0397/granity/compare/v0.4.5...v0.4.6) (2023-04-25)
 
 
