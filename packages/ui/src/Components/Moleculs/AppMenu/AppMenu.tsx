@@ -1,3 +1,4 @@
+import { pxToRem } from "@ui/theme";
 import { FC, ReactNode, useState } from "react";
 
 import {
@@ -59,6 +60,9 @@ const styles: AppMenuStyles = {
     iconButton: {
         size: "large",
         color: "inherit",
+        sx: {
+            padding: pxToRem(6),
+        },
     },
 };
 

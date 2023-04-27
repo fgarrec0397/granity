@@ -24,8 +24,8 @@ const styles: EditorStyles = {
             }),
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-evenly",
-            padding: pxToRem(10),
+            justifyContent: "space-between",
+            padding: pxToRem(10, 14),
             color: "secondary.dark",
         },
     },
@@ -45,6 +45,7 @@ const styles: EditorStyles = {
         sx: {
             display: "flex",
             alignItems: "center",
+            marginRight: pxToRem(-6),
         },
     },
 };
