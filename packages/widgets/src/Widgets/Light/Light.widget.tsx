@@ -96,13 +96,6 @@ export const widget = createWidget<LightProps>({
             displayName: "Intensity",
             fieldType: FieldType.Number,
             defaultValue: 0,
-            isVisible: (options) => {
-                if (options?.lightType?.value === "spotLight") {
-                    return false;
-                }
-
-                return true;
-            },
         },
         {
             name: "direction",

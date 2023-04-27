@@ -41,8 +41,6 @@ const EditorCamera: FC = () => {
         }
     }, [hasEditorOpened, isEditor, setHasEditorOpened]);
 
-    console.log(isEditing, "isEditing");
-
     if (isEditor || isPreview) {
         return (
             <>

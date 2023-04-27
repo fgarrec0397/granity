@@ -17,14 +17,18 @@ const styles: EditorPreviewUIButtonStyles = {
 };
 
 const EditorPreviewUIButton: FC = () => {
-    const { setUIPreviewStatus } = useEditor();
+    const { setUIPreviewStatus, isEditor, isUIPreview } = useEditor();
 
     const onClickPreviewUIHandler = () => {
         setUIPreviewStatus();
     };
 
     return (
-        <IconButton onClick={onClickPreviewUIHandler} {...styles.button}>
+        <IconButton
+            onClick={onClickPreviewUIHandler}
+            {...styles.button}
+            disabled={!isEditor && !isUIPreview}
+        >
             <PreviewUI />
         </IconButton>
     );

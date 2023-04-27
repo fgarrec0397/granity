@@ -20,6 +20,7 @@ export type AccountMenuProps = {
     title: string;
     id: string;
     icon: ReactNode;
+    disabled?: boolean;
     menuItems?: AccountMenuListModel[];
 };
 
@@ -61,7 +62,7 @@ const styles: AccountMenuStyles = {
     },
 };
 
-const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
+const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems, disabled }) => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -85,6 +86,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems }) => {
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                     {...styles.iconButton}
+                    disabled={disabled}
                 >
                     {icon}
                 </IconButton>

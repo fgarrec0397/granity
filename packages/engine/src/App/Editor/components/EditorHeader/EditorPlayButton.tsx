@@ -3,6 +3,8 @@ import { Play } from "@engine/Theme/components/Icons";
 import { IconButton, IconButtonProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
+import { useEditor } from "../../_actions/hooks";
+
 export type EditorPlayButtonStyles = {
     button?: IconButtonProps;
 };
@@ -17,6 +19,7 @@ const styles: EditorPlayButtonStyles = {
 };
 
 const EditorPlayIconButton: FC = () => {
+    const { isEditor, isGamePreview } = useEditor();
     const { runGamePreview } = useGame();
 
     const onClickPlayHandler = () => {
@@ -24,7 +27,11 @@ const EditorPlayIconButton: FC = () => {
     };
 
     return (
-        <IconButton onClick={onClickPlayHandler} {...styles.button}>
+        <IconButton
+            onClick={onClickPlayHandler}
+            {...styles.button}
+            disabled={!isEditor && !isGamePreview}
+        >
             <Play />
         </IconButton>
     );
