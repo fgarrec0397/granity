@@ -24,6 +24,7 @@ const EditorPreviewButton: FC = () => {
         if (isPreview) {
             return setEditorStatus();
         }
+
         setPreviewStatus();
     };
 
