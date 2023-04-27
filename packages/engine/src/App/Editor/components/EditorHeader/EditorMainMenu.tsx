@@ -1,5 +1,5 @@
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
-import { AccountMenu, SettingsIcon } from "@granity/ui";
+import { AppMenu, MenuIcon } from "@granity/ui";
 import { FC } from "react";
 
 import { useEditor } from "../../_actions/hooks";
@@ -9,10 +9,10 @@ const EditorMainMenu: FC = () => {
     const { isEditor } = useEditor();
 
     return (
-        <AccountMenu
-            title="Editor settings"
+        <AppMenu
+            title="Main Menu"
             id="editor-menu"
-            icon={<SettingsIcon />}
+            icon={<MenuIcon />}
             disabled={!isEditor}
             menuItems={editorMainMenu}
         />

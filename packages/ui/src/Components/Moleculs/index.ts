@@ -1,2 +1,2 @@
-export * from "./AccountMenu";
+export * from "./AppMenu";
 export * from "./Vector3Input";

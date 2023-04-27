@@ -10,6 +10,7 @@ export { default as FolderIcon } from "@mui/icons-material/Folder";
 export { default as HomeIcon } from "@mui/icons-material/Home";
 export { default as KeyboardDoubleArrowUpIcon } from "@mui/icons-material/KeyboardDoubleArrowUp";
 export { default as LogoutIcon } from "@mui/icons-material/Logout";
+export { default as MenuIcon } from "@mui/icons-material/Menu";
 export { default as MoreVertIcon } from "@mui/icons-material/MoreVert";
 export { default as SettingsIcon } from "@mui/icons-material/Settings";
 export { default as StarIcon } from "@mui/icons-material/Star";

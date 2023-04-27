@@ -1,5 +1,5 @@
 import {
-    AccountMenu,
+    AppMenu,
     Avatar,
     Box,
     BoxProps,
@@ -46,7 +46,7 @@ const AppBar = () => {
             <IconButton onClick={handleOpenEditor}>
                 <LaunchEditorIcon {...styles.editorIcon} />
             </IconButton>
-            <AccountMenu
+            <AppMenu
                 title="Account settings"
                 id="account-menu"
                 icon={<Avatar sx={{ width: 40, height: 40 }}>M</Avatar>}

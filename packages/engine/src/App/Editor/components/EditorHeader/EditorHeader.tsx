@@ -5,6 +5,7 @@ import { FC } from "react";
 
 import EditorControls from "../EditorCommon/EditorControls";
 import EditorMainMenu from "./EditorMainMenu";
+import EditorSettingsMenu from "./EditorSettingsMenu";
 
 type EditorStyles = {
     wrapper?: PaperProps;
@@ -58,6 +59,7 @@ const EditorHeader: FC = () => {
                 <EditorControls />
             </Box>
             <Box {...styles.rightSection}>
+                <EditorSettingsMenu />
                 <EditorMainMenu />
             </Box>
         </Paper>

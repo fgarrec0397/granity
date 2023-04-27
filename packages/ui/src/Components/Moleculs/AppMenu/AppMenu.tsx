@@ -10,26 +10,26 @@ import {
     Tooltip,
 } from "../../atoms";
 
-export type AccountMenuListModel = {
+export type AppMenuListModel = {
     text: string;
     onClick: () => void;
     icon?: ReactNode;
 };
 
-export type AccountMenuProps = {
+export type AppMenuProps = {
     title: string;
     id: string;
     icon: ReactNode;
     disabled?: boolean;
-    menuItems?: AccountMenuListModel[];
+    menuItems?: AppMenuListModel[];
 };
 
-export type AccountMenuStyles = {
+export type AppMenuStyles = {
     menuPaper?: PaperProps;
     iconButton?: IconButtonProps;
 };
 
-const styles: AccountMenuStyles = {
+const styles: AppMenuStyles = {
     menuPaper: {
         elevation: 0,
         sx: {
@@ -62,7 +62,7 @@ const styles: AccountMenuStyles = {
     },
 };
 
-const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems, disabled }) => {
+const AppMenu: FC<AppMenuProps> = ({ title, id, icon, menuItems, disabled }) => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -114,4 +114,4 @@ const AccountMenu: FC<AccountMenuProps> = ({ title, id, icon, menuItems, disable
     );
 };
 
-export default AccountMenu;
+export default AppMenu;
