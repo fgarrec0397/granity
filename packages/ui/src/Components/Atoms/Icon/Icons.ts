@@ -1,3 +1,5 @@
+export { default as CheckFillIcon } from "./CheckFill";
+export { default as ClockFillIcon } from "./ClockFill";
 export { default as DefaultImage } from "./DefaultImage";
 export { default as GranityLogo } from "./GranityLogo";
 export { default as GranityLogoWithText } from "./GranityLogoWithText";

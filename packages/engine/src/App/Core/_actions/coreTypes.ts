@@ -1,3 +1,4 @@
+import { ScenesDictionary } from "@engine/App/Scenes/_actions/scenesTypes";
 import { WidgetModules } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary } from "@granity/helpers";
 import { ReactNode } from "react";
@@ -22,6 +23,7 @@ export type RestApiEnpoints = { get?: string; save?: string; patch?: string; del
 export type EngineEndpoints = {
     files?: RestApiEnpoints;
     scenes?: RestApiEnpoints;
+    app?: RestApiEnpoints;
     processes?: {
         generateJsxFromGlb?: string;
     };
@@ -74,3 +76,19 @@ export type KeyboardType = keyof typeof keyboardMappings;
 // --- API --- //
 
 export type FetchStatus = "isLoading" | "isSuccess" | "isError";
+
+// --- App --- //
+
+export type AppStatus = "pending" | "saved" | "published";
+
+export type AppScenes = {
+    scenes?: ScenesDictionary;
+    editedAt: Date;
+    name: string;
+};
+
+export type App = {
+    savedScenes: AppScenes;
+    publishedScenes: AppScenes;
+    status: AppStatus;
+};

@@ -28,7 +28,6 @@ export default () => {
         updateCurrentDefaultSceneId,
         updateScene,
         remove,
-        save,
     } = useScenesService();
     const { enqueueSnackbar } = useSnackbar();
     const { initWidgets } = useInitWidgets();
@@ -229,23 +228,13 @@ export default () => {
         [reset]
     );
 
-    const saveScene = useCallback(async () => {
+    const saveScenes = useCallback(async () => {
         const serializedWidgets = serializeWidgets(widgets);
 
         const currentScene = getCurrentScene();
         const scenesClone = cloneDeep(scenes);
 
         if (currentScene && scenesClone) {
-            const scene: ScenesDictionaryItem = {
-                ...currentScene,
-                data: {
-                    serializedWidgets,
-                    widgetsObjectInfoDictionary,
-                },
-            };
-
-            updateScene(scene);
-
             scenesClone[currentScene.id] = {
                 ...scenesClone[currentScene.id],
                 data: {
@@ -254,21 +243,13 @@ export default () => {
                 },
             };
 
-            await save(scenesClone);
-
             enqueueSnackbar("Scenes successfully saved", { variant: "success" });
+
+            return scenesClone;
         } else {
             enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
         }
-    }, [
-        enqueueSnackbar,
-        getCurrentScene,
-        save,
-        scenes,
-        updateScene,
-        widgets,
-        widgetsObjectInfoDictionary,
-    ]);
+    }, [enqueueSnackbar, getCurrentScene, scenes, widgets, widgetsObjectInfoDictionary]);
 
     const removeScene = useCallback(
         (sceneId: string) => {
@@ -325,7 +306,7 @@ export default () => {
         getCurrentScene,
         getCurrentDefaultScene,
         resetScenes,
-        saveScene,
+        saveScenes,
         displaySceneName,
         loadScene,
         removeScene,

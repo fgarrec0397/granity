@@ -2,6 +2,8 @@ import { pxToRem } from "@ui/theme";
 import { FC, ReactNode, useState } from "react";
 
 import {
+    Box,
+    BoxProps,
     IconButton,
     IconButtonProps,
     ListItemIcon,
@@ -21,6 +23,7 @@ export type AppMenuProps = {
     title: string;
     id: string;
     icon: ReactNode;
+    subIcon?: ReactNode;
     disabled?: boolean;
     menuItems?: AppMenuListModel[];
 };
@@ -28,6 +31,7 @@ export type AppMenuProps = {
 export type AppMenuStyles = {
     menuPaper?: PaperProps;
     iconButton?: IconButtonProps;
+    subIconWrapper?: BoxProps;
 };
 
 const styles: AppMenuStyles = {
@@ -64,9 +68,17 @@ const styles: AppMenuStyles = {
             padding: pxToRem(6),
         },
     },
+    subIconWrapper: {
+        sx: {
+            position: "absolute",
+            bottom: pxToRem(7),
+            right: pxToRem(7),
+            display: "flex",
+        },
+    },
 };
 
-const AppMenu: FC<AppMenuProps> = ({ title, id, icon, menuItems, disabled }) => {
+const AppMenu: FC<AppMenuProps> = ({ title, id, icon, subIcon, menuItems, disabled }) => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -84,16 +96,19 @@ const AppMenu: FC<AppMenuProps> = ({ title, id, icon, menuItems, disabled }) => 
     return (
         <>
             <Tooltip title={title}>
-                <IconButton
-                    onClick={handleClick}
-                    aria-controls={open ? id : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                    {...styles.iconButton}
-                    disabled={disabled}
-                >
-                    {icon}
-                </IconButton>
+                <>
+                    <IconButton
+                        onClick={handleClick}
+                        aria-controls={open ? id : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        {...styles.iconButton}
+                        disabled={disabled}
+                    >
+                        {icon}
+                        {subIcon && <Box {...styles.subIconWrapper}>{subIcon}</Box>}
+                    </IconButton>
+                </>
             </Tooltip>
             {menuItems?.length ? (
                 <Menu

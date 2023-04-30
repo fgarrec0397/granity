@@ -8,7 +8,10 @@ import { configureStore, Slice } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "redux";
 
+import coreReducer, { CoreState } from "./coreReducer";
+
 export interface State {
+    core: CoreState;
     editor: EditorState;
     widgets: WidgetsState;
     scenes: ScenesState;
@@ -36,6 +39,7 @@ export type InjectableStore = Store<State, MyAction> & {
  * Mapping of State properties to their reducers
  */
 const staticReducers: ReducersMapObject<State, MyAction> = {
+    core: coreReducer,
     editor: editorReducer,
     widgets: widgetsReducer,
     scenes: scenesReducer,

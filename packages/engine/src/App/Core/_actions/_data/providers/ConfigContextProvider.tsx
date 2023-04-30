@@ -31,6 +31,12 @@ export const defaultEnpoints: ConfigContexEndpoints = {
         patch: "/server/scenes",
         delete: "/server/scenes",
     },
+    app: {
+        save: "/server/scenes",
+        get: "/server/scenes",
+        patch: "/server/scenes",
+        delete: "/server/scenes",
+    },
     processes: {
         generateJsxFromGlb: "/server/processes/runGltfjsx",
     },
