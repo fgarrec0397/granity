@@ -1,50 +1,61 @@
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
-import useScenes from "@engine/App/Scenes/_actions/hooks/useScenes";
 import { useQuery } from "@granity/helpers";
 import { useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
 
 import { AppService } from "../_data/appService";
+import { App } from "../coreTypes";
+import useCore from "./useCore";
 
 export default () => {
-    const { initScenes, setScenesStatus } = useScenes();
     const { enqueueSnackbar } = useSnackbar();
     const { endpoints } = useConfig();
+    const { app, updateApp, updateStatus } = useCore();
 
-    const { data, status, isLoading } = useQuery({
+    const { data, status } = useQuery({
         queryKey: ["app", endpoints.app.get],
         queryFn: () => AppService.get({ endpoint: endpoints.app.get }),
     });
 
     useEffect(() => {
-        setScenesStatus("isLoading");
-    }, [isLoading, setScenesStatus]);
+        updateStatus(status);
+    }, [status, updateStatus]);
 
     useEffect(() => {
         if (status === "error") {
             enqueueSnackbar("No connections", { variant: "error" });
-            setScenesStatus("isError");
         }
 
         if (status === "success") {
             try {
-                console.log(data);
+                const fetchedApp: App = {
+                    ...data,
+                    savedScenes: data.savedScenes
+                        ? {
+                              ...data.savedScenes,
+                              scenes: data.savedScenes?.scenes
+                                  ? JSON.parse(data.savedScenes?.scenes)
+                                  : undefined,
+                          }
+                        : app?.savedScenes,
+                    publishedScenes: data.publishedScenes
+                        ? {
+                              ...data.publishedScenes,
+                              scenes: data.publishedScenes?.scenes
+                                  ? JSON.parse(data.publishedScenes?.scenes)
+                                  : undefined,
+                          }
+                        : app?.publishedScenes,
+                };
 
-                // const { sceneJsonString } = data;
-                // if (!sceneJsonString) {
-                //     enqueueSnackbar("No scenes found", { variant: "warning" });
-                //     return;
-                // }
-                // const scenes = JSON.parse(sceneJsonString);
-                // initScenes(scenes);
-                // setScenesStatus("isSuccess");
+                updateApp(fetchedApp);
             } catch (errorParsing) {
                 if (typeof errorParsing === "string") {
                     enqueueSnackbar(errorParsing, { variant: "error" });
                 } else {
                     // eslint-disable-next-line no-console
                     console.error(errorParsing);
-                    setScenesStatus("isError");
+                    updateStatus("error");
                 }
             }
         }

@@ -1,7 +1,7 @@
-import { App } from "@engine/App/Core/_actions/coreTypes";
+import { App, FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import { useDispatch } from "react-redux";
 
-import { setApp } from "../state/coreReducer";
+import { setApp, setStatus } from "../state/coreReducer";
 
 export default () => {
     const dispatch = useDispatch();
@@ -10,7 +10,12 @@ export default () => {
         dispatch(setApp(app));
     };
 
+    const dispatchSetStatus = (newStatus: FetchStatus) => {
+        dispatch(setStatus(newStatus));
+    };
+
     return {
         dispatchSetApp,
+        dispatchSetStatus,
     };
 };

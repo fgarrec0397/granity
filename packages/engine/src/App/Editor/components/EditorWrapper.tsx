@@ -12,7 +12,7 @@ const EditorWrapper: FC<Props> = ({ children }) => {
     const { hasScenes, scenesStatus } = useScenes();
     const { sceneName, handleChangeName, handleIsDefault, handleAddScene } = useCreateScene();
 
-    const openEditorModal = scenesStatus === "isSuccess" && !hasScenes();
+    const openEditorModal = scenesStatus === "success" && !hasScenes();
 
     return (
         <>

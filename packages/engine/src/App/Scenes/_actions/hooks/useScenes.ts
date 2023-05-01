@@ -271,6 +271,7 @@ export default () => {
 
     const initScenes = useCallback(
         (initialScenes?: ScenesDictionary) => {
+            setScenesStatus("loading");
             if (initialScenes) {
                 const newCurrentSceneId = getDefaultSceneId(initialScenes);
                 const newCurrentScene = initialScenes[newCurrentSceneId];
@@ -285,8 +286,9 @@ export default () => {
             } else {
                 initWidgets();
             }
+            setScenesStatus("success");
         },
-        [initWidgets, resetScenes, changeDefaultScene]
+        [setScenesStatus, initWidgets, resetScenes, changeDefaultScene]
     );
 
     return {

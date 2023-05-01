@@ -1,6 +1,6 @@
 import { Fetcher } from "@granity/helpers";
 
-import { App } from "../coreTypes";
+import { App, SerializedAppScenes } from "../coreTypes";
 
 export type AppServiceParameters<MethodParameters> = MethodParameters & {
     endpoint: string;
@@ -10,9 +10,7 @@ export type GetAppParameters = {
     endpoint: string;
 };
 
-export type GetAppResponse = {
-    sceneJsonString: string;
-};
+export type GetAppResponse = App<SerializedAppScenes>;
 
 export type SaveAppParameters = {
     app: App;

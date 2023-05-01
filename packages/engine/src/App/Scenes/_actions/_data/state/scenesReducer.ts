@@ -14,7 +14,7 @@ export interface ScenesState {
 const initialState: ScenesState = {
     byId: {},
     allIds: [],
-    status: "isLoading",
+    status: "loading",
     currentSceneId: null,
     currentDefaultSceneId: null,
 };

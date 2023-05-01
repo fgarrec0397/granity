@@ -75,7 +75,7 @@ export type KeyboardType = keyof typeof keyboardMappings;
 
 // --- API --- //
 
-export type FetchStatus = "isLoading" | "isSuccess" | "isError";
+export type FetchStatus = "loading" | "success" | "error";
 
 // --- App --- //
 
@@ -87,8 +87,14 @@ export type AppScenes = {
     name: string;
 };
 
-export type App = {
-    savedScenes?: AppScenes;
-    publishedScenes?: AppScenes;
+export type SerializedAppScenes = {
+    scenes?: string;
+    editedAt: Date;
+    name: string;
+};
+
+export type App<ScenesType = AppScenes> = {
+    savedScenes?: ScenesType;
+    publishedScenes?: ScenesType;
     status?: AppStatus;
 };

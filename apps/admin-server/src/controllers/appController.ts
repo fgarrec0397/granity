@@ -4,8 +4,22 @@ import appModel from "../model/appModel";
 export const getApp = async (req: Request, response: Response) => {
     const oldestApp = await appModel.findOne({}, {}, { sort: { createdAt: -1 } }).exec();
 
+    const defaultApp = {
+        savedScenes: {
+            scenes: "",
+            editedAt: new Date(),
+            name: "",
+        },
+        publishedScenes: {
+            scenes: "",
+            editedAt: new Date(),
+            name: "",
+        },
+        status: "published",
+    };
+
     if (oldestApp == null) {
-        return response.status(404).send("No app found");
+        return response.send(defaultApp);
     }
 
     response.send(oldestApp);
