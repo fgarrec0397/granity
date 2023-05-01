@@ -5,10 +5,12 @@ import { App } from "../../coreTypes";
 import useConfig from "../../hooks/useConfig";
 import { AppService } from "../appService";
 import { ProcessesService } from "../processesService";
+import useCoreSelector from "./useCoreSelector";
 
 export default () => {
     const queryClient = useQueryClient();
     const { endpoints } = useConfig();
+    const { app } = useCoreSelector();
 
     const saveAppMutation = useMutation({
         mutationKey: ["app"],
@@ -37,10 +39,10 @@ export default () => {
         [endpoints.processes.generateJsxFromGlb, postProcessMutation]
     );
 
-    const save = async (app: App) => {
+    const save = async (newApp: App) => {
         const data = await saveAppMutation.mutateAsync({
-            endpoint: endpoints.scenes.save,
-            app,
+            endpoint: endpoints.app.save,
+            app: newApp,
         });
 
         return data;
@@ -49,5 +51,6 @@ export default () => {
     return {
         generateJsxFromGlb,
         save,
+        app,
     };
 };

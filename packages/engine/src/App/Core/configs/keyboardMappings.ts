@@ -65,7 +65,7 @@ export default {
             preventDefault: false,
         },
         {
-            name: "saveScene",
+            name: "saveApp",
             code: "KeyS",
             ctrlKey: true,
             shiftKey: true,

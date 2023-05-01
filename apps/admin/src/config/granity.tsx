@@ -37,6 +37,10 @@ export const granityConfig: EngineConfig = {
             get: "/server/scenes",
             save: "/server/scenes",
         },
+        app: {
+            get: "/server/app",
+            save: "/server/app",
+        },
         processes: {
             generateJsxFromGlb: "/server/processes/",
         },

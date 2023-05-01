@@ -228,7 +228,7 @@ export default () => {
         [reset]
     );
 
-    const saveScenes = useCallback(async () => {
+    const saveScenes = useCallback(() => {
         const serializedWidgets = serializeWidgets(widgets);
 
         const currentScene = getCurrentScene();

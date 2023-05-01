@@ -88,7 +88,7 @@ export type AppScenes = {
 };
 
 export type App = {
-    savedScenes: AppScenes;
-    publishedScenes: AppScenes;
-    status: AppStatus;
+    savedScenes?: AppScenes;
+    publishedScenes?: AppScenes;
+    status?: AppStatus;
 };

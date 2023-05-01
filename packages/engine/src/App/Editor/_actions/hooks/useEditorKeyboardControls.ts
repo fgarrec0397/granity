@@ -1,9 +1,9 @@
 import { ClientKeyMappings } from "@engine/App/Core/_actions/coreTypes";
+import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import useKeyboardMapping from "@engine/App/Core/_actions/hooks/useKeyboardMapping";
 import useHistory from "@engine/App/Editor/_actions/hooks/useHistory";
 import useGame from "@engine/App/Game/_actions/hooks/useGame";
 import useCameras from "@engine/App/Scenes/_actions/hooks/useCameras";
-import useScenes from "@engine/App/Scenes/_actions/hooks/useScenes";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { useState } from "react";
@@ -18,7 +18,7 @@ export default () => {
     const { setPrevHistoryItem, setNextHistoryItem, shouldAddHistoryState } = useHistory();
     const [, setCopiedWidgets] = useState<WidgetDictionaryItem[]>([]);
     const { runGamePreview } = useGame();
-    const { saveScene } = useScenes();
+    const { saveApp } = useCore();
 
     useKeyboardMapping(
         (keyMapping: ClientKeyMappings) => {
@@ -48,8 +48,8 @@ export default () => {
                 setNextCamera();
             } else if (keyMapping.prevCamera) {
                 setPrevCamera();
-            } else if (keyMapping.saveScene) {
-                saveScene();
+            } else if (keyMapping.saveApp) {
+                saveApp();
             }
         },
         [
@@ -59,7 +59,7 @@ export default () => {
             copyWidget,
             removeselectedWidgets,
             shouldAddHistoryState,
-            saveScene,
+            saveApp,
         ]
     );
 };

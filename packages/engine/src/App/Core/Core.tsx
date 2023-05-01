@@ -5,6 +5,7 @@ import { HistoryDictionaryContext } from "../Editor/_actions/_data/providers/His
 import { CamerasContext } from "../Scenes/_actions/_data/providers/CamerasContextProvider";
 import UI from "../UI/UI";
 import { WidgetsContext, WidgetsModulesContext } from "../Widgets/_actions/_data/providers";
+import useHandleLoadApp from "./_actions/hooks/useHandleLoadApp";
 import CoreCanvas from "./Components/CoreCanvas";
 
 const Core: FC = () => {
@@ -15,6 +16,8 @@ const Core: FC = () => {
         ReactReduxContext,
         HistoryDictionaryContext,
     ];
+
+    useHandleLoadApp();
 
     return (
         <>
