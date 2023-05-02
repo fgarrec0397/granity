@@ -18,6 +18,8 @@ export default () => {
         mutationKey: ["app"],
         mutationFn: AppService.save,
         onSuccess: (data) => {
+            console.log(data, "data saveAppMutation");
+
             queryClient.setQueryData(["app"], data);
         },
     });

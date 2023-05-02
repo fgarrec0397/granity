@@ -1,17 +1,19 @@
+import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { CheckFillIcon, ClockFillIcon, useTheme } from "@granity/ui";
 import { FC, useState } from "react";
 
 const EditorPublishedStatus: FC = () => {
     const theme = useTheme();
     const [status] = useState("pending");
+    const { app } = useCore();
 
-    if (status === "pending") {
+    if (app?.status === "pending") {
         return (
             <ClockFillIcon color1={theme.palette.error.main} color2={theme.palette.common.white} />
         );
     }
 
-    if (status === "saved") {
+    if (app?.status === "saved") {
         return (
             <ClockFillIcon
                 color1={theme.palette.warning.main}
@@ -20,7 +22,7 @@ const EditorPublishedStatus: FC = () => {
         );
     }
 
-    if (status === "published") {
+    if (app?.status === "published") {
         return (
             <CheckFillIcon
                 color1={theme.palette.success.dark}

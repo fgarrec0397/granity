@@ -31,11 +31,22 @@ export default () => {
             const savedApp: App = {
                 ...app,
                 savedScenes,
+                status: "saved",
             };
 
             save(savedApp);
         }
     }, [app, save, saveScenes]);
+
+    const publishApp = useCallback(() => {
+        const publishedApp: App = {
+            ...app,
+            publishedScenes: app?.savedScenes,
+            status: "published",
+        };
+
+        save(publishedApp);
+    }, [app, save]);
 
     const updateApp = useCallback(
         (newApp: App) => {
@@ -59,5 +70,6 @@ export default () => {
         saveApp,
         updateApp,
         updateStatus,
+        publishApp,
     };
 };

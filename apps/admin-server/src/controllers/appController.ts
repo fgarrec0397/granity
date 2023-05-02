@@ -34,28 +34,36 @@ export const postApp = async (req: Request, res: Response) => {
               ...newApp.savedScenes,
               scenes: JSON.stringify(newApp.savedScenes.scenes),
           }
-        : oldestApp?.savedScenes;
+        : {
+              savedScenes: {
+                  scenes: oldestApp?.savedScenes?.scenes,
+                  editedAt: oldestApp?.savedScenes?.editedAt,
+                  name: oldestApp?.savedScenes?.name,
+              },
+          };
 
     const publishedScenes = newApp.publishedScenes
         ? {
               ...newApp.publishedScenes,
               scenes: JSON.stringify(newApp.publishedScenes.scenes),
           }
-        : oldestApp?.publishedScenes;
+        : {
+              publishedScenes: {
+                  scenes: oldestApp?.publishedScenes?.scenes,
+                  editedAt: oldestApp?.publishedScenes?.editedAt,
+                  name: oldestApp?.publishedScenes?.name,
+              },
+          };
 
     const mappedApp = {
-        ...newApp,
         savedScenes,
         publishedScenes,
+        status: newApp.status,
     };
 
     console.log(mappedApp, "mappedApp");
 
-    const newAppModel = new appModel(mappedApp);
+    appModel.create(mappedApp);
 
-    newAppModel.save(function (err: any) {
-        if (err) return console.log(err, "err");
-    });
-
-    res.send(req.body);
+    res.send(mappedApp);
 };

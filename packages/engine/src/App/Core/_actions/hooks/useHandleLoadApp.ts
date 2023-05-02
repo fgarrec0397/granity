@@ -13,7 +13,7 @@ export default () => {
     const { app, updateApp, updateStatus } = useCore();
 
     const { data, status } = useQuery({
-        queryKey: ["app", endpoints.app.get],
+        queryKey: ["app"],
         queryFn: () => AppService.get({ endpoint: endpoints.app.get }),
     });
 
@@ -22,6 +22,12 @@ export default () => {
     }, [status, updateStatus]);
 
     useEffect(() => {
+        console.log(data, "data useHandleLoadApp");
+    }, [data]);
+
+    useEffect(() => {
+        console.log(status, "status");
+
         if (status === "error") {
             enqueueSnackbar("No connections", { variant: "error" });
         }
@@ -48,6 +54,8 @@ export default () => {
                         : app?.publishedScenes,
                 };
 
+                console.log(fetchedApp, "fetchedApp");
+
                 updateApp(fetchedApp);
             } catch (errorParsing) {
                 if (typeof errorParsing === "string") {
@@ -60,5 +68,5 @@ export default () => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [status]);
+    }, [status, data]);
 };
