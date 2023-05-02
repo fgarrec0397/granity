@@ -1,10 +1,9 @@
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { CheckFillIcon, ClockFillIcon, useTheme } from "@granity/ui";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 const EditorPublishedStatus: FC = () => {
     const theme = useTheme();
-    const [status] = useState("pending");
     const { app } = useCore();
 
     if (app?.status === "pending") {

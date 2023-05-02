@@ -79,7 +79,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
 
     useEditorHelper(resolvedHelper && (componentRef as MutableRefObject<Object3D>), resolvedHelper);
 
-    if (widgetsObjectInfoDictionary[id].isVisible !== undefined) {
+    if (widgetsObjectInfoDictionary[id]?.isVisible !== undefined) {
         const mesh = getMeshByWidget(widgetsObjects[id]);
         const { isVisible } = widgetsObjectInfoDictionary[id];
 

@@ -61,8 +61,6 @@ export const postApp = async (req: Request, res: Response) => {
         status: newApp.status,
     };
 
-    console.log(mappedApp, "mappedApp");
-
     appModel.create(mappedApp);
 
     res.send(mappedApp);

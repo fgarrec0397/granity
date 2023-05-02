@@ -19,14 +19,6 @@ export default () => {
 
     useEffect(() => {
         updateStatus(status);
-    }, [status, updateStatus]);
-
-    useEffect(() => {
-        console.log(data, "data useHandleLoadApp");
-    }, [data]);
-
-    useEffect(() => {
-        console.log(status, "status");
 
         if (status === "error") {
             enqueueSnackbar("No connections", { variant: "error" });
@@ -53,8 +45,6 @@ export default () => {
                           }
                         : app?.publishedScenes,
                 };
-
-                console.log(fetchedApp, "fetchedApp");
 
                 updateApp(fetchedApp);
             } catch (errorParsing) {

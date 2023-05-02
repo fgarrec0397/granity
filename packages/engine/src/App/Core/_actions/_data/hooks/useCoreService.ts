@@ -14,16 +14,6 @@ export default () => {
     const { app, status } = useCoreSelector();
     const { dispatchSetApp, dispatchSetStatus } = useCoreDispatch();
 
-    const saveAppMutation = useMutation({
-        mutationKey: ["app"],
-        mutationFn: AppService.save,
-        onSuccess: (data) => {
-            console.log(data, "data saveAppMutation");
-
-            queryClient.setQueryData(["app"], data);
-        },
-    });
-
     const setStatus = useCallback(
         (newStatus: FetchStatus) => {
             dispatchSetStatus(newStatus);
@@ -31,11 +21,35 @@ export default () => {
         [dispatchSetStatus]
     );
 
+    const saveAppMutation = useMutation({
+        mutationKey: ["app"],
+        mutationFn: AppService.save,
+        onMutate: () => {
+            setStatus("loading");
+        },
+        onSuccess: (data) => {
+            queryClient.setQueryData(["app"], data);
+            setTimeout(() => {
+                setStatus("success");
+            }, 10000);
+        },
+        onError: () => {
+            setStatus("error");
+        },
+    });
+
     const postProcessMutation = useMutation({
         mutationKey: ["process"],
         mutationFn: ProcessesService.post,
+        onMutate: () => {
+            setStatus("loading");
+        },
         onSuccess: (data) => {
             queryClient.setQueryData(["process"], data);
+            setStatus("success");
+        },
+        onError: () => {
+            setStatus("error");
         },
     });
 

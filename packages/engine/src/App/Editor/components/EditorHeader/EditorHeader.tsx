@@ -1,7 +1,16 @@
+import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { layoutStyles } from "@engine/Theme/mixins/layout";
 import { editorPadding } from "@engine/Theme/themeConstants";
-import { Box, BoxProps, GranityLogo, Paper, PaperProps, pxToRem } from "@granity/ui";
-import { FC } from "react";
+import {
+    Box,
+    BoxProps,
+    GranityLogo,
+    LinearProgress,
+    Paper,
+    PaperProps,
+    pxToRem,
+} from "@granity/ui";
+import { FC, useEffect } from "react";
 
 import EditorControls from "../EditorCommon/EditorControls";
 import EditorMainMenu from "./EditorMainMenu";
@@ -51,6 +60,8 @@ const styles: EditorStyles = {
 };
 
 const EditorHeader: FC = () => {
+    const { appStatus } = useCore();
+
     return (
         <Paper {...styles.wrapper}>
             <Box {...styles.leftSection}>
@@ -63,6 +74,11 @@ const EditorHeader: FC = () => {
                 <EditorSettingsMenu />
                 <EditorMainMenu />
             </Box>
+            {appStatus === "loading" && (
+                <Box sx={{ width: "100%", position: "absolute", bottom: 0, left: 0, right: 0 }}>
+                    <LinearProgress />
+                </Box>
+            )}
         </Paper>
     );
 };

@@ -11,8 +11,10 @@ export default () => {
         const scenes = app?.savedScenes?.scenes;
 
         if (appStatus === "success") {
+            console.log(scenes, "initScenes");
+
             initScenes(scenes);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [app]);
+    }, [app?.savedScenes?.scenes]);
 };
