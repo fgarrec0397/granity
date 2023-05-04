@@ -114,18 +114,18 @@ export default () => {
 
     const getFilesData = useCallback(
         async (path: string) => {
-            dispatchSetFilesDataStatus("isLoading");
+            dispatchSetFilesDataStatus("loading");
             const data = await queryClient.fetchQuery(["files"], {
                 queryFn: () => FilesService.get({ endpoint: endpoints.files.get, path }),
             });
 
             if (data) {
                 dispatchSetFilesData(data);
-                setFilesDataStatus("isSuccess");
+                setFilesDataStatus("success");
             }
 
             if (!data) {
-                setFilesDataStatus("isError");
+                setFilesDataStatus("error");
             }
 
             return data;

@@ -18,7 +18,7 @@ export default () => {
 
     useEffect(() => {
         if (status === "loading") {
-            updateFilesStatus("isLoading");
+            updateFilesStatus("loading");
         }
     }, [isLoading, updateFilesStatus, status]);
 

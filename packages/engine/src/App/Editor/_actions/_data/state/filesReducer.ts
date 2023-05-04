@@ -17,7 +17,7 @@ const initialState: FilesState = {
         files: [],
         folders: [],
     },
-    status: "isLoading",
+    status: "loading",
 };
 
 export const filesSlice = createSlice({

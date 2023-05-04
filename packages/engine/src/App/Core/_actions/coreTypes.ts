@@ -22,7 +22,6 @@ export type RestApiEnpoints = { get?: string; save?: string; patch?: string; del
 
 export type EngineEndpoints = {
     files?: RestApiEnpoints;
-    scenes?: RestApiEnpoints;
     app?: RestApiEnpoints;
     processes?: {
         generateJsxFromGlb?: string;

@@ -3,6 +3,7 @@ import Widgets from "@engine/App/Widgets/Widgets";
 import { FC } from "react";
 import { ReactReduxContext } from "react-redux";
 
+import useHandleLoadApp from "../Core/_actions/hooks/useHandleLoadApp";
 import { HistoryDictionaryContext } from "../Editor/_actions/_data/providers/HistoryContextProvider";
 import { CamerasContext } from "../Scenes/_actions/_data/providers";
 import { WidgetsContext, WidgetsModulesContext } from "../Widgets/_actions/_data/providers";
@@ -16,6 +17,8 @@ export const Game: FC = () => {
         ReactReduxContext,
         HistoryDictionaryContext,
     ];
+
+    useHandleLoadApp();
 
     return (
         <>

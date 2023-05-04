@@ -33,10 +33,6 @@ export const granityConfig: EngineConfig = {
             save: "/server/files",
             get: "/server/files",
         },
-        scenes: {
-            get: "/server/scenes",
-            save: "/server/scenes",
-        },
         app: {
             get: "/server/app",
             save: "/server/app",
