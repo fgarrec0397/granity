@@ -10,7 +10,7 @@ import {
     PaperProps,
     pxToRem,
 } from "@granity/ui";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import EditorControls from "../EditorCommon/EditorControls";
 import EditorMainMenu from "./EditorMainMenu";

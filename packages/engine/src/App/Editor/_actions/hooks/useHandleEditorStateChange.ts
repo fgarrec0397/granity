@@ -1,4 +1,3 @@
-import { useScenes } from "@engine/api";
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { usePrevious } from "@granity/helpers";
@@ -13,37 +12,53 @@ export default () => {
         currentHistoryItem,
         setShouldAddHistoryState,
         shouldResetWidgets,
-        shouldAddHistory,
+        editorStateChanged,
+        shouldUpdateAppStatus,
+        isCurrentHistoryItemIsSaved,
+        isCurrentHistoryItemIsPublished,
+        test,
     } = useHistory();
-    const { scenesStatus } = useScenes();
-    const { appStatus, app, updateApp } = useCore();
+    const { app, updateApp } = useCore();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
 
     useEffect(() => {
-        if (shouldAddHistory && scenesStatus === "success") {
-            // TODO should add history only when widgets have been loaded
-            console.log({ scenesStatus, appStatus }, "changed");
+        console.log({ isCurrentHistoryItemIsSaved, isCurrentHistoryItemIsPublished });
 
+        if (test && app?.status === "pending") {
+            if (isCurrentHistoryItemIsSaved) {
+                updateApp({
+                    ...app,
+                    status: "saved",
+                });
+            }
+
+            if (isCurrentHistoryItemIsPublished) {
+                updateApp({
+                    ...app,
+                    status: "published",
+                });
+            }
+        }
+    }, [app, isCurrentHistoryItemIsPublished, isCurrentHistoryItemIsSaved, test, updateApp]);
+
+    useEffect(() => {
+        if (editorStateChanged) {
             addHistoryState({
                 widgets,
                 widgetsObjectInfoDictionary,
             });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [addHistoryState, editorStateChanged, widgets, widgetsObjectInfoDictionary]);
 
+    useEffect(() => {
+        if (shouldUpdateAppStatus) {
             updateApp({
                 ...app,
                 status: "pending",
             });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        addHistoryState,
-        // app,
-        // appStatus,
-        shouldAddHistory,
-        // updateApp,
-        widgets,
-        widgetsObjectInfoDictionary,
-    ]);
+    }, [app, shouldUpdateAppStatus, updateApp]);
 
     useEffect(() => {
         if (shouldResetWidgets) {

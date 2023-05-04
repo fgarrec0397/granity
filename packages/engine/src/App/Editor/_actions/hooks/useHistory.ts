@@ -1,6 +1,8 @@
+import { useScenes } from "@engine/api";
+import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { isEqual, usePrevious } from "@granity/helpers";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import useHistoryContext from "../_data/hooks/useHistoryContext";
 import useHistoryService from "../_data/hooks/useHistoryService";
@@ -21,17 +23,83 @@ export default () => {
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
     const previousWidgetsDictionary = usePrevious(widgetsObjectInfoDictionary);
     const previousWidgets = usePrevious(widgets);
+    const { currentSceneId } = useScenes();
+    const { app } = useCore();
 
-    const shouldResetWidgets =
-        hasEdited &&
-        currentHistoryItem?.state.widgets &&
-        currentHistoryItem?.state.widgetsObjectInfoDictionary &&
-        !isEqual(currentHistoryItem, previousCurrentHistoryItem);
+    const shouldResetWidgets = useMemo(
+        () =>
+            hasEdited &&
+            currentHistoryItem?.state.widgets &&
+            currentHistoryItem?.state.widgetsObjectInfoDictionary &&
+            !isEqual(currentHistoryItem, previousCurrentHistoryItem),
+        [currentHistoryItem, hasEdited, previousCurrentHistoryItem]
+    );
 
-    const shouldAddHistory =
-        shouldAddHistoryState &&
+    const test =
+        previousWidgets !== undefined &&
+        previousWidgetsDictionary !== undefined &&
         (!isEqual(widgets, previousWidgets) ||
             !isEqual(widgetsObjectInfoDictionary, previousWidgetsDictionary));
+
+    const editorStateChanged = useMemo(
+        () =>
+            shouldAddHistoryState &&
+            previousWidgets !== undefined &&
+            previousWidgetsDictionary !== undefined &&
+            (!isEqual(widgets, previousWidgets) ||
+                !isEqual(widgetsObjectInfoDictionary, previousWidgetsDictionary)),
+        [
+            previousWidgets,
+            previousWidgetsDictionary,
+            shouldAddHistoryState,
+            widgets,
+            widgetsObjectInfoDictionary,
+        ]
+    );
+
+    const shouldUpdateAppStatus = useMemo(
+        () =>
+            editorStateChanged &&
+            Object.keys(previousWidgets || {}).length &&
+            Object.keys(previousWidgetsDictionary || {}).length,
+        [editorStateChanged, previousWidgets, previousWidgetsDictionary]
+    );
+
+    const isCurrentHistoryItemIsSaved = useMemo(
+        () =>
+            previousWidgets !== undefined &&
+            previousWidgetsDictionary !== undefined &&
+            currentSceneId &&
+            isEqual(
+                widgetsObjectInfoDictionary,
+                app?.savedScenes?.scenes?.[currentSceneId].data.widgetsObjectInfoDictionary
+            ),
+        [
+            app?.savedScenes?.scenes,
+            currentSceneId,
+            previousWidgets,
+            previousWidgetsDictionary,
+            widgetsObjectInfoDictionary,
+        ]
+    );
+
+    const isCurrentHistoryItemIsPublished = useMemo(
+        () =>
+            previousWidgets !== undefined &&
+            previousWidgetsDictionary !== undefined &&
+            currentSceneId &&
+            isEqual(
+                widgetsObjectInfoDictionary,
+                app?.publishedScenes?.scenes?.[currentSceneId].data.widgetsObjectInfoDictionary
+            ),
+        [
+            app?.publishedScenes?.scenes,
+            currentSceneId,
+            previousWidgets,
+            previousWidgetsDictionary,
+            widgetsObjectInfoDictionary,
+        ]
+    );
 
     const addHistoryState = useCallback(
         (state: HistoryState) => {
@@ -92,6 +160,10 @@ export default () => {
         shouldAddHistoryState,
         setShouldAddHistoryState,
         shouldResetWidgets,
-        shouldAddHistory,
+        shouldUpdateAppStatus,
+        editorStateChanged,
+        isCurrentHistoryItemIsSaved,
+        isCurrentHistoryItemIsPublished,
+        test,
     };
 };

@@ -28,6 +28,7 @@ export default () => {
                 name: "",
             };
 
+            // TODO - check if the saved scenes and the published scenes are equal. If yes, the status should be published
             const savedApp: App = {
                 ...app,
                 savedScenes,
