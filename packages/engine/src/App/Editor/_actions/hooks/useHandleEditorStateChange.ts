@@ -16,15 +16,28 @@ export default () => {
         shouldUpdateAppStatus,
         isCurrentHistoryItemIsSaved,
         isCurrentHistoryItemIsPublished,
-        test,
+        widgetsChanged,
     } = useHistory();
     const { app, updateApp } = useCore();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
 
     useEffect(() => {
-        console.log({ isCurrentHistoryItemIsSaved, isCurrentHistoryItemIsPublished });
+        const beforeUnloadHanlder = (event: BeforeUnloadEvent) => {
+            if (app?.status === "pending") {
+                event.preventDefault();
+                return (event.returnValue = "");
+            }
+        };
 
-        if (test && app?.status === "pending") {
+        window.addEventListener("beforeunload", beforeUnloadHanlder);
+
+        return () => {
+            window.removeEventListener("beforeunload", beforeUnloadHanlder);
+        };
+    }, [app?.status]);
+
+    useEffect(() => {
+        if (widgetsChanged && app?.status === "pending") {
             if (isCurrentHistoryItemIsSaved) {
                 updateApp({
                     ...app,
@@ -39,7 +52,13 @@ export default () => {
                 });
             }
         }
-    }, [app, isCurrentHistoryItemIsPublished, isCurrentHistoryItemIsSaved, test, updateApp]);
+    }, [
+        app,
+        isCurrentHistoryItemIsPublished,
+        isCurrentHistoryItemIsSaved,
+        widgetsChanged,
+        updateApp,
+    ]);
 
     useEffect(() => {
         if (editorStateChanged) {

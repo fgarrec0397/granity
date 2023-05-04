@@ -1,5 +1,6 @@
 import { App, AppScenes, FetchStatus, useScenes } from "@engine/api";
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
+import { isEqual } from "@granity/helpers";
 import { useCallback } from "react";
 
 import useCoreService from "../_data/hooks/useCoreService";
@@ -28,11 +29,15 @@ export default () => {
                 name: "",
             };
 
-            // TODO - check if the saved scenes and the published scenes are equal. If yes, the status should be published
+            const isSavedSceneIsPublished = isEqual(
+                savedScenes.scenes,
+                app?.publishedScenes?.scenes
+            );
+
             const savedApp: App = {
                 ...app,
                 savedScenes,
-                status: "saved",
+                status: isSavedSceneIsPublished ? "published" : "saved",
             };
 
             save(savedApp);

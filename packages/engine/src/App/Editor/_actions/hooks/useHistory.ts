@@ -35,26 +35,18 @@ export default () => {
         [currentHistoryItem, hasEdited, previousCurrentHistoryItem]
     );
 
-    const test =
-        previousWidgets !== undefined &&
-        previousWidgetsDictionary !== undefined &&
-        (!isEqual(widgets, previousWidgets) ||
-            !isEqual(widgetsObjectInfoDictionary, previousWidgetsDictionary));
-
-    const editorStateChanged = useMemo(
+    const widgetsChanged = useMemo(
         () =>
-            shouldAddHistoryState &&
             previousWidgets !== undefined &&
             previousWidgetsDictionary !== undefined &&
             (!isEqual(widgets, previousWidgets) ||
                 !isEqual(widgetsObjectInfoDictionary, previousWidgetsDictionary)),
-        [
-            previousWidgets,
-            previousWidgetsDictionary,
-            shouldAddHistoryState,
-            widgets,
-            widgetsObjectInfoDictionary,
-        ]
+        [previousWidgets, previousWidgetsDictionary, widgets, widgetsObjectInfoDictionary]
+    );
+
+    const editorStateChanged = useMemo(
+        () => shouldAddHistoryState && widgetsChanged,
+        [shouldAddHistoryState, widgetsChanged]
     );
 
     const shouldUpdateAppStatus = useMemo(
@@ -164,6 +156,6 @@ export default () => {
         editorStateChanged,
         isCurrentHistoryItemIsSaved,
         isCurrentHistoryItemIsPublished,
-        test,
+        widgetsChanged,
     };
 };
