@@ -8,7 +8,7 @@ export default () => {
     const { app, appStatus } = useCore();
 
     useEffect(() => {
-        const scenes = app?.savedScenes?.scenes;
+        const scenes = app?.savedScenes?.scenes; // TODO -continue here. Make this configurable
 
         if (appStatus === "success") {
             initScenes(scenes);

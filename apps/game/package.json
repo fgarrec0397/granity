@@ -1,11 +1,11 @@
 {
-  "name": "game",
+  "name": "game/legacy",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "proxy": "http://localhost:5000",
   "scripts": {
-    "dev": "vite --port 3001",
+    "dev": "vite --port 9999",
     "build": "tsc && vite build",
     "lint": "eslint --ext .ts,.tsx src --fix",
     "format": "prettier --write ./src",

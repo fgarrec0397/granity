@@ -17,6 +17,8 @@ export default () => {
         queryFn: () => AppService.get({ endpoint: endpoints.app.get }),
     });
 
+    console.log(data, "data useHandleLoadApp");
+
     useEffect(() => {
         updateStatus(status);
 
