@@ -8,7 +8,7 @@ import { useHandleGameStart } from "../_actions/hooks";
 const GameScene: FC = () => {
     const { widgetsObjectsIds } = useWidgets();
 
-    useHandleInitScenes();
+    useHandleInitScenes("publishedScenes");
     useHandleGameStart();
 
     return <Widgets widgetsIds={widgetsObjectsIds} />;
