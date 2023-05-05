@@ -1,13 +1,35 @@
 {
-  "extends": "@granity/typescript-config/base.json",
+  "extends": "@granity/typescript-config/nextjs.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-        "@engine/*": ["../../../packages/engine/src/*"],
-        "@widgets/*": ["../../../packages/widgets/src/*"],
-        "@ui/*": ["../../../packages/ui/src/*"],
+      "@/*": ["./src/*"],
+      "@engine/*": [
+        "../../packages/engine/src/*"
+      ],
+      "@ui/*": [
+        "../../packages/ui/src/*"
+      ],
+      "@widgets/*": [
+        "../../packages/widgets/src/*"
+      ]
     },
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["./src", "./vite.config.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types/next-auth.d.ts",
+    "next.config.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

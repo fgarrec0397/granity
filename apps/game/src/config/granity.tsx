@@ -1,6 +1,4 @@
 import { EngineConfig, WidgetModules } from "@granity/engine";
-import { HomeIcon, LogoutIcon } from "@granity/ui";
-import { signOut } from "next-auth/react";
 
 let widgetsModules: WidgetModules[] = [];
 
@@ -16,29 +14,10 @@ importWidgetsModules(
 
 export const granityConfig: EngineConfig = {
     widgetsModules,
-    editorMainMenu: [
-        {
-            text: "Home",
-            onClick: () => (window.location.href = "/"),
-            icon: <HomeIcon fontSize="small" />,
-        },
-        {
-            text: "Logout",
-            onClick: () => signOut(),
-            icon: <LogoutIcon fontSize="small" />,
-        },
-    ],
     endpoints: {
-        files: {
-            save: "/server/files",
-            get: "/server/files",
-        },
         app: {
             get: "/server/app",
             save: "/server/app",
-        },
-        processes: {
-            generateJsxFromGlb: "/server/processes/",
         },
     },
 };

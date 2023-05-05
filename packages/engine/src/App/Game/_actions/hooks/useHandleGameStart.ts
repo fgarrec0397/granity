@@ -4,13 +4,15 @@ import { useEffect } from "react";
 
 import getStartingCamera from "../utilities/getStartingCamera";
 
-export default () => {
+export default (gameStatus: "isGame" | "isGamePreview" = "isGame") => {
     const { isGame, isGamePreview, setGameStatus } = useEditor();
     const { gameCameras, setCurrentCamera } = useCameras();
 
     useEffect(() => {
-        setGameStatus();
-    }, [setGameStatus]);
+        if (gameStatus === "isGame") {
+            setGameStatus();
+        }
+    }, [gameStatus, setGameStatus]);
 
     useEffect(() => {
         const startingGameCamera = getStartingCamera(gameCameras);

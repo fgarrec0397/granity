@@ -10,7 +10,7 @@ const Scenes: FC = () => {
     const { isEditor, isGamePreview, isPreview, isUIPreview } = useEditor();
 
     useHandleEditor();
-    useHandleGameStart();
+    useHandleGameStart("isGamePreview");
     useHandleInitScenes();
 
     if (isEditor || isPreview || isUIPreview) {

@@ -1,16 +1,14 @@
 {
-  "extends": [
-    "@granity"
-  ],
-  "settings": {
-    "react": {
-      "version": "detect"
+    "extends": ["@granity"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+        "import/resolver": {
+            "typescript": {}
+        }
     },
-    "import/resolver": {
-      "typescript": {}
+    "parserOptions": {
+        "project": ["./tsconfig.json"]
     }
-  },
-  "parserOptions": {
-    "project": ["./tsconfig.json"]
-  }
 }
