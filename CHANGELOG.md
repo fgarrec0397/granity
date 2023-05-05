@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.8](https://github.com/fgarrec0397/granity/compare/v0.4.7...v0.4.8) (2023-05-05)
+
+
+### Features
+
+* beforeunload handler + some fixes / refactor: variables encapsulated by useMemo ([67de4c1](https://github.com/fgarrec0397/granity/commits/67de4c17bea165b93645c6223ef3c9c618577c00))
+* nextjs game app ([bab2993](https://github.com/fgarrec0397/granity/commits/bab29935bb1c07a94c3706d5fcfdea174b84a3d5))
+* published status in progress ([f147723](https://github.com/fgarrec0397/granity/commits/f14772355e47862bafdcaba898348dfa4867408a))
+* save and publish status ([c6210a3](https://github.com/fgarrec0397/granity/commits/c6210a38e880c968a9d371b1da92597361df3687))
+
+
+### Bug Fixes
+
+* game styles adjustments + loading the published scenes for the game ([b830c88](https://github.com/fgarrec0397/granity/commits/b830c88f5819007d1bb32f724ebf638a5df9ce5b))
+* **WIP:** change the status on undo ([c6e7a73](https://github.com/fgarrec0397/granity/commits/c6e7a73f8a73e2f9184ec181359356968dc305f8))
+
+
+### Refactor
+
+* coreStatus added + useHandleInitScenes ([5867f5f](https://github.com/fgarrec0397/granity/commits/5867f5f2998c0b6ec66f906ff2a800edd6c771c6))
+* fetch status in core / feat: Linear progress in header ([63ef7c4](https://github.com/fgarrec0397/granity/commits/63ef7c4ab3994883c587a3e08d0bbd037cf9ef62))
+* removed legacy code ([1de861c](https://github.com/fgarrec0397/granity/commits/1de861ca31eda9071d1b645edff835d480ed0be4))
+* removed legacy game app ([0cdb1e0](https://github.com/fgarrec0397/granity/commits/0cdb1e05cc2b8742303ffd7c86d39848dfe5054b))
+* save scenes to save app ([052884c](https://github.com/fgarrec0397/granity/commits/052884c0bc099b8b5755f449cd9728af2fb7de3e))
+
 ### [0.4.7](https://github.com/fgarrec0397/granity/compare/v0.4.6...v0.4.7) (2023-04-27)
 
 
