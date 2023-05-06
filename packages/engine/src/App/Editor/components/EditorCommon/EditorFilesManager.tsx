@@ -1,11 +1,10 @@
-import { ClientKeyMappings } from "@engine/App/Core/_actions/coreTypes";
+import { rootFolderName } from "@engine/App/Core/_actions/coreConstants";
+import { ClientKeyMappings, FileItem } from "@engine/App/Core/_actions/coreTypes";
+import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import useKeyboardMapping from "@engine/App/Core/_actions/hooks/useKeyboardMapping";
 import { Drawer, FilesManager, useSnackbar } from "@granity/ui";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 
-import { rootFolderName } from "../../_actions/editorConstants";
-import { FileItem } from "../../_actions/editorTypes";
-import { useEditor } from "../../_actions/hooks";
 import useHandleLoadFiles from "../../_actions/hooks/useHandleLoadFiles";
 import EditorGLBFileProcessor from "../EditorBottomPanel/EditorGLBFileProcessor";
 
@@ -23,7 +22,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
     const [selectedFolderIndex, setSelectedFolderIndex] = useState<number>();
     const [newFolderName, setNewFolderName] = useState<string>("");
     const { filesData, saveFiles, editFile, deleteFile, pathToLoadFiles, updatePathToLoadFiles } =
-        useEditor();
+        useCore();
     const { enqueueSnackbar } = useSnackbar();
 
     const currentRootPathLinks = filesData?.currentRootPath?.split("/");

@@ -1,15 +1,15 @@
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
+import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { useQuery } from "@granity/helpers";
 import { useSnackbar } from "@granity/ui";
 import { useEffect } from "react";
 
 import { FilesService } from "../_data/filesService";
-import useEditor from "./useEditor";
 
 export default () => {
     const { enqueueSnackbar } = useSnackbar();
     const { endpoints } = useConfig();
-    const { updateFilesStatus, updateFiles, pathToLoadFiles } = useEditor();
+    const { updateFilesStatus, updateFiles, pathToLoadFiles } = useCore();
 
     const { data, status, isLoading } = useQuery({
         queryKey: ["files", pathToLoadFiles],

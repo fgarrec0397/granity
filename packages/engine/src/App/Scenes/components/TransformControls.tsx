@@ -10,7 +10,7 @@ const TransformControlsComponent: FC = () => {
     const { camera, scene, gl } = useThree();
     const { selectedWidgets, firstCurrentWidget, updatetWidgetWithMesh } = useWidgets();
     const getMeshByWidget = useGetWidgets();
-    const { setIsEditing, currentMode } = useEditor();
+    const { setIsEditing, isEditing, currentMode } = useEditor();
     const [meshToAttach, setMeshToAttach] = useState<Object3D>();
 
     const previousCurrentMode = usePrevious(currentMode);
@@ -90,6 +90,7 @@ const TransformControlsComponent: FC = () => {
             if (meshToAttach) {
                 updatetWidgetWithMesh(selectedWidgets[0].id, meshToAttach);
             }
+
             debouncedObjectChange.cancel();
         };
 
@@ -97,16 +98,23 @@ const TransformControlsComponent: FC = () => {
             setIsEditing(value);
         };
 
-        transformControls?.addEventListener("mouseUp", onTransformControlMouseUp);
+        // transformControls?.addEventListener("mouseUp", onTransformControlMouseUp);
         transformControls?.addEventListener("dragging-changed", onDraggingChangedHandler);
-        transformControls?.addEventListener("objectChange", debouncedObjectChange);
+        // transformControls?.addEventListener("objectChange", debouncedObjectChange);
 
         return () => {
-            transformControls?.removeEventListener("mouseUp", onTransformControlMouseUp);
+            // transformControls?.removeEventListener("mouseUp", onTransformControlMouseUp);
             transformControls?.removeEventListener("dragging-changed", onDraggingChangedHandler);
-            transformControls?.removeEventListener("objectChange", debouncedObjectChange);
+            // transformControls?.removeEventListener("objectChange", debouncedObjectChange);
         };
-    }, [transformControls, meshToAttach, updatetWidgetWithMesh, setIsEditing, selectedWidgets]);
+    }, [
+        transformControls,
+        meshToAttach,
+        updatetWidgetWithMesh,
+        setIsEditing,
+        isEditing,
+        selectedWidgets,
+    ]);
 
     return null;
 };

@@ -1,4 +1,4 @@
-import { App, AppScenes, FetchStatus, useScenes } from "@engine/api";
+import { App, AppScenes, FetchStatus, FilesData, useScenes } from "@engine/api";
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import { isEqual } from "@granity/helpers";
 import { useCallback } from "react";
@@ -8,7 +8,23 @@ import useCoreService from "../_data/hooks/useCoreService";
 export default () => {
     const { onEditorPointerMissed, isEditor, isPreview } = useEditor();
     const { saveScenes } = useScenes();
-    const { generateJsxFromGlb, save, app, setApp, setStatus, status } = useCoreService();
+    const {
+        generateJsxFromGlb,
+        save,
+        app,
+        setApp,
+        setStatus,
+        status,
+        filesData,
+        pathToLoadFiles,
+        setPathToLoadFiles,
+        setFilesDataStatus,
+        setFilesData,
+        getFilesData,
+        saveFiles,
+        editFile,
+        deleteFile,
+    } = useCoreService();
 
     const onCorePointerMissed = useCallback(
         (event: MouseEvent) => {
@@ -68,6 +84,34 @@ export default () => {
         [setStatus]
     );
 
+    const updateFilesStatus = useCallback(
+        (newFilesStatus: FetchStatus) => {
+            setFilesDataStatus(newFilesStatus);
+        },
+        [setFilesDataStatus]
+    );
+
+    const updateFiles = useCallback(
+        (newFilesData: FilesData) => {
+            setFilesData(newFilesData);
+        },
+        [setFilesData]
+    );
+
+    const updatePathToLoadFiles = useCallback(
+        (newPathToLoad: string) => {
+            setPathToLoadFiles(newPathToLoad);
+        },
+        [setPathToLoadFiles]
+    );
+
+    const loadFiles = useCallback(
+        (path: string) => {
+            getFilesData(path);
+        },
+        [getFilesData]
+    );
+
     return {
         app,
         appStatus: status,
@@ -77,5 +121,14 @@ export default () => {
         updateApp,
         updateStatus,
         publishApp,
+        filesData,
+        updateFiles,
+        updateFilesStatus,
+        loadFiles,
+        saveFiles,
+        editFile,
+        deleteFile,
+        updatePathToLoadFiles,
+        pathToLoadFiles,
     };
 };

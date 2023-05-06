@@ -1,9 +1,6 @@
 import { useAppDispatch } from "@engine/App/Core/_actions/_data/state/store";
-import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
-import { useCallback } from "react";
 
 import { EditorModesAvailable, EditorStatus } from "../../editorConstants";
-import { FilesData } from "../../editorTypes";
 import {
     setCurrentMode,
     setEditorStatus,
@@ -12,8 +9,7 @@ import {
     setIsEditing,
     setIsGridEnabled,
     setIsMultipleSelect,
-} from "../state/editorUtilsReducer";
-import { setFilesData, setPathToLoadFiles, setStatus } from "../state/filesReducer";
+} from "../state/editorReducer";
 
 export default () => {
     const dispatch = useAppDispatch();
@@ -32,16 +28,6 @@ export default () => {
 
     const dispatchSetCurrentMode = (mode: EditorModesAvailable) => dispatch(setCurrentMode(mode));
 
-    const dispatchSetFilesData = (filesData: FilesData) => dispatch(setFilesData(filesData));
-
-    const dispatchSetPathToLoadFiles = (pathToLoad: string) =>
-        dispatch(setPathToLoadFiles(pathToLoad));
-
-    const dispatchSetFilesDataStatus = useCallback(
-        (status: FetchStatus) => dispatch(setStatus(status)),
-        [dispatch]
-    );
-
     return {
         dispatchSetEditorStatus,
         dispatchSetIsEditing,
@@ -50,8 +36,5 @@ export default () => {
         dispatchSetIsMultipleSelect,
         dispatchSetIsGridEnabled,
         dispatchSetCurrentMode,
-        dispatchSetFilesData,
-        dispatchSetPathToLoadFiles,
-        dispatchSetFilesDataStatus,
     };
 };

@@ -8,7 +8,7 @@
         "audit:fix": "npm audit fix",
         "dev": "next dev",
         "build": "next build",
-        "start": "next start",
+        "start": "next start -p 3001",
         "lint": "eslint --ext .ts,.tsx --fix",
         "format": "prettier --write ./",
         "update:check": "ncu",

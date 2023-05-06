@@ -97,3 +97,17 @@ export type App<ScenesType = AppScenes> = {
     publishedScenes?: ScenesType;
     status?: AppStatus;
 };
+
+// --- Files --- //
+
+export type FilesData = {
+    currentRootPath: string;
+    folders: FileItem[];
+    files: FileItem[];
+};
+
+export type FileItem = {
+    path: string;
+    name: string;
+    type: string;
+};

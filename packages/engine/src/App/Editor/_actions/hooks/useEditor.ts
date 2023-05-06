@@ -1,10 +1,8 @@
-import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { useCallback, useEffect, useMemo } from "react";
 
 import useEditorService from "../_data/hooks/useEditorService";
 import { EditorModesAvailable, EditorStatus } from "../editorConstants";
-import { FilesData } from "../editorTypes";
 
 export default () => {
     const {
@@ -20,15 +18,6 @@ export default () => {
         updateCurrentMode,
         updatedIsGridEnabled,
         isGridEnabled,
-        filesData,
-        pathToLoadFiles,
-        setPathToLoadFiles,
-        setFilesDataStatus,
-        setFilesData,
-        getFilesData,
-        saveFiles,
-        editFile,
-        deleteFile,
     } = useEditorService();
     const { removeWidgetSelection } = useWidgets();
     const isEditor = useMemo(() => editorStatus === EditorStatus.IsEditor, [editorStatus]);
@@ -96,34 +85,6 @@ export default () => {
         [removeWidgetSelection]
     );
 
-    const updateFilesStatus = useCallback(
-        (newFilesStatus: FetchStatus) => {
-            setFilesDataStatus(newFilesStatus);
-        },
-        [setFilesDataStatus]
-    );
-
-    const updateFiles = useCallback(
-        (newFilesData: FilesData) => {
-            setFilesData(newFilesData);
-        },
-        [setFilesData]
-    );
-
-    const updatePathToLoadFiles = useCallback(
-        (newPathToLoad: string) => {
-            setPathToLoadFiles(newPathToLoad);
-        },
-        [setPathToLoadFiles]
-    );
-
-    const loadFiles = useCallback(
-        (path: string) => {
-            getFilesData(path);
-        },
-        [getFilesData]
-    );
-
     return {
         editorStatus,
         isEditor,
@@ -146,14 +107,5 @@ export default () => {
         onEditorPointerMissed,
         toggleGrid,
         isGridEnabled,
-        filesData,
-        updateFiles,
-        updateFilesStatus,
-        loadFiles,
-        saveFiles,
-        editFile,
-        deleteFile,
-        updatePathToLoadFiles,
-        pathToLoadFiles,
     };
 };
