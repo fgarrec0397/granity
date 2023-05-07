@@ -1,9 +1,8 @@
-import { useEditor } from "@engine/api";
 import useUI from "@engine/App/UI/_actions/hooks/useUI";
 import { uidGenerator } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 import { useSnackbar } from "@granity/ui";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
 import { UpdateWidgetParameter } from "../_data/widgetsServiceParameters";
@@ -44,7 +43,6 @@ export default () => {
     } = useWidgetsService();
     const { updateSelectedWidgetProperties } = useUI();
     const { enqueueSnackbar } = useSnackbar();
-    const { isEditing } = useEditor();
 
     const getWidgetDictionaryFromWidget = useCallback(
         (widgetId: string | undefined) => {
