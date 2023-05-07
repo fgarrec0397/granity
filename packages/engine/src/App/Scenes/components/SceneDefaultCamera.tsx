@@ -41,10 +41,6 @@ const EditorCamera: FC = () => {
         }
     }, [hasEditorOpened, isEditor, setHasEditorOpened]);
 
-    useEffect(() => {
-        console.log(isEditing, "isEditing");
-    }, [isEditing]);
-
     if (isEditor || isPreview) {
         return (
             <>

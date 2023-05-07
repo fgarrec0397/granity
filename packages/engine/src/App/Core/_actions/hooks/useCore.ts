@@ -1,12 +1,14 @@
 import { App, AppScenes, FetchStatus, FilesData, useScenes } from "@engine/api";
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
+import useEditorWidgets from "@engine/App/Editor/_actions/hooks/useEditorWidgets";
 import { isEqual } from "@granity/helpers";
 import { useCallback } from "react";
 
 import useCoreService from "../_data/hooks/useCoreService";
 
 export default () => {
-    const { onEditorPointerMissed, isEditor, isPreview } = useEditor();
+    const { isEditor, isPreview } = useEditor();
+    const { onEditorPointerMissed } = useEditorWidgets();
     const { saveScenes } = useScenes();
     const {
         generateJsxFromGlb,

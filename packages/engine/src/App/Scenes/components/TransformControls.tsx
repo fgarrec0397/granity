@@ -98,14 +98,14 @@ const TransformControlsComponent: FC = () => {
             setIsEditing(value);
         };
 
-        // transformControls?.addEventListener("mouseUp", onTransformControlMouseUp);
+        transformControls?.addEventListener("mouseUp", onTransformControlMouseUp);
         transformControls?.addEventListener("dragging-changed", onDraggingChangedHandler);
-        // transformControls?.addEventListener("objectChange", debouncedObjectChange);
+        transformControls?.addEventListener("objectChange", debouncedObjectChange);
 
         return () => {
-            // transformControls?.removeEventListener("mouseUp", onTransformControlMouseUp);
+            transformControls?.removeEventListener("mouseUp", onTransformControlMouseUp);
             transformControls?.removeEventListener("dragging-changed", onDraggingChangedHandler);
-            // transformControls?.removeEventListener("objectChange", debouncedObjectChange);
+            transformControls?.removeEventListener("objectChange", debouncedObjectChange);
         };
     }, [
         transformControls,

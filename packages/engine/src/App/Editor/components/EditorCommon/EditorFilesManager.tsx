@@ -5,7 +5,6 @@ import useKeyboardMapping from "@engine/App/Core/_actions/hooks/useKeyboardMappi
 import { Drawer, FilesManager, useSnackbar } from "@granity/ui";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 
-import useHandleLoadFiles from "../../_actions/hooks/useHandleLoadFiles";
 import EditorGLBFileProcessor from "../EditorBottomPanel/EditorGLBFileProcessor";
 
 type Props = {
@@ -29,8 +28,6 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
 
     const openUploadActionsModal = () => setIsGlbFileProcessorOpen(true);
     const closeGlbFileProcessor = () => setIsGlbFileProcessorOpen(false);
-
-    useHandleLoadFiles();
 
     useKeyboardMapping(
         async (keyMapping: ClientKeyMappings) => {

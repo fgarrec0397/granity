@@ -4,10 +4,10 @@ import Widgets from "@engine/App/Widgets/Widgets";
 import { Grid, Select } from "@granity/three/drei";
 import { FC } from "react";
 
+import useHandleLoadFiles from "../Core/_actions/hooks/useHandleLoadFiles";
 import { useEditor } from "./_actions/hooks";
 import useEditorKeyboardControls from "./_actions/hooks/useEditorKeyboardControls";
 import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateChange";
-import useHandleLoadFiles from "./_actions/hooks/useHandleLoadFiles";
 import EditorLayout from "./components/EditorLayout";
 
 const Editor: FC = () => {

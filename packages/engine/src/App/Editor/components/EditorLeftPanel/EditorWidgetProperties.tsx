@@ -1,4 +1,5 @@
 import { WidgetProperties } from "@engine/api";
+import useUI from "@engine/App/UI/_actions/hooks/useUI";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
 import { updateArrayAt, Vector3Array } from "@granity/helpers";
@@ -6,48 +7,49 @@ import { Accordion, AccordionDetails, AccordionSummary, Vector3Input } from "@gr
 import { FC } from "react";
 
 const EditorWidgetProperties: FC = () => {
-    const { selectedWidgets, widgetPropertiesUI, updateWidget } = useWidgets();
+    const { selectedWidgets, updateWidget } = useWidgets();
+    const { selectedWidgetProperties } = useUI();
     const openedAccordion = useAccordionDefaultOpened();
 
     const onChange = (propertiyKey: keyof WidgetProperties, inputValue: number, index: number) => {
-        if (widgetPropertiesUI) {
+        if (selectedWidgetProperties) {
             const newValue = updateArrayAt<Vector3Array>(
-                widgetPropertiesUI?.[propertiyKey] || [0, 0, 0],
+                selectedWidgetProperties?.[propertiyKey] || [0, 0, 0],
                 inputValue,
                 index
             );
 
             updateWidget(selectedWidgets[0].id, {
                 properties: {
-                    ...widgetPropertiesUI,
+                    ...selectedWidgetProperties,
                     [propertiyKey]: newValue,
                 },
             });
         }
     };
 
-    if (selectedWidgets[0] && widgetPropertiesUI) {
+    if (selectedWidgets[0] && selectedWidgetProperties) {
         return (
             <Accordion {...openedAccordion}>
                 <AccordionSummary>Properties</AccordionSummary>
                 <AccordionDetails>
                     <Vector3Input
                         title="Position"
-                        value={widgetPropertiesUI?.position}
+                        value={selectedWidgetProperties?.position}
                         onChange={(inputValue: number, index: number) =>
                             onChange("position", inputValue, index)
                         }
                     />
                     <Vector3Input
                         title="Rotation"
-                        value={widgetPropertiesUI?.rotation}
+                        value={selectedWidgetProperties?.rotation}
                         onChange={(inputValue: number, index: number) =>
                             onChange("rotation", inputValue, index)
                         }
                     />
                     <Vector3Input
                         title="Scale"
-                        value={widgetPropertiesUI?.scale}
+                        value={selectedWidgetProperties?.scale}
                         onChange={(inputValue: number, index: number) =>
                             onChange("scale", inputValue, index)
                         }

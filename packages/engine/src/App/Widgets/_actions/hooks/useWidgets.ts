@@ -1,7 +1,9 @@
+import { useEditor } from "@engine/api";
+import useUI from "@engine/App/UI/_actions/hooks/useUI";
 import { uidGenerator } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 import { useSnackbar } from "@granity/ui";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
 import { UpdateWidgetParameter } from "../_data/widgetsServiceParameters";
@@ -33,16 +35,16 @@ export default () => {
         widgetsUI,
         widgetsObjectsIds,
         widgetsUIIds,
-        widgetPropertiesUI,
         widgetsObjectInfoDictionary,
         selectedWidgets,
         removeSelection,
         update,
         remove,
-        updatePropertiesUI,
         reset,
     } = useWidgetsService();
+    const { updateSelectedWidgetProperties } = useUI();
     const { enqueueSnackbar } = useSnackbar();
+    const { isEditing } = useEditor();
 
     const getWidgetDictionaryFromWidget = useCallback(
         (widgetId: string | undefined) => {
@@ -65,7 +67,7 @@ export default () => {
     const getWidgetInfoById = useCallback(
         (id: string | undefined) => {
             if (id) {
-                return widgetsObjectInfoDictionary[id];
+                return widgetsObjectInfoDictionary?.[id];
             }
         },
         [widgetsObjectInfoDictionary]
@@ -120,10 +122,10 @@ export default () => {
             update(widgetId, value);
 
             if (value.properties) {
-                updatePropertiesUI(value.properties);
+                updateSelectedWidgetProperties(value.properties);
             }
         },
-        [update, updatePropertiesUI]
+        [update, updateSelectedWidgetProperties]
     );
 
     const updateCurrentWidgetOptions = useCallback(
@@ -141,13 +143,13 @@ export default () => {
                 const widgetProperties = buildWidgetDictionaryProperties(mesh);
 
                 if (updateOnlyUI) {
-                    updatePropertiesUI(widgetProperties);
+                    updateSelectedWidgetProperties(widgetProperties);
                 } else {
                     updateWidget(widgetId, { properties: widgetProperties });
                 }
             }
         },
-        [updatePropertiesUI, updateWidget]
+        [updateSelectedWidgetProperties, updateWidget]
     );
 
     const addWidget = useCallback(
@@ -206,7 +208,10 @@ export default () => {
 
     const selectWidget = useCallback(
         (widgetsToSelect: WidgetObjectsDictionaryItem[], forceSelect = false) => {
-            if (!forceSelect && widgetsToSelect[0].isFrozen) {
+            if (
+                !forceSelect &&
+                widgetsToSelect[0].isFrozen /* The select issue comes from this */
+            ) {
                 removeWidgetSelection();
 
                 return;
@@ -216,7 +221,7 @@ export default () => {
             select(widgetsToSelect);
 
             if (properties) {
-                updatePropertiesUI(properties);
+                updateSelectedWidgetProperties(properties);
                 updateWidget(widgetsToSelect[0].id, { properties });
             }
         },
@@ -224,7 +229,7 @@ export default () => {
             widgetsObjectInfoDictionary,
             select,
             removeWidgetSelection,
-            updatePropertiesUI,
+            updateSelectedWidgetProperties,
             updateWidget,
         ]
     );
@@ -294,7 +299,6 @@ export default () => {
     return {
         selectedWidgets,
         firstCurrentWidget: selectedWidgets[0],
-        widgetPropertiesUI,
         widgets,
         widgetsIds,
         widgetsObjects,

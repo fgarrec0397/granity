@@ -42,7 +42,7 @@ export const coreSlice = createSlice({
             state.filesData = actions.payload;
         },
         setFilesStatus: (state: CoreState, actions: PayloadAction<FetchStatus>) => {
-            state.status = actions.payload;
+            state.filesStatus = actions.payload;
         },
     },
 });

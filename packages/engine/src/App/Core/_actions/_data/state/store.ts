@@ -1,6 +1,7 @@
 import editorReducer, { EditorState } from "@engine/App/Editor/_actions/_data/state/editorReducer";
 import gameReducer, { GameState } from "@engine/App/Game/_actions/_data/state/gameReducer";
 import scenesReducer, { ScenesState } from "@engine/App/Scenes/_actions/_data/state/scenesReducer";
+import uiReducer, { UIState } from "@engine/App/UI/_actions/_data/state/uiReducer";
 import widgetsReducer, {
     WidgetsState,
 } from "@engine/App/Widgets/_actions/_data/state/widgetsReducer";
@@ -16,6 +17,7 @@ export interface State {
     widgets: WidgetsState;
     scenes: ScenesState;
     game: GameState;
+    ui: UIState;
 }
 
 type MyAction = AnyAction;
@@ -44,6 +46,7 @@ const staticReducers: ReducersMapObject<State, MyAction> = {
     widgets: widgetsReducer,
     scenes: scenesReducer,
     game: gameReducer,
+    ui: uiReducer,
 };
 
 export function initStore() {

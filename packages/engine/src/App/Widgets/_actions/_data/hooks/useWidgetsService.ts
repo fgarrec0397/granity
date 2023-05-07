@@ -9,7 +9,6 @@ import {
     WidgetObjectInfo,
     WidgetObjectInfoDictionary,
     WidgetObjectsDictionaryItem,
-    WidgetProperties,
 } from "../../widgetsTypes";
 import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 import useWidgetDispatch from "./useWidgetDispatch";
@@ -17,15 +16,13 @@ import useWidgetsContext from "./useWidgetsContext";
 import useWidgetsSelector from "./useWidgetsSelector";
 
 export default () => {
-    const { widgetPropertiesUI, widgetsObjectInfoDictionary, widgetsObjectInfoIds } =
-        useWidgetsSelector();
+    const { widgetsObjectInfoDictionary, widgetsObjectInfoIds } = useWidgetsSelector();
     const { widgets, selectedWidgets, setWidgets, setSelectedWidgets, widgetsIds, setWidgetsIds } =
         useWidgetsContext();
     const {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
         dispatchUpdateDictionary,
-        dispatchSetPropertiesUI,
         dispatchRemoveWidgetDictionary,
         dispatchOverrideWidgetDictionary,
         dispatchRemoveBatchWidgetDictionary,
@@ -121,13 +118,6 @@ export default () => {
         removeBatch(widgets);
     }, [removeBatch, widgets]);
 
-    const updatePropertiesUI = useCallback(
-        (widgetProperties: WidgetProperties) => {
-            dispatchSetPropertiesUI(widgetProperties);
-        },
-        [dispatchSetPropertiesUI]
-    );
-
     const reset = useCallback(
         (
             newWidgets: WidgetDictionary,
@@ -156,7 +146,6 @@ export default () => {
         widgetsUI,
         widgetsObjectsIds,
         widgetsUIIds,
-        widgetPropertiesUI,
         widgetsObjectInfoDictionary,
         widgetsObjectInfoIds,
         selectedWidgets,
@@ -165,6 +154,5 @@ export default () => {
         removeBatch,
         removeAll,
         reset,
-        updatePropertiesUI,
     };
 };

@@ -1,8 +1,7 @@
 import { useAppDispatch } from "@engine/App/Core/_actions/_data/state/store";
 import { useCallback } from "react";
 
-import { WidgetObjectInfo, WidgetObjectInfoDictionary, WidgetProperties } from "../../widgetsTypes";
-import { setPropertiesUI } from "../state/displayedInformationReducer";
+import { WidgetObjectInfo, WidgetObjectInfoDictionary } from "../../widgetsTypes";
 import {
     addBatchWidgetDictionary,
     addWidgetDictionary,
@@ -10,7 +9,7 @@ import {
     removeBatchWidgetDictionary,
     removeWidgetDictionary,
     updateWidgetDictionary,
-} from "../state/widgetsInfoDictionaryReducer";
+} from "../state/widgetsReducer";
 import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 
 export default () => {
@@ -60,13 +59,6 @@ export default () => {
         [dispatch]
     );
 
-    const dispatchSetPropertiesUI = useCallback(
-        (widgetProperties: WidgetProperties) => {
-            return dispatch(setPropertiesUI(widgetProperties));
-        },
-        [dispatch]
-    );
-
     return {
         dispatchAddDictionary,
         dispatchAddBatchDictionary,
@@ -74,6 +66,5 @@ export default () => {
         dispatchRemoveWidgetDictionary,
         dispatchRemoveBatchWidgetDictionary,
         dispatchOverrideWidgetDictionary,
-        dispatchSetPropertiesUI,
     };
 };

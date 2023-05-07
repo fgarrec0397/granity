@@ -6,9 +6,9 @@
     "scripts": {
         "audit": "npm audit",
         "audit:fix": "npm audit fix",
-        "dev": "next dev",
+        "dev": "next dev -p 3001",
         "build": "next build",
-        "start": "next start -p 3001",
+        "start": "next start",
         "lint": "eslint --ext .ts,.tsx --fix",
         "format": "prettier --write ./",
         "update:check": "ncu",

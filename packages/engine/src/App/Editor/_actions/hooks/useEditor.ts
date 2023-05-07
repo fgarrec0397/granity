@@ -1,4 +1,3 @@
-import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { useCallback, useEffect, useMemo } from "react";
 
 import useEditorService from "../_data/hooks/useEditorService";
@@ -19,7 +18,6 @@ export default () => {
         updatedIsGridEnabled,
         isGridEnabled,
     } = useEditorService();
-    const { removeWidgetSelection } = useWidgets();
     const isEditor = useMemo(() => editorStatus === EditorStatus.IsEditor, [editorStatus]);
     const isGame = useMemo(() => editorStatus === EditorStatus.IsGame, [editorStatus]);
     const isPreview = useMemo(() => editorStatus === EditorStatus.IsPreview, [editorStatus]);
@@ -77,14 +75,6 @@ export default () => {
         [updateCurrentMode]
     );
 
-    const onEditorPointerMissed = useCallback(
-        (event: MouseEvent) => {
-            event.stopPropagation();
-            removeWidgetSelection();
-        },
-        [removeWidgetSelection]
-    );
-
     return {
         editorStatus,
         isEditor,
@@ -104,7 +94,6 @@ export default () => {
         setIsEditing,
         setHasEditorOpened,
         selectMode,
-        onEditorPointerMissed,
         toggleGrid,
         isGridEnabled,
     };
