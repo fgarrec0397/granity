@@ -1,4 +1,4 @@
-import { InputsConfig } from "../_actions/inputsTypes";
+import { InputsConfig } from "../_actions/coreTypes";
 
 export default {
     editor: [
@@ -83,14 +83,31 @@ export default {
         {
             name: "clickTest",
             event: "mouseup",
+            button: 2,
             ctrlKey: true,
-            shiftKey: true,
+            shiftKey: false,
+        },
+        {
+            name: "jump",
+            event: "drag",
+            code: "Space",
+            ctrlKey: false,
+            shiftKey: false,
+            preventDefault: false,
         },
     ],
     game: [
         {
             name: "jump",
             event: "keyup",
+            code: "Space",
+            ctrlKey: false,
+            shiftKey: false,
+            preventDefault: false,
+        },
+        {
+            name: "jump",
+            event: "drag",
             code: "Space",
             ctrlKey: false,
             shiftKey: false,

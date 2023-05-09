@@ -1,4 +1,3 @@
-import { ClientKeyMappings } from "@engine/App/Core/_actions/coreTypes";
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import useInputs from "@engine/App/Core/_actions/hooks/useInputs";
 import useHistory from "@engine/App/Editor/_actions/hooks/useHistory";
@@ -21,7 +20,7 @@ export default () => {
     const { saveApp } = useCore();
 
     useInputs(
-        (keyMapping: ClientKeyMappings) => {
+        (keyMapping) => {
             if (keyMapping.toggleEditor) {
                 runGamePreview();
             } else if (keyMapping.toggleGrid) {

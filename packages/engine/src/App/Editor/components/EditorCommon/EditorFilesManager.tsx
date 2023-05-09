@@ -1,7 +1,11 @@
 import { rootFolderName } from "@engine/App/Core/_actions/coreConstants";
-import { ClientKeyMappings, FileItem } from "@engine/App/Core/_actions/coreTypes";
+import {
+    EditorClientInput,
+    FileItem,
+    InputsMappingHandler,
+} from "@engine/App/Core/_actions/coreTypes";
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
-import useKeyboardMapping from "@engine/App/Core/_actions/hooks/useKeyboardMapping";
+import useInputs from "@engine/App/Core/_actions/hooks/useInputs";
 import { Drawer, FilesManager, useSnackbar } from "@granity/ui";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 
@@ -29,9 +33,10 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
     const openUploadActionsModal = () => setIsGlbFileProcessorOpen(true);
     const closeGlbFileProcessor = () => setIsGlbFileProcessorOpen(false);
 
-    useKeyboardMapping(
-        async (keyMapping: ClientKeyMappings) => {
-            if (keyMapping.delete && selectedFolderIndex !== undefined) {
+    useInputs<InputsMappingHandler<EditorClientInput>>(
+        async (input) => {
+            // input.d
+            if (input.delete && selectedFolderIndex !== undefined) {
                 const selectedFolder = filesData.folders[selectedFolderIndex];
 
                 if (!selectedFolder) {
@@ -39,7 +44,7 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
                 }
 
                 await deleteFile(selectedFolder.path, true);
-            } else if (keyMapping.delete && selectedFileIndex !== undefined) {
+            } else if (input.delete && selectedFileIndex !== undefined) {
                 const selectedFile = filesData.files[selectedFileIndex];
 
                 if (!selectedFile) {

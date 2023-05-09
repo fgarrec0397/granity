@@ -1,17 +1,17 @@
-import defaultKeyboardMappings from "@engine/App/Core/configs/keyboardMappings";
+import defaultInputsConfig from "@engine/App/Core/configs/inputsConfig";
 import { merge } from "@granity/helpers";
 import { useCallback } from "react";
 
 import useConfigService from "../_data/hooks/useConfigService";
-import { ConfigContexEndpoints, defaultEnpoints } from "../_data/providers/ConfigContextProvider";
-import { EngineConfig, KeyboardKeys } from "../coreTypes";
-import overrideKeyboardMapping from "../utilities/overrideKeyboardMapping";
+import { ConfigContextEndpoints, defaultEnpoints } from "../_data/providers/ConfigContextProvider";
+import { EngineConfig, InputsConfig } from "../coreTypes";
+import overrideInputsConfig from "../utilities/overrideInputsConfig";
 
 export default () => {
     const {
-        updateKeyboardMappings,
+        updateInputsConfig,
         endpoints,
-        keyboardMappings,
+        inputsConfig,
         editorMainMenu,
         updateEditorMainMenu,
         updateEndpoints,
@@ -19,22 +19,19 @@ export default () => {
 
     const initEndpoints = useCallback(
         (newEndpoints: EngineConfig["endpoints"]) => {
-            const mergedEndpoints: ConfigContexEndpoints = merge(defaultEnpoints, newEndpoints);
+            const mergedEndpoints: ConfigContextEndpoints = merge(defaultEnpoints, newEndpoints);
             updateEndpoints(mergedEndpoints);
         },
         [updateEndpoints]
     );
 
-    const initKeyboardMappings = useCallback(
-        (newKeyboardMappings: KeyboardKeys) => {
-            const overridedMappings = overrideKeyboardMapping(
-                defaultKeyboardMappings,
-                newKeyboardMappings
-            );
+    const initInputsConfig = useCallback(
+        (newInputsConfig: InputsConfig) => {
+            const overridedInputs = overrideInputsConfig(defaultInputsConfig, newInputsConfig);
 
-            updateKeyboardMappings(overridedMappings);
+            updateInputsConfig(overridedInputs);
         },
-        [updateKeyboardMappings]
+        [updateInputsConfig]
     );
 
     const initMainMenu = useCallback(
@@ -46,8 +43,8 @@ export default () => {
 
     return {
         endpoints,
-        keyboardMappings,
-        initKeyboardMappings,
+        inputsConfig,
+        initInputsConfig,
         initMainMenu,
         editorMainMenu,
         initEndpoints,

@@ -6,7 +6,7 @@ import useConfig from "./useConfig";
 
 export default (config: EngineConfig) => {
     const { initWidgetsModules } = useWidgetsModules();
-    const { initKeyboardMappings, initMainMenu, initEndpoints } = useConfig();
+    const { initInputsConfig, initMainMenu, initEndpoints } = useConfig();
 
     useEffect(() => {
         if (config.widgetsModules) {
@@ -19,10 +19,10 @@ export default (config: EngineConfig) => {
     }, [config?.endpoints, initEndpoints]);
 
     useEffect(() => {
-        if (config.keyboardMappings) {
-            initKeyboardMappings(config.keyboardMappings);
+        if (config.inputsConfig) {
+            initInputsConfig(config.inputsConfig);
         }
-    }, [config?.keyboardMappings, initKeyboardMappings]);
+    }, [config?.inputsConfig, initInputsConfig]);
 
     useEffect(() => {
         if (config.editorMainMenu) {

@@ -3,7 +3,7 @@ import { WidgetModules } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary } from "@granity/helpers";
 import { ReactNode } from "react";
 
-import keyboardMappings from "../configs/keyboardMappings";
+import inputsConfig from "../configs/inputsConfig";
 
 // --- Store --- //
 
@@ -30,47 +30,97 @@ export type EngineEndpoints = {
 
 export type EngineConfig = {
     widgetsModules: WidgetModules[];
-    keyboardMappings?: KeyboardKeys;
+    inputsConfig?: InputsConfig;
     editorMainMenu?: EditorMainMenuItem[];
     endpoints?: EngineEndpoints;
 };
 
-// --- Key Bindings --- //
+// --- Inputs --- //
 
-export type KeyboardApp<MappingType> = Dictionary<MappingType>;
+/**
+ * Input config object type
+ */
+export type InputsConfig = InputsConfigApp<InputsConfigAppItem[]>;
 
-export type KeyboardKeys = KeyboardApp<Array<KeyboardKeysItem>>;
+/**
+ * Input config by app (editor, game)
+ */
+export type InputsConfigApp<MappingType> = Dictionary<MappingType>;
 
-export type KeyboardKeysItem = {
+/**
+ * Item of an input config by app object
+ */
+export type InputsConfigAppItem = InputKeyItem | InputMouseItem;
+
+/**
+ * Base type of an input config object
+ */
+export type BaseInputItem<EventType extends keyof WindowEventMap> = {
     name: string;
-    code: string;
+    event: EventType;
     ctrlKey: boolean;
     shiftKey: boolean;
     preventDefault: boolean;
 };
 
-export type KeyboardMappings = KeyboardApp<KeyMappings>;
+/**
+ * Mouse up event input config object
+ */
+export type InputMouseItem = BaseInputItem<"mouseup"> & {
+    button: number;
+};
 
-export type KeyMappings = {
-    [key: (typeof keyboardMappings.editor)[number]["name"]]: {
+/**
+ * Key up event input config object
+ */
+export type InputKeyItem = BaseInputItem<"keyup"> & {
+    code: string;
+};
+
+/**
+ * A representation of the inputs config object that is responsible to trigger the event by app (editor, game)
+ */
+export type TriggerableInputsApp = InputsConfigApp<TriggerableInputs>;
+
+/**
+ * A representation of the inputs config object that is responsible to trigger the event
+ */
+export type TriggerableInputs = {
+    [key: (typeof inputsConfig.editor)[number]["name"]]: {
         value: boolean;
-        trigger: (event: KeyboardEvent) => boolean;
+        trigger: (
+            event: WindowEventMap[(typeof inputsConfig)[keyof typeof inputsConfig][number]["event"]]
+        ) => boolean;
     };
 };
 
-export type EditorClientKeyMappings = {
-    [key: (typeof keyboardMappings.editor)[number]["name"]]: boolean;
+/**
+ * Object that reflects the triggered event of the editor app
+ */
+export type EditorClientInput = {
+    [key: (typeof inputsConfig.editor)[number]["name"]]: boolean;
 };
 
-export type GameClientKeyMappings = {
-    [key: (typeof keyboardMappings.game)[number]["name"]]: boolean;
+/**
+ * Object that reflects the triggered event of the game app
+ */
+export type GameClientInput = {
+    [key: (typeof inputsConfig.game)[number]["name"]]: boolean;
 };
 
-export type ClientKeyMappings = EditorClientKeyMappings | GameClientKeyMappings;
+/**
+ * Object that reflects the triggered event in all apps
+ */
+export type AppsClientInput = EditorClientInput | GameClientInput;
 
-export type KeyboardMappingHandler = (keyMapping: ClientKeyMappings) => void;
+/**
+ * Handler given to the useIn
+ */
+export type InputsMappingHandler<ClientInputType extends AppsClientInput = AppsClientInput> = (
+    input: ClientInputType
+) => void | Promise<void>;
 
-export type KeyboardType = keyof typeof keyboardMappings;
+export type InputsType = keyof typeof inputsConfig;
 
 // --- API --- //
 

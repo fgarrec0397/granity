@@ -1,24 +1,24 @@
-import defaultKeyboardMappings from "@engine/App/Core/configs/keyboardMappings";
+import defaultInputs from "@engine/App/Core/configs/inputsConfig";
 import { DeepNonNullable, HasChildren } from "@granity/helpers";
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
 import { EngineConfig } from "../../coreTypes";
 
-export type ConfigContexEditorMainMenu = EngineConfig["editorMainMenu"];
-export type ConfigContexEndpoints = NonNullable<DeepNonNullable<EngineConfig["endpoints"]>>;
-export type ConfigContexKeyboardMapping = EngineConfig["keyboardMappings"];
+export type ConfigContextEditorMainMenu = EngineConfig["editorMainMenu"];
+export type ConfigContextEndpoints = NonNullable<DeepNonNullable<EngineConfig["endpoints"]>>;
+export type ConfigContextInputsConfig = EngineConfig["inputsConfig"];
 
 export type ConfigContextModel = {
-    keyboardMappings: ConfigContexKeyboardMapping;
-    editorMainMenu: ConfigContexEditorMainMenu;
-    endpoints: ConfigContexEndpoints;
-    setKeyboardMappings: (() => void) | Dispatch<SetStateAction<ConfigContexKeyboardMapping>>;
-    setEditorMainMenu: (() => void) | Dispatch<SetStateAction<ConfigContexEditorMainMenu>>;
-    setEndpoints: (() => void) | Dispatch<SetStateAction<ConfigContexEndpoints>>;
+    inputsConfig: ConfigContextInputsConfig;
+    editorMainMenu: ConfigContextEditorMainMenu;
+    endpoints: ConfigContextEndpoints;
+    setInputsConfig: (() => void) | Dispatch<SetStateAction<ConfigContextInputsConfig>>;
+    setEditorMainMenu: (() => void) | Dispatch<SetStateAction<ConfigContextEditorMainMenu>>;
+    setEndpoints: (() => void) | Dispatch<SetStateAction<ConfigContextEndpoints>>;
 };
 
 // TODO - Check why these values are not overridable
-export const defaultEnpoints: ConfigContexEndpoints = {
+export const defaultEnpoints: ConfigContextEndpoints = {
     files: {
         get: "/server/files",
         save: "/server/files",
@@ -37,10 +37,10 @@ export const defaultEnpoints: ConfigContexEndpoints = {
 };
 
 export const ConfigContext = createContext<ConfigContextModel>({
-    keyboardMappings: defaultKeyboardMappings,
+    inputsConfig: defaultInputs,
     editorMainMenu: [],
     endpoints: defaultEnpoints,
-    setKeyboardMappings: () => {},
+    setInputsConfig: () => {},
     setEditorMainMenu: () => {},
     setEndpoints: () => {},
 });
@@ -48,16 +48,15 @@ export const ConfigContext = createContext<ConfigContextModel>({
 type Props = HasChildren;
 
 const ConfigContextProvider: FC<Props> = ({ children }) => {
-    const [keyboardMappings, setKeyboardMappings] =
-        useState<ConfigContexKeyboardMapping>(defaultKeyboardMappings);
-    const [editorMainMenu, setEditorMainMenu] = useState<ConfigContexEditorMainMenu>([]);
-    const [endpoints, setEndpoints] = useState<ConfigContexEndpoints>(defaultEnpoints);
+    const [inputsConfig, setInputsConfig] = useState<ConfigContextInputsConfig>(defaultInputs);
+    const [editorMainMenu, setEditorMainMenu] = useState<ConfigContextEditorMainMenu>([]);
+    const [endpoints, setEndpoints] = useState<ConfigContextEndpoints>(defaultEnpoints);
 
     const providerValue: ConfigContextModel = {
-        keyboardMappings,
+        inputsConfig,
         editorMainMenu,
         endpoints,
-        setKeyboardMappings,
+        setInputsConfig,
         setEditorMainMenu,
         setEndpoints,
     };

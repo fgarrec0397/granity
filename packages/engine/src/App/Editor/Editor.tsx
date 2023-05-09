@@ -2,11 +2,11 @@ import SceneDefaultCamera from "@engine/App/Scenes/components/SceneDefaultCamera
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import Widgets from "@engine/App/Widgets/Widgets";
 import { Grid, Select } from "@granity/three/drei";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import useHandleLoadFiles from "../Core/_actions/hooks/useHandleLoadFiles";
 import { useEditor } from "./_actions/hooks";
-import useEditorKeyboardControls from "./_actions/hooks/useEditorKeyboardControls";
+import useEditorInputs from "./_actions/hooks/useEditorInputs";
 import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateChange";
 import EditorLayout from "./components/EditorLayout";
 
@@ -15,20 +15,8 @@ const Editor: FC = () => {
     const { isGridEnabled } = useEditor();
 
     useHandleLoadFiles();
-    useEditorKeyboardControls();
+    useEditorInputs();
     useHandleEditorStateChange();
-
-    useEffect(() => {
-        const onClick = (event: MouseEvent) => {
-            console.log(event, "event");
-        };
-
-        window.addEventListener("click", onClick);
-
-        return () => {
-            window.removeEventListener("click", onClick);
-        };
-    }, []);
 
     return (
         <Select multiple onChange={selectWidgetFromMeshArr}>

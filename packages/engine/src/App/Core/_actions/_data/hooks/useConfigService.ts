@@ -1,31 +1,31 @@
 import { useCallback } from "react";
 
-import { EngineConfig, KeyboardKeys } from "../../coreTypes";
-import { ConfigContexEndpoints } from "../providers/ConfigContextProvider";
+import { EngineConfig, InputsConfig } from "../../coreTypes";
+import { ConfigContextEndpoints } from "../providers/ConfigContextProvider";
 import useConfigContext from "./useConfigContext";
 
 export default () => {
     const {
-        keyboardMappings,
+        inputsConfig,
         editorMainMenu,
         endpoints,
-        setKeyboardMappings,
+        setInputsConfig,
         setEditorMainMenu,
         setEndpoints,
     } = useConfigContext();
 
     const updateEndpoints = useCallback(
-        (newEndpoints: ConfigContexEndpoints) => {
+        (newEndpoints: ConfigContextEndpoints) => {
             setEndpoints(newEndpoints);
         },
         [setEndpoints]
     );
 
-    const updateKeyboardMappings = useCallback(
-        (newKeyboardMappings: KeyboardKeys) => {
-            setKeyboardMappings(newKeyboardMappings);
+    const updateInputsConfig = useCallback(
+        (newInputsConfig: InputsConfig) => {
+            setInputsConfig(newInputsConfig);
         },
-        [setKeyboardMappings]
+        [setInputsConfig]
     );
 
     const updateEditorMainMenu = useCallback(
@@ -37,10 +37,10 @@ export default () => {
 
     return {
         endpoints,
-        keyboardMappings,
+        inputsConfig,
         editorMainMenu,
         updateEndpoints,
-        updateKeyboardMappings,
+        updateInputsConfig,
         updateEditorMainMenu,
     };
 };

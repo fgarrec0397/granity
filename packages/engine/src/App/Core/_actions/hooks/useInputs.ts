@@ -1,21 +1,26 @@
-import { defaultKeyMappingObj } from "@engine/App/Core/_actions/coreConstants";
+import { defaultInputs } from "@engine/App/Core/_actions/coreConstants";
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import { DependencyList, useCallback, useEffect, useMemo, useState } from "react";
 
-import { ClientInput, InputsMapping, InputsMappingHandler, InputsType } from "../inputsTypes";
+import {
+    AppsClientInput,
+    InputsMappingHandler,
+    InputsType,
+    TriggerableInputsApp,
+} from "../coreTypes";
 import useConfig from "./useConfig";
 
-const triggerAllMappedKeys = (
-    keyMapped: InputsMapping,
+const triggerAllMappedKeys = <EventType extends Event>(
+    keyMapped: TriggerableInputsApp,
     keyboardType: InputsType,
-    event: KeyboardEvent
+    event: EventType
 ) => {
-    const clientKeyMapped: ClientInput = {};
+    const clientKeyMapped: AppsClientInput = {};
 
     for (const key in keyMapped[keyboardType]) {
         keyMapped[keyboardType][key] = {
             ...keyMapped[keyboardType][key],
-            value: event ? keyMapped[keyboardType][key].trigger(event) : false,
+            value: event ? keyMapped[keyboardType][key].trigger(event as any) : false,
         };
 
         clientKeyMapped[key] = keyMapped[keyboardType][key].value;
@@ -24,11 +29,15 @@ const triggerAllMappedKeys = (
     return clientKeyMapped;
 };
 
-export default (handler: InputsMappingHandler, dependencies: DependencyList) => {
+const useInputs = <HandlerType extends InputsMappingHandler>(
+    handler: HandlerType,
+    dependencies: DependencyList
+) => {
     const handlerCallback = useCallback(handler, [handler, ...dependencies]);
     const [keyboardType, setKeyboardType] = useState<InputsType>("editor");
+    const [availableEvents, setAvailableEvents] = useState<(keyof WindowEventMap)[]>([]);
     const { isEditor } = useEditor();
-    const { keyboardMappings } = useConfig();
+    const { inputsConfig } = useConfig();
 
     useEffect(() => {
         if (isEditor) {
@@ -38,34 +47,56 @@ export default (handler: InputsMappingHandler, dependencies: DependencyList) => 
         }
     }, [isEditor]);
 
-    const keysMapping = useMemo((): InputsMapping => {
-        const newMapping = defaultKeyMappingObj;
+    const keysMapping = useMemo((): TriggerableInputsApp => {
+        const newMapping = defaultInputs;
+        const eventsArray: (keyof WindowEventMap)[] = [];
 
-        keyboardMappings?.[keyboardType].forEach((x) => {
+        inputsConfig?.[keyboardType].forEach((x) => {
+            if (eventsArray.indexOf(x.event) === -1) {
+                eventsArray.push(x.event);
+            }
+
             newMapping[keyboardType][x.name] = {
-                trigger: (event: KeyboardEvent) => {
+                trigger: (event) => {
                     const hasCtrlKey = x.ctrlKey ? event.ctrlKey : !event.ctrlKey;
                     const hasShifKey = x.shiftKey ? event.shiftKey : !event.shiftKey;
 
-                    return hasCtrlKey && hasShifKey && event.code === x.code;
+                    if ("code" in event && "code" in x) {
+                        return hasCtrlKey && hasShifKey && event.code === x.code;
+                    }
+
+                    if ("button" in event && "button" in x) {
+                        return hasCtrlKey && hasShifKey && event.button === x.button;
+                    }
+
+                    return false;
                 },
                 value: false,
             };
         });
 
+        if (eventsArray.length) {
+            setAvailableEvents(eventsArray);
+        }
+
         return newMapping;
-    }, [keyboardMappings, keyboardType]);
+    }, [inputsConfig, keyboardType]);
 
     useEffect(() => {
-        // TODO - continue here. Add dynamically event according to the "event" property
-        const onKeyUpHandler = (event: KeyboardEvent) => {
+        const eventHandler = <EventType extends Event>(event: EventType) => {
             handlerCallback(triggerAllMappedKeys(keysMapping, keyboardType, event));
         };
 
-        window.addEventListener("keyup", onKeyUpHandler);
+        availableEvents.forEach((x) => {
+            window.addEventListener(x, eventHandler);
+        });
 
         return () => {
-            window.removeEventListener("keyup", onKeyUpHandler);
+            availableEvents.forEach((x) => {
+                window.removeEventListener(x, eventHandler);
+            });
         };
-    }, [handlerCallback, keyboardType, keysMapping]);
+    }, [availableEvents, handlerCallback, keyboardType, keysMapping]);
 };
+
+export default useInputs;

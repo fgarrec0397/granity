@@ -1,6 +1,6 @@
-import { KeyboardMappings } from "./coreTypes";
+import { TriggerableInputsApp } from "./coreTypes";
 
-export const defaultKeyMappingObj: KeyboardMappings = {
+export const defaultInputs: TriggerableInputsApp = {
     editor: {},
     game: {},
 };
