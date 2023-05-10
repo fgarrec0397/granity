@@ -9,9 +9,9 @@ export default () => {
     const { setGamePreviewStatus } = useEditor();
 
     // This function is called when the game init
-    const runGamePreview = () => {
+    const runGamePreview = useCallback(() => {
         setGamePreviewStatus();
-    };
+    }, [setGamePreviewStatus]);
 
     // Put the current game on pause
     const pauseGame = useCallback(() => {

@@ -17,21 +17,30 @@ export default () => {
     const { editorStatus, hasEdited, hasEditorOpened, isEditing, currentMode, isGridEnabled } =
         useEditorSelector();
 
-    const updateEditorStatus = (status: EditorStatus) => {
-        dispatchSetEditorStatus(status);
-    };
+    const updateEditorStatus = useCallback(
+        (status: EditorStatus) => {
+            dispatchSetEditorStatus(status);
+        },
+        [dispatchSetEditorStatus]
+    );
 
-    const updateIsEditing = (value: boolean) => {
-        dispatchSetIsEditing(value);
-    };
+    const updateIsEditing = useCallback(
+        (value: boolean) => {
+            dispatchSetIsEditing(value);
+        },
+        [dispatchSetIsEditing]
+    );
 
-    const updateHasEditorOpened = () => {
+    const updateHasEditorOpened = useCallback(() => {
         dispatchSetHasEditorOpened();
-    };
+    }, [dispatchSetHasEditorOpened]);
 
-    const updatedIsGridEnabled = (value: boolean) => {
-        dispatchSetIsGridEnabled(value);
-    };
+    const updatedIsGridEnabled = useCallback(
+        (value: boolean) => {
+            dispatchSetIsGridEnabled(value);
+        },
+        [dispatchSetIsGridEnabled]
+    );
 
     const updateHasEdited = useCallback(
         (value: boolean) => {
@@ -40,13 +49,19 @@ export default () => {
         [dispatchSetHasEdited]
     );
 
-    const updateIsMultipleSelect = (value: boolean) => {
-        dispatchSetIsMultipleSelect(value);
-    };
+    const updateIsMultipleSelect = useCallback(
+        (value: boolean) => {
+            dispatchSetIsMultipleSelect(value);
+        },
+        [dispatchSetIsMultipleSelect]
+    );
 
-    const updateCurrentMode = (value: EditorModesAvailable) => {
-        dispatchSetCurrentMode(value);
-    };
+    const updateCurrentMode = useCallback(
+        (value: EditorModesAvailable) => {
+            dispatchSetCurrentMode(value);
+        },
+        [dispatchSetCurrentMode]
+    );
 
     return {
         editorStatus,

@@ -1,4 +1,5 @@
 import { useAppDispatch } from "@engine/App/Core/_actions/_data/state/store";
+import { useCallback } from "react";
 
 import { EditorModesAvailable, EditorStatus } from "../../editorConstants";
 import {
@@ -14,19 +15,40 @@ import {
 export default () => {
     const dispatch = useAppDispatch();
 
-    const dispatchSetEditorStatus = (value: EditorStatus) => dispatch(setEditorStatus(value));
+    const dispatchSetEditorStatus = useCallback(
+        (value: EditorStatus) => dispatch(setEditorStatus(value)),
+        [dispatch]
+    );
 
-    const dispatchSetIsEditing = (value: boolean) => dispatch(setIsEditing(value));
+    const dispatchSetIsEditing = useCallback(
+        (value: boolean) => dispatch(setIsEditing(value)),
+        [dispatch]
+    );
 
-    const dispatchSetHasEditorOpened = () => dispatch(setHasEditorOpened());
+    const dispatchSetHasEditorOpened = useCallback(
+        () => dispatch(setHasEditorOpened()),
+        [dispatch]
+    );
 
-    const dispatchSetHasEdited = (value: boolean) => dispatch(setHasEdited(value));
+    const dispatchSetHasEdited = useCallback(
+        (value: boolean) => dispatch(setHasEdited(value)),
+        [dispatch]
+    );
 
-    const dispatchSetIsMultipleSelect = (value: boolean) => dispatch(setIsMultipleSelect(value));
+    const dispatchSetIsMultipleSelect = useCallback(
+        (value: boolean) => dispatch(setIsMultipleSelect(value)),
+        [dispatch]
+    );
 
-    const dispatchSetIsGridEnabled = (value: boolean) => dispatch(setIsGridEnabled(value));
+    const dispatchSetIsGridEnabled = useCallback(
+        (value: boolean) => dispatch(setIsGridEnabled(value)),
+        [dispatch]
+    );
 
-    const dispatchSetCurrentMode = (mode: EditorModesAvailable) => dispatch(setCurrentMode(mode));
+    const dispatchSetCurrentMode = useCallback(
+        (mode: EditorModesAvailable) => dispatch(setCurrentMode(mode)),
+        [dispatch]
+    );
 
     return {
         dispatchSetEditorStatus,

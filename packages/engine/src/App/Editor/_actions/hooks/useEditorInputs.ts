@@ -11,8 +11,14 @@ import useEditor from "./useEditor";
 
 export default () => {
     const { setNextCamera, setPrevCamera } = useCameras();
-    const { selectedWidgets, firstCurrentWidget, widgets, removeselectedWidgets, copyWidget } =
-        useWidgets();
+    const {
+        selectedWidgets,
+        firstCurrentWidget,
+        widgets,
+        removeselectedWidgets,
+        removeWidgetSelection,
+        copyWidget,
+    } = useWidgets();
     const { toggleGrid } = useEditor();
     const { setPrevHistoryItem, setNextHistoryItem, shouldAddHistoryState } = useHistory();
     const [, setCopiedWidgets] = useState<WidgetDictionaryItem[]>([]);
@@ -20,35 +26,37 @@ export default () => {
     const { saveApp } = useCore();
 
     useInputs(
-        (keyMapping) => {
-            if (keyMapping.toggleEditor) {
+        (input) => {
+            if (input.toggleEditor) {
                 runGamePreview();
-            } else if (keyMapping.toggleGrid) {
+            } else if (input.toggleGrid) {
                 toggleGrid();
-            } else if (keyMapping.copyWidget) {
+            } else if (input.copyWidget) {
                 if (selectedWidgets.length > 0) {
                     setCopiedWidgets(selectedWidgets);
                 }
-            } else if (keyMapping.pasteWidget) {
+            } else if (input.pasteWidget) {
                 if (selectedWidgets.length > 0) {
                     selectedWidgets.forEach((x) => {
                         copyWidget(x);
                     });
                 }
-            } else if (keyMapping.undo) {
+            } else if (input.undo) {
                 setPrevHistoryItem();
-            } else if (keyMapping.cancelUndo) {
+            } else if (input.cancelUndo) {
                 setNextHistoryItem();
-            } else if (keyMapping.delete) {
+            } else if (input.delete) {
                 if (selectedWidgets.length > 0) {
                     removeselectedWidgets();
                 }
-            } else if (keyMapping.nextCamera) {
+            } else if (input.nextCamera) {
                 setNextCamera();
-            } else if (keyMapping.prevCamera) {
+            } else if (input.prevCamera) {
                 setPrevCamera();
-            } else if (keyMapping.saveApp) {
+            } else if (input.saveApp) {
                 saveApp();
+            } else if (input.unselect) {
+                removeWidgetSelection();
             }
         },
         [

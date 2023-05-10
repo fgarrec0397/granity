@@ -206,12 +206,7 @@ export default () => {
 
     const selectWidget = useCallback(
         (widgetsToSelect: WidgetObjectsDictionaryItem[], forceSelect = false) => {
-            if (
-                !forceSelect &&
-                widgetsToSelect[0].isFrozen /* The select issue comes from this */
-            ) {
-                removeWidgetSelection();
-
+            if (!forceSelect && widgetsToSelect[0].isFrozen) {
                 return;
             }
 
@@ -223,13 +218,7 @@ export default () => {
                 updateWidget(widgetsToSelect[0].id, { properties });
             }
         },
-        [
-            widgetsObjectInfoDictionary,
-            select,
-            removeWidgetSelection,
-            updateSelectedWidgetProperties,
-            updateWidget,
-        ]
+        [widgetsObjectInfoDictionary, select, updateSelectedWidgetProperties, updateWidget]
     );
 
     const selectWidgetFromMeshArr = useCallback(

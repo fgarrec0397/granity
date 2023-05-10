@@ -13,18 +13,29 @@ import {
 export default () => {
     const dispatch = useDispatch();
 
-    const dispatchSetApp = (app: App) => {
-        dispatch(setApp(app));
-    };
+    const dispatchSetApp = useCallback(
+        (app: App) => {
+            dispatch(setApp(app));
+        },
+        [dispatch]
+    );
 
-    const dispatchSetStatus = (newStatus: FetchStatus) => {
-        dispatch(setStatus(newStatus));
-    };
+    const dispatchSetStatus = useCallback(
+        (newStatus: FetchStatus) => {
+            dispatch(setStatus(newStatus));
+        },
+        [dispatch]
+    );
 
-    const dispatchSetFilesData = (filesData: FilesData) => dispatch(setFilesData(filesData));
+    const dispatchSetFilesData = useCallback(
+        (filesData: FilesData) => dispatch(setFilesData(filesData)),
+        [dispatch]
+    );
 
-    const dispatchSetPathToLoadFiles = (pathToLoad: string) =>
-        dispatch(setPathToLoadFiles(pathToLoad));
+    const dispatchSetPathToLoadFiles = useCallback(
+        (pathToLoad: string) => dispatch(setPathToLoadFiles(pathToLoad)),
+        [dispatch]
+    );
 
     const dispatchSetFilesStatus = useCallback(
         (status: FetchStatus) => dispatch(setFilesStatus(status)),

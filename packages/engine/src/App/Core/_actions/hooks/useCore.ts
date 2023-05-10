@@ -1,14 +1,10 @@
 import { App, AppScenes, FetchStatus, FilesData, useScenes } from "@engine/api";
-import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
-import useEditorWidgets from "@engine/App/Editor/_actions/hooks/useEditorWidgets";
 import { isEqual } from "@granity/helpers";
 import { useCallback } from "react";
 
 import useCoreService from "../_data/hooks/useCoreService";
 
 export default () => {
-    const { isEditor, isPreview } = useEditor();
-    const { onEditorPointerMissed } = useEditorWidgets();
     const { saveScenes } = useScenes();
     const {
         generateJsxFromGlb,
@@ -27,15 +23,6 @@ export default () => {
         editFile,
         deleteFile,
     } = useCoreService();
-
-    const onCorePointerMissed = useCallback(
-        (event: MouseEvent) => {
-            if (isEditor || isPreview) {
-                onEditorPointerMissed(event);
-            }
-        },
-        [isEditor, isPreview, onEditorPointerMissed]
-    );
 
     const saveApp = useCallback(() => {
         const scenes = saveScenes();
@@ -117,7 +104,6 @@ export default () => {
     return {
         app,
         appStatus: status,
-        onCorePointerMissed,
         generateJsxFromGlb,
         saveApp,
         updateApp,

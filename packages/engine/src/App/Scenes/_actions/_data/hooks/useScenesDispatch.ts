@@ -1,4 +1,5 @@
 import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
 import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
@@ -16,37 +17,61 @@ import {
 export default () => {
     const dispatch = useDispatch();
 
-    const dispatchAddScene = (scene: ScenesDictionaryItem) => {
-        dispatch(addScene(scene));
-    };
+    const dispatchAddScene = useCallback(
+        (scene: ScenesDictionaryItem) => {
+            dispatch(addScene(scene));
+        },
+        [dispatch]
+    );
 
-    const dispatchSetScenesStatus = (status: FetchStatus) => {
-        dispatch(setScenesStatus(status));
-    };
+    const dispatchSetScenesStatus = useCallback(
+        (status: FetchStatus) => {
+            dispatch(setScenesStatus(status));
+        },
+        [dispatch]
+    );
 
-    const dispatchAddScenesBatch = (scenes: ScenesDictionary) => {
-        dispatch(addScenesBatch(scenes));
-    };
+    const dispatchAddScenesBatch = useCallback(
+        (scenes: ScenesDictionary) => {
+            dispatch(addScenesBatch(scenes));
+        },
+        [dispatch]
+    );
 
-    const dispatchResetScenes = (scenes: ScenesDictionary, newCurrentSceneId: string) => {
-        dispatch(resetScenes({ scenes, currentSceneId: newCurrentSceneId }));
-    };
+    const dispatchResetScenes = useCallback(
+        (scenes: ScenesDictionary, newCurrentSceneId: string) => {
+            dispatch(resetScenes({ scenes, currentSceneId: newCurrentSceneId }));
+        },
+        [dispatch]
+    );
 
-    const dispatchSetCurrentSceneId = (sceneId: string) => {
-        dispatch(setCurrentSceneId(sceneId));
-    };
+    const dispatchSetCurrentSceneId = useCallback(
+        (sceneId: string) => {
+            dispatch(setCurrentSceneId(sceneId));
+        },
+        [dispatch]
+    );
 
-    const dispatchSetCurrentDefaultSceneId = (sceneId: string) => {
-        dispatch(setCurrentDefaultSceneId(sceneId));
-    };
+    const dispatchSetCurrentDefaultSceneId = useCallback(
+        (sceneId: string) => {
+            dispatch(setCurrentDefaultSceneId(sceneId));
+        },
+        [dispatch]
+    );
 
-    const dispatchUpdateScene = (scene: ScenesDictionaryItem) => {
-        dispatch(updateScene(scene));
-    };
+    const dispatchUpdateScene = useCallback(
+        (scene: ScenesDictionaryItem) => {
+            dispatch(updateScene(scene));
+        },
+        [dispatch]
+    );
 
-    const dispatchRemoveScene = (sceneId: string) => {
-        dispatch(removeScene(sceneId));
-    };
+    const dispatchRemoveScene = useCallback(
+        (sceneId: string) => {
+            dispatch(removeScene(sceneId));
+        },
+        [dispatch]
+    );
 
     return {
         dispatchAddScene,

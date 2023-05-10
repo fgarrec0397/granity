@@ -6,24 +6,15 @@ import { Canvas } from "@granity/three/fiber";
 import { pxToRem, useTheme } from "@granity/ui";
 import { Context, FC } from "react";
 
-import useCore from "../_actions/hooks/useCore";
-
 type Props = {
     contexts: Context<any>[];
 };
 
 const CoreCanvas: FC<Props> = ({ contexts }) => {
     const theme = useTheme();
-    const { onCorePointerMissed } = useCore();
     const { isPreview } = useEditor();
     const ContextBridge = useContextBridge(...contexts);
     const previewWarningBorderWidth = 4;
-
-    const onPointerMissed = (event: MouseEvent) => {
-        if ((event.target as Element)?.tagName === "CANVAS") {
-            onCorePointerMissed(event);
-        }
-    };
 
     return (
         <Canvas
@@ -40,7 +31,6 @@ const CoreCanvas: FC<Props> = ({ contexts }) => {
                     : {}),
             }}
             {...canvasConfig}
-            onPointerMissed={onPointerMissed}
         >
             <ContextBridge>
                 <Scenes />

@@ -19,17 +19,26 @@ export default () => {
     const { scenes, scenesIds, currentSceneId, currentDefaultSceneId, scenesStatus } =
         useScenesSelector();
 
-    const add = (scene: ScenesDictionaryItem) => {
-        dispatchAddScene(scene);
-    };
+    const add = useCallback(
+        (scene: ScenesDictionaryItem) => {
+            dispatchAddScene(scene);
+        },
+        [dispatchAddScene]
+    );
 
-    const setStatus = (status: FetchStatus) => {
-        dispatchSetScenesStatus(status);
-    };
+    const setStatus = useCallback(
+        (status: FetchStatus) => {
+            dispatchSetScenesStatus(status);
+        },
+        [dispatchSetScenesStatus]
+    );
 
-    const addBatch = (newScenes: ScenesDictionary) => {
-        dispatchAddScenesBatch(newScenes);
-    };
+    const addBatch = useCallback(
+        (newScenes: ScenesDictionary) => {
+            dispatchAddScenesBatch(newScenes);
+        },
+        [dispatchAddScenesBatch]
+    );
 
     const reset = useCallback(
         (newScenes: ScenesDictionary, newCurrentSceneId: string) => {
@@ -38,13 +47,19 @@ export default () => {
         [dispatchResetScenes]
     );
 
-    const updateCurrentSceneId = (sceneId: string) => {
-        dispatchSetCurrentSceneId(sceneId);
-    };
+    const updateCurrentSceneId = useCallback(
+        (sceneId: string) => {
+            dispatchSetCurrentSceneId(sceneId);
+        },
+        [dispatchSetCurrentSceneId]
+    );
 
-    const updateCurrentDefaultSceneId = (sceneId: string) => {
-        dispatchSetCurrentDefaultSceneId(sceneId);
-    };
+    const updateCurrentDefaultSceneId = useCallback(
+        (sceneId: string) => {
+            dispatchSetCurrentDefaultSceneId(sceneId);
+        },
+        [dispatchSetCurrentDefaultSceneId]
+    );
 
     const updateScene = useCallback(
         (scene: ScenesDictionaryItem) => {
@@ -53,9 +68,12 @@ export default () => {
         [dispatchUpdateScene]
     );
 
-    const remove = (sceneId: string) => {
-        dispatchRemoveScene(sceneId);
-    };
+    const remove = useCallback(
+        (sceneId: string) => {
+            dispatchRemoveScene(sceneId);
+        },
+        [dispatchRemoveScene]
+    );
 
     return {
         scenes,
