@@ -17,9 +17,10 @@ export default () => {
     } = useHistoryContext();
 
     const setCurrent = useCallback(
-        (historyItem: HistoryItem) => {
+        (historyItem: HistoryItem, customPreviousHistoryItem?: HistoryItem) => {
+            const newPrevHistoryItem = customPreviousHistoryItem || currentHistoryItem;
             setCurrentHistoryItem(historyItem);
-            setPreviousHistoryItem(currentHistoryItem);
+            setPreviousHistoryItem(newPrevHistoryItem);
         },
         [currentHistoryItem, setCurrentHistoryItem, setPreviousHistoryItem]
     );

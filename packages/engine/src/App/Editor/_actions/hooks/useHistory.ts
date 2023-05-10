@@ -19,7 +19,6 @@ export default () => {
         add,
         setCurrent,
         previousHistoryItem,
-        setPrevious,
     } = useHistoryService();
     const { hasEdited } = useEditor();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
@@ -110,8 +109,11 @@ export default () => {
     );
 
     const setHistoryItem = useCallback(
-        (historyItemId: string) => {
+        (historyItemId: string, prevHistoryItemId?: string) => {
             const historyItem = historyDictionary[historyItemId];
+            const prevHistoryItem = prevHistoryItemId
+                ? historyDictionary[prevHistoryItemId]
+                : undefined;
 
             if (
                 historyItem &&
@@ -119,7 +121,7 @@ export default () => {
                 Object.keys(historyItem.state.widgetsObjectInfoDictionary).length
             ) {
                 setShouldAddHistoryState(false);
-                setCurrent(historyItem);
+                setCurrent(historyItem, prevHistoryItem);
             }
         },
         [historyDictionary, setCurrent, setShouldAddHistoryState]
@@ -127,21 +129,49 @@ export default () => {
 
     const setPrevHistoryItem = useCallback(() => {
         const currentHistoryItemIndex = currentHistoryItem?.order;
+        const previousHistoryItemIndex = previousHistoryItem?.order;
+        const hasChangedDuringUndo =
+            previousHistoryItemIndex &&
+            currentHistoryItemIndex &&
+            (currentHistoryItemIndex - previousHistoryItemIndex < -1 ||
+                currentHistoryItemIndex - previousHistoryItemIndex > 1);
 
-        if (currentHistoryItemIndex && currentHistoryItemIndex >= 0) {
-            const prevHistoryItemId = getHistoryItemId(currentHistoryItemIndex - 1);
-            setHistoryItem(prevHistoryItemId);
+        if (!currentHistoryItemIndex || currentHistoryItemIndex <= 0) {
+            return;
         }
-    }, [currentHistoryItem?.order, getHistoryItemId, setHistoryItem]);
+
+        if (hasChangedDuringUndo) {
+            const prevHistoryItemId = getHistoryItemId(previousHistoryItemIndex);
+
+            return setHistoryItem(prevHistoryItemId, prevHistoryItemId);
+        }
+
+        const prevHistoryItemId = getHistoryItemId(currentHistoryItemIndex - 1);
+        setHistoryItem(prevHistoryItemId);
+    }, [currentHistoryItem?.order, getHistoryItemId, previousHistoryItem?.order, setHistoryItem]);
 
     const setNextHistoryItem = useCallback(() => {
         const currentHistoryItemIndex = currentHistoryItem?.order;
+        const previousHistoryItemIndex = previousHistoryItem?.order;
+        const hasChangedDuringUndo =
+            previousHistoryItemIndex &&
+            currentHistoryItemIndex &&
+            (currentHistoryItemIndex - previousHistoryItemIndex < -1 ||
+                currentHistoryItemIndex - previousHistoryItemIndex > 1);
 
-        if (currentHistoryItemIndex && currentHistoryItemIndex >= 0) {
-            const nextHistoryItemId = getHistoryItemId(currentHistoryItemIndex + 1);
-            setHistoryItem(nextHistoryItemId);
+        if (!currentHistoryItemIndex || currentHistoryItemIndex <= 0) {
+            return;
         }
-    }, [currentHistoryItem?.order, getHistoryItemId, setHistoryItem]);
+
+        if (hasChangedDuringUndo) {
+            const prevHistoryItemId = getHistoryItemId(previousHistoryItemIndex);
+
+            return setHistoryItem(prevHistoryItemId, prevHistoryItemId);
+        }
+
+        const nextHistoryItemId = getHistoryItemId(currentHistoryItemIndex + 1);
+        setHistoryItem(nextHistoryItemId);
+    }, [currentHistoryItem?.order, getHistoryItemId, previousHistoryItem?.order, setHistoryItem]);
 
     return {
         historyDictionary,
