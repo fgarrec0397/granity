@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/fgarrec0397/granity/compare/v0.4.8...v0.5.0) (2023-05-10)
+
+
+### Features
+
+* useKeyboardMapping to useInputs that now accepts multple event types ([053af96](https://github.com/fgarrec0397/granity/commits/053af969759fb5af7caedf07a118889d5b6a154e))
+
+
+### Refactor
+
+* adding missing useCallback + removing legacy code + renaming some variables ([9d643b6](https://github.com/fgarrec0397/granity/commits/9d643b678447eb622daa3ef454176a1faeb62941))
+* filesReducer now included in coreReducer ([6edcd87](https://github.com/fgarrec0397/granity/commits/6edcd878d4ecc317967e7849794e8124d906052a))
+* keyboard key mapping hook to inputs including mouse event ([837b8ca](https://github.com/fgarrec0397/granity/commits/837b8ca1d2ccb3357e21d4666857bc1ca22b5fad))
+* widgets and editor code split up ([7f97e35](https://github.com/fgarrec0397/granity/commits/7f97e356a1e8ff8fa0688efb31f5b7d52534933b))
+
 ### [0.4.8](https://github.com/fgarrec0397/granity/compare/v0.4.7...v0.4.8) (2023-05-05)
 
 
