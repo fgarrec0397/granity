@@ -5,13 +5,30 @@ import { HistoryItem, HistoryState } from "../../editorTypes";
 import useHistoryContext from "./useHistoryContext";
 
 export default () => {
-    const { historyDictionary, setHistoryDictionary, setCurrentHistoryItem } = useHistoryContext();
+    const {
+        historyDictionary,
+        currentHistoryItem,
+        shouldAddHistoryState,
+        setShouldAddHistoryState,
+        setHistoryDictionary,
+        setCurrentHistoryItem,
+        previousHistoryItem,
+        setPreviousHistoryItem,
+    } = useHistoryContext();
 
     const setCurrent = useCallback(
         (historyItem: HistoryItem) => {
             setCurrentHistoryItem(historyItem);
+            setPreviousHistoryItem(currentHistoryItem);
         },
-        [setCurrentHistoryItem]
+        [currentHistoryItem, setCurrentHistoryItem, setPreviousHistoryItem]
+    );
+
+    const setPrevious = useCallback(
+        (historyItem: HistoryItem) => {
+            setPreviousHistoryItem(historyItem);
+        },
+        [setPreviousHistoryItem]
     );
 
     const add = useCallback(
@@ -34,5 +51,14 @@ export default () => {
         [historyDictionary, setHistoryDictionary, setCurrent]
     );
 
-    return { add, setCurrent };
+    return {
+        historyDictionary,
+        currentHistoryItem,
+        shouldAddHistoryState,
+        setShouldAddHistoryState,
+        add,
+        setCurrent,
+        previousHistoryItem,
+        setPrevious,
+    };
 };

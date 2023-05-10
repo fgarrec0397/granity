@@ -8,6 +8,8 @@ export interface HistoryContextModel {
     setHistoryDictionary: (() => void) | Dispatch<SetStateAction<HistoryDictionary>>;
     currentHistoryItem?: HistoryItem;
     setCurrentHistoryItem: (() => void) | Dispatch<SetStateAction<HistoryItem | undefined>>;
+    previousHistoryItem?: HistoryItem;
+    setPreviousHistoryItem: (() => void) | Dispatch<SetStateAction<HistoryItem | undefined>>;
     shouldAddHistoryState?: boolean;
     setShouldAddHistoryState: (() => void) | Dispatch<SetStateAction<boolean>>;
 }
@@ -17,6 +19,8 @@ export const defaultContext: HistoryContextModel = {
     setHistoryDictionary: () => {},
     currentHistoryItem: undefined,
     setCurrentHistoryItem: () => {},
+    previousHistoryItem: undefined,
+    setPreviousHistoryItem: () => {},
     shouldAddHistoryState: true,
     setShouldAddHistoryState: () => {},
 };
@@ -28,6 +32,7 @@ type Props = HasChildren;
 const HistoryDictionaryContextProvider: FC<Props> = ({ children }) => {
     const [historyDictionary, setHistoryDictionary] = useState<HistoryDictionary>({});
     const [currentHistoryItem, setCurrentHistoryItem] = useState<HistoryItem>();
+    const [previousHistoryItem, setPreviousHistoryItem] = useState<HistoryItem>();
     const [shouldAddHistoryState, setShouldAddHistoryState] = useState(true);
 
     const providerValue: HistoryContextModel = {
@@ -35,6 +40,8 @@ const HistoryDictionaryContextProvider: FC<Props> = ({ children }) => {
         setHistoryDictionary,
         currentHistoryItem,
         setCurrentHistoryItem,
+        previousHistoryItem,
+        setPreviousHistoryItem,
         shouldAddHistoryState,
         setShouldAddHistoryState,
     };

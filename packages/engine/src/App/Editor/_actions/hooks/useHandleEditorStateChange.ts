@@ -17,9 +17,19 @@ export default () => {
         isCurrentHistoryItemIsSaved,
         isCurrentHistoryItemIsPublished,
         widgetsChanged,
+        previousHistoryItem,
     } = useHistory();
     const { app, updateApp } = useCore();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
+
+    useEffect(() => {
+        // console.log({ previousHistoryItem, currentHistoryItem });
+
+        console.log({
+            currentHistoryItem: currentHistoryItem?.order,
+            previousCurrentHistoryItem: previousHistoryItem?.order,
+        });
+    }, [currentHistoryItem, previousHistoryItem?.order]);
 
     useEffect(() => {
         const beforeUnloadHanlder = (event: BeforeUnloadEvent) => {

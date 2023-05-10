@@ -4,7 +4,6 @@ import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { isEqual, usePrevious } from "@granity/helpers";
 import { useCallback, useMemo } from "react";
 
-import useHistoryContext from "../_data/hooks/useHistoryContext";
 import useHistoryService from "../_data/hooks/useHistoryService";
 import { HistoryState } from "../editorTypes";
 import useEditor from "./useEditor";
@@ -17,8 +16,11 @@ export default () => {
         currentHistoryItem,
         shouldAddHistoryState,
         setShouldAddHistoryState,
-    } = useHistoryContext();
-    const { add, setCurrent } = useHistoryService();
+        add,
+        setCurrent,
+        previousHistoryItem,
+        setPrevious,
+    } = useHistoryService();
     const { hasEdited } = useEditor();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
     const previousWidgetsDictionary = usePrevious(widgetsObjectInfoDictionary);
@@ -157,5 +159,6 @@ export default () => {
         isCurrentHistoryItemIsSaved,
         isCurrentHistoryItemIsPublished,
         widgetsChanged,
+        previousHistoryItem,
     };
 };
