@@ -35,7 +35,6 @@ const EditorFilesManager: FC<Props> = ({ title, isOpen, onClose, onSelectFile })
 
     useInputs<InputsMappingHandler<EditorClientInput>>(
         async (input) => {
-            // input.d
             if (input.delete && selectedFolderIndex !== undefined) {
                 const selectedFolder = filesData.folders[selectedFolderIndex];
 
