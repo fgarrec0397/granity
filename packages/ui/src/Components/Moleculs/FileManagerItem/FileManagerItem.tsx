@@ -44,8 +44,8 @@ export type FileManagerItemProps = {
 };
 
 export type FileManagerItemStyles = {
-    itemButton?: (isFile?: boolean) => ButtonBaseProps;
-    selectedItemButton?: (isFile?: boolean) => ButtonBaseProps;
+    itemButton?: (isFile?: boolean) => BoxProps;
+    selectedItemButton?: (isFile?: boolean) => BoxProps;
     itemName?: TypographyProps;
     itemButtonIcon?: SvgIconProps;
     itemActionButton?: IconButtonProps;
@@ -60,6 +60,7 @@ const itemButtonStyles = (isFile?: boolean) => {
         width: "100%",
         border: 1,
         fontSize: 16,
+        cursor: "pointer",
 
         "&:hover": {
             backgroundColor: "action.hover",
@@ -219,7 +220,7 @@ const FileManagerItem: FC<FileManagerItemProps> = ({
     const moreOptionsMenuId = `moreOptionsMenu-${item.name}`;
 
     return (
-        <ButtonBase
+        <Box
             {...(isSelected ? styles.selectedItemButton?.(isFile) : styles.itemButton?.(isFile))}
             onClick={onClick}
         >
@@ -269,7 +270,7 @@ const FileManagerItem: FC<FileManagerItemProps> = ({
                     </MenuItem>
                 ))}
             </Menu>
-        </ButtonBase>
+        </Box>
     );
 };
 
