@@ -1,7 +1,7 @@
+import Home from "@granity/icons/Home";
 import {
     Box,
     BoxProps,
-    HomeIcon,
     ListItemIcon,
     ListItemIconProps,
     ListItemText,
@@ -74,7 +74,7 @@ const SideBar = () => {
                 {[0, 1, 2].map((x) => (
                     <MenuItem key={x} {...styles.menuItem}>
                         <ListItemIcon {...styles.listItemIcon}>
-                            <HomeIcon fontSize="small" />
+                            <Home fontSize="small" />
                         </ListItemIcon>
                         <ListItemText {...styles.listItemText}>Home</ListItemText>
                     </MenuItem>

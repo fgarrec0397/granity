@@ -1,6 +1,7 @@
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { EditIcon, IconButton, SvgIconProps, TextField } from "@granity/ui";
+import Edit from "@granity/icons/Edit";
+import { IconButton, SvgIconProps, TextField } from "@granity/ui";
 import { ChangeEvent, FC, useState } from "react";
 
 import EditorModal from "./EditorModal";
@@ -46,7 +47,7 @@ const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconSize = "small" 
     return (
         <>
             <IconButton onClick={handleModalOpen}>
-                <EditIcon fontSize={iconSize} />
+                <Edit fontSize={iconSize} />
             </IconButton>
             <EditorModal
                 title={`Edit ${displayWidgetName(widget.id)}`}

@@ -1,5 +1,9 @@
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
 import { HasCallableChildren } from "@granity/helpers";
+import Delete from "@granity/icons/Delete";
+import Star from "@granity/icons/Star";
+import Visibility from "@granity/icons/Visibility";
+import VisibilityOff from "@granity/icons/VisibilityOff";
 import {
     Accordion,
     AccordionDetails,
@@ -7,17 +11,13 @@ import {
     BoxProps,
     Button,
     ButtonProps,
-    DeleteIcon,
     IconButton,
     List,
     ListItem,
     ListItemButton,
     pxToRem,
-    StarIcon,
     Typography,
     TypographyProps,
-    VisibilityIcon,
-    VisibilityOffIcon,
 } from "@granity/ui";
 import { ReactElement, useState } from "react";
 
@@ -115,14 +115,14 @@ const EditorItemsList = ({
                                             {handleVisibility && (
                                                 <IconButton onClick={() => handleVisibility?.(id)}>
                                                     {isVisible?.(id) ? (
-                                                        <VisibilityIcon fontSize="small" />
+                                                        <Visibility fontSize="small" />
                                                     ) : (
-                                                        <VisibilityOffIcon fontSize="small" />
+                                                        <VisibilityOff fontSize="small" />
                                                     )}
                                                 </IconButton>
                                             )}
                                             <IconButton onClick={() => handleClickRemove?.(id)}>
-                                                <DeleteIcon fontSize="small" />
+                                                <Delete fontSize="small" />
                                             </IconButton>
                                         </>
                                     }
@@ -134,7 +134,7 @@ const EditorItemsList = ({
                                     >
                                         {itemName}
                                         {isDefault?.(id) && (
-                                            <StarIcon
+                                            <Star
                                                 sx={{
                                                     fontSize: 10,
                                                     marginLeft: pxToRem(5),

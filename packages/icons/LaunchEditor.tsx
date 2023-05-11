@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 
-import { SvgIcon, SvgIconProps } from "./Icon";
+import { SvgIcon, SvgIconProps } from "../ui/src/components/atoms/Icon/Icon";
 
 type Props = SvgIconProps;
 

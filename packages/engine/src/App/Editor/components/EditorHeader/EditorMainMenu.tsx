@@ -1,5 +1,6 @@
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
-import { AppMenu, MenuIcon } from "@granity/ui";
+import Menu from "@granity/icons/Menu";
+import { AppMenu } from "@granity/ui";
 import { FC } from "react";
 
 import { useEditor } from "../../_actions/hooks";
@@ -12,7 +13,7 @@ const EditorMainMenu: FC = () => {
         <AppMenu
             title="Main Menu"
             id="editor-menu"
-            icon={<MenuIcon />}
+            icon={<Menu />}
             disabled={!isEditor}
             menuItems={editorMainMenu}
         />

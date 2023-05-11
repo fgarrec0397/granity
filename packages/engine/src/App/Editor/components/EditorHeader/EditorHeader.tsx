@@ -1,15 +1,8 @@
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import { layoutStyles } from "@engine/Theme/mixins/layout";
 import { editorPadding } from "@engine/Theme/themeConstants";
-import {
-    Box,
-    BoxProps,
-    GranityLogo,
-    LinearProgress,
-    Paper,
-    PaperProps,
-    pxToRem,
-} from "@granity/ui";
+import GranityLogo from "@granity/icons/GranityLogo";
+import { Box, BoxProps, LinearProgress, Paper, PaperProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 import EditorControls from "../EditorCommon/EditorControls";

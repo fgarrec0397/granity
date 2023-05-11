@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 
-const GranityLogo: FC = () => {
+const GranityLogoWithText: FC = () => {
     return (
         <svg
             width="128"
@@ -54,4 +54,4 @@ const GranityLogo: FC = () => {
     );
 };
 
-export default memo(GranityLogo);
+export default memo(GranityLogoWithText);

@@ -19,6 +19,7 @@
         "@granity/engine": "*",
         "@granity/eslint-config": "*",
         "@granity/helpers": "*",
+        "@granity/icons": "*",
         "@granity/prettier-config": "*",
         "@granity/typescript-config": "*",
         "@granity/ui": "*",

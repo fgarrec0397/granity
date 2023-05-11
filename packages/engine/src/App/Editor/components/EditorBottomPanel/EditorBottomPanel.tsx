@@ -1,12 +1,6 @@
 import { layoutStyles } from "@engine/Theme/mixins/layout";
-import {
-    Box,
-    BoxProps,
-    ButtonBase,
-    ButtonBaseProps,
-    KeyboardDoubleArrowUpIcon,
-    pxToRem,
-} from "@granity/ui";
+import KeyboardDoubleArrowUp from "@granity/icons/KeyboardDoubleArrowUp";
+import { Box, BoxProps, ButtonBase, ButtonBaseProps, pxToRem } from "@granity/ui";
 import { FC, useState } from "react";
 
 import EditorFilesManager from "../EditorCommon/EditorFilesManager";
@@ -51,7 +45,7 @@ const EditorBottomPanel: FC = () => {
         <Box {...styles.wrapper}>
             <EditorFilesManager isOpen={isFileManagerOpen} onClose={closeFilesManager} />
             <ButtonBase onClick={onClick} {...styles.button}>
-                <KeyboardDoubleArrowUpIcon fontSize="large" />
+                <KeyboardDoubleArrowUp fontSize="large" />
             </ButtonBase>
         </Box>
     );

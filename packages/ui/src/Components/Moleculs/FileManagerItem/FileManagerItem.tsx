@@ -1,18 +1,18 @@
+import AddCircle from "@granity/icons/AddCircle";
+import DefaultImage from "@granity/icons/DefaultImage";
+import Folder from "@granity/icons/Folder";
+import MoreVert from "@granity/icons/MoreVert";
 import {
-    AddCircleIcon,
     Box,
     BoxProps,
     ButtonBase,
     ButtonBaseProps,
-    DefaultImage,
-    FolderIcon,
     IconButton,
     IconButtonProps,
     InputLabel,
     InputLabelProps,
     Menu,
     MenuItem,
-    MoreVertIcon,
     SvgIconProps,
     Typography,
     TypographyProps,
@@ -196,7 +196,7 @@ const FileManagerItem: FC<FileManagerItemProps> = ({
     if (isAddFolder) {
         return (
             <ButtonBase {...styles.addItemButton?.(false)} onClick={onClick}>
-                <AddCircleIcon {...styles.addIcon} />
+                <AddCircle {...styles.addIcon} />
                 New Folder
             </ButtonBase>
         );
@@ -205,7 +205,7 @@ const FileManagerItem: FC<FileManagerItemProps> = ({
     if (isAddFile) {
         return (
             <InputLabel {...(styles.addItemButton?.(true) as InputLabelProps)}>
-                <AddCircleIcon {...styles.addIcon} />
+                <AddCircle {...styles.addIcon} />
                 New File
                 <input type="file" onChange={onInputFileChange} multiple hidden />
             </InputLabel>
@@ -223,7 +223,7 @@ const FileManagerItem: FC<FileManagerItemProps> = ({
             {...(isSelected ? styles.selectedItemButton?.(isFile) : styles.itemButton?.(isFile))}
             onClick={onClick}
         >
-            {isFile ? <DefaultImage /> : <FolderIcon {...styles.itemButtonIcon} />}
+            {isFile ? <DefaultImage /> : <Folder {...styles.itemButtonIcon} />}
             {isFile ? (
                 <Box {...styles.fileBoxInfo}>
                     <Typography {...styles.itemName}>{item.name}</Typography>
@@ -234,7 +234,7 @@ const FileManagerItem: FC<FileManagerItemProps> = ({
                         aria-expanded={isMoreOptionsMenuOpen ? "true" : undefined}
                         {...styles.itemActionButton}
                     >
-                        <MoreVertIcon />
+                        <MoreVert />
                     </IconButton>
                 </Box>
             ) : (
@@ -247,7 +247,7 @@ const FileManagerItem: FC<FileManagerItemProps> = ({
                         aria-expanded={isMoreOptionsMenuOpen ? "true" : undefined}
                         {...styles.itemActionButton}
                     >
-                        <MoreVertIcon />
+                        <MoreVert />
                     </IconButton>
                 </>
             )}

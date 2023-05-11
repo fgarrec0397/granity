@@ -1,14 +1,6 @@
-import {
-    AppMenu,
-    Avatar,
-    Box,
-    BoxProps,
-    IconButton,
-    LaunchEditorIcon,
-    LogoutIcon,
-    pxToRem,
-    SvgIconProps,
-} from "@granity/ui";
+import LaunchEditor from "@granity/icons/LaunchEditor";
+import Logout from "@granity/icons/Logout";
+import { AppMenu, Avatar, Box, BoxProps, IconButton, pxToRem, SvgIconProps } from "@granity/ui";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 
@@ -44,7 +36,7 @@ const AppBar = () => {
     return (
         <Box {...styles.wrapper}>
             <IconButton onClick={handleOpenEditor}>
-                <LaunchEditorIcon {...styles.editorIcon} />
+                <LaunchEditor {...styles.editorIcon} />
             </IconButton>
             <AppMenu
                 title="Account settings"
@@ -54,7 +46,7 @@ const AppBar = () => {
                     {
                         text: "Logout",
                         onClick: () => signOut(),
-                        icon: <LogoutIcon fontSize="small" />,
+                        icon: <Logout fontSize="small" />,
                     },
                 ]}
             />
