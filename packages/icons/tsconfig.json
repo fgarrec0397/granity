@@ -1,3 +1,4 @@
 {
-  "extends": "@granity/typescript-config/base.json"
+    "extends": "@granity/typescript-config/base.json",
+    "include": ["./"]
 }

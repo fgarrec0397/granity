@@ -19,7 +19,6 @@
     "@granity/typescript-config": "*",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.122",
     "@mui/material": "^5.11.11",
     "@mui/styled-engine-sc": "latest",
@@ -32,9 +31,7 @@
     "notistack": "^2.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^5.3.6",
-    "vite": "^4.1.4",
-    "vitest": "^0.28.5"
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",

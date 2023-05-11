@@ -1,4 +1,4 @@
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropDown from "@granity/icons/ArrowDropDown";
 import AccordionLib, { AccordionProps as LibAccordionProps } from "@mui/material/Accordion";
 import AccordionDetailsLib, {
     AccordionDetailsProps as LibAccordionDetailsProps,
@@ -44,7 +44,7 @@ const StyledAccordionSummary = styled(AccordionSummaryLib)`
 
 export const AccordionSummary: FC<AccordionSummaryProps> = ({ children, ...props }) => {
     return (
-        <StyledAccordionSummary expandIcon={<ArrowDropDownIcon />} {...props}>
+        <StyledAccordionSummary expandIcon={<ArrowDropDown />} {...props}>
             {children}
         </StyledAccordionSummary>
     );
