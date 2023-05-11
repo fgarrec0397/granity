@@ -1,8 +1,3 @@
-export { default as CheckFillIcon } from "./CheckFill";
-export { default as ClockFillIcon } from "./ClockFill";
-export { default as DefaultImage } from "./DefaultImage";
-export { default as GranityLogo } from "./GranityLogo";
-export { default as GranityLogoWithText } from "./GranityLogoWithText";
 export { default as LaunchEditorIcon } from "./LaunchEditor";
 export { default as AddCircleIcon } from "@mui/icons-material/AddCircle";
 export { default as DashboardIcon } from "@mui/icons-material/Dashboard";

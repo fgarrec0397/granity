@@ -29,6 +29,7 @@
   "dependencies": {
     "@granity/eslint-config": "*",
     "@granity/helpers": "*",
+    "@granity/icons": "*",
     "@granity/prettier-config": "*",
     "@granity/three": "*",
     "@granity/typescript-config": "*",
