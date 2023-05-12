@@ -14,6 +14,7 @@ export default function RootLayout({ children }: Props) {
             <body>
                 <CssBaseline />
                 {children}
+                <script src="/service-worker.t"></script>
             </body>
         </html>
     );

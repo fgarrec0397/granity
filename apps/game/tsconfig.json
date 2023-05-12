@@ -27,7 +27,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "types/next-auth.d.ts",
-    "next.config.js"
+    "next.config.js",
+    "workbox-config.js"
   ],
   "exclude": [
     "node_modules"
