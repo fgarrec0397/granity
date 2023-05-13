@@ -1,7 +1,7 @@
 "use client";
 
 import { GranityEngineProvider, GranityGame } from "@granity/engine";
-import { Box } from "@granity/ui";
+import { Box, CssBaseline } from "@granity/ui";
 
 import { granityConfig } from "../config/granity";
 
@@ -17,6 +17,7 @@ const HomePage = () => {
                 },
             }}
         >
+            <CssBaseline />
             <GranityEngineProvider config={granityConfig}>
                 <GranityGame />
             </GranityEngineProvider>
