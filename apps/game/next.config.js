@@ -2,6 +2,10 @@
 
 const withPWA = require("@granity/next-pwa")({
     dest: "public",
+    // pwa: {
+    // },
+    buildExcludes: [/app-build-manifest\.json/],
+    // exclude: [/_next\/app-build-manifest.json/],
     // disable: process.env.NODE_ENV === "development",
 });
 

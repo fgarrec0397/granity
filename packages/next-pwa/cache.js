@@ -158,6 +158,36 @@ module.exports = [
       ],
     },
   },
+  // {
+  //   urlPattern: (params) => {
+  //     console.log(params, "params");
+
+  //     return false;
+  //   },
+  //   handler: "StaleWhileRevalidate",
+  //   options: {
+  //     cacheName: "test",
+  //     expiration: {
+  //       maxEntries: 32,
+  //       maxAgeSeconds: 24 * 60 * 60, // 24 hours
+  //     },
+  //     plugins: [
+  //       {
+  //         cacheWillUpdate: async ({ request, response }) => {
+  //           if (
+  //             request.headers.get("x-middleware-prefetch") ||
+  //             response.headers.get("x-middleware-skip")
+  //           )
+  //             return null;
+  //           if (response.status === 200) {
+  //             return response;
+  //           }
+  //           return null;
+  //         },
+  //       },
+  //     ],
+  //   },
+  // },
   {
     urlPattern: /\.(?:json|xml|csv)$/i,
     handler: "NetworkFirst",
