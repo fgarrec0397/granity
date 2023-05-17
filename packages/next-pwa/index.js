@@ -242,8 +242,6 @@ module.exports =
             }
           }
 
-          console.log(buildExcludes, "buildExcludes");
-
           const workboxCommon = {
             swDest: path.join(_dest, sw),
             additionalManifestEntries: dev ? [] : manifestEntries,
