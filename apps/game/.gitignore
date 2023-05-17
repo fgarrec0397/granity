@@ -38,3 +38,8 @@ next-env.d.ts
 /analyze/*
 
 public/assets
+
+# PWA - workbox generated files
+sw.js
+fallback*.js
+workbox-*.js
