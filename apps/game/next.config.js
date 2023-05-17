@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+    enabled: process.env.ANALYZE === "true",
+});
+
 const withPWA = require("@granity/next-pwa")({
     dest: "public",
     buildExcludes: [/app-build-manifest\.json/],
@@ -32,4 +36,4 @@ const nextConfig = {
     },
 };
 
-module.exports = withPWA(nextConfig);
+module.exports = withBundleAnalyzer(withPWA(nextConfig));

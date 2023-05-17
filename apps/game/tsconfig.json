@@ -27,8 +27,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "types/next-auth.d.ts",
-    "next.config.js",
-    "staticprecache.js"
+    "next.config.js"
   ],
   "exclude": [
     "node_modules"
