@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 import { FilesService } from "../_data/filesService";
 
-// TODO - continue here. Put this hook in the Core folder
 export default () => {
     const { enqueueSnackbar } = useSnackbar();
     const { endpoints } = useConfig();

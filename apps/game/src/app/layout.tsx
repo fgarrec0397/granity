@@ -6,6 +6,7 @@ export default function RootLayout({ children }: Props) {
     return (
         <html lang="en">
             <head>
+                <meta name="viewport" />
                 <meta name="application-name" content="PWA App" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="default" />

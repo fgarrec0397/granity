@@ -82,8 +82,19 @@ module.exports = [
     },
   },
   {
+    urlPattern: /\.(?:glb)$/i,
+    handler: "CacheFirst",
+    options: {
+      cacheName: "static-3d-assets",
+      expiration: {
+        maxEntries: 64,
+        maxAgeSeconds: 24 * 60 * 60, // 24 hours
+      },
+    },
+  },
+  {
     urlPattern: /\.(?:js)$/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "static-js-assets",
       expiration: {
@@ -94,7 +105,7 @@ module.exports = [
   },
   {
     urlPattern: /\.(?:css|less)$/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "static-style-assets",
       expiration: {
@@ -158,36 +169,6 @@ module.exports = [
       ],
     },
   },
-  // {
-  //   urlPattern: (params) => {
-  //     console.log(params, "params");
-
-  //     return false;
-  //   },
-  //   handler: "StaleWhileRevalidate",
-  //   options: {
-  //     cacheName: "test",
-  //     expiration: {
-  //       maxEntries: 32,
-  //       maxAgeSeconds: 24 * 60 * 60, // 24 hours
-  //     },
-  //     plugins: [
-  //       {
-  //         cacheWillUpdate: async ({ request, response }) => {
-  //           if (
-  //             request.headers.get("x-middleware-prefetch") ||
-  //             response.headers.get("x-middleware-skip")
-  //           )
-  //             return null;
-  //           if (response.status === 200) {
-  //             return response;
-  //           }
-  //           return null;
-  //         },
-  //       },
-  //     ],
-  //   },
-  // },
   {
     urlPattern: /\.(?:json|xml|csv)$/i,
     handler: "NetworkFirst",
@@ -238,6 +219,23 @@ module.exports = [
         maxAgeSeconds: 24 * 60 * 60, // 24 hours
       },
       networkTimeoutSeconds: 10,
+    },
+  },
+  {
+    urlPattern: ({ url }) => {
+      const isSameOrigin = self.origin === url.origin;
+      if (!isSameOrigin) return false;
+      const pathname = url.pathname;
+      if (pathname.startsWith("/server/")) return false;
+      return true;
+    },
+    handler: "CacheFirst",
+    options: {
+      cacheName: "api-calls",
+      expiration: {
+        maxEntries: 32,
+        maxAgeSeconds: 24 * 60 * 60, // 24 hours
+      },
     },
   },
   {

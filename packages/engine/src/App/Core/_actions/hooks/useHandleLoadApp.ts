@@ -19,6 +19,7 @@ export default () => {
 
     useEffect(() => {
         updateStatus(status);
+        console.log(data, "data");
 
         if (status === "error") {
             enqueueSnackbar("No connections", { variant: "error" });
