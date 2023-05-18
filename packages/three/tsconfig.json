@@ -4,5 +4,6 @@
     "index.ts",
     "drei",
     "fiber",
+    "stdlib",
   ]
 }

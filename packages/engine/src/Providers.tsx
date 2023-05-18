@@ -1,11 +1,10 @@
 import { store } from "@engine/App/Core/_actions/_data/state/store";
-import ProvidersBuilder from "@engine/App/Core/Components/ProvidersBuilder";
 import HistoryDictionaryContextProvider from "@engine/App/Editor/_actions/_data/providers/HistoryContextProvider";
 import CamerasContextProvider from "@engine/App/Scenes/_actions/_data/providers/CamerasContextProvider";
 import WidgetsModulesContextProvider from "@engine/App/Widgets/_actions/_data/providers/WidgetsModulesProvider";
 import WidgetsContextProvider from "@engine/App/Widgets/_actions/_data/providers/WidgetsProvider";
 import { injectStore } from "@engine/App/Widgets/_actions/utilities/createWidget";
-import { HasChildren, QueryClient, QueryClientProvider } from "@granity/helpers";
+import { HasChildren, ProvidersBuilder, QueryClient, QueryClientProvider } from "@granity/helpers";
 import { Theme, ThemeProvider } from "@granity/ui";
 import { FC } from "react";
 import { Provider as ReduxProvider } from "react-redux";
