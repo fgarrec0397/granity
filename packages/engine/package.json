@@ -30,6 +30,7 @@
     "@granity/eslint-config": "*",
     "@granity/helpers": "*",
     "@granity/icons": "*",
+    "@granity/physics": "*",
     "@granity/prettier-config": "*",
     "@granity/three": "*",
     "@granity/typescript-config": "*",
