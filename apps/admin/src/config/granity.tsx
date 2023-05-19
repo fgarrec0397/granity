@@ -17,6 +17,7 @@ importWidgetsModules(
 
 export const granityConfig: EngineConfig = {
     widgetsModules,
+    physicsEnabled: true,
     editorMainMenu: [
         {
             text: "Home",

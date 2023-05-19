@@ -1,7 +1,10 @@
 import { useCallback } from "react";
 
 import { EngineConfig, InputsConfig } from "../../coreTypes";
-import { ConfigContextEndpoints } from "../providers/ConfigContextProvider";
+import {
+    ConfigContextEndpoints,
+    ConfigContextPhysicsEnabled,
+} from "../providers/ConfigContextProvider";
 import useConfigContext from "./useConfigContext";
 
 export default () => {
@@ -9,9 +12,11 @@ export default () => {
         inputsConfig,
         editorMainMenu,
         endpoints,
+        physicsEnabled,
         setInputsConfig,
         setEditorMainMenu,
         setEndpoints,
+        setPhysicsEnabled,
     } = useConfigContext();
 
     const updateEndpoints = useCallback(
@@ -35,12 +40,21 @@ export default () => {
         [setEditorMainMenu]
     );
 
+    const updatePhysicsEnabled = useCallback(
+        (value: ConfigContextPhysicsEnabled) => {
+            setPhysicsEnabled(value);
+        },
+        [setPhysicsEnabled]
+    );
+
     return {
         endpoints,
         inputsConfig,
         editorMainMenu,
+        physicsEnabled,
         updateEndpoints,
         updateInputsConfig,
         updateEditorMainMenu,
+        updatePhysicsEnabled,
     };
 };

@@ -6,7 +6,7 @@ import useConfig from "./useConfig";
 
 export default (config: EngineConfig) => {
     const { initWidgetsModules } = useWidgetsModules();
-    const { initInputsConfig, initMainMenu, initEndpoints } = useConfig();
+    const { initInputsConfig, initMainMenu, initEndpoints, initPhysicsEnabled } = useConfig();
 
     useEffect(() => {
         if (config.widgetsModules) {
@@ -23,6 +23,12 @@ export default (config: EngineConfig) => {
             initInputsConfig(config.inputsConfig);
         }
     }, [config?.inputsConfig, initInputsConfig]);
+
+    useEffect(() => {
+        if (config.physicsEnabled) {
+            initPhysicsEnabled(config.physicsEnabled);
+        }
+    }, [config.physicsEnabled, initPhysicsEnabled]);
 
     useEffect(() => {
         if (config.editorMainMenu) {

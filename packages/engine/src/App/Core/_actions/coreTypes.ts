@@ -29,6 +29,7 @@ export type EngineEndpoints = {
 };
 
 export type EngineConfig = {
+    physicsEnabled?: boolean;
     widgetsModules: WidgetModules[];
     inputsConfig?: InputsConfig;
     editorMainMenu?: EditorMainMenuItem[];

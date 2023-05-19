@@ -3,7 +3,11 @@ import { merge } from "@granity/helpers";
 import { useCallback } from "react";
 
 import useConfigService from "../_data/hooks/useConfigService";
-import { ConfigContextEndpoints, defaultEnpoints } from "../_data/providers/ConfigContextProvider";
+import {
+    ConfigContextEndpoints,
+    ConfigContextPhysicsEnabled,
+    defaultEnpoints,
+} from "../_data/providers/ConfigContextProvider";
 import { EngineConfig, InputsConfig } from "../coreTypes";
 import overrideInputsConfig from "../utilities/overrideInputsConfig";
 
@@ -13,8 +17,10 @@ export default () => {
         endpoints,
         inputsConfig,
         editorMainMenu,
+        physicsEnabled,
         updateEditorMainMenu,
         updateEndpoints,
+        updatePhysicsEnabled,
     } = useConfigService();
 
     const initEndpoints = useCallback(
@@ -41,6 +47,13 @@ export default () => {
         [updateEditorMainMenu]
     );
 
+    const initPhysicsEnabled = useCallback(
+        (value: ConfigContextPhysicsEnabled) => {
+            updatePhysicsEnabled(value);
+        },
+        [updatePhysicsEnabled]
+    );
+
     return {
         endpoints,
         inputsConfig,
@@ -48,5 +61,7 @@ export default () => {
         initMainMenu,
         editorMainMenu,
         initEndpoints,
+        physicsEnabled,
+        initPhysicsEnabled,
     };
 };
