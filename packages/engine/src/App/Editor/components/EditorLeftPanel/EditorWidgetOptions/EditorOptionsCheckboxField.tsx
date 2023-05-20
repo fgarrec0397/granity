@@ -39,9 +39,7 @@ const EditorOptionsCheckboxField: FC<EditorOptionsCheckboxFieldProps> = ({ optio
                 <FormControlLabel
                     control={
                         <Checkbox
-                            value={
-                                optionsValues ? (optionsValues[option.name]?.value as string) : ""
-                            }
+                            defaultChecked={optionsValues?.[option.name]?.value}
                             onChange={onChange}
                         />
                     }

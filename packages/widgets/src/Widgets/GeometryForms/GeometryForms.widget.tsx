@@ -1,27 +1,30 @@
-import { createWidget, EditableWidget, FieldType, useGameInit, WidgetType } from "@granity/engine";
-import { FC, useEffect } from "react";
+import {
+    createWidget,
+    EditableWidget,
+    FieldType,
+    GameRigidBody,
+    WidgetType,
+} from "@granity/engine";
+import { FC } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
     shape: string;
     color: string;
     gravityScale: number;
-    testCheckbox: boolean;
 }
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color, testCheckbox }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color }) => {
     const GeometryComponent = shape;
 
-    useGameInit(() => {
-        console.log(testCheckbox, "game init");
-    });
-
     return (
-        <mesh position={[0, 0, 0]}>
-            <GeometryComponent />
-            <meshStandardMaterial color={color} />
-        </mesh>
+        <GameRigidBody mass={0}>
+            <mesh position={[0, 0, 0]}>
+                <GeometryComponent />
+                <meshStandardMaterial color={color} />
+            </mesh>
+        </GameRigidBody>
     );
 };
 
@@ -35,7 +38,7 @@ export const widget = createWidget({
             name: "color",
             displayName: "Color",
             fieldType: FieldType.Text,
-            defaultValue: "white",
+            defaultValue: "red",
         },
         {
             name: "testCheckbox",

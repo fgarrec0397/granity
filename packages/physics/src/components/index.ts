@@ -1,4 +1,4 @@
-export type { GameRigidBodyProps } from "./GameRigidbody";
-export { default as GameRigidBody } from "./GameRigidbody";
 export type { PhysicsProps } from "./Physics";
 export { default as Physics } from "./Physics";
+export type { RigidBodyProps, RigidBodyRef } from "./RigidBody";
+export { default as RigidBody } from "./RigidBody";

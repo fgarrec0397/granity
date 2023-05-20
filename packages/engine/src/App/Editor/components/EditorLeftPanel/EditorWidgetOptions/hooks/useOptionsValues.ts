@@ -9,6 +9,7 @@ export default () => {
 
     useEffect(() => {
         const options = getWidgetDictionaryFromWidget(selectedWidgets[0]?.id)?.options;
+
         setOptionsValues(options);
     }, [selectedWidgets, getWidgetDictionaryFromWidget]);
 

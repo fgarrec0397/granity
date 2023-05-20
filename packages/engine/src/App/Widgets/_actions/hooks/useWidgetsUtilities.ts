@@ -1,3 +1,4 @@
+import { cloneDeep } from "@granity/helpers";
 import { useCallback } from "react";
 
 import populateWidgetProps from "../utilities/populateWidgetProps";
@@ -53,25 +54,31 @@ export default () => {
             widgetObjectInfoDictionary1: WidgetObjectInfoDictionary,
             widgetObjectInfoDictionary2: WidgetObjectInfoDictionary
         ) => {
-            Object.keys(widgetObjectInfoDictionary1).forEach((dictionaryItemKey) => {
-                const dictionaryItem = widgetObjectInfoDictionary1[dictionaryItemKey];
+            const clonedWidgetObjectInfoDictionary1 = cloneDeep(widgetObjectInfoDictionary1);
+            const clonedWidgetObjectInfoDictionary2 = cloneDeep(widgetObjectInfoDictionary2);
 
-                if (widgetObjectInfoDictionary2[dictionaryItemKey]) {
-                    for (const key in widgetObjectInfoDictionary2[dictionaryItemKey].options) {
+            Object.keys(clonedWidgetObjectInfoDictionary1).forEach((dictionaryItemKey) => {
+                const dictionaryItem = clonedWidgetObjectInfoDictionary1[dictionaryItemKey];
+
+                if (clonedWidgetObjectInfoDictionary2[dictionaryItemKey]) {
+                    for (const key in clonedWidgetObjectInfoDictionary2[dictionaryItemKey]
+                        .options) {
                         if (!Object.prototype.hasOwnProperty.call(dictionaryItem.options, key)) {
                             // Remove unexisting options on the local widget definitions options
-                            delete widgetObjectInfoDictionary2[dictionaryItemKey].options?.[key];
+                            delete clonedWidgetObjectInfoDictionary2[dictionaryItemKey].options?.[
+                                key
+                            ];
                         }
                     }
 
                     // Make sure to keep the properties left from the saved widget dictionary
-                    widgetObjectInfoDictionary1[dictionaryItemKey] = {
-                        ...widgetObjectInfoDictionary2[dictionaryItemKey],
+                    clonedWidgetObjectInfoDictionary1[dictionaryItemKey] = {
+                        ...clonedWidgetObjectInfoDictionary2[dictionaryItemKey],
                     };
                 }
             });
 
-            return widgetObjectInfoDictionary1;
+            return clonedWidgetObjectInfoDictionary1;
         },
         []
     );

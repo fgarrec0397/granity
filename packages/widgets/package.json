@@ -13,6 +13,7 @@
     "@granity/helpers": "*",
     "@granity/eslint-config": "*",
     "@granity/ui": "*",
+    "@granity/physics": "*",
     "@granity/prettier-config": "*",
     "@granity/three": "*",
     "@granity/typescript-config": "*",
