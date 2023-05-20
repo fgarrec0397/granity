@@ -18,9 +18,15 @@ type GLTFResult = stdlib.GLTF & {
 
 const TestBuilding = (props: JSX.IntrinsicElements["group"]) => {
     const { nodes, materials } = useGLTF("/assets/test-building.glb") as GLTFResult;
+
     return (
-        <GameRigidBody colliders="trimesh" gravityScale={0} type="kinematicPosition">
-            <group {...props} dispose={null}>
+        <GameRigidBody
+            key={props.position?.toString()}
+            colliders="trimesh"
+            gravityScale={0}
+            type="kinematicPosition"
+        >
+            <group dispose={null}>
                 <mesh
                     geometry={nodes.Cube.geometry}
                     material={materials.Material}

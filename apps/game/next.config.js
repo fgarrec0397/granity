@@ -32,6 +32,10 @@ const nextConfig = {
                 source: "/server/:path*",
                 destination: "http://localhost:5000/:path*",
             },
+            {
+                source: "/assets/:path*",
+                destination: "http://localhost:3000/assets/:path*",
+            },
         ];
     },
 };

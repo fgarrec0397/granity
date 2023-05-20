@@ -15,11 +15,11 @@ export interface GeometryFormsProps extends EditableWidget {
 
 type OwnProps = GeometryFormsProps;
 
-const GeometryForms: FC<OwnProps> = ({ shape, color }) => {
+const GeometryForms: FC<OwnProps> = ({ shape, color, position }) => {
     const GeometryComponent = shape;
 
     return (
-        <GameRigidBody mass={0}>
+        <GameRigidBody key={position.toString()} mass={0}>
             <mesh position={[0, 0, 0]}>
                 <GeometryComponent />
                 <meshStandardMaterial color={color} />
