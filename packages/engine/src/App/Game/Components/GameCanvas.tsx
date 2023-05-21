@@ -14,8 +14,6 @@ const GameCanvas: FC<Props> = ({ contexts }) => {
     const theme = useTheme();
     const ContextBridge = useContextBridge(...contexts);
 
-    console.log("Game canvas");
-
     return (
         <Canvas
             style={{

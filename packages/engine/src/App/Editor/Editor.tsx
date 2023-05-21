@@ -1,11 +1,11 @@
 import SceneDefaultCamera from "@engine/App/Scenes/components/SceneDefaultCamera";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import Widgets from "@engine/App/Widgets/Widgets";
-import { Physics } from "@granity/physics";
 import { Grid, Select } from "@granity/three/drei";
 import { FC } from "react";
 
 import useHandleLoadFiles from "../Core/_actions/hooks/useHandleLoadFiles";
+import GamePhysics from "../Game/Components/GamePhysics";
 import { useEditor } from "./_actions/hooks";
 import useEditorInputs from "./_actions/hooks/useEditorInputs";
 import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateChange";
@@ -20,13 +20,13 @@ const Editor: FC = () => {
     useHandleEditorStateChange();
 
     return (
-        <Physics paused debug>
+        <GamePhysics paused debug>
             <Select multiple onChange={selectWidgetFromMeshArr}>
                 <SceneDefaultCamera />
                 <Widgets widgetsIds={widgetsObjectsIds} />
                 {isGridEnabled && <Grid infiniteGrid sectionThickness={0.5} />}
             </Select>
-        </Physics>
+        </GamePhysics>
     );
 };
 

@@ -16,7 +16,6 @@ import { FieldType, WidgetType } from "./widgetsConstants";
  * Additional props that applies for widgets in the editor
  */
 export interface EditableWidget {
-    hovered: boolean;
     position: Vector3Array;
     rotation: Vector3Array;
     scale: Vector3Array;

@@ -38,7 +38,7 @@ export const widget = createWidget({
             name: "color",
             displayName: "Color",
             fieldType: FieldType.Text,
-            defaultValue: "red",
+            defaultValue: "white",
         },
         {
             name: "testCheckbox",

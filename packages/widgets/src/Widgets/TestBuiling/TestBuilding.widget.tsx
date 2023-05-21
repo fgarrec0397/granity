@@ -1,4 +1,10 @@
-import { createWidget, GameRigidBody, WidgetType } from "@granity/engine";
+import {
+    buildRigidBodyKey,
+    createWidget,
+    EditableWidget,
+    GameRigidBody,
+    WidgetType,
+} from "@granity/engine";
 import { useGLTF } from "@granity/three/drei";
 import * as stdlib from "@granity/three/stdlib";
 import * as THREE from "three";
@@ -16,17 +22,17 @@ type GLTFResult = stdlib.GLTF & {
     };
 };
 
-const TestBuilding = (props: JSX.IntrinsicElements["group"]) => {
-    const { nodes, materials } = useGLTF("/assets/test-building.glb") as GLTFResult;
+const TestBuilding = (props: EditableWidget) => {
+    const { nodes, materials } = useGLTF("/assets/test-building2.glb") as GLTFResult;
 
     return (
         <GameRigidBody
-            key={props.position?.toString()}
+            key={buildRigidBodyKey(props.position, props.rotation, props.scale)}
             colliders="trimesh"
             gravityScale={0}
             type="kinematicPosition"
         >
-            <group dispose={null}>
+            <group>
                 <mesh
                     geometry={nodes.Cube.geometry}
                     material={materials.Material}
@@ -57,12 +63,4 @@ export const widget = createWidget({
     reducer: null,
     type: WidgetType.GameObject,
     name: "TestBuilding",
-    // options: [
-    //     {
-    //         name: "model",
-    //         displayName: "3D Model",
-    //         fieldType: FieldType.File,
-    //         defaultValue: "",
-    //     },
-    // ],
 });

@@ -1,3 +1,4 @@
+export { default as buildRigidBodyKey } from "./buildRigidBodyKey";
 export * from "./buildWidgetObjectInfoDictionary";
 export { default as createWidget } from "./createWidget";
 export { default as filterWidgets } from "./filterWidgets";
