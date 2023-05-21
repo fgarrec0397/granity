@@ -13,7 +13,7 @@ import EditorLayout from "./components/EditorLayout";
 
 const Editor: FC = () => {
     const { widgetsObjectsIds, selectWidgetFromMeshArr } = useWidgets();
-    const { isGridEnabled } = useEditor();
+    const { isDebugEnabled } = useEditor();
 
     useHandleLoadFiles();
     useEditorInputs();
@@ -24,7 +24,7 @@ const Editor: FC = () => {
             <Select multiple onChange={selectWidgetFromMeshArr}>
                 <SceneDefaultCamera />
                 <Widgets widgetsIds={widgetsObjectsIds} />
-                {isGridEnabled && <Grid infiniteGrid sectionThickness={0.5} />}
+                {isDebugEnabled && <Grid infiniteGrid sectionThickness={0.5} />}
             </Select>
         </GamePhysics>
     );

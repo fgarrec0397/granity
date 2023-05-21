@@ -15,8 +15,8 @@ export default () => {
         updateIsEditing,
         updateHasEditorOpened,
         updateCurrentMode,
-        updatedIsGridEnabled,
-        isGridEnabled,
+        updateDebugEnabled,
+        isDebugEnabled,
     } = useEditorService();
     const isEditor = useMemo(() => editorStatus === EditorStatus.IsEditor, [editorStatus]);
     const isGame = useMemo(() => editorStatus === EditorStatus.IsGame, [editorStatus]);
@@ -60,9 +60,9 @@ export default () => {
         [updateIsEditing]
     );
 
-    const toggleGrid = useCallback(() => {
-        updatedIsGridEnabled(!isGridEnabled);
-    }, [isGridEnabled, updatedIsGridEnabled]);
+    const toggleDebug = useCallback(() => {
+        updateDebugEnabled(!isDebugEnabled);
+    }, [isDebugEnabled, updateDebugEnabled]);
 
     const setHasEditorOpened = useCallback(() => {
         updateHasEditorOpened();
@@ -94,7 +94,7 @@ export default () => {
         setIsEditing,
         setHasEditorOpened,
         selectMode,
-        toggleGrid,
-        isGridEnabled,
+        toggleDebug,
+        isDebugEnabled,
     };
 };

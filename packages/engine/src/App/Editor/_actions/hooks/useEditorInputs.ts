@@ -19,7 +19,7 @@ export default () => {
         removeWidgetSelection,
         copyWidget,
     } = useWidgets();
-    const { toggleGrid } = useEditor();
+    const { toggleDebug } = useEditor();
     const { setPrevHistoryItem, setNextHistoryItem, shouldAddHistoryState } = useHistory();
     const [, setCopiedWidgets] = useState<WidgetDictionaryItem[]>([]);
     const { runGamePreview } = useGame();
@@ -29,8 +29,8 @@ export default () => {
         (input) => {
             if (input.toggleEditor) {
                 runGamePreview();
-            } else if (input.toggleGrid) {
-                toggleGrid();
+            } else if (input.toggleDebug) {
+                toggleDebug();
             } else if (input.copyWidget) {
                 if (selectedWidgets.length > 0) {
                     setCopiedWidgets(selectedWidgets);

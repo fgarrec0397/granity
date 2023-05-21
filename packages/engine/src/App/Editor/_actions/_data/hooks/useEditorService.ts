@@ -11,10 +11,10 @@ export default () => {
         dispatchSetHasEditorOpened,
         dispatchSetHasEdited,
         dispatchSetIsMultipleSelect,
-        dispatchSetIsGridEnabled,
+        dispatchSetIsDebugEnabled,
         dispatchSetCurrentMode,
     } = useEditorDispatch();
-    const { editorStatus, hasEdited, hasEditorOpened, isEditing, currentMode, isGridEnabled } =
+    const { editorStatus, hasEdited, hasEditorOpened, isEditing, currentMode, isDebugEnabled } =
         useEditorSelector();
 
     const updateEditorStatus = useCallback(
@@ -35,11 +35,11 @@ export default () => {
         dispatchSetHasEditorOpened();
     }, [dispatchSetHasEditorOpened]);
 
-    const updatedIsGridEnabled = useCallback(
+    const updateDebugEnabled = useCallback(
         (value: boolean) => {
-            dispatchSetIsGridEnabled(value);
+            dispatchSetIsDebugEnabled(value);
         },
-        [dispatchSetIsGridEnabled]
+        [dispatchSetIsDebugEnabled]
     );
 
     const updateHasEdited = useCallback(
@@ -69,12 +69,12 @@ export default () => {
         hasEditorOpened,
         isEditing,
         currentMode,
-        isGridEnabled,
+        isDebugEnabled,
         updateEditorStatus,
         updateIsEditing,
         updateHasEditorOpened,
         updateHasEdited,
-        updatedIsGridEnabled,
+        updateDebugEnabled,
         updateIsMultipleSelect,
         updateCurrentMode,
     };

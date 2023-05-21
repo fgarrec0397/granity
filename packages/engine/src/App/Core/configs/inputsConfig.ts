@@ -11,9 +11,9 @@ export default {
             preventDefault: false,
         },
         {
-            name: "toggleGrid",
+            name: "toggleDebug",
             event: "keyup",
-            code: "KeyG",
+            code: "KeyD",
             ctrlKey: false,
             shiftKey: true,
             preventDefault: false,

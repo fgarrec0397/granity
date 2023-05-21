@@ -7,8 +7,8 @@ import {
     setEditorStatus,
     setHasEdited,
     setHasEditorOpened,
+    setIsDebugEnabled,
     setIsEditing,
-    setIsGridEnabled,
     setIsMultipleSelect,
 } from "../state/editorReducer";
 
@@ -40,8 +40,8 @@ export default () => {
         [dispatch]
     );
 
-    const dispatchSetIsGridEnabled = useCallback(
-        (value: boolean) => dispatch(setIsGridEnabled(value)),
+    const dispatchSetIsDebugEnabled = useCallback(
+        (value: boolean) => dispatch(setIsDebugEnabled(value)),
         [dispatch]
     );
 
@@ -56,7 +56,7 @@ export default () => {
         dispatchSetHasEditorOpened,
         dispatchSetHasEdited,
         dispatchSetIsMultipleSelect,
-        dispatchSetIsGridEnabled,
+        dispatchSetIsDebugEnabled,
         dispatchSetCurrentMode,
     };
 };

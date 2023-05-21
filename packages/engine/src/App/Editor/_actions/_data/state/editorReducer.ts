@@ -8,7 +8,7 @@ export interface EditorState {
     hasEdited: boolean;
     isEditing: boolean;
     isMultipleSelect: boolean;
-    isGridEnabled: boolean;
+    isDebugEnabled: boolean;
     currentMode: EditorModesAvailable;
 }
 
@@ -18,7 +18,7 @@ const initialState: EditorState = {
     hasEdited: false,
     isEditing: false,
     isMultipleSelect: false,
-    isGridEnabled: false,
+    isDebugEnabled: false,
     currentMode: EditorModesAvailable.Translate,
 };
 
@@ -41,8 +41,8 @@ export const editorSlice = createSlice({
         setIsMultipleSelect: (state: EditorState, action: PayloadAction<boolean>) => {
             state.isMultipleSelect = action.payload;
         },
-        setIsGridEnabled: (state: EditorState, action: PayloadAction<boolean>) => {
-            state.isGridEnabled = action.payload;
+        setIsDebugEnabled: (state: EditorState, action: PayloadAction<boolean>) => {
+            state.isDebugEnabled = action.payload;
         },
         setCurrentMode: (state: EditorState, action: PayloadAction<EditorModesAvailable>) => {
             state.currentMode = action.payload;
@@ -56,7 +56,7 @@ export const {
     setHasEditorOpened,
     setHasEdited,
     setIsMultipleSelect,
-    setIsGridEnabled,
+    setIsDebugEnabled,
     setCurrentMode,
 } = editorSlice.actions;
 
