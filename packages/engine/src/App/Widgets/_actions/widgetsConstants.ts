@@ -29,11 +29,6 @@ export enum FieldType {
     File = "File",
 }
 
-export enum WidgetType {
-    GameObject = "GameObject",
-    UI = "UI",
-}
-
 export default {
     widgetObjectsPrefix: "WidgetRenderer",
     widgetDefaultProperties: {
