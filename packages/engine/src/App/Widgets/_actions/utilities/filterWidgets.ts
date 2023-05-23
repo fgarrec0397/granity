@@ -1,8 +1,8 @@
 import { WidgetType } from "../widgetsConstants";
-import { WidgetDictionary, WidgetObjectsDictionary, WidgetUIDictionary } from "../widgetsTypes";
+import { WidgetDictionary, WidgetDictionary, WidgetUIDictionary } from "../widgetsTypes";
 
 type FilteredModules = {
-    widgetsObjects: WidgetObjectsDictionary;
+    widgetsObjects: WidgetDictionary;
     widgetsUI: WidgetUIDictionary;
 };
 

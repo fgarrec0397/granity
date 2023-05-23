@@ -6,9 +6,8 @@ import filterWidgetsIds from "../../utilities/filterWidgetsIds";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
-    WidgetObjectInfo,
-    WidgetObjectInfoDictionary,
-    WidgetObjectsDictionaryItem,
+    WidgetInfoDictionary,
+    WidgetInfoDictionaryItem,
 } from "../../widgetsTypes";
 import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 import useWidgetDispatch from "./useWidgetDispatch";
@@ -20,12 +19,12 @@ export default () => {
     const { widgets, selectedWidgets, setWidgets, setSelectedWidgets, widgetsIds, setWidgetsIds } =
         useWidgetsContext();
     const {
-        dispatchAddDictionary,
-        dispatchAddBatchDictionary,
-        dispatchUpdateDictionary,
-        dispatchRemoveWidgetDictionary,
-        dispatchOverrideWidgetDictionary,
-        dispatchRemoveBatchWidgetDictionary,
+        dispatchAddWidgetInfoDictionaryItem,
+        dispatchAddBatchWidgetInfoDictionary,
+        dispatchUpdateWidgetInfoDictionaryItem,
+        dispatchRemoveWidgetInfoDictionary,
+        dispatchOverrideWidgetInfoDictionary,
+        dispatchRemoveBatchWidgetInfoDictionary,
     } = useWidgetDispatch();
 
     const { widgetsObjects, widgetsUI } = useMemo(() => filterWidgets(widgets), [widgets]);
@@ -36,11 +35,11 @@ export default () => {
     );
 
     const add = useCallback(
-        (newWidget: WidgetDictionaryItem, newWidgetObjectInfo?: WidgetObjectInfo) => {
-            if (newWidgetObjectInfo) {
+        (newWidget: WidgetDictionaryItem, newWidgetInfo?: WidgetInfoDictionaryItem) => {
+            if (newWidgetInfo) {
                 const requiredWidgetDictionaryItem =
-                    newWidgetObjectInfo as Required<WidgetObjectInfo>;
-                dispatchAddDictionary(requiredWidgetDictionaryItem);
+                    newWidgetInfo as Required<WidgetInfoDictionaryItem>;
+                dispatchAddWidgetInfoDictionaryItem(requiredWidgetDictionaryItem);
             }
 
             setWidgets((prevWidgets) => ({
@@ -50,27 +49,27 @@ export default () => {
 
             setWidgetsIds((prevIds) => [...prevIds, newWidget.id]);
         },
-        [dispatchAddDictionary, setWidgets, setWidgetsIds]
+        [dispatchAddWidgetInfoDictionaryItem, setWidgets, setWidgetsIds]
     );
 
     const addBatch = useCallback(
-        (newWidgets: WidgetDictionary, newWidgetsDictionary: WidgetObjectInfoDictionary) => {
-            dispatchAddBatchDictionary(newWidgetsDictionary);
+        (newWidgets: WidgetDictionary, newWidgetsInfoDictionary: WidgetInfoDictionary) => {
+            dispatchAddBatchWidgetInfoDictionary(newWidgetsInfoDictionary);
             setWidgets((prevWidgets) => ({ ...prevWidgets, ...newWidgets }));
             setWidgetsIds((prevIds) => [...prevIds, ...Object.keys(newWidgets)]);
         },
-        [dispatchAddBatchDictionary, setWidgets, setWidgetsIds]
+        [dispatchAddBatchWidgetInfoDictionary, setWidgets, setWidgetsIds]
     );
 
     const update = useCallback(
         <TValue = string>(widgetId: string, value: UpdateWidgetParameter<TValue>) => {
-            dispatchUpdateDictionary(widgetId, value);
+            dispatchUpdateWidgetInfoDictionaryItem(widgetId, value);
         },
-        [dispatchUpdateDictionary]
+        [dispatchUpdateWidgetInfoDictionaryItem]
     );
 
     const select = useCallback(
-        (widgetsToSelect: WidgetObjectsDictionaryItem[]) => {
+        (widgetsToSelect: WidgetDictionaryItem[]) => {
             setSelectedWidgets(widgetsToSelect);
         },
         [setSelectedWidgets]
@@ -83,7 +82,7 @@ export default () => {
     const remove = useCallback(
         (widgetId: string) => {
             removeSelection();
-            dispatchRemoveWidgetDictionary(widgetId);
+            dispatchRemoveWidgetInfoDictionary(widgetId);
 
             delete widgets[widgetId];
 
@@ -93,7 +92,7 @@ export default () => {
                 return ids;
             });
         },
-        [dispatchRemoveWidgetDictionary, removeSelection, setWidgetsIds, widgets]
+        [dispatchRemoveWidgetInfoDictionary, removeSelection, setWidgetsIds, widgets]
     );
 
     const removeBatch = useCallback(
@@ -101,7 +100,7 @@ export default () => {
             const widgetsIdsToDelete = Object.keys(widgetsToDelete);
 
             removeSelection();
-            dispatchRemoveBatchWidgetDictionary(widgetsIdsToDelete);
+            dispatchRemoveBatchWidgetInfoDictionary(widgetsIdsToDelete);
 
             Object.keys(widgetsToDelete).forEach((x) => delete widgets[x]);
 
@@ -111,7 +110,7 @@ export default () => {
                 return ids;
             });
         },
-        [dispatchRemoveBatchWidgetDictionary, removeSelection, setWidgetsIds, widgets]
+        [dispatchRemoveBatchWidgetInfoDictionary, removeSelection, setWidgetsIds, widgets]
     );
 
     const removeAll = useCallback(() => {
@@ -121,7 +120,7 @@ export default () => {
     const reset = useCallback(
         (
             newWidgets: WidgetDictionary,
-            newWidgetsDictionary: WidgetObjectInfoDictionary,
+            newWidgetsDictionary: WidgetInfoDictionary,
             shouldRemoveAll?: boolean
         ) => {
             if (shouldRemoveAll) {
@@ -130,9 +129,9 @@ export default () => {
 
             setWidgets(newWidgets);
             setWidgetsIds(Object.keys(newWidgets));
-            dispatchOverrideWidgetDictionary(newWidgetsDictionary);
+            dispatchOverrideWidgetInfoDictionary(newWidgetsDictionary);
         },
-        [dispatchOverrideWidgetDictionary, removeAll, setWidgets, setWidgetsIds]
+        [dispatchOverrideWidgetInfoDictionary, removeAll, setWidgets, setWidgetsIds]
     );
 
     return {

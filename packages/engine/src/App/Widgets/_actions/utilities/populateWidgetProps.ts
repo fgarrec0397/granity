@@ -1,6 +1,6 @@
-import { WidgetObjectInfoDictionary } from "../widgetsTypes";
+import { WidgetInfoDictionary } from "../widgetsTypes";
 
-export default (widgetId: string, widgetsObjectInfoDictionary: WidgetObjectInfoDictionary) => {
+export default (widgetId: string, widgetsObjectInfoDictionary: WidgetInfoDictionary) => {
     const props: any = {};
 
     if (widgetsObjectInfoDictionary[widgetId]?.options) {

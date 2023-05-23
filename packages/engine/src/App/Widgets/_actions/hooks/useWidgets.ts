@@ -10,13 +10,11 @@ import {
     buildWidgetDictionaryProperties,
     buildWidgetObjectInfo,
 } from "../utilities/buildWidgetObjectInfoDictionary";
-import widgetsConstants, { WidgetType } from "../widgetsConstants";
+import widgetsConstants from "../widgetsConstants";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
-    WidgetObjectInfoDictionary,
-    WidgetObjectsDictionary,
-    WidgetObjectsDictionaryItem,
+    WidgetInfoDictionary,
     WidgetOptionsValues,
     WidgetProperties,
 } from "../widgetsTypes";
@@ -108,7 +106,7 @@ export default () => {
             }
 
             const widgetIdInMesh = widgetMesh?.name.split("+")[2];
-            const widget = getWidgetById(widgetIdInMesh) as WidgetObjectsDictionaryItem;
+            const widget = getWidgetById(widgetIdInMesh);
 
             return { widget, widgetMesh };
         },
@@ -161,18 +159,15 @@ export default () => {
 
             newWidget.id = uidGenerator(); // assign id on initialisation
 
-            if (widget.type === WidgetType.GameObject) {
-                let widgetProperties = properties;
+            let widgetProperties = properties;
 
-                if (!widgetProperties) {
-                    widgetProperties = {
-                        position: [0, 0, 0],
-                        rotation: [0, 0, 0],
-                        scale: [1, 1, 1],
-                    };
-                }
+            if (!widgetProperties) {
+                widgetProperties = {
+                    position: [0, 0, 0],
+                    rotation: [0, 0, 0],
+                    scale: [1, 1, 1],
+                };
             }
-
             if (!widgetOptions) {
                 if (newWidget.options?.length) {
                     const defaultOptions: WidgetOptionsValues<TValue> = {};
@@ -186,15 +181,15 @@ export default () => {
                 }
             }
 
-            const widgetDictionaryItem = buildWidgetObjectInfo(newWidget);
+            const widgetInfoItem = buildWidgetObjectInfo(newWidget);
 
-            add(newWidget, widgetDictionaryItem);
+            add(newWidget, widgetInfoItem);
         },
         [add]
     );
 
     const addWidgetsBatch = useCallback(
-        (newWidgetsDictionary: WidgetObjectInfoDictionary, newWidgets: WidgetObjectsDictionary) => {
+        (newWidgetsDictionary: WidgetInfoDictionary, newWidgets: WidgetDictionary) => {
             addBatch(newWidgets, newWidgetsDictionary);
         },
         [addBatch]
@@ -205,7 +200,7 @@ export default () => {
     }, [removeSelection]);
 
     const selectWidget = useCallback(
-        (widgetsToSelect: WidgetObjectsDictionaryItem[], forceSelect = false) => {
+        (widgetsToSelect: WidgetDictionaryItem[], forceSelect = false) => {
             if (!forceSelect && widgetsToSelect[0].isFrozen) {
                 return;
             }
@@ -275,7 +270,7 @@ export default () => {
     const resetWidgets = useCallback(
         (
             widgetsToAdd?: WidgetDictionary,
-            widgetDictionaryToAdd?: WidgetObjectInfoDictionary,
+            widgetDictionaryToAdd?: WidgetInfoDictionary,
             shouldRemoveAll?: boolean
         ) => {
             reset(widgetsToAdd || {}, widgetDictionaryToAdd || {}, shouldRemoveAll);

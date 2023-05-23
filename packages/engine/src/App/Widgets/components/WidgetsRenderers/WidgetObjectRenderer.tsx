@@ -1,7 +1,7 @@
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
 import getWidgetName from "@engine/App/Widgets/_actions/utilities/getWidgetName";
-import { WidgetObjectsDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { ErrorBoundary, FallbackProps } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 import { Html } from "@granity/three/drei";
@@ -24,7 +24,7 @@ import resolveHelper from "../../_actions/utilities/resolveHelper";
 import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
-    widget: WidgetObjectsDictionaryItem;
+    widget: WidgetDictionaryItem;
 };
 
 type WidgetObjectRendererStyles = {

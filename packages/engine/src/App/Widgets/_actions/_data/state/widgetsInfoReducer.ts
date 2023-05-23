@@ -2,29 +2,29 @@ import { clone, pull } from "@granity/helpers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
-    WidgetObjectInfo,
-    WidgetObjectInfoDictionary,
+    WidgetInfoDictionary,
+    WidgetInfoDictionaryItem,
     WidgetOptionsValues,
 } from "../../widgetsTypes";
 import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 
-export interface WidgetsState {
-    byId: WidgetObjectInfoDictionary;
+export interface WidgetsInfoState {
+    byId: WidgetInfoDictionary;
     allIds: string[];
 }
 
-export const widgetsInitialState: WidgetsState = {
+export const widgetsInfoInitialState: WidgetsInfoState = {
     byId: {},
     allIds: [],
 };
 
-export const widgetsSlice = createSlice({
-    name: "widgets",
-    initialState: widgetsInitialState,
+export const widgetsInfoSlice = createSlice({
+    name: "widgetsInfo",
+    initialState: widgetsInfoInitialState,
     reducers: {
-        addWidgetDictionary: (
-            state: WidgetsState,
-            action: PayloadAction<Required<WidgetObjectInfo>>
+        addWidgetInfoDictionaryItem: (
+            state: WidgetsInfoState,
+            action: PayloadAction<Required<WidgetInfoDictionaryItem>>
         ) => {
             const widgetObjectInfo = action.payload;
 
@@ -35,9 +35,9 @@ export const widgetsSlice = createSlice({
 
             state.allIds.push(widgetObjectInfo.id);
         },
-        addBatchWidgetDictionary: (
-            state: WidgetsState,
-            action: PayloadAction<Required<WidgetObjectInfoDictionary>>
+        addBatchWidgetInfoDictionary: (
+            state: WidgetsInfoState,
+            action: PayloadAction<Required<WidgetInfoDictionary>>
         ) => {
             const newWidgetsDictionary = action.payload;
 
@@ -48,8 +48,8 @@ export const widgetsSlice = createSlice({
 
             state.allIds = [...state.allIds, ...Object.keys(newWidgetsDictionary)];
         },
-        updateWidgetDictionary: <TValue = string>(
-            state: WidgetsState,
+        updateWidgetInfoDictionaryItem: <TValue = string>(
+            state: WidgetsInfoState,
             action: PayloadAction<{
                 widgetId: string;
                 value: UpdateWidgetParameter<TValue>;
@@ -76,12 +76,18 @@ export const widgetsSlice = createSlice({
                 state.byId[widgetId].isVisible = value.isVisible;
             }
         },
-        removeWidgetDictionary: (state: WidgetsState, action: PayloadAction<string>) => {
+        removeWidgetInfoDictionaryItem: (
+            state: WidgetsInfoState,
+            action: PayloadAction<string>
+        ) => {
             const id = action.payload;
             delete state.byId[id];
             state.allIds = state.allIds.filter((x) => x !== id);
         },
-        removeBatchWidgetDictionary: (state: WidgetsState, action: PayloadAction<string[]>) => {
+        removeBatchWidgetInfoDictionary: (
+            state: WidgetsInfoState,
+            action: PayloadAction<string[]>
+        ) => {
             const ids = action.payload;
             ids.forEach((x) => delete state.byId[x]);
 
@@ -90,9 +96,9 @@ export const widgetsSlice = createSlice({
 
             state.allIds = newAllIds;
         },
-        overrideWidgetDictionary: (
-            state: WidgetsState,
-            action: PayloadAction<WidgetObjectInfoDictionary>
+        overrideWidgetInfoDictionary: (
+            state: WidgetsInfoState,
+            action: PayloadAction<WidgetInfoDictionary>
         ) => {
             const widgetDictionary = action.payload;
 
@@ -104,12 +110,12 @@ export const widgetsSlice = createSlice({
 });
 
 export const {
-    addWidgetDictionary,
-    addBatchWidgetDictionary,
-    updateWidgetDictionary,
-    removeWidgetDictionary,
-    removeBatchWidgetDictionary,
-    overrideWidgetDictionary,
-} = widgetsSlice.actions;
+    addWidgetInfoDictionaryItem,
+    addBatchWidgetInfoDictionary,
+    updateWidgetInfoDictionaryItem,
+    removeWidgetInfoDictionaryItem,
+    removeBatchWidgetInfoDictionary,
+    overrideWidgetInfoDictionary,
+} = widgetsInfoSlice.actions;
 
-export default widgetsSlice.reducer;
+export default widgetsInfoSlice.reducer;

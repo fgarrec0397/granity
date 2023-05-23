@@ -37,12 +37,12 @@ export type UIWidgetDictionaryItem<Props = DefaultWidgetProps> = Omit<
 };
 
 /**
- * A serialized dictionary containing informations about all WidgetObjectsDictionary
+ * A serialized dictionary containing informations about all WidgetDictionary
  */
 export type UISerializedWidgetDictionary = Dictionary<UISerializedWidgetDictionaryItem>;
 
 /**
- * A serialized version of WidgetObjectsDictionaryItem type
+ * A serialized version of WidgetDictionaryItem type
  */
 export type UISerializedWidgetDictionaryItem = Omit<UIWidgetDictionaryItem, "component">;
 

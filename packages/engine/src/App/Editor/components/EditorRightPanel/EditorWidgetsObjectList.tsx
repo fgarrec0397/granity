@@ -3,7 +3,7 @@ import useWidgetsModules from "@engine/App/Widgets/_actions/hooks/useWidgetsModu
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
 import {
     WidgetDictionaryItem,
-    WidgetObjectsDictionaryItem,
+    WidgetDictionaryItem,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
@@ -52,7 +52,7 @@ const EditorWidgetsObjectList: FC = () => {
 
     const handleClickRow = (id: string) => {
         const widget = widgetsObjects[id];
-        selectWidget([widget as WidgetObjectsDictionaryItem], true);
+        selectWidget([widget as WidgetDictionaryItem], true);
     };
 
     const handleClickRemove = (widgetId: string) => {

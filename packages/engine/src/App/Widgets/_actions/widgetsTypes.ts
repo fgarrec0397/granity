@@ -158,9 +158,9 @@ export type BaseWidgetInfo = {
 /**
  * A dictionary containing editable informations about a WidgetObject
  */
-export type WidgetInfoDictionary = Dictionary<WidgetInfo>;
+export type WidgetInfoDictionary = Dictionary<WidgetInfoDictionaryItem>;
 
-export type WidgetInfo<TValue = string> = BaseWidgetInfo & {
+export type WidgetInfoDictionaryItem<TValue = string> = BaseWidgetInfo & {
     properties?: WidgetProperties;
     options?: WidgetOptionsValues<TValue>;
     isVisible: boolean;

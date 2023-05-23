@@ -1,6 +1,6 @@
 import {
     SerializedWidgetDictionary,
-    WidgetObjectInfoDictionary,
+    WidgetInfoDictionary,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary, Vector3Array } from "@granity/helpers";
 import { Camera } from "@granity/three/fiber";
@@ -45,7 +45,7 @@ export type ScenesDictionaryItem = {
  */
 export type SceneData = {
     serializedWidgets: SerializedWidgetDictionary;
-    widgetsObjectInfoDictionary: WidgetObjectInfoDictionary;
+    widgetsObjectInfoDictionary: WidgetInfoDictionary;
 };
 
 /**

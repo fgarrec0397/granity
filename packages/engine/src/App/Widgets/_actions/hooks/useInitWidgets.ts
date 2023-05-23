@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 import { buildWidgetObjectInfoDictionary } from "../utilities/buildWidgetObjectInfoDictionary";
-import { SerializedWidgetDictionary, WidgetObjectInfoDictionary } from "../widgetsTypes";
+import { SerializedWidgetDictionary, WidgetInfoDictionary } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
 import useWidgetsUtilities from "./useWidgetsUtilities";
@@ -14,7 +14,7 @@ export default () => {
     const initWidgets = useCallback(
         (
             serializedWidgets?: SerializedWidgetDictionary,
-            widgetsObjectInfoDictionary?: WidgetObjectInfoDictionary
+            widgetsObjectInfoDictionary?: WidgetInfoDictionary
         ) => {
             if (serializedWidgets || widgetsObjectInfoDictionary) {
                 const deserializedWidgets = unserializeWidgets(

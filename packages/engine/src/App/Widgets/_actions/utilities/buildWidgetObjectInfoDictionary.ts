@@ -3,11 +3,11 @@ import { Object3D } from "@granity/three";
 
 import widgetsConstants from "../widgetsConstants";
 import {
-    SerializedWidgetObjectDictionaryItem,
+    SerializedWidgetDictionaryItem,
     WidgetDictionary,
     WidgetDictionaryItem,
-    WidgetObjectInfo,
-    WidgetObjectInfoDictionary,
+    WidgetInfoDictionary,
+    WidgetInfoDictionaryItem,
     WidgetOptionsValues,
     WidgetProperties,
 } from "../widgetsTypes";
@@ -23,10 +23,10 @@ export type WidgetsDictionaryBuilderOptions = {
  * Builds a widgetsObjectInfoDictionary based on the given widgetsDictionary to fill the values
  *
  * @param widgets - The widgets taken to build the widgetsObjectInfoDictionary
- * @returns - A WidgetObjectInfoDictionary
+ * @returns - A WidgetInfoDictionary
  */
 export const buildWidgetObjectInfoDictionary = (widgets: WidgetDictionary) => {
-    const widgetsObjectInfoDictionary: WidgetObjectInfoDictionary = {};
+    const widgetsObjectInfoDictionary: WidgetInfoDictionary = {};
 
     for (const key in widgets) {
         const dictionaryItem = buildWidgetObjectInfo(widgets[key]);
@@ -45,12 +45,12 @@ export const buildWidgetObjectInfoDictionary = (widgets: WidgetDictionary) => {
  *
  * @param widget - The taken widget to build the widgetObjectInfo
  * @param builderOptions - Overrides the widget options by passing your own options
- * @returns - A WidgetObjectInfo
+ * @returns - A WidgetInfoDictionaryItem
  */
 export const buildWidgetObjectInfo = (
     widget: WidgetDictionaryItem,
     builderOptions?: WidgetsDictionaryBuilderOptions
-): WidgetObjectInfo => {
+): WidgetInfoDictionaryItem => {
     const options = builderOptions?.options
         ? builderOptions?.options
         : buildWidgetInfoDictionaryOptions(widget);
@@ -74,7 +74,7 @@ export const buildWidgetObjectInfo = (
  * @returns - The options created from the given widget
  */
 export const buildWidgetInfoDictionaryOptions = (
-    widget: WidgetDictionaryItem | SerializedWidgetObjectDictionaryItem
+    widget: WidgetDictionaryItem | SerializedWidgetDictionaryItem
 ) => {
     const options: WidgetOptionsValues<any> = {};
     const widgetOptions = widget.options;

@@ -1,70 +1,70 @@
 import { useAppDispatch } from "@engine/App/Core/_actions/_data/state/store";
 import { useCallback } from "react";
 
-import { WidgetObjectInfo, WidgetObjectInfoDictionary } from "../../widgetsTypes";
+import { WidgetInfoDictionary, WidgetInfoDictionaryItem } from "../../widgetsTypes";
 import {
-    addBatchWidgetDictionary,
-    addWidgetDictionary,
-    overrideWidgetDictionary,
-    removeBatchWidgetDictionary,
-    removeWidgetDictionary,
-    updateWidgetDictionary,
-} from "../state/widgetsReducer";
+    addBatchWidgetInfoDictionary,
+    addWidgetInfoDictionaryItem,
+    overrideWidgetInfoDictionary,
+    removeBatchWidgetInfoDictionary,
+    removeWidgetInfoDictionaryItem,
+    updateWidgetInfoDictionaryItem,
+} from "../state/widgetsInfoReducer";
 import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 
 export default () => {
     const dispatch = useAppDispatch();
 
-    const dispatchAddDictionary = useCallback(
-        (widgetObjectInfo: Required<WidgetObjectInfo>) => {
-            return dispatch(addWidgetDictionary(widgetObjectInfo));
+    const dispatchAddWidgetInfoDictionaryItem = useCallback(
+        (widgetObjectInfo: Required<WidgetInfoDictionaryItem>) => {
+            return dispatch(addWidgetInfoDictionaryItem(widgetObjectInfo));
         },
         [dispatch]
     );
 
-    const dispatchAddBatchDictionary = useCallback(
-        (widgetsObjectInfoDictionary: Required<WidgetObjectInfoDictionary>) => {
-            return dispatch(addBatchWidgetDictionary(widgetsObjectInfoDictionary));
+    const dispatchAddBatchWidgetInfoDictionary = useCallback(
+        (widgetsObjectInfoDictionary: Required<WidgetInfoDictionary>) => {
+            return dispatch(addBatchWidgetInfoDictionary(widgetsObjectInfoDictionary));
         },
         [dispatch]
     );
 
-    const dispatchUpdateDictionary = useCallback(
+    const dispatchUpdateWidgetInfoDictionaryItem = useCallback(
         <TValue = string>(widgetId: string, value: UpdateWidgetParameter<TValue>) => {
-            return dispatch(updateWidgetDictionary({ widgetId, value }));
+            return dispatch(updateWidgetInfoDictionaryItem({ widgetId, value }));
         },
         [dispatch]
     );
 
-    const dispatchRemoveWidgetDictionary = useCallback(
+    const dispatchRemoveWidgetInfoDictionary = useCallback(
         (widgetId: string | undefined) => {
             if (widgetId) {
-                return dispatch(removeWidgetDictionary(widgetId));
+                return dispatch(removeWidgetInfoDictionaryItem(widgetId));
             }
         },
         [dispatch]
     );
 
-    const dispatchRemoveBatchWidgetDictionary = useCallback(
+    const dispatchRemoveBatchWidgetInfoDictionary = useCallback(
         (widgetIds: string[]) => {
-            return dispatch(removeBatchWidgetDictionary(widgetIds));
+            return dispatch(removeBatchWidgetInfoDictionary(widgetIds));
         },
         [dispatch]
     );
 
-    const dispatchOverrideWidgetDictionary = useCallback(
-        (widgetDictionary: WidgetObjectInfoDictionary) => {
-            return dispatch(overrideWidgetDictionary(widgetDictionary));
+    const dispatchOverrideWidgetInfoDictionary = useCallback(
+        (widgetDictionary: WidgetInfoDictionary) => {
+            return dispatch(overrideWidgetInfoDictionary(widgetDictionary));
         },
         [dispatch]
     );
 
     return {
-        dispatchAddDictionary,
-        dispatchAddBatchDictionary,
-        dispatchUpdateDictionary,
-        dispatchRemoveWidgetDictionary,
-        dispatchRemoveBatchWidgetDictionary,
-        dispatchOverrideWidgetDictionary,
+        dispatchAddWidgetInfoDictionaryItem,
+        dispatchAddBatchWidgetInfoDictionary,
+        dispatchUpdateWidgetInfoDictionaryItem,
+        dispatchRemoveWidgetInfoDictionary,
+        dispatchRemoveBatchWidgetInfoDictionary,
+        dispatchOverrideWidgetInfoDictionary,
     };
 };

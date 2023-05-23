@@ -2,9 +2,9 @@ import editorReducer, { EditorState } from "@engine/App/Editor/_actions/_data/st
 import gameReducer, { GameState } from "@engine/App/Game/_actions/_data/state/gameReducer";
 import scenesReducer, { ScenesState } from "@engine/App/Scenes/_actions/_data/state/scenesReducer";
 import uiReducer, { UIState } from "@engine/App/UI/_actions/_data/state/uiReducer";
-import widgetsReducer, {
-    WidgetsState,
-} from "@engine/App/Widgets/_actions/_data/state/widgetsReducer";
+import widgetsInfoReducer, {
+    WidgetsInfoState,
+} from "@engine/App/Widgets/_actions/_data/state/widgetsInfoReducer";
 import { configureStore, Slice } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AnyAction, combineReducers, Reducer, ReducersMapObject, Store } from "redux";
@@ -14,7 +14,7 @@ import coreReducer, { CoreState } from "./coreReducer";
 export interface State {
     core: CoreState;
     editor: EditorState;
-    widgets: WidgetsState;
+    widgets: WidgetsInfoState;
     scenes: ScenesState;
     game: GameState;
     ui: UIState;
@@ -43,7 +43,7 @@ export type InjectableStore = Store<State, MyAction> & {
 const staticReducers: ReducersMapObject<State, MyAction> = {
     core: coreReducer,
     editor: editorReducer,
-    widgets: widgetsReducer,
+    widgets: widgetsInfoReducer,
     scenes: scenesReducer,
     game: gameReducer,
     ui: uiReducer,

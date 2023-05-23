@@ -1,3 +1,3 @@
-import { WidgetObjectInfo } from "../widgetsTypes";
+import { WidgetInfoDictionaryItem } from "../widgetsTypes";
 
-export type UpdateWidgetParameter<TValue = string> = Partial<Omit<WidgetObjectInfo<TValue>, "id">>;
+export type UpdateWidgetParameter<TValue = string> = Partial<Omit<WidgetInfoDictionaryItem<TValue>, "id">>;

@@ -5,8 +5,8 @@ import populateWidgetProps from "../utilities/populateWidgetProps";
 import {
     SerializedWidgetDictionary,
     WidgetDictionary,
+    WidgetInfoDictionary,
     WidgetModules,
-    WidgetObjectInfoDictionary,
 } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
@@ -51,8 +51,8 @@ export default () => {
      */
     const synchWidgets = useCallback(
         (
-            widgetObjectInfoDictionary1: WidgetObjectInfoDictionary,
-            widgetObjectInfoDictionary2: WidgetObjectInfoDictionary
+            widgetObjectInfoDictionary1: WidgetInfoDictionary,
+            widgetObjectInfoDictionary2: WidgetInfoDictionary
         ) => {
             const clonedWidgetObjectInfoDictionary1 = cloneDeep(widgetObjectInfoDictionary1);
             const clonedWidgetObjectInfoDictionary2 = cloneDeep(widgetObjectInfoDictionary2);
