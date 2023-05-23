@@ -1,5 +1,5 @@
 import { ScenesDictionary } from "@engine/App/Scenes/_actions/scenesTypes";
-import { WidgetModules } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { WidgetModule } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary } from "@granity/helpers";
 import { ReactNode } from "react";
 
@@ -30,7 +30,7 @@ export type EngineEndpoints = {
 
 export type EngineConfig = {
     physicsEnabled?: boolean;
-    widgetsModules: WidgetModules[];
+    widgetsModules: WidgetModule[];
     inputsConfig?: InputsConfig;
     editorMainMenu?: EditorMainMenuItem[];
     endpoints?: EngineEndpoints;

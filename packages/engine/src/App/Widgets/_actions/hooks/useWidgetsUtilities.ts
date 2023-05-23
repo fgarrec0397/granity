@@ -6,7 +6,7 @@ import {
     SerializedWidgetDictionary,
     WidgetDictionary,
     WidgetInfoDictionary,
-    WidgetModules,
+    WidgetModule,
 } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
@@ -19,7 +19,7 @@ export default () => {
      * Unserialize widgets based on the given widgetsModules as reference
      */
     const unserializeWidgets = useCallback(
-        (serializedWidgets: SerializedWidgetDictionary, widgetsModules: WidgetModules[]) => {
+        (serializedWidgets: SerializedWidgetDictionary, widgetsModules: WidgetModule[]) => {
             const deserializedWidgets: WidgetDictionary = {};
 
             // loop through all serialized widgets from the DB

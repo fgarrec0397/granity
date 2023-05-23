@@ -1,11 +1,11 @@
 import { HasChildren } from "@granity/helpers";
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
-import { WidgetModules } from "../../widgetsTypes";
+import { WidgetModule } from "../../widgetsTypes";
 
 export interface WidgetModuleContextModel {
-    widgetsModules: WidgetModules[] | [];
-    setWidgetsModules: (() => void) | Dispatch<SetStateAction<WidgetModules[]>>;
+    widgetsModules: WidgetModule[] | [];
+    setWidgetsModules: (() => void) | Dispatch<SetStateAction<WidgetModule[]>>;
 }
 
 export const defaultContext: WidgetModuleContextModel = {
@@ -18,7 +18,7 @@ export const WidgetsModulesContext = createContext<WidgetModuleContextModel>(def
 type Props = HasChildren;
 
 const WidgetsModulesContextProvider: FC<Props> = ({ children }) => {
-    const [widgetsModules, setWidgetsModules] = useState<WidgetModules[]>([]);
+    const [widgetsModules, setWidgetsModules] = useState<WidgetModule[]>([]);
 
     const providerValue: WidgetModuleContextModel = {
         widgetsModules,

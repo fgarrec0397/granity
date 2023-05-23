@@ -1,4 +1,4 @@
-import { WidgetModules } from "@granity/engine";
+import { WidgetModule } from "@granity/engine";
 
 import type { CamerasProps } from "./Cameras";
 import type { GeometryFormsProps } from "./GeometryForms";
@@ -34,7 +34,7 @@ declare module "@granity/engine" {
 }
 
 const resolveModules = () => {
-    const widgetsModules: WidgetModules[] = [];
+    const widgetsModules: WidgetModule[] = [];
     // for (const path in modules) {
     //     const { widget } = modules[path] as any;
     //     widgetsModules.push(widget);

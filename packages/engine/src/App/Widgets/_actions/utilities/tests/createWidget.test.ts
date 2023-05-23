@@ -1,7 +1,7 @@
 import TestWidgetComponent from "@engine/Tests/utilities/widgets/TestWidgetComponent";
 import { describe } from "vitest";
 
-import { WidgetModules } from "../../widgetsTypes";
+import { WidgetModule } from "../../widgetsTypes";
 import createWidget from "../createWidget";
 
 describe("createWidget utility", () => {
@@ -23,7 +23,7 @@ describe("createWidget utility", () => {
 
     it("should have a hasRef property and it should be true", () => {
         expect(widget).toHaveProperty("hasRef");
-        expect((widget as WidgetModules).hasRef).toBe(true);
+        expect((widget as WidgetModule).hasRef).toBe(true);
     });
 
     it("should have a name property", () => {

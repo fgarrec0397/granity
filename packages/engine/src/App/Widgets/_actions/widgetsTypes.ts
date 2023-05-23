@@ -39,7 +39,7 @@ export type Widget<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptio
     options?: Options[];
 };
 
-export type WidgetModules<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions> = Widget<
+export type WidgetModule<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions> = Widget<
     Props,
     Ref,
     Options
@@ -123,7 +123,7 @@ export type WidgetDictionary<Props = DefaultWidgetProps> = Dictionary<WidgetDict
  * Informations of a widget
  */
 export type WidgetDictionaryItem<Props = DefaultWidgetProps> = Omit<
-    WidgetModules<Props>,
+    WidgetModule<Props>,
     "reducer"
 > & {
     id: string;

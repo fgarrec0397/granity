@@ -1,8 +1,8 @@
-import { WidgetModules } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { WidgetModule } from "@engine/App/Widgets/_actions/widgetsTypes";
 
 import TestWidgetComponent from "./TestWidgetComponent";
 
-export const widgetsModulesTest: WidgetModules = {
+export const widgetsModulesTest: WidgetModule = {
     component: TestWidgetComponent,
     reducer: null,
     hasRef: true,

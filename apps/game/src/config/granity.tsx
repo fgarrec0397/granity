@@ -1,6 +1,6 @@
-import { EngineConfig, WidgetModules } from "@granity/engine";
+import { EngineConfig, WidgetModule } from "@granity/engine";
 
-let widgetsModules: WidgetModules[] = [];
+let widgetsModules: WidgetModule[] = [];
 
 const importWidgetsModules = (requireContext: any) => {
     const modules = {};

@@ -1,6 +1,6 @@
-import { WidgetDictionaryItem, WidgetModules } from "../widgetsTypes";
+import { WidgetDictionaryItem, WidgetModule } from "../widgetsTypes";
 
-export default <T extends WidgetModules>(widget: T): WidgetDictionaryItem => {
+export default <T extends WidgetModule>(widget: T): WidgetDictionaryItem => {
     return {
         ...widget,
         id: "",

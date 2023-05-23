@@ -1,9 +1,9 @@
-import { EngineConfig, WidgetModules } from "@granity/engine";
+import { EngineConfig, WidgetModule } from "@granity/engine";
 import Home from "@granity/icons/Home";
 import Logout from "@granity/icons/Logout";
 import { signOut } from "next-auth/react";
 
-let widgetsModules: WidgetModules[] = [];
+let widgetsModules: WidgetModule[] = [];
 
 const importWidgetsModules = (requireContext: any) => {
     const modules = {};
