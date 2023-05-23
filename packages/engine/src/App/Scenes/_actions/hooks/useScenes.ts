@@ -32,7 +32,7 @@ export default () => {
     const { enqueueSnackbar } = useSnackbar();
     const { initWidgets } = useInitWidgets();
     const { unserializeWidgets } = useWidgetsUtilities();
-    const { widgets, widgetsObjectInfoDictionary, resetWidgets } = useWidgets();
+    const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
     const previousScenes = usePrevious(scenes);
     const [lastSceneAdded, setLastSceneAdded] = useState<ScenesDictionaryItem>();
@@ -100,13 +100,13 @@ export default () => {
                 ...currentScene,
                 data: {
                     serializedWidgets,
-                    widgetsObjectInfoDictionary,
+                    widgetsInfoDictionary,
                 },
             };
 
             updateScene(scene);
         }
-    }, [getCurrentScene, updateScene, widgets, widgetsObjectInfoDictionary]);
+    }, [getCurrentScene, updateScene, widgets, widgetsInfoDictionary]);
 
     const displaySceneName = useCallback(
         (sceneId: string) => {
@@ -134,11 +134,7 @@ export default () => {
 
                 updateCurrentScene();
                 updateCurrentSceneId(sceneNameOrId);
-                resetWidgets(
-                    deserializedWidgets,
-                    selectedSceneData.widgetsObjectInfoDictionary,
-                    true
-                );
+                resetWidgets(deserializedWidgets, selectedSceneData.widgetsInfoDictionary, true);
             }
         },
         [
@@ -200,7 +196,7 @@ export default () => {
                 isDefault: isSceneDefault,
                 data: {
                     serializedWidgets: {},
-                    widgetsObjectInfoDictionary: {},
+                    widgetsInfoDictionary: {},
                 },
             };
 
@@ -239,7 +235,7 @@ export default () => {
                 ...scenesClone[currentScene.id],
                 data: {
                     serializedWidgets,
-                    widgetsObjectInfoDictionary,
+                    widgetsInfoDictionary,
                 },
             };
 
@@ -249,7 +245,7 @@ export default () => {
         } else {
             enqueueSnackbar("Impossible to save without a scene", { variant: "error" });
         }
-    }, [enqueueSnackbar, getCurrentScene, scenes, widgets, widgetsObjectInfoDictionary]);
+    }, [enqueueSnackbar, getCurrentScene, scenes, widgets, widgetsInfoDictionary]);
 
     const removeScene = useCallback(
         (sceneId: string) => {
@@ -272,13 +268,14 @@ export default () => {
     const initScenes = useCallback(
         (initialScenes?: ScenesDictionary) => {
             setScenesStatus("loading");
+
             if (initialScenes) {
                 const newCurrentSceneId = getDefaultSceneId(initialScenes);
                 const newCurrentScene = initialScenes[newCurrentSceneId];
 
                 initWidgets(
                     newCurrentScene.data.serializedWidgets,
-                    newCurrentScene.data.widgetsObjectInfoDictionary
+                    newCurrentScene.data.widgetsInfoDictionary
                 );
 
                 resetScenes(initialScenes, newCurrentSceneId);

@@ -4,10 +4,10 @@ const widgetsInfoSelector = (state: AppState) => state.widgets;
 
 export default () =>
     useAppSelector((state) => {
-        const widgetsObjectInfoDictionary = widgetsInfoSelector(state);
+        const widgetsInfoDictionary = widgetsInfoSelector(state);
 
         return {
-            widgetsObjectInfoDictionary: widgetsObjectInfoDictionary.byId,
-            widgetsObjectInfoIds: widgetsObjectInfoDictionary.allIds,
+            widgetsInfoDictionary: widgetsInfoDictionary.byId,
+            widgetsObjectInfoIds: widgetsInfoDictionary.allIds,
         };
     });

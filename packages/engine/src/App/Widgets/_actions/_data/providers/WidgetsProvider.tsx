@@ -1,7 +1,4 @@
-import {
-    WidgetDictionary,
-    WidgetDictionaryItem,
-} from "@engine/App/Widgets/_actions/widgetsTypes";
+import { WidgetDictionary, WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { HasChildren } from "@granity/helpers";
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 

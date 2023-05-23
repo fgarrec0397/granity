@@ -1,10 +1,7 @@
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import useWidgetsModules from "@engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
-import {
-    WidgetDictionaryItem,
-    WidgetDictionaryItem,
-} from "@engine/App/Widgets/_actions/widgetsTypes";
+import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
@@ -30,15 +27,15 @@ const EditorWidgetsObjectList: FC = () => {
     const {
         addWidget,
         displayWidgetName,
-        widgetsObjectsIds,
-        widgetsObjects,
-        widgetsObjectInfoDictionary,
+        widgets,
+        widgetsIds,
+        widgetsInfoDictionary,
         updateWidget,
         selectWidget,
         selectedWidgets,
         removeWidget,
     } = useWidgets();
-    const { widgetsObjectModules } = useWidgetsModules();
+    const { widgetsModules } = useWidgetsModules();
 
     const handleClickMenuItem = (widget: WidgetDictionaryItem): void => {
         addWidget(widget);
@@ -46,12 +43,12 @@ const EditorWidgetsObjectList: FC = () => {
 
     const toggleVisibilityWidget = (id: string): void => {
         if (id) {
-            updateWidget(id, { isVisible: !widgetsObjectInfoDictionary[id].isVisible });
+            updateWidget(id, { isVisible: !widgetsInfoDictionary[id].isVisible });
         }
     };
 
     const handleClickRow = (id: string) => {
-        const widget = widgetsObjects[id];
+        const widget = widgets[id];
         selectWidget([widget as WidgetDictionaryItem], true);
     };
 
@@ -61,25 +58,25 @@ const EditorWidgetsObjectList: FC = () => {
 
     return (
         <EditorItemsList
-            itemsDictionaryIds={widgetsObjectsIds}
+            itemsDictionaryIds={widgetsIds}
             title="Objects Widgets"
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
-            editModal={(id) => <EditWidgetModal widget={widgetsObjects[id]} />}
-            isVisible={(id) => widgetsObjectInfoDictionary?.[id]?.isVisible}
+            editModal={(id) => <EditWidgetModal widget={widgets[id]} />}
+            isVisible={(id) => widgetsInfoDictionary?.[id]?.isVisible}
             handleVisibility={toggleVisibilityWidget}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
-            isActionRowSelected={(id) => widgetsObjects[id]?.id === selectedWidgets[0]?.id}
+            isActionRowSelected={(id) => widgets[id]?.id === selectedWidgets[0]?.id}
             cancelButton={{
                 text: "Cancel and close",
             }}
         >
             {(state) => (
                 <Box {...styles.itemWrapper}>
-                    {widgetsObjectModules.length > 0
-                        ? widgetsObjectModules.map((widget, index) => {
+                    {widgetsModules.length > 0
+                        ? widgetsModules.map((widget, index) => {
                               const key = `${index}-${widget.name}`;
                               const newWidget: WidgetDictionaryItem =
                                   mapWidgetModuleToWidgetDictionary(widget);

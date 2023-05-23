@@ -1,10 +1,4 @@
-import {
-    createWidget,
-    EditableWidget,
-    FieldType,
-    GameRigidBody,
-    WidgetType,
-} from "@granity/engine";
+import { createWidget, EditableWidget, FieldType, GameRigidBody } from "@granity/engine";
 import { FC } from "react";
 
 export interface GeometryFormsProps extends EditableWidget {
@@ -31,7 +25,6 @@ const GeometryForms: FC<OwnProps> = ({ shape, color, position }) => {
 export const widget = createWidget({
     component: GeometryForms,
     reducer: null,
-    type: WidgetType.GameObject,
     name: "Geometry",
     options: [
         {

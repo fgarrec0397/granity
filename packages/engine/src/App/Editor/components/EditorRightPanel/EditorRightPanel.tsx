@@ -33,7 +33,7 @@ const EditorRightPanel: FC = () => {
     return (
         <Box {...styles.wrapper}>
             <EditorWidgetsObjectList />
-            <EditorWidgetsUIList />
+            {/* <EditorWidgetsUIList /> */}
             <EditorScenesList />
         </Box>
     );

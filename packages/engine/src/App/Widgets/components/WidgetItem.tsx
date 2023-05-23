@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { useWidgets } from "../_actions/hooks";
-import { WidgetType } from "../_actions/widgetsConstants";
 import WidgetObjectRenderer from "./WidgetsRenderers/WidgetObjectRenderer";
 import WidgetUIRenderer from "./WidgetsRenderers/WidgetUIRenderer";
 
@@ -18,13 +17,15 @@ const WidgetItem: FC<WidgetItemProps> = ({ widgetId }) => {
         return null;
     }
 
-    if (widget.type === WidgetType.GameObject) {
-        return <WidgetObjectRenderer widget={widget} />;
-    }
+    // TODO - widgetsDataArchitecture - Check to pass a renderer instead of hardcoded  condition with components
+    // if (widget.type === WidgetType.GameObject) {
+    //     return <WidgetObjectRenderer widget={widget} />;
+    // }
 
-    if (widget.type === WidgetType.UI) {
-        return <WidgetUIRenderer widget={widget} />;
-    }
+    // if (widget.type === WidgetType.UI) {
+    //     return <WidgetUIRenderer widget={widget} />;
+    // }
+    return <WidgetObjectRenderer widget={widget} />;
 
     return null;
 };

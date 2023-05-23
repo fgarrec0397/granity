@@ -1,4 +1,4 @@
-import { createWidget, FieldType, useScenes, WidgetType } from "@granity/engine";
+import { createWidget, FieldType, useScenes } from "@granity/engine";
 import { Box, BoxProps, Button, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
@@ -41,7 +41,6 @@ const PlayMenu: FC = () => {
 export const widget = createWidget({
     component: PlayMenu,
     reducer: null,
-    type: WidgetType.UI,
     name: "PlayMenu",
     options: [
         {

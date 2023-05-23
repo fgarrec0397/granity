@@ -1,30 +1,16 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 import useWidgetsModuleContext from "../_data/hooks/useWidgetsModuleContext";
-import filterWidgetsModules from "../utilities/filterWidgetsModules";
-import { WidgetModules, WidgetObjectModule } from "../widgetsTypes";
+import { WidgetModules } from "../widgetsTypes";
 
 export default () => {
-    const { widgetsObjectModules, setWidgetsModules, widgetsUIModules, setWidgetsUIModules } =
-        useWidgetsModuleContext();
-    const widgetsModules = useMemo(
-        () => [...widgetsObjectModules, ...widgetsUIModules],
-        [widgetsObjectModules, widgetsUIModules]
-    );
+    const { widgetsModules, setWidgetsModules } = useWidgetsModuleContext();
 
     const initWidgetsModules = useCallback(
         (_widgetsModules: WidgetModules[]) => {
-            const filteredModules = filterWidgetsModules(_widgetsModules); // TODO - plug back the loadedWidgetsModules
-
-            if (filteredModules.widgetsObjectModules) {
-                setWidgetsModules(filteredModules.widgetsObjectModules);
-            }
-
-            if (filteredModules.widgetsUIModules) {
-                setWidgetsUIModules(filteredModules.widgetsUIModules);
-            }
+            setWidgetsModules(_widgetsModules);
         },
-        [setWidgetsModules, setWidgetsUIModules]
+        [setWidgetsModules]
     );
 
     const getWidgetModuleByName = useCallback(
@@ -38,7 +24,7 @@ export default () => {
      * Load the  React component from the widgets modules list of the given widget
      */
     const getWidgetModuleComponentByName = useCallback(
-        (widgetName: string, otherWidgetsModules?: WidgetObjectModule[]) => {
+        (widgetName: string, otherWidgetsModules?: WidgetModules[]) => {
             return getWidgetModuleByName(widgetName, otherWidgetsModules)!.component;
         },
         [getWidgetModuleByName]
@@ -46,8 +32,6 @@ export default () => {
 
     return {
         widgetsModules,
-        widgetsObjectModules,
-        widgetsUIModules,
         setWidgetsModules,
         initWidgetsModules,
         getWidgetModuleComponentByName,

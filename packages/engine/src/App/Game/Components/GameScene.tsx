@@ -7,14 +7,14 @@ import { useHandleGameStart } from "../_actions/hooks";
 import GamePhysics from "./GamePhysics";
 
 const GameScene: FC = () => {
-    const { widgetsObjectsIds } = useWidgets();
+    const { widgetsIds } = useWidgets();
 
     useHandleInitScenes("publishedScenes");
     useHandleGameStart();
 
     return (
         <GamePhysics>
-            <Widgets widgetsIds={widgetsObjectsIds} />
+            <Widgets widgetsIds={widgetsIds} />
         </GamePhysics>
     );
 };

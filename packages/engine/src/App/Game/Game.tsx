@@ -29,7 +29,9 @@ export const Game: FC = () => {
 };
 
 export const GameUI: FC = () => {
-    const { widgetsUIIds } = useWidgets();
+    // const { widgetsUIIds } = useWidgets();
+    console.log("UI is temporarily down");
 
-    return <Widgets widgetsIds={widgetsUIIds} />;
+    return null;
+    // return <Widgets widgetsIds={widgetsUIIds} />;
 };

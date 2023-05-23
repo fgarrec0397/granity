@@ -1,20 +1,16 @@
 import { HasChildren } from "@granity/helpers";
 import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 
-import { WidgetObjectModule, WidgetUIModule } from "../../widgetsTypes";
+import { WidgetModules } from "../../widgetsTypes";
 
 export interface WidgetModuleContextModel {
-    widgetsObjectModules: WidgetObjectModule[] | [];
-    widgetsUIModules: WidgetUIModule[] | [];
-    setWidgetsModules: (() => void) | Dispatch<SetStateAction<WidgetObjectModule[]>>;
-    setWidgetsUIModules: (() => void) | Dispatch<SetStateAction<WidgetUIModule[]>>;
+    widgetsModules: WidgetModules[] | [];
+    setWidgetsModules: (() => void) | Dispatch<SetStateAction<WidgetModules[]>>;
 }
 
 export const defaultContext: WidgetModuleContextModel = {
-    widgetsObjectModules: [],
-    widgetsUIModules: [],
+    widgetsModules: [],
     setWidgetsModules: () => {},
-    setWidgetsUIModules: () => {},
 };
 
 export const WidgetsModulesContext = createContext<WidgetModuleContextModel>(defaultContext);
@@ -22,14 +18,11 @@ export const WidgetsModulesContext = createContext<WidgetModuleContextModel>(def
 type Props = HasChildren;
 
 const WidgetsModulesContextProvider: FC<Props> = ({ children }) => {
-    const [widgetsObjectModules, setWidgetsModules] = useState<WidgetObjectModule[]>([]);
-    const [widgetsUIModules, setWidgetsUIModules] = useState<WidgetUIModule[]>([]);
+    const [widgetsModules, setWidgetsModules] = useState<WidgetModules[]>([]);
 
     const providerValue: WidgetModuleContextModel = {
-        widgetsObjectModules,
-        widgetsUIModules,
+        widgetsModules,
         setWidgetsModules,
-        setWidgetsUIModules,
     };
 
     return (

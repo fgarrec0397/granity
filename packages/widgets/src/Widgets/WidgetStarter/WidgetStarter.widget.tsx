@@ -1,4 +1,4 @@
-import { createWidget, EditableWidget, FeaturesState, WidgetType } from "@granity/engine";
+import { createWidget, EditableWidget, FeaturesState } from "@granity/engine";
 import { FC } from "react";
 
 import widgetStarterReducer from "./_actions/_data/state/widgetStarterReducer";
@@ -26,6 +26,5 @@ const WidgetStarter: FC<WidgetStarterProps> = () => {
 export const widget = createWidget({
     component: WidgetStarter,
     reducer: widgetStarterReducer,
-    type: WidgetType.GameObject,
     name: "WidgetStarter",
 });

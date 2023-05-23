@@ -1,4 +1,4 @@
-import { createWidget, EditableWidget, FieldType, helpersTypes, WidgetType } from "@granity/engine";
+import { createWidget, EditableWidget, FieldType, helpersTypes } from "@granity/engine";
 import { capitalizeString, Vector3Array } from "@granity/helpers";
 import { FC } from "react";
 
@@ -55,7 +55,6 @@ export const widget = createWidget<LightProps>({
     component: Light,
     hasRef: true,
     reducer: null,
-    type: WidgetType.GameObject,
     editorOptions: {
         helper: (options) => {
             if (options?.lightType?.value) {

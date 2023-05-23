@@ -5,7 +5,6 @@ import {
     helpersTypes,
     useCreateCamera,
     useGameUpdate,
-    WidgetType,
 } from "@granity/engine";
 import { PerspectiveCamera } from "@granity/three";
 import { FC, Ref, useEffect } from "react";
@@ -40,7 +39,6 @@ export const widget = createWidget<CamerasProps, PerspectiveCamera>({
     component: Cameras,
     hasRef: true,
     reducer: null,
-    type: WidgetType.GameObject,
     editorOptions: {
         helper: helpersTypes.CameraHelper,
         gizmo: true,

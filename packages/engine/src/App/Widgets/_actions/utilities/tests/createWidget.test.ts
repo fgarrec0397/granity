@@ -1,8 +1,7 @@
 import TestWidgetComponent from "@engine/Tests/utilities/widgets/TestWidgetComponent";
 import { describe } from "vitest";
 
-import { WidgetType } from "../../widgetsConstants";
-import { WidgetObjectModule } from "../../widgetsTypes";
+import { WidgetModules } from "../../widgetsTypes";
 import createWidget from "../createWidget";
 
 describe("createWidget utility", () => {
@@ -10,7 +9,6 @@ describe("createWidget utility", () => {
         component: TestWidgetComponent,
         reducer: null,
         hasRef: true,
-        type: WidgetType.GameObject,
         name: "widget",
     });
 
@@ -25,12 +23,7 @@ describe("createWidget utility", () => {
 
     it("should have a hasRef property and it should be true", () => {
         expect(widget).toHaveProperty("hasRef");
-        expect((widget as WidgetObjectModule).hasRef).toBe(true);
-    });
-
-    it("should have a type property and it should be 'GameObject'", () => {
-        expect(widget).toHaveProperty("type");
-        expect(widget.type).toBe(WidgetType.GameObject);
+        expect((widget as WidgetModules).hasRef).toBe(true);
     });
 
     it("should have a name property", () => {

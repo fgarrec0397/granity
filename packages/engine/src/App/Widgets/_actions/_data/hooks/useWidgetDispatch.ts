@@ -23,8 +23,8 @@ export default () => {
     );
 
     const dispatchAddBatchWidgetInfoDictionary = useCallback(
-        (widgetsObjectInfoDictionary: Required<WidgetInfoDictionary>) => {
-            return dispatch(addBatchWidgetInfoDictionary(widgetsObjectInfoDictionary));
+        (widgetsInfoDictionary: Required<WidgetInfoDictionary>) => {
+            return dispatch(addBatchWidgetInfoDictionary(widgetsInfoDictionary));
         },
         [dispatch]
     );

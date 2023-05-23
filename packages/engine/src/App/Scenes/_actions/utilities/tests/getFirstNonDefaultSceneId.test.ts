@@ -15,7 +15,7 @@ describe("getFirstNonDefaultScene utility", () => {
                 isDefault: true,
                 data: {
                     serializedWidgets: {},
-                    widgetsObjectInfoDictionary: {},
+                    widgetsInfoDictionary: {},
                 },
             },
             sceneId2: {
@@ -24,7 +24,7 @@ describe("getFirstNonDefaultScene utility", () => {
                 isDefault: false,
                 data: {
                     serializedWidgets: {},
-                    widgetsObjectInfoDictionary: {},
+                    widgetsInfoDictionary: {},
                 },
             },
         };
@@ -45,7 +45,7 @@ describe("getFirstNonDefaultScene utility", () => {
                 isDefault: true,
                 data: {
                     serializedWidgets: {},
-                    widgetsObjectInfoDictionary: {},
+                    widgetsInfoDictionary: {},
                 },
             },
             sceneId2: {
@@ -54,7 +54,7 @@ describe("getFirstNonDefaultScene utility", () => {
                 isDefault: false,
                 data: {
                     serializedWidgets: {},
-                    widgetsObjectInfoDictionary: {},
+                    widgetsInfoDictionary: {},
                 },
             },
         };

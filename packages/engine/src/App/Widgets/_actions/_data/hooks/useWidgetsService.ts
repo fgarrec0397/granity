@@ -1,8 +1,6 @@
 import { pull } from "@granity/helpers";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
-import filterWidgets from "../../utilities/filterWidgets";
-import filterWidgetsIds from "../../utilities/filterWidgetsIds";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
@@ -15,7 +13,7 @@ import useWidgetsContext from "./useWidgetsContext";
 import useWidgetsSelector from "./useWidgetsSelector";
 
 export default () => {
-    const { widgetsObjectInfoDictionary, widgetsObjectInfoIds } = useWidgetsSelector();
+    const { widgetsInfoDictionary, widgetsObjectInfoIds } = useWidgetsSelector();
     const { widgets, selectedWidgets, setWidgets, setSelectedWidgets, widgetsIds, setWidgetsIds } =
         useWidgetsContext();
     const {
@@ -26,13 +24,6 @@ export default () => {
         dispatchOverrideWidgetInfoDictionary,
         dispatchRemoveBatchWidgetInfoDictionary,
     } = useWidgetDispatch();
-
-    const { widgetsObjects, widgetsUI } = useMemo(() => filterWidgets(widgets), [widgets]);
-
-    const { widgetsObjectsIds, widgetsUIIds } = useMemo(
-        () => filterWidgetsIds(widgets, widgetsIds),
-        [widgets, widgetsIds]
-    );
 
     const add = useCallback(
         (newWidget: WidgetDictionaryItem, newWidgetInfo?: WidgetInfoDictionaryItem) => {
@@ -141,11 +132,7 @@ export default () => {
         select,
         widgets,
         widgetsIds,
-        widgetsObjects,
-        widgetsUI,
-        widgetsObjectsIds,
-        widgetsUIIds,
-        widgetsObjectInfoDictionary,
+        widgetsInfoDictionary,
         widgetsObjectInfoIds,
         selectedWidgets,
         removeSelection,

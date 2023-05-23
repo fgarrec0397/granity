@@ -1,4 +1,4 @@
-import { createWidget, WidgetType } from "@granity/engine";
+import { createWidget } from "@granity/engine";
 import { Sky as SkyComponent } from "@granity/three/drei";
 import { FC } from "react";
 
@@ -10,7 +10,6 @@ export const widget = createWidget({
     component: Sky,
     hasRef: true,
     reducer: null,
-    type: WidgetType.GameObject,
     isFrozen: true,
     name: "Sky",
 });

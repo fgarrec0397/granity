@@ -13,10 +13,10 @@ import {
 
 describe("buildWidgetObjectInfoDictionary utility", () => {
     describe("buildWidgetObjectInfoDictionary function", () => {
-        const widgetsObjectInfoDictionary = buildWidgetObjectInfoDictionary(widgetsDictionaryTest);
+        const widgetsInfoDictionary = buildWidgetObjectInfoDictionary(widgetsDictionaryTest);
 
         it("should returns an object that has the following shape", () => {
-            expect(widgetsObjectInfoDictionary).toMatchObject({
+            expect(widgetsInfoDictionary).toMatchObject({
                 [widgetTestId1]: {
                     id: widgetTestId1,
                     properties: {
@@ -39,7 +39,7 @@ describe("buildWidgetObjectInfoDictionary utility", () => {
         });
 
         it("should returns an object that has the same ids as properties than the given dictionary", () => {
-            expect(widgetsObjectInfoDictionary).toMatchObject({
+            expect(widgetsInfoDictionary).toMatchObject({
                 [widgetTestId1]: {},
                 [widgetTestId2]: {},
             });
@@ -53,7 +53,7 @@ describe("buildWidgetObjectInfoDictionary utility", () => {
             expect(widgetObjectInfo.id).toBe(widgetsDictionaryTest[widgetTestId1].id);
         });
 
-        describe("passing builderOptions properties should build the widgetsObjectInfoDictionary with the given properties", () => {
+        describe("passing builderOptions properties should build the widgetsInfoDictionary with the given properties", () => {
             const widgetsInfoDictionaryWithProperties = buildWidgetObjectInfo(
                 widgetsDictionaryTest[widgetTestId1],
                 {
@@ -84,7 +84,7 @@ describe("buildWidgetObjectInfoDictionary utility", () => {
             });
         });
 
-        describe("passing builderOptions properties should build the widgetsObjectInfoDictionary with the given properties", () => {
+        describe("passing builderOptions properties should build the widgetsInfoDictionary with the given properties", () => {
             const builderOptions: any = {
                 options: {
                     fieldType: FieldType.Text,

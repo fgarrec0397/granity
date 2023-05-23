@@ -58,8 +58,8 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const [hovered, setHover] = useState(false);
     const {
         getWidgetDictionaryFromWidget,
-        widgetsObjectInfoDictionary,
-        widgetsObjects,
+        widgetsInfoDictionary,
+        widgets,
         displayWidgetName,
         selectWidget,
     } = useWidgets();
@@ -72,16 +72,16 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
 
     const helper =
         typeof editorOptions?.helper === "function"
-            ? editorOptions?.helper(widgetsObjectInfoDictionary[id].options)
+            ? editorOptions?.helper(widgetsInfoDictionary[id].options)
             : editorOptions?.helper;
 
     const resolvedHelper = resolveHelper(helper);
 
     useEditorHelper(resolvedHelper && (componentRef as MutableRefObject<Object3D>), resolvedHelper);
 
-    if (widgetsObjectInfoDictionary[id]?.isVisible !== undefined) {
-        const mesh = getMeshByWidget(widgetsObjects[id]);
-        const { isVisible } = widgetsObjectInfoDictionary[id];
+    if (widgetsInfoDictionary[id]?.isVisible !== undefined) {
+        const mesh = getMeshByWidget(widgets[id]);
+        const { isVisible } = widgetsInfoDictionary[id];
 
         if (mesh) {
             mesh.visible = Boolean(isVisible); // Casting to boolean because we are sure it's not undefined
@@ -113,7 +113,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const widgetProperties = getWidgetDictionaryFromWidget(id!)?.properties;
 
     const onGizmoClick = () => {
-        selectWidget([widgetsObjects[id]]);
+        selectWidget([widgets[id]]);
     };
 
     const ref =

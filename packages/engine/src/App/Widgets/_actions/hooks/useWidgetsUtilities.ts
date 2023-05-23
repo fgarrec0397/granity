@@ -13,7 +13,7 @@ import useWidgetsModules from "./useWidgetsModules";
 
 export default () => {
     const { getWidgetModuleByName } = useWidgetsModules();
-    const { widgetsObjectInfoDictionary } = useWidgets();
+    const { widgetsInfoDictionary } = useWidgets();
 
     /**
      * Unserialize widgets based on the given widgetsModules as reference
@@ -51,30 +51,49 @@ export default () => {
      */
     const synchWidgets = useCallback(
         (
-            widgetObjectInfoDictionary1: WidgetInfoDictionary,
-            widgetObjectInfoDictionary2: WidgetInfoDictionary
+            widgetObjectInfoDictionary1?: WidgetInfoDictionary,
+            widgetObjectInfoDictionary2?: WidgetInfoDictionary
         ) => {
             const clonedWidgetObjectInfoDictionary1 = cloneDeep(widgetObjectInfoDictionary1);
             const clonedWidgetObjectInfoDictionary2 = cloneDeep(widgetObjectInfoDictionary2);
 
-            Object.keys(clonedWidgetObjectInfoDictionary1).forEach((dictionaryItemKey) => {
-                const dictionaryItem = clonedWidgetObjectInfoDictionary1[dictionaryItemKey];
+            if (!clonedWidgetObjectInfoDictionary1 && !clonedWidgetObjectInfoDictionary2) {
+                return;
+            }
 
-                if (clonedWidgetObjectInfoDictionary2[dictionaryItemKey]) {
-                    for (const key in clonedWidgetObjectInfoDictionary2[dictionaryItemKey]
+            if (!clonedWidgetObjectInfoDictionary1 && clonedWidgetObjectInfoDictionary2) {
+                return clonedWidgetObjectInfoDictionary2;
+            }
+
+            if (clonedWidgetObjectInfoDictionary1 && !clonedWidgetObjectInfoDictionary2) {
+                return clonedWidgetObjectInfoDictionary1;
+            }
+
+            Object.keys(clonedWidgetObjectInfoDictionary1!).forEach((dictionaryItemKey) => {
+                const dictionaryItem = clonedWidgetObjectInfoDictionary1?.[dictionaryItemKey];
+
+                if (clonedWidgetObjectInfoDictionary2?.[dictionaryItemKey]) {
+                    for (const key in clonedWidgetObjectInfoDictionary2?.[dictionaryItemKey]
                         .options) {
-                        if (!Object.prototype.hasOwnProperty.call(dictionaryItem.options, key)) {
+                        if (!Object.prototype.hasOwnProperty.call(dictionaryItem?.options, key)) {
                             // Remove unexisting options on the local widget definitions options
-                            delete clonedWidgetObjectInfoDictionary2[dictionaryItemKey].options?.[
-                                key
-                            ];
+                            if (
+                                clonedWidgetObjectInfoDictionary2?.[dictionaryItemKey].options?.[
+                                    key
+                                ]
+                            ) {
+                                delete clonedWidgetObjectInfoDictionary2?.[dictionaryItemKey]
+                                    .options?.[key];
+                            }
                         }
                     }
 
-                    // Make sure to keep the properties left from the saved widget dictionary
-                    clonedWidgetObjectInfoDictionary1[dictionaryItemKey] = {
-                        ...clonedWidgetObjectInfoDictionary2[dictionaryItemKey],
-                    };
+                    if (clonedWidgetObjectInfoDictionary1) {
+                        // Make sure to keep the properties left from the saved widget dictionary
+                        clonedWidgetObjectInfoDictionary1[dictionaryItemKey] = {
+                            ...clonedWidgetObjectInfoDictionary2?.[dictionaryItemKey],
+                        };
+                    }
                 }
             });
 
@@ -86,10 +105,10 @@ export default () => {
     const getWidgetProps = useCallback(
         (id: string) => {
             return {
-                ...populateWidgetProps(id, widgetsObjectInfoDictionary),
+                ...populateWidgetProps(id, widgetsInfoDictionary),
             };
         },
-        [widgetsObjectInfoDictionary]
+        [widgetsInfoDictionary]
     );
 
     return { unserializeWidgets, synchWidgets, getWidgetProps };

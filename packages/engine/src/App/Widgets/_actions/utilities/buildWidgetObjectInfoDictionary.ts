@@ -20,28 +20,28 @@ export type WidgetsDictionaryBuilderOptions = {
 
 /**
  *
- * Builds a widgetsObjectInfoDictionary based on the given widgetsDictionary to fill the values
+ * Builds a widgetsInfoDictionary based on the given widgetsDictionary to fill the values
  *
- * @param widgets - The widgets taken to build the widgetsObjectInfoDictionary
+ * @param widgets - The widgets taken to build the widgetsInfoDictionary
  * @returns - A WidgetInfoDictionary
  */
 export const buildWidgetObjectInfoDictionary = (widgets: WidgetDictionary) => {
-    const widgetsObjectInfoDictionary: WidgetInfoDictionary = {};
+    const widgetsInfoDictionary: WidgetInfoDictionary = {};
 
     for (const key in widgets) {
         const dictionaryItem = buildWidgetObjectInfo(widgets[key]);
 
-        widgetsObjectInfoDictionary[dictionaryItem.id] = {
+        widgetsInfoDictionary[dictionaryItem.id] = {
             ...dictionaryItem,
         };
     }
 
-    return widgetsObjectInfoDictionary;
+    return widgetsInfoDictionary;
 };
 
 /**
  *
- * Builds a widgetsObjectInfoDictionary based on the given widgetsDictionaryItem to fill the values
+ * Builds a widgetsInfoDictionary based on the given widgetsDictionaryItem to fill the values
  *
  * @param widget - The taken widget to build the widgetObjectInfo
  * @param builderOptions - Overrides the widget options by passing your own options

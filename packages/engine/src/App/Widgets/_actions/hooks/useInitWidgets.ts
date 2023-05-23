@@ -14,9 +14,9 @@ export default () => {
     const initWidgets = useCallback(
         (
             serializedWidgets?: SerializedWidgetDictionary,
-            widgetsObjectInfoDictionary?: WidgetInfoDictionary
+            widgetsInfoDictionary?: WidgetInfoDictionary
         ) => {
-            if (serializedWidgets || widgetsObjectInfoDictionary) {
+            if (serializedWidgets || widgetsInfoDictionary) {
                 const deserializedWidgets = unserializeWidgets(
                     serializedWidgets!, // already checked if it's defined
                     widgetsModules
@@ -26,7 +26,7 @@ export default () => {
                 const localWidgetsDictionary = buildWidgetObjectInfoDictionary(deserializedWidgets);
                 const synchedWidgetDictionary = synchWidgets(
                     localWidgetsDictionary,
-                    widgetsObjectInfoDictionary! // already checked if it's defined
+                    widgetsInfoDictionary! // already checked if it's defined
                 );
 
                 resetWidgets(deserializedWidgets, synchedWidgetDictionary);

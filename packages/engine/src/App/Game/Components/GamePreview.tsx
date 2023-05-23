@@ -5,20 +5,22 @@ import { FC } from "react";
 import GamePhysics from "./GamePhysics";
 
 const Game: FC = () => {
-    const { widgetsObjectsIds } = useWidgets();
+    const { widgetsIds } = useWidgets();
 
     // TODO Implement a setting to activate the Debug through the editor
     return (
         <GamePhysics debug>
-            <Widgets widgetsIds={widgetsObjectsIds} />
+            <Widgets widgetsIds={widgetsIds} />
         </GamePhysics>
     );
 };
 
 const GameUI: FC = () => {
-    const { widgetsUIIds } = useWidgets();
+    // const { widgetsUIIds } = useWidgets();
+    console.log("UI is temporarily down");
 
-    return <Widgets widgetsIds={widgetsUIIds} />;
+    return null;
+    // return <Widgets widgetsIds={widgetsUIIds} />;
 };
 
 export default { Game, GameUI };

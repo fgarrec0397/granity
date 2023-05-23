@@ -9,7 +9,7 @@ import { HistoryState } from "../editorTypes";
 import useEditor from "./useEditor";
 
 export default () => {
-    const { widgets, widgetsObjectInfoDictionary } = useWidgets();
+    const { widgets, widgetsInfoDictionary } = useWidgets();
 
     const {
         historyDictionary,
@@ -22,7 +22,7 @@ export default () => {
     } = useHistoryService();
     const { hasEdited } = useEditor();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
-    const previousWidgetsDictionary = usePrevious(widgetsObjectInfoDictionary);
+    const previousWidgetsDictionary = usePrevious(widgetsInfoDictionary);
     const previousWidgets = usePrevious(widgets);
     const { currentSceneId } = useScenes();
     const { app } = useCore();
@@ -31,7 +31,7 @@ export default () => {
         () =>
             hasEdited &&
             currentHistoryItem?.state.widgets &&
-            currentHistoryItem?.state.widgetsObjectInfoDictionary &&
+            currentHistoryItem?.state.widgetsInfoDictionary &&
             !isEqual(currentHistoryItem, previousCurrentHistoryItem),
         [currentHistoryItem, hasEdited, previousCurrentHistoryItem]
     );
@@ -41,8 +41,8 @@ export default () => {
             previousWidgets !== undefined &&
             previousWidgetsDictionary !== undefined &&
             (!isEqual(widgets, previousWidgets) ||
-                !isEqual(widgetsObjectInfoDictionary, previousWidgetsDictionary)),
-        [previousWidgets, previousWidgetsDictionary, widgets, widgetsObjectInfoDictionary]
+                !isEqual(widgetsInfoDictionary, previousWidgetsDictionary)),
+        [previousWidgets, previousWidgetsDictionary, widgets, widgetsInfoDictionary]
     );
 
     const editorStateChanged = useMemo(
@@ -64,15 +64,15 @@ export default () => {
             previousWidgetsDictionary !== undefined &&
             currentSceneId &&
             isEqual(
-                widgetsObjectInfoDictionary,
-                app?.savedScenes?.scenes?.[currentSceneId].data.widgetsObjectInfoDictionary
+                widgetsInfoDictionary,
+                app?.savedScenes?.scenes?.[currentSceneId].data.widgetsInfoDictionary
             ),
         [
             app?.savedScenes?.scenes,
             currentSceneId,
             previousWidgets,
             previousWidgetsDictionary,
-            widgetsObjectInfoDictionary,
+            widgetsInfoDictionary,
         ]
     );
 
@@ -82,15 +82,15 @@ export default () => {
             previousWidgetsDictionary !== undefined &&
             currentSceneId &&
             isEqual(
-                widgetsObjectInfoDictionary,
-                app?.publishedScenes?.scenes?.[currentSceneId].data.widgetsObjectInfoDictionary
+                widgetsInfoDictionary,
+                app?.publishedScenes?.scenes?.[currentSceneId].data.widgetsInfoDictionary
             ),
         [
             app?.publishedScenes?.scenes,
             currentSceneId,
             previousWidgets,
             previousWidgetsDictionary,
-            widgetsObjectInfoDictionary,
+            widgetsInfoDictionary,
         ]
     );
 
@@ -118,7 +118,7 @@ export default () => {
             if (
                 historyItem &&
                 Object.keys(historyItem.state.widgets).length &&
-                Object.keys(historyItem.state.widgetsObjectInfoDictionary).length
+                Object.keys(historyItem.state.widgetsInfoDictionary).length
             ) {
                 setShouldAddHistoryState(false);
                 setCurrent(historyItem, prevHistoryItem);

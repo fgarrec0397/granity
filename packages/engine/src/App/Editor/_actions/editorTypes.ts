@@ -19,6 +19,6 @@ export type HistoryItem = {
  * A snapshot of a editor state
  */
 export type HistoryState = {
-    widgetsObjectInfoDictionary: WidgetInfoDictionary;
+    widgetsInfoDictionary: WidgetInfoDictionary;
     widgets: WidgetDictionary;
 };

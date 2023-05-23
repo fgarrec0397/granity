@@ -1,4 +1,4 @@
-import { createWidget, EditableWidget, FieldType, WidgetType } from "@granity/engine";
+import { createWidget, EditableWidget, FieldType } from "@granity/engine";
 import { FC } from "react";
 
 export type TerrainProps = EditableWidget & {
@@ -20,7 +20,6 @@ const Terrain: FC<OwnProps> = ({ color }) => {
 export const widget = createWidget({
     component: Terrain,
     reducer: null,
-    type: WidgetType.GameObject,
     name: "Terrain",
     options: [
         {

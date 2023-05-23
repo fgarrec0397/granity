@@ -12,7 +12,7 @@ import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateCha
 import EditorLayout from "./components/EditorLayout";
 
 const Editor: FC = () => {
-    const { widgetsObjectsIds, selectWidgetFromMeshArr } = useWidgets();
+    const { widgetsIds, selectWidgetFromMeshArr } = useWidgets();
     const { isDebugEnabled } = useEditor();
 
     useHandleLoadFiles();
@@ -23,7 +23,7 @@ const Editor: FC = () => {
         <GamePhysics paused debug>
             <Select multiple onChange={selectWidgetFromMeshArr}>
                 <SceneDefaultCamera />
-                <Widgets widgetsIds={widgetsObjectsIds} />
+                <Widgets widgetsIds={widgetsIds} />
                 {isDebugEnabled && <Grid infiniteGrid sectionThickness={0.5} />}
             </Select>
         </GamePhysics>
