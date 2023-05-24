@@ -39,7 +39,7 @@ export type Widget<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptio
     options?: Options[];
 };
 
-export type WidgetModule<Type = WidgetType.GameObject> = Widget & {
+export type WidgetModule<Type extends WidgetType = WidgetType.GameObject> = Widget & {
     hasRef?: true;
     editorOptions?: WidgetObjectEditorOptions;
     type: Type;
@@ -119,7 +119,10 @@ export type WidgetDictionary = Dictionary<WidgetDictionaryItem>;
 /**
  * Informations of a widget
  */
-export type WidgetDictionaryItem = Omit<WidgetModule, "reducer"> & {
+export type WidgetDictionaryItem<Type extends WidgetType = WidgetType.GameObject> = Omit<
+    WidgetModule<Type>,
+    "reducer"
+> & {
     id: string;
 };
 
@@ -149,10 +152,9 @@ export type BaseWidgetInfo = {
  */
 export type WidgetInfoDictionary = Dictionary<WidgetInfoDictionaryItem>;
 
-export type WidgetInfoDictionaryItem<TValue = string> = BaseWidgetInfo & {
-    properties?: WidgetProperties;
-    options?: WidgetOptionsValues<TValue>;
-    isVisible: boolean;
+export type WidgetInfoDictionaryItem<TValue = string> = {
+    id: string;
+    displayName?: string;
 };
 
 export type WidgetOptionsValues<TValue = string> = Dictionary<{
