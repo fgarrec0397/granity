@@ -2,7 +2,7 @@ import { InjectableStore } from "@engine/App/Core/_actions/_data/state/store";
 import { clone } from "@granity/helpers";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
-import { WidgetComponent, WidgetObjectModule, WidgetUIModule } from "../widgetsTypes";
+import { WidgetComponent, WidgetModule } from "../widgetsTypes";
 
 let store: InjectableStore;
 
@@ -14,10 +14,10 @@ export const injectStore = (_store: InjectableStore) => {
  * A function helping you creating a widget.
  *
  */
-export default <PropsType, RefType = null>(
-    widget: WidgetObjectModule<PropsType, RefType> | WidgetUIModule
+export default <WidgetModuleType extends WidgetModule, PropsType, RefType = null>(
+    widget: WidgetModuleType
 ) => {
-    const widgetModule: WidgetObjectModule<PropsType, RefType> | WidgetUIModule = clone(widget);
+    const widgetModule: WidgetModuleType = clone(widget);
 
     if ("hasRef" in widgetModule && widgetModule.hasRef) {
         (widgetModule.component as WidgetComponent<PropsType, RefType>) = forwardRef(

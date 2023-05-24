@@ -2,7 +2,7 @@ import { Dictionary, UnionOfProperties, Vector3Array } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
 
-import { FieldType } from "./widgetsConstants";
+import { FieldType, WidgetType } from "./widgetsConstants";
 
 /// ---------------- Types for external typing ---------------- ///
 
@@ -39,13 +39,10 @@ export type Widget<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptio
     options?: Options[];
 };
 
-export type WidgetModule<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions> = Widget<
-    Props,
-    Ref,
-    Options
-> & {
+export type WidgetModule<Type = WidgetType.GameObject> = Widget & {
     hasRef?: true;
     editorOptions?: WidgetObjectEditorOptions;
+    type: Type;
     isFrozen?: boolean;
 };
 

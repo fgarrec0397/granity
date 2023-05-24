@@ -1,7 +1,9 @@
+import { WidgetType } from "@engine/api";
 import {
     BaseWidgetInfo,
     Widget,
     WidgetDictionaryItem,
+    WidgetModule,
     WidgetOptions,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary, UnionOfProperties } from "@granity/helpers";
@@ -18,11 +20,7 @@ export type UIWidget<Props = DefaultWidgetProps, Options = WidgetOptions> = Widg
 /**
  * Widget module to generate UI elements
  */
-export type UIWidgetModule<Props = DefaultWidgetProps, Options = WidgetOptions> = Widget<
-    Props,
-    null,
-    Options
->;
+export type UIWidgetModule = WidgetModule<WidgetType.UI>;
 
 /**
  * A dictionary containing informations about all widgets
