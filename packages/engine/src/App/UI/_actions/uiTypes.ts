@@ -27,14 +27,12 @@ export type UIWidgetModule<Props = DefaultWidgetProps, Options = WidgetOptions> 
 /**
  * A dictionary containing informations about all widgets
  */
-export type UIWidgetDictionary<Props = DefaultWidgetProps> = Dictionary<
-    UIWidgetDictionaryItem<Props>
->;
+export type UIWidgetDictionary = Dictionary<UIWidgetDictionaryItem>;
 
 /**
  * Informations of a widget
  */
-export type UIWidgetDictionaryItem<Props = DefaultWidgetProps> = WidgetDictionaryItem<Props>;
+export type UIWidgetDictionaryItem = WidgetDictionaryItem;
 
 /**
  * A serialized dictionary containing informations about all WidgetDictionary

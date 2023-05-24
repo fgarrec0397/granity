@@ -117,15 +117,12 @@ export type SelectionFieldOption = WidgetBaseOptions<FieldType.Select> & {
 /**
  * A dictionary containing informations about all widgets
  */
-export type WidgetDictionary<Props = DefaultWidgetProps> = Dictionary<WidgetDictionaryItem<Props>>;
+export type WidgetDictionary = Dictionary<WidgetDictionaryItem>;
 
 /**
  * Informations of a widget
  */
-export type WidgetDictionaryItem<Props = DefaultWidgetProps> = Omit<
-    WidgetModule<Props>,
-    "reducer"
-> & {
+export type WidgetDictionaryItem = Omit<WidgetModule, "reducer"> & {
     id: string;
 };
 
@@ -134,17 +131,12 @@ export type WidgetDictionaryItem<Props = DefaultWidgetProps> = Omit<
 /**
  * A dictionary containing informations about all widgets
  */
-export type SerializedWidgetDictionary<Props = DefaultWidgetProps> = Dictionary<
-    SerializedWidgetDictionaryItem<Props>
->;
+export type SerializedWidgetDictionary = Dictionary<SerializedWidgetDictionaryItem>;
 
 /**
  * Informations of a widget
  */
-export type SerializedWidgetDictionaryItem<Props = DefaultWidgetProps> = Omit<
-    WidgetDictionaryItem<Props>,
-    "component" | "gizmo"
-> & {
+export type SerializedWidgetDictionaryItem = Omit<WidgetDictionaryItem, "component" | "gizmo"> & {
     gizmo: string;
 };
 

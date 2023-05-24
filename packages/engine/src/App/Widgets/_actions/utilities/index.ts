@@ -1,5 +1,5 @@
 export { default as buildRigidBodyKey } from "./buildRigidBodyKey";
-export * from "./buildWidgetObjectInfoDictionary";
+export * from "./buildWidgetInfoDictionary";
 export { default as createWidget } from "./createWidget";
 export { default as getWidgetIdFromName } from "./getWidgetIdFromName";
 export { default as getWidgetName } from "./getWidgetName";

@@ -6,14 +6,11 @@ import {
 import { describe } from "vitest";
 
 import { FieldType } from "../../widgetsConstants";
-import {
-    buildWidgetObjectInfo,
-    buildWidgetObjectInfoDictionary,
-} from "../buildWidgetObjectInfoDictionary";
+import { buildWidgetInfo, buildWidgetInfoDictionary } from "../buildWidgetInfoDictionary";
 
-describe("buildWidgetObjectInfoDictionary utility", () => {
-    describe("buildWidgetObjectInfoDictionary function", () => {
-        const widgetsInfoDictionary = buildWidgetObjectInfoDictionary(widgetsDictionaryTest);
+describe("buildWidgetInfoDictionary utility", () => {
+    describe("buildWidgetInfoDictionary function", () => {
+        const widgetsInfoDictionary = buildWidgetInfoDictionary(widgetsDictionaryTest);
 
         it("should returns an object that has the following shape", () => {
             expect(widgetsInfoDictionary).toMatchObject({
@@ -46,15 +43,15 @@ describe("buildWidgetObjectInfoDictionary utility", () => {
         });
     });
 
-    describe("buildWidgetObjectInfo function", () => {
-        const widgetObjectInfo = buildWidgetObjectInfo(widgetsDictionaryTest[widgetTestId1]);
+    describe("buildWidgetInfo function", () => {
+        const widgetObjectInfo = buildWidgetInfo(widgetsDictionaryTest[widgetTestId1]);
 
         it("should returns an object with the same id as the given object", () => {
             expect(widgetObjectInfo.id).toBe(widgetsDictionaryTest[widgetTestId1].id);
         });
 
         describe("passing builderOptions properties should build the widgetsInfoDictionary with the given properties", () => {
-            const widgetsInfoDictionaryWithProperties = buildWidgetObjectInfo(
+            const widgetsInfoDictionaryWithProperties = buildWidgetInfo(
                 widgetsDictionaryTest[widgetTestId1],
                 {
                     properties: {
@@ -91,7 +88,7 @@ describe("buildWidgetObjectInfoDictionary utility", () => {
                     value: "This is my value",
                 },
             };
-            const widgetsInfoDictionaryWithProperties = buildWidgetObjectInfo(
+            const widgetsInfoDictionaryWithProperties = buildWidgetInfo(
                 widgetsDictionaryTest[widgetTestId1],
                 builderOptions
             );

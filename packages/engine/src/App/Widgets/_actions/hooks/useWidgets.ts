@@ -8,15 +8,14 @@ import useWidgetsService from "../_data/hooks/useWidgetsService";
 import { UpdateWidgetParameter } from "../_data/widgetsServiceParameters";
 import {
     buildWidgetDictionaryProperties,
-    buildWidgetObjectInfo,
-} from "../utilities/buildWidgetObjectInfoDictionary";
+    buildWidgetInfo,
+} from "../utilities/buildWidgetInfoDictionary";
 import widgetsConstants from "../widgetsConstants";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
     WidgetInfoDictionary,
     WidgetOptionsValues,
-    WidgetProperties,
 } from "../widgetsTypes";
 
 const { widgetObjectsPrefix } = widgetsConstants;
@@ -145,39 +144,14 @@ export default () => {
     );
 
     const addWidget = useCallback(
-        <TValue = string>(
-            widget: WidgetDictionaryItem,
-            properties?: WidgetProperties,
-            options?: WidgetOptionsValues<TValue>
+        <WidgetDictionaryItemType extends WidgetDictionaryItem>(
+            widget: WidgetDictionaryItemType
         ) => {
-            const newWidget: WidgetDictionaryItem = { ...widget };
-            let widgetOptions = options;
+            const newWidget: WidgetDictionaryItemType = { ...widget };
 
-            newWidget.id = uidGenerator(); // assign id on initialisation
+            newWidget.id = uidGenerator();
 
-            let widgetProperties = properties;
-
-            if (!widgetProperties) {
-                widgetProperties = {
-                    position: [0, 0, 0],
-                    rotation: [0, 0, 0],
-                    scale: [1, 1, 1],
-                };
-            }
-            if (!widgetOptions) {
-                if (newWidget.options?.length) {
-                    const defaultOptions: WidgetOptionsValues<TValue> = {};
-                    for (const option of newWidget.options) {
-                        defaultOptions[option.name] = {
-                            fieldType: option.fieldType,
-                            value: option.defaultValue as TValue,
-                        };
-                    }
-                    widgetOptions = defaultOptions;
-                }
-            }
-
-            const widgetInfoItem = buildWidgetObjectInfo(newWidget);
+            const widgetInfoItem = buildWidgetInfo(newWidget);
 
             add(newWidget, widgetInfoItem);
         },
@@ -236,7 +210,7 @@ export default () => {
                 const properties = widgetsInfoDictionary[widget.id].properties;
                 const options = widgetsInfoDictionary[widget.id].options;
 
-                const widgetDictionaryItem = buildWidgetObjectInfo(newWidget, {
+                const widgetDictionaryItem = buildWidgetInfo(newWidget, {
                     properties,
                     options,
                 });

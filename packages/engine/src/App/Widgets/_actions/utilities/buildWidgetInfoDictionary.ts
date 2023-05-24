@@ -25,11 +25,11 @@ export type WidgetsDictionaryBuilderOptions = {
  * @param widgets - The widgets taken to build the widgetsInfoDictionary
  * @returns - A WidgetInfoDictionary
  */
-export const buildWidgetObjectInfoDictionary = (widgets: WidgetDictionary) => {
+export const buildWidgetInfoDictionary = (widgets: WidgetDictionary) => {
     const widgetsInfoDictionary: WidgetInfoDictionary = {};
 
     for (const key in widgets) {
-        const dictionaryItem = buildWidgetObjectInfo(widgets[key]);
+        const dictionaryItem = buildWidgetInfo(widgets[key]);
 
         widgetsInfoDictionary[dictionaryItem.id] = {
             ...dictionaryItem,
@@ -47,8 +47,8 @@ export const buildWidgetObjectInfoDictionary = (widgets: WidgetDictionary) => {
  * @param builderOptions - Overrides the widget options by passing your own options
  * @returns - A WidgetInfoDictionaryItem
  */
-export const buildWidgetObjectInfo = (
-    widget: WidgetDictionaryItem,
+export const buildWidgetInfo = <WidgetDictionaryItemType extends WidgetDictionaryItem>(
+    widget: WidgetDictionaryItemType,
     builderOptions?: WidgetsDictionaryBuilderOptions
 ): WidgetInfoDictionaryItem => {
     const options = builderOptions?.options

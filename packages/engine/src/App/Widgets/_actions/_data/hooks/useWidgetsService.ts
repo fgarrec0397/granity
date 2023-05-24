@@ -26,10 +26,16 @@ export default () => {
     } = useWidgetDispatch();
 
     const add = useCallback(
-        (newWidget: WidgetDictionaryItem, newWidgetInfo?: WidgetInfoDictionaryItem) => {
+        <
+            WidgetDictionaryItemType extends WidgetDictionaryItem,
+            WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem
+        >(
+            newWidget: WidgetDictionaryItemType,
+            newWidgetInfo?: WidgetInfoDictionaryItemType
+        ) => {
             if (newWidgetInfo) {
                 const requiredWidgetDictionaryItem =
-                    newWidgetInfo as Required<WidgetInfoDictionaryItem>;
+                    newWidgetInfo as Required<WidgetInfoDictionaryItemType>;
                 dispatchAddWidgetInfoDictionaryItem(requiredWidgetDictionaryItem);
             }
 

@@ -16,8 +16,10 @@ export default () => {
     const dispatch = useAppDispatch();
 
     const dispatchAddWidgetInfoDictionaryItem = useCallback(
-        (widgetObjectInfo: Required<WidgetInfoDictionaryItem>) => {
-            return dispatch(addWidgetInfoDictionaryItem(widgetObjectInfo));
+        <WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem>(
+            widgetInfoDictionaryItem: Required<WidgetInfoDictionaryItemType>
+        ) => {
+            return dispatch(addWidgetInfoDictionaryItem(widgetInfoDictionaryItem));
         },
         [dispatch]
     );

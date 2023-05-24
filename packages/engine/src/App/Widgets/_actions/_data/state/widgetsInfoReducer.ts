@@ -22,9 +22,11 @@ export const widgetsInfoSlice = createSlice({
     name: "widgetsInfo",
     initialState: widgetsInfoInitialState,
     reducers: {
-        addWidgetInfoDictionaryItem: (
+        addWidgetInfoDictionaryItem: <
+            WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem
+        >(
             state: WidgetsInfoState,
-            action: PayloadAction<Required<WidgetInfoDictionaryItem>>
+            action: PayloadAction<WidgetInfoDictionaryItemType>
         ) => {
             const widgetObjectInfo = action.payload;
 

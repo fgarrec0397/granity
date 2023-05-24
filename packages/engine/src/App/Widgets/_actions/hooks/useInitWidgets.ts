@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { buildWidgetObjectInfoDictionary } from "../utilities/buildWidgetObjectInfoDictionary";
+import { buildWidgetInfoDictionary } from "../utilities/buildWidgetInfoDictionary";
 import { SerializedWidgetDictionary, WidgetInfoDictionary } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
@@ -23,7 +23,7 @@ export default () => {
                 );
 
                 // Build a widgetsInfos dictionary base on locally up-to-date widgets
-                const localWidgetsDictionary = buildWidgetObjectInfoDictionary(deserializedWidgets);
+                const localWidgetsDictionary = buildWidgetInfoDictionary(deserializedWidgets);
                 const synchedWidgetDictionary = synchWidgets(
                     localWidgetsDictionary,
                     widgetsInfoDictionary! // already checked if it's defined
