@@ -1,4 +1,9 @@
-import { BaseWidgetInfo, Widget, WidgetOptions } from "@engine/App/Widgets/_actions/widgetsTypes";
+import {
+    BaseWidgetInfo,
+    Widget,
+    WidgetDictionaryItem,
+    WidgetOptions,
+} from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary, UnionOfProperties } from "@granity/helpers";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -13,7 +18,7 @@ export type UIWidget<Props = DefaultWidgetProps, Options = WidgetOptions> = Widg
 /**
  * Widget module to generate UI elements
  */
-export type UIWidgetModules<Props = DefaultWidgetProps, Options = WidgetOptions> = Widget<
+export type UIWidgetModule<Props = DefaultWidgetProps, Options = WidgetOptions> = Widget<
     Props,
     null,
     Options
@@ -29,12 +34,7 @@ export type UIWidgetDictionary<Props = DefaultWidgetProps> = Dictionary<
 /**
  * Informations of a widget
  */
-export type UIWidgetDictionaryItem<Props = DefaultWidgetProps> = Omit<
-    UIWidgetModules<Props>,
-    "reducer"
-> & {
-    id: string;
-};
+export type UIWidgetDictionaryItem<Props = DefaultWidgetProps> = WidgetDictionaryItem<Props>;
 
 /**
  * A serialized dictionary containing informations about all WidgetDictionary
@@ -49,6 +49,6 @@ export type UISerializedWidgetDictionaryItem = Omit<UIWidgetDictionaryItem, "com
 /**
  * Widget UI info dictionary
  */
-export type UIWidgetInfoDictionary = Dictionary<UIWidgetInfo>;
+export type UIWidgetInfoDictionary = Dictionary<UIWidgetInfoDictionaryItem>;
 
-export type UIWidgetInfo = BaseWidgetInfo;
+export type UIWidgetInfoDictionaryItem = BaseWidgetInfo;
