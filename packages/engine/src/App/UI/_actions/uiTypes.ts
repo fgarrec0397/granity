@@ -1,16 +1,13 @@
 import { WidgetType } from "@engine/api";
 import {
-    BaseWidgetInfo,
+    DefaultWidgetProps,
     Widget,
     WidgetDictionaryItem,
+    WidgetInfoDictionary,
     WidgetModule,
     WidgetOptions,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Dictionary, UnionOfProperties } from "@granity/helpers";
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UIWidgetProps {}
-export type DefaultWidgetProps = UnionOfProperties<UIWidgetProps>;
+import { Dictionary } from "@granity/helpers";
 
 /**
  * Base UI widget type
@@ -47,4 +44,4 @@ export type UISerializedWidgetDictionaryItem = Omit<UIWidgetDictionaryItem, "com
  */
 export type UIWidgetInfoDictionary = Dictionary<UIWidgetInfoDictionaryItem>;
 
-export type UIWidgetInfoDictionaryItem = BaseWidgetInfo;
+export type UIWidgetInfoDictionaryItem = WidgetInfoDictionary;

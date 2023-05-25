@@ -1,4 +1,4 @@
-import { HelpersTypes, WidgetProperties } from "./widgetsTypes";
+import { GameWidgetProperties, HelpersTypes } from "@engine/App/Game/_actions/gameTypes";
 
 export const helpersTypes: HelpersTypes = {
     ArrowHelper: "ArrowHelper",
@@ -40,5 +40,5 @@ export default {
         position: [0, 0, 0],
         rotation: [0, 0, 0],
         scale: [1, 1, 1],
-    } as WidgetProperties,
+    } as GameWidgetProperties,
 };

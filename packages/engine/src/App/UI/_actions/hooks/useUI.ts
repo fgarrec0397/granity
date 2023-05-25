@@ -1,5 +1,5 @@
-import { WidgetProperties } from "@engine/api";
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
+import { GameWidgetProperties } from "@engine/App/Game/_actions/gameTypes";
 import { useCallback, useMemo } from "react";
 
 import useUIService from "../_data/hooks/useUIService";
@@ -16,7 +16,7 @@ export default () => {
     const showUIPreview = useMemo(() => isGamePreview || isUIPreview, [isGamePreview, isUIPreview]);
 
     const updateSelectedWidgetProperties = useCallback(
-        (properties: WidgetProperties) => {
+        (properties: GameWidgetProperties) => {
             setSelectedWidgetProperties(properties);
         },
         [setSelectedWidgetProperties]

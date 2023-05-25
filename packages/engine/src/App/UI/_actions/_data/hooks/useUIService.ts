@@ -1,4 +1,4 @@
-import { WidgetProperties } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { GameWidgetProperties } from "@engine/App/Game/_actions/gameTypes";
 import { useCallback } from "react";
 
 import useUIDispatch from "./useUIDispatch";
@@ -9,7 +9,7 @@ export default () => {
     const { selectedWidgetProperties } = useUISelector();
 
     const setSelectedWidgetProperties = useCallback(
-        (properties: WidgetProperties) => {
+        (properties: GameWidgetProperties) => {
             dispatchSetSelectedWidgetProperties(properties);
         },
         [dispatchSetSelectedWidgetProperties]

@@ -1,4 +1,4 @@
-import { WidgetProperties } from "@engine/api";
+import { GameWidgetProperties } from "@engine/App/Game/_actions/gameTypes";
 import useUI from "@engine/App/UI/_actions/hooks/useUI";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
@@ -11,10 +11,14 @@ const EditorWidgetProperties: FC = () => {
     const { selectedWidgetProperties } = useUI();
     const openedAccordion = useAccordionDefaultOpened();
 
-    const onChange = (propertiyKey: keyof WidgetProperties, inputValue: number, index: number) => {
+    const onChange = (
+        propertyKey: keyof GameWidgetProperties,
+        inputValue: number,
+        index: number
+    ) => {
         if (selectedWidgetProperties) {
             const newValue = updateArrayAt<Vector3Array>(
-                selectedWidgetProperties?.[propertiyKey] || [0, 0, 0],
+                selectedWidgetProperties?.[propertyKey] || [0, 0, 0],
                 inputValue,
                 index
             );
@@ -22,7 +26,7 @@ const EditorWidgetProperties: FC = () => {
             updateWidget(selectedWidgets[0].id, {
                 properties: {
                     ...selectedWidgetProperties,
-                    [propertiyKey]: newValue,
+                    [propertyKey]: newValue,
                 },
             });
         }

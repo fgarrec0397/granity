@@ -1,8 +1,8 @@
-import { WidgetProperties } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { GameWidgetProperties } from "@engine/App/Game/_actions/gameTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UIState {
-    selectedWidgetProperties: WidgetProperties | null;
+    selectedWidgetProperties: GameWidgetProperties | null;
 }
 
 export const uiState: UIState = {
@@ -13,7 +13,10 @@ export const uiSlice = createSlice({
     name: "ui",
     initialState: uiState,
     reducers: {
-        setSelectedWidgetProperties: (state: UIState, action: PayloadAction<WidgetProperties>) => {
+        setSelectedWidgetProperties: (
+            state: UIState,
+            action: PayloadAction<GameWidgetProperties>
+        ) => {
             state.selectedWidgetProperties = action.payload;
         },
     },

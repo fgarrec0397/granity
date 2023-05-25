@@ -1,72 +1,35 @@
 import { Dictionary, UnionOfProperties, Vector3Array } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
-import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
+import { FC } from "react";
 
 import { FieldType, WidgetType } from "./widgetsConstants";
 
 /// ---------------- Types for external typing ---------------- ///
 
-/**
- * Additional props that applies for widgets in the editor
- */
-export interface EditableWidget {
-    position: Vector3Array;
-    rotation: Vector3Array;
-    scale: Vector3Array;
-}
-
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface WidgetProps extends EditableWidget {}
+export interface WidgetProps {}
 export type DefaultWidgetProps = UnionOfProperties<WidgetProps>;
-
-/// -------------------------- Misc --------------------------- ///
-
-export type HelpersTypes = {
-    [key: string]: HelperTypeValue;
-};
-
-export type HelperTypeValue = string;
 
 /// ---------------------- Widget Module ---------------------- ///
 
 /**
  * Base widget type
  */
-export type Widget<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions> = {
-    component: WidgetComponent<Props, Ref>;
+export type Widget<Props = DefaultWidgetProps, Options = WidgetOptions> = {
+    component: WidgetComponent<Props>;
     reducer: Slice | null;
     name: string;
     options?: Options[];
 };
 
 export type WidgetModule<Type extends WidgetType = WidgetType.GameObject> = Widget & {
-    hasRef?: true;
-    editorOptions?: WidgetObjectEditorOptions;
     type: Type;
-    isFrozen?: boolean;
 };
 
 /**
  * A component type of a widget
  */
-export type WidgetComponent<Props = DefaultWidgetProps, Ref = null> =
-    | FC<Props>
-    | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<Ref>>;
-
-/**
- * Widget options to set in the editor
- */
-export type WidgetObjectEditorOptions = {
-    helper?: ((options?: WidgetOptionsValues) => HelperTypeValue) | HelperTypeValue;
-    gizmo?: boolean | GizmoConfig;
-};
-
-/**
- * Gizmo config object type
- */
-export type GizmoConfig = {
-    text: string;
-};
+export type WidgetComponent<Props = DefaultWidgetProps> = FC<Props>;
 
 /// --------------------- Widget Options ---------------------- ///
 
@@ -136,23 +99,16 @@ export type SerializedWidgetDictionary = Dictionary<SerializedWidgetDictionaryIt
 /**
  * Informations of a widget
  */
-export type SerializedWidgetDictionaryItem = Omit<WidgetDictionaryItem, "component" | "gizmo"> & {
-    gizmo: string;
-};
+export type SerializedWidgetDictionaryItem = Omit<WidgetDictionaryItem, "component">;
 
 /// ----------------- Widgets Info Dictionary ----------------- ///
-
-export type BaseWidgetInfo = {
-    id: string;
-    displayName?: string;
-};
 
 /**
  * A dictionary containing editable informations about a WidgetObject
  */
 export type WidgetInfoDictionary = Dictionary<WidgetInfoDictionaryItem>;
 
-export type WidgetInfoDictionaryItem<TValue = string> = {
+export type WidgetInfoDictionaryItem = {
     id: string;
     displayName?: string;
 };
@@ -161,9 +117,3 @@ export type WidgetOptionsValues<TValue = string> = Dictionary<{
     fieldType: FieldType;
     value: TValue;
 }>;
-
-export type WidgetProperties = {
-    position: Vector3Array;
-    rotation: Vector3Array;
-    scale: Vector3Array;
-};

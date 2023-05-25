@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@engine/api";
-import { WidgetProperties } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { GameWidgetProperties } from "@engine/App/Game/_actions/gameTypes";
 import { useCallback } from "react";
 
 import { setSelectedWidgetProperties } from "../state/uiReducer";
@@ -8,7 +8,7 @@ export default () => {
     const dispatch = useAppDispatch();
 
     const dispatchSetSelectedWidgetProperties = useCallback(
-        (properties: WidgetProperties) => {
+        (properties: GameWidgetProperties) => {
             dispatch(setSelectedWidgetProperties(properties));
         },
         [dispatch]
