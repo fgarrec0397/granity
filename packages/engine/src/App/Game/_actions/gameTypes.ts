@@ -5,7 +5,7 @@ import {
     Widget,
     WidgetBaseOptions,
     WidgetComponent,
-    WidgetInfoDictionary,
+    WidgetInfoDictionaryItem,
     WidgetModule,
     WidgetOptions,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
@@ -46,7 +46,6 @@ export type GameWidgetModule<Type extends WidgetType = WidgetType.GameObject> =
     WidgetModule<Type> & {
         hasRef?: true;
         editorOptions?: GameWidgetObjectEditorOptions;
-        isFrozen?: boolean;
     };
 
 /**
@@ -115,10 +114,8 @@ export type SerializedGameWidgetDictionaryItem = Omit<SerializedWidgetDictionary
  */
 export type GameWidgetInfoDictionary = Dictionary<GameWidgetInfoDictionaryItem>;
 
-export type GameWidgetInfoDictionaryItem<TValue = string> = WidgetInfoDictionary & {
+export type GameWidgetInfoDictionaryItem<TValue = string> = WidgetInfoDictionaryItem<TValue> & {
     properties?: GameWidgetProperties;
-    options?: WidgetOptionsValues<TValue>;
-    isVisible: boolean;
 };
 
 export type WidgetOptionsValues<TValue = string> = Dictionary<{

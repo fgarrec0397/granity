@@ -2,7 +2,6 @@ import { GameWidgetProperties } from "@engine/App/Game/_actions/gameTypes";
 import { serializeVector3 } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 
-import widgetsConstants from "../widgetsConstants";
 import {
     SerializedWidgetDictionaryItem,
     WidgetDictionary,
@@ -25,7 +24,9 @@ export type WidgetsDictionaryBuilderOptions = {
  * @param widgets - The widgets taken to build the widgetsInfoDictionary
  * @returns - A WidgetInfoDictionary
  */
-export const buildWidgetInfoDictionary = (widgets: WidgetDictionary) => {
+export const buildWidgetInfoDictionary = <WidgetDictionaryType extends WidgetDictionary>(
+    widgets: WidgetDictionaryType
+) => {
     const widgetsInfoDictionary: WidgetInfoDictionary = {};
 
     for (const key in widgets) {
@@ -55,17 +56,9 @@ export const buildWidgetInfo = <WidgetDictionaryItemType extends WidgetDictionar
         ? builderOptions?.options
         : buildWidgetInfoDictionaryOptions(widget);
 
-    let widgetProperties: GameWidgetProperties = widgetsConstants.widgetDefaultProperties;
+    const displayName = widget.name;
 
-    if (builderOptions?.mesh) {
-        widgetProperties = buildWidgetDictionaryProperties(builderOptions.mesh);
-    }
-
-    if (builderOptions?.properties) {
-        widgetProperties = builderOptions.properties;
-    }
-
-    return { id: widget.id!, properties: widgetProperties, options, isVisible: true };
+    return { id: widget.id!, options, displayName, isVisible: true };
 };
 
 /**

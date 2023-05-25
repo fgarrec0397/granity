@@ -24,6 +24,7 @@ export type Widget<Props = DefaultWidgetProps, Options = WidgetOptions> = {
 
 export type WidgetModule<Type extends WidgetType = WidgetType.GameObject> = Widget & {
     type: Type;
+    isFrozen?: boolean;
 };
 
 /**
@@ -108,12 +109,21 @@ export type SerializedWidgetDictionaryItem = Omit<WidgetDictionaryItem, "compone
  */
 export type WidgetInfoDictionary = Dictionary<WidgetInfoDictionaryItem>;
 
-export type WidgetInfoDictionaryItem = {
+export type WidgetInfoDictionaryItem<TValue = string> = {
     id: string;
+    isVisible: boolean;
     displayName?: string;
+    options?: WidgetOptionsValues<TValue>;
 };
 
 export type WidgetOptionsValues<TValue = string> = Dictionary<{
     fieldType: FieldType;
     value: TValue;
 }>;
+
+export type WidgetInfoBuilder = <
+    WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem,
+    WidgetDictionaryItemType
+>(
+    widget: WidgetDictionaryItemType
+) => WidgetInfoDictionaryItemType;

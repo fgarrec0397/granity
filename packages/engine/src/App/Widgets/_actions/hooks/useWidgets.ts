@@ -14,7 +14,9 @@ import widgetsConstants from "../widgetsConstants";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
+    WidgetInfoBuilder,
     WidgetInfoDictionary,
+    WidgetInfoDictionaryItem,
     WidgetOptionsValues,
 } from "../widgetsTypes";
 
@@ -145,13 +147,16 @@ export default () => {
 
     const addWidget = useCallback(
         <WidgetDictionaryItemType extends WidgetDictionaryItem>(
-            widget: WidgetDictionaryItemType
+            widget: WidgetDictionaryItemType,
+            widgetInfoBuilder?: WidgetInfoBuilder
         ) => {
             const newWidget: WidgetDictionaryItemType = { ...widget };
 
             newWidget.id = uidGenerator();
 
-            const widgetInfoItem = buildWidgetInfo(newWidget);
+            const widgetInfoItem = widgetInfoBuilder
+                ? widgetInfoBuilder(newWidget)
+                : buildWidgetInfo(newWidget);
 
             add(newWidget, widgetInfoItem);
         },
