@@ -146,9 +146,16 @@ export default () => {
     );
 
     const addWidget = useCallback(
-        <WidgetDictionaryItemType extends WidgetDictionaryItem>(
+        <
+            WidgetDictionaryItemType extends WidgetDictionaryItem,
+            WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem,
+            WidgetInfoBuilderType extends WidgetInfoBuilder<
+                WidgetInfoDictionaryItemType,
+                WidgetDictionaryItemType
+            >
+        >(
             widget: WidgetDictionaryItemType,
-            widgetInfoBuilder?: WidgetInfoBuilder
+            widgetInfoBuilder?: WidgetInfoBuilderType
         ) => {
             const newWidget: WidgetDictionaryItemType = { ...widget };
 

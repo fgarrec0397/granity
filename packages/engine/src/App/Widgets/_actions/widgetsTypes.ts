@@ -121,9 +121,7 @@ export type WidgetOptionsValues<TValue = string> = Dictionary<{
     value: TValue;
 }>;
 
-export type WidgetInfoBuilder = <
+export type WidgetInfoBuilder<
     WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem,
     WidgetDictionaryItemType
->(
-    widget: WidgetDictionaryItemType
-) => WidgetInfoDictionaryItemType;
+> = (widget: WidgetDictionaryItemType) => WidgetInfoDictionaryItemType;

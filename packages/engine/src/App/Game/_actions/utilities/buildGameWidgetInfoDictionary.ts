@@ -6,12 +6,13 @@ import {
     WidgetOptionsValues,
 } from "@engine/App/Game/_actions/gameTypes";
 import widgetsConstants from "@engine/App/Widgets/_actions/widgetsConstants";
+import { WidgetInfoBuilder } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { serializeVector3 } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 
 import gameWidgetInfoMapper from "../mappers/gameWidgetInfoMapper";
 
-export type WidgetsDictionaryBuilderOptions = {
+export type GameWidgetsDictionaryBuilderOptions = {
     mesh?: Object3D;
     properties?: GameWidgetProperties;
     options?: WidgetOptionsValues;
@@ -25,9 +26,12 @@ export type WidgetsDictionaryBuilderOptions = {
  * @param builderOptions - Overrides the widget options by passing your own options
  * @returns - A WidgetInfoDictionaryItem
  */
-export const buildGameWidgetInfo = (
+export const buildGameWidgetInfo: WidgetInfoBuilder<
+    GameWidgetInfoDictionaryItem,
+    GameWidgetDictionaryItem
+> = (
     widget: GameWidgetDictionaryItem,
-    builderOptions?: WidgetsDictionaryBuilderOptions
+    builderOptions?: GameWidgetsDictionaryBuilderOptions
 ): GameWidgetInfoDictionaryItem => {
     let widgetProperties: GameWidgetProperties = widgetsConstants.widgetDefaultProperties;
 
