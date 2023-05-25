@@ -3,11 +3,12 @@ import {
     DefaultWidgetProps,
     SerializedWidgetDictionaryItem,
     Widget,
-    WidgetBaseOptions,
     WidgetComponent,
+    WidgetDictionaryItem,
     WidgetInfoDictionaryItem,
     WidgetModule,
     WidgetOptions,
+    WidgetOptionsValues,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary, Vector3Array } from "@granity/helpers";
 import { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
@@ -39,14 +40,17 @@ export type GameWidget<Props = DefaultWidgetProps, Ref = null, Options = WidgetO
     "component"
 > & {
     component: GameWidgetComponent<Props, Ref>;
-    options?: Options[];
 };
 
-export type GameWidgetModule<Type extends WidgetType = WidgetType.GameObject> =
-    WidgetModule<Type> & {
-        hasRef?: true;
-        editorOptions?: GameWidgetObjectEditorOptions;
-    };
+export type GameWidgetModule<
+    Props = DefaultWidgetProps,
+    Ref = null,
+    Options = WidgetOptions
+> = Omit<WidgetModule<WidgetType.GameObject, Props, Options>, "component"> & {
+    component: GameWidgetComponent<Props, Ref>;
+    hasRef?: true;
+    editorOptions?: GameWidgetObjectEditorOptions;
+};
 
 /**
  * A component type of a widget
@@ -70,15 +74,6 @@ export type GameWidgetGizmoConfig = {
     text: string;
 };
 
-/// --------------------- Widget Options ---------------------- ///
-
-/**
- * All options allowed for the widget in the editor
- */
-export type GameWidgetOptions = WidgetOptions | Vector3FieldOption;
-
-export type Vector3FieldOption = WidgetBaseOptions<FieldType.Vector3, Vector3Array>;
-
 /// ------------------- Widgets Dictionary -------------------- ///
 
 /**
@@ -89,9 +84,7 @@ export type GameWidgetDictionary = Dictionary<GameWidgetDictionaryItem>;
 /**
  * Informations of a widget
  */
-export type GameWidgetDictionaryItem = Omit<WidgetModule, "reducer"> & {
-    id: string;
-};
+export type GameWidgetDictionaryItem = WidgetDictionaryItem;
 
 /// -------------- Serialized Widgets Dictionary -------------- ///
 
@@ -117,11 +110,6 @@ export type GameWidgetInfoDictionary = Dictionary<GameWidgetInfoDictionaryItem>;
 export type GameWidgetInfoDictionaryItem<TValue = string> = WidgetInfoDictionaryItem<TValue> & {
     properties?: GameWidgetProperties;
 };
-
-export type WidgetOptionsValues<TValue = string> = Dictionary<{
-    fieldType: FieldType;
-    value: TValue;
-}>;
 
 export type GameWidgetProperties = {
     position: Vector3Array;

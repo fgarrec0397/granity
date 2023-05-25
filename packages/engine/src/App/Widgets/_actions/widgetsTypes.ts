@@ -19,12 +19,16 @@ export type Widget<Props = DefaultWidgetProps, Options = WidgetOptions> = {
     component: WidgetComponent<Props>;
     reducer: Slice | null;
     name: string;
+    isFrozen?: boolean;
     options?: Options[];
 };
 
-export type WidgetModule<Type extends WidgetType = WidgetType.GameObject> = Widget & {
+export type WidgetModule<
+    Type extends WidgetType,
+    Props = DefaultWidgetProps,
+    Options = WidgetOptions
+> = Widget<Props, Options> & {
     type: Type;
-    isFrozen?: boolean;
 };
 
 /**

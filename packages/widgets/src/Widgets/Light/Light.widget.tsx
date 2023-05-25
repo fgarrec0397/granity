@@ -1,8 +1,14 @@
-import { createWidget, EditableWidget, FieldType, helpersTypes } from "@granity/engine";
+import {
+    createGameWidget,
+    createWidget,
+    FieldType,
+    GameEditableWidget,
+    helpersTypes,
+} from "@granity/engine";
 import { capitalizeString, Vector3Array } from "@granity/helpers";
 import { FC } from "react";
 
-export type LightProps = EditableWidget & {
+export type LightProps = GameEditableWidget & {
     lightType: string;
     intensity: number;
     direction: Vector3Array;
@@ -51,7 +57,7 @@ const Light: FC<LightProps> = ({ lightType, intensity, direction }, ref) => {
     );
 };
 
-export const widget = createWidget<LightProps>({
+export const widget = createGameWidget<LightProps>({
     component: Light,
     hasRef: true,
     reducer: null,

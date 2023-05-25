@@ -1,4 +1,4 @@
-import { createWidget, useScenes } from "@granity/engine";
+import { createUI, useScenes } from "@granity/engine";
 import { Box, BoxProps, Button, pxToRem, Typography, TypographyProps } from "@granity/ui";
 import { FC } from "react";
 
@@ -46,7 +46,7 @@ const EndScreen: FC = () => {
     );
 };
 
-export const widget = createWidget({
+export const widget = createUI({
     component: EndScreen,
     reducer: null,
     name: "End Screen",

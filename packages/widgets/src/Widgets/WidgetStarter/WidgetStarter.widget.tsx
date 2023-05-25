@@ -1,16 +1,10 @@
-import { createWidget, EditableWidget, FeaturesState } from "@granity/engine";
+import { createGameWidget, GameEditableWidget } from "@granity/engine";
 import { FC } from "react";
 
 import widgetStarterReducer from "./_actions/_data/state/widgetStarterReducer";
 import useWidgetStarterInit from "./_actions/hooks/useWidgetStarterInit";
 
-export type WidgetStarterProps = EditableWidget;
-
-const test: FeaturesState = {
-    widgetStarter: {
-        widgetStarterMessage: "test",
-    },
-};
+export type WidgetStarterProps = GameEditableWidget;
 
 const WidgetStarter: FC<WidgetStarterProps> = () => {
     useWidgetStarterInit();
@@ -23,7 +17,7 @@ const WidgetStarter: FC<WidgetStarterProps> = () => {
     );
 };
 
-export const widget = createWidget({
+export const widget = createGameWidget({
     component: WidgetStarter,
     reducer: widgetStarterReducer,
     name: "WidgetStarter",

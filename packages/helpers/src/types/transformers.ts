@@ -11,6 +11,12 @@ export type UnionOfProperties<Type> = {
 export type DeepNonNullable<T> = {
     [K in keyof T]-?: DeepNonNullable<T[K]>;
 };
+/**
+ * Recursively set all properties from object nullbable
+ */
+export type DeepNullable<T> = {
+    [K in keyof T]?: DeepNonNullable<T[K]>;
+};
 
 /**
  * Remove specific property from a type object or interface

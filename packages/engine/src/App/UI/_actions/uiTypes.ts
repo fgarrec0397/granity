@@ -17,7 +17,11 @@ export type UIWidget<Props = DefaultWidgetProps, Options = WidgetOptions> = Widg
 /**
  * Widget module to generate UI elements
  */
-export type UIWidgetModule = WidgetModule<WidgetType.UI>;
+export type UIWidgetModule<Props = DefaultWidgetProps, Options = WidgetOptions> = WidgetModule<
+    WidgetType.UI,
+    Props,
+    Options
+>;
 
 /**
  * A dictionary containing informations about all widgets

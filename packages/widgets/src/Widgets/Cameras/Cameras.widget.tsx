@@ -1,7 +1,7 @@
 import {
-    createWidget,
-    EditableWidget,
+    createGameWidget,
     FieldType,
+    GameEditableWidget,
     helpersTypes,
     useCreateCamera,
     useGameUpdate,
@@ -9,7 +9,7 @@ import {
 import { PerspectiveCamera } from "@granity/three";
 import { FC, Ref, useEffect } from "react";
 
-export type CamerasProps = EditableWidget & {
+export type CamerasProps = GameEditableWidget & {
     translateXOnPlay: boolean;
     isDefault: boolean;
 };
@@ -35,7 +35,7 @@ const Cameras: FC<CamerasProps> = ({ translateXOnPlay, isDefault, position }, re
 
 Cameras.displayName = "Cameras";
 
-export const widget = createWidget<CamerasProps, PerspectiveCamera>({
+export const widget = createGameWidget<CamerasProps, PerspectiveCamera>({
     component: Cameras,
     hasRef: true,
     reducer: null,
