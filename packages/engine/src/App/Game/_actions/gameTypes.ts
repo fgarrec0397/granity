@@ -1,19 +1,10 @@
 import { FieldType, WidgetType } from "@engine/App/Widgets/_actions/widgetsConstants";
-import {
-    DefaultWidgetProps,
-    SerializedWidgetDictionaryItem,
-    Widget,
-    WidgetComponent,
-    WidgetDictionaryItem,
-    WidgetInfoDictionaryItem,
-    WidgetModule,
-    WidgetOptions,
-    WidgetOptionsValues,
-} from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Dictionary, Vector3Array } from "@granity/helpers";
-import { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
+// import { WidgetInfo } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { Dictionary, UnionOfProperties, Vector3Array } from "@granity/helpers";
+import { Slice } from "@reduxjs/toolkit";
+import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
 
-/// -------------------------- Misc --------------------------- ///
+/// ---------------- Types for external typing ---------------- ///
 
 /**
  * Additional props that applies for widgets in the editor
@@ -24,92 +15,166 @@ export interface GameEditableWidget {
     scale: Vector3Array;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface GameWidgetProps extends GameEditableWidget {}
+export type DefaultGameWidgetProps = UnionOfProperties<GameWidgetProps>;
+
+/// -------------------------- Misc --------------------------- ///
+
 export type HelpersTypes = {
     [key: string]: HelperTypeValue;
 };
 
 export type HelperTypeValue = string;
 
-/// ---------------------- Game Widget ---------------------- ///
+/// ---------------------- GameWidget Module ---------------------- ///
 
 /**
  * Base widget type
  */
-export type GameWidget<Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions> = Omit<
-    Widget<Props, Options>,
-    "component"
-> & {
+export type GameWidget<Props = DefaultGameWidgetProps, Ref = null, Options = WidgetOptions> = {
     component: GameWidgetComponent<Props, Ref>;
+    reducer: Slice | null;
+    name: string;
+    options?: Options[];
 };
 
 export type GameWidgetModule<
-    Props = DefaultWidgetProps,
+    Props = DefaultGameWidgetProps,
     Ref = null,
     Options = WidgetOptions
-> = Omit<WidgetModule<WidgetType.GameObject, Props, Options>, "component"> & {
-    component: GameWidgetComponent<Props, Ref>;
+> = GameWidget<Props, Ref, Options> & {
     hasRef?: true;
-    editorOptions?: GameWidgetObjectEditorOptions;
+    editorOptions?: GameWidgetEditorOptions;
+    type: WidgetType.GameObject;
+    isFrozen?: boolean;
 };
 
 /**
  * A component type of a widget
  */
-export type GameWidgetComponent<Props = DefaultWidgetProps, Ref = null> =
-    | WidgetComponent
+export type GameWidgetComponent<Props = DefaultGameWidgetProps, Ref = null> =
+    | FC<Props>
     | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<Ref>>;
 
+/// --------------------- GameWidget Options ---------------------- ///
+
 /**
- * Widget options to set in the editor
+ * All options allowed for the widget in the editor
  */
-export type GameWidgetObjectEditorOptions = {
-    helper?: ((options?: WidgetOptionsValues) => HelperTypeValue) | HelperTypeValue;
-    gizmo?: boolean | GameWidgetGizmoConfig;
+export type WidgetOptions =
+    | CheckboxFieldOption
+    | TextFieldOption
+    | NumberFieldOption
+    | Vector3FieldOption
+    | FileFieldOption
+    | SelectionFieldOption;
+
+/**
+ * Base interface for option object.
+ */
+export type WidgetBaseOptions<Type extends FieldType, TValue = string> = {
+    name: string;
+    displayName: string;
+    fieldType: Type;
+    defaultValue: TValue;
+    isVisible?: ((options?: GameWidgetOptionsValues) => boolean | undefined) | boolean;
+};
+
+export type NumberFieldOption = WidgetBaseOptions<FieldType.Number, number>;
+
+export type TextFieldOption = WidgetBaseOptions<FieldType.Text, string>;
+
+export type CheckboxFieldOption = WidgetBaseOptions<FieldType.Checkbox, boolean>;
+
+export type Vector3FieldOption = WidgetBaseOptions<FieldType.Vector3, Vector3Array>;
+
+export type FileFieldOption = WidgetBaseOptions<FieldType.File, string>;
+
+export type SelectionFieldOption = WidgetBaseOptions<FieldType.Select, string> & {
+    selectOptions?: {
+        value: string;
+        name: string;
+    }[];
+};
+
+/// ------------------ GameWidget Object Module ------------------- ///
+
+/**
+ * GameWidget options to set in the editor
+ */
+export type GameWidgetEditorOptions = {
+    helper?: ((options?: GameWidgetOptionsValues) => HelperTypeValue) | HelperTypeValue;
+    gizmo?: boolean | GizmoConfig;
 };
 
 /**
  * Gizmo config object type
  */
-export type GameWidgetGizmoConfig = {
+export type GizmoConfig = {
     text: string;
 };
 
-/// ------------------- Widgets Dictionary -------------------- ///
+/// ---------------- Widgets Object Dictionary ---------------- ///
 
 /**
- * A dictionary containing informations about all widgets
+ * A dictionary containing informations about all GameWidgetObjectsDictionary
  */
-export type GameWidgetDictionary = Dictionary<GameWidgetDictionaryItem>;
+export type GameWidgetDictionary<Props = DefaultGameWidgetProps> = Dictionary<
+    GameWidgetDictionaryItem<Props>
+>;
 
 /**
- * Informations of a widget
+ * Informations of a widget object on the scene
  */
-export type GameWidgetDictionaryItem = WidgetDictionaryItem;
+export type GameWidgetDictionaryItem<Props = DefaultGameWidgetProps> = Omit<
+    GameWidgetModule<Props>,
+    "reducer"
+> & {
+    id: string;
+};
 
 /// -------------- Serialized Widgets Dictionary -------------- ///
 
 /**
  * A dictionary containing informations about all widgets
  */
-export type SerializedGameWidgetDictionary = Dictionary<SerializedGameWidgetDictionaryItem>;
+export type SerializedWidgetDictionary<Props = DefaultGameWidgetProps> = Dictionary<
+    SerializedGameWidgetDictionaryItem<Props>
+>;
 
 /**
  * Informations of a widget
  */
-export type SerializedGameWidgetDictionaryItem = Omit<SerializedWidgetDictionaryItem, "gizmo"> & {
+export type SerializedGameWidgetDictionaryItem<Props = DefaultGameWidgetProps> = Omit<
+    GameWidgetDictionaryItem<Props>,
+    "component" | "gizmo"
+> & {
     gizmo: string;
 };
 
-/// ----------------- Widgets Info Dictionary ----------------- ///
+/// -------------- Widgets Object Info Dictionary ------------- ///
+
+export type WidgetInfo = {
+    id: string;
+    displayName?: string;
+};
 
 /**
  * A dictionary containing editable informations about a WidgetObject
  */
-export type GameWidgetInfoDictionary = Dictionary<GameWidgetInfoDictionaryItem>;
+export type GameWidgetInfoDictionary = Dictionary<GameWidgetInfo>;
 
-export type GameWidgetInfoDictionaryItem<TValue = string> = WidgetInfoDictionaryItem<TValue> & {
+export type GameWidgetInfo<TValue = string> = WidgetInfo & {
     properties?: GameWidgetProperties;
+    options?: GameWidgetOptionsValues<TValue>;
+    isVisible: boolean;
 };
+
+export type GameWidgetOptionsValues<TValue = string> = Dictionary<{
+    fieldType: FieldType;
+    value: TValue;
+}>;
 
 export type GameWidgetProperties = {
     position: Vector3Array;

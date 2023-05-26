@@ -1,4 +1,4 @@
-import { createUI, FieldType, useScenes } from "@granity/engine";
+import { createUI, useScenes } from "@granity/engine";
 import { Box, BoxProps, Button, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
@@ -42,12 +42,4 @@ export const widget = createUI({
     component: PlayMenu,
     reducer: null,
     name: "PlayMenu",
-    options: [
-        {
-            name: "translateXOnPlay",
-            displayName: "Translate X on play",
-            fieldType: FieldType.Checkbox,
-            defaultValue: false,
-        },
-    ],
 });

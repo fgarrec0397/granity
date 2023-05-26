@@ -1,18 +1,18 @@
-import { createWidget, DefaultWidgetProps, WidgetOptions } from "@engine/api";
+import { createWidget } from "@engine/api";
 import { clone, SetOptionalPropertyFrom } from "@granity/helpers";
 
 import uiWidgetMapper from "../mappers/uiWidgetMapper";
-import { UIWidgetModule } from "../uiTypes";
+import { DefaultUIWidgetProps, UIWidgetModule } from "../uiTypes";
 
 /**
  * A function helping you creating a UI widget.
  *
  */
-export default <Props = DefaultWidgetProps, Options = WidgetOptions>(
-    widget: SetOptionalPropertyFrom<UIWidgetModule<Props, Options>, "type">
+export default <Props = DefaultUIWidgetProps>(
+    widget: SetOptionalPropertyFrom<UIWidgetModule<Props>, "type">
 ) => {
     const clonedWidget = clone(widget);
     const widgetModule = uiWidgetMapper(clonedWidget);
 
-    return createWidget<UIWidgetModule<Props, Options>>(widgetModule);
+    return createWidget<UIWidgetModule<Props>>(widgetModule);
 };

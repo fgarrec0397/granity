@@ -1,15 +1,15 @@
 import { createWidget, WidgetType } from "@engine/api";
-import { DefaultWidgetProps, WidgetOptions } from "@engine/App/Widgets/_actions/widgetsTypes";
+// import { DefaultWidgetProps } from "@engine/App/Game/_actions/Types";
 import { clone, SetOptionalPropertyFrom } from "@granity/helpers";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
-import { GameWidgetComponent, GameWidgetModule } from "../gameTypes";
+import { GameWidgetComponent, GameWidgetModule, WidgetOptions } from "../gameTypes";
 
 /**
  * A function helping you creating a Game widget.
  *
  */
-export default <Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions>(
+export default <Props, Ref = null, Options = WidgetOptions>(
     widget: SetOptionalPropertyFrom<GameWidgetModule<Props, Ref, Options>, "type">
 ) => {
     const clonedWidget = clone(widget);
@@ -24,5 +24,5 @@ export default <Props = DefaultWidgetProps, Ref = null, Options = WidgetOptions>
         ) as GameWidgetComponent<Props, Ref>;
     }
 
-    return createWidget<any>(widgetModule); // TODO - fix any
+    return createWidget<GameWidgetModule<Props, Ref, Options>>(widgetModule);
 };

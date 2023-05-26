@@ -1,4 +1,4 @@
-import { WidgetModule } from "@granity/engine";
+import { GameWidgetModule, UIWidgetModule } from "@granity/engine";
 
 import type { CamerasProps } from "./Cameras";
 import type { GeometryFormsProps } from "./GeometryForms";
@@ -24,7 +24,7 @@ declare module "@granity/engine" {
     /**
      * Add your Widgets Props here as union types
      */
-    interface WidgetProps {
+    interface GameWidgetProps {
         geometryProps: GeometryFormsProps;
         camerasProps: CamerasProps;
         lightProps: LightProps;
@@ -34,7 +34,7 @@ declare module "@granity/engine" {
 }
 
 const resolveModules = () => {
-    const widgetsModules: WidgetModule[] = [];
+    const widgetsModules: (GameWidgetModule | UIWidgetModule)[] = [];
     // for (const path in modules) {
     //     const { widget } = modules[path] as any;
     //     widgetsModules.push(widget);

@@ -1,27 +1,36 @@
-import { WidgetType } from "@engine/api";
-import {
-    DefaultWidgetProps,
-    Widget,
-    WidgetDictionaryItem,
-    WidgetInfoDictionary,
-    WidgetModule,
-    WidgetOptions,
-} from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Dictionary } from "@granity/helpers";
+import { WidgetType } from "@engine/App/Widgets/_actions/widgetsConstants";
+import { WidgetInfo } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { Dictionary, UnionOfProperties } from "@granity/helpers";
+import { Slice } from "@reduxjs/toolkit";
+import { FC } from "react";
+
+/// ---------------- Types for external typing ---------------- ///
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface UIWidgetProps {}
+export type DefaultUIWidgetProps = UnionOfProperties<UIWidgetProps>;
+
+/// ---------------------- UIWidget Module ---------------------- ///
 
 /**
- * Base UI widget type
+ * Base widget type
  */
-export type UIWidget<Props = DefaultWidgetProps, Options = WidgetOptions> = Widget<Props, Options>;
+export type UIWidget<Props = DefaultUIWidgetProps> = {
+    component: UIWidgetComponent<Props>;
+    reducer: Slice | null;
+    name: string;
+};
+
+export type UIWidgetModule<Props = DefaultUIWidgetProps> = UIWidget<Props> & {
+    type: WidgetType.UI;
+};
 
 /**
- * Widget module to generate UI elements
+ * A component type of a widget
  */
-export type UIWidgetModule<Props = DefaultWidgetProps, Options = WidgetOptions> = WidgetModule<
-    WidgetType.UI,
-    Props,
-    Options
->;
+export type UIWidgetComponent<Props = DefaultUIWidgetProps> = FC<Props>;
+
+/// ------------------- Widgets Dictionary -------------------- ///
 
 /**
  * A dictionary containing informations about all widgets
@@ -31,21 +40,24 @@ export type UIWidgetDictionary = Dictionary<UIWidgetDictionaryItem>;
 /**
  * Informations of a widget
  */
-export type UIWidgetDictionaryItem = WidgetDictionaryItem;
+export type UIWidgetDictionaryItem = Omit<UIWidgetModule, "reducer"> & {
+    id: string;
+};
+
+/// -------------- Serialized Widgets Dictionary -------------- ///
 
 /**
- * A serialized dictionary containing informations about all WidgetDictionary
+ * A dictionary containing informations about all widgets
  */
-export type UISerializedWidgetDictionary = Dictionary<UISerializedWidgetDictionaryItem>;
+export type SerializedUIWidgetDictionary = Dictionary<SerializedUIWidgetDictionaryItem>;
 
 /**
- * A serialized version of WidgetDictionaryItem type
+ * Informations of a widget
  */
-export type UISerializedWidgetDictionaryItem = Omit<UIWidgetDictionaryItem, "component">;
+export type SerializedUIWidgetDictionaryItem = Omit<UIWidgetDictionaryItem, "component">;
 
-/**
- * Widget UI info dictionary
- */
-export type UIWidgetInfoDictionary = Dictionary<UIWidgetInfoDictionaryItem>;
+/// ---------------- UIWidgets Info Dictionary --------------- ///
 
-export type UIWidgetInfoDictionaryItem = WidgetInfoDictionary;
+export type WidgetUIInfoDictionary = Dictionary<WidgetUIInfo>;
+
+export type WidgetUIInfo = WidgetInfo;
