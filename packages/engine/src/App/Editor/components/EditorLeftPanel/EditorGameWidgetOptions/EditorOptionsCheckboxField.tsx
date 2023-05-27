@@ -1,4 +1,4 @@
-import { CheckboxFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { CheckboxFieldOption } from "@engine/App/Game/_actions/gameTypes";
 import { Box, BoxProps, Checkbox, FormControlLabel, FormGroup, TypographyProps } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
 

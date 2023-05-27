@@ -12,7 +12,7 @@ import EditorOptionsTextField from "./EditorOptionsTextField";
 import EditorOptionsVector3Field from "./EditorOptionsVector3Field";
 import useOptionsValues from "./hooks/useOptionsValues";
 
-const EditorWidgetOptions: FC = () => {
+const EditorGameWidgetOptions: FC = () => {
     const openedAccordion = useAccordionDefaultOpened();
     const { selectedWidgets } = useWidgets();
     const { optionsValues } = useOptionsValues();
@@ -94,4 +94,4 @@ const EditorWidgetOptions: FC = () => {
     );
 };
 
-export default EditorWidgetOptions;
+export default EditorGameWidgetOptions;

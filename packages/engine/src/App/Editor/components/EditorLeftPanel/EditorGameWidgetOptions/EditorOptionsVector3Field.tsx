@@ -1,4 +1,4 @@
-import { Vector3FieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { Vector3FieldOption } from "@engine/App/Game/_actions/gameTypes";
 import { updateArrayAt, Vector3Array } from "@granity/helpers";
 import { Box, BoxProps, Vector3Input } from "@granity/ui";
 import { FC } from "react";

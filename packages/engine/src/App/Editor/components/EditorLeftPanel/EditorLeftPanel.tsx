@@ -3,9 +3,9 @@ import { editorPadding } from "@engine/Theme/themeConstants";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
+import EditorGameWidgetOptions from "./EditorGameWidgetOptions/EditorWidgetOptions";
 import EditorModeSelector from "./EditorModeSelector";
 import EditorSelectedWidget from "./EditorSelectedWidget";
-import EditorWidgetOptions from "./EditorWidgetOptions/EditorWidgetOptions";
 import EditorWidgetProperties from "./EditorWidgetProperties";
 
 type EditorLeftPanelStyles = {
@@ -39,7 +39,7 @@ const EditorLeftPanel: FC = () => {
             <Box {...styles.section}>
                 <EditorModeSelector />
                 <EditorWidgetProperties />
-                <EditorWidgetOptions />
+                <EditorGameWidgetOptions />
             </Box>
         </Box>
     );

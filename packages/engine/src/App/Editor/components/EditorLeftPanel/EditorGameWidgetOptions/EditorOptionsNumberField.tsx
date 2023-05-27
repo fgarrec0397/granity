@@ -1,4 +1,4 @@
-import { NumberFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { NumberFieldOption } from "@engine/App/Game/_actions/gameTypes";
 import { Box, BoxProps, TextField, TypographyProps } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
 

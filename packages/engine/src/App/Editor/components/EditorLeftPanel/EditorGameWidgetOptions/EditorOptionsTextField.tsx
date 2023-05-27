@@ -1,4 +1,4 @@
-import { TextFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { TextFieldOption } from "@engine/App/Game/_actions/gameTypes";
 import { Box, BoxProps, TextField } from "@granity/ui";
 import { ChangeEvent, FC } from "react";
 

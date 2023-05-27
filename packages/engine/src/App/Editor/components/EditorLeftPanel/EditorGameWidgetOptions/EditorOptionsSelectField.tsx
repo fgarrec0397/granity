@@ -1,4 +1,4 @@
-import { SelectionFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { SelectionFieldOption } from "@engine/App/Game/_actions/gameTypes";
 import { Box, BoxProps, MenuItem, Select, SelectChangeEvent } from "@granity/ui";
 import { FC } from "react";
 

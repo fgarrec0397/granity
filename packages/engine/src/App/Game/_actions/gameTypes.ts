@@ -1,4 +1,9 @@
 import { FieldType, WidgetType } from "@engine/App/Widgets/_actions/widgetsConstants";
+import {
+    SerializedWidgetDictionaryItem,
+    WidgetDictionaryItem,
+    WidgetInfoDictionaryItem,
+} from "@engine/App/Widgets/_actions/widgetsTypes";
 // import { WidgetInfo } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary, UnionOfProperties, Vector3Array } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
@@ -127,45 +132,35 @@ export type GameWidgetDictionary<Props = DefaultGameWidgetProps> = Dictionary<
 /**
  * Informations of a widget object on the scene
  */
-export type GameWidgetDictionaryItem<Props = DefaultGameWidgetProps> = Omit<
-    GameWidgetModule<Props>,
-    "reducer"
-> & {
-    id: string;
-};
+export type GameWidgetDictionaryItem<Props = DefaultGameWidgetProps> = WidgetDictionaryItem &
+    GameWidgetModule<Props>;
 
 /// -------------- Serialized Widgets Dictionary -------------- ///
 
 /**
  * A dictionary containing informations about all widgets
  */
-export type SerializedWidgetDictionary<Props = DefaultGameWidgetProps> = Dictionary<
+export type SerializedGameWidgetDictionary<Props = DefaultGameWidgetProps> = Dictionary<
     SerializedGameWidgetDictionaryItem<Props>
 >;
 
 /**
  * Informations of a widget
  */
-export type SerializedGameWidgetDictionaryItem<Props = DefaultGameWidgetProps> = Omit<
-    GameWidgetDictionaryItem<Props>,
-    "component" | "gizmo"
-> & {
-    gizmo: string;
-};
-
-/// -------------- Widgets Object Info Dictionary ------------- ///
-
-export type WidgetInfo = {
-    id: string;
-    displayName?: string;
-};
+export type SerializedGameWidgetDictionaryItem<Props = DefaultGameWidgetProps> =
+    SerializedWidgetDictionaryItem &
+        Omit<GameWidgetDictionaryItem<Props>, "editorOptions"> & {
+            editorOptions: Omit<GameWidgetEditorOptions, "helper"> & {
+                helper: string;
+            };
+        };
 
 /**
  * A dictionary containing editable informations about a WidgetObject
  */
-export type GameWidgetInfoDictionary = Dictionary<GameWidgetInfo>;
+export type GameWidgetInfoDictionary = Dictionary<GameWidgetInfoDictionaryItem>;
 
-export type GameWidgetInfo<TValue = string> = WidgetInfo & {
+export type GameWidgetInfoDictionaryItem<TValue = string> = WidgetInfoDictionaryItem & {
     properties?: GameWidgetProperties;
     options?: GameWidgetOptionsValues<TValue>;
     isVisible: boolean;

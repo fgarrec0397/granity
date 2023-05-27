@@ -1,5 +1,5 @@
 import { FileItem } from "@engine/api";
-import { FileFieldOption } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { FileFieldOption } from "@engine/App/Game/_actions/gameTypes";
 import {
     Box,
     BoxProps,
