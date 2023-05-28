@@ -2,8 +2,9 @@ import { buildWidgetInfo } from "@engine/api";
 import {
     GameWidgetDictionaryItem,
     GameWidgetInfoDictionaryItem,
+    GameWidgetOptionsValues,
     GameWidgetProperties,
-    WidgetOptionsValues,
+    SerializedGameWidgetDictionaryItem,
 } from "@engine/App/Game/_actions/gameTypes";
 import widgetsConstants from "@engine/App/Widgets/_actions/widgetsConstants";
 import { WidgetInfoBuilder } from "@engine/App/Widgets/_actions/widgetsTypes";
@@ -15,7 +16,7 @@ import gameWidgetInfoMapper from "../mappers/gameWidgetInfoMapper";
 export type GameWidgetsDictionaryBuilderOptions = {
     mesh?: Object3D;
     properties?: GameWidgetProperties;
-    options?: WidgetOptionsValues;
+    options?: GameWidgetOptionsValues;
 };
 
 /**
@@ -35,6 +36,10 @@ export const buildGameWidgetInfo: WidgetInfoBuilder<
 ): GameWidgetInfoDictionaryItem => {
     let widgetProperties: GameWidgetProperties = widgetsConstants.widgetDefaultProperties;
 
+    const options = builderOptions?.options
+        ? builderOptions?.options
+        : buildGameWidgetInfoDictionaryOptions(widget);
+
     if (builderOptions?.mesh) {
         widgetProperties = buildWidgetDictionaryProperties(builderOptions.mesh);
     }
@@ -43,9 +48,33 @@ export const buildGameWidgetInfo: WidgetInfoBuilder<
         widgetProperties = builderOptions.properties;
     }
 
-    return gameWidgetInfoMapper(buildWidgetInfo(widget, builderOptions), {
+    return gameWidgetInfoMapper(buildWidgetInfo(widget), {
         properties: widgetProperties,
+        options,
     });
+};
+
+/**
+ *
+ * @param widget - The widget to build the options of the widgetsInfoDictionartItem
+ * @returns - The options created from the given widget
+ */
+export const buildGameWidgetInfoDictionaryOptions = (
+    widget: GameWidgetDictionaryItem | SerializedGameWidgetDictionaryItem
+) => {
+    const options: GameWidgetOptionsValues<any> = {};
+    const widgetOptions = widget.options;
+
+    if (widgetOptions?.length) {
+        for (const option of widgetOptions) {
+            options[option.name] = {
+                fieldType: option.fieldType,
+                value: option.defaultValue,
+            };
+        }
+    }
+
+    return options;
 };
 
 export const buildWidgetDictionaryProperties = (mesh: Object3D) => {

@@ -52,3 +52,8 @@ export type SerializedWidgetDictionary = Dictionary<SerializedWidgetDictionaryIt
  * Informations of a widget
  */
 export type SerializedWidgetDictionaryItem = Omit<WidgetDictionaryItem, "component">;
+
+export type WidgetInfoBuilder<
+    WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem,
+    WidgetDictionaryItemType
+> = (widget: WidgetDictionaryItemType) => WidgetInfoDictionaryItemType;
