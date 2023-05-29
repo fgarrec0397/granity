@@ -2,6 +2,8 @@ import { Dictionary } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC } from "react";
 
+import { WidgetType } from "./widgetsConstants";
+
 /// ---------------------- Widget Module ---------------------- ///
 
 /**
@@ -13,7 +15,9 @@ export type Widget<Props = any> = {
     name: string;
 };
 
-export type WidgetModule<Props = any> = Widget<Props>;
+export type WidgetModule<Props = any> = Widget<Props> & {
+    type: WidgetType;
+};
 
 /**
  * A dictionary containing informations about all GameWidgetObjectsDictionary
@@ -57,3 +61,7 @@ export type WidgetInfoBuilder<
     WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem,
     WidgetDictionaryItemType
 > = (widget: WidgetDictionaryItemType) => WidgetInfoDictionaryItemType;
+
+/// -------------- Widgets Actions Parameters -------------- ///
+
+export type WidgetValueParameter = Partial<Omit<WidgetInfoDictionaryItem, "id">>;

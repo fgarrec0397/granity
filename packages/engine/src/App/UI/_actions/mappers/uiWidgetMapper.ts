@@ -1,10 +1,8 @@
-import { DefaultWidgetProps, WidgetOptions, WidgetType } from "@engine/api";
+import { WidgetType } from "@engine/api";
 
-import { UIWidget, UIWidgetModule } from "../uiTypes";
+import { DefaultUIWidgetProps, UIWidget, UIWidgetModule } from "../uiTypes";
 
-export default <Props = DefaultWidgetProps, Options = WidgetOptions>(
-    widget: UIWidget<Props, Options>
-): UIWidgetModule<Props, Options> => {
+export default <Props = DefaultUIWidgetProps>(widget: UIWidget<Props>): UIWidgetModule<Props> => {
     return {
         ...widget,
         type: WidgetType.UI,

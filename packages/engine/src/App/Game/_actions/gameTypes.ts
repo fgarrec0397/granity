@@ -176,3 +176,9 @@ export type GameWidgetProperties = {
     rotation: Vector3Array;
     scale: Vector3Array;
 };
+
+/// -------------- Game Widgets Actions Parameters -------------- ///
+
+export type GameWidgetValueParameter<TValue = string> = Partial<
+    Omit<GameWidgetInfoDictionaryItem<TValue>, "id">
+>;

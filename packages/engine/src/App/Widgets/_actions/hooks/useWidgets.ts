@@ -5,22 +5,15 @@ import { useSnackbar } from "@granity/ui";
 import { useCallback } from "react";
 
 import useWidgetsService from "../_data/hooks/useWidgetsService";
-import { UpdateWidgetParameter } from "../_data/widgetsServiceParameters";
-import {
-    buildWidgetDictionaryProperties,
-    buildWidgetInfo,
-} from "../utilities/buildWidgetInfoDictionary";
-import widgetsConstants from "../widgetsConstants";
+import { buildWidgetInfo } from "../utilities/buildWidgetInfoDictionary";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
     WidgetInfoBuilder,
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
-    WidgetOptionsValues,
+    WidgetValueParameter,
 } from "../widgetsTypes";
-
-const { widgetObjectsPrefix } = widgetsConstants;
 
 export default () => {
     const {
@@ -88,61 +81,11 @@ export default () => {
         [getWidgetById, getWidgetInfoById]
     );
 
-    const getWidgetByMesh = useCallback(
-        (mesh: Object3D) => {
-            let widgetMesh: Object3D | undefined;
-
-            if (mesh.name.startsWith(widgetObjectsPrefix)) {
-                widgetMesh = mesh;
-            } else {
-                mesh.traverseAncestors((object) => {
-                    if (object.name.startsWith(widgetObjectsPrefix)) {
-                        widgetMesh = object;
-                    }
-                });
-            }
-
-            const widgetIdInMesh = widgetMesh?.name.split("+")[2];
-            const widget = getWidgetById(widgetIdInMesh);
-
-            return { widget, widgetMesh };
-        },
-        [getWidgetById]
-    );
-
     const updateWidget = useCallback(
-        (widgetId: string, value: UpdateWidgetParameter) => {
+        <Value extends WidgetValueParameter>(widgetId: string, value: Value) => {
             update(widgetId, value);
-
-            if (value.properties) {
-                updateSelectedWidgetProperties(value.properties);
-            }
         },
-        [update, updateSelectedWidgetProperties]
-    );
-
-    const updateCurrentWidgetOptions = useCallback(
-        <TValue = string>(widgetOptions: WidgetOptionsValues<TValue>) => {
-            const currentWidget = selectedWidgets[0];
-
-            update(currentWidget.id, { options: widgetOptions });
-        },
-        [selectedWidgets, update]
-    );
-
-    const updatetWidgetWithMesh = useCallback(
-        (widgetId: string, mesh: Object3D | undefined, updateOnlyUI?: boolean) => {
-            if (mesh) {
-                const widgetProperties = buildWidgetDictionaryProperties(mesh);
-
-                if (updateOnlyUI) {
-                    updateSelectedWidgetProperties(widgetProperties);
-                } else {
-                    updateWidget(widgetId, { properties: widgetProperties });
-                }
-            }
-        },
-        [updateSelectedWidgetProperties, updateWidget]
+        [update]
     );
 
     const addWidget = useCallback(

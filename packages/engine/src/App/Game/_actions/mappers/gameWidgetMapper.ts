@@ -1,10 +1,10 @@
-import { DefaultWidgetProps, WidgetOptions, WidgetType } from "@engine/api";
+import { WidgetOptions, WidgetType } from "@engine/api";
 
-import { GameWidget, GameWidgetModule } from "../gameTypes";
+import { DefaultGameWidgetProps, GameWidget, GameWidgetModule } from "../gameTypes";
 
-export default <Props = DefaultWidgetProps, Options = WidgetOptions>(
-    widget: GameWidget<Props, Options>
-): GameWidgetModule<Props, Options> => {
+export default <Props = DefaultGameWidgetProps, Ref = null, Options = WidgetOptions>(
+    widget: GameWidget<Props, Ref, Options>
+): GameWidgetModule<Props, Ref, Options> => {
     return {
         ...widget,
         type: WidgetType.GameObject,

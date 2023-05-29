@@ -1,22 +1,24 @@
-import { createWidget, WidgetType } from "@engine/api";
-// import { DefaultWidgetProps } from "@engine/App/Game/_actions/Types";
+import { createWidget } from "@engine/api";
 import { clone, SetOptionalPropertyFrom } from "@granity/helpers";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
-import { GameWidgetComponent, GameWidgetModule, WidgetOptions } from "../gameTypes";
+import {
+    DefaultGameWidgetProps,
+    GameWidgetComponent,
+    GameWidgetModule,
+    WidgetOptions,
+} from "../gameTypes";
+import gameWidgetMapper from "../mappers/gameWidgetMapper";
 
 /**
  * A function helping you creating a Game widget.
  *
  */
-export default <Props, Ref = null, Options = WidgetOptions>(
+export default <Props = DefaultGameWidgetProps, Ref = null, Options = WidgetOptions>(
     widget: SetOptionalPropertyFrom<GameWidgetModule<Props, Ref, Options>, "type">
 ) => {
     const clonedWidget = clone(widget);
-    const widgetModule: GameWidgetModule<Props, Ref, Options> = {
-        ...clonedWidget,
-        type: WidgetType.GameObject,
-    };
+    const widgetModule = gameWidgetMapper<Props, Ref, Options>(clonedWidget);
 
     if ("hasRef" in widgetModule && widgetModule.hasRef) {
         (widgetModule.component as GameWidgetComponent<Props, Ref>) = forwardRef(
