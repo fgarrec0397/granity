@@ -16,7 +16,7 @@ export type DefaultUIWidgetProps = UnionOfProperties<UIWidgetProps>;
  * Base widget type
  */
 export type UIWidget<Props = DefaultUIWidgetProps> = {
-    component: UIWidgetComponent<Props>;
+    component: FC<Props>;
     reducer: Slice | null;
     name: string;
 };
@@ -24,11 +24,6 @@ export type UIWidget<Props = DefaultUIWidgetProps> = {
 export type UIWidgetModule<Props = DefaultUIWidgetProps> = UIWidget<Props> & {
     type: WidgetType.UI;
 };
-
-/**
- * A component type of a widget
- */
-export type UIWidgetComponent<Props = DefaultUIWidgetProps> = FC<Props>;
 
 /// ------------------- Widgets Dictionary -------------------- ///
 

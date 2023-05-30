@@ -1,21 +1,27 @@
-import { Dictionary } from "@granity/helpers";
+import { Dictionary, UnionOfProperties } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC } from "react";
 
 import { WidgetType } from "./widgetsConstants";
+
+/// ---------------- Types for external typing ---------------- ///
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface WidgetProps {}
+export type DefaultWidgetProps = UnionOfProperties<WidgetProps>;
 
 /// ---------------------- Widget Module ---------------------- ///
 
 /**
  * Base widget type
  */
-export type Widget<Props = any> = {
+export type Widget<Props = DefaultWidgetProps> = {
     component: FC<Props>;
     reducer: Slice | null;
     name: string;
 };
 
-export type WidgetModule<Props = any> = Widget<Props> & {
+export type WidgetModule<Props = DefaultWidgetProps> = Widget<Props> & {
     type: WidgetType;
 };
 

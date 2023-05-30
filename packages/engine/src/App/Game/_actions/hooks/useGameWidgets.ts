@@ -38,10 +38,12 @@ export default () => {
             selectedWidgetsFilter<GameWidgetDictionaryItem>(selectedWidgets, WidgetType.GameObject),
         [selectedWidgets]
     );
+
     const gameWidgets = useMemo(
         () => widgetsFilter<GameWidgetDictionary>(widgets, WidgetType.GameObject),
         [widgets]
     );
+
     const gameWidgetsInfo = useMemo(
         () =>
             widgetsInfoFilter<GameWidgetInfoDictionary>(
