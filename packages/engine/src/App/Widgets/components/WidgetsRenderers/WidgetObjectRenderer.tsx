@@ -1,7 +1,8 @@
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
-import getWidgetName from "@engine/App/Widgets/_actions/utilities/getWidgetName";
-import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
+import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
+import getGameWidgetName from "@engine/App/Game/_actions/utilities/getGameWidgetName";
 import { ErrorBoundary, FallbackProps } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 import { Html } from "@granity/three/drei";
@@ -24,7 +25,7 @@ import resolveHelper from "../../_actions/utilities/resolveHelper";
 import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
-    widget: WidgetDictionaryItem;
+    widget: GameWidgetDictionaryItem;
 };
 
 type WidgetObjectRendererStyles = {
@@ -56,32 +57,28 @@ const styles: WidgetObjectRendererStyles = {
 const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const componentRef = useRef(null!);
     const [hovered, setHover] = useState(false);
-    const {
-        getWidgetDictionaryFromWidget,
-        widgetsInfoDictionary,
-        widgets,
-        displayWidgetName,
-        selectWidget,
-    } = useWidgets();
+    const { getWidgetDictionaryFromWidget, widgets, displayWidgetName, selectWidget } =
+        useWidgets();
+    const { gameWidgetsInfo } = useGameWidgets();
     const { getWidgetProps } = useWidgetsUtilities();
     const getMeshByWidget = useGetMeshByWidget();
     const { isEditor } = useEditor();
     const { component, id, editorOptions, hasRef } = widget;
-    const name = getWidgetName(widget);
+    const name = getGameWidgetName(widget);
     const Component = component;
 
     const helper =
         typeof editorOptions?.helper === "function"
-            ? editorOptions?.helper(widgetsInfoDictionary[id].options)
+            ? editorOptions?.helper(gameWidgetsInfo[id].options)
             : editorOptions?.helper;
 
     const resolvedHelper = resolveHelper(helper);
 
     useEditorHelper(resolvedHelper && (componentRef as MutableRefObject<Object3D>), resolvedHelper);
 
-    if (widgetsInfoDictionary[id]?.isVisible !== undefined) {
+    if (gameWidgetsInfo[id]?.isVisible !== undefined) {
         const mesh = getMeshByWidget(widgets[id]);
-        const { isVisible } = widgetsInfoDictionary[id];
+        const { isVisible } = gameWidgetsInfo[id];
 
         if (mesh) {
             mesh.visible = Boolean(isVisible); // Casting to boolean because we are sure it's not undefined

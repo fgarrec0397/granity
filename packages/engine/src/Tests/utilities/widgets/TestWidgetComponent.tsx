@@ -1,5 +1,5 @@
-import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 
-const TestWidgetComponent: WidgetDictionaryItem["component"] = () => <>test</>;
+const TestWidgetComponent: GameWidgetDictionaryItem["component"] = () => <>test</>;
 
 export default TestWidgetComponent;

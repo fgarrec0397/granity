@@ -133,7 +133,7 @@ export type GameWidgetDictionary<Props = DefaultGameWidgetProps> = Dictionary<
  * Informations of a widget object on the scene
  */
 export type GameWidgetDictionaryItem<Props = DefaultGameWidgetProps> = WidgetDictionaryItem &
-    GameWidgetModule<Props>;
+    Omit<GameWidgetModule<Props>, "reducer">;
 
 /// -------------- Serialized Widgets Dictionary -------------- ///
 

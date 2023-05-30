@@ -1,6 +1,4 @@
-import useUI from "@engine/App/UI/_actions/hooks/useUI";
 import { uidGenerator } from "@granity/helpers";
-import { Object3D } from "@granity/three";
 import { useSnackbar } from "@granity/ui";
 import { useCallback } from "react";
 
@@ -29,7 +27,6 @@ export default () => {
         remove,
         reset,
     } = useWidgetsService();
-    const { updateSelectedWidgetProperties } = useUI();
     const { enqueueSnackbar } = useSnackbar();
 
     const getWidgetDictionaryFromWidget = useCallback(
@@ -94,7 +91,8 @@ export default () => {
             WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem,
             WidgetInfoBuilderType extends WidgetInfoBuilder<
                 WidgetInfoDictionaryItemType,
-                WidgetDictionaryItemType
+                WidgetDictionaryItemType,
+                any
             >
         >(
             widget: WidgetDictionaryItemType,
@@ -120,60 +118,37 @@ export default () => {
         [addBatch]
     );
 
-    const removeWidgetSelection = useCallback(() => {
-        removeSelection();
-    }, [removeSelection]);
-
-    const selectWidget = useCallback(
-        (widgetsToSelect: WidgetDictionaryItem[], forceSelect = false) => {
-            if (!forceSelect && widgetsToSelect[0].isFrozen) {
-                return;
-            }
-
-            const { properties } = widgetsInfoDictionary[widgetsToSelect[0].id];
-            select(widgetsToSelect);
-
-            if (properties) {
-                updateSelectedWidgetProperties(properties);
-                updateWidget(widgetsToSelect[0].id, { properties });
-            }
-        },
-        [widgetsInfoDictionary, select, updateSelectedWidgetProperties, updateWidget]
-    );
-
-    const selectWidgetFromMeshArr = useCallback(
-        (meshArray: Object3D[]) => {
-            if (meshArray.length) {
-                const { widget } = getWidgetByMesh(meshArray[0]);
-
-                if (widget) {
-                    selectWidget([widget]);
-                }
-            }
-        },
-        [getWidgetByMesh, selectWidget]
-    );
-
     const copyWidget = useCallback(
-        (widget: WidgetDictionaryItem) => {
+        <
+            WidgetDictionaryItemType extends WidgetDictionaryItem,
+            WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem
+        >(
+            widget: WidgetDictionaryItemType,
+            widgetInfo: WidgetInfoDictionaryItemType
+        ) => {
             const newWidget = { ...widget };
             const newId = uidGenerator();
 
             newWidget.id = newId;
 
             if (widget.id) {
-                const properties = widgetsInfoDictionary[widget.id].properties;
-                const options = widgetsInfoDictionary[widget.id].options;
-
-                const widgetDictionaryItem = buildWidgetInfo(newWidget, {
-                    properties,
-                    options,
-                });
-
-                add(newWidget, widgetDictionaryItem);
+                add(newWidget, widgetInfo);
             }
         },
-        [add, widgetsInfoDictionary]
+        [add]
+    );
+
+    const removeWidgetSelection = useCallback(() => {
+        removeSelection();
+    }, [removeSelection]);
+
+    const selectWidget = useCallback(
+        <WidgetDictionaryItemType extends WidgetDictionaryItem>(
+            widgetsToSelect: WidgetDictionaryItemType[]
+        ) => {
+            select(widgetsToSelect);
+        },
+        [select]
     );
 
     const removeWidget = useCallback(
@@ -213,18 +188,14 @@ export default () => {
 
         // Widgets Getters
         getWidgetById,
-        getWidgetByMesh,
 
         // Widgets Actions
         addWidget,
         addWidgetsBatch,
         displayWidgetName,
         selectWidget,
-        selectWidgetFromMeshArr,
         isWidgetExist,
         updateWidget,
-        updateCurrentWidgetOptions,
-        updatetWidgetWithMesh,
         copyWidget,
         removeselectedWidgets,
         removeWidget,

@@ -10,7 +10,7 @@ const widgetsInfoFilter = <WidgetsDictionaryType extends WidgetInfoDictionary>(
     widgetsInfoDictionary: WidgetInfoDictionary,
     widgetsDictionary: WidgetDictionary,
     widgetType: WidgetType
-): WidgetInfoDictionary => {
+): WidgetsDictionaryType => {
     const filteredWidgetsInfo = cloneDeep(widgetsInfoDictionary);
 
     Object.keys(widgetsInfoDictionary).forEach((x) => {

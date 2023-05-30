@@ -1,4 +1,4 @@
-import { buildWidgetInfo } from "@engine/api";
+import { buildWidgetInfo, widgetDefaultProperties } from "@engine/api";
 import {
     GameWidgetDictionaryItem,
     GameWidgetInfoDictionaryItem,
@@ -6,7 +6,6 @@ import {
     GameWidgetProperties,
     SerializedGameWidgetDictionaryItem,
 } from "@engine/App/Game/_actions/gameTypes";
-import widgetsConstants from "@engine/App/Widgets/_actions/widgetsConstants";
 import { WidgetInfoBuilder } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { serializeVector3 } from "@granity/helpers";
 import { Object3D } from "@granity/three";
@@ -29,12 +28,13 @@ export type GameWidgetsDictionaryBuilderOptions = {
  */
 export const buildGameWidgetInfo: WidgetInfoBuilder<
     GameWidgetInfoDictionaryItem,
-    GameWidgetDictionaryItem
+    GameWidgetDictionaryItem,
+    GameWidgetsDictionaryBuilderOptions
 > = (
     widget: GameWidgetDictionaryItem,
     builderOptions?: GameWidgetsDictionaryBuilderOptions
 ): GameWidgetInfoDictionaryItem => {
-    let widgetProperties: GameWidgetProperties = widgetsConstants.widgetDefaultProperties;
+    let widgetProperties: GameWidgetProperties = widgetDefaultProperties;
 
     const options = builderOptions?.options
         ? builderOptions?.options

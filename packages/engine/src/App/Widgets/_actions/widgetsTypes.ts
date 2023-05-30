@@ -59,8 +59,9 @@ export type SerializedWidgetDictionaryItem = Omit<WidgetDictionaryItem, "compone
 
 export type WidgetInfoBuilder<
     WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem,
-    WidgetDictionaryItemType
-> = (widget: WidgetDictionaryItemType) => WidgetInfoDictionaryItemType;
+    WidgetDictionaryItemType,
+    BuilderOptions
+> = (widget: WidgetDictionaryItemType, options?: BuilderOptions) => WidgetInfoDictionaryItemType;
 
 /// -------------- Widgets Actions Parameters -------------- ///
 
