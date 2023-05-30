@@ -1,5 +1,6 @@
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
-import useGetWidgets from "@engine/App/Widgets/_actions/hooks/useGetMeshByWidget";
+import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
+import useGetMeshByGameWidget from "@engine/App/Game/_actions/hooks/useGetMeshByGameWidget";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { debounce, isEqual, usePrevious } from "@granity/helpers";
 import { Object3D, TransformControls } from "@granity/three";
@@ -8,13 +9,14 @@ import { FC, useEffect, useMemo, useState } from "react";
 
 const TransformControlsComponent: FC = () => {
     const { camera, scene, gl } = useThree();
-    const { selectedWidgets, firstCurrentWidget, updatetWidgetWithMesh } = useWidgets();
-    const getMeshByWidget = useGetWidgets();
+    const { firstCurrentWidget } = useWidgets();
+    const { updateGameWidgetWithMesh, selectedGameWidgets } = useGameWidgets();
+    const getMeshByGameWidget = useGetMeshByGameWidget();
     const { setIsEditing, isEditing, currentMode } = useEditor();
     const [meshToAttach, setMeshToAttach] = useState<Object3D>();
 
     const previousCurrentMode = usePrevious(currentMode);
-    const previousSelectedWidgets = usePrevious(selectedWidgets);
+    const previousSelectedWidgets = usePrevious(selectedGameWidgets);
     const transformControls = useMemo(
         () => new TransformControls(camera, gl.domElement),
         [camera, gl.domElement]
@@ -59,19 +61,19 @@ const TransformControlsComponent: FC = () => {
      */
     useEffect(() => {
         if (
-            selectedWidgets.length &&
-            (!previousSelectedWidgets || !isEqual(selectedWidgets, previousSelectedWidgets)) &&
-            !selectedWidgets[0].isFrozen
+            selectedGameWidgets.length &&
+            (!previousSelectedWidgets || !isEqual(selectedGameWidgets, previousSelectedWidgets)) &&
+            !selectedGameWidgets[0].isFrozen
         ) {
-            setMeshToAttach(getMeshByWidget(selectedWidgets[0]));
-        } else if (previousSelectedWidgets?.length && !selectedWidgets.length) {
+            setMeshToAttach(getMeshByGameWidget(selectedGameWidgets[0]));
+        } else if (previousSelectedWidgets?.length && !selectedGameWidgets.length) {
             setMeshToAttach(undefined);
         }
     }, [
-        selectedWidgets,
-        selectedWidgets.length,
+        selectedGameWidgets,
+        selectedGameWidgets.length,
         firstCurrentWidget?.id,
-        getMeshByWidget,
+        getMeshByGameWidget,
         previousSelectedWidgets,
         transformControls,
     ]);
@@ -81,14 +83,14 @@ const TransformControlsComponent: FC = () => {
      */
     useEffect(() => {
         const onObjectChangeHandler = () => {
-            updatetWidgetWithMesh(selectedWidgets[0].id, meshToAttach, true);
+            updateGameWidgetWithMesh(selectedGameWidgets[0].id, meshToAttach, true);
         };
 
         const debouncedObjectChange = debounce(onObjectChangeHandler, 40);
 
         const onTransformControlMouseUp = () => {
             if (meshToAttach) {
-                updatetWidgetWithMesh(selectedWidgets[0].id, meshToAttach);
+                updateGameWidgetWithMesh(selectedGameWidgets[0].id, meshToAttach);
             }
 
             debouncedObjectChange.cancel();
@@ -110,10 +112,10 @@ const TransformControlsComponent: FC = () => {
     }, [
         transformControls,
         meshToAttach,
-        updatetWidgetWithMesh,
+        updateGameWidgetWithMesh,
         setIsEditing,
         isEditing,
-        selectedWidgets,
+        selectedGameWidgets,
     ]);
 
     return null;

@@ -1,7 +1,11 @@
 import { useAppDispatch } from "@engine/App/Core/_actions/_data/state/store";
 import { useCallback } from "react";
 
-import { WidgetInfoDictionary, WidgetInfoDictionaryItem } from "../../widgetsTypes";
+import {
+    WidgetInfoDictionary,
+    WidgetInfoDictionaryItem,
+    WidgetValueParameter,
+} from "../../widgetsTypes";
 import {
     addBatchWidgetInfoDictionary,
     addWidgetInfoDictionaryItem,
@@ -10,7 +14,6 @@ import {
     removeWidgetInfoDictionaryItem,
     updateWidgetInfoDictionaryItem,
 } from "../state/widgetsInfoReducer";
-import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 
 export default () => {
     const dispatch = useAppDispatch();
@@ -32,7 +35,7 @@ export default () => {
     );
 
     const dispatchUpdateWidgetInfoDictionaryItem = useCallback(
-        <TValue = string>(widgetId: string, value: UpdateWidgetParameter<TValue>) => {
+        <Value extends WidgetValueParameter>(widgetId: string, value: Value) => {
             return dispatch(updateWidgetInfoDictionaryItem({ widgetId, value }));
         },
         [dispatch]

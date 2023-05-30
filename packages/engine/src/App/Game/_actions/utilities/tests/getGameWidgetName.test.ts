@@ -1,9 +1,7 @@
 import widgetDictionaryItemTest from "@engine/Tests/utilities/widgets/widgetDictionaryItemTest";
 
-import widgetsConstants from "../../widgetsConstants";
-import getWidgetName from "../getWidgetName";
-
-const { widgetObjectsPrefix } = widgetsConstants;
+import { gameWidgetPrefix } from "../../gameConstants";
+import getWidgetName from "../getGameWidgetName";
 
 describe("getWidgetName utility", () => {
     const widgetName = getWidgetName(widgetDictionaryItemTest);
@@ -18,7 +16,7 @@ describe("getWidgetName utility", () => {
     });
 
     test("first section of the widget name should be equal to the variable widgetObjectsPrefix", () => {
-        expect(prefix).toBe(widgetObjectsPrefix);
+        expect(prefix).toBe(gameWidgetPrefix);
     });
 
     test("middle section of the widget name should be equal to the widget definition name", () => {

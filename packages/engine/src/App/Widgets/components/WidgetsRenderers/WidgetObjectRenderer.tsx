@@ -2,7 +2,9 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
 import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
+import useGetMeshByGameWidget from "@engine/App/Game/_actions/hooks/useGetMeshByGameWidget";
 import getGameWidgetName from "@engine/App/Game/_actions/utilities/getGameWidgetName";
+import resolveHelper from "@engine/App/Game/_actions/utilities/resolveHelper";
 import { ErrorBoundary, FallbackProps } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 import { Html } from "@granity/three/drei";
@@ -18,10 +20,8 @@ import {
 } from "@granity/ui";
 import { FC, MutableRefObject, ReactNode, useRef, useState } from "react";
 
-import { useGetMeshByWidget } from "../../_actions/hooks";
 import useWidgets from "../../_actions/hooks/useWidgets";
 import useWidgetsUtilities from "../../_actions/hooks/useWidgetsUtilities";
-import resolveHelper from "../../_actions/utilities/resolveHelper";
 import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
@@ -57,11 +57,11 @@ const styles: WidgetObjectRendererStyles = {
 const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const componentRef = useRef(null!);
     const [hovered, setHover] = useState(false);
-    const { getWidgetDictionaryFromWidget, widgets, displayWidgetName, selectWidget } =
-        useWidgets();
-    const { gameWidgetsInfo } = useGameWidgets();
+    const { displayWidgetName, selectWidget } = useWidgets();
+    const { gameWidgets, gameWidgetsInfo, getGameWidgetInfoFromWidget, getGameWidgetById } =
+        useGameWidgets();
     const { getWidgetProps } = useWidgetsUtilities();
-    const getMeshByWidget = useGetMeshByWidget();
+    const getMeshByGameWidget = useGetMeshByGameWidget();
     const { isEditor } = useEditor();
     const { component, id, editorOptions, hasRef } = widget;
     const name = getGameWidgetName(widget);
@@ -77,7 +77,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     useEditorHelper(resolvedHelper && (componentRef as MutableRefObject<Object3D>), resolvedHelper);
 
     if (gameWidgetsInfo[id]?.isVisible !== undefined) {
-        const mesh = getMeshByWidget(widgets[id]);
+        const mesh = getMeshByGameWidget(gameWidgets[id]);
         const { isVisible } = gameWidgetsInfo[id];
 
         if (mesh) {
@@ -107,10 +107,16 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
         return gizmo.text;
     };
 
-    const widgetProperties = getWidgetDictionaryFromWidget(id!)?.properties;
+    const widgetProperties = getGameWidgetInfoFromWidget(id!)?.properties; // TODO - continue here. Rename the function to something more meaningful and extract it to the useGameWidgets
 
     const onGizmoClick = () => {
-        selectWidget([widgets[id]]);
+        const gizmoWidget = getGameWidgetById(id);
+
+        if (!gizmoWidget) {
+            return console.error("No game widget found");
+        }
+
+        selectWidget([gizmoWidget]);
     };
 
     const ref =

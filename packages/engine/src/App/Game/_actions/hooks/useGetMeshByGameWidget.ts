@@ -6,10 +6,10 @@ import getGameWidgetName from "../utilities/getGameWidgetName";
 export default () => {
     const { scene } = useThree();
 
-    const getMeshByWidget = (widget: GameWidgetDictionaryItem) => {
+    const getMeshByGameWidget = (widget: GameWidgetDictionaryItem) => {
         const meshName = getGameWidgetName(widget);
         return scene.getObjectByName(meshName);
     };
 
-    return getMeshByWidget;
+    return getMeshByGameWidget;
 };

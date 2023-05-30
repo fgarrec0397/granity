@@ -1,17 +1,17 @@
-import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
-import { WidgetOptions, WidgetOptionsValues } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { GameWidgetOptionsValues, WidgetOptions } from "@engine/App/Game/_actions/gameTypes";
+import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import { useEffect, useState } from "react";
 
 export default () => {
-    const [optionsValues, setOptionsValues] = useState<WidgetOptionsValues<any>>(); // TODO fix this any
-    const { selectedWidgets, getWidgetDictionaryFromWidget, updateCurrentWidgetOptions } =
-        useWidgets();
+    const [optionsValues, setOptionsValues] = useState<GameWidgetOptionsValues<any>>();
+    const { selectedGameWidgets, getGameWidgetInfoFromWidget, updateCurrentGameWidgetOptions } =
+        useGameWidgets();
 
     useEffect(() => {
-        const options = getWidgetDictionaryFromWidget(selectedWidgets[0]?.id)?.options;
+        const options = getGameWidgetInfoFromWidget(selectedGameWidgets[0]?.id)?.options;
 
         setOptionsValues(options);
-    }, [selectedWidgets, getWidgetDictionaryFromWidget]);
+    }, [selectedGameWidgets, getGameWidgetInfoFromWidget]);
 
     const updateOptionsValues = <TValue = string>(value: TValue, option: WidgetOptions) => {
         setOptionsValues({
@@ -22,7 +22,7 @@ export default () => {
             },
         });
 
-        updateCurrentWidgetOptions({
+        updateCurrentGameWidgetOptions({
             [option.name]: {
                 fieldType: option.fieldType,
                 value: value,

@@ -14,8 +14,8 @@ import {
     SpotLightHelper,
 } from "@granity/three";
 
-import { helpersTypes } from "../widgetsConstants";
-import { HelperTypeValue } from "../widgetsTypes";
+import { helpersTypes } from "../gameConstants";
+import { HelperTypeValue } from "../gameTypes";
 
 export default (helper?: HelperTypeValue) => {
     switch (helper) {

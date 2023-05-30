@@ -6,8 +6,8 @@ import {
     WidgetDictionaryItem,
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
+    WidgetValueParameter,
 } from "../../widgetsTypes";
-import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 import useWidgetDispatch from "./useWidgetDispatch";
 import useWidgetsContext from "./useWidgetsContext";
 import useWidgetsSelector from "./useWidgetsSelector";
@@ -59,7 +59,7 @@ export default () => {
     );
 
     const update = useCallback(
-        <TValue = string>(widgetId: string, value: UpdateWidgetParameter<TValue>) => {
+        <Value extends WidgetValueParameter>(widgetId: string, value: Value) => {
             dispatchUpdateWidgetInfoDictionaryItem(widgetId, value);
         },
         [dispatchUpdateWidgetInfoDictionaryItem]

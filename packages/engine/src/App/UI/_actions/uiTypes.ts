@@ -58,6 +58,6 @@ export type SerializedUIWidgetDictionaryItem = Omit<UIWidgetDictionaryItem, "com
 
 /// ---------------- UIWidgets Info Dictionary --------------- ///
 
-export type WidgetUIInfoDictionary = Dictionary<WidgetUIInfo>;
+export type UIWidgetInfoDictionary = Dictionary<UIWidgetInfoDictionaryItem>;
 
-export type WidgetUIInfo = WidgetInfo;
+export type UIWidgetInfoDictionaryItem = WidgetInfo;

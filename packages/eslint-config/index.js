@@ -23,7 +23,7 @@ module.exports = {
     rules: {
       "no-use-before-define": "off",
       "no-multi-assign": "off",
-      "no-console": "warn",
+      "no-console": ["warn", { allow: ["warn", "error"] }],
       "no-shadow": "off",
       "no-param-reassign": "off",
       "no-plusplus": "off",

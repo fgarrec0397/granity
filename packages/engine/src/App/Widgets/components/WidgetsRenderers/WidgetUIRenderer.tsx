@@ -1,10 +1,10 @@
-import { WidgetUIDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
+import { UIWidgetDictionaryItem } from "@engine/App/UI/_actions/uiTypes";
 import { FC } from "react";
 
 import useWidgetsUtilities from "../../_actions/hooks/useWidgetsUtilities";
 
 type Props = {
-    widget: WidgetUIDictionaryItem;
+    widget: UIWidgetDictionaryItem;
 };
 
 const WidgetUIRenderer: FC<Props> = ({ widget: { component, id } }) => {

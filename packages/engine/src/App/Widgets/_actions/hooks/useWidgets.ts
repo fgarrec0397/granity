@@ -29,7 +29,7 @@ export default () => {
     } = useWidgetsService();
     const { enqueueSnackbar } = useSnackbar();
 
-    const getWidgetDictionaryFromWidget = useCallback(
+    const getWidgetInfoFromWidget = useCallback(
         (widgetId: string | undefined) => {
             if (widgetId) {
                 return widgetsInfoDictionary[widgetId];
@@ -184,7 +184,7 @@ export default () => {
         widgets,
         widgetsIds,
         widgetsInfoDictionary,
-        getWidgetDictionaryFromWidget,
+        getWidgetInfoFromWidget,
 
         // Widgets Getters
         getWidgetById,

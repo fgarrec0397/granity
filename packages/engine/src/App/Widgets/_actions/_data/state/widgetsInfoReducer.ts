@@ -4,9 +4,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
-    WidgetOptionsValues,
+    WidgetValueParameter,
 } from "../../widgetsTypes";
-import { UpdateWidgetParameter } from "../widgetsServiceParameters";
 
 export interface WidgetsInfoState {
     byId: WidgetInfoDictionary;
@@ -50,33 +49,38 @@ export const widgetsInfoSlice = createSlice({
 
             state.allIds = [...state.allIds, ...Object.keys(newWidgetsDictionary)];
         },
-        updateWidgetInfoDictionaryItem: <TValue = string>(
+        updateWidgetInfoDictionaryItem: <Value extends WidgetValueParameter>(
             state: WidgetsInfoState,
             action: PayloadAction<{
                 widgetId: string;
-                value: UpdateWidgetParameter<TValue>;
+                value: Value;
             }>
         ) => {
             const { widgetId, value } = action.payload;
 
-            if (value.displayName) {
-                state.byId[widgetId].displayName = value.displayName;
-            }
+            state.byId[widgetId] = {
+                ...state.byId[widgetId],
+                ...value,
+            };
 
-            if (value.properties) {
-                state.byId[widgetId].properties = value.properties;
-            }
+            // if (value.displayName) {
+            //     state.byId[widgetId].displayName = value.displayName;
+            // }
 
-            if (value.options) {
-                state.byId[widgetId].options = {
-                    ...state.byId[widgetId].options,
-                    ...(value.options as WidgetOptionsValues<any>),
-                };
-            }
+            // if (value.properties) {
+            //     state.byId[widgetId].properties = value.properties;
+            // }
 
-            if (value.isVisible !== undefined) {
-                state.byId[widgetId].isVisible = value.isVisible;
-            }
+            // if (value.options) {
+            //     state.byId[widgetId].options = {
+            //         ...state.byId[widgetId].options,
+            //         ...(value.options as WidgetOptionsValues<any>),
+            //     };
+            // }
+
+            // if (value.isVisible !== undefined) {
+            //     state.byId[widgetId].isVisible = value.isVisible;
+            // }
         },
         removeWidgetInfoDictionaryItem: (
             state: WidgetsInfoState,

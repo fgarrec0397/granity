@@ -9,6 +9,7 @@ import { useCallback, useMemo } from "react";
 
 import { gameWidgetPrefix } from "../gameConstants";
 import {
+    GameWidgetDictionary,
     GameWidgetDictionaryItem,
     GameWidgetInfoDictionary,
     GameWidgetOptionsValues,
@@ -33,10 +34,14 @@ export default () => {
     const { updateSelectedWidgetProperties } = useUI();
 
     const selectedGameWidgets = useMemo(
-        () => selectedWidgetsFilter(selectedWidgets, WidgetType.GameObject),
+        () =>
+            selectedWidgetsFilter<GameWidgetDictionaryItem>(selectedWidgets, WidgetType.GameObject),
         [selectedWidgets]
     );
-    const gameWidgets = useMemo(() => widgetsFilter(widgets, WidgetType.GameObject), [widgets]);
+    const gameWidgets = useMemo(
+        () => widgetsFilter<GameWidgetDictionary>(widgets, WidgetType.GameObject),
+        [widgets]
+    );
     const gameWidgetsInfo = useMemo(
         () =>
             widgetsInfoFilter<GameWidgetInfoDictionary>(
@@ -51,13 +56,31 @@ export default () => {
         [widgets]
     );
 
-    const getWidgetDictionaryFromWidget = useCallback(
-        (widgetId: string | undefined) => {
-            if (widgetId) {
-                return widgetsInfoDictionary[widgetId];
+    const getGameWidgetById = useCallback(
+        (id: string | undefined) => {
+            if (id) {
+                return gameWidgets[id];
             }
         },
-        [widgetsInfoDictionary]
+        [gameWidgets]
+    );
+
+    const getGameWidgetInfoById = useCallback(
+        (id: string | undefined) => {
+            if (id) {
+                return gameWidgetsInfo?.[id];
+            }
+        },
+        [gameWidgetsInfo]
+    );
+
+    const getGameWidgetInfoFromWidget = useCallback(
+        (widgetId: string | undefined) => {
+            if (widgetId) {
+                return gameWidgetsInfo[widgetId];
+            }
+        },
+        [gameWidgetsInfo]
     );
 
     const addGameWidget = useCallback(
@@ -67,7 +90,7 @@ export default () => {
         [addWidget]
     );
 
-    const updatetWidgetWithMesh = useCallback(
+    const updateGameWidgetWithMesh = useCallback(
         (widgetId: string, mesh: Object3D | undefined, updateOnlyUI?: boolean) => {
             if (mesh) {
                 const widgetProperties = buildWidgetDictionaryProperties(mesh);
@@ -95,7 +118,7 @@ export default () => {
         [updateSelectedWidgetProperties, updateWidget]
     );
 
-    const updateCurrentWGameidgetOptions = useCallback(
+    const updateCurrentGameWidgetOptions = useCallback(
         <TValue = string>(widgetOptions: GameWidgetOptionsValues<TValue>) => {
             const currentWidget = selectedGameWidgets[0];
 
@@ -174,14 +197,18 @@ export default () => {
     );
 
     return {
+        selectedGameWidgets,
+        getGameWidgetById,
+        getGameWidgetInfoById,
         addGameWidget,
         gameWidgets,
         gameWidgetsInfo,
         gameWidgetsIds,
         selectGameWidgetFromMeshArr,
         copyGameWidget,
-        updateCurrentWGameidgetOptions,
+        updateCurrentGameWidgetOptions,
         selectGameWidget,
-        updatetWidgetWithMesh,
+        updateGameWidgetWithMesh,
+        getGameWidgetInfoFromWidget,
     };
 };

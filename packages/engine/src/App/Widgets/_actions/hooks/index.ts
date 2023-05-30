@@ -1,5 +1,4 @@
 export { default as useGetComponentFromModules } from "./useGetComponentFromModules";
-export { default as useGetMeshByWidget } from "./useGetMeshByWidget";
 export { default as useInitWidgets } from "./useInitWidgets";
 export { default as useWidgets } from "./useWidgets";
 export { default as useWidgetsModules } from "./useWidgetsModules";
