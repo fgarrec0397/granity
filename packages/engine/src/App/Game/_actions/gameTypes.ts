@@ -5,7 +5,7 @@ import {
     WidgetInfoDictionaryItem,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
 // import { WidgetInfo } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Dictionary, UnionOfProperties, Vector3Array } from "@granity/helpers";
+import { Dictionary, EmptyObject, UnionOfProperties, Vector3Array } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
 
@@ -22,7 +22,7 @@ export interface GameEditableWidget {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface GameWidgetProps extends GameEditableWidget {}
-export type DefaultGameWidgetProps = UnionOfProperties<GameWidgetProps>;
+export type DefaultGameWidgetProps = UnionOfProperties<GameWidgetProps> | EmptyObject;
 
 /// -------------------------- Misc --------------------------- ///
 

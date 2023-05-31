@@ -1,13 +1,13 @@
 import { GameWidgetProperties } from "@engine/App/Game/_actions/gameTypes";
+import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useUI from "@engine/App/UI/_actions/hooks/useUI";
-import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
 import { updateArrayAt, Vector3Array } from "@granity/helpers";
 import { Accordion, AccordionDetails, AccordionSummary, Vector3Input } from "@granity/ui";
 import { FC } from "react";
 
-const EditorWidgetProperties: FC = () => {
-    const { selectedWidgets, updateWidget } = useWidgets();
+const EditorGameWidgetProperties: FC = () => {
+    const { selectedGameWidgets, updateGameWidget } = useGameWidgets();
     const { selectedWidgetProperties } = useUI();
     const openedAccordion = useAccordionDefaultOpened();
 
@@ -23,7 +23,7 @@ const EditorWidgetProperties: FC = () => {
                 index
             );
 
-            updateWidget(selectedWidgets[0].id, {
+            updateGameWidget(selectedGameWidgets[0].id, {
                 properties: {
                     ...selectedWidgetProperties,
                     [propertyKey]: newValue,
@@ -32,7 +32,7 @@ const EditorWidgetProperties: FC = () => {
         }
     };
 
-    if (selectedWidgets[0] && selectedWidgetProperties) {
+    if (selectedGameWidgets[0] && selectedWidgetProperties) {
         return (
             <Accordion {...openedAccordion}>
                 <AccordionSummary>Properties</AccordionSummary>
@@ -66,4 +66,4 @@ const EditorWidgetProperties: FC = () => {
     return null;
 };
 
-export default EditorWidgetProperties;
+export default EditorGameWidgetProperties;

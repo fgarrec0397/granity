@@ -2,13 +2,13 @@ import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
 import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
+import useGameWidgetsUtilities from "@engine/App/Game/_actions/hooks/useGameWidgetsUtilities";
 import useGetMeshByGameWidget from "@engine/App/Game/_actions/hooks/useGetMeshByGameWidget";
 import getGameWidgetName from "@engine/App/Game/_actions/utilities/getGameWidgetName";
 import resolveHelper from "@engine/App/Game/_actions/utilities/resolveHelper";
 import { ErrorBoundary, FallbackProps } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 import { Html } from "@granity/three/drei";
-import { ThreeEvent } from "@granity/three/fiber";
 import {
     Button,
     ButtonProps,
@@ -18,10 +18,9 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { FC, MutableRefObject, ReactNode, useRef, useState } from "react";
+import { FC, MutableRefObject, ReactNode, useRef } from "react";
 
 import useWidgets from "../../_actions/hooks/useWidgets";
-import useWidgetsUtilities from "../../_actions/hooks/useWidgetsUtilities";
 import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
@@ -56,11 +55,10 @@ const styles: WidgetObjectRendererStyles = {
 
 const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const componentRef = useRef(null!);
-    const [hovered, setHover] = useState(false);
     const { displayWidgetName, selectWidget } = useWidgets();
     const { gameWidgets, gameWidgetsInfo, getGameWidgetInfoFromWidget, getGameWidgetById } =
         useGameWidgets();
-    const { getWidgetProps } = useWidgetsUtilities();
+    const { getGameWidgetProps } = useGameWidgetsUtilities();
     const getMeshByGameWidget = useGetMeshByGameWidget();
     const { isEditor } = useEditor();
     const { component, id, editorOptions, hasRef } = widget;
@@ -85,17 +83,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
         }
     }
 
-    const widgetProps = getWidgetProps(id);
-
-    const handleOnPointerOver = (event: ThreeEvent<PointerEvent>): void => {
-        event.stopPropagation();
-        setHover(true);
-    };
-
-    const handleOnPointerOut = (event: ThreeEvent<PointerEvent>): void => {
-        event.stopPropagation();
-        setHover(false);
-    };
+    const widgetProps = getGameWidgetProps(id);
 
     const gizmo = editorOptions?.gizmo;
 
@@ -127,12 +115,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
             : {};
 
     return (
-        <mesh
-            name={name}
-            onPointerOver={handleOnPointerOver}
-            onPointerOut={handleOnPointerOut}
-            {...widgetProperties}
-        >
+        <mesh name={name} {...widgetProperties}>
             {isEditor && gizmo && <WidgetsGizmo text={resolveGizmoText()} onClick={onGizmoClick} />}
 
             <ErrorBoundary
@@ -140,7 +123,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
                     widgetFallbackRender(fallbackProps, displayWidgetName(id))
                 }
             >
-                <Component {...widgetProps} {...widgetProperties} hovered={hovered} {...ref} />
+                <Component {...widgetProps} {...widgetProperties} {...ref} />
             </ErrorBoundary>
         </mesh>
     );

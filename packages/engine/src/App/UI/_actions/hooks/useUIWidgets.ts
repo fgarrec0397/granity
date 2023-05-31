@@ -2,29 +2,23 @@ import {
     GameWidgetDictionary,
     GameWidgetInfoDictionary,
     useWidgets,
+    useWidgetsModules,
     WidgetType,
 } from "@engine/api";
 import selectedWidgetsFilter from "@engine/App/Widgets/_actions/filters/selectedWidgetsFilter";
 import widgetsFilter from "@engine/App/Widgets/_actions/filters/widgetsFilter";
 import widgetsIdsFilter from "@engine/App/Widgets/_actions/filters/widgetsIdsFilter";
 import widgetsInfoFilter from "@engine/App/Widgets/_actions/filters/widgetsInfoFilter";
+import widgetsModulesFilter from "@engine/App/Widgets/_actions/filters/widgetsModulesFilter";
 import { useCallback, useMemo } from "react";
 
 import useUIService from "../_data/hooks/useUIService";
-import { UIWidgetDictionaryItem } from "../uiTypes";
+import { UIWidgetDictionaryItem, UIWidgetModule } from "../uiTypes";
 
 export default () => {
     const { selectedWidgetProperties } = useUIService();
-    const {
-        widgets,
-        widgetsInfoDictionary,
-        addWidget,
-        updateWidget,
-        getWidgetById,
-        selectWidget,
-        selectedWidgets,
-        copyWidget,
-    } = useWidgets();
+    const { widgets, widgetsInfoDictionary, addWidget, selectedWidgets } = useWidgets();
+    const { widgetsModules } = useWidgetsModules();
 
     const selectedUIWidgets = useMemo(
         () => selectedWidgetsFilter<UIWidgetDictionaryItem>(selectedWidgets, WidgetType.UI),
@@ -34,6 +28,11 @@ export default () => {
     const uiWidgets = useMemo(
         () => widgetsFilter<GameWidgetDictionary>(widgets, WidgetType.UI),
         [widgets]
+    );
+
+    const uiWidgetsModules = useMemo(
+        () => widgetsModulesFilter<UIWidgetModule>(widgetsModules, WidgetType.UI),
+        [widgetsModules]
     );
 
     const uiWidgetsInfo = useMemo(
@@ -86,6 +85,7 @@ export default () => {
         selectedWidgetProperties,
         selectedUIWidgets,
         uiWidgets,
+        uiWidgetsModules,
         uiWidgetsInfo,
         uiWidgetsIds,
         getUIWidgetById,

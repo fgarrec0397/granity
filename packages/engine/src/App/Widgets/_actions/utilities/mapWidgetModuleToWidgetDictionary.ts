@@ -1,8 +1,10 @@
-import { WidgetDictionaryItem, WidgetModule } from "../widgetsTypes";
-
-export default <T extends WidgetModule>(widget: T): WidgetDictionaryItem => {
+const mapWidgetModuleToWidgetDictionary = <WidgetModuleType, WidgetDictionaryItemType>(
+    widget: WidgetModuleType
+) => {
     return {
         ...widget,
         id: "",
-    };
+    } as WidgetDictionaryItemType;
 };
+
+export default mapWidgetModuleToWidgetDictionary;

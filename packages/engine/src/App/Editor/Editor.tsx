@@ -1,10 +1,10 @@
 import SceneDefaultCamera from "@engine/App/Scenes/components/SceneDefaultCamera";
-import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import Widgets from "@engine/App/Widgets/Widgets";
 import { Grid, Select } from "@granity/three/drei";
 import { FC } from "react";
 
 import useHandleLoadFiles from "../Core/_actions/hooks/useHandleLoadFiles";
+import useGameWidgets from "../Game/_actions/hooks/useGameWidgets";
 import GamePhysics from "../Game/Components/GamePhysics";
 import { useEditor } from "./_actions/hooks";
 import useEditorInputs from "./_actions/hooks/useEditorInputs";
@@ -12,7 +12,7 @@ import useHandleEditorStateChange from "./_actions/hooks/useHandleEditorStateCha
 import EditorLayout from "./components/EditorLayout";
 
 const Editor: FC = () => {
-    const { widgetsIds, selectWidgetFromMeshArr } = useWidgets();
+    const { gameWidgetsIds, selectGameWidgetFromMeshArr } = useGameWidgets();
     const { isDebugEnabled } = useEditor();
 
     useHandleLoadFiles();
@@ -21,9 +21,9 @@ const Editor: FC = () => {
 
     return (
         <GamePhysics paused debug>
-            <Select multiple onChange={selectWidgetFromMeshArr}>
+            <Select multiple onChange={selectGameWidgetFromMeshArr}>
                 <SceneDefaultCamera />
-                <Widgets widgetsIds={widgetsIds} />
+                <Widgets widgetsIds={gameWidgetsIds} />
                 {isDebugEnabled && <Grid infiniteGrid sectionThickness={0.5} />}
             </Select>
         </GamePhysics>

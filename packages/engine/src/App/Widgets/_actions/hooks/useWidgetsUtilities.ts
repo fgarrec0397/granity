@@ -1,19 +1,16 @@
 import { cloneDeep } from "@granity/helpers";
 import { useCallback } from "react";
 
-import populateWidgetProps from "../utilities/populateWidgetProps";
 import {
     SerializedWidgetDictionary,
     WidgetDictionary,
     WidgetInfoDictionary,
     WidgetModule,
 } from "../widgetsTypes";
-import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
 
 export default () => {
     const { getWidgetModuleByName } = useWidgetsModules();
-    const { widgetsInfoDictionary } = useWidgets();
 
     /**
      * Unserialize widgets based on the given widgetsModules as reference
@@ -102,14 +99,5 @@ export default () => {
         []
     );
 
-    const getWidgetProps = useCallback(
-        (id: string) => {
-            return {
-                ...populateWidgetProps(id, widgetsInfoDictionary),
-            };
-        },
-        [widgetsInfoDictionary]
-    );
-
-    return { unserializeWidgets, synchWidgets, getWidgetProps };
+    return { unserializeWidgets, synchWidgets };
 };

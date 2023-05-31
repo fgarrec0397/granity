@@ -3,9 +3,9 @@ import { editorPadding } from "@engine/Theme/themeConstants";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
+import EditorGameWidgetsList from "./EditorGameWidgetsList";
 import EditorScenesList from "./EditorScenesList";
-import EditorWidgetsObjectList from "./EditorWidgetsObjectList";
-import EditorWidgetsUIList from "./EditorWidgetsUIList";
+import EditorUIWidgetsList from "./EditorUIWidgetsList";
 
 type EditorRightPanelStyles = {
     wrapper?: BoxProps;
@@ -32,8 +32,8 @@ const styles: EditorRightPanelStyles = {
 const EditorRightPanel: FC = () => {
     return (
         <Box {...styles.wrapper}>
-            <EditorWidgetsObjectList />
-            {/* <EditorWidgetsUIList /> */}
+            <EditorGameWidgetsList />
+            <EditorUIWidgetsList />
             <EditorScenesList />
         </Box>
     );

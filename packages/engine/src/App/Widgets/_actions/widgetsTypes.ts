@@ -1,4 +1,4 @@
-import { Dictionary, UnionOfProperties } from "@granity/helpers";
+import { Dictionary, EmptyObject, UnionOfProperties } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC } from "react";
 
@@ -8,7 +8,7 @@ import { WidgetType } from "./widgetsConstants";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WidgetProps {}
-export type DefaultWidgetProps = UnionOfProperties<WidgetProps>;
+export type DefaultWidgetProps = UnionOfProperties<WidgetProps> | EmptyObject;
 
 /// ---------------------- Widget Module ---------------------- ///
 

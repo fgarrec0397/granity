@@ -1,3 +1,4 @@
+import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import { FC } from "react";
 
 import { useWidgets } from "../_actions/hooks";
@@ -9,9 +10,9 @@ interface WidgetItemProps {
 }
 
 const WidgetItem: FC<WidgetItemProps> = ({ widgetId }) => {
-    const { getWidgetById } = useWidgets();
+    const { getGameWidgetById } = useGameWidgets();
 
-    const widget = getWidgetById(widgetId);
+    const widget = getGameWidgetById(widgetId);
 
     if (!widget) {
         return null;

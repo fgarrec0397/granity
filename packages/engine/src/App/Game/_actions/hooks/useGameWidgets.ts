@@ -1,9 +1,10 @@
-import { useWidgets, WidgetType } from "@engine/api";
+import { useWidgets, useWidgetsModules, WidgetType } from "@engine/api";
 import useUI from "@engine/App/UI/_actions/hooks/useUI";
 import selectedWidgetsFilter from "@engine/App/Widgets/_actions/filters/selectedWidgetsFilter";
 import widgetsFilter from "@engine/App/Widgets/_actions/filters/widgetsFilter";
 import widgetsIdsFilter from "@engine/App/Widgets/_actions/filters/widgetsIdsFilter";
 import widgetsInfoFilter from "@engine/App/Widgets/_actions/filters/widgetsInfoFilter";
+import widgetsModulesFilter from "@engine/App/Widgets/_actions/filters/widgetsModulesFilter";
 import { Object3D } from "@granity/three";
 import { useCallback, useMemo } from "react";
 
@@ -12,6 +13,7 @@ import {
     GameWidgetDictionary,
     GameWidgetDictionaryItem,
     GameWidgetInfoDictionary,
+    GameWidgetModule,
     GameWidgetOptionsValues,
     GameWidgetValueParameter,
 } from "../gameTypes";
@@ -31,6 +33,7 @@ export default () => {
         selectedWidgets,
         copyWidget,
     } = useWidgets();
+    const { widgetsModules } = useWidgetsModules();
     const { updateSelectedWidgetProperties } = useUI();
 
     const selectedGameWidgets = useMemo(
@@ -42,6 +45,11 @@ export default () => {
     const gameWidgets = useMemo(
         () => widgetsFilter<GameWidgetDictionary>(widgets, WidgetType.GameObject),
         [widgets]
+    );
+
+    const gameWidgetsModules = useMemo(
+        () => widgetsModulesFilter<GameWidgetModule>(widgetsModules, WidgetType.GameObject),
+        [widgetsModules]
     );
 
     const gameWidgetsInfo = useMemo(
@@ -204,6 +212,7 @@ export default () => {
         getGameWidgetInfoById,
         addGameWidget,
         gameWidgets,
+        gameWidgetsModules,
         gameWidgetsInfo,
         gameWidgetsIds,
         selectGameWidgetFromMeshArr,
@@ -211,6 +220,7 @@ export default () => {
         updateCurrentGameWidgetOptions,
         selectGameWidget,
         updateGameWidgetWithMesh,
+        updateGameWidget,
         getGameWidgetInfoFromWidget,
     };
 };

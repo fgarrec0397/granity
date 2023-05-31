@@ -1,7 +1,7 @@
+import useUIWidgets from "@engine/App/UI/_actions/hooks/useUIWidgets";
+import { UIWidgetDictionaryItem } from "@engine/App/UI/_actions/uiTypes";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
-import useWidgetsModules from "@engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
-import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
@@ -24,11 +24,12 @@ const styles: EditorWidgetsUIListStyles = {
 };
 
 const EditorWidgetsUIList: FC = () => {
-    const { addWidget, displayWidgetName, widgetsUI, widgetsUIIds, removeWidget } = useWidgets();
-    const { widgetsUIModules } = useWidgetsModules();
+    const { displayWidgetName, removeWidget } = useWidgets();
 
-    const handleClickMenuItem = (widget: WidgetDictionaryItem): void => {
-        addWidget(widget);
+    const { addUIWidget, uiWidgets, uiWidgetsIds, uiWidgetsModules } = useUIWidgets();
+
+    const handleClickMenuItem = (widget: UIWidgetDictionaryItem): void => {
+        addUIWidget(widget);
     };
 
     const handleClickRemove = (widgetId: string) => {
@@ -37,11 +38,11 @@ const EditorWidgetsUIList: FC = () => {
 
     return (
         <EditorItemsList
-            itemsDictionaryIds={widgetsUIIds}
+            itemsDictionaryIds={uiWidgetsIds}
             title="UI Widgets"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add UI Widget"
-            editModal={(id) => <EditWidgetModal widget={widgetsUI[id]} />}
+            editModal={(id) => <EditWidgetModal widget={uiWidgets[id]} />}
             displayItemName={displayWidgetName}
             handleClickRemove={handleClickRemove}
             cancelButton={{
@@ -50,10 +51,10 @@ const EditorWidgetsUIList: FC = () => {
         >
             {(state) => (
                 <Box {...styles.itemWrapper}>
-                    {widgetsUIModules.length > 0
-                        ? widgetsUIModules.map((widget, index) => {
+                    {uiWidgetsModules.length > 0
+                        ? uiWidgetsModules.map((widget, index) => {
                               const key = `${index}-${widget.name}`;
-                              const newWidget: WidgetDictionaryItem =
+                              const newWidget: UIWidgetDictionaryItem =
                                   mapWidgetModuleToWidgetDictionary(widget);
 
                               return (

@@ -1,27 +1,21 @@
 import { WidgetType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { WidgetInfo } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Dictionary, UnionOfProperties } from "@granity/helpers";
+import { Dictionary } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC } from "react";
-
-/// ---------------- Types for external typing ---------------- ///
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UIWidgetProps {}
-export type DefaultUIWidgetProps = UnionOfProperties<UIWidgetProps>;
 
 /// ---------------------- UIWidget Module ---------------------- ///
 
 /**
  * Base widget type
  */
-export type UIWidget<Props = DefaultUIWidgetProps> = {
-    component: FC<Props>;
+export type UIWidget = {
+    component: FC;
     reducer: Slice | null;
     name: string;
 };
 
-export type UIWidgetModule<Props = DefaultUIWidgetProps> = UIWidget<Props> & {
+export type UIWidgetModule = UIWidget & {
     type: WidgetType.UI;
 };
 

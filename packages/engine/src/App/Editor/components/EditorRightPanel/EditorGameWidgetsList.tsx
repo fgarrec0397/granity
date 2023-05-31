@@ -1,7 +1,7 @@
+import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
+import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
-import useWidgetsModules from "@engine/App/Widgets/_actions/hooks/useWidgetsModules";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
-import { WidgetDictionaryItem } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
@@ -9,11 +9,11 @@ import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorItemsList from "./EditorItemsList";
 import EditorItemsListModalButton from "./EditorItemsListModalButton";
 
-type EditorWidgetsObjectListStyles = {
+type EditorGameWidgetsListStyles = {
     itemWrapper?: BoxProps;
 };
 
-const styles: EditorWidgetsObjectListStyles = {
+const styles: EditorGameWidgetsListStyles = {
     itemWrapper: {
         sx: {
             display: "grid",
@@ -23,33 +23,32 @@ const styles: EditorWidgetsObjectListStyles = {
     },
 };
 
-const EditorWidgetsObjectList: FC = () => {
+const EditorGameWidgetsList: FC = () => {
+    const { displayWidgetName, removeWidget } = useWidgets();
     const {
-        addWidget,
-        displayWidgetName,
-        widgets,
-        widgetsIds,
-        widgetsInfoDictionary,
-        updateWidget,
-        selectWidget,
-        selectedWidgets,
-        removeWidget,
-    } = useWidgets();
-    const { widgetsModules } = useWidgetsModules();
+        addGameWidget,
+        gameWidgets,
+        gameWidgetsModules,
+        gameWidgetsIds,
+        gameWidgetsInfo,
+        updateGameWidget,
+        selectGameWidget,
+        selectedGameWidgets,
+    } = useGameWidgets();
 
-    const handleClickMenuItem = (widget: WidgetDictionaryItem): void => {
-        addWidget(widget);
+    const handleClickMenuItem = (widget: GameWidgetDictionaryItem): void => {
+        addGameWidget(widget);
     };
 
     const toggleVisibilityWidget = (id: string): void => {
         if (id) {
-            updateWidget(id, { isVisible: !widgetsInfoDictionary[id].isVisible });
+            updateGameWidget(id, { isVisible: !gameWidgetsInfo[id].isVisible });
         }
     };
 
     const handleClickRow = (id: string) => {
-        const widget = widgets[id];
-        selectWidget([widget as WidgetDictionaryItem], true);
+        const widget = gameWidgets[id];
+        selectGameWidget([widget as GameWidgetDictionaryItem], true);
     };
 
     const handleClickRemove = (widgetId: string) => {
@@ -58,27 +57,27 @@ const EditorWidgetsObjectList: FC = () => {
 
     return (
         <EditorItemsList
-            itemsDictionaryIds={widgetsIds}
+            itemsDictionaryIds={gameWidgetsIds}
             title="Objects Widgets"
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
-            editModal={(id) => <EditWidgetModal widget={widgets[id]} />}
-            isVisible={(id) => widgetsInfoDictionary?.[id]?.isVisible}
+            editModal={(id) => <EditWidgetModal widget={gameWidgets[id]} />}
+            isVisible={(id) => gameWidgetsInfo?.[id]?.isVisible}
             handleVisibility={toggleVisibilityWidget}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
-            isActionRowSelected={(id) => widgets[id]?.id === selectedWidgets[0]?.id}
+            isActionRowSelected={(id) => gameWidgets[id]?.id === selectedGameWidgets[0]?.id}
             cancelButton={{
                 text: "Cancel and close",
             }}
         >
             {(state) => (
                 <Box {...styles.itemWrapper}>
-                    {widgetsModules.length > 0
-                        ? widgetsModules.map((widget, index) => {
+                    {gameWidgetsModules.length > 0
+                        ? gameWidgetsModules.map((widget, index) => {
                               const key = `${index}-${widget.name}`;
-                              const newWidget: WidgetDictionaryItem =
+                              const newWidget: GameWidgetDictionaryItem =
                                   mapWidgetModuleToWidgetDictionary(widget);
 
                               return (
@@ -99,4 +98,4 @@ const EditorWidgetsObjectList: FC = () => {
     );
 };
 
-export default EditorWidgetsObjectList;
+export default EditorGameWidgetsList;
