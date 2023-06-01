@@ -30,7 +30,7 @@ export const buildWidgetInfoDictionary = <WidgetDictionaryType extends WidgetDic
 
 /**
  *
- * Builds a widgetsInfoDictionary based on the given widgetsDictionaryItem to fill the values
+ * Builds a widgetsInfoDictionaryItem based on the given widgetsDictionaryItem to fill the values
  *
  * @param widget - The taken widget to build the widgetObjectInfo
  * @param builderOptions - Overrides the widget options by passing your own options

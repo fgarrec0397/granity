@@ -13,7 +13,7 @@ const widgetsInfoFilter = <WidgetsDictionaryType extends WidgetInfoDictionary>(
 ): WidgetsDictionaryType => {
     const filteredWidgetsInfo = cloneDeep(widgetsInfoDictionary);
 
-    Object.keys(widgetsInfoDictionary).forEach((x) => {
+    Object.keys(widgetsDictionary).forEach((x) => {
         const widgetItem = widgetsDictionary[x];
 
         if (widgetItem.type !== widgetType) {

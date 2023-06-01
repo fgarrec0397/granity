@@ -51,6 +51,7 @@ export const buildGameWidgetInfo: WidgetInfoBuilder<
     return gameWidgetInfoMapper(buildWidgetInfo(widget), {
         properties: widgetProperties,
         options,
+        isVisible: true,
     });
 };
 

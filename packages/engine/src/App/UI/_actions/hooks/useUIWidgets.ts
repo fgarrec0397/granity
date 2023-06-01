@@ -17,7 +17,7 @@ import { UIWidgetDictionaryItem, UIWidgetModule } from "../uiTypes";
 
 export default () => {
     const { selectedWidgetProperties } = useUIService();
-    const { widgets, widgetsInfoDictionary, addWidget, selectedWidgets } = useWidgets();
+    const { widgets, widgetsInfoDictionary, addWidget, selectedWidgets, widgetsIds } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
 
     const selectedUIWidgets = useMemo(
@@ -44,7 +44,10 @@ export default () => {
             ),
         [widgets, widgetsInfoDictionary]
     );
-    const uiWidgetsIds = useMemo(() => widgetsIdsFilter(widgets, WidgetType.UI), [widgets]);
+    const uiWidgetsIds = useMemo(
+        () => widgetsIdsFilter(widgets, widgetsIds, WidgetType.UI),
+        [widgets, widgetsIds]
+    );
 
     const getUIWidgetById = useCallback(
         (id: string | undefined) => {

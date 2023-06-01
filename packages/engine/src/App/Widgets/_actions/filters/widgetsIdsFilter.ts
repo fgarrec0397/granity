@@ -6,17 +6,18 @@ import { WidgetDictionary } from "../widgetsTypes";
  */
 const widgetsIdsFilter = (
     widgetsDictionary: WidgetDictionary,
+    widgetsIds: string[],
     widgetType: WidgetType
 ): string[] => {
     const filteredWidgetsIds: string[] = [];
 
-    for (const key in widgetsDictionary) {
-        const widget = widgetsDictionary[key];
+    widgetsIds.forEach((id) => {
+        const widget = widgetsDictionary[id];
 
         if (widget.type === widgetType) {
             filteredWidgetsIds.push(widget.id);
         }
-    }
+    });
 
     return filteredWidgetsIds;
 };

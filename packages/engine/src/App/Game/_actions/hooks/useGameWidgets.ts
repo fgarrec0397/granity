@@ -25,6 +25,7 @@ import {
 export default () => {
     const {
         widgets,
+        widgetsIds,
         widgetsInfoDictionary,
         addWidget,
         updateWidget,
@@ -62,8 +63,8 @@ export default () => {
         [widgets, widgetsInfoDictionary]
     );
     const gameWidgetsIds = useMemo(
-        () => widgetsIdsFilter(widgets, WidgetType.GameObject),
-        [widgets]
+        () => widgetsIdsFilter(widgets, widgetsIds, WidgetType.GameObject),
+        [widgets, widgetsIds]
     );
 
     const getGameWidgetById = useCallback(
