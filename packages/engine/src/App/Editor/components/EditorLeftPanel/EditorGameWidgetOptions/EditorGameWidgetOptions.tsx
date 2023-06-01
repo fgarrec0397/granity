@@ -1,4 +1,4 @@
-import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
+import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@granity/ui";
@@ -14,21 +14,21 @@ import useOptionsValues from "./hooks/useOptionsValues";
 
 const EditorGameWidgetOptions: FC = () => {
     const openedAccordion = useAccordionDefaultOpened();
-    const { selectedWidgets } = useWidgets();
+    const { selectedGameWidgets } = useGameWidgets();
     const { optionsValues } = useOptionsValues();
 
-    if (!selectedWidgets[0]) {
+    if (!selectedGameWidgets[0]) {
         return null;
     }
 
-    const options = selectedWidgets[0].options;
+    const options = selectedGameWidgets[0].options;
 
     return (
         <Accordion {...openedAccordion}>
             <AccordionSummary>Options</AccordionSummary>
             <AccordionDetails>
                 <>
-                    {selectedWidgets.length > 1 ? (
+                    {selectedGameWidgets.length > 1 ? (
                         <Typography>
                             {"Impossible to edit widget while more than one is selected"}
                         </Typography>
@@ -37,7 +37,7 @@ const EditorGameWidgetOptions: FC = () => {
                             {!options?.length ? (
                                 <Typography>{"No options"}</Typography>
                             ) : (
-                                selectedWidgets.length > 0 &&
+                                selectedGameWidgets.length > 0 &&
                                 options?.map((option, index) => {
                                     const key = `${option.displayName}-${index}`;
                                     const isOptionVisible =

@@ -3,7 +3,7 @@ import { editorPadding } from "@engine/Theme/themeConstants";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
-import EditorGameWidgetOptions from "./EditorGameWidgetOptions/EditorWidgetOptions";
+import EditorGameWidgetOptions from "./EditorGameWidgetOptions/EditorGameWidgetOptions";
 import EditorGameWidgetProperties from "./EditorGameWidgetProperties";
 import EditorModeSelector from "./EditorModeSelector";
 import EditorSelectedWidget from "./EditorSelectedWidget";

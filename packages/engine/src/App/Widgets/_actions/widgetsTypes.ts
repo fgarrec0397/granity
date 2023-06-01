@@ -1,6 +1,6 @@
 import { Dictionary, EmptyObject, UnionOfProperties } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
-import { FC } from "react";
+import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
 
 import { WidgetType } from "./widgetsConstants";
 
@@ -16,7 +16,11 @@ export type DefaultWidgetProps = UnionOfProperties<WidgetProps> | EmptyObject;
  * Base widget type
  */
 export type Widget<Props = DefaultWidgetProps> = {
-    component: FC<Props>;
+    component:
+        | FC
+        | FC<Props>
+        | ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<any>>
+        | any;
     reducer: Slice | null;
     name: string;
 };
