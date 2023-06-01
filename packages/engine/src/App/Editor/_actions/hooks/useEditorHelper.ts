@@ -5,6 +5,7 @@ import { MutableRefObject } from "react";
 import useEditor from "./useEditor";
 
 type Constructor = new (...args: any[]) => any;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Rest<T> = T extends [infer _, ...infer R] ? R : never;
 type Helper = Object3D & {
     update: () => void;

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import WidgetItem from "./components/WidgetItem";
+import WidgetRenderer from "./components/WidgetRenderer";
 
 type WidgetsProps = {
     widgetsIds: string[];
@@ -10,7 +10,7 @@ const Widgets: FC<WidgetsProps> = ({ widgetsIds }) => {
     return (
         <>
             {widgetsIds.map((widgetId) => (
-                <WidgetItem key={widgetId} widgetId={widgetId} />
+                <WidgetRenderer key={widgetId} widgetId={widgetId} />
             ))}
         </>
     );

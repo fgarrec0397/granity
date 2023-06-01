@@ -38,7 +38,7 @@ const EditorScenesList: FC = () => {
     return (
         <EditorItemsList
             itemsDictionaryIds={scenesIds}
-            title="Create a scene"
+            title="Scenes"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add Scene"
             handleClickRow={handleClickRow}

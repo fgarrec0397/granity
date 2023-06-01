@@ -58,7 +58,7 @@ const EditorGameWidgetsList: FC = () => {
     return (
         <EditorItemsList
             itemsDictionaryIds={gameWidgetsIds}
-            title="Objects Widgets"
+            title="Game Widgets"
             noItemsText="No object widget on the scene."
             triggerButtonText="Add Object Widget"
             editModal={(id) => <EditWidgetModal widget={gameWidgets[id]} />}

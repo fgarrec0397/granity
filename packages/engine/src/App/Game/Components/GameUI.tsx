@@ -1,13 +1,8 @@
-import { useWidgets } from "@engine/api";
-import Widgets from "@engine/App/Widgets/Widgets";
+import UIWidgets from "@engine/App/UI/Components/UIWidgets";
 import { FC } from "react";
 
 const GameUI: FC = () => {
-    // const { widgetsUIIds } = useWidgets();
-    console.log("UI is temporarily down");
-
-    return null;
-    // return <Widgets widgetsIds={widgetsUIIds} />;
+    return <UIWidgets />;
 };
 
 export default GameUI;

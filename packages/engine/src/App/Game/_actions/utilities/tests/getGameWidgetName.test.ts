@@ -1,7 +1,7 @@
 import widgetDictionaryItemTest from "@engine/Tests/utilities/widgets/widgetDictionaryItemTest";
 
 import { gameWidgetPrefix } from "../../gameConstants";
-import getWidgetName from "../getGameWidgetName";
+import getWidgetName from "../buildGameWidgetName";
 
 describe("getWidgetName utility", () => {
     const widgetName = getWidgetName(widgetDictionaryItemTest);

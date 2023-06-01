@@ -124,18 +124,19 @@ export default () => {
             WidgetInfoDictionaryItemType extends WidgetInfoDictionaryItem
         >(
             widget: WidgetDictionaryItemType,
-            widgetInfo: WidgetInfoDictionaryItemType
+            widgetInfo?: WidgetInfoDictionaryItemType
         ) => {
             const newWidget = { ...widget };
             const newId = uidGenerator();
+            const newWidgetInfo = widgetInfo || { ...getWidgetInfoById(widget.id), id: newId };
 
             newWidget.id = newId;
 
             if (widget.id) {
-                add(newWidget, widgetInfo);
+                add(newWidget, newWidgetInfo);
             }
         },
-        [add]
+        [add, getWidgetInfoById]
     );
 
     const removeWidgetSelection = useCallback(() => {

@@ -1,8 +1,8 @@
 import { WidgetType } from "@engine/api";
 
-import { DefaultUIWidgetProps, UIWidget, UIWidgetModule } from "../uiTypes";
+import { UIWidget, UIWidgetModule } from "../uiTypes";
 
-export default <Props = DefaultUIWidgetProps>(widget: UIWidget<Props>): UIWidgetModule<Props> => {
+export default (widget: UIWidget): UIWidgetModule => {
     return {
         ...widget,
         type: WidgetType.UI,

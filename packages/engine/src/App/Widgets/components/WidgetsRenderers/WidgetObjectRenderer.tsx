@@ -1,10 +1,9 @@
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
-import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useGameWidgetsUtilities from "@engine/App/Game/_actions/hooks/useGameWidgetsUtilities";
 import useGetMeshByGameWidget from "@engine/App/Game/_actions/hooks/useGetMeshByGameWidget";
-import getGameWidgetName from "@engine/App/Game/_actions/utilities/getGameWidgetName";
+import buildGameWidgetName from "@engine/App/Game/_actions/utilities/buildGameWidgetName";
 import resolveHelper from "@engine/App/Game/_actions/utilities/resolveHelper";
 import { ErrorBoundary, FallbackProps } from "@granity/helpers";
 import { Object3D } from "@granity/three";
@@ -24,7 +23,7 @@ import useWidgets from "../../_actions/hooks/useWidgets";
 import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
-    widget: GameWidgetDictionaryItem;
+    widgetId: string;
 };
 
 type WidgetObjectRendererStyles = {
@@ -53,16 +52,17 @@ const styles: WidgetObjectRendererStyles = {
     },
 };
 
-const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
+const WidgetObjectRenderer: FC<Props> = ({ widgetId }) => {
     const componentRef = useRef(null!);
-    const { displayWidgetName, selectWidget } = useWidgets();
     const { gameWidgets, gameWidgetsInfo, getGameWidgetInfoFromWidget, getGameWidgetById } =
         useGameWidgets();
+    const { displayWidgetName, selectWidget } = useWidgets();
     const { getGameWidgetProps } = useGameWidgetsUtilities();
     const getMeshByGameWidget = useGetMeshByGameWidget();
     const { isEditor } = useEditor();
+    const widget = getGameWidgetById(widgetId)!;
     const { component, id, editorOptions, hasRef } = widget;
-    const name = getGameWidgetName(widget);
+    const name = buildGameWidgetName(widget);
     const Component = component;
 
     const helper =

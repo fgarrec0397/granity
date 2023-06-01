@@ -1,13 +1,13 @@
 import { useThree } from "@granity/three/fiber";
 
 import { GameWidgetDictionaryItem } from "../gameTypes";
-import getGameWidgetName from "../utilities/getGameWidgetName";
+import buildGameWidgetName from "../utilities/buildGameWidgetName";
 
 export default () => {
     const { scene } = useThree();
 
     const getMeshByGameWidget = (widget: GameWidgetDictionaryItem) => {
-        const meshName = getGameWidgetName(widget);
+        const meshName = buildGameWidgetName(widget);
         return scene.getObjectByName(meshName);
     };
 
