@@ -29,7 +29,6 @@ export default () => {
         widgetsInfoDictionary,
         addWidget,
         updateWidget,
-        getWidgetById,
         selectWidget,
         selectedWidgets,
         copyWidget,
@@ -172,11 +171,11 @@ export default () => {
             }
 
             const widgetIdInMesh = widgetMesh?.name.split("+")[2];
-            const widget = getWidgetById(widgetIdInMesh);
+            const widget = getGameWidgetById(widgetIdInMesh);
 
             return { widget, widgetMesh };
         },
-        [getWidgetById]
+        [getGameWidgetById]
     );
 
     const selectGameWidgetFromMeshArr = useCallback(
@@ -185,11 +184,11 @@ export default () => {
                 const { widget } = getGameWidgetByMesh(meshArray[0]);
 
                 if (widget) {
-                    selectWidget([widget]);
+                    selectGameWidget([widget]);
                 }
             }
         },
-        [getGameWidgetByMesh, selectWidget]
+        [getGameWidgetByMesh, selectGameWidget]
     );
 
     const copyGameWidget = useCallback(
