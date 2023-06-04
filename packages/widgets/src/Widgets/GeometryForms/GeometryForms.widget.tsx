@@ -1,4 +1,9 @@
-import { createGameWidget, FieldType, GameEditableWidget, GameRigidBody } from "@granity/engine";
+import {
+    createGameWidget,
+    GameEditableWidget,
+    GameOptionsFieldTypes,
+    GameRigidBody,
+} from "@granity/engine";
 import { FC } from "react";
 
 export interface GeometryFormsProps extends GameEditableWidget {
@@ -30,19 +35,19 @@ export const widget = createGameWidget({
         {
             name: "color",
             displayName: "Color",
-            fieldType: FieldType.Text,
+            fieldType: GameOptionsFieldTypes.Text,
             defaultValue: "white",
         },
         {
             name: "testCheckbox",
             displayName: "Checkbox",
-            fieldType: FieldType.Checkbox,
+            fieldType: GameOptionsFieldTypes.Checkbox,
             defaultValue: true,
         },
         {
             name: "shape",
             displayName: "Shape",
-            fieldType: FieldType.Select,
+            fieldType: GameOptionsFieldTypes.Select,
             selectOptions: [
                 {
                     value: "BoxGeometry",

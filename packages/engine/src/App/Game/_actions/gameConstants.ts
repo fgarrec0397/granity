@@ -1,5 +1,17 @@
 import { GameWidgetProperties, HelpersTypes } from "@engine/App/Game/_actions/gameTypes";
 
+/**
+ * Allowed Fieldtypes
+ */
+export enum GameOptionsFieldTypes {
+    Text = "Text",
+    Number = "Number",
+    Select = "Select",
+    Checkbox = "Checkbox",
+    Vector3 = "Vector3",
+    File = "File",
+}
+
 export const helpersTypes: HelpersTypes = {
     ArrowHelper: "ArrowHelper",
     AxesHelper: "AxesHelper",

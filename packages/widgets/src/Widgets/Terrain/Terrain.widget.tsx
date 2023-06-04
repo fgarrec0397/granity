@@ -1,4 +1,4 @@
-import { createGameWidget, FieldType, GameEditableWidget } from "@granity/engine";
+import { createGameWidget, GameEditableWidget, GameOptionsFieldTypes } from "@granity/engine";
 import { FC } from "react";
 
 export type TerrainProps = GameEditableWidget & {
@@ -25,7 +25,7 @@ export const widget = createGameWidget({
         {
             name: "color",
             displayName: "Color",
-            fieldType: FieldType.Text,
+            fieldType: GameOptionsFieldTypes.Text,
             defaultValue: "white",
         },
     ],

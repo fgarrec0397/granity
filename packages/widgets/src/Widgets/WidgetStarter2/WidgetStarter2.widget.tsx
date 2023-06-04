@@ -1,4 +1,4 @@
-import { createGameWidget, FieldType, GameEditableWidget } from "@granity/engine";
+import { createGameWidget, GameEditableWidget, GameOptionsFieldTypes } from "@granity/engine";
 import { FC } from "react";
 
 import widgetStarter2Reducer from "./_actions/_data/state/widgetStarter2Reducer";
@@ -23,7 +23,7 @@ export const widget = createGameWidget({
         {
             name: "model",
             displayName: "3D Model",
-            fieldType: FieldType.File,
+            fieldType: GameOptionsFieldTypes.File,
             defaultValue: "",
         },
     ],

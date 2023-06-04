@@ -1,7 +1,7 @@
 import {
     createGameWidget,
-    FieldType,
     GameEditableWidget,
+    GameOptionsFieldTypes,
     helpersTypes,
     useCreateCamera,
     useGameUpdate,
@@ -48,13 +48,13 @@ export const widget = createGameWidget<CamerasProps, PerspectiveCamera>({
         {
             name: "translateXOnPlay",
             displayName: "Translate X on play",
-            fieldType: FieldType.Checkbox,
+            fieldType: GameOptionsFieldTypes.Checkbox,
             defaultValue: false,
         },
         {
             name: "isDefault",
             displayName: "Set this camera as the default",
-            fieldType: FieldType.Checkbox,
+            fieldType: GameOptionsFieldTypes.Checkbox,
             defaultValue: false,
         },
     ],

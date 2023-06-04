@@ -1,13 +1,14 @@
-import { FieldType, WidgetType } from "@engine/App/Widgets/_actions/widgetsConstants";
+import { WidgetType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import {
     SerializedWidgetDictionaryItem,
     WidgetDictionaryItem,
     WidgetInfoDictionaryItem,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
-// import { WidgetInfo } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary, EmptyObject, UnionOfProperties, Vector3Array } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
+
+import { GameOptionsFieldTypes } from "./gameConstants";
 
 /// ---------------- Types for external typing ---------------- ///
 
@@ -78,7 +79,7 @@ export type WidgetOptions =
 /**
  * Base interface for option object.
  */
-export type WidgetBaseOptions<Type extends FieldType, TValue = string> = {
+export type WidgetBaseOptions<Type extends GameOptionsFieldTypes, TValue = string> = {
     name: string;
     displayName: string;
     fieldType: Type;
@@ -86,17 +87,17 @@ export type WidgetBaseOptions<Type extends FieldType, TValue = string> = {
     isVisible?: ((options?: GameWidgetOptionsValues) => boolean | undefined) | boolean;
 };
 
-export type NumberFieldOption = WidgetBaseOptions<FieldType.Number, number>;
+export type NumberFieldOption = WidgetBaseOptions<GameOptionsFieldTypes.Number, number>;
 
-export type TextFieldOption = WidgetBaseOptions<FieldType.Text, string>;
+export type TextFieldOption = WidgetBaseOptions<GameOptionsFieldTypes.Text, string>;
 
-export type CheckboxFieldOption = WidgetBaseOptions<FieldType.Checkbox, boolean>;
+export type CheckboxFieldOption = WidgetBaseOptions<GameOptionsFieldTypes.Checkbox, boolean>;
 
-export type Vector3FieldOption = WidgetBaseOptions<FieldType.Vector3, Vector3Array>;
+export type Vector3FieldOption = WidgetBaseOptions<GameOptionsFieldTypes.Vector3, Vector3Array>;
 
-export type FileFieldOption = WidgetBaseOptions<FieldType.File, string>;
+export type FileFieldOption = WidgetBaseOptions<GameOptionsFieldTypes.File, string>;
 
-export type SelectionFieldOption = WidgetBaseOptions<FieldType.Select, string> & {
+export type SelectionFieldOption = WidgetBaseOptions<GameOptionsFieldTypes.Select, string> & {
     selectOptions?: {
         value: string;
         name: string;
@@ -167,7 +168,7 @@ export type GameWidgetInfoDictionaryItem<TValue = string> = WidgetInfoDictionary
 };
 
 export type GameWidgetOptionsValues<TValue = string> = Dictionary<{
-    fieldType: FieldType;
+    fieldType: GameOptionsFieldTypes;
     value: TValue;
 }>;
 

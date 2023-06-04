@@ -1,4 +1,9 @@
-import { createGameWidget, FieldType, GameEditableWidget, helpersTypes } from "@granity/engine";
+import {
+    createGameWidget,
+    GameEditableWidget,
+    GameOptionsFieldTypes,
+    helpersTypes,
+} from "@granity/engine";
 import { capitalizeString, Vector3Array } from "@granity/helpers";
 import { FC } from "react";
 
@@ -73,7 +78,7 @@ export const widget = createGameWidget<LightProps>({
         {
             name: "lightType",
             displayName: "Light Type",
-            fieldType: FieldType.Select,
+            fieldType: GameOptionsFieldTypes.Select,
             selectOptions: [
                 {
                     value: "ambientLight",
@@ -93,13 +98,13 @@ export const widget = createGameWidget<LightProps>({
         {
             name: "intensity",
             displayName: "Intensity",
-            fieldType: FieldType.Number,
+            fieldType: GameOptionsFieldTypes.Number,
             defaultValue: 1,
         },
         {
             name: "direction",
             displayName: "Direction",
-            fieldType: FieldType.Vector3,
+            fieldType: GameOptionsFieldTypes.Vector3,
             defaultValue: [0, 0, 0],
         },
     ],

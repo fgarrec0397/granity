@@ -1,5 +1,5 @@
+import { GameOptionsFieldTypes } from "@engine/App/Game/_actions/gameConstants";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
-import { FieldType } from "@engine/App/Widgets/_actions/widgetsConstants";
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@granity/ui";
 import { FC } from "react";
@@ -51,33 +51,33 @@ const EditorGameWidgetOptions: FC = () => {
                                         return null;
                                     }
 
-                                    if (option.fieldType === FieldType.Text) {
+                                    if (option.fieldType === GameOptionsFieldTypes.Text) {
                                         return <EditorOptionsTextField key={key} option={option} />;
                                     }
 
-                                    if (option.fieldType === FieldType.Number) {
+                                    if (option.fieldType === GameOptionsFieldTypes.Number) {
                                         return (
                                             <EditorOptionsNumberField key={key} option={option} />
                                         );
                                     }
 
-                                    if (option.fieldType === FieldType.Checkbox) {
+                                    if (option.fieldType === GameOptionsFieldTypes.Checkbox) {
                                         return (
                                             <EditorOptionsCheckboxField key={key} option={option} />
                                         );
                                     }
 
-                                    if (option.fieldType === FieldType.Vector3) {
+                                    if (option.fieldType === GameOptionsFieldTypes.Vector3) {
                                         return (
                                             <EditorOptionsVector3Field key={key} option={option} />
                                         );
                                     }
 
-                                    if (option.fieldType === FieldType.File) {
+                                    if (option.fieldType === GameOptionsFieldTypes.File) {
                                         return <EditorOptionsFileField key={key} option={option} />;
                                     }
 
-                                    if (option.fieldType === FieldType.Select) {
+                                    if (option.fieldType === GameOptionsFieldTypes.Select) {
                                         return (
                                             <EditorOptionsSelectField key={key} option={option} />
                                         );
