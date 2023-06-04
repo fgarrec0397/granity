@@ -1,3 +1,5 @@
+import { GameWidgetDictionary, GameWidgetInfoDictionary } from "@engine/api";
+import useInitGameWidgets from "@engine/App/Game/_actions/hooks/useInitGameWidgets";
 import { useCallback } from "react";
 
 import { buildWidgetInfoDictionary } from "../utilities/buildWidgetInfoDictionary";
@@ -8,33 +10,49 @@ import useWidgetsUtilities from "./useWidgetsUtilities";
 
 export default () => {
     const { widgetsModules } = useWidgetsModules();
-    const { unserializeWidgets, synchWidgets } = useWidgetsUtilities();
+    const { unserializeWidgets, synchWidgetsInfoDictionary } = useWidgetsUtilities();
     const { resetWidgets } = useWidgets();
+    const { initGameWidgets } = useInitGameWidgets();
 
     const initWidgets = useCallback(
         (
             serializedWidgets?: SerializedWidgetDictionary,
             widgetsInfoDictionary?: WidgetInfoDictionary
         ) => {
-            if (serializedWidgets || widgetsInfoDictionary) {
-                const deserializedWidgets = unserializeWidgets(
-                    serializedWidgets!, // already checked if it's defined
-                    widgetsModules
-                );
-
-                // Build a widgetsInfos dictionary base on locally up-to-date widgets
-                const localWidgetsDictionary = buildWidgetInfoDictionary(deserializedWidgets);
-                const synchedWidgetDictionary = synchWidgets(
-                    localWidgetsDictionary,
-                    widgetsInfoDictionary! // already checked if it's defined
-                );
-
-                resetWidgets(deserializedWidgets, synchedWidgetDictionary);
-            } else {
-                resetWidgets();
+            if (!serializedWidgets || !widgetsInfoDictionary) {
+                return resetWidgets();
             }
+
+            const deserializedWidgets = unserializeWidgets(
+                serializedWidgets!, // already checked if it's defined
+                widgetsModules
+            );
+
+            if (!deserializedWidgets) {
+                return resetWidgets();
+            }
+
+            const initializedWidgetsInfoDictionary = initGameWidgets(
+                deserializedWidgets as GameWidgetDictionary,
+                widgetsInfoDictionary as GameWidgetInfoDictionary
+            );
+
+            // Build a widgetsInfos dictionary base on locally up-to-date widgets
+            const localWidgetsInfoDictionary = buildWidgetInfoDictionary(deserializedWidgets);
+            const synchedWidgetDictionary = synchWidgetsInfoDictionary(
+                localWidgetsInfoDictionary,
+                initializedWidgetsInfoDictionary! // already checked if it's defined
+            );
+
+            resetWidgets(deserializedWidgets, synchedWidgetDictionary);
         },
-        [widgetsModules, unserializeWidgets, synchWidgets, resetWidgets]
+        [
+            unserializeWidgets,
+            widgetsModules,
+            initGameWidgets,
+            synchWidgetsInfoDictionary,
+            resetWidgets,
+        ]
     );
 
     return {

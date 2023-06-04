@@ -1,7 +1,6 @@
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useGetMeshByGameWidget from "@engine/App/Game/_actions/hooks/useGetMeshByGameWidget";
-import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { debounce, isEqual, usePrevious } from "@granity/helpers";
 import { Object3D, TransformControls } from "@granity/three";
 import { useThree } from "@granity/three/fiber";
@@ -9,7 +8,6 @@ import { FC, useEffect, useMemo, useState } from "react";
 
 const TransformControlsComponent: FC = () => {
     const { camera, scene, gl } = useThree();
-    const { firstCurrentWidget } = useWidgets();
     const { updateGameWidgetWithMesh, selectedGameWidgets } = useGameWidgets();
     const getMeshByGameWidget = useGetMeshByGameWidget();
     const { setIsEditing, isEditing, currentMode } = useEditor();
@@ -72,7 +70,6 @@ const TransformControlsComponent: FC = () => {
     }, [
         selectedGameWidgets,
         selectedGameWidgets.length,
-        firstCurrentWidget?.id,
         getMeshByGameWidget,
         previousSelectedWidgets,
         transformControls,

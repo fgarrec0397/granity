@@ -1,5 +1,6 @@
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
 import useEditorHelper from "@engine/App/Editor/_actions/hooks/useEditorHelper";
+import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useGameWidgetsUtilities from "@engine/App/Game/_actions/hooks/useGameWidgetsUtilities";
 import useGetMeshByGameWidget from "@engine/App/Game/_actions/hooks/useGetMeshByGameWidget";
@@ -23,7 +24,7 @@ import useWidgets from "../../_actions/hooks/useWidgets";
 import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
-    widgetId: string;
+    widget: GameWidgetDictionaryItem;
 };
 
 type WidgetObjectRendererStyles = {
@@ -52,15 +53,20 @@ const styles: WidgetObjectRendererStyles = {
     },
 };
 
-const WidgetObjectRenderer: FC<Props> = ({ widgetId }) => {
+const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const componentRef = useRef(null!);
-    const { gameWidgets, gameWidgetsInfo, getGameWidgetInfoFromWidget, getGameWidgetById } =
-        useGameWidgets();
-    const { displayWidgetName, selectWidget } = useWidgets();
+    const {
+        gameWidgets,
+        gameWidgetsInfo,
+        getGameWidgetInfoFromWidget,
+        getGameWidgetById,
+        selectGameWidget,
+    } = useGameWidgets();
+    const { displayWidgetName } = useWidgets();
     const { getGameWidgetProps } = useGameWidgetsUtilities();
     const getMeshByGameWidget = useGetMeshByGameWidget();
     const { isEditor } = useEditor();
-    const widget = getGameWidgetById(widgetId)!;
+    // const widget = getGameWidgetById(widgetId)!;
     const { component, id, editorOptions, hasRef } = widget;
     const name = buildGameWidgetName(widget);
     const Component = component;
@@ -95,7 +101,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widgetId }) => {
         return gizmo.text;
     };
 
-    const widgetProperties = getGameWidgetInfoFromWidget(id!)?.properties; // TODO - continue here. Rename the function to something more meaningful and extract it to the useGameWidgets
+    const widgetProperties = getGameWidgetInfoFromWidget(id!)?.properties;
 
     const onGizmoClick = () => {
         const gizmoWidget = getGameWidgetById(id);
@@ -104,7 +110,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widgetId }) => {
             return console.error("No game widget found");
         }
 
-        selectWidget([gizmoWidget]);
+        selectGameWidget([gizmoWidget]);
     };
 
     const ref =

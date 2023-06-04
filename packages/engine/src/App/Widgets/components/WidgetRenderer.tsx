@@ -1,3 +1,5 @@
+import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
+import { UIWidgetDictionaryItem } from "@engine/App/UI/_actions/uiTypes";
 import { FC } from "react";
 
 import { useWidgets } from "../_actions/hooks";
@@ -19,12 +21,13 @@ const WidgetRenderer: FC<WidgetItemProps> = ({ widgetId }) => {
     }
 
     if (widget.type === WidgetType.GameObject) {
-        return <WidgetObjectRenderer widgetId={widgetId} />;
+        return <WidgetObjectRenderer widget={widget as GameWidgetDictionaryItem} />;
     }
 
     if (widget.type === WidgetType.UI) {
-        return <WidgetUIRenderer widgetId={widgetId} />;
+        return <WidgetUIRenderer widget={widget as UIWidgetDictionaryItem} />;
     }
+
     return null;
 };
 

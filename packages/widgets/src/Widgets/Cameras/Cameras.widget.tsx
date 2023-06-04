@@ -56,10 +56,6 @@ export const widget = createGameWidget<CamerasProps, PerspectiveCamera>({
             displayName: "Set this camera as the default",
             fieldType: FieldType.Checkbox,
             defaultValue: false,
-            isVisible: (options) => {
-                console.log(options);
-                return true;
-            },
         },
     ],
 });

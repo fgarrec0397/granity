@@ -1,13 +1,12 @@
-import useUIWidgets from "@engine/App/UI/_actions/hooks/useUIWidgets";
+import { UIWidgetDictionaryItem } from "@engine/App/UI/_actions/uiTypes";
 import { FC } from "react";
 
 type Props = {
-    widgetId: string;
+    widget: UIWidgetDictionaryItem;
 };
 
-const WidgetUIRenderer: FC<Props> = ({ widgetId }) => {
-    const { getUIWidgetById } = useUIWidgets();
-    const { component } = getUIWidgetById(widgetId)!;
+const WidgetUIRenderer: FC<Props> = ({ widget }) => {
+    const { component } = widget;
 
     const Component = component;
 

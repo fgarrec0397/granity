@@ -5,7 +5,7 @@ import { buildGameWidgetInfoDictionary } from "../utilities/buildGameWidgetInfoD
 import useGameWidgetsUtilities from "./useGameWidgetsUtilities";
 
 export default () => {
-    const { synchGameWidgetsOptions } = useGameWidgetsUtilities();
+    const { synchGameWidgetsInfoDictionary } = useGameWidgetsUtilities();
 
     const initGameWidgets = useCallback(
         (
@@ -14,7 +14,7 @@ export default () => {
         ) => {
             if (gameWidgets || gameWidgetsInfoDictionary) {
                 const localGameWidgetsInfoDictionary = buildGameWidgetInfoDictionary(gameWidgets!); // already checked if it's defined
-                const synchedGameWidgetsInfoDictionary = synchGameWidgetsOptions(
+                const synchedGameWidgetsInfoDictionary = synchGameWidgetsInfoDictionary(
                     localGameWidgetsInfoDictionary,
                     gameWidgetsInfoDictionary! // already checked if it's defined
                 );
@@ -22,7 +22,7 @@ export default () => {
                 return synchedGameWidgetsInfoDictionary;
             }
         },
-        [synchGameWidgetsOptions]
+        [synchGameWidgetsInfoDictionary]
     );
 
     return {

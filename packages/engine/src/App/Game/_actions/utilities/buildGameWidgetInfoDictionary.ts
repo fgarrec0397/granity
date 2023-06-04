@@ -1,6 +1,8 @@
 import { buildWidgetInfo, widgetDefaultProperties } from "@engine/api";
 import {
+    GameWidgetDictionary,
     GameWidgetDictionaryItem,
+    GameWidgetInfoDictionary,
     GameWidgetInfoDictionaryItem,
     GameWidgetOptionsValues,
     GameWidgetProperties,
@@ -16,6 +18,27 @@ export type GameWidgetsDictionaryBuilderOptions = {
     mesh?: Object3D;
     properties?: GameWidgetProperties;
     options?: GameWidgetOptionsValues;
+};
+
+/**
+ *
+ * Builds a widgetsInfoDictionary based on the given widgetsDictionary to fill the values
+ *
+ * @param widgets - The widgets taken to build the widgetsInfoDictionary
+ * @returns - A WidgetInfoDictionary
+ */
+export const buildGameWidgetInfoDictionary = (widgets: GameWidgetDictionary) => {
+    const widgetsInfoDictionary: GameWidgetInfoDictionary = {};
+
+    for (const key in widgets) {
+        const dictionaryItem = buildGameWidgetInfo(widgets[key]);
+
+        widgetsInfoDictionary[dictionaryItem.id] = {
+            ...dictionaryItem,
+        };
+    }
+
+    return widgetsInfoDictionary;
 };
 
 /**
