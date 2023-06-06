@@ -4,6 +4,7 @@ import CamerasContextProvider from "@engine/App/Scenes/_actions/_data/providers/
 import WidgetsModulesContextProvider from "@engine/App/Widgets/_actions/_data/providers/WidgetsModulesProvider";
 import WidgetsContextProvider from "@engine/App/Widgets/_actions/_data/providers/WidgetsProvider";
 import { injectStore } from "@engine/App/Widgets/_actions/utilities/createWidget";
+import { DndProvider, HTML5Backend } from "@granity/draggable";
 import { HasChildren, ProvidersBuilder, QueryClient, QueryClientProvider } from "@granity/helpers";
 import { Theme, ThemeProvider } from "@granity/ui";
 import { FC } from "react";
@@ -26,6 +27,7 @@ const AppProvider: FC<Props> = ({ config, theme, children }) => {
     const Providers = ProvidersBuilder([
         [ThemeProvider, { theme }],
         [ReduxProvider, { store }],
+        [DndProvider, { backend: HTML5Backend }],
         [QueryClientProvider, { client: queryClient }],
         [ConfigContextProvider],
         [CamerasContextProvider],

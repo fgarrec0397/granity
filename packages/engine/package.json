@@ -27,6 +27,7 @@
     ]
   },
   "dependencies": {
+    "@granity/draggable": "*",
     "@granity/eslint-config": "*",
     "@granity/helpers": "*",
     "@granity/icons": "*",

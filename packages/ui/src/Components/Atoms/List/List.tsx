@@ -10,7 +10,7 @@ import ListItemTextLib, {
     ListItemTextProps as LibListItemTextProps,
 } from "@mui/material/ListItemText";
 import { styled } from "@mui/material/styles";
-import { FC } from "react";
+import { FC, forwardRef } from "react";
 
 export type ListProps = LibListProps;
 export type ListItemProps = LibListItemProps;
@@ -30,9 +30,13 @@ const List: FC<ListProps> = (props) => {
     return <ListLib {...props} />;
 };
 
-export const ListItem: FC<ListItemProps> = (props) => {
-    return <ListItemLib {...props} />;
-};
+export const ListItem: FC<ListItemProps> = forwardRef<HTMLLIElement, ListItemProps>(
+    (props, ref) => {
+        return <ListItemLib ref={ref} {...props} />;
+    }
+);
+
+ListItem.displayName = "ListItem";
 
 export const ListItemButton: FC<ListItemButtonProps> = (props) => {
     return <StyledListItemButton {...props} />;

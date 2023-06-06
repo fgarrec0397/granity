@@ -1,9 +1,5 @@
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
-import { HasCallableChildren } from "@granity/helpers";
-import Delete from "@granity/icons/Delete";
-import Star from "@granity/icons/Star";
-import Visibility from "@granity/icons/Visibility";
-import VisibilityOff from "@granity/icons/VisibilityOff";
+import { clone, Dictionary, HasCallableChildren } from "@granity/helpers";
 import {
     Accordion,
     AccordionDetails,
@@ -11,17 +7,14 @@ import {
     BoxProps,
     Button,
     ButtonProps,
-    IconButton,
     List,
-    ListItem,
-    ListItemButton,
-    pxToRem,
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { ReactElement, useState } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 
 import EditorModal from "../EditorCommon/EditorModal";
+import EditorItemsListItem from "./EditorItemsListItem";
 
 export type EditorItemsListButtonProps = {
     text: string;
@@ -30,6 +23,7 @@ export type EditorItemsListButtonProps = {
 
 export type EditorItemsListProps = {
     itemsDictionaryIds: string[];
+    dictionary: Dictionary<any>;
     title: string;
     noItemsText: string;
     triggerButtonText: string;
@@ -47,6 +41,15 @@ export type EditorItemsListProps = {
     handleClose: () => void;
     handleOpen: () => void;
 }>;
+
+export interface DragAndDropItem {
+    id: number;
+    text: string;
+}
+
+export interface DragAndDropItemCards {
+    cards: DragAndDropItem[];
+}
 
 type EditorItemsListStyles = {
     deleteButton?: ButtonProps;
@@ -76,6 +79,7 @@ const styles: EditorItemsListStyles = {
 
 const EditorItemsList = ({
     itemsDictionaryIds,
+    dictionary,
     title,
     noItemsText,
     triggerButtonText,
@@ -94,6 +98,38 @@ const EditorItemsList = ({
     const openedAccordion = useAccordionDefaultOpened();
     const [isEditorModalOpen, setIsEditorModalOpen] = useState(false);
 
+    const [data, setData] = useState<string[]>([]);
+
+    useEffect(() => {
+        setData(itemsDictionaryIds);
+    }, [itemsDictionaryIds]);
+
+    const moveItem = useCallback(
+        (dragIndex: number, hoverIndex: number) => {
+            // console.log({ dragIndex, hoverIndex });
+
+            console.log({ data });
+
+            setData(
+                (prevData) => {
+                    const clonedPrevData = clone(prevData);
+                    const removedItem = clonedPrevData.splice(dragIndex, 1);
+                    clonedPrevData.splice(hoverIndex, 0, ...removedItem);
+                    console.log({ clonedPrevData });
+
+                    return clonedPrevData;
+                }
+                // update(prevCards, {
+                //     $splice: [
+                //         [dragIndex, 1],
+                //         [hoverIndex, 0, prevCards[dragIndex] as DragAndDropItem],
+                //     ],
+                // })
+            );
+        },
+        [data]
+    );
+
     const handleOpen = () => setIsEditorModalOpen(true);
     const handleClose = () => setIsEditorModalOpen(false);
 
@@ -102,47 +138,25 @@ const EditorItemsList = ({
             <AccordionSummary>{title}</AccordionSummary>
             <AccordionDetails>
                 <List>
-                    {itemsDictionaryIds.length > 0 ? (
-                        itemsDictionaryIds.map((id) => {
+                    {data.length > 0 ? (
+                        data.map((id, index) => {
                             const itemName = displayItemName ? displayItemName(id) : undefined;
 
                             return (
-                                <ListItem
+                                <EditorItemsListItem
                                     key={id}
-                                    secondaryAction={
-                                        <>
-                                            {editModal?.(id)}
-                                            {handleVisibility && (
-                                                <IconButton onClick={() => handleVisibility?.(id)}>
-                                                    {isVisible?.(id) ? (
-                                                        <Visibility fontSize="small" />
-                                                    ) : (
-                                                        <VisibilityOff fontSize="small" />
-                                                    )}
-                                                </IconButton>
-                                            )}
-                                            <IconButton onClick={() => handleClickRemove?.(id)}>
-                                                <Delete fontSize="small" />
-                                            </IconButton>
-                                        </>
-                                    }
-                                    disablePadding
-                                >
-                                    <ListItemButton
-                                        onClick={() => handleClickRow?.(id)}
-                                        selected={isActionRowSelected?.(id)}
-                                    >
-                                        {itemName}
-                                        {isDefault?.(id) && (
-                                            <Star
-                                                sx={{
-                                                    fontSize: 10,
-                                                    marginLeft: pxToRem(5),
-                                                }}
-                                            />
-                                        )}
-                                    </ListItemButton>
-                                </ListItem>
+                                    id={id}
+                                    index={index}
+                                    itemName={itemName}
+                                    editModal={editModal}
+                                    isVisible={isVisible}
+                                    isDefault={isDefault}
+                                    handleVisibility={handleVisibility}
+                                    handleClickRow={handleClickRow}
+                                    handleClickRemove={handleClickRemove}
+                                    isActionRowSelected={isActionRowSelected}
+                                    moveItem={moveItem}
+                                />
                             );
                         })
                     ) : (
