@@ -1,5 +1,5 @@
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
-import { clone, Dictionary, HasCallableChildren } from "@granity/helpers";
+import { clone, HasCallableChildren } from "@granity/helpers";
 import {
     Accordion,
     AccordionDetails,
@@ -23,7 +23,6 @@ export type EditorItemsListButtonProps = {
 
 export type EditorItemsListProps = {
     itemsDictionaryIds: string[];
-    dictionary: Dictionary<any>;
     title: string;
     noItemsText: string;
     triggerButtonText: string;
@@ -79,7 +78,6 @@ const styles: EditorItemsListStyles = {
 
 const EditorItemsList = ({
     itemsDictionaryIds,
-    dictionary,
     title,
     noItemsText,
     triggerButtonText,
@@ -104,31 +102,15 @@ const EditorItemsList = ({
         setData(itemsDictionaryIds);
     }, [itemsDictionaryIds]);
 
-    const moveItem = useCallback(
-        (dragIndex: number, hoverIndex: number) => {
-            // console.log({ dragIndex, hoverIndex });
+    const moveItem = useCallback((dragIndex: number, hoverIndex: number) => {
+        setData((prevData) => {
+            const clonedPrevData = clone(prevData);
+            const removedItem = clonedPrevData.splice(dragIndex, 1);
+            clonedPrevData.splice(hoverIndex, 0, ...removedItem);
 
-            console.log({ data });
-
-            setData(
-                (prevData) => {
-                    const clonedPrevData = clone(prevData);
-                    const removedItem = clonedPrevData.splice(dragIndex, 1);
-                    clonedPrevData.splice(hoverIndex, 0, ...removedItem);
-                    console.log({ clonedPrevData });
-
-                    return clonedPrevData;
-                }
-                // update(prevCards, {
-                //     $splice: [
-                //         [dragIndex, 1],
-                //         [hoverIndex, 0, prevCards[dragIndex] as DragAndDropItem],
-                //     ],
-                // })
-            );
-        },
-        [data]
-    );
+            return clonedPrevData;
+        });
+    }, []);
 
     const handleOpen = () => setIsEditorModalOpen(true);
     const handleClose = () => setIsEditorModalOpen(false);

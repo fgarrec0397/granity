@@ -39,7 +39,6 @@ const EditorWidgetsUIList: FC = () => {
     return (
         <EditorItemsList
             itemsDictionaryIds={uiWidgetsIds}
-            dictionary={uiWidgets}
             title="UI Widgets"
             noItemsText="No UI widget on the scene."
             triggerButtonText="Add UI Widget"

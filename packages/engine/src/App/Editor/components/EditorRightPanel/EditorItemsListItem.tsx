@@ -1,13 +1,13 @@
-import { Identifier, useDrag, useDrop, XYCoord } from "@granity/draggable";
+import { getEmptyImage, Identifier, useDrag, useDrop, XYCoord } from "@granity/draggable";
 import Delete from "@granity/icons/Delete";
 import Star from "@granity/icons/Star";
 import Visibility from "@granity/icons/Visibility";
 import VisibilityOff from "@granity/icons/VisibilityOff";
 import { IconButton, ListItem, ListItemButton, pxToRem } from "@granity/ui";
-import { ReactElement, useRef } from "react";
+import { ReactElement, useEffect, useRef } from "react";
 
 export const ItemTypes = {
-    CARD: "card",
+    LIST_ITEM: "LIST_ITEM",
 };
 
 interface DragItem {
@@ -45,15 +45,13 @@ const EditorItemsListItem = ({
 }: EditorItemsListItemProps) => {
     const ref = useRef<HTMLLIElement>(null);
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
-        accept: ItemTypes.CARD,
+        accept: ItemTypes.LIST_ITEM,
         collect(monitor) {
             return {
                 handlerId: monitor.getHandlerId(),
             };
         },
         hover(item: DragItem, monitor) {
-            console.log(item, "item");
-
             const dragIndex = item.index;
             const hoverIndex = index;
 
@@ -106,8 +104,8 @@ const EditorItemsListItem = ({
         },
     });
 
-    const [{ isDragging }, drag] = useDrag({
-        type: ItemTypes.CARD,
+    const [{ isDragging }, drag, preview] = useDrag({
+        type: ItemTypes.LIST_ITEM,
         item: () => {
             return { id, index };
         },
@@ -116,9 +114,11 @@ const EditorItemsListItem = ({
         }),
     });
 
-    const opacity = isDragging ? 0 : 1;
-
     drag(drop(ref));
+
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview]);
 
     return (
         <ListItem
