@@ -137,15 +137,6 @@ const theme = createTheme({
             },
         },
         MuiTextField: {
-            styleOverrides: {
-                root: {
-                    // position: "static",
-                    // transform: "translate(0) scale(0.75)",
-                    // "&.Mui-focused": {
-                    //     color: theme.palette.text.primary,
-                    // },
-                },
-            },
             defaultProps: {
                 variant: "filled",
             },

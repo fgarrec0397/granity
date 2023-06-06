@@ -7,7 +7,7 @@ import { ChangeEvent, FC, useState } from "react";
 import EditorModal from "./EditorModal";
 
 export type EditWidgetModalProps = {
-    widget: WidgetDictionaryItem;
+    widget?: WidgetDictionaryItem;
     iconSize?: SvgIconProps["fontSize"];
 };
 
@@ -29,6 +29,10 @@ const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconSize = "small" 
     };
 
     const onSave = () => {
+        if (!widget) {
+            return;
+        }
+
         updateWidget(widget.id, {
             ...getWidgetInfoFromWidget(widget.id),
             displayName: displayNameValue,
@@ -49,27 +53,29 @@ const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconSize = "small" 
             <IconButton onClick={handleModalOpen}>
                 <Edit fontSize={iconSize} />
             </IconButton>
-            <EditorModal
-                title={`Edit ${displayWidgetName(widget.id)}`}
-                open={isModalOpen}
-                onClose={handleModalClose}
-                acceptButton={{
-                    text: "Save",
-                    callback: onSave,
-                }}
-                cancelButton={{
-                    text: "Cancel",
-                    callback: onCancel,
-                }}
-            >
-                {() => (
-                    <TextField
-                        label="Display Name"
-                        onChange={onDisplayNameInputChange}
-                        value={displayNameValue}
-                    />
-                )}
-            </EditorModal>
+            {widget ? (
+                <EditorModal
+                    title={`Edit ${displayWidgetName(widget.id)}`}
+                    open={isModalOpen}
+                    onClose={handleModalClose}
+                    acceptButton={{
+                        text: "Save",
+                        callback: onSave,
+                    }}
+                    cancelButton={{
+                        text: "Cancel",
+                        callback: onCancel,
+                    }}
+                >
+                    {() => (
+                        <TextField
+                            label="Display Name"
+                            onChange={onDisplayNameInputChange}
+                            value={displayNameValue}
+                        />
+                    )}
+                </EditorModal>
+            ) : null}
         </>
     );
 };

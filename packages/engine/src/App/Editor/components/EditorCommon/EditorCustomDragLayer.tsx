@@ -1,8 +1,8 @@
 import { useDragLayer, XYCoord } from "@engine/../../draggable/src";
 import type { CSSProperties, FC } from "react";
 
-import { BoxDragPreview } from "./BoxDragPreview";
-import { ItemTypes } from "./EditorItemsListItem";
+import { ItemTypes } from "../EditorRightPanel/EditorItemsListItem";
+import ListItemDragPreview from "./ListItemDragPreview";
 
 const layerStyles: CSSProperties = {
     position: "fixed",
@@ -30,7 +30,7 @@ function getItemStyles(initialOffset: XYCoord | null, currentOffset: XYCoord | n
     };
 }
 
-export const CustomDragLayer: FC = () => {
+const EditorCustomDragLayer: FC = () => {
     const { itemType, isDragging, item, initialOffset, currentOffset } = useDragLayer(
         (monitor) => ({
             item: monitor.getItem(),
@@ -44,7 +44,7 @@ export const CustomDragLayer: FC = () => {
     function renderItem() {
         switch (itemType) {
             case ItemTypes.LIST_ITEM:
-                return <BoxDragPreview title={item.title} />;
+                return <ListItemDragPreview id={item.id} title={item.title} />;
             default:
                 return null;
         }
@@ -59,3 +59,5 @@ export const CustomDragLayer: FC = () => {
         </div>
     );
 };
+
+export default EditorCustomDragLayer;
