@@ -9,7 +9,7 @@ import { HistoryState } from "../editorTypes";
 import useEditor from "./useEditor";
 
 export default () => {
-    const { widgets, widgetsInfoDictionary } = useWidgets();
+    const { widgets, widgetsInfoDictionary, widgetsIds } = useWidgets();
 
     const {
         historyDictionary,
@@ -23,6 +23,7 @@ export default () => {
     const { hasEdited } = useEditor();
     const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
     const previousWidgetsDictionary = usePrevious(widgetsInfoDictionary);
+    const previousWidgetsIds = usePrevious(widgetsIds);
     const previousWidgets = usePrevious(widgets);
     const { currentSceneId } = useScenes();
     const { app } = useCore();
@@ -32,6 +33,7 @@ export default () => {
             hasEdited &&
             currentHistoryItem?.state.widgets &&
             currentHistoryItem?.state.widgetsInfoDictionary &&
+            currentHistoryItem?.state.widgetsIds &&
             !isEqual(currentHistoryItem, previousCurrentHistoryItem),
         [currentHistoryItem, hasEdited, previousCurrentHistoryItem]
     );
@@ -41,8 +43,16 @@ export default () => {
             previousWidgets !== undefined &&
             previousWidgetsDictionary !== undefined &&
             (!isEqual(widgets, previousWidgets) ||
-                !isEqual(widgetsInfoDictionary, previousWidgetsDictionary)),
-        [previousWidgets, previousWidgetsDictionary, widgets, widgetsInfoDictionary]
+                !isEqual(widgetsInfoDictionary, previousWidgetsDictionary) ||
+                !isEqual(widgetsIds, previousWidgetsIds)),
+        [
+            previousWidgets,
+            previousWidgetsDictionary,
+            previousWidgetsIds,
+            widgets,
+            widgetsIds,
+            widgetsInfoDictionary,
+        ]
     );
 
     const editorStateChanged = useMemo(
@@ -54,8 +64,9 @@ export default () => {
         () =>
             editorStateChanged &&
             Object.keys(previousWidgets || {}).length &&
-            Object.keys(previousWidgetsDictionary || {}).length,
-        [editorStateChanged, previousWidgets, previousWidgetsDictionary]
+            Object.keys(previousWidgetsDictionary || {}).length &&
+            previousWidgetsIds?.length,
+        [editorStateChanged, previousWidgets, previousWidgetsDictionary, previousWidgetsIds?.length]
     );
 
     const isCurrentHistoryItemIsSaved = useMemo(
@@ -118,7 +129,8 @@ export default () => {
             if (
                 historyItem &&
                 Object.keys(historyItem.state.widgets).length &&
-                Object.keys(historyItem.state.widgetsInfoDictionary).length
+                Object.keys(historyItem.state.widgetsInfoDictionary).length &&
+                historyItem.state.widgetsIds
             ) {
                 setShouldAddHistoryState(false);
                 setCurrent(historyItem, prevHistoryItem);
@@ -147,6 +159,7 @@ export default () => {
         }
 
         const prevHistoryItemId = getHistoryItemId(currentHistoryItemIndex - 1);
+
         setHistoryItem(prevHistoryItemId);
     }, [currentHistoryItem?.order, getHistoryItemId, previousHistoryItem?.order, setHistoryItem]);
 

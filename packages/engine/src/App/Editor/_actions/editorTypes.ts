@@ -21,4 +21,5 @@ export type HistoryItem = {
 export type HistoryState = {
     widgetsInfoDictionary: WidgetInfoDictionary;
     widgets: WidgetDictionary;
+    widgetsIds: string[];
 };

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import useHistory from "./useHistory";
 
 export default () => {
-    const { widgets, widgetsInfoDictionary, resetWidgets } = useWidgets();
+    const { widgets, widgetsInfoDictionary, widgetsIds, resetWidgets } = useWidgets();
     const {
         addHistoryState,
         currentHistoryItem,
@@ -65,6 +65,7 @@ export default () => {
             addHistoryState({
                 widgets,
                 widgetsInfoDictionary,
+                widgetsIds,
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,7 +85,8 @@ export default () => {
             setShouldAddHistoryState(true);
             resetWidgets(
                 currentHistoryItem!.state.widgets,
-                currentHistoryItem!.state.widgetsInfoDictionary
+                currentHistoryItem!.state.widgetsInfoDictionary,
+                currentHistoryItem!.state.widgetsIds
             );
         }
     }, [
