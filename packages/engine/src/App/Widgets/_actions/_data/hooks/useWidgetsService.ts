@@ -25,6 +25,13 @@ export default () => {
         dispatchRemoveBatchWidgetInfoDictionary,
     } = useWidgetDispatch();
 
+    const updateWidgetsIds = useCallback(
+        (newWidgetsIds: string[]) => {
+            setWidgetsIds(newWidgetsIds);
+        },
+        [setWidgetsIds]
+    );
+
     const add = useCallback(
         <
             WidgetDictionaryItemType extends WidgetDictionaryItem,
@@ -44,18 +51,18 @@ export default () => {
                 [newWidget.id]: { ...newWidget },
             }));
 
-            setWidgetsIds((prevIds) => [...prevIds, newWidget.id]);
+            updateWidgetsIds([...widgetsIds, newWidget.id]);
         },
-        [dispatchAddWidgetInfoDictionaryItem, setWidgets, setWidgetsIds]
+        [dispatchAddWidgetInfoDictionaryItem, setWidgets, updateWidgetsIds, widgetsIds]
     );
 
     const addBatch = useCallback(
         (newWidgets: WidgetDictionary, newWidgetsInfoDictionary: WidgetInfoDictionary) => {
             dispatchAddBatchWidgetInfoDictionary(newWidgetsInfoDictionary);
             setWidgets((prevWidgets) => ({ ...prevWidgets, ...newWidgets }));
-            setWidgetsIds((prevIds) => [...prevIds, ...Object.keys(newWidgets)]);
+            updateWidgetsIds([...widgetsIds, ...Object.keys(newWidgets)]);
         },
-        [dispatchAddBatchWidgetInfoDictionary, setWidgets, setWidgetsIds]
+        [dispatchAddBatchWidgetInfoDictionary, setWidgets, updateWidgetsIds, widgetsIds]
     );
 
     const update = useCallback(
@@ -118,6 +125,7 @@ export default () => {
         (
             newWidgets: WidgetDictionary,
             newWidgetsDictionary: WidgetInfoDictionary,
+            newWidgetsIds?: string[],
             shouldRemoveAll?: boolean
         ) => {
             if (shouldRemoveAll) {
@@ -125,7 +133,7 @@ export default () => {
             }
 
             setWidgets(newWidgets);
-            setWidgetsIds(Object.keys(newWidgets));
+            setWidgetsIds(newWidgetsIds || Object.keys(newWidgets));
             dispatchOverrideWidgetInfoDictionary(newWidgetsDictionary);
         },
         [dispatchOverrideWidgetInfoDictionary, removeAll, setWidgets, setWidgetsIds]
@@ -135,6 +143,7 @@ export default () => {
         add,
         addBatch,
         update,
+        updateWidgetsIds,
         select,
         widgets,
         widgetsIds,

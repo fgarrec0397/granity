@@ -24,6 +24,7 @@ export default () => {
         selectedWidgets,
         removeSelection,
         update,
+        updateWidgetsIds,
         remove,
         reset,
     } = useWidgetsService();
@@ -83,6 +84,13 @@ export default () => {
             update(widgetId, value);
         },
         [update]
+    );
+
+    const updateWidgetsOrder = useCallback(
+        (newWidgetsIds: string[]) => {
+            updateWidgetsIds(newWidgetsIds);
+        },
+        [updateWidgetsIds]
     );
 
     const addWidget = useCallback(
@@ -172,9 +180,10 @@ export default () => {
         (
             widgetsToAdd?: WidgetDictionary,
             widgetDictionaryToAdd?: WidgetInfoDictionary,
+            newWidgetsIds?: string[],
             shouldRemoveAll?: boolean
         ) => {
-            reset(widgetsToAdd || {}, widgetDictionaryToAdd || {}, shouldRemoveAll);
+            reset(widgetsToAdd || {}, widgetDictionaryToAdd || {}, newWidgetsIds, shouldRemoveAll);
         },
         [reset]
     );
@@ -197,6 +206,7 @@ export default () => {
         selectWidget,
         isWidgetExist,
         updateWidget,
+        updateWidgetsOrder,
         copyWidget,
         removeselectedWidgets,
         removeWidget,

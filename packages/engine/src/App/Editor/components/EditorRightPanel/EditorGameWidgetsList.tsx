@@ -24,7 +24,7 @@ const styles: EditorGameWidgetsListStyles = {
 };
 
 const EditorGameWidgetsList: FC = () => {
-    const { displayWidgetName, removeWidget } = useWidgets();
+    const { displayWidgetName, removeWidget, updateWidgetsOrder } = useWidgets();
     const {
         addGameWidget,
         gameWidgets,
@@ -55,6 +55,10 @@ const EditorGameWidgetsList: FC = () => {
         removeWidget(widgetId);
     };
 
+    const changeItemsHandler = (ids: string[]) => {
+        updateWidgetsOrder(ids);
+    };
+
     return (
         <EditorItemsList
             itemsDictionaryIds={gameWidgetsIds}
@@ -68,6 +72,7 @@ const EditorGameWidgetsList: FC = () => {
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
             isActionRowSelected={(id) => gameWidgets[id]?.id === selectedGameWidgets[0]?.id}
+            changeItemsHandler={changeItemsHandler}
             cancelButton={{
                 text: "Cancel and close",
             }}

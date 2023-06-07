@@ -17,7 +17,8 @@ export default () => {
     const initWidgets = useCallback(
         (
             serializedWidgets?: SerializedWidgetDictionary,
-            widgetsInfoDictionary?: WidgetInfoDictionary
+            widgetsInfoDictionary?: WidgetInfoDictionary,
+            widgetsIds?: string[]
         ) => {
             if (!serializedWidgets || !widgetsInfoDictionary) {
                 return resetWidgets();
@@ -44,7 +45,7 @@ export default () => {
                 initializedWidgetsInfoDictionary! // already checked if it's defined
             );
 
-            resetWidgets(deserializedWidgets, synchedWidgetDictionary);
+            resetWidgets(deserializedWidgets, synchedWidgetDictionary, widgetsIds);
         },
         [
             unserializeWidgets,

@@ -11,7 +11,7 @@ import {
     Typography,
     TypographyProps,
 } from "@granity/ui";
-import { ReactElement, useCallback, useEffect, useState } from "react";
+import { ReactElement, useCallback, useState } from "react";
 
 import EditorModal from "../EditorCommon/EditorModal";
 import EditorItemsListItem from "./EditorItemsListItem";
@@ -36,6 +36,7 @@ export type EditorItemsListProps = {
     handleClickRow?: (id: string) => void;
     handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (id: string) => boolean;
+    changeItemsHandler?: (ids: string[]) => void;
 } & HasCallableChildren<{
     handleClose: () => void;
     handleOpen: () => void;
@@ -89,6 +90,7 @@ const EditorItemsList = ({
     handleClickRow,
     handleClickRemove,
     isActionRowSelected,
+    changeItemsHandler,
     acceptButton,
     cancelButton,
     children,
@@ -96,21 +98,25 @@ const EditorItemsList = ({
     const openedAccordion = useAccordionDefaultOpened();
     const [isEditorModalOpen, setIsEditorModalOpen] = useState(false);
 
-    const [data, setData] = useState<string[]>([]);
+    // const [data, setData] = useState<string[]>([]);
 
-    useEffect(() => {
-        setData(itemsDictionaryIds);
-    }, [itemsDictionaryIds]);
+    // useEffect(() => {
+    //     setData(itemsDictionaryIds);
+    // }, [itemsDictionaryIds]);
 
-    const moveItem = useCallback((dragIndex: number, hoverIndex: number) => {
-        setData((prevData) => {
-            const clonedPrevData = clone(prevData);
+    const moveItem = useCallback(
+        (dragIndex: number, hoverIndex: number) => {
+            // setData((prevData) => {
+            const clonedPrevData = clone(itemsDictionaryIds);
             const removedItem = clonedPrevData.splice(dragIndex, 1);
             clonedPrevData.splice(hoverIndex, 0, ...removedItem);
 
-            return clonedPrevData;
-        });
-    }, []);
+            changeItemsHandler?.(clonedPrevData);
+            // clonedPrevData;
+            // });
+        },
+        [changeItemsHandler, itemsDictionaryIds]
+    );
 
     const handleOpen = () => setIsEditorModalOpen(true);
     const handleClose = () => setIsEditorModalOpen(false);
@@ -120,8 +126,8 @@ const EditorItemsList = ({
             <AccordionSummary>{title}</AccordionSummary>
             <AccordionDetails>
                 <List>
-                    {data.length > 0 ? (
-                        data.map((id, index) => {
+                    {itemsDictionaryIds.length > 0 ? (
+                        itemsDictionaryIds.map((id, index) => {
                             const itemName = displayItemName ? displayItemName(id) : undefined;
 
                             return (

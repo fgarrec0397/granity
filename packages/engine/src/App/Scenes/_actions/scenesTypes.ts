@@ -46,6 +46,7 @@ export type ScenesDictionaryItem = {
 export type SceneData = {
     serializedWidgets: SerializedWidgetDictionary;
     widgetsInfoDictionary: WidgetInfoDictionary;
+    widgetsIds: string[];
 };
 
 /**
