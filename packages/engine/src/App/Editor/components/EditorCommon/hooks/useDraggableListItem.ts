@@ -47,28 +47,36 @@ export default ({ dragItem, moveItem, isDraggable }: DraggableListItem) => {
             }
 
             // Determine rectangle on screen
-            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            const hoverItemBoundingRect = ref.current?.getBoundingClientRect();
 
-            // Get vertical middle
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const hoverItemHeight = hoverItemBoundingRect.bottom - hoverItemBoundingRect.top;
+            const draggingPercentage = 0.25;
+            const hoverItemHeightPercentage = hoverItemHeight * draggingPercentage;
+            const draggingDownwardTriggerPosition = hoverItemHeightPercentage;
+            const draggingUpwardTriggerPosition = hoverItemHeight - hoverItemHeightPercentage; // TODO - continue here. Set a useState to true when the mouse is in the isNesting position and do the logic outside the hook (in the componentn or another hook)
 
             // Determine mouse position
             const clientOffset = monitor.getClientOffset();
 
             // Get pixels to the top
-            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+            const hoverClientY = (clientOffset as XYCoord).y - hoverItemBoundingRect.top;
+            console.log({
+                hoverClientY,
+                draggingDownwardTriggerPosition,
+                draggingUpwardTriggerPosition,
+            });
 
             // Only perform the move when the mouse has crossed half of the items height
             // When dragging downwards, only move when the cursor is below 50%
             // When dragging upwards, only move when the cursor is above 50%
 
             // Dragging downwards
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+            if (dragIndex < hoverIndex && hoverClientY < draggingDownwardTriggerPosition) {
                 return;
             }
 
             // Dragging upwards
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            if (dragIndex > hoverIndex && hoverClientY > draggingUpwardTriggerPosition) {
                 return;
             }
 
