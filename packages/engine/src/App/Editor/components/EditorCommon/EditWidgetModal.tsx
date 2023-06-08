@@ -14,7 +14,7 @@ export type EditWidgetModalProps = {
 const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconSize = "small" }) => {
     const [displayNameValue, setDisplayNameValue] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { displayWidgetName, getWidgetInfoFromWidget, updateWidget } = useWidgets();
+    const { displayWidgetName, getWidgetInfoFromWidget, updateWidgetInfo } = useWidgets();
 
     const onDisplayNameInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
         setDisplayNameValue(target.value);
@@ -33,7 +33,7 @@ const EditWidgetModal: FC<EditWidgetModalProps> = ({ widget, iconSize = "small" 
             return;
         }
 
-        updateWidget(widget.id, {
+        updateWidgetInfo(widget.id, {
             ...getWidgetInfoFromWidget(widget.id),
             displayName: displayNameValue,
         });

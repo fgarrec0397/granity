@@ -28,7 +28,7 @@ export default () => {
         widgetsIds,
         widgetsInfoDictionary,
         addWidget,
-        updateWidget,
+        updateWidgetInfo,
         selectWidget,
         selectedWidgets,
         copyWidget,
@@ -100,6 +100,13 @@ export default () => {
         [addWidget]
     );
 
+    // const addGameWidgetChildren = useCallback(
+    //     (gameWidget: GameWidgetDictionaryItem, path: string) => {
+    //         updateGameWidget(gameWidget, buildGameWidgetInfo);
+    //     },
+    //     [updateGameWidget]
+    // );
+
     const updateGameWidgetWithMesh = useCallback(
         (widgetId: string, mesh: Object3D | undefined, updateOnlyUI?: boolean) => {
             if (mesh) {
@@ -108,35 +115,35 @@ export default () => {
                 if (updateOnlyUI) {
                     updateSelectedWidgetProperties(widgetProperties);
                 } else {
-                    updateWidget<GameWidgetValueParameter>(widgetId, {
+                    updateWidgetInfo<GameWidgetValueParameter>(widgetId, {
                         properties: widgetProperties,
                     });
                 }
             }
         },
-        [updateSelectedWidgetProperties, updateWidget]
+        [updateSelectedWidgetProperties, updateWidgetInfo]
     );
 
     const updateGameWidget = useCallback(
         (widgetId: string, value: GameWidgetValueParameter) => {
-            updateWidget(widgetId, value);
+            updateWidgetInfo(widgetId, value);
 
             if (value.properties) {
                 updateSelectedWidgetProperties(value.properties);
             }
         },
-        [updateSelectedWidgetProperties, updateWidget]
+        [updateSelectedWidgetProperties, updateWidgetInfo]
     );
 
     const updateCurrentGameWidgetOptions = useCallback(
         <TValue = string>(widgetOptions: GameWidgetOptionsValues<TValue>) => {
             const currentWidget = selectedGameWidgets[0];
 
-            updateWidget<GameWidgetValueParameter<TValue>>(currentWidget.id, {
+            updateWidgetInfo<GameWidgetValueParameter<TValue>>(currentWidget.id, {
                 options: widgetOptions,
             });
         },
-        [selectedGameWidgets, updateWidget]
+        [selectedGameWidgets, updateWidgetInfo]
     );
 
     const selectGameWidget = useCallback(
@@ -211,6 +218,7 @@ export default () => {
         getGameWidgetById,
         getGameWidgetInfoById,
         addGameWidget,
+        // addGameWidgetChildren,
         gameWidgets,
         gameWidgetsModules,
         gameWidgetsInfo,

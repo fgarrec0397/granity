@@ -21,6 +21,7 @@ import {
 import { FC, MutableRefObject, ReactNode, useRef } from "react";
 
 import useWidgets from "../../_actions/hooks/useWidgets";
+import Widgets from "../../Widgets";
 import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = {
@@ -53,7 +54,7 @@ const styles: WidgetObjectRendererStyles = {
     },
 };
 
-const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
+const GameWidgetRenderer: FC<Props> = ({ widget }) => {
     const componentRef = useRef(null!);
     const {
         gameWidgets,
@@ -66,7 +67,6 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
     const { getGameWidgetProps } = useGameWidgetsUtilities();
     const getMeshByGameWidget = useGetMeshByGameWidget();
     const { isEditor } = useEditor();
-    // const widget = getGameWidgetById(widgetId)!;
     const { component, id, editorOptions, hasRef } = widget;
     const name = buildGameWidgetName(widget);
     const Component = component;
@@ -120,6 +120,8 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
               }
             : {};
 
+    console.log(widget.children, "widget.children");
+
     return (
         <mesh name={name} {...widgetProperties}>
             {isEditor && gizmo && <WidgetsGizmo text={resolveGizmoText()} onClick={onGizmoClick} />}
@@ -129,6 +131,7 @@ const WidgetObjectRenderer: FC<Props> = ({ widget }) => {
                     widgetFallbackRender(fallbackProps, displayWidgetName(id))
                 }
             >
+                {widget.children ? <Widgets widgetsIds={Object.keys(widget.children)} /> : null}
                 <Component {...widgetProps} {...widgetProperties} {...ref} />
             </ErrorBoundary>
         </mesh>
@@ -156,4 +159,4 @@ const widgetFallbackRender: WidgetFallbackRender = (fallbackProps, widgetName) =
     );
 };
 
-export default WidgetObjectRenderer;
+export default GameWidgetRenderer;

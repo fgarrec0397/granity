@@ -63,8 +63,8 @@ const EditorGameWidgetsList: FC = () => {
         <EditorItemsList
             itemsDictionaryIds={gameWidgetsIds}
             title="Game Widgets"
-            noItemsText="No object widget on the scene."
-            triggerButtonText="Add Object Widget"
+            noItemsText="No game widget on the scene."
+            triggerButtonText="Add Game Widget"
             editModal={(id) => <EditWidgetModal widget={gameWidgets[id]} />}
             isVisible={(id) => gameWidgetsInfo?.[id]?.isVisible}
             handleVisibility={toggleVisibilityWidget}
@@ -96,7 +96,7 @@ const EditorGameWidgetsList: FC = () => {
                                   />
                               );
                           })
-                        : "No object widget available."}
+                        : "No gabe widget available."}
                 </Box>
             )}
         </EditorItemsList>

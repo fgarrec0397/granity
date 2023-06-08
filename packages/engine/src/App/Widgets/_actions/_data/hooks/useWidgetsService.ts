@@ -6,6 +6,7 @@ import {
     WidgetDictionaryItem,
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
+    WidgetsIds,
     WidgetValueParameter,
 } from "../../widgetsTypes";
 import useWidgetDispatch from "./useWidgetDispatch";
@@ -26,7 +27,7 @@ export default () => {
     } = useWidgetDispatch();
 
     const updateWidgetsIds = useCallback(
-        (newWidgetsIds: string[]) => {
+        (newWidgetsIds: WidgetsIds) => {
             setWidgetsIds(newWidgetsIds);
         },
         [setWidgetsIds]

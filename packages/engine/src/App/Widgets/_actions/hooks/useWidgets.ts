@@ -79,13 +79,14 @@ export default () => {
         [getWidgetById, getWidgetInfoById]
     );
 
-    const updateWidget = useCallback(
+    const updateWidgetInfo = useCallback(
         <Value extends WidgetValueParameter>(widgetId: string, value: Value) => {
             update(widgetId, value);
         },
         [update]
     );
 
+    // TODO - bring the change widget order logic here
     const updateWidgetsOrder = useCallback(
         (newWidgetsIds: string[]) => {
             updateWidgetsIds(newWidgetsIds);
@@ -205,7 +206,7 @@ export default () => {
         displayWidgetName,
         selectWidget,
         isWidgetExist,
-        updateWidget,
+        updateWidgetInfo,
         updateWidgetsOrder,
         copyWidget,
         removeselectedWidgets,

@@ -4,8 +4,8 @@ import { FC } from "react";
 
 import { useWidgets } from "../_actions/hooks";
 import { WidgetType } from "../_actions/widgetsConstants";
-import WidgetObjectRenderer from "./WidgetsRenderers/WidgetObjectRenderer";
-import WidgetUIRenderer from "./WidgetsRenderers/WidgetUIRenderer";
+import GameWidgetRenderer from "./WidgetsRenderers/GameWidgetRenderer";
+import UIWidgetRenderer from "./WidgetsRenderers/UIWidgetRenderer";
 
 interface WidgetItemProps {
     widgetId: string;
@@ -21,11 +21,11 @@ const WidgetRenderer: FC<WidgetItemProps> = ({ widgetId }) => {
     }
 
     if (widget.type === WidgetType.GameObject) {
-        return <WidgetObjectRenderer widget={widget as GameWidgetDictionaryItem} />;
+        return <GameWidgetRenderer widget={widget as GameWidgetDictionaryItem} />;
     }
 
     if (widget.type === WidgetType.UI) {
-        return <WidgetUIRenderer widget={widget as UIWidgetDictionaryItem} />;
+        return <UIWidgetRenderer widget={widget as UIWidgetDictionaryItem} />;
     }
 
     return null;

@@ -5,11 +5,11 @@ type Props = {
     widget: UIWidgetDictionaryItem;
 };
 
-const WidgetUIRenderer: FC<Props> = ({ widget }) => {
+const UIWidgetRenderer: FC<Props> = ({ widget }) => {
     const { component } = widget;
 
     const Component = component;
 
     return <Component />;
 };
-export default WidgetUIRenderer;
+export default UIWidgetRenderer;
