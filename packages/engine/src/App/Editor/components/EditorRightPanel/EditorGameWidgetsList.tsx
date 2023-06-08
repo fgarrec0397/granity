@@ -2,11 +2,12 @@ import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
+import { RecursiveIdsArray } from "@granity/helpers";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
-import EditorItemsList from "./EditorItemsList";
+import EditorAccordionList from "./EditorAccordionList";
 import EditorItemsListModalButton from "./EditorItemsListModalButton";
 
 type EditorGameWidgetsListStyles = {
@@ -55,12 +56,12 @@ const EditorGameWidgetsList: FC = () => {
         removeWidget(widgetId);
     };
 
-    const changeItemsHandler = (ids: string[]) => {
+    const changeItemsHandler = (ids: RecursiveIdsArray<string>) => {
         updateWidgetsOrder(ids);
     };
 
     return (
-        <EditorItemsList
+        <EditorAccordionList
             itemsDictionaryIds={gameWidgetsIds}
             title="Game Widgets"
             noItemsText="No game widget on the scene."
@@ -99,7 +100,7 @@ const EditorGameWidgetsList: FC = () => {
                         : "No gabe widget available."}
                 </Box>
             )}
-        </EditorItemsList>
+        </EditorAccordionList>
     );
 };
 

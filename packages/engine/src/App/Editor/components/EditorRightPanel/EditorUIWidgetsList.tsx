@@ -6,7 +6,7 @@ import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
-import EditorItemsList from "./EditorItemsList";
+import EditorAccordionList from "./EditorAccordionList";
 import EditorItemsListModalButton from "./EditorItemsListModalButton";
 
 type EditorWidgetsUIListStyles = {
@@ -37,7 +37,7 @@ const EditorWidgetsUIList: FC = () => {
     };
 
     return (
-        <EditorItemsList
+        <EditorAccordionList
             itemsDictionaryIds={uiWidgetsIds}
             title="UI Widgets"
             noItemsText="No UI widget on the scene."
@@ -71,7 +71,7 @@ const EditorWidgetsUIList: FC = () => {
                         : "No UI widget available."}
                 </Box>
             )}
-        </EditorItemsList>
+        </EditorAccordionList>
     );
 };
 

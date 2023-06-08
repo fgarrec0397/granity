@@ -3,7 +3,7 @@ import { FC } from "react";
 
 import EditorCreateSceneModalContent from "../EditorCommon/EditorCreateSceneModalContent";
 import useCreateScene from "../EditorCommon/hooks/useCreateScene";
-import EditorItemsList from "./EditorItemsList";
+import EditorAccordionList from "./EditorAccordionList";
 
 const EditorScenesList: FC = () => {
     const { sceneName, handleChangeName, isDefault, handleIsDefault } = useCreateScene();
@@ -36,7 +36,7 @@ const EditorScenesList: FC = () => {
     };
 
     return (
-        <EditorItemsList
+        <EditorAccordionList
             itemsDictionaryIds={scenesIds}
             title="Scenes"
             noItemsText="No UI widget on the scene."
@@ -60,7 +60,7 @@ const EditorScenesList: FC = () => {
                     handleIsDefault={handleIsDefault}
                 />
             )}
-        </EditorItemsList>
+        </EditorAccordionList>
     );
 };
 

@@ -10,6 +10,7 @@ import {
     WidgetInfoBuilder,
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
+    WidgetsIds,
     WidgetValueParameter,
 } from "../widgetsTypes";
 
@@ -88,7 +89,7 @@ export default () => {
 
     // TODO - bring the change widget order logic here
     const updateWidgetsOrder = useCallback(
-        (newWidgetsIds: string[]) => {
+        (newWidgetsIds: WidgetsIds) => {
             updateWidgetsIds(newWidgetsIds);
         },
         [updateWidgetsIds]
