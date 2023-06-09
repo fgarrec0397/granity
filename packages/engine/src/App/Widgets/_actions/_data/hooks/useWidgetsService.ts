@@ -1,4 +1,4 @@
-import { pull } from "@granity/helpers";
+import { clone, pull } from "@granity/helpers";
 import { useCallback } from "react";
 
 import {
@@ -6,6 +6,7 @@ import {
     WidgetDictionaryItem,
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
+    WidgetInfoValueParameter,
     WidgetsIds,
     WidgetValueParameter,
 } from "../../widgetsTypes";
@@ -66,11 +67,27 @@ export default () => {
         [dispatchAddBatchWidgetInfoDictionary, setWidgets, updateWidgetsIds, widgetsIds]
     );
 
-    const update = useCallback(
-        <Value extends WidgetValueParameter>(widgetId: string, value: Value) => {
+    const updateInfo = useCallback(
+        <Value extends WidgetInfoValueParameter>(widgetId: string, value: Value) => {
             dispatchUpdateWidgetInfoDictionaryItem(widgetId, value);
         },
         [dispatchUpdateWidgetInfoDictionaryItem]
+    );
+
+    const update = useCallback(
+        <Value extends WidgetValueParameter>(widgetId: string, value: Value) => {
+            setWidgets((prevWidgets) => {
+                const clonedPrevWidgets = clone(prevWidgets);
+
+                clonedPrevWidgets[widgetId] = {
+                    ...clonedPrevWidgets[widgetId],
+                    ...value,
+                };
+
+                return clonedPrevWidgets;
+            });
+        },
+        [setWidgets]
     );
 
     const select = useCallback(
@@ -144,6 +161,7 @@ export default () => {
         add,
         addBatch,
         update,
+        updateInfo,
         updateWidgetsIds,
         select,
         widgets,

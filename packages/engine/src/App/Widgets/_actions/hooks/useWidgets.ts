@@ -10,6 +10,7 @@ import {
     WidgetInfoBuilder,
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
+    WidgetInfoValueParameter,
     WidgetsIds,
     WidgetValueParameter,
 } from "../widgetsTypes";
@@ -25,6 +26,7 @@ export default () => {
         selectedWidgets,
         removeSelection,
         update,
+        updateInfo,
         updateWidgetsIds,
         remove,
         reset,
@@ -80,14 +82,21 @@ export default () => {
         [getWidgetById, getWidgetInfoById]
     );
 
-    const updateWidgetInfo = useCallback(
+    const updateWidget = useCallback(
         <Value extends WidgetValueParameter>(widgetId: string, value: Value) => {
             update(widgetId, value);
         },
         [update]
     );
 
-    // TODO - bring the change widget order logic here
+    const updateWidgetInfo = useCallback(
+        <Value extends WidgetInfoValueParameter>(widgetId: string, value: Value) => {
+            updateInfo(widgetId, value);
+        },
+        [updateInfo]
+    );
+
+    // TODO - bring the change widget order logic here. Should handle nested widgets
     const updateWidgetsOrder = useCallback(
         (newWidgetsIds: WidgetsIds) => {
             updateWidgetsIds(newWidgetsIds);
@@ -207,6 +216,7 @@ export default () => {
         displayWidgetName,
         selectWidget,
         isWidgetExist,
+        updateWidget,
         updateWidgetInfo,
         updateWidgetsOrder,
         copyWidget,

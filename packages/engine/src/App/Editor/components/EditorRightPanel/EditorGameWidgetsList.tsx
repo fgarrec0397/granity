@@ -28,11 +28,12 @@ const EditorGameWidgetsList: FC = () => {
     const { displayWidgetName, removeWidget, updateWidgetsOrder } = useWidgets();
     const {
         addGameWidget,
+        addGameWidgetChild,
         gameWidgets,
         gameWidgetsModules,
         gameWidgetsIds,
         gameWidgetsInfo,
-        updateGameWidget,
+        updateGameWidgetInfo,
         selectGameWidget,
         selectedGameWidgets,
     } = useGameWidgets();
@@ -43,7 +44,7 @@ const EditorGameWidgetsList: FC = () => {
 
     const toggleVisibilityWidget = (id: string): void => {
         if (id) {
-            updateGameWidget(id, { isVisible: !gameWidgetsInfo[id].isVisible });
+            updateGameWidgetInfo(id, { isVisible: !gameWidgetsInfo[id].isVisible });
         }
     };
 
@@ -54,6 +55,14 @@ const EditorGameWidgetsList: FC = () => {
 
     const handleClickRemove = (widgetId: string) => {
         removeWidget(widgetId);
+    };
+
+    const onIsNestingChange = (widgetId: string, isNesting: boolean) => {
+        updateGameWidgetInfo(widgetId, { isNesting });
+    };
+
+    const hasDropWhenNesting = (hoveredItemId: string, draggingItemId: string) => {
+        addGameWidgetChild(hoveredItemId, draggingItemId);
     };
 
     const changeItemsHandler = (ids: RecursiveIdsArray<string>) => {
@@ -73,7 +82,10 @@ const EditorGameWidgetsList: FC = () => {
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
             isActionRowSelected={(id) => gameWidgets[id]?.id === selectedGameWidgets[0]?.id}
+            isItemNesting={(id) => gameWidgetsInfo[id]?.isNesting}
+            onIsNestingChange={onIsNestingChange}
             changeItemsHandler={changeItemsHandler}
+            hasDropWhenNesting={hasDropWhenNesting}
             cancelButton={{
                 text: "Cancel and close",
             }}

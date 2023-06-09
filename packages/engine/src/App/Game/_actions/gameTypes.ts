@@ -168,6 +168,7 @@ export type GameWidgetInfoDictionaryItem<TValue = string> = WidgetInfoDictionary
     properties?: GameWidgetProperties;
     options?: GameWidgetOptionsValues<TValue>;
     isVisible: boolean;
+    isNesting: boolean;
 };
 
 export type GameWidgetOptionsValues<TValue = string> = Dictionary<{
@@ -183,6 +184,4 @@ export type GameWidgetProperties = {
 
 /// -------------- Game Widgets Actions Parameters -------------- ///
 
-export type GameWidgetValueParameter<TValue = string> = Partial<
-    Omit<GameWidgetInfoDictionaryItem<TValue>, "id">
->;
+export type GameWidgetValueParameter = Partial<Omit<GameWidgetInfoDictionaryItem, "id">>;

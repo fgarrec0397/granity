@@ -1,5 +1,5 @@
 import { clone, RecursiveIdsArray } from "@granity/helpers";
-import { List, Typography } from "@granity/ui";
+import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { ReactElement, useCallback } from "react";
 
 import EditorItemsListItem from "./EditorItemsListItem";
@@ -20,7 +20,10 @@ export type EditorItemsListProps = {
     handleClickRow?: (id: string) => void;
     handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (id: string) => boolean;
+    isItemNesting?: (id: string) => boolean;
+    onIsNestingChange?: (id: string, isNesting: boolean) => void;
     changeItemsHandler?: (ids: RecursiveIdsArray<string>) => void;
+    hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
 };
 
 export interface DragAndDropItem {
@@ -43,7 +46,10 @@ const EditorItemsList = ({
     handleClickRow,
     handleClickRemove,
     isActionRowSelected,
+    isItemNesting,
+    onIsNestingChange,
     changeItemsHandler,
+    hasDropWhenNesting,
 }: EditorItemsListProps) => {
     const moveItem = useCallback(
         (dragIndex: number, hoverIndex: number) => {
@@ -61,33 +67,77 @@ const EditorItemsList = ({
             {itemsDictionaryIds.length > 0 ? (
                 itemsDictionaryIds.map((id, index) => {
                     if (typeof id !== "string") {
+                        console.log(id, "id");
+                        console.log(id[1], "id[1]");
+                        const childItemName = displayItemName ? displayItemName(id[0]) : undefined;
+
                         return (
-                            <EditorItemsList
-                                key={id[0]}
-                                itemsDictionaryIds={id[1]}
-                                noItemsText={noItemsText}
+                            <>
+                                <EditorItemsListItem
+                                    key={id[0]}
+                                    id={id[0]}
+                                    index={index}
+                                    itemName={childItemName}
+                                    editModal={editModal}
+                                    isVisible={isVisible}
+                                    isDefault={isDefault}
+                                    handleVisibility={handleVisibility}
+                                    handleClickRow={handleClickRow}
+                                    handleClickRemove={handleClickRemove}
+                                    isActionRowSelected={isActionRowSelected}
+                                    isItemNesting={isItemNesting}
+                                    onIsNestingChange={onIsNestingChange}
+                                    hasDropWhenNesting={hasDropWhenNesting}
+                                    moveItem={moveItem}
+                                />
+                                <Box
+                                    sx={{
+                                        padding: pxToRem(2),
+                                    }}
+                                >
+                                    <EditorItemsList
+                                        key={id[0]}
+                                        itemsDictionaryIds={id[1]}
+                                        noItemsText={noItemsText}
+                                        editModal={editModal}
+                                        isVisible={isVisible}
+                                        isDefault={isDefault}
+                                        handleVisibility={handleVisibility}
+                                        displayItemName={displayItemName}
+                                        handleClickRow={handleClickRow}
+                                        handleClickRemove={handleClickRemove}
+                                        isActionRowSelected={isActionRowSelected}
+                                        isItemNesting={isItemNesting}
+                                        onIsNestingChange={onIsNestingChange}
+                                        changeItemsHandler={changeItemsHandler}
+                                        hasDropWhenNesting={hasDropWhenNesting}
+                                    />
+                                </Box>
+                            </>
+                        );
+                    } else {
+                        const parentItemName = displayItemName ? displayItemName(id) : undefined;
+
+                        return (
+                            <EditorItemsListItem
+                                key={id}
+                                id={id}
+                                index={index}
+                                itemName={parentItemName}
+                                editModal={editModal}
+                                isVisible={isVisible}
+                                isDefault={isDefault}
+                                handleVisibility={handleVisibility}
+                                handleClickRow={handleClickRow}
+                                handleClickRemove={handleClickRemove}
+                                isActionRowSelected={isActionRowSelected}
+                                isItemNesting={isItemNesting}
+                                onIsNestingChange={onIsNestingChange}
+                                hasDropWhenNesting={hasDropWhenNesting}
+                                moveItem={moveItem}
                             />
                         );
                     }
-
-                    const itemName = displayItemName ? displayItemName(id) : undefined;
-
-                    return (
-                        <EditorItemsListItem
-                            key={id}
-                            id={id}
-                            index={index}
-                            itemName={itemName}
-                            editModal={editModal}
-                            isVisible={isVisible}
-                            isDefault={isDefault}
-                            handleVisibility={handleVisibility}
-                            handleClickRow={handleClickRow}
-                            handleClickRemove={handleClickRemove}
-                            isActionRowSelected={isActionRowSelected}
-                            moveItem={moveItem}
-                        />
-                    );
                 })
             ) : (
                 <Typography>{noItemsText}</Typography>

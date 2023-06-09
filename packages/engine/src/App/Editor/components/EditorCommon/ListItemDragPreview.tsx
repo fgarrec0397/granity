@@ -17,6 +17,7 @@ const ListItemDragPreview: FC<BoxDragPreviewProps> = memo(function BoxDragPrevie
         transform: "rotate(7deg)",
         WebkitTransform: "rotate(7deg)",
         backgroundColor: theme.palette.action.selected,
+        opacity: 0.75,
     };
 
     return (

@@ -1,5 +1,5 @@
 import { getEmptyImage, Identifier, useDrag, useDrop, XYCoord } from "@granity/draggable";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ItemTypes } from "../../EditorRightPanel/EditorItemsListItem";
 
@@ -16,8 +16,12 @@ export type DraggableListItem = {
     moveItem?: (dragIndex: number, hoverIndex: number) => void;
 };
 
-export default ({ dragItem, moveItem, isDraggable }: DraggableListItem) => {
+export default ({ dragItem, moveItem, isDraggable = true }: DraggableListItem) => {
     const ref = useRef<HTMLLIElement>(null);
+    const [isNesting, setIsNesting] = useState(false);
+    const [hasDropWhenNesting, setHasDropWhenNesting] = useState(false);
+    const [itemHoveredId, setItemHoveredId] = useState<string>();
+    const [draggingItemId, setDraggingItemId] = useState<string>();
 
     if (!isDraggable) {
         return;
@@ -30,9 +34,24 @@ export default ({ dragItem, moveItem, isDraggable }: DraggableListItem) => {
                 handlerId: monitor.getHandlerId(),
             };
         },
+        drop() {
+            setIsNesting(false);
+
+            if (itemHoveredId) {
+                setItemHoveredId(undefined);
+            }
+
+            setItemHoveredId(dragItem.id);
+
+            if (isNesting) {
+                setHasDropWhenNesting(true);
+            }
+        },
         hover(item: DragItem, monitor) {
             const dragIndex = item.index;
             const hoverIndex = dragItem.index;
+
+            setDraggingItemId(item.id);
 
             if (!ref.current) {
                 return;
@@ -41,52 +60,61 @@ export default ({ dragItem, moveItem, isDraggable }: DraggableListItem) => {
                 return;
             }
 
+            if (hasDropWhenNesting) {
+                setHasDropWhenNesting(false);
+            }
+
             // Don't replace items with themselves
             if (dragIndex === hoverIndex) {
-                return;
+                return setIsNesting(false);
             }
 
             // Determine rectangle on screen
             const hoverItemBoundingRect = ref.current?.getBoundingClientRect();
 
             const hoverItemHeight = hoverItemBoundingRect.bottom - hoverItemBoundingRect.top;
-            const draggingPercentage = 0.25;
+            const draggingPercentage = 0.75;
             const hoverItemHeightPercentage = hoverItemHeight * draggingPercentage;
             const draggingDownwardTriggerPosition = hoverItemHeightPercentage;
-            const draggingUpwardTriggerPosition = hoverItemHeight - hoverItemHeightPercentage; // TODO - continue here. Set a useState to true when the mouse is in the isNesting position and do the logic outside the hook (in the componentn or another hook)
+            const draggingUpwardTriggerPosition = hoverItemHeight - hoverItemHeightPercentage;
 
             // Determine mouse position
             const clientOffset = monitor.getClientOffset();
 
             // Get pixels to the top
             const hoverClientY = (clientOffset as XYCoord).y - hoverItemBoundingRect.top;
-            console.log({
-                hoverClientY,
-                draggingDownwardTriggerPosition,
-                draggingUpwardTriggerPosition,
-            });
-
-            // Only perform the move when the mouse has crossed half of the items height
-            // When dragging downwards, only move when the cursor is below 50%
-            // When dragging upwards, only move when the cursor is above 50%
 
             // Dragging downwards
             if (dragIndex < hoverIndex && hoverClientY < draggingDownwardTriggerPosition) {
+                if (hoverClientY < 5) {
+                    return setIsNesting(false);
+                }
+
+                if (!isNesting) {
+                    return setIsNesting(true);
+                }
+
                 return;
             }
 
             // Dragging upwards
             if (dragIndex > hoverIndex && hoverClientY > draggingUpwardTriggerPosition) {
+                if (hoverClientY > 30) {
+                    return setIsNesting(false);
+                }
+
+                if (!isNesting) {
+                    setIsNesting(true);
+                }
+
                 return;
             }
+
+            setIsNesting(false);
 
             // Time to actually perform the action
             moveItem(dragIndex, hoverIndex);
 
-            // Note: we're mutating the monitor item here!
-            // Generally it's better to avoid mutations,
-            // but it's good here for the sake of performance
-            // to avoid expensive index searches.
             item.index = hoverIndex;
         },
     });
@@ -111,5 +139,9 @@ export default ({ dragItem, moveItem, isDraggable }: DraggableListItem) => {
         ref,
         handlerId,
         isDragging,
+        isNesting,
+        hasDropWhenNesting,
+        itemHoveredId,
+        draggingItemId,
     };
 };

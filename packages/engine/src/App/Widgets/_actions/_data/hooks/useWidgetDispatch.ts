@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import {
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
-    WidgetValueParameter,
+    WidgetInfoValueParameter,
 } from "../../widgetsTypes";
 import {
     addBatchWidgetInfoDictionary,
@@ -35,7 +35,7 @@ export default () => {
     );
 
     const dispatchUpdateWidgetInfoDictionaryItem = useCallback(
-        <Value extends WidgetValueParameter>(widgetId: string, value: Value) => {
+        <Value extends WidgetInfoValueParameter>(widgetId: string, value: Value) => {
             return dispatch(updateWidgetInfoDictionaryItem({ widgetId, value }));
         },
         [dispatch]

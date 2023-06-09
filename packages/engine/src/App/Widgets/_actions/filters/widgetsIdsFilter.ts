@@ -11,15 +11,25 @@ const widgetsIdsFilter = (
 ): WidgetsIds => {
     const filteredWidgetsIds: WidgetsIds = [];
 
+    // Issue widgetsIds is here
+
     widgetsIds.forEach((id) => {
         if (typeof id === "string") {
+            console.log(id, "id is string");
+
             const widget = widgetsDictionary[id];
 
             if (widget.type === widgetType) {
-                filteredWidgetsIds.push(widget.id);
+                filteredWidgetsIds.push(id);
             }
         } else {
-            widgetsIdsFilter(widgetsDictionary, id[1], widgetType);
+            console.log(id, "id is an array");
+            const widget = widgetsDictionary[id[0]];
+
+            if (widget.type === widgetType) {
+                filteredWidgetsIds.push(id);
+            }
+            // widgetsIdsFilter(widgetsDictionary, id[1], widgetType);
         }
     });
 

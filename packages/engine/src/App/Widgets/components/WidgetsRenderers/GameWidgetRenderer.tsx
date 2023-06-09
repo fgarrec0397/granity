@@ -73,7 +73,7 @@ const GameWidgetRenderer: FC<Props> = ({ widget }) => {
 
     const helper =
         typeof editorOptions?.helper === "function"
-            ? editorOptions?.helper(gameWidgetsInfo[id].options)
+            ? editorOptions?.helper(gameWidgetsInfo[id]?.options)
             : editorOptions?.helper;
 
     const resolvedHelper = resolveHelper(helper);
@@ -119,8 +119,6 @@ const GameWidgetRenderer: FC<Props> = ({ widget }) => {
                   ref: componentRef,
               }
             : {};
-
-    console.log(widget.children, "widget.children");
 
     return (
         <mesh name={name} {...widgetProperties}>

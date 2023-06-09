@@ -75,6 +75,7 @@ export type WidgetInfoBuilder<
 
 /// -------------- Widgets Actions Parameters -------------- ///
 
-export type WidgetValueParameter = Partial<Omit<WidgetInfoDictionaryItem, "id">>;
+export type WidgetInfoValueParameter = Partial<Omit<WidgetInfoDictionaryItem, "id">>;
+export type WidgetValueParameter = Partial<Omit<WidgetDictionaryItem, "id">>;
 
 export type WidgetsIds = RecursiveIdsArray<string>;

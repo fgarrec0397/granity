@@ -3,7 +3,7 @@ import Star from "@granity/icons/Star";
 import Visibility from "@granity/icons/Visibility";
 import VisibilityOff from "@granity/icons/VisibilityOff";
 import { IconButton, ListItem, ListItemButton, pxToRem } from "@granity/ui";
-import { CSSProperties, ReactElement } from "react";
+import { CSSProperties, ReactElement, useEffect } from "react";
 
 import useDraggableListItem from "../EditorCommon/hooks/useDraggableListItem";
 
@@ -24,6 +24,9 @@ export type EditorItemsListItemProps = {
     handleClickRow?: (id: string) => void;
     handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (id: string) => boolean;
+    isItemNesting?: (id: string) => boolean;
+    onIsNestingChange?: (id: string, isNesting: boolean) => void;
+    hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
     moveItem?: (dragIndex: number, hoverIndex: number) => void;
 };
 
@@ -31,7 +34,7 @@ const EditorItemsListItem = ({
     id,
     index,
     itemName,
-    isDraggable = true,
+    isDraggable,
     additionalStyles,
     editModal,
     handleVisibility,
@@ -40,6 +43,9 @@ const EditorItemsListItem = ({
     isDefault,
     handleClickRow,
     isActionRowSelected,
+    isItemNesting,
+    onIsNestingChange,
+    hasDropWhenNesting,
     moveItem,
 }: EditorItemsListItemProps) => {
     const draggableList = useDraggableListItem({
@@ -53,15 +59,35 @@ const EditorItemsListItem = ({
         isDraggable,
     });
 
+    useEffect(() => {
+        if (draggableList) {
+            onIsNestingChange?.(id, draggableList.isNesting || false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [draggableList?.isNesting]);
+
+    useEffect(() => {
+        if (draggableList?.itemHoveredId && draggableList.draggingItemId) {
+            hasDropWhenNesting?.(draggableList.itemHoveredId, draggableList.draggingItemId);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [draggableList?.isNesting]);
+
+    useEffect(() => {
+        if (isItemNesting?.(id)) {
+        }
+    }, [id, isItemNesting]);
+
     return (
         <ListItem
             key={id}
             ref={draggableList?.ref}
             data-handler-id={draggableList?.handlerId}
             sx={(theme) => ({
-                opacity: draggableList?.isDragging ? 0 : 1,
+                opacity: draggableList?.isDragging ? 0.25 : 1,
                 maxWidth: pxToRem(250),
                 backgroundColor: theme.palette.background.default,
+                border: isItemNesting?.(id) ? "1px solid red" : "1px solid transparent",
                 ...additionalStyles,
             })}
             secondaryAction={

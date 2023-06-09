@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
-    WidgetValueParameter,
+    WidgetInfoValueParameter,
 } from "../../widgetsTypes";
 
 export interface WidgetsInfoState {
@@ -49,7 +49,7 @@ export const widgetsInfoSlice = createSlice({
 
             state.allIds = [...state.allIds, ...Object.keys(newWidgetsDictionary)];
         },
-        updateWidgetInfoDictionaryItem: <Value extends WidgetValueParameter>(
+        updateWidgetInfoDictionaryItem: <Value extends WidgetInfoValueParameter>(
             state: WidgetsInfoState,
             action: PayloadAction<{
                 widgetId: string;

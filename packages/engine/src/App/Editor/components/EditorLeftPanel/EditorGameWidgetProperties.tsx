@@ -7,7 +7,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Vector3Input } from "@gr
 import { FC } from "react";
 
 const EditorGameWidgetProperties: FC = () => {
-    const { selectedGameWidgets, updateGameWidget } = useGameWidgets();
+    const { selectedGameWidgets, updateGameWidgetInfo } = useGameWidgets();
     const { selectedWidgetProperties } = useUI();
     const openedAccordion = useAccordionDefaultOpened();
 
@@ -23,7 +23,7 @@ const EditorGameWidgetProperties: FC = () => {
                 index
             );
 
-            updateGameWidget(selectedGameWidgets[0].id, {
+            updateGameWidgetInfo(selectedGameWidgets[0].id, {
                 properties: {
                     ...selectedWidgetProperties,
                     [propertyKey]: newValue,
