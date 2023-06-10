@@ -119,9 +119,9 @@ export default () => {
             // const newWidgetsIds
             updateWidgetsOrder(newWidgetsIds);
 
-            removeWidget(draggingItemId);
+            // removeWidget(draggingItemId);
         },
-        [removeWidget, updateWidgetsOrder, widgetsIds]
+        [updateWidgetsOrder, widgetsIds]
     );
 
     const updateGameWidgetWithMesh = useCallback(

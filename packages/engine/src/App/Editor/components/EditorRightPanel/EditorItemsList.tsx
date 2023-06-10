@@ -24,6 +24,7 @@ export type EditorItemsListProps = {
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
     changeItemsHandler?: (ids: RecursiveIdsArray<string>) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
+    recursivelyCalled?: boolean;
 };
 
 export interface DragAndDropItem {
@@ -50,6 +51,7 @@ const EditorItemsList = ({
     onIsNestingChange,
     changeItemsHandler,
     hasDropWhenNesting,
+    recursivelyCalled,
 }: EditorItemsListProps) => {
     const moveItem = useCallback(
         (dragIndex: number, hoverIndex: number) => {
@@ -67,9 +69,7 @@ const EditorItemsList = ({
             {itemsDictionaryIds.length > 0 ? (
                 itemsDictionaryIds.map((id, index) => {
                     if (typeof id !== "string") {
-                        console.log(id, "id");
-                        console.log(id[1], "id[1]");
-                        const childItemName = displayItemName ? displayItemName(id[0]) : undefined;
+                        const parentItemName = displayItemName ? displayItemName(id[0]) : undefined;
 
                         return (
                             <>
@@ -77,7 +77,7 @@ const EditorItemsList = ({
                                     key={id[0]}
                                     id={id[0]}
                                     index={index}
-                                    itemName={childItemName}
+                                    itemName={parentItemName}
                                     editModal={editModal}
                                     isVisible={isVisible}
                                     isDefault={isDefault}
@@ -92,11 +92,10 @@ const EditorItemsList = ({
                                 />
                                 <Box
                                     sx={{
-                                        padding: pxToRem(2),
+                                        padding: pxToRem(0, 0, 0, 10),
                                     }}
                                 >
                                     <EditorItemsList
-                                        key={id[0]}
                                         itemsDictionaryIds={id[1]}
                                         noItemsText={noItemsText}
                                         editModal={editModal}
@@ -111,19 +110,24 @@ const EditorItemsList = ({
                                         onIsNestingChange={onIsNestingChange}
                                         changeItemsHandler={changeItemsHandler}
                                         hasDropWhenNesting={hasDropWhenNesting}
+                                        recursivelyCalled
                                     />
                                 </Box>
                             </>
                         );
                     } else {
-                        const parentItemName = displayItemName ? displayItemName(id) : undefined;
+                        const itemName = displayItemName ? displayItemName(id) : undefined;
+
+                        if (recursivelyCalled) {
+                            console.log({ id, itemName });
+                        }
 
                         return (
                             <EditorItemsListItem
                                 key={id}
                                 id={id}
                                 index={index}
-                                itemName={parentItemName}
+                                itemName={itemName}
                                 editModal={editModal}
                                 isVisible={isVisible}
                                 isDefault={isDefault}
