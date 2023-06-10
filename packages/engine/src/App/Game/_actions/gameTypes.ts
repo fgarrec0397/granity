@@ -134,10 +134,7 @@ export type GameWidgetDictionary<Props = DefaultGameWidgetProps> = Dictionary<
  * Informations of a widget object on the scene
  */
 export type GameWidgetDictionaryItem<Props = DefaultGameWidgetProps> = WidgetDictionaryItem &
-    Omit<GameWidgetModule<Props>, "reducer"> & {
-        path: string;
-        children: GameWidgetDictionary<Props>;
-    };
+    Omit<GameWidgetModule<Props>, "reducer">;
 
 /// -------------- Serialized Widgets Dictionary -------------- ///
 
@@ -184,4 +181,6 @@ export type GameWidgetProperties = {
 
 /// -------------- Game Widgets Actions Parameters -------------- ///
 
-export type GameWidgetValueParameter = Partial<Omit<GameWidgetInfoDictionaryItem, "id">>;
+export type GameWidgetValueParameter<TValue = string> = Partial<
+    Omit<GameWidgetInfoDictionaryItem<TValue>, "id">
+>;

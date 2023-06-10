@@ -1,4 +1,3 @@
-import { RecursiveIdsArray } from "@engine/../../helpers/src";
 import { useWidgets, useWidgetsModules, WidgetsIds, WidgetType } from "@engine/api";
 import useUI from "@engine/App/UI/_actions/hooks/useUI";
 import selectedWidgetsFilter from "@engine/App/Widgets/_actions/filters/selectedWidgetsFilter";
@@ -7,7 +6,7 @@ import widgetsIdsFilter from "@engine/App/Widgets/_actions/filters/widgetsIdsFil
 import widgetsInfoFilter from "@engine/App/Widgets/_actions/filters/widgetsInfoFilter";
 import widgetsModulesFilter from "@engine/App/Widgets/_actions/filters/widgetsModulesFilter";
 import { Object3D } from "@granity/three";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { gameWidgetPrefix } from "../gameConstants";
 import {
@@ -29,7 +28,6 @@ export default () => {
         widgetsIds,
         widgetsInfoDictionary,
         addWidget,
-        updateWidget,
         updateWidgetInfo,
         updateWidgetsOrder,
         selectWidget,
@@ -70,10 +68,6 @@ export default () => {
         [widgets, widgetsIds]
     );
 
-    useEffect(() => {
-        console.log(gameWidgetsIds, "gameWidgetsIds");
-    }, [gameWidgetsIds]);
-
     const getGameWidgetById = useCallback(
         (id: string | undefined) => {
             if (id) {
@@ -110,42 +104,24 @@ export default () => {
 
     const addGameWidgetChild = useCallback(
         (hoveredItemId: string, draggingItemId: string) => {
-            const widgetToAddChildTo = { ...gameWidgets[hoveredItemId] };
-            const widgetToAddAsChild = { ...gameWidgets[draggingItemId] };
-
-            updateWidget<GameWidgetValueParameter>(hoveredItemId, {
-                children: {
-                    ...widgetToAddChildTo.children,
-                    [draggingItemId]: widgetToAddAsChild,
-                },
-            });
-
-            console.log(widgetsIds);
-            const draggingIdIndex = widgetsIds.findIndex((x) => x === draggingItemId);
-            const hoveredIdIndex = widgetsIds.findIndex((x) => x === hoveredItemId);
-
             const widgetsIdsWithoutDraggingWidget: WidgetsIds = widgetsIds.filter(
                 (x) => x !== draggingItemId
             );
 
             const newWidgetsIds: WidgetsIds = widgetsIdsWithoutDraggingWidget.map((x) => {
-                if (x !== hoveredItemId) {
-                    return x;
-                }
-
                 if (x === hoveredItemId) {
-                    return [x, [draggingItemId]] as RecursiveIdsArray<string>;
+                    return [x, [draggingItemId]];
                 }
-            });
 
-            console.log(newWidgetsIds);
+                return x;
+            });
 
             // const newWidgetsIds
             updateWidgetsOrder(newWidgetsIds);
 
             removeWidget(draggingItemId);
         },
-        [gameWidgets, removeWidget, updateWidget, updateWidgetsOrder, widgetsIds]
+        [removeWidget, updateWidgetsOrder, widgetsIds]
     );
 
     const updateGameWidgetWithMesh = useCallback(

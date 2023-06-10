@@ -6,7 +6,7 @@ import useGameWidgetsUtilities from "@engine/App/Game/_actions/hooks/useGameWidg
 import useGetMeshByGameWidget from "@engine/App/Game/_actions/hooks/useGetMeshByGameWidget";
 import buildGameWidgetName from "@engine/App/Game/_actions/utilities/buildGameWidgetName";
 import resolveHelper from "@engine/App/Game/_actions/utilities/resolveHelper";
-import { ErrorBoundary, FallbackProps } from "@granity/helpers";
+import { ErrorBoundary, FallbackProps, HasChildren } from "@granity/helpers";
 import { Object3D } from "@granity/three";
 import { Html } from "@granity/three/drei";
 import {
@@ -21,10 +21,9 @@ import {
 import { FC, MutableRefObject, ReactNode, useRef } from "react";
 
 import useWidgets from "../../_actions/hooks/useWidgets";
-import Widgets from "../../Widgets";
 import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
-type Props = {
+type Props = HasChildren & {
     widget: GameWidgetDictionaryItem;
 };
 
@@ -54,7 +53,7 @@ const styles: WidgetObjectRendererStyles = {
     },
 };
 
-const GameWidgetRenderer: FC<Props> = ({ widget }) => {
+const GameWidgetRenderer: FC<Props> = ({ widget, children }) => {
     const componentRef = useRef(null!);
     const {
         gameWidgets,
@@ -129,7 +128,7 @@ const GameWidgetRenderer: FC<Props> = ({ widget }) => {
                     widgetFallbackRender(fallbackProps, displayWidgetName(id))
                 }
             >
-                {widget.children ? <Widgets widgetsIds={Object.keys(widget.children)} /> : null}
+                {children}
                 <Component {...widgetProps} {...widgetProperties} {...ref} />
             </ErrorBoundary>
         </mesh>

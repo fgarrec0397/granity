@@ -4,7 +4,7 @@ import { ReactNode } from "react";
  * A React component with children prop
  */
 export type HasChildren = {
-    children: ReactNode | ReactNode[];
+    children?: ReactNode | ReactNode[];
 };
 
 /**
