@@ -1,5 +1,5 @@
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
-import { HasCallableChildren, RecursiveIdsArray } from "@granity/helpers";
+import { HasCallableChildren, RecursiveArrayOfIds } from "@granity/helpers";
 import {
     Accordion,
     AccordionDetails,
@@ -19,7 +19,7 @@ export type EditorAccordionListButtonProps = {
 };
 
 export type EditorAccordionListProps = {
-    itemsDictionaryIds: RecursiveIdsArray<string>;
+    itemsDictionaryIds: RecursiveArrayOfIds<string>;
     title: string;
     noItemsText: string;
     triggerButtonText: string;
@@ -35,7 +35,7 @@ export type EditorAccordionListProps = {
     isActionRowSelected?: (id: string) => boolean;
     isItemNesting?: (id: string) => boolean;
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
-    changeItemsHandler?: (ids: RecursiveIdsArray<string>) => void;
+    changeItemsHandler?: (ids: RecursiveArrayOfIds<string>) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
 } & HasCallableChildren<{
     handleClose: () => void;

@@ -2,7 +2,7 @@ import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
-import { RecursiveIdsArray } from "@granity/helpers";
+import { RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
@@ -65,7 +65,7 @@ const EditorGameWidgetsList: FC = () => {
         addGameWidgetChild(hoveredItemId, draggingItemId);
     };
 
-    const changeItemsHandler = (ids: RecursiveIdsArray<string>) => {
+    const changeItemsHandler = (ids: RecursiveArrayOfIds<string>) => {
         updateWidgetsOrder(ids);
     };
 

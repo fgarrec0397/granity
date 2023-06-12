@@ -1,4 +1,4 @@
-import { clone, pull } from "@granity/helpers";
+import { clone, cloneDeep, pull, RecursiveArrayItem } from "@granity/helpers";
 import { useCallback } from "react";
 
 import {
@@ -53,7 +53,13 @@ export default () => {
                 [newWidget.id]: { ...newWidget },
             }));
 
-            updateWidgetsIds([...widgetsIds, newWidget.id]);
+            updateWidgetsIds([
+                ...widgetsIds,
+                {
+                    id: newWidget.id,
+                    children: [],
+                },
+            ]);
         },
         [dispatchAddWidgetInfoDictionaryItem, setWidgets, updateWidgetsIds, widgetsIds]
     );
@@ -62,7 +68,7 @@ export default () => {
         (newWidgets: WidgetDictionary, newWidgetsInfoDictionary: WidgetInfoDictionary) => {
             dispatchAddBatchWidgetInfoDictionary(newWidgetsInfoDictionary);
             setWidgets((prevWidgets) => ({ ...prevWidgets, ...newWidgets }));
-            updateWidgetsIds([...widgetsIds, ...Object.keys(newWidgets)]);
+            updateWidgetsIds([...widgetsIds, ...Object.keys(newWidgets).map((x) => ({ id: x }))]);
         },
         [dispatchAddBatchWidgetInfoDictionary, setWidgets, updateWidgetsIds, widgetsIds]
     );
@@ -108,13 +114,140 @@ export default () => {
 
             delete widgets[widgetId];
 
-            setWidgetsIds((prevIds) => {
-                const ids = prevIds.filter((x) => x !== widgetId);
+            const myArray = [
+                {
+                    id: 1,
+                    children: [
+                        {
+                            id: 3,
+                            children: [],
+                        },
+                    ],
+                },
+                {
+                    id: 2,
+                    children: [],
+                },
+            ];
 
-                return ids;
-            });
+            // const myArray = [1, 2, [3, [4]]];
+
+            function recursiveRemove(list, id) {
+                return list
+                    .map((item) => {
+                        return { ...item };
+                    })
+                    .filter((item) => {
+                        if ("children" in item) {
+                            item.children = recursiveRemove(item.children, id);
+                        }
+                        return item.id !== id;
+                    });
+            }
+            const test1 = recursiveRemove(widgetsIds, widgetId);
+            const test2 = recursiveRemove(myArray, 2);
+            const test3 = recursiveRemove(myArray, 3);
+
+            console.log(myArray, "myArray");
+
+            console.log({ test1, test2, test3 });
+
+            // const recursiveRemove = (ids: WidgetsIds, id: string): WidgetsIds => {
+            //     const clonedIds = cloneDeep(ids);
+            //     // clonedIds = [1,2,3,[4, [5,6,7]]]
+
+            //     return clonedIds.filter((item) => {
+            //         if (typeof item !== "string") {
+            //             console.log(item, "item is an array");
+
+            //             item = recursiveRemove(item, id);
+            //         }
+            //         return item !== id;
+            //     });
+            // };
+            // const recursiveRemove = (
+            //     ids: WidgetsIds,
+            //     id: string,
+            //     isRecursive?: boolean
+            // ): WidgetsIds => {
+            //     const clonedIds = cloneDeep(ids);
+            //     let filteredIds = [...clonedIds];
+            //     if (isRecursive) {
+            //         console.log("Recusive call");
+            //     }
+
+            //     console.log(filteredIds, "filteredIds");
+
+            //     // clonedIds = [[4, [5]]]
+
+            //     for (let index = 0; index < clonedIds.length; index++) {
+            //         const item = clonedIds[index];
+            //         if (typeof item !== "string") {
+            //             console.log(item, "item is an array");
+
+            //             if (item[0] === id) {
+            //                 delete filteredIds[index];
+            //                 break;
+            //             }
+
+            //             console.log(
+            //                 recursiveRemove(item[1], id, true),
+            //                 "value from recursiveRemove"
+            //             );
+
+            //             filteredIds = [...filteredIds, ...recursiveRemove(item[1], id, true)];
+            //         }
+
+            //         if (item === id) {
+            //             console.log({ item, id });
+
+            //             console.log(filteredIds[index], "filteredIds[index] before delete");
+            //             // delete filteredIds[index];
+            //             filteredIds.splice(index, 1);
+            //             console.log(filteredIds, "filteredIds after delete");
+            //         }
+            //     }
+
+            //     console.log(filteredIds, "filteredIds");
+
+            //     return filteredIds;
+            // };
+
+            // const recursivelyDeleteId = (ids: WidgetsIds): WidgetsIds => {
+            //     const clonedIds = [...ids];
+
+            //     console.log(clonedIds, "clonedIds");
+
+            //     const filteredIds = clonedIds
+            //         .map((x) => x)
+            //         .filter((x) => {
+            //             if (typeof x === "string") {
+            //                 console.log({ currentId: x, widgetId }, "currentId is type of string");
+
+            //                 return x !== widgetId;
+            //             } else {
+            //                 console.log(x, "currentId is type of array");
+            //                 console.log(x[0] === widgetId);
+
+            //                 // if (x[0] !== widgetId) {
+            //                 //     console.log("currentId is not widgetId, so we return true");
+
+            //                 //     return true;
+            //                 // }
+
+            //                 recursivelyDeleteId(x);
+            //             }
+            //         });
+
+            //     return filteredIds;
+            // };
+
+            // const newIds = recursiveRemove(widgetsIds, widgetId);
+            // console.log(newIds, "newIds");
+
+            setWidgetsIds(test1);
         },
-        [dispatchRemoveWidgetInfoDictionary, removeSelection, setWidgetsIds, widgets]
+        [dispatchRemoveWidgetInfoDictionary, removeSelection, setWidgetsIds, widgets, widgetsIds]
     );
 
     const removeBatch = useCallback(
@@ -127,7 +260,7 @@ export default () => {
             Object.keys(widgetsToDelete).forEach((x) => delete widgets[x]);
 
             setWidgetsIds((prevIds) => {
-                const ids = pull(prevIds, ...Object.keys(widgetsToDelete));
+                const ids = pull(prevIds, ...Object.keys(widgetsToDelete).map((x) => ({ id: x })));
 
                 return ids;
             });
@@ -143,7 +276,7 @@ export default () => {
         (
             newWidgets: WidgetDictionary,
             newWidgetsDictionary: WidgetInfoDictionary,
-            newWidgetsIds?: string[],
+            newWidgetsIds?: WidgetsIds,
             shouldRemoveAll?: boolean
         ) => {
             if (shouldRemoveAll) {
@@ -151,7 +284,7 @@ export default () => {
             }
 
             setWidgets(newWidgets);
-            setWidgetsIds(newWidgetsIds || Object.keys(newWidgets));
+            setWidgetsIds(newWidgetsIds || Object.keys(newWidgets).map((x) => ({ id: x })));
             dispatchOverrideWidgetInfoDictionary(newWidgetsDictionary);
         },
         [dispatchOverrideWidgetInfoDictionary, removeAll, setWidgets, setWidgetsIds]

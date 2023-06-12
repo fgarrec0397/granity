@@ -1,8 +1,9 @@
 import {
     SerializedWidgetDictionary,
     WidgetInfoDictionary,
+    WidgetsIds,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Dictionary, Vector3Array } from "@granity/helpers";
+import { Dictionary, RecursiveArrayOfIds, Vector3Array } from "@granity/helpers";
 import { Camera } from "@granity/three/fiber";
 import { MutableRefObject } from "react";
 
@@ -46,10 +47,12 @@ export type ScenesDictionaryItem = {
 export type SceneData = {
     serializedWidgets: SerializedWidgetDictionary;
     widgetsInfoDictionary: WidgetInfoDictionary;
-    widgetsIds: string[];
+    widgetsIds: WidgetsIds;
 };
 
 /**
  * Scene Services Parameters
  */
 export type SaveSceneServiceParameter = ScenesDictionary;
+
+export type ScenesIds = RecursiveArrayOfIds<string>;

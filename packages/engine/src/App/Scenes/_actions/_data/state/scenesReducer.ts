@@ -1,11 +1,11 @@
 import { FetchStatus } from "@engine/App/Core/_actions/coreTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ScenesDictionary, ScenesDictionaryItem } from "../../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem, ScenesIds } from "../../scenesTypes";
 
 export interface ScenesState {
     byId: ScenesDictionary;
-    allIds: string[];
+    allIds: ScenesIds;
     status: FetchStatus;
     currentSceneId: string | null;
     currentDefaultSceneId: string | null;
@@ -31,7 +31,7 @@ export const scenesSlice = createSlice({
                 [newScene.id]: newScene,
             };
 
-            state.allIds.push(newScene.id);
+            state.allIds.push({ id: newScene.id });
         },
         setScenesStatus: (state: ScenesState, actions: PayloadAction<ScenesState["status"]>) => {
             const status = actions.payload;
@@ -46,7 +46,7 @@ export const scenesSlice = createSlice({
                 ...newScenes,
             };
 
-            state.allIds = [...state.allIds, ...Object.keys(newScenes)];
+            state.allIds = [...state.allIds, ...Object.keys(newScenes).map((x) => ({ id: x }))];
         },
         resetScenes: (
             state: ScenesState,
@@ -58,7 +58,7 @@ export const scenesSlice = createSlice({
 
             state.byId = scenes;
 
-            state.allIds = Object.keys(scenes);
+            state.allIds = Object.keys(scenes).map((x) => ({ id: x }));
         },
         setCurrentSceneId: (state: ScenesState, actions: PayloadAction<string>) => {
             state.currentSceneId = actions.payload;
@@ -83,7 +83,7 @@ export const scenesSlice = createSlice({
                 delete state.byId[sceneId];
             }
 
-            state.allIds = state.allIds.filter((x) => x !== sceneId);
+            state.allIds = state.allIds.filter((x) => x.id !== sceneId);
         },
     },
 });

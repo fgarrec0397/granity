@@ -3,7 +3,7 @@ import useInitGameWidgets from "@engine/App/Game/_actions/hooks/useInitGameWidge
 import { useCallback } from "react";
 
 import { buildWidgetInfoDictionary } from "../utilities/buildWidgetInfoDictionary";
-import { SerializedWidgetDictionary, WidgetInfoDictionary } from "../widgetsTypes";
+import { SerializedWidgetDictionary, WidgetInfoDictionary, WidgetsIds } from "../widgetsTypes";
 import useWidgets from "./useWidgets";
 import useWidgetsModules from "./useWidgetsModules";
 import useWidgetsUtilities from "./useWidgetsUtilities";
@@ -18,7 +18,7 @@ export default () => {
         (
             serializedWidgets?: SerializedWidgetDictionary,
             widgetsInfoDictionary?: WidgetInfoDictionary,
-            widgetsIds?: string[]
+            widgetsIds?: WidgetsIds
         ) => {
             if (!serializedWidgets || !widgetsInfoDictionary) {
                 return resetWidgets();

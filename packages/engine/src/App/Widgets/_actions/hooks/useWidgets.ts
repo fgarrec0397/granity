@@ -191,7 +191,7 @@ export default () => {
         (
             widgetsToAdd?: WidgetDictionary,
             widgetDictionaryToAdd?: WidgetInfoDictionary,
-            newWidgetsIds?: string[],
+            newWidgetsIds?: WidgetsIds,
             shouldRemoveAll?: boolean
         ) => {
             reset(widgetsToAdd || {}, widgetDictionaryToAdd || {}, newWidgetsIds, shouldRemoveAll);

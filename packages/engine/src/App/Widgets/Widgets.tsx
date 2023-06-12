@@ -10,16 +10,17 @@ type WidgetsProps = {
 const Widgets: FC<WidgetsProps> = ({ widgetsIds }) => {
     return (
         <>
-            {widgetsIds.map((widgetId) => {
-                if (typeof widgetId === "string") {
-                    return <WidgetRenderer key={widgetId} widgetId={widgetId} />;
+            {widgetsIds.map((item) => {
+                // TODO - continue here. Investigate to manage children widgets from here instead of within the Renderer
+                if (item.children?.length) {
+                    return (
+                        <WidgetRenderer key={item.id} widgetId={item.id}>
+                            <Widgets widgetsIds={item.children} />
+                        </WidgetRenderer>
+                    );
                 }
 
-                return (
-                    <WidgetRenderer key={widgetId[0]} widgetId={widgetId[0]}>
-                        <Widgets widgetsIds={widgetId[1]} />
-                    </WidgetRenderer>
-                );
+                return <WidgetRenderer key={item.id} widgetId={item.id} />;
             })}
         </>
     );

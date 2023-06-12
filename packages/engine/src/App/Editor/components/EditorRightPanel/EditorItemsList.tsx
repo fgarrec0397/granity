@@ -1,4 +1,4 @@
-import { clone, RecursiveIdsArray } from "@granity/helpers";
+import { clone, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { ReactElement, useCallback } from "react";
 
@@ -10,7 +10,7 @@ export type EditorItemsListButtonProps = {
 };
 
 export type EditorItemsListProps = {
-    itemsDictionaryIds: RecursiveIdsArray<string>;
+    itemsDictionaryIds: RecursiveArrayOfIds<string>;
     noItemsText: string;
     editModal?: (id: string) => ReactElement;
     isVisible?: (id: string) => boolean | undefined;
@@ -22,7 +22,7 @@ export type EditorItemsListProps = {
     isActionRowSelected?: (id: string) => boolean;
     isItemNesting?: (id: string) => boolean;
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
-    changeItemsHandler?: (ids: RecursiveIdsArray<string>) => void;
+    changeItemsHandler?: (ids: RecursiveArrayOfIds<string>) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
 };
 
@@ -65,36 +65,36 @@ const EditorItemsList = ({
     return (
         <List>
             {itemsDictionaryIds.length > 0 ? (
-                itemsDictionaryIds.map((id, index) => {
-                    if (typeof id !== "string") {
-                        const parentItemName = displayItemName ? displayItemName(id[0]) : undefined;
+                itemsDictionaryIds.map((item, index) => {
+                    const parentItemName = displayItemName ? displayItemName(item.id) : undefined;
 
-                        return (
-                            <>
-                                <EditorItemsListItem
-                                    key={id[0]}
-                                    id={id[0]}
-                                    index={index}
-                                    itemName={parentItemName}
-                                    editModal={editModal}
-                                    isVisible={isVisible}
-                                    isDefault={isDefault}
-                                    handleVisibility={handleVisibility}
-                                    handleClickRow={handleClickRow}
-                                    handleClickRemove={handleClickRemove}
-                                    isActionRowSelected={isActionRowSelected}
-                                    isItemNesting={isItemNesting}
-                                    onIsNestingChange={onIsNestingChange}
-                                    hasDropWhenNesting={hasDropWhenNesting}
-                                    moveItem={moveItem}
-                                />
+                    return (
+                        <>
+                            <EditorItemsListItem
+                                key={item.id}
+                                id={item.id}
+                                index={index}
+                                itemName={parentItemName}
+                                editModal={editModal}
+                                isVisible={isVisible}
+                                isDefault={isDefault}
+                                handleVisibility={handleVisibility}
+                                handleClickRow={handleClickRow}
+                                handleClickRemove={handleClickRemove}
+                                isActionRowSelected={isActionRowSelected}
+                                isItemNesting={isItemNesting}
+                                onIsNestingChange={onIsNestingChange}
+                                hasDropWhenNesting={hasDropWhenNesting}
+                                moveItem={moveItem}
+                            />
+                            {item.children?.length ? (
                                 <Box
                                     sx={{
                                         padding: pxToRem(0, 0, 0, 10),
                                     }}
                                 >
                                     <EditorItemsList
-                                        itemsDictionaryIds={id[1]}
+                                        itemsDictionaryIds={item.children}
                                         noItemsText={noItemsText}
                                         editModal={editModal}
                                         isVisible={isVisible}
@@ -110,31 +110,9 @@ const EditorItemsList = ({
                                         hasDropWhenNesting={hasDropWhenNesting}
                                     />
                                 </Box>
-                            </>
-                        );
-                    } else {
-                        const itemName = displayItemName ? displayItemName(id) : undefined;
-
-                        return (
-                            <EditorItemsListItem
-                                key={id}
-                                id={id}
-                                index={index}
-                                itemName={itemName}
-                                editModal={editModal}
-                                isVisible={isVisible}
-                                isDefault={isDefault}
-                                handleVisibility={handleVisibility}
-                                handleClickRow={handleClickRow}
-                                handleClickRemove={handleClickRemove}
-                                isActionRowSelected={isActionRowSelected}
-                                isItemNesting={isItemNesting}
-                                onIsNestingChange={onIsNestingChange}
-                                hasDropWhenNesting={hasDropWhenNesting}
-                                moveItem={moveItem}
-                            />
-                        );
-                    }
+                            ) : null}
+                        </>
+                    );
                 })
             ) : (
                 <Typography>{noItemsText}</Typography>

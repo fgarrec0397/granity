@@ -6,7 +6,7 @@ import widgetsIdsFilter from "@engine/App/Widgets/_actions/filters/widgetsIdsFil
 import widgetsInfoFilter from "@engine/App/Widgets/_actions/filters/widgetsInfoFilter";
 import widgetsModulesFilter from "@engine/App/Widgets/_actions/filters/widgetsModulesFilter";
 import { Object3D } from "@granity/three";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { gameWidgetPrefix } from "../gameConstants";
 import {
@@ -104,12 +104,19 @@ export default () => {
     const addGameWidgetChild = useCallback(
         (hoveredItemId: string, draggingItemId: string) => {
             const widgetsIdsWithoutDraggingWidget: WidgetsIds = widgetsIds.filter(
-                (x) => x !== draggingItemId
+                (x) => x.id !== draggingItemId
             );
 
             const newWidgetsIds: WidgetsIds = widgetsIdsWithoutDraggingWidget.map((x) => {
-                if (x === hoveredItemId) {
-                    return [x, [draggingItemId]];
+                if (x.id === hoveredItemId) {
+                    return {
+                        id: x.id,
+                        children: [
+                            {
+                                id: draggingItemId,
+                            },
+                        ],
+                    };
                 }
 
                 return x;
