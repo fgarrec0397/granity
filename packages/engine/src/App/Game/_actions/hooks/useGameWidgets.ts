@@ -6,7 +6,7 @@ import widgetsIdsFilter from "@engine/App/Widgets/_actions/filters/widgetsIdsFil
 import widgetsInfoFilter from "@engine/App/Widgets/_actions/filters/widgetsInfoFilter";
 import widgetsModulesFilter from "@engine/App/Widgets/_actions/filters/widgetsModulesFilter";
 import { Object3D } from "@granity/three";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { gameWidgetPrefix } from "../gameConstants";
 import {
