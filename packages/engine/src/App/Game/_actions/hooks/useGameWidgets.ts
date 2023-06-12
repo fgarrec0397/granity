@@ -33,7 +33,6 @@ export default () => {
         selectWidget,
         selectedWidgets,
         copyWidget,
-        removeWidget,
     } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
     const { updateSelectedWidgetProperties } = useUI();
@@ -116,10 +115,7 @@ export default () => {
                 return x;
             });
 
-            // const newWidgetsIds
             updateWidgetsOrder(newWidgetsIds);
-
-            // removeWidget(draggingItemId);
         },
         [updateWidgetsOrder, widgetsIds]
     );

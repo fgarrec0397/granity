@@ -24,7 +24,6 @@ export type EditorItemsListProps = {
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
     changeItemsHandler?: (ids: RecursiveIdsArray<string>) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
-    recursivelyCalled?: boolean;
 };
 
 export interface DragAndDropItem {
@@ -51,7 +50,6 @@ const EditorItemsList = ({
     onIsNestingChange,
     changeItemsHandler,
     hasDropWhenNesting,
-    recursivelyCalled,
 }: EditorItemsListProps) => {
     const moveItem = useCallback(
         (dragIndex: number, hoverIndex: number) => {
@@ -110,17 +108,12 @@ const EditorItemsList = ({
                                         onIsNestingChange={onIsNestingChange}
                                         changeItemsHandler={changeItemsHandler}
                                         hasDropWhenNesting={hasDropWhenNesting}
-                                        recursivelyCalled
                                     />
                                 </Box>
                             </>
                         );
                     } else {
                         const itemName = displayItemName ? displayItemName(id) : undefined;
-
-                        if (recursivelyCalled) {
-                            console.log({ id, itemName });
-                        }
 
                         return (
                             <EditorItemsListItem
