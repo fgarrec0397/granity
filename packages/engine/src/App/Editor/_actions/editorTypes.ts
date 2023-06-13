@@ -1,4 +1,8 @@
-import { WidgetDictionary, WidgetInfoDictionary } from "@engine/App/Widgets/_actions/widgetsTypes";
+import {
+    WidgetDictionary,
+    WidgetInfoDictionary,
+    WidgetsIds,
+} from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Dictionary } from "@granity/helpers";
 
 /**
@@ -21,5 +25,5 @@ export type HistoryItem = {
 export type HistoryState = {
     widgetsInfoDictionary: WidgetInfoDictionary;
     widgets: WidgetDictionary;
-    widgetsIds: string[];
+    widgetsIds: WidgetsIds;
 };

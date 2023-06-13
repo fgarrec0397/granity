@@ -12,7 +12,6 @@ const widgetsIdsFilter = (
     const filteredWidgetsIds: WidgetsIds = [];
 
     widgetsIds.forEach((item) => {
-        // console.log(item, "item is an array");
         const widget = widgetsDictionary[item.id];
 
         if (widget.type === widgetType) {

@@ -96,7 +96,6 @@ export default () => {
         [updateInfo]
     );
 
-    // TODO - bring the change widget order logic here. Should handle nested widgets
     const updateWidgetsOrder = useCallback(
         (newWidgetsIds: WidgetsIds) => {
             updateWidgetsIds(newWidgetsIds);

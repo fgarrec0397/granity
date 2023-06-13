@@ -8,13 +8,14 @@ import { FC, useEffect, useMemo, useState } from "react";
 
 const TransformControlsComponent: FC = () => {
     const { camera, scene, gl } = useThree();
-    const { updateGameWidgetWithMesh, selectedGameWidgets } = useGameWidgets();
+    const { updateGameWidgetWithMesh, selectedGameWidgets, gameWidgetsIds } = useGameWidgets();
     const getMeshByGameWidget = useGetMeshByGameWidget();
     const { setIsEditing, isEditing, currentMode } = useEditor();
     const [meshToAttach, setMeshToAttach] = useState<Object3D>();
 
     const previousCurrentMode = usePrevious(currentMode);
     const previousSelectedWidgets = usePrevious(selectedGameWidgets);
+    const previousGameWidgets = usePrevious(gameWidgetsIds);
     const transformControls = useMemo(
         () => new TransformControls(camera, gl.domElement),
         [camera, gl.domElement]
@@ -53,6 +54,16 @@ const TransformControlsComponent: FC = () => {
             transformControls.setMode(currentMode);
         }
     }, [currentMode, previousCurrentMode, transformControls]);
+
+    /**
+     * Reset the attached mesh when widgets ids change
+     */
+    useEffect(() => {
+        if (selectedGameWidgets.length && !isEqual(gameWidgetsIds, previousGameWidgets)) {
+            setMeshToAttach(undefined);
+            setMeshToAttach(getMeshByGameWidget(selectedGameWidgets[0]));
+        }
+    }, [gameWidgetsIds, getMeshByGameWidget, previousGameWidgets, selectedGameWidgets]);
 
     /**
      * Update the current mesh to be attached to TransformControls when it changes

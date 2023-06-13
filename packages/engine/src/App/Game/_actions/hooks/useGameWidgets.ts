@@ -33,6 +33,7 @@ export default () => {
         selectWidget,
         selectedWidgets,
         copyWidget,
+        removeWidgetSelection,
     } = useWidgets();
     const { widgetsModules } = useWidgetsModules();
     const { updateSelectedWidgetProperties } = useUI();
@@ -62,6 +63,7 @@ export default () => {
             ),
         [widgets, widgetsInfoDictionary]
     );
+
     const gameWidgetsIds = useMemo(
         () => widgetsIdsFilter(widgets, widgetsIds, WidgetType.GameObject),
         [widgets, widgetsIds]
@@ -122,9 +124,11 @@ export default () => {
                 return x;
             });
 
+            removeWidgetSelection();
+
             updateWidgetsOrder(newWidgetsIds);
         },
-        [updateWidgetsOrder, widgetsIds]
+        [removeWidgetSelection, updateWidgetsOrder, widgetsIds]
     );
 
     const updateGameWidgetWithMesh = useCallback(
