@@ -1,17 +1,13 @@
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
-import { usePrevious } from "@granity/helpers";
 import { useEffect } from "react";
 
 import useHistory from "./useHistory";
 
 export default () => {
-    const { widgets, widgetsInfoDictionary, widgetsIds, resetWidgets } = useWidgets();
+    const { widgets, widgetsInfoDictionary, widgetsIds } = useWidgets();
     const {
         addHistoryState,
-        currentHistoryItem,
-        setShouldAddHistoryState,
-        shouldResetWidgets,
         editorStateChanged,
         shouldUpdateAppStatus,
         isCurrentHistoryItemIsSaved,
@@ -19,7 +15,6 @@ export default () => {
         widgetsChanged,
     } = useHistory();
     const { app, updateApp } = useCore();
-    const previousCurrentHistoryItem = usePrevious(currentHistoryItem);
 
     useEffect(() => {
         const beforeUnloadHanlder = (event: BeforeUnloadEvent) => {
@@ -68,8 +63,7 @@ export default () => {
                 widgetsIds,
             });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [addHistoryState, editorStateChanged, widgets, widgetsInfoDictionary]);
+    }, [addHistoryState, editorStateChanged, widgets, widgetsIds, widgetsInfoDictionary]);
 
     useEffect(() => {
         if (shouldUpdateAppStatus) {
@@ -79,21 +73,4 @@ export default () => {
             });
         }
     }, [app, shouldUpdateAppStatus, updateApp]);
-
-    useEffect(() => {
-        if (shouldResetWidgets) {
-            setShouldAddHistoryState(true);
-            resetWidgets(
-                currentHistoryItem!.state.widgets,
-                currentHistoryItem!.state.widgetsInfoDictionary,
-                currentHistoryItem!.state.widgetsIds
-            );
-        }
-    }, [
-        currentHistoryItem,
-        previousCurrentHistoryItem,
-        resetWidgets,
-        setShouldAddHistoryState,
-        shouldResetWidgets,
-    ]);
 };

@@ -2,15 +2,15 @@ import { useScenes } from "@engine/api";
 import useCore from "@engine/App/Core/_actions/hooks/useCore";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import { isEqual, usePrevious } from "@granity/helpers";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import useHistoryService from "../_data/hooks/useHistoryService";
 import { HistoryState } from "../editorTypes";
 import useEditor from "./useEditor";
 
 export default () => {
-    const { widgets, widgetsInfoDictionary, widgetsIds } = useWidgets();
-
+    const [canResetWidgets, setCanResetWidgets] = useState(false);
+    const { widgets, widgetsInfoDictionary, widgetsIds, resetWidgets } = useWidgets();
     const {
         historyDictionary,
         currentHistoryItem,
@@ -28,6 +28,10 @@ export default () => {
     const { currentSceneId } = useScenes();
     const { app } = useCore();
 
+    /**
+     * This value indicates if we are able to reset the widgets by checking if there
+     * has already been a currentHistoryItem declared and if it is not equal to the previous one
+     */
     const shouldResetWidgets = useMemo(
         () =>
             hasEdited &&
@@ -38,27 +42,33 @@ export default () => {
         [currentHistoryItem, hasEdited, previousCurrentHistoryItem]
     );
 
-    const widgetsChanged = useMemo(
-        () =>
+    const widgetsIdsOrderChanged = useMemo(() => {
+        return !isEqual(widgetsIds, previousWidgetsIds);
+    }, [previousWidgetsIds, widgetsIds]);
+
+    /**
+     * This value indicates if the widgets have changed. It also make sure the
+     * previous one is not undefined
+     */
+    const widgetsChanged = useMemo(() => {
+        return (
             previousWidgets !== undefined &&
             previousWidgetsDictionary !== undefined &&
             (!isEqual(widgets, previousWidgets) ||
                 !isEqual(widgetsInfoDictionary, previousWidgetsDictionary) ||
-                !isEqual(widgetsIds, previousWidgetsIds)),
-        [
-            previousWidgets,
-            previousWidgetsDictionary,
-            previousWidgetsIds,
-            widgets,
-            widgetsIds,
-            widgetsInfoDictionary,
-        ]
-    );
+                widgetsIdsOrderChanged)
+        );
+    }, [
+        previousWidgets,
+        previousWidgetsDictionary,
+        widgets,
+        widgetsIdsOrderChanged,
+        widgetsInfoDictionary,
+    ]);
 
-    const editorStateChanged = useMemo(
-        () => shouldAddHistoryState && widgetsChanged,
-        [shouldAddHistoryState, widgetsChanged]
-    );
+    const editorStateChanged = useMemo(() => {
+        return shouldAddHistoryState && widgetsChanged;
+    }, [shouldAddHistoryState, widgetsChanged]);
 
     const shouldUpdateAppStatus = useMemo(
         () =>
@@ -105,6 +115,25 @@ export default () => {
         ]
     );
 
+    useEffect(() => {
+        if (canResetWidgets && shouldResetWidgets) {
+            resetWidgets(
+                currentHistoryItem?.state.widgets,
+                currentHistoryItem?.state.widgetsInfoDictionary,
+                currentHistoryItem?.state.widgetsIds
+            );
+
+            setCanResetWidgets(false);
+        }
+    }, [
+        canResetWidgets,
+        currentHistoryItem?.state.widgets,
+        currentHistoryItem?.state.widgetsIds,
+        currentHistoryItem?.state.widgetsInfoDictionary,
+        resetWidgets,
+        shouldResetWidgets,
+    ]);
+
     const addHistoryState = useCallback(
         (state: HistoryState) => {
             add(state);
@@ -115,6 +144,13 @@ export default () => {
     const getHistoryItemId = useCallback(
         (index: number) => {
             return Object.keys(historyDictionary)[index];
+        },
+        [historyDictionary]
+    );
+
+    const getHistoryItemById = useCallback(
+        (id: string) => {
+            return historyDictionary[id];
         },
         [historyDictionary]
     );
@@ -161,6 +197,8 @@ export default () => {
         const prevHistoryItemId = getHistoryItemId(currentHistoryItemIndex - 1);
 
         setHistoryItem(prevHistoryItemId);
+
+        setCanResetWidgets(true);
     }, [currentHistoryItem?.order, getHistoryItemId, previousHistoryItem?.order, setHistoryItem]);
 
     const setNextHistoryItem = useCallback(() => {
@@ -183,11 +221,14 @@ export default () => {
         }
 
         const nextHistoryItemId = getHistoryItemId(currentHistoryItemIndex + 1);
+
         setHistoryItem(nextHistoryItemId);
+        setCanResetWidgets(true);
     }, [currentHistoryItem?.order, getHistoryItemId, previousHistoryItem?.order, setHistoryItem]);
 
     return {
         historyDictionary,
+        getHistoryItemById,
         currentHistoryItem,
         addHistoryState,
         getHistoryItemId,
@@ -203,5 +244,6 @@ export default () => {
         isCurrentHistoryItemIsPublished,
         widgetsChanged,
         previousHistoryItem,
+        widgetsIdsOrderChanged,
     };
 };
