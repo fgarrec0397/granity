@@ -1,6 +1,6 @@
 import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import { UIWidgetDictionaryItem } from "@engine/App/UI/_actions/uiTypes";
-import { HasChildren } from "@granity/helpers";
+import { HasChildren, RecursiveObjectWithChildren } from "@granity/helpers";
 import { FC } from "react";
 
 import { useWidgets } from "../_actions/hooks";
@@ -9,13 +9,15 @@ import GameWidgetRenderer from "./WidgetsRenderers/GameWidgetRenderer";
 import UIWidgetRenderer from "./WidgetsRenderers/UIWidgetRenderer";
 
 interface WidgetItemProps extends HasChildren {
-    widgetId: string;
+    widgetId: RecursiveObjectWithChildren<{
+        id: string;
+    }>;
 }
 
 const WidgetRenderer: FC<WidgetItemProps> = ({ widgetId, children }) => {
     const { getWidgetById } = useWidgets();
 
-    const widget = getWidgetById(widgetId);
+    const widget = getWidgetById(widgetId.id);
 
     if (!widget) {
         return null;
@@ -23,7 +25,7 @@ const WidgetRenderer: FC<WidgetItemProps> = ({ widgetId, children }) => {
 
     if (widget.type === WidgetType.GameObject) {
         return (
-            <GameWidgetRenderer widget={widget as GameWidgetDictionaryItem}>
+            <GameWidgetRenderer widget={widget as GameWidgetDictionaryItem} widgetId={widgetId}>
                 {children}
             </GameWidgetRenderer>
         );

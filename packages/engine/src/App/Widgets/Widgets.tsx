@@ -13,13 +13,13 @@ const Widgets: FC<WidgetsProps> = ({ widgetsIds }) => {
             {widgetsIds.map((item) => {
                 if (item.children?.length) {
                     return (
-                        <WidgetRenderer key={item.id} widgetId={item.id}>
+                        <WidgetRenderer key={item.id} widgetId={item}>
                             <Widgets widgetsIds={item.children} />
                         </WidgetRenderer>
                     );
                 }
 
-                return <WidgetRenderer key={item.id} widgetId={item.id} />;
+                return <WidgetRenderer key={item.id} widgetId={item} />;
             })}
         </>
     );

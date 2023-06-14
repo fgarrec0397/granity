@@ -6,8 +6,13 @@ import useGameWidgetsUtilities from "@engine/App/Game/_actions/hooks/useGameWidg
 import useGetMeshByGameWidget from "@engine/App/Game/_actions/hooks/useGetMeshByGameWidget";
 import buildGameWidgetName from "@engine/App/Game/_actions/utilities/buildGameWidgetName";
 import resolveHelper from "@engine/App/Game/_actions/utilities/resolveHelper";
-import { ErrorBoundary, FallbackProps, HasChildren } from "@granity/helpers";
-import { Object3D } from "@granity/three";
+import {
+    ErrorBoundary,
+    FallbackProps,
+    HasChildren,
+    RecursiveObjectWithChildren,
+} from "@granity/helpers";
+import { BoxHelper, Object3D } from "@granity/three";
 import { Html } from "@granity/three/drei";
 import {
     Button,
@@ -25,6 +30,9 @@ import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = HasChildren & {
     widget: GameWidgetDictionaryItem;
+    widgetId: RecursiveObjectWithChildren<{
+        id: string;
+    }>;
 };
 
 type WidgetObjectRendererStyles = {
@@ -53,8 +61,9 @@ const styles: WidgetObjectRendererStyles = {
     },
 };
 
-const GameWidgetRenderer: FC<Props> = ({ widget, children }) => {
+const GameWidgetRenderer: FC<Props> = ({ widget, widgetId, children }) => {
     const componentRef = useRef(null!);
+    const wrapperRef = useRef(null!);
     const {
         gameWidgets,
         gameWidgetsInfo,
@@ -77,7 +86,14 @@ const GameWidgetRenderer: FC<Props> = ({ widget, children }) => {
 
     const resolvedHelper = resolveHelper(helper);
 
+    const displayParentWidgetHelper =
+        widgetId.children?.length !== undefined && widgetId.children?.length > 0;
+
     useEditorHelper(resolvedHelper && (componentRef as MutableRefObject<Object3D>), resolvedHelper);
+    useEditorHelper(
+        displayParentWidgetHelper ? wrapperRef : ({} as MutableRefObject<Object3D>),
+        BoxHelper
+    );
 
     if (gameWidgetsInfo[id]?.isVisible !== undefined) {
         const mesh = getMeshByGameWidget(gameWidgets[id]);
@@ -120,7 +136,7 @@ const GameWidgetRenderer: FC<Props> = ({ widget, children }) => {
             : {};
 
     return (
-        <mesh name={name} {...widgetProperties}>
+        <mesh name={name} {...widgetProperties} ref={wrapperRef}>
             {isEditor && gizmo && <WidgetsGizmo text={resolveGizmoText()} onClick={onGizmoClick} />}
 
             <ErrorBoundary

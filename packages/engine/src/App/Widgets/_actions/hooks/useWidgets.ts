@@ -1,4 +1,4 @@
-import { uidGenerator } from "@granity/helpers";
+import { clone, uidGenerator } from "@granity/helpers";
 import { useSnackbar } from "@granity/ui";
 import { useCallback } from "react";
 
@@ -96,6 +96,15 @@ export default () => {
         [updateInfo]
     );
 
+    const updateWidgetOrder = useCallback(
+        (indexToChangeOrder: number, indexToUpdateTo: number) => {
+            const clonedWidgetsIds = clone(widgetsIds);
+            const removedId = clonedWidgetsIds.splice(indexToChangeOrder, 1);
+            clonedWidgetsIds.splice(indexToUpdateTo, 0, ...removedId);
+            updateWidgetsIds(clonedWidgetsIds);
+        },
+        [updateWidgetsIds, widgetsIds]
+    );
     const updateWidgetsOrder = useCallback(
         (newWidgetsIds: WidgetsIds) => {
             updateWidgetsIds(newWidgetsIds);
@@ -223,5 +232,6 @@ export default () => {
         removeWidget,
         removeWidgetSelection,
         resetWidgets,
+        updateWidgetOrder,
     };
 };

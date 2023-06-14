@@ -35,7 +35,7 @@ export type EditorAccordionListProps = {
     isActionRowSelected?: (id: string) => boolean;
     isItemNesting?: (id: string) => boolean;
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
-    changeItemsHandler?: (ids: RecursiveArrayOfIds<string>) => void;
+    changeItemsHandler?: (dragIndex: number, hoverIndex: number) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
 } & HasCallableChildren<{
     handleClose: () => void;

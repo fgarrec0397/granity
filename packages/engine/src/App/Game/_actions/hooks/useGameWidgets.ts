@@ -114,6 +114,7 @@ export default () => {
                     return {
                         id: x.id,
                         children: [
+                            ...(x.children || []),
                             {
                                 id: draggingItemId,
                             },

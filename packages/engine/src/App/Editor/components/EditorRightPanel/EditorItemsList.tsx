@@ -1,4 +1,4 @@
-import { clone, RecursiveArrayOfIds } from "@granity/helpers";
+import { RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { ReactElement, useCallback } from "react";
 
@@ -22,7 +22,7 @@ export type EditorItemsListProps = {
     isActionRowSelected?: (id: string) => boolean;
     isItemNesting?: (id: string) => boolean;
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
-    changeItemsHandler?: (ids: RecursiveArrayOfIds<string>) => void;
+    changeItemsHandler?: (dragIndex: number, hoverIndex: number) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
 };
 
@@ -53,13 +53,9 @@ const EditorItemsList = ({
 }: EditorItemsListProps) => {
     const moveItem = useCallback(
         (dragIndex: number, hoverIndex: number) => {
-            const clonedPrevData = clone(itemsDictionaryIds);
-            const removedItem = clonedPrevData.splice(dragIndex, 1);
-            clonedPrevData.splice(hoverIndex, 0, ...removedItem);
-
-            changeItemsHandler?.(clonedPrevData);
+            changeItemsHandler?.(dragIndex, hoverIndex);
         },
-        [changeItemsHandler, itemsDictionaryIds]
+        [changeItemsHandler]
     );
 
     return (
