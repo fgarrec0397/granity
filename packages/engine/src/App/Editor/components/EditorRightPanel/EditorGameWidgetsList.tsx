@@ -4,7 +4,7 @@ import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorAccordionList from "./EditorAccordionList";
@@ -68,10 +68,6 @@ const EditorGameWidgetsList: FC = () => {
     const onDropItem = (newItems: WidgetsIds) => {
         updateWidgetsOrder(newItems);
     };
-
-    // useEffect(() => {
-    //     console.log(gameWidgetsIds, "gameWidgetsIds");
-    // }, [gameWidgetsIds]);
 
     return (
         <EditorAccordionList

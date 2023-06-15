@@ -98,12 +98,9 @@ export default () => {
 
     const updateWidgetOrder = useCallback(
         (indexToChangeOrder: number, indexToUpdateTo: number) => {
-            console.log("updateWidgetOrder");
-
             const clonedWidgetsIds = clone(widgetsIds);
             const removedId = clonedWidgetsIds.splice(indexToChangeOrder, 1);
             clonedWidgetsIds.splice(indexToUpdateTo, 0, ...removedId);
-            console.log(clonedWidgetsIds, "clonedWidgetsIds");
 
             updateWidgetsIds(clonedWidgetsIds);
         },
