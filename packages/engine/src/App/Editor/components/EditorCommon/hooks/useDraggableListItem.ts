@@ -71,6 +71,7 @@ export default ({
             hover(item: EditorListDragItem, monitor) {
                 const dragIndex = item.index;
                 const hoverIndex = dragItem.index;
+                const isChildItem = dragItem.path.length >= 2;
 
                 setDraggingItemId(item.id);
 
@@ -88,6 +89,41 @@ export default ({
                 // Don't replace items with themselves
                 if (dragIndex === hoverIndex) {
                     return setIsNesting(false);
+                }
+
+                if (isChildItem) {
+                    // if (!isNesting) {
+                    //     return;
+                    // }
+
+                    const test = [
+                        {
+                            id: "id1",
+                            path: "0",
+                            children: [
+                                {
+                                    id: "nestedId1",
+                                    path: "0/0",
+                                    children: [{ id: "nestedNestedId1", path: "0/0/0" }],
+                                },
+                                {
+                                    id: "nestedId1",
+                                    path: "0/1",
+                                },
+                            ],
+                        },
+                        {
+                            id: "id2",
+                            path: "1",
+                        },
+                    ];
+                    // const newHoverIndex = dragItem.path.split("/").map((x) => Number(x)); // TODO - This gives an array with all the indexes
+
+                    const testPathArray = [0, 0];
+
+                    testPathArray.forEach((x) => {}); // TODO - continue here
+
+                    return;
                 }
 
                 // Determine rectangle on screen
@@ -120,7 +156,7 @@ export default ({
 
                 // Dragging upwards
                 if (dragIndex > hoverIndex && hoverClientY > draggingUpwardTriggerPosition) {
-                    if (hoverClientY > 30) {
+                    if (hoverClientY > hoverItemHeight - 5) {
                         return setIsNesting(false);
                     }
 
@@ -151,6 +187,7 @@ export default ({
                     index: dragItem.index,
                     path: dragItem.path,
                     title: dragItem.title,
+                    children: dragItem.children,
                 };
             },
             collect: (monitor: DragSourceMonitor) => ({

@@ -44,7 +44,7 @@ const EditorCustomDragLayer: FC = () => {
     function renderItem() {
         switch (itemType) {
             case ItemTypes.LIST_ITEM:
-                return <ListItemDragPreview id={item.id} title={item.title} />;
+                return <ListItemDragPreview dragItem={item} />;
             default:
                 return null;
         }

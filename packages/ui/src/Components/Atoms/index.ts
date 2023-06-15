@@ -27,4 +27,5 @@ export * from "./Select";
 export * from "./Stepper";
 export * from "./TextField";
 export * from "./Tooltip";
+export * from "./TreeView";
 export * from "./Typography";

@@ -3,7 +3,7 @@ import {
     WidgetInfoDictionary,
     WidgetsIds,
 } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Dictionary } from "@granity/helpers";
+import { Dictionary, RecursiveArrayOfIds } from "@granity/helpers";
 
 /**
  * The History dictionary containing all actions done by the user
@@ -37,4 +37,5 @@ export type EditorListDragItem = {
     title?: string;
     path: string;
     type: string;
+    children?: RecursiveArrayOfIds<string>;
 };

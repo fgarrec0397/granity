@@ -1,4 +1,4 @@
-import { RecursiveArrayOfIds } from "@granity/helpers";
+import { HasChildren, RecursiveArrayOfIds } from "@granity/helpers";
 import Delete from "@granity/icons/Delete";
 import Star from "@granity/icons/Star";
 import Visibility from "@granity/icons/Visibility";
@@ -12,11 +12,12 @@ export const ItemTypes = {
     LIST_ITEM: "LIST_ITEM",
 };
 
-export type EditorItemsListItemProps = {
+export type EditorItemsListItemProps = HasChildren & {
     id: string;
     index: number;
     itemPath: string;
     itemName?: string;
+    itemChildren?: RecursiveArrayOfIds<string>;
     isDraggable?: boolean;
     additionalStyles?: CSSProperties;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
@@ -40,6 +41,7 @@ const EditorItemsListItem = ({
     itemPath,
     itemsDictionaryIds,
     itemName,
+    itemChildren,
     isDraggable,
     additionalStyles,
     editModal,
@@ -54,10 +56,8 @@ const EditorItemsListItem = ({
     hasDropWhenNesting,
     moveItem,
     dropItem,
+    children,
 }: EditorItemsListItemProps) => {
-    useEffect(() => {
-        console.log(itemsDictionaryIds, "itemsDictionaryIds");
-    }, [itemsDictionaryIds]);
     const draggableList = useDraggableListItem({
         dragItem: {
             id,
@@ -65,6 +65,7 @@ const EditorItemsListItem = ({
             title: itemName,
             path: itemPath,
             type: ItemTypes.LIST_ITEM,
+            children: itemChildren,
         },
         itemsDictionaryIds,
         moveItem,
@@ -96,10 +97,14 @@ const EditorItemsListItem = ({
             ref={draggableList?.ref}
             data-handler-id={draggableList?.handlerId}
             sx={(theme) => ({
+                display: "block",
                 opacity: draggableList?.isDragging ? 0 : 1,
                 maxWidth: pxToRem(250),
                 backgroundColor: theme.palette.background.default,
                 border: isItemNesting?.(id) ? "1px solid red" : "1px solid transparent",
+                ".MuiListItemSecondaryAction-root": {
+                    top: pxToRem(18),
+                },
                 ...additionalStyles,
             })}
             secondaryAction={
@@ -135,6 +140,7 @@ const EditorItemsListItem = ({
                     />
                 )}
             </ListItemButton>
+            <div>{children}</div>
         </ListItem>
     );
 };

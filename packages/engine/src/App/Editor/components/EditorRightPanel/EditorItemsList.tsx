@@ -1,3 +1,4 @@
+import { useScenes, useWidgets } from "@engine/api";
 import { clone, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { ReactElement, useCallback, useEffect, useState } from "react";
@@ -53,6 +54,9 @@ const EditorItemsList = ({
 }: EditorItemsListProps) => {
     const [items, setItems] = useState(itemsDictionaryIds);
 
+    const { displayWidgetName } = useWidgets();
+    const { displaySceneName } = useScenes();
+
     useEffect(() => {
         setItems(itemsDictionaryIds);
     }, [itemsDictionaryIds]);
@@ -75,7 +79,11 @@ const EditorItemsList = ({
         <List>
             {items.length > 0 ? (
                 items.map((item, index) => {
-                    const parentItemName = displayItemName ? displayItemName(item.id) : undefined;
+                    const parentItemName = displayItemName
+                        ? displayItemName(item.id)
+                        : displayWidgetName(item.id)
+                        ? displayWidgetName(item.id)
+                        : displaySceneName(item.id);
 
                     return (
                         <>
@@ -83,6 +91,7 @@ const EditorItemsList = ({
                                 key={item.id}
                                 id={item.id}
                                 itemPath={item.path}
+                                itemChildren={item.children}
                                 itemsDictionaryIds={items}
                                 index={index}
                                 itemName={parentItemName}
@@ -98,31 +107,32 @@ const EditorItemsList = ({
                                 hasDropWhenNesting={hasDropWhenNesting}
                                 moveItem={moveItem}
                                 dropItem={dropItem}
-                            />
-                            {item.children?.length ? (
-                                <Box
-                                    sx={{
-                                        padding: pxToRem(0, 0, 0, 10),
-                                    }}
-                                >
-                                    <EditorItemsList
-                                        itemsDictionaryIds={item.children}
-                                        noItemsText={noItemsText}
-                                        editModal={editModal}
-                                        isVisible={isVisible}
-                                        isDefault={isDefault}
-                                        handleVisibility={handleVisibility}
-                                        displayItemName={displayItemName}
-                                        handleClickRow={handleClickRow}
-                                        handleClickRemove={handleClickRemove}
-                                        isActionRowSelected={isActionRowSelected}
-                                        isItemNesting={isItemNesting}
-                                        onIsNestingChange={onIsNestingChange}
-                                        onDropItem={onDropItem}
-                                        hasDropWhenNesting={hasDropWhenNesting}
-                                    />
-                                </Box>
-                            ) : null}
+                            >
+                                {item.children?.length ? (
+                                    <Box
+                                        sx={{
+                                            padding: pxToRem(0, 0, 0, 10),
+                                        }}
+                                    >
+                                        <EditorItemsList
+                                            itemsDictionaryIds={item.children}
+                                            noItemsText={noItemsText}
+                                            editModal={editModal}
+                                            isVisible={isVisible}
+                                            isDefault={isDefault}
+                                            handleVisibility={handleVisibility}
+                                            displayItemName={displayItemName}
+                                            handleClickRow={handleClickRow}
+                                            handleClickRemove={handleClickRemove}
+                                            isActionRowSelected={isActionRowSelected}
+                                            isItemNesting={isItemNesting}
+                                            onIsNestingChange={onIsNestingChange}
+                                            onDropItem={onDropItem}
+                                            hasDropWhenNesting={hasDropWhenNesting}
+                                        />
+                                    </Box>
+                                ) : null}
+                            </EditorItemsListItem>
                         </>
                     );
                 })

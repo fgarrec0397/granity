@@ -1,16 +1,17 @@
-import { useTheme } from "@granity/ui";
+import { Box, pxToRem, useTheme } from "@granity/ui";
 import type { CSSProperties, FC } from "react";
 import { memo } from "react";
 
+import { EditorListDragItem } from "../../_actions/editorTypes";
+import EditorItemsList from "../EditorRightPanel/EditorItemsList";
 import EditorItemsListItem from "../EditorRightPanel/EditorItemsListItem";
 import EditWidgetModal from "./EditWidgetModal";
 
 export interface BoxDragPreviewProps {
-    title: string;
-    id: string;
+    dragItem: EditorListDragItem;
 }
 
-const ListItemDragPreview: FC<BoxDragPreviewProps> = memo(function BoxDragPreview({ id, title }) {
+const ListItemDragPreview: FC<BoxDragPreviewProps> = ({ dragItem }) => {
     const theme = useTheme();
 
     const styles: CSSProperties = {
@@ -22,15 +23,27 @@ const ListItemDragPreview: FC<BoxDragPreviewProps> = memo(function BoxDragPrevie
 
     return (
         <EditorItemsListItem
-            id={id}
+            id={dragItem.id}
             index={0}
-            itemName={title}
+            itemName={dragItem.title}
             isDraggable={false}
             handleVisibility={() => {}}
             editModal={() => <EditWidgetModal />}
             additionalStyles={styles}
-        />
+            itemPath={""}
+            itemsDictionaryIds={[]}
+        >
+            {dragItem.children?.length ? (
+                <Box
+                    sx={{
+                        padding: pxToRem(0, 0, 0, 10),
+                    }}
+                >
+                    <EditorItemsList itemsDictionaryIds={dragItem.children} noItemsText="" />
+                </Box>
+            ) : null}
+        </EditorItemsListItem>
     );
-});
+};
 
-export default ListItemDragPreview;
+export default memo(ListItemDragPreview);
