@@ -109,14 +109,15 @@ export default () => {
                 (x) => x.id !== draggingItemId
             );
 
-            const newWidgetsIds: WidgetsIds = widgetsIdsWithoutDraggingWidget.map((x) => {
+            const newWidgetsIds: WidgetsIds = widgetsIdsWithoutDraggingWidget.map((x, index) => {
                 if (x.id === hoveredItemId) {
                     return {
-                        id: x.id,
+                        ...x,
                         children: [
                             ...(x.children || []),
                             {
                                 id: draggingItemId,
+                                path: x.path.concat("/", index.toString()),
                             },
                         ],
                     };

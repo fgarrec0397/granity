@@ -27,3 +27,14 @@ export type HistoryState = {
     widgets: WidgetDictionary;
     widgetsIds: WidgetsIds;
 };
+
+/**
+ * React DnD editor draggable list item type
+ */
+export type EditorListDragItem = {
+    index: number;
+    id: string;
+    title?: string;
+    path: string;
+    type: string;
+};

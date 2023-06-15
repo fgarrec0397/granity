@@ -1,6 +1,6 @@
-import { RecursiveArrayOfIds } from "@granity/helpers";
+import { clone, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
-import { ReactElement, useCallback } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 
 import EditorItemsListItem from "./EditorItemsListItem";
 
@@ -22,7 +22,7 @@ export type EditorItemsListProps = {
     isActionRowSelected?: (id: string) => boolean;
     isItemNesting?: (id: string) => boolean;
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
-    changeItemsHandler?: (dragIndex: number, hoverIndex: number) => void;
+    onDropItem?: (newItems: RecursiveArrayOfIds<string>) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
 };
 
@@ -48,20 +48,33 @@ const EditorItemsList = ({
     isActionRowSelected,
     isItemNesting,
     onIsNestingChange,
-    changeItemsHandler,
+    onDropItem,
     hasDropWhenNesting,
 }: EditorItemsListProps) => {
+    const [items, setItems] = useState(itemsDictionaryIds);
+
+    useEffect(() => {
+        setItems(itemsDictionaryIds);
+    }, [itemsDictionaryIds]);
+
     const moveItem = useCallback(
         (dragIndex: number, hoverIndex: number) => {
-            changeItemsHandler?.(dragIndex, hoverIndex);
+            const clonedItems = clone(items);
+            const removedItem = clonedItems.splice(dragIndex, 1);
+            clonedItems.splice(hoverIndex, 0, ...removedItem);
+            setItems(clonedItems);
         },
-        [changeItemsHandler]
+        [items]
     );
+
+    const dropItem = useCallback(() => {
+        onDropItem?.(items);
+    }, [items, onDropItem]);
 
     return (
         <List>
-            {itemsDictionaryIds.length > 0 ? (
-                itemsDictionaryIds.map((item, index) => {
+            {items.length > 0 ? (
+                items.map((item, index) => {
                     const parentItemName = displayItemName ? displayItemName(item.id) : undefined;
 
                     return (
@@ -69,6 +82,8 @@ const EditorItemsList = ({
                             <EditorItemsListItem
                                 key={item.id}
                                 id={item.id}
+                                itemPath={item.path}
+                                itemsDictionaryIds={items}
                                 index={index}
                                 itemName={parentItemName}
                                 editModal={editModal}
@@ -82,6 +97,7 @@ const EditorItemsList = ({
                                 onIsNestingChange={onIsNestingChange}
                                 hasDropWhenNesting={hasDropWhenNesting}
                                 moveItem={moveItem}
+                                dropItem={dropItem}
                             />
                             {item.children?.length ? (
                                 <Box
@@ -102,7 +118,7 @@ const EditorItemsList = ({
                                         isActionRowSelected={isActionRowSelected}
                                         isItemNesting={isItemNesting}
                                         onIsNestingChange={onIsNestingChange}
-                                        changeItemsHandler={changeItemsHandler}
+                                        onDropItem={onDropItem}
                                         hasDropWhenNesting={hasDropWhenNesting}
                                     />
                                 </Box>

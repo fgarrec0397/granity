@@ -1,6 +1,7 @@
 import { clone, pull, recursiveRemoveArrayOfObjects } from "@granity/helpers";
 import { useCallback } from "react";
 
+import widgetsIdsMapper from "../../mappers/widgetsIdsMapper";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
@@ -57,6 +58,7 @@ export default () => {
                 ...widgetsIds,
                 {
                     id: newWidget.id,
+                    path: widgetsIds.length.toString(),
                     children: [],
                 },
             ]);
@@ -68,7 +70,7 @@ export default () => {
         (newWidgets: WidgetDictionary, newWidgetsInfoDictionary: WidgetInfoDictionary) => {
             dispatchAddBatchWidgetInfoDictionary(newWidgetsInfoDictionary);
             setWidgets((prevWidgets) => ({ ...prevWidgets, ...newWidgets }));
-            updateWidgetsIds([...widgetsIds, ...Object.keys(newWidgets).map((x) => ({ id: x }))]);
+            updateWidgetsIds([...widgetsIds, ...widgetsIdsMapper(newWidgets)]);
         },
         [dispatchAddBatchWidgetInfoDictionary, setWidgets, updateWidgetsIds, widgetsIds]
     );
@@ -132,7 +134,7 @@ export default () => {
             Object.keys(widgetsToDelete).forEach((x) => delete widgets[x]);
 
             setWidgetsIds((prevIds) => {
-                const ids = pull(prevIds, ...Object.keys(widgetsToDelete).map((x) => ({ id: x })));
+                const ids = pull(prevIds, ...widgetsIdsMapper(widgetsToDelete));
 
                 return ids;
             });
@@ -156,7 +158,7 @@ export default () => {
             }
 
             setWidgets(newWidgets);
-            setWidgetsIds(newWidgetsIds || Object.keys(newWidgets).map((x) => ({ id: x })));
+            setWidgetsIds(newWidgetsIds || widgetsIdsMapper(newWidgets));
             dispatchOverrideWidgetInfoDictionary(newWidgetsDictionary);
         },
         [dispatchOverrideWidgetInfoDictionary, removeAll, setWidgets, setWidgetsIds]

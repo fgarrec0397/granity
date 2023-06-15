@@ -1,22 +1,36 @@
-import { getEmptyImage, Identifier, useDrag, useDrop, XYCoord } from "@granity/draggable";
+import { EditorListDragItem } from "@engine/App/Editor/_actions/editorTypes";
+import {
+    DragSourceMonitor,
+    getEmptyImage,
+    Identifier,
+    useDrag,
+    useDrop,
+    XYCoord,
+} from "@granity/draggable";
+import { RecursiveArrayOfIds } from "@granity/helpers";
 import { useEffect, useRef, useState } from "react";
 
 import { ItemTypes } from "../../EditorRightPanel/EditorItemsListItem";
 
-interface DragItem {
-    index: number;
-    id: string;
-    title?: string;
-    type: string;
-}
+/**
+ *
+ */
 
 export type DraggableListItem = {
-    dragItem: DragItem;
+    dragItem: EditorListDragItem;
     isDraggable?: boolean;
+    itemsDictionaryIds: RecursiveArrayOfIds<string>;
     moveItem?: (dragIndex: number, hoverIndex: number) => void;
+    dropItem?: () => void;
 };
 
-export default ({ dragItem, moveItem, isDraggable = true }: DraggableListItem) => {
+export default ({
+    dragItem,
+    moveItem,
+    itemsDictionaryIds,
+    dropItem,
+    isDraggable = true,
+}: DraggableListItem) => {
     const ref = useRef<HTMLLIElement>(null);
     const [isNesting, setIsNesting] = useState(false);
     const [hasDropWhenNesting, setHasDropWhenNesting] = useState(false);
@@ -27,7 +41,11 @@ export default ({ dragItem, moveItem, isDraggable = true }: DraggableListItem) =
         return;
     }
 
-    const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
+    const [{ handlerId }, drop] = useDrop<
+        EditorListDragItem,
+        void,
+        { handlerId: Identifier | null }
+    >({
         accept: ItemTypes.LIST_ITEM,
         collect(monitor) {
             return {
@@ -46,8 +64,10 @@ export default ({ dragItem, moveItem, isDraggable = true }: DraggableListItem) =
             if (isNesting) {
                 setHasDropWhenNesting(true);
             }
+
+            dropItem?.();
         },
-        hover(item: DragItem, monitor) {
+        hover(item: EditorListDragItem, monitor) {
             const dragIndex = item.index;
             const hoverIndex = dragItem.index;
 
@@ -119,15 +139,24 @@ export default ({ dragItem, moveItem, isDraggable = true }: DraggableListItem) =
         },
     });
 
-    const [{ isDragging }, drag, preview] = useDrag({
-        type: ItemTypes.LIST_ITEM,
-        item: () => {
-            return { id: dragItem.id, index: dragItem.index, title: dragItem.title };
+    const [{ isDragging }, drag, preview] = useDrag(
+        {
+            type: ItemTypes.LIST_ITEM,
+            item: () => {
+                return {
+                    id: dragItem.id,
+                    index: dragItem.index,
+                    path: dragItem.path,
+                    title: dragItem.title,
+                };
+            },
+            collect: (monitor: DragSourceMonitor) => ({
+                isDragging: monitor.isDragging(),
+                handlerId: monitor.getHandlerId(),
+            }),
         },
-        collect: (monitor: any) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    });
+        [itemsDictionaryIds]
+    );
 
     drag(drop(ref));
 

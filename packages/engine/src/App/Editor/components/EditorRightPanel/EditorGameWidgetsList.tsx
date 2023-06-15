@@ -1,9 +1,10 @@
+import { WidgetsIds } from "@engine/api";
 import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import EditWidgetModal from "../EditorCommon/EditWidgetModal";
 import EditorAccordionList from "./EditorAccordionList";
@@ -24,7 +25,7 @@ const styles: EditorGameWidgetsListStyles = {
 };
 
 const EditorGameWidgetsList: FC = () => {
-    const { displayWidgetName, removeWidget, updateWidgetOrder } = useWidgets();
+    const { displayWidgetName, removeWidget, updateWidgetsOrder } = useWidgets();
     const {
         addGameWidget,
         addGameWidgetChild,
@@ -64,9 +65,13 @@ const EditorGameWidgetsList: FC = () => {
         addGameWidgetChild(hoveredItemId, draggingItemId);
     };
 
-    const changeItemsHandler = (dragIndex: number, hoverIndex: number) => {
-        updateWidgetOrder(dragIndex, hoverIndex);
+    const onDropItem = (newItems: WidgetsIds) => {
+        updateWidgetsOrder(newItems);
     };
+
+    // useEffect(() => {
+    //     console.log(gameWidgetsIds, "gameWidgetsIds");
+    // }, [gameWidgetsIds]);
 
     return (
         <EditorAccordionList
@@ -83,7 +88,7 @@ const EditorGameWidgetsList: FC = () => {
             isActionRowSelected={(id) => gameWidgets[id]?.id === selectedGameWidgets[0]?.id}
             isItemNesting={(id) => gameWidgetsInfo[id]?.isNesting}
             onIsNestingChange={onIsNestingChange}
-            changeItemsHandler={changeItemsHandler}
+            onDropItem={onDropItem}
             hasDropWhenNesting={hasDropWhenNesting}
             cancelButton={{
                 text: "Cancel and close",
