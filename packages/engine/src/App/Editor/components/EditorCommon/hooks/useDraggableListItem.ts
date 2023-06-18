@@ -21,7 +21,7 @@ export type DraggableListItem = {
     isDraggable?: boolean;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
     moveItem?: (dragIndex: number, hoverIndex: number | number[]) => void;
-    dropItem?: () => void;
+    dropItem?: (isNesting: boolean) => void;
 };
 
 export default ({
@@ -53,8 +53,8 @@ export default ({
                     handlerId: monitor.getHandlerId(),
                 };
             },
-            drop() {
-                setIsNesting(false);
+            drop(item) {
+                console.log(item, "item drop");
 
                 if (itemHoveredId) {
                     setItemHoveredId(undefined);
@@ -66,7 +66,9 @@ export default ({
                     setHasDropWhenNesting(true);
                 }
 
-                dropItem?.();
+                dropItem?.(isNesting); // , itemHoveredId, draggingItemId
+
+                setIsNesting(false);
             },
             hover(item: EditorListDragItem, monitor) {
                 const dragIndex = item.index;
@@ -74,7 +76,7 @@ export default ({
                 const isChildItem = dragItem.path.match(/\//gm); // check if path contains /
                 // console.log({ dragIndex, hoverIndex });
 
-                console.log(dragItem, "dragItem");
+                // console.log(dragItem, "dragItem");
 
                 setDraggingItemId(item.id);
 

@@ -26,7 +26,7 @@ export type EditorItemsListProps = {
     onDropItem?: (newItems: RecursiveArrayOfIds<string>) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
     moveItem?: (dragIndex: number, hoverIndex: number | number[]) => void;
-    dropItem?: () => void;
+    dropItem?: (isNesting: boolean) => void;
 };
 
 export interface DragAndDropItem {
@@ -233,6 +233,15 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
         // }
     }, []);
 
+    const dropItem = useCallback(
+        (isNesting: boolean) => {
+            console.log(isNesting, "isNesting");
+
+            onDropItem?.(items);
+        },
+        [items, onDropItem]
+    );
+
     return (
         <EditorItemsList
             itemsDictionaryIds={items}
@@ -247,7 +256,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
             isActionRowSelected={isActionRowSelected}
             isItemNesting={isItemNesting}
             onIsNestingChange={onIsNestingChange}
-            onDropItem={onDropItem}
+            dropItem={dropItem}
             moveItem={moveItem}
             hasDropWhenNesting={hasDropWhenNesting}
         />

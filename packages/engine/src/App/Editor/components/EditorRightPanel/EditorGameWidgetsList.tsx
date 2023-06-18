@@ -66,6 +66,8 @@ const EditorGameWidgetsList: FC = () => {
     };
 
     const onDropItem = (newItems: WidgetsIds) => {
+        console.log(newItems, "newItems onDropItem");
+
         updateWidgetsOrder(newItems);
     };
 
