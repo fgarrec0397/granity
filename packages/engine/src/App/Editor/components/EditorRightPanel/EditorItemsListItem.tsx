@@ -31,7 +31,7 @@ export type EditorItemsListItemProps = HasChildren & {
     isItemNesting?: (id: string) => boolean;
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
     hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
-    moveItem?: (dragIndex: number, hoverIndex: number) => void;
+    moveItem?: (dragIndex: number, hoverIndex: number | number[]) => void;
     dropItem?: () => void;
 };
 
@@ -81,7 +81,13 @@ const EditorItemsListItem = ({
     }, [draggableList?.isNesting]);
 
     useEffect(() => {
-        if (draggableList?.itemHoveredId && draggableList.draggingItemId) {
+        if (
+            draggableList?.isNesting &&
+            draggableList?.itemHoveredId &&
+            draggableList.draggingItemId
+        ) {
+            console.log("hasDropWhenNesting in useEffect");
+
             hasDropWhenNesting?.(draggableList.itemHoveredId, draggableList.draggingItemId);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

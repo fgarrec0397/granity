@@ -20,7 +20,7 @@ export type DraggableListItem = {
     dragItem: EditorListDragItem;
     isDraggable?: boolean;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
-    moveItem?: (dragIndex: number, hoverIndex: number) => void;
+    moveItem?: (dragIndex: number, hoverIndex: number | number[]) => void;
     dropItem?: () => void;
 };
 
@@ -71,7 +71,10 @@ export default ({
             hover(item: EditorListDragItem, monitor) {
                 const dragIndex = item.index;
                 const hoverIndex = dragItem.index;
-                const isChildItem = dragItem.path.length >= 2;
+                const isChildItem = dragItem.path.match(/\//gm); // check if path contains /
+                // console.log({ dragIndex, hoverIndex });
+
+                console.log(dragItem, "dragItem");
 
                 setDraggingItemId(item.id);
 
@@ -91,44 +94,7 @@ export default ({
                     return setIsNesting(false);
                 }
 
-                if (isChildItem) {
-                    // if (!isNesting) {
-                    //     return;
-                    // }
-
-                    const test = [
-                        {
-                            id: "id1",
-                            path: "0",
-                            children: [
-                                {
-                                    id: "nestedId1",
-                                    path: "0/0",
-                                    children: [{ id: "nestedNestedId1", path: "0/0/0" }],
-                                },
-                                {
-                                    id: "nestedId1",
-                                    path: "0/1",
-                                },
-                            ],
-                        },
-                        {
-                            id: "id2",
-                            path: "1",
-                        },
-                    ];
-                    // const newHoverIndex = dragItem.path.split("/").map((x) => Number(x)); // TODO - This gives an array with all the indexes
-
-                    const testPathArray = [0, 0];
-
-                    testPathArray.forEach((x) => {}); // TODO - continue here
-
-                    return;
-                }
-
-                // Determine rectangle on screen
                 const hoverItemBoundingRect = ref.current?.getBoundingClientRect();
-
                 const hoverItemHeight = hoverItemBoundingRect.bottom - hoverItemBoundingRect.top;
                 const draggingPercentage = 0.5;
                 const hoverItemHeightPercentage = hoverItemHeight * draggingPercentage;
@@ -161,9 +127,21 @@ export default ({
                     }
 
                     if (!isNesting) {
-                        setIsNesting(true);
+                        return setIsNesting(true);
                     }
 
+                    return;
+                }
+
+                if (isChildItem) {
+                    // if (isNesting) {
+                    const newHoverIndex = dragItem.path.split("/").map((x) => Number(x)); // TODO - This gives an array with all the indexes
+                    moveItem(dragIndex, newHoverIndex);
+                    // }
+
+                    item.index = hoverIndex;
+
+                    setIsNesting(false);
                     return;
                 }
 

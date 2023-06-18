@@ -11,7 +11,7 @@ import {
 import { ReactElement, useState } from "react";
 
 import EditorModal from "../EditorCommon/EditorModal";
-import EditorItemsList from "./EditorItemsList";
+import { EditorItemsListContainer } from "./EditorItemsList";
 
 export type EditorAccordionListButtonProps = {
     text: string;
@@ -98,7 +98,7 @@ const EditorAccordionList = ({
         <Accordion {...openedAccordion}>
             <AccordionSummary>{title}</AccordionSummary>
             <AccordionDetails>
-                <EditorItemsList
+                <EditorItemsListContainer
                     itemsDictionaryIds={itemsDictionaryIds}
                     noItemsText={noItemsText}
                     editModal={editModal}
