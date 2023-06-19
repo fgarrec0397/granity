@@ -86,9 +86,7 @@ const EditorItemsListItem = ({
             draggableList?.itemHoveredId &&
             draggableList.draggingItemId
         ) {
-            console.log("hasDropWhenNesting in useEffect");
-
-            // hasDropWhenNesting?.(draggableList.itemHoveredId, draggableList.draggingItemId);
+            hasDropWhenNesting?.(draggableList.itemHoveredId, draggableList.draggingItemId);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [draggableList?.isNesting]);

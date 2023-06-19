@@ -1,8 +1,9 @@
 import { useScenes, useWidgets } from "@engine/api";
-import { clone, RecursiveArrayOfIds } from "@granity/helpers";
+import { clone, cloneDeep, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { FC, ReactElement, useCallback, useEffect, useState } from "react";
 
+import { handleMoveWithinParent, reorderChildren } from "../../_actions/utilities/dnd";
 import EditorItemsListItem from "./EditorItemsListItem";
 
 export type EditorItemsListButtonProps = {
@@ -56,59 +57,8 @@ const EditorItemsList = ({
     moveItem,
     dropItem,
 }: EditorItemsListProps) => {
-    // const [items, setItems] = useState(itemsDictionaryIds);
-
     const { displayWidgetName } = useWidgets();
     const { displaySceneName } = useScenes();
-
-    // useEffect(() => {
-    //     console.log(itemsDictionaryIds, "itemsDictionaryIds");
-
-    //     setItems(itemsDictionaryIds);
-    // }, [itemsDictionaryIds]);
-
-    // const moveItem = useCallback(
-    //     (dragIndex: number, hoverIndex: number | number[]) => {
-    //         const clonedItems = clone(items);
-
-    //         // if (typeof hoverIndex !== "number") {
-    //         //     let getNestedArrayValueString = "";
-
-    //         //     hoverIndex.forEach((x, index) => {
-    //         //         getNestedArrayValueString += `[${x}]`;
-
-    //         //         if (index < hoverIndex.length - 1) {
-    //         //             getNestedArrayValueString += `["children"]`;
-    //         //         }
-    //         //     });
-
-    //         //     console.log(getNestedArrayValueString, "getNestedArrayValueString");
-
-    //         //     const evalString = `clonedItems${getNestedArrayValueString}`;
-    //         //     console.log(clonedItems, "clonedItems");
-    //         //     console.log(evalString, "evalString");
-
-    //         //     const testVar = eval(evalString);
-
-    //         //     console.log(testVar, "testVar");
-    //         //     return setItems(clonedItems);
-    //         // }
-
-    //         if (typeof hoverIndex === "number") {
-    //             // Check to keep this part for fist level
-    //             const removedItem = clonedItems.splice(dragIndex, 1);
-    //             clonedItems.splice(hoverIndex, 0, ...removedItem);
-    //             console.log(clonedItems);
-
-    //             setItems(clonedItems);
-    //         }
-    //     },
-    //     [items]
-    // );
-
-    // const dropItem = useCallback(() => {
-    //     onDropItem?.(items);
-    // }, [items, onDropItem]);
 
     return (
         <List>
@@ -197,50 +147,64 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     hasDropWhenNesting,
 }) => {
     const [items, setItems] = useState(itemsDictionaryIds);
+    const [testItems, setTestItems] = useState([
+        {
+            id: "id1",
+            path: "0",
+            children: [
+                {
+                    id: "nestedId1",
+                    path: "0/0",
+                    children: [{ id: "nestedNestedId1", path: "0/0/0" }],
+                },
+                {
+                    id: "nestedId2",
+                    path: "0/1",
+                },
+            ],
+        },
+        {
+            id: "id2",
+            path: "1",
+        },
+        {
+            id: "id3",
+            path: "2",
+        },
+    ]);
 
     useEffect(() => {
-        // console.log(itemsDictionaryIds, "itemsDictionaryIds");
+        const clonedTestItems = cloneDeep(testItems);
+        console.log(clonedTestItems, "clonedTestItems");
 
+        const movedWithinParent = handleMoveWithinParent(clonedTestItems, ["0"], ["1"]);
+        console.log(movedWithinParent, "newTestItems");
+        // const movedWithinParent = handleMoveWithinParent(clonedTestItems, ["0"], ["1"]);
+        // console.log(movedWithinParent, "newTestItems");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
         setItems(itemsDictionaryIds);
     }, [itemsDictionaryIds]);
 
-    const moveItem = useCallback((dragIndex: number, hoverIndex: number | number[]) => {
-        console.log({ dragIndex, hoverIndex }, "moveItem");
+    const moveItem = useCallback(
+        (dragIndex: number, hoverIndex: number | number[]) => {
+            const clonedItems = clone(items);
 
-        // const clonedItems = clone(items);
-        // if (typeof hoverIndex !== "number") {
-        //     let getNestedArrayValueString = "";
-        //     hoverIndex.forEach((x, index) => {
-        //         getNestedArrayValueString += `[${x}]`;
-        //         if (index < hoverIndex.length - 1) {
-        //             getNestedArrayValueString += `["children"]`;
-        //         }
-        //     });
-        //     console.log(getNestedArrayValueString, "getNestedArrayValueString");
-        //     const evalString = `clonedItems${getNestedArrayValueString}`;
-        //     console.log(clonedItems, "clonedItems");
-        //     console.log(evalString, "evalString");
-        //     const testVar = eval(evalString);
-        //     console.log(testVar, "testVar");
-        //     return setItems(clonedItems);
-        // }
-        // if (typeof hoverIndex === "number") {
-        //     // Check to keep this part for fist level
-        //     const removedItem = clonedItems.splice(dragIndex, 1);
-        //     clonedItems.splice(hoverIndex, 0, ...removedItem);
-        //     console.log(clonedItems);
-        //     setItems(clonedItems);
-        // }
-    }, []);
-
-    const dropItem = useCallback(
-        (isNesting: boolean) => {
-            console.log(isNesting, "isNesting");
-
-            onDropItem?.(items);
+            if (typeof hoverIndex === "number") {
+                // Check to keep this part for fist level
+                const removedItem = clonedItems.splice(dragIndex, 1);
+                clonedItems.splice(hoverIndex, 0, ...removedItem);
+                setItems(clonedItems);
+            }
         },
-        [items, onDropItem]
+        [items]
     );
+
+    const dropItem = useCallback(() => {
+        onDropItem?.(items);
+    }, [items, onDropItem]);
 
     return (
         <EditorItemsList
