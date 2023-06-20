@@ -12,10 +12,6 @@ import { useEffect, useRef, useState } from "react";
 
 import { ItemTypes } from "../../EditorRightPanel/EditorItemsListItem";
 
-/**
- *
- */
-
 export type DraggableListItem = {
     dragItem: EditorListDragItem;
     isDraggable?: boolean;
@@ -53,9 +49,7 @@ export default ({
                     handlerId: monitor.getHandlerId(),
                 };
             },
-            drop(item) {
-                console.log(item, "item drop");
-
+            drop() {
                 if (itemHoveredId) {
                     setItemHoveredId(undefined);
                 }
@@ -74,9 +68,6 @@ export default ({
                 const dragIndex = item.index;
                 const hoverIndex = dragItem.index;
                 const isChildItem = dragItem.path.match(/\//gm); // check if path contains /
-                // console.log({ dragIndex, hoverIndex });
-
-                // console.log(dragItem, "dragItem");
 
                 setDraggingItemId(item.id);
 

@@ -3,7 +3,12 @@ import { clone, cloneDeep, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { FC, ReactElement, useCallback, useEffect, useState } from "react";
 
-import { handleMoveWithinParent, reorderChildren } from "../../_actions/utilities/dnd";
+import {
+    getChild,
+    handleMoveToDifferentParent,
+    handleMoveWithinParent,
+    handleRemoveItemFromList,
+} from "../../_actions/utilities/dnd";
 import EditorItemsListItem from "./EditorItemsListItem";
 
 export type EditorItemsListButtonProps = {
@@ -177,8 +182,14 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
         const clonedTestItems = cloneDeep(testItems);
         console.log(clonedTestItems, "clonedTestItems");
 
-        const movedWithinParent = handleMoveWithinParent(clonedTestItems, ["0"], ["1"]);
-        console.log(movedWithinParent, "newTestItems");
+        const movedWithinParent = handleMoveWithinParent(clonedTestItems, [0], [1]);
+        console.log(movedWithinParent, "movedWithinParent");
+        const removeItem = handleRemoveItemFromList(clonedTestItems, [0, 0, 0]);
+        console.log(removeItem, "removeItem");
+        const item = getChild(clonedTestItems, [0, 0, 0]);
+        console.log(item, "getChild");
+        const movedToDifferentParent = handleMoveToDifferentParent(clonedTestItems, [0, 0, 0], [2]);
+        console.log(movedToDifferentParent, "handleMoveToDifferentParent");
         // const movedWithinParent = handleMoveWithinParent(clonedTestItems, ["0"], ["1"]);
         // console.log(movedWithinParent, "newTestItems");
         // eslint-disable-next-line react-hooks/exhaustive-deps
