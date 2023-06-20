@@ -1,31 +1,5 @@
 import { EditorListDragItem, WidgetsIds } from "@engine/api";
-import { clone, RecursiveObjectWithChildren } from "@granity/helpers";
-
-// const obj = [
-//     {
-//         id: "id1",
-//         path: "0",
-//         children: [
-//             {
-//                 id: "nestedId1",
-//                 path: "0/0",
-//                 children: [{ id: "nestedNestedId1", path: "0/0/0" }],
-//             },
-//             {
-//                 id: "nestedId1",
-//                 path: "0/1",
-//             },
-//         ],
-//     },
-//     {
-//         id: "id2",
-//         path: "1",
-//     },
-//     {
-//         id: "id3",
-//         path: "2",
-//     },
-// ];
+import { clone, cloneDeep, RecursiveObjectWithChildren } from "@granity/helpers";
 
 export const getChild = (itemsDictionaryIds: WidgetsIds, splitItemPath: number[]) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -82,10 +56,24 @@ export const insert = <ArrayType, ItemType>(arr: ArrayType[], index: number, new
     ...arr.slice(index),
 ];
 
+const updatePaths = (items: WidgetsIds, parentPath?: string): WidgetsIds => {
+    const newItems = cloneDeep(items).map((x, index) => {
+        const path = parentPath ? parentPath.concat("/", index.toString()) : index.toString();
+
+        return {
+            ...x,
+            path,
+            children: x.children ? updatePaths(x.children, path) : [],
+        };
+    });
+
+    return newItems;
+};
+
 export const reorderChildren = (
     children: WidgetsIds,
-    splitDropZonePath: number[],
-    splitItemPath: number[]
+    splitItemPath: number[],
+    splitDropZonePath: number[]
 ) => {
     if (splitDropZonePath.length === 1) {
         const dropZoneIndex = Number(splitDropZonePath[0]);
@@ -164,45 +152,37 @@ export const addChildToChildren = (
 
 export const handleMoveWithinParent = (
     itemsDictionaryIds: WidgetsIds,
-    splitDropZonePath: number[],
-    splitItemPath: number[]
+    splitItemPath: number[],
+    splitDropZonePath: number[]
 ) => {
     if (splitDropZonePath.length !== splitItemPath.length) {
         throw new Error("splitDropZonePath and splitItemPath must have the same length");
     }
 
-    return reorderChildren(itemsDictionaryIds, splitDropZonePath, splitItemPath);
+    // Instead of updating all paths each time, check to doing it directly in the function
+    return updatePaths(reorderChildren(itemsDictionaryIds, splitDropZonePath, splitItemPath));
 };
 
 export const handleMoveToDifferentParent = (
     itemsDictionaryIds: WidgetsIds,
-    splitDropZonePath: number[],
-    splitItemPath: number[]
-    // item: EditorListDragItem
+    splitItemPath: number[],
+    splitDropZonePath: number[]
 ) => {
-    let newLayoutStructure;
     const item = getChild(itemsDictionaryIds, splitItemPath);
-    console.log(item, "handleMoveToDifferentParent");
-
-    if (splitDropZonePath.length === 1) {
-        // Move the item to the root
-    }
-
-    if (splitDropZonePath.length > 1) {
-        // Move the item as a child
-    }
 
     let updatedItems = itemsDictionaryIds;
-    updatedItems = removeChildFromChildren(updatedItems, splitItemPath);
-    // updatedItems = handleAddColumDataToRow(updatedItems);
-    updatedItems = addChildToChildren(updatedItems, splitDropZonePath, newLayoutStructure);
 
-    return updatedItems;
+    updatedItems = removeChildFromChildren(updatedItems, splitItemPath);
+    updatedItems = addChildToChildren(updatedItems, splitDropZonePath, item);
+
+    // Instead of updating all paths each time, check to doing it directly in the function
+    return updatePaths(updatedItems);
 };
 
 export const handleRemoveItemFromList = (
     itemsDictionaryIds: WidgetsIds,
     splitItemPath: number[]
 ) => {
-    return removeChildFromChildren(itemsDictionaryIds, splitItemPath);
+    // Instead of updating all paths each time, check to doing it directly in the function
+    return updatePaths(removeChildFromChildren(itemsDictionaryIds, splitItemPath));
 };

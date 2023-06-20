@@ -179,19 +179,16 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     ]);
 
     useEffect(() => {
-        const clonedTestItems = cloneDeep(testItems);
-        console.log(clonedTestItems, "clonedTestItems");
-
-        const movedWithinParent = handleMoveWithinParent(clonedTestItems, [0], [1]);
-        console.log(movedWithinParent, "movedWithinParent");
-        const removeItem = handleRemoveItemFromList(clonedTestItems, [0, 0, 0]);
-        console.log(removeItem, "removeItem");
-        const item = getChild(clonedTestItems, [0, 0, 0]);
-        console.log(item, "getChild");
-        const movedToDifferentParent = handleMoveToDifferentParent(clonedTestItems, [0, 0, 0], [2]);
-        console.log(movedToDifferentParent, "handleMoveToDifferentParent");
-        // const movedWithinParent = handleMoveWithinParent(clonedTestItems, ["0"], ["1"]);
-        // console.log(movedWithinParent, "newTestItems");
+        // const clonedTestItems = cloneDeep(testItems);
+        // console.log(clonedTestItems, "clonedTestItems");
+        // const movedWithinParent = handleMoveWithinParent(clonedTestItems, [0], [1]);
+        // console.log(movedWithinParent, "movedWithinParent");
+        // const removeItem = handleRemoveItemFromList(clonedTestItems, [0, 0]);
+        // console.log(removeItem, "removeItem");
+        // const item = getChild(clonedTestItems, [0, 0, 0]);
+        // console.log(item, "getChild");
+        // const movedToDifferentParent = handleMoveToDifferentParent(clonedTestItems, [0, 0, 0], [2]);
+        // console.log(movedToDifferentParent, "movedToDifferentParent");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

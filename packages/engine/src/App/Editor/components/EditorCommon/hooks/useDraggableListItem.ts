@@ -126,17 +126,17 @@ export default ({
                     return;
                 }
 
-                if (isChildItem) {
-                    // if (isNesting) {
-                    const newHoverIndex = dragItem.path.split("/").map((x) => Number(x)); // TODO - This gives an array with all the indexes
-                    moveItem(dragIndex, newHoverIndex);
-                    // }
+                // if (isChildItem) {
+                //     // if (isNesting) {
+                //     const newHoverIndex = dragItem.path.split("/").map((x) => Number(x)); // TODO - This gives an array with all the indexes
+                //     moveItem(dragIndex, newHoverIndex);
+                //     // }
 
-                    item.index = hoverIndex;
+                //     item.index = hoverIndex;
 
-                    setIsNesting(false);
-                    return;
-                }
+                //     setIsNesting(false);
+                //     return;
+                // }
 
                 setIsNesting(false);
 
