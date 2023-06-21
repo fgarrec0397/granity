@@ -1,4 +1,4 @@
-import { useScenes, useWidgets } from "@engine/api";
+import { EditorListDragItem, useScenes, useWidgets } from "@engine/api";
 import { clone, cloneDeep, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { FC, ReactElement, useCallback, useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import {
     handleMoveToDifferentParent,
     handleMoveWithinParent,
     handleRemoveItemFromList,
+    splitPath,
 } from "../../_actions/utilities/dnd";
 import EditorItemsListItem from "./EditorItemsListItem";
 
@@ -30,9 +31,13 @@ export type EditorItemsListProps = {
     isItemNesting?: (id: string) => boolean;
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
     onDropItem?: (newItems: RecursiveArrayOfIds<string>) => void;
-    hasDropWhenNesting?: (hoveredItemId: string, draggingItemId: string) => void;
-    moveItem?: (dragIndex: number, hoverIndex: number | number[]) => void;
-    dropItem?: (isNesting: boolean) => void;
+    onNesting?: (hoveredItemId: string, draggingItemId: string) => void;
+    moveItem?: (itemDrag: EditorListDragItem, itemDrop: EditorListDragItem) => void;
+    dropItem?: (
+        isNesting: boolean,
+        itemDrag: EditorListDragItem,
+        itemDrop: EditorListDragItem
+    ) => void;
 };
 
 export interface DragAndDropItem {
@@ -58,7 +63,7 @@ const EditorItemsList = ({
     isItemNesting,
     onIsNestingChange,
     onDropItem,
-    hasDropWhenNesting,
+    onNesting,
     moveItem,
     dropItem,
 }: EditorItemsListProps) => {
@@ -94,7 +99,7 @@ const EditorItemsList = ({
                                 isActionRowSelected={isActionRowSelected}
                                 isItemNesting={isItemNesting}
                                 onIsNestingChange={onIsNestingChange}
-                                hasDropWhenNesting={hasDropWhenNesting}
+                                onNesting={onNesting}
                                 moveItem={moveItem}
                                 dropItem={dropItem}
                             >
@@ -118,7 +123,7 @@ const EditorItemsList = ({
                                             isItemNesting={isItemNesting}
                                             onIsNestingChange={onIsNestingChange}
                                             onDropItem={onDropItem}
-                                            hasDropWhenNesting={hasDropWhenNesting}
+                                            onNesting={onNesting}
                                         />
                                     </Box>
                                 ) : null}
@@ -149,7 +154,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     isItemNesting,
     onIsNestingChange,
     onDropItem,
-    hasDropWhenNesting,
+    onNesting,
 }) => {
     const [items, setItems] = useState(itemsDictionaryIds);
     const [testItems, setTestItems] = useState([
@@ -179,16 +184,9 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     ]);
 
     useEffect(() => {
-        // const clonedTestItems = cloneDeep(testItems);
-        // console.log(clonedTestItems, "clonedTestItems");
-        // const movedWithinParent = handleMoveWithinParent(clonedTestItems, [0], [1]);
-        // console.log(movedWithinParent, "movedWithinParent");
-        // const removeItem = handleRemoveItemFromList(clonedTestItems, [0, 0]);
-        // console.log(removeItem, "removeItem");
-        // const item = getChild(clonedTestItems, [0, 0, 0]);
-        // console.log(item, "getChild");
-        // const movedToDifferentParent = handleMoveToDifferentParent(clonedTestItems, [0, 0, 0], [2]);
-        // console.log(movedToDifferentParent, "movedToDifferentParent");
+        const clonedTestItems = cloneDeep(testItems);
+        const movedToDifferentParent = handleMoveToDifferentParent(clonedTestItems, [1], [2, 0]);
+        console.log(movedToDifferentParent, "movedToDifferentParent");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -197,22 +195,50 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     }, [itemsDictionaryIds]);
 
     const moveItem = useCallback(
-        (dragIndex: number, hoverIndex: number | number[]) => {
+        (itemDrag: EditorListDragItem, itemDrop: EditorListDragItem) => {
             const clonedItems = clone(items);
 
-            if (typeof hoverIndex === "number") {
-                // Check to keep this part for fist level
-                const removedItem = clonedItems.splice(dragIndex, 1);
-                clonedItems.splice(hoverIndex, 0, ...removedItem);
-                setItems(clonedItems);
+            const splitItemPath = splitPath(itemDrag);
+            const splitDropZonePath = splitPath(itemDrop);
+
+            let updatedItems = clonedItems;
+
+            if (splitItemPath.length === splitDropZonePath.length) {
+                updatedItems = handleMoveWithinParent(
+                    clonedItems,
+                    splitItemPath,
+                    splitDropZonePath
+                );
+            } else {
+                updatedItems = handleMoveToDifferentParent(
+                    clonedItems,
+                    splitItemPath,
+                    splitDropZonePath
+                );
             }
+
+            setItems(updatedItems);
         },
         [items]
     );
 
-    const dropItem = useCallback(() => {
-        onDropItem?.(items);
-    }, [items, onDropItem]);
+    const dropItem = useCallback(
+        (isNesting: boolean, itemDrag: EditorListDragItem, itemDrop: EditorListDragItem) => {
+            const splitItemPath = splitPath(itemDrag);
+            const splitDropZonePath = [...splitPath(itemDrop), 0];
+
+            let updatedItems = { ...items };
+
+            console.log({ splitItemPath, splitDropZonePath });
+
+            if (isNesting) {
+                updatedItems = handleMoveToDifferentParent(items, splitItemPath, splitDropZonePath);
+            }
+            console.log(isNesting, "dropItem isNesting");
+            onDropItem?.(updatedItems);
+        },
+        [items, onDropItem]
+    );
 
     return (
         <EditorItemsList
@@ -230,7 +256,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
             onIsNestingChange={onIsNestingChange}
             dropItem={dropItem}
             moveItem={moveItem}
-            hasDropWhenNesting={hasDropWhenNesting}
+            onNesting={onNesting}
         />
     );
 };

@@ -1,6 +1,10 @@
 import { EditorListDragItem, WidgetsIds } from "@engine/api";
 import { clone, cloneDeep, RecursiveObjectWithChildren } from "@granity/helpers";
 
+export const splitPath = (item: EditorListDragItem) => {
+    return item.path.split("/").map((x) => Number(x));
+};
+
 export const getChild = (itemsDictionaryIds: WidgetsIds, splitItemPath: number[]) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const clonedItems = clone(itemsDictionaryIds);
@@ -137,14 +141,15 @@ export const addChildToChildren = (
 
     const updatedChildren = [...children];
 
-    const curIndex = Number(splitDropZonePath.slice(0, 1));
+    const currentDropZoneIndex = Number(splitDropZonePath.slice(0, 1));
 
     // Update the specific node's children
     const splitItemChildrenPath = splitDropZonePath.slice(1);
-    const nodeChildren = updatedChildren[curIndex];
-    updatedChildren[curIndex] = {
+    const nodeChildren = updatedChildren[currentDropZoneIndex];
+
+    updatedChildren[currentDropZoneIndex] = {
         ...nodeChildren,
-        children: addChildToChildren(nodeChildren.children!, splitItemChildrenPath, item),
+        children: addChildToChildren(nodeChildren?.children || [], splitItemChildrenPath, item),
     };
 
     return updatedChildren;
@@ -169,6 +174,12 @@ export const handleMoveToDifferentParent = (
     splitDropZonePath: number[]
 ) => {
     const item = getChild(itemsDictionaryIds, splitItemPath);
+    const dropItem = getChild(itemsDictionaryIds, splitDropZonePath);
+
+    // if (!dropItem) {
+    //     console.log("does not exit");
+    //     return itemsDictionaryIds;
+    // }
 
     let updatedItems = itemsDictionaryIds;
 

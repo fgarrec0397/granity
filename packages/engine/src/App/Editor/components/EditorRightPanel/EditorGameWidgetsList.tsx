@@ -61,7 +61,7 @@ const EditorGameWidgetsList: FC = () => {
         updateGameWidgetInfo(widgetId, { isNesting });
     };
 
-    const hasDropWhenNesting = (hoveredItemId: string, draggingItemId: string) => {
+    const onNesting = (hoveredItemId: string, draggingItemId: string) => {
         addGameWidgetChild(hoveredItemId, draggingItemId);
     };
 
@@ -85,7 +85,7 @@ const EditorGameWidgetsList: FC = () => {
             isItemNesting={(id) => gameWidgetsInfo[id]?.isNesting}
             onIsNestingChange={onIsNestingChange}
             onDropItem={onDropItem}
-            hasDropWhenNesting={hasDropWhenNesting}
+            onNesting={onNesting}
             cancelButton={{
                 text: "Cancel and close",
             }}

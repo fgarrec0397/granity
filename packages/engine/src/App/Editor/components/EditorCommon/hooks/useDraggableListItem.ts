@@ -1,4 +1,5 @@
 import { EditorListDragItem } from "@engine/App/Editor/_actions/editorTypes";
+import { isChildItem } from "@engine/App/Editor/_actions/utilities/dnd";
 import {
     DragSourceMonitor,
     getEmptyImage,
@@ -16,8 +17,12 @@ export type DraggableListItem = {
     dragItem: EditorListDragItem;
     isDraggable?: boolean;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
-    moveItem?: (dragIndex: number, hoverIndex: number | number[]) => void;
-    dropItem?: (isNesting: boolean) => void;
+    moveItem?: (itemDrag: EditorListDragItem, itemDrop: EditorListDragItem) => void;
+    dropItem?: (
+        isNesting: boolean,
+        itemDrag: EditorListDragItem,
+        itemDrop: EditorListDragItem
+    ) => void;
 };
 
 export default ({
@@ -49,42 +54,30 @@ export default ({
                     handlerId: monitor.getHandlerId(),
                 };
             },
-            drop() {
-                if (itemHoveredId) {
-                    setItemHoveredId(undefined);
-                }
-
-                setItemHoveredId(dragItem.id);
-
-                if (isNesting) {
-                    setHasDropWhenNesting(true);
-                }
-
-                dropItem?.(isNesting); // , itemHoveredId, draggingItemId
-
+            drop(item) {
+                dropItem?.(isNesting, item, dragItem);
                 setIsNesting(false);
             },
             hover(item: EditorListDragItem, monitor) {
                 const dragIndex = item.index;
                 const hoverIndex = dragItem.index;
-                const isChildItem = dragItem.path.match(/\//gm); // check if path contains /
-
-                setDraggingItemId(item.id);
+                const isChild = isChildItem(dragItem);
 
                 if (!ref.current) {
+                    setIsNesting(false);
+
                     return;
                 }
+
                 if (!moveItem) {
                     return;
                 }
 
-                if (hasDropWhenNesting) {
-                    setHasDropWhenNesting(false);
-                }
-
                 // Don't replace items with themselves
                 if (dragIndex === hoverIndex) {
-                    return setIsNesting(false);
+                    setIsNesting(false);
+
+                    return;
                 }
 
                 const hoverItemBoundingRect = ref.current?.getBoundingClientRect();
@@ -103,11 +96,15 @@ export default ({
                 // Dragging downwards
                 if (dragIndex < hoverIndex && hoverClientY < draggingDownwardTriggerPosition) {
                     if (hoverClientY < 5) {
-                        return setIsNesting(false);
+                        setIsNesting(false);
+
+                        return;
                     }
 
                     if (!isNesting) {
-                        return setIsNesting(true);
+                        setIsNesting(true);
+
+                        return;
                     }
 
                     return;
@@ -116,37 +113,32 @@ export default ({
                 // Dragging upwards
                 if (dragIndex > hoverIndex && hoverClientY > draggingUpwardTriggerPosition) {
                     if (hoverClientY > hoverItemHeight - 5) {
-                        return setIsNesting(false);
+                        setIsNesting(false);
+
+                        return;
                     }
 
                     if (!isNesting) {
-                        return setIsNesting(true);
+                        setIsNesting(true);
+
+                        return;
                     }
 
                     return;
                 }
 
-                // if (isChildItem) {
-                //     // if (isNesting) {
-                //     const newHoverIndex = dragItem.path.split("/").map((x) => Number(x)); // TODO - This gives an array with all the indexes
-                //     moveItem(dragIndex, newHoverIndex);
-                //     // }
-
-                //     item.index = hoverIndex;
-
-                //     setIsNesting(false);
-                //     return;
+                // if (isChild) {
+                //     console.log(dragItem, "dragItem child");
                 // }
 
-                setIsNesting(false);
-
                 // Time to actually perform the action
-                moveItem(dragIndex, hoverIndex);
+                moveItem(item, dragItem);
 
                 item.index = hoverIndex;
+                item.path = hoverIndex.toString();
             },
         },
-        [itemsDictionaryIds]
+        [itemsDictionaryIds, isNesting]
     );
 
     const [{ isDragging }, drag, preview] = useDrag(
