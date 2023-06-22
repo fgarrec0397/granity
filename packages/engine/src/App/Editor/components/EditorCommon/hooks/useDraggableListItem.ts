@@ -1,5 +1,5 @@
 import { EditorListDragItem } from "@engine/App/Editor/_actions/editorTypes";
-import { isChildItem } from "@engine/App/Editor/_actions/utilities/dnd";
+import { getParentIds, isChildItem, splitPath } from "@engine/App/Editor/_actions/utilities/dnd";
 import {
     DragSourceMonitor,
     getEmptyImage,
@@ -61,7 +61,6 @@ export default ({
             hover(item: EditorListDragItem, monitor) {
                 const dragIndex = item.index;
                 const hoverIndex = dragItem.index;
-                const isChild = isChildItem(dragItem);
 
                 if (!ref.current) {
                     setIsNesting(false);
@@ -80,29 +79,82 @@ export default ({
                     return;
                 }
 
-                const hoverItemBoundingRect = ref.current?.getBoundingClientRect();
-                const hoverItemHeight = hoverItemBoundingRect.bottom - hoverItemBoundingRect.top;
-                const draggingPercentage = 0.5;
-                const hoverItemHeightPercentage = hoverItemHeight * draggingPercentage;
-                const draggingDownwardTriggerPosition = hoverItemHeightPercentage;
-                const draggingUpwardTriggerPosition = hoverItemHeight - hoverItemHeightPercentage;
-
-                // Determine mouse position
-                const clientOffset = monitor.getClientOffset();
-
-                // Get pixels to the top
-                const hoverClientY = (clientOffset as XYCoord).y - hoverItemBoundingRect.top;
-
-                // Dragging downwards
-                if (dragIndex < hoverIndex && hoverClientY < draggingDownwardTriggerPosition) {
-                    if (hoverClientY < 5) {
-                        setIsNesting(false);
-
-                        return;
+                const canMoveItem = () => {
+                    const hoverItemBoundingRect = ref.current?.getBoundingClientRect();
+                    if (!hoverItemBoundingRect) {
+                        return false;
                     }
 
-                    if (!isNesting) {
-                        setIsNesting(true);
+                    const hoverItemHeight =
+                        hoverItemBoundingRect.bottom - hoverItemBoundingRect.top;
+                    const draggingPercentage = 0.5;
+                    const hoverItemHeightPercentage = hoverItemHeight * draggingPercentage;
+                    const draggingDownwardTriggerPosition = hoverItemHeightPercentage;
+                    const draggingUpwardTriggerPosition =
+                        hoverItemHeight - hoverItemHeightPercentage;
+
+                    // Determine mouse position
+                    const clientOffset = monitor.getClientOffset();
+
+                    // Get pixels to the top
+                    const hoverClientY = (clientOffset as XYCoord).y - hoverItemBoundingRect.top;
+
+                    // Dragging downwards
+                    if (dragIndex < hoverIndex && hoverClientY < draggingDownwardTriggerPosition) {
+                        if (hoverClientY < 5) {
+                            setIsNesting(false);
+
+                            return false;
+                        }
+
+                        if (!isNesting) {
+                            setIsNesting(true);
+
+                            return false;
+                        }
+
+                        return false;
+                    }
+
+                    // Dragging upwards
+                    if (dragIndex > hoverIndex && hoverClientY > draggingUpwardTriggerPosition) {
+                        if (hoverClientY > hoverItemHeight - 5) {
+                            setIsNesting(false);
+
+                            return false;
+                        }
+
+                        if (!isNesting) {
+                            setIsNesting(true);
+
+                            return false;
+                        }
+
+                        return false;
+                    }
+
+                    return true;
+                };
+
+                // console.log(item, "item");
+
+                // If the item being dragged (item) is a child, we should ignore all its parents
+                // Get its path property
+                // Traverse the array to get all the ids of the parents
+                // If the current item id equals one of the parent ids, return
+
+                if (isChildItem(item)) {
+                    const splitItemPath = splitPath(item);
+                    const parentIds = getParentIds(itemsDictionaryIds, splitItemPath);
+                    // console.log({ parentIds, draggingItemId: dragItem.id }, "parentIds");
+                    console.log(
+                        monitor.isOver({ shallow: true }),
+                        "monitor.isOver({ shallow: true })"
+                    );
+                    console.log(monitor.isOver(), "monitor.isOver()");
+
+                    if (parentIds.findIndex((x) => x === dragItem.id)) {
+                        console.log("hovering a parent");
 
                         return;
                     }
@@ -110,32 +162,13 @@ export default ({
                     return;
                 }
 
-                // Dragging upwards
-                if (dragIndex > hoverIndex && hoverClientY > draggingUpwardTriggerPosition) {
-                    if (hoverClientY > hoverItemHeight - 5) {
-                        setIsNesting(false);
+                if (canMoveItem()) {
+                    // Time to actually perform the action
+                    moveItem(item, dragItem);
 
-                        return;
-                    }
-
-                    if (!isNesting) {
-                        setIsNesting(true);
-
-                        return;
-                    }
-
-                    return;
+                    item.index = hoverIndex;
+                    item.path = hoverIndex.toString();
                 }
-
-                // if (isChild) {
-                //     console.log(dragItem, "dragItem child");
-                // }
-
-                // Time to actually perform the action
-                moveItem(item, dragItem);
-
-                item.index = hoverIndex;
-                item.path = hoverIndex.toString();
             },
         },
         [itemsDictionaryIds, isNesting]

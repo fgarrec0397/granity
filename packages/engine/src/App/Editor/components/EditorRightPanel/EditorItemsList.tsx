@@ -5,6 +5,7 @@ import { FC, ReactElement, useCallback, useEffect, useState } from "react";
 
 import {
     getChild,
+    getParentIds,
     handleMoveToDifferentParent,
     handleMoveWithinParent,
     handleRemoveItemFromList,
@@ -186,7 +187,10 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     useEffect(() => {
         const clonedTestItems = cloneDeep(testItems);
         const movedToDifferentParent = handleMoveToDifferentParent(clonedTestItems, [1], [2, 0]);
-        console.log(movedToDifferentParent, "movedToDifferentParent");
+        // console.log(movedToDifferentParent, "movedToDifferentParent");
+        const parentIds = getParentIds(clonedTestItems, [0, 0, 0]);
+        // console.log(parentIds, "parentIds");
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -234,7 +238,6 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
             if (isNesting) {
                 updatedItems = handleMoveToDifferentParent(items, splitItemPath, splitDropZonePath);
             }
-            console.log(isNesting, "dropItem isNesting");
             onDropItem?.(updatedItems);
         },
         [items, onDropItem]

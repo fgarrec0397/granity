@@ -14,7 +14,7 @@ const widgetsIdsFilter = (
     widgetsIds.forEach((item) => {
         const widget = widgetsDictionary[item.id];
 
-        if (widget.type === widgetType) {
+        if (widget?.type === widgetType) {
             filteredWidgetsIds.push(item);
         }
     });

@@ -31,6 +31,34 @@ export const getChild = (itemsDictionaryIds: WidgetsIds, splitItemPath: number[]
     return evalClonedItemsValue;
 };
 
+export const getParentIds = (itemsDictionaryIds: WidgetsIds, splitItemPath: number[]): string[] => {
+    const parentIds: string[] = [];
+
+    const traverse = (items: WidgetsIds, itemPath: number[], currentIndex = 0) => {
+        let currentId;
+
+        items.forEach((x, index) => {
+            if (itemPath[currentIndex] === index) {
+                parentIds.push(x.id);
+
+                if (x.children) {
+                    currentId = traverse(x.children, itemPath.slice(1), currentIndex++);
+                } else {
+                    currentId = x.id;
+                }
+            }
+        });
+
+        return currentId;
+    };
+
+    traverse(itemsDictionaryIds, splitItemPath);
+
+    parentIds.pop();
+
+    return parentIds;
+};
+
 export const isChildItem = (item: EditorListDragItem) => {
     return item.path.match(/\//gm);
 };
@@ -174,12 +202,6 @@ export const handleMoveToDifferentParent = (
     splitDropZonePath: number[]
 ) => {
     const item = getChild(itemsDictionaryIds, splitItemPath);
-    const dropItem = getChild(itemsDictionaryIds, splitDropZonePath);
-
-    // if (!dropItem) {
-    //     console.log("does not exit");
-    //     return itemsDictionaryIds;
-    // }
 
     let updatedItems = itemsDictionaryIds;
 
