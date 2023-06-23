@@ -1,0 +1,6 @@
+{
+  "extends": "@granity/typescript-config/base.json",
+  "include": [
+    "./src",
+  ],
+}

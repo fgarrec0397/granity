@@ -147,17 +147,17 @@ export default ({
                     const splitItemPath = splitPath(item);
                     const parentIds = getParentIds(itemsDictionaryIds, splitItemPath);
                     // console.log({ parentIds, draggingItemId: dragItem.id }, "parentIds");
-                    console.log(
-                        monitor.isOver({ shallow: true }),
-                        "monitor.isOver({ shallow: true })"
-                    );
-                    console.log(monitor.isOver(), "monitor.isOver()");
+                    // console.log(
+                    //     monitor.isOver({ shallow: true }),
+                    //     "monitor.isOver({ shallow: true })"
+                    // );
+                    // console.log(monitor.isOver(), "monitor.isOver()");
 
-                    if (parentIds.findIndex((x) => x === dragItem.id)) {
-                        console.log("hovering a parent");
+                    // if (parentIds.findIndex((x) => x === dragItem.id)) {
+                    //     console.log("hovering a parent");
 
-                        return;
-                    }
+                    //     return;
+                    // }
 
                     return;
                 }

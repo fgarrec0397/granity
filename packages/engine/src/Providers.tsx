@@ -4,7 +4,7 @@ import CamerasContextProvider from "@engine/App/Scenes/_actions/_data/providers/
 import WidgetsModulesContextProvider from "@engine/App/Widgets/_actions/_data/providers/WidgetsModulesProvider";
 import WidgetsContextProvider from "@engine/App/Widgets/_actions/_data/providers/WidgetsProvider";
 import { injectStore } from "@engine/App/Widgets/_actions/utilities/createWidget";
-import { DndProvider, HTML5Backend } from "@granity/draggable";
+import { OnDrop, Provider as DndProvider } from "@granity/draggable";
 import { HasChildren, ProvidersBuilder, QueryClient, QueryClientProvider } from "@granity/helpers";
 import { Theme, ThemeProvider } from "@granity/ui";
 import { FC } from "react";
@@ -23,11 +23,21 @@ injectStore(store);
 
 const queryClient = new QueryClient();
 
+const onDrop: OnDrop = ({ source, destination, dropType, sameSource }) => {
+    const { index: srcIndex, droppableId: srcContainerId } = source;
+    const { index: destIndex, droppableId: destContainerId } = destination;
+
+    console.log({ source, destination, dropType, sameSource });
+
+    // your application logic goes here
+    // setState(newState)
+};
+
 const AppProvider: FC<Props> = ({ config, theme, children }) => {
     const Providers = ProvidersBuilder([
         [ThemeProvider, { theme }],
         [ReduxProvider, { store }],
-        [DndProvider, { backend: HTML5Backend }],
+        [DndProvider, { onDrop }],
         [QueryClientProvider, { client: queryClient }],
         [ConfigContextProvider],
         [CamerasContextProvider],

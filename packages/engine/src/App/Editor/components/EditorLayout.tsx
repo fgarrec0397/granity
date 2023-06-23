@@ -16,7 +16,7 @@ const EditorUI: FC = () => {
                 <EditorRightPanel />
                 <EditorBottomPanel />
             </EditorWrapper>
-            <EditorCustomDragLayer />
+            {/* <EditorCustomDragLayer /> */}
         </>
     );
 };

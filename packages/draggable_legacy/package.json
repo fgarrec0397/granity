@@ -1,5 +1,5 @@
 {
-	"name": "@granity/draggable",
+	"name": "@granity/draggable_legacy",
 	"version": "1.0.0",
 	"main": "src/index.ts",
 	"scripts": {
@@ -17,7 +17,6 @@
 		"@granity/typescript-config": "*",
 		"dnd-core": "^16.0.1",
 		"react-dnd": "16.0.1",
-		"react-dnd-html5-backend": "16.0.1",
-		"react": "^18.2.0"
+		"react-dnd-html5-backend": "16.0.1"
 	}
 }
