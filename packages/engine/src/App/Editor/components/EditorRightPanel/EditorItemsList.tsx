@@ -125,6 +125,8 @@ const EditorItemsList = ({
                                             onIsNestingChange={onIsNestingChange}
                                             onDropItem={onDropItem}
                                             onNesting={onNesting}
+                                            moveItem={moveItem}
+                                            dropItem={dropItem}
                                         />
                                     </Box>
                                 ) : null}
@@ -158,6 +160,9 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     onNesting,
 }) => {
     const [items, setItems] = useState(itemsDictionaryIds);
+
+    console.log(items);
+
     const [testItems, setTestItems] = useState([
         {
             id: "id1",

@@ -55,12 +55,16 @@ export default ({
                 };
             },
             drop(item) {
-                dropItem?.(isNesting, item, dragItem);
+                // dropItem?.(isNesting, item, dragItem);
                 setIsNesting(false);
             },
             hover(item: EditorListDragItem, monitor) {
                 const dragIndex = item.index;
                 const hoverIndex = dragItem.index;
+
+                if (monitor.isOver()) {
+                    return;
+                }
 
                 if (!ref.current) {
                     setIsNesting(false);
@@ -68,12 +72,14 @@ export default ({
                     return;
                 }
 
+                console.log({ path: dragItem.path, moveItem }, "dragItem.path");
+
                 if (!moveItem) {
                     return;
                 }
 
                 // Don't replace items with themselves
-                if (dragIndex === hoverIndex) {
+                if (item.path === dragItem.path) {
                     setIsNesting(false);
 
                     return;
@@ -147,16 +153,35 @@ export default ({
                     const splitItemPath = splitPath(item);
                     const parentIds = getParentIds(itemsDictionaryIds, splitItemPath);
                     // console.log({ parentIds, draggingItemId: dragItem.id }, "parentIds");
-                    console.log(
-                        monitor.isOver({ shallow: true }),
-                        "monitor.isOver({ shallow: true })"
-                    );
-                    console.log(monitor.isOver(), "monitor.isOver()");
+                    // console.log(
+                    //     monitor.isOver({ shallow: true }),
+                    //     "monitor.isOver({ shallow: true })"
+                    // );
+                    // console.log(monitor.isOver(), "monitor.isOver()");
 
-                    if (parentIds.findIndex((x) => x === dragItem.id)) {
+                    // console.log(dragItem.id, parentIds);
+
+                    // console.log(
+                    //     parentIds.findIndex((x) => x === dragItem.id),
+                    //     "parentIds.findIndex((x) => x === dragItem.id)"
+                    // );
+
+                    if (parentIds.findIndex((x) => x === dragItem.id) !== -1) {
                         console.log("hovering a parent");
 
                         return;
+                    }
+
+                    if (canMoveItem()) {
+                        console.log("can move");
+
+                        moveItem(item, dragItem);
+
+                        // const itemPath = item.path;
+                        // const dragItemPath = dragItem.path;
+
+                        // item.index = hoverIndex;
+                        // item.path = dragItemPath;
                     }
 
                     return;
