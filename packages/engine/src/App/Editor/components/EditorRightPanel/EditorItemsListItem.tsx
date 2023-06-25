@@ -4,13 +4,12 @@ import Star from "@granity/icons/Star";
 import Visibility from "@granity/icons/Visibility";
 import VisibilityOff from "@granity/icons/VisibilityOff";
 import { IconButton, ListItem, ListItemButton, pxToRem } from "@granity/ui";
-import { CSSProperties, forwardRef, ReactElement, useEffect } from "react";
+import { CSSProperties, forwardRef, ReactElement } from "react";
 
 import { EditorListDragItem } from "../../_actions/editorTypes";
-import useDraggableListItem from "../EditorCommon/hooks/useDraggableListItem";
 
 export const ItemTypes = {
-    LIST_ITEM: "LIST_ITEM",
+    LIST_ITEM: "DRAGGABLE_LIST_ITEM",
 };
 
 export type EditorItemsListItemProps = HasChildren & {
@@ -21,6 +20,7 @@ export type EditorItemsListItemProps = HasChildren & {
     itemChildren?: RecursiveArrayOfIds<string>;
     isDraggable?: boolean;
     additionalStyles?: CSSProperties;
+    isDragging: boolean;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
     editModal?: (id: string) => ReactElement;
     isVisible?: (id: string) => boolean | undefined;
@@ -44,13 +44,9 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
     (
         {
             id,
-            index,
-            itemPath,
-            itemsDictionaryIds,
             itemName,
-            itemChildren,
-            isDraggable,
             additionalStyles,
+            isDragging,
             editModal,
             handleVisibility,
             isVisible,
@@ -59,43 +55,16 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
             handleClickRow,
             isActionRowSelected,
             isItemNesting,
-            onIsNestingChange,
-            onNesting,
-            moveItem,
-            dropItem,
             children,
         }: EditorItemsListItemProps,
         ref
     ) => {
-        // const draggableList = useDraggableListItem({
-        //     dragItem: {
-        //         id,
-        //         index,
-        //         title: itemName,
-        //         path: itemPath,
-        //         type: ItemTypes.LIST_ITEM,
-        //         children: itemChildren,
-        //     },
-        //     itemsDictionaryIds,
-        //     moveItem,
-        //     dropItem,
-        //     isDraggable,
-        // });
-
-        // useEffect(() => {
-        //     if (draggableList) {
-        //         onIsNestingChange?.(id, draggableList.isNesting || false);
-        //     }
-        //     // eslint-disable-next-line react-hooks/exhaustive-deps
-        // }, [draggableList?.isNesting]);
-
         return (
             <ListItem
                 ref={ref}
-                // data-handler-id={draggableList?.handlerId}
                 sx={(theme) => ({
                     display: "block",
-                    // opacity: draggableList?.isDragging ? 0.25 : 1,
+                    opacity: isDragging ? 0 : 1,
                     maxWidth: pxToRem(250),
                     backgroundColor: theme.palette.background.default,
                     border: isItemNesting?.(id) ? "1px solid red" : "1px solid transparent",

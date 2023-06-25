@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { getEmptyImage } from "react-dnd-html5-backend";
 
 import { useDroppableContext, useOnDrop } from "../Provider";
 import { DropResult } from "../Provider/types";
@@ -19,7 +20,7 @@ const Draggable: FC<DraggableProps> = ({ children, horizontal, ...props }) => {
         isDropTarget: isParentActive,
     } = useDroppableContext(props.droppableId);
 
-    const [{ isDragging, draggedItem, style }, drag] = useDrag<
+    const [{ isDragging, draggedItem, style }, drag, preview] = useDrag<
         DragItem,
         DropResult,
         DragCollectProps
@@ -62,6 +63,10 @@ const Draggable: FC<DraggableProps> = ({ children, horizontal, ...props }) => {
             }
         },
     });
+
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview]);
 
     const [{ isOver }, drop] = useDrop<
         DragItem & { __rect__: DOMRect | undefined },

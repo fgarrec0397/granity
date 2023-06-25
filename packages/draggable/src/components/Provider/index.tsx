@@ -14,7 +14,6 @@ const STORE = {
                 setThreesholdIndex: React.Dispatch<React.SetStateAction<number>>;
                 threesholdId: string;
                 setThreesholdId: React.Dispatch<React.SetStateAction<string>>;
-                // sameSource: boolean;
                 isDropTarget: boolean;
                 id: string;
                 getAcceptTypes: () => string[];
@@ -34,8 +33,6 @@ const useDroppableContext = (droppableId: string) => {
 const DndCtxProvider = ONDROP_CTX.Provider;
 
 const Provider: React.FC<ProviderProps> = (props) => {
-    console.log(props.onDrop, "props.onDrop");
-
     return (
         <DndCtxProvider value={props.onDrop}>
             <DndProvider backend={HTML5Backend}>{props.children}</DndProvider>

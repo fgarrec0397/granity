@@ -1,15 +1,13 @@
 import { Draggable, Droppable } from "@engine/../../draggable/src";
 import { EditorListDragItem, useScenes, useWidgets } from "@engine/api";
-import { clone, cloneDeep, RecursiveArrayOfIds } from "@granity/helpers";
+import { clone, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { FC, ReactElement, useCallback, useEffect, useState } from "react";
 
+import { DraggableTypes } from "../../_actions/editorConstants";
 import {
-    getChild,
-    getParentIds,
     handleMoveToDifferentParent,
     handleMoveWithinParent,
-    handleRemoveItemFromList,
     splitPath,
 } from "../../_actions/utilities/dnd";
 import EditorItemsListItem from "./EditorItemsListItem";
@@ -90,11 +88,9 @@ const EditorItemsList = ({
                             droppableId={parentId}
                             id={item.id}
                             index={index}
-                            type="DRAGGABLE_LIST_ITEM"
+                            type={DraggableTypes.ListItem}
                         >
-                            {(provided) => {
-                                console.log(provided, "provided draggable list item");
-
+                            {(provided, snapshot) => {
                                 return (
                                     <EditorItemsListItem
                                         {...provided}
@@ -116,11 +112,12 @@ const EditorItemsList = ({
                                         onNesting={onNesting}
                                         moveItem={moveItem}
                                         dropItem={dropItem}
+                                        isDragging={snapshot.isDragging}
                                     >
                                         {item.children?.length ? (
                                             <Droppable
                                                 id={item.id}
-                                                accept={["DRAGGABLE_LIST_ITEM"]}
+                                                accept={[DraggableTypes.ListItem]}
                                             >
                                                 {(providedStyle) => {
                                                     return (
@@ -190,41 +187,6 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     onNesting,
 }) => {
     const [items, setItems] = useState(itemsDictionaryIds);
-    const [testItems, setTestItems] = useState([
-        {
-            id: "id1",
-            path: "0",
-            children: [
-                {
-                    id: "nestedId1",
-                    path: "0/0",
-                    children: [{ id: "nestedNestedId1", path: "0/0/0" }],
-                },
-                {
-                    id: "nestedId2",
-                    path: "0/1",
-                },
-            ],
-        },
-        {
-            id: "id2",
-            path: "1",
-        },
-        {
-            id: "id3",
-            path: "2",
-        },
-    ]);
-
-    useEffect(() => {
-        const clonedTestItems = cloneDeep(testItems);
-        const movedToDifferentParent = handleMoveToDifferentParent(clonedTestItems, [1], [2, 0]);
-        // console.log(movedToDifferentParent, "movedToDifferentParent");
-        const parentIds = getParentIds(clonedTestItems, [0, 0, 0]);
-        // console.log(parentIds, "parentIds");
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         setItems(itemsDictionaryIds);
@@ -274,7 +236,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     );
 
     return (
-        <Droppable id="container" accept={["DRAGGABLE_LIST_ITEM"]}>
+        <Droppable id="container" accept={[DraggableTypes.ListItem]}>
             {(providedStyle, snapshot, placeholder) => {
                 return (
                     <div {...providedStyle}>
