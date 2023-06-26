@@ -1,8 +1,8 @@
 import { EditorListDragItem, WidgetsIds } from "@engine/api";
 import { clone, cloneDeep, RecursiveObjectWithChildren } from "@granity/helpers";
 
-export const splitPath = (item: EditorListDragItem) => {
-    return item.path.split("/").map((x) => Number(x));
+export const splitPath = (itemPath: string) => {
+    return itemPath.split("/").map((x) => Number(x));
 };
 
 export const getChild = (itemsDictionaryIds: WidgetsIds, splitItemPath: number[]) => {

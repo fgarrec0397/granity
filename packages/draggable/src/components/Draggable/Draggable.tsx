@@ -1,14 +1,13 @@
-import { FC, useCallback, useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 
-import { useDroppableContext, useOnDrop } from "../Provider";
-import { DropResult } from "../Provider/types";
-import { DragCollectProps, DraggableProps, DragItem } from "./types";
+import { useDroppableContext, useOnDrop } from "../Provider/DndContextProvider";
+import { DragCollectProps, DraggableProps, DragItem, DropResult } from "../types";
 import { getElementMargin, getTranslationStyle, handleHover } from "./utils";
 
-const Draggable: FC<DraggableProps> = ({ children, horizontal, ...props }) => {
-    const ref = useRef<any>();
+const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
+    const ref = useRef<HTMLDivElement>(null);
     const onDrop = useOnDrop();
 
     const {
@@ -27,7 +26,7 @@ const Draggable: FC<DraggableProps> = ({ children, horizontal, ...props }) => {
     >({
         type: props.type,
         item: () => {
-            const element = ref.current as HTMLDivElement;
+            const element = ref.current;
             const rect = element?.getBoundingClientRect();
             return {
                 ...props,
@@ -39,18 +38,21 @@ const Draggable: FC<DraggableProps> = ({ children, horizontal, ...props }) => {
             const sourceItem = monitor.getItem();
             const sourceIsDragging = monitor.isDragging();
 
-            const { style } = getTranslationStyle({
+            const { style: translationStyle } = getTranslationStyle({
                 sourceItem: sourceItem,
                 destinationItem: props,
                 threesholdIndex,
-                horizontal,
                 domRect: sourceItem?.__rect__,
                 isDragging: sourceIsDragging,
                 isParentActive,
                 margin: sourceItem?.margin,
             });
 
-            return { isDragging: sourceIsDragging, draggedItem: sourceItem, style };
+            return {
+                isDragging: sourceIsDragging,
+                draggedItem: sourceItem,
+                style: translationStyle,
+            };
         },
 
         end(_, monitor) {
@@ -64,54 +66,48 @@ const Draggable: FC<DraggableProps> = ({ children, horizontal, ...props }) => {
         },
     });
 
-    useEffect(() => {
-        preview(getEmptyImage(), { captureDraggingState: true });
-    }, [preview]);
-
-    const [{ isOver }, drop] = useDrop<
-        DragItem & { __rect__: DOMRect | undefined },
-        { source: any; destination: any; dropType: "combine" },
-        { isOver: boolean }
-    >({
+    const [{ isOver }, drop] = useDrop<DragItem, DropResult, { isOver: boolean }>({
         accept: getAcceptTypes(),
         collect(monitor) {
             return {
-                // handlerId: monitor.getHandlerId(),
                 isOver: monitor.isOver(),
             };
         },
 
         drop(_, monitor) {
-            const draggedItem = monitor.getItem() as DragItem;
-            if (!draggedItem) return;
+            const item = monitor.getItem();
+
+            if (!item) return;
 
             const isDropTarget = monitor.isOver({ shallow: true });
+
             if (!isDropTarget) return;
 
             return {
                 source: {
-                    index: draggedItem.index,
-                    id: draggedItem.id,
-                    droppableId: draggedItem.droppableId,
+                    index: item.index,
+                    id: item.id,
+                    droppableId: item.droppableId,
+                    path: item.path,
                 },
                 destination: {
                     index: props.index,
                     id: props.id,
                     droppableId: props.droppableId,
+                    path: props.path,
                 },
                 dropType: "combine",
                 sameSource: draggedItem.droppableId === props.droppableId,
             };
         },
 
-        hover(draggedItem, monitor) {
+        hover(item, monitor) {
             handleHover(monitor, {
-                sourceItem: draggedItem,
+                sourceItem: item,
                 destinationItem: props,
                 ref,
                 setThreesholdIndex,
                 threesholdIndex,
-                horizontal,
             });
         },
     });
@@ -126,6 +122,7 @@ const Draggable: FC<DraggableProps> = ({ children, horizontal, ...props }) => {
 
     const indexMismatch =
         isParentActive && threesholdIndex !== props.index && threesholdId === props.id;
+
     useEffect(() => {
         if (indexMismatch) {
             setThreesholdId(undefined as any);
@@ -144,14 +141,13 @@ const Draggable: FC<DraggableProps> = ({ children, horizontal, ...props }) => {
         }
     }, [isDraggingSrouce, setThreesholdIndex, setThreesholdId, props.index, props.id]);
 
-    const dndRef = useCallback(
-        (element: any) => {
-            ref.current = drag(drop(element));
-        },
-        [drag, drop]
-    );
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview]);
 
-    return children({ ref: dndRef, style }, { isDragging, isOver: isOver });
+    drag(drop(ref.current));
+
+    return children({ ref, style }, { isDragging, isOver: isOver });
 };
 
 export { Draggable };

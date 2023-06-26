@@ -1,9 +1,8 @@
 import { createContext, FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 
-import { STORE } from "../Provider";
-import { DropResult } from "../Provider/types";
-import { DroppableProps } from "./types";
+import { droppablesDictionary } from "../Provider/DndContextProvider";
+import { DroppableProps, DropResult } from "../types";
 
 const onMouseOver = (e: any) => {
     e.stopPropagation();
@@ -38,7 +37,9 @@ export const Droppable: FC<DroppableProps> = (props) => {
 
             const dropTarget =
                 isMonitorShallowDropTarget || (!nestedDropTarget && monitor.isOver());
+
             const draggedItem = monitor.getItem();
+
             const isSameSource = draggedItem && draggedItem?.droppableId === props.id;
 
             const rect = draggedItem?.__rect__ as DOMRect;
@@ -47,7 +48,10 @@ export const Droppable: FC<DroppableProps> = (props) => {
 
             const marginDelta = props.horizontal ? marginDeltaWidth : marginDeltaHeight;
             const size = props.horizontal ? rect?.width : rect?.height;
-            const placeholderItemSize = dropTarget && !isSameSource ? size + marginDelta : 0;
+
+            const displayPlaceholder = dropTarget && !isSameSource;
+
+            const placeholderItemSize = displayPlaceholder ? size + marginDelta : 0;
 
             return {
                 isDropTarget: dropTarget,
@@ -72,11 +76,13 @@ export const Droppable: FC<DroppableProps> = (props) => {
                     index: draggedItem.index,
                     id: draggedItem.id,
                     droppableId: draggedItem.droppableId,
+                    path: draggedItem.path,
                 },
                 destination: {
                     index: threesholdIndex,
                     id: threesholdId,
                     droppableId: props.id,
+                    path: props.path,
                 },
                 dropType: "replace",
                 sameSource: draggedItem.droppableId === props.id,
@@ -110,13 +116,13 @@ export const Droppable: FC<DroppableProps> = (props) => {
         })
     );
 
-    if (!STORE.droppables[props.id]) {
-        STORE.droppables[props.id] = { context: dropContext };
+    if (!droppablesDictionary[props.id]) {
+        droppablesDictionary[props.id] = { context: dropContext };
     }
 
     useEffect(() => {
         return () => {
-            delete STORE.droppables[props.id];
+            delete droppablesDictionary[props.id];
         };
     }, [props.id]);
 
@@ -143,8 +149,10 @@ export const Droppable: FC<DroppableProps> = (props) => {
                 style={{
                     pointerEvents: "none",
                     width: props.horizontal ? placeholderSize : "100%",
-                    height: props.horizontal ? "auto" : placeholderSize,
+                    // height: props.horizontal ? "auto" : placeholderSize,
+                    height: "40px",
                     transition: placeholderTransition,
+                    border: "1px solid red",
                 }}
             />
         ),

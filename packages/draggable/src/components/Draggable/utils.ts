@@ -1,8 +1,18 @@
+import { RefObject } from "react";
 import { DropTargetMonitor, XYCoord } from "react-dnd";
 
-import { DragItem } from "./types";
+import { DragItem, DragItemRaw, DropResult, MarginType } from "../types";
 
-export const getElementMargin = (element: HTMLDivElement) => {
+export const getElementMargin = (element: HTMLDivElement | null) => {
+    if (!element) {
+        return {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+        };
+    }
+
     // const rect = element?.getBoundingClientRect();
     const computedStyle = getComputedStyle(element);
     const marginTop = computedStyle.getPropertyValue("margin-top").replace("px", "");
@@ -18,15 +28,17 @@ export const getElementMargin = (element: HTMLDivElement) => {
     };
 };
 
+type HandleHoverParams = {
+    sourceItem: DragItemRaw;
+    destinationItem: DragItemRaw;
+    ref: RefObject<HTMLDivElement>;
+    threesholdIndex: number;
+    setThreesholdIndex: (index: number) => void;
+    horizontal?: boolean;
+};
+
 export const handleHover = (
-    monitor: DropTargetMonitor<
-        DragItem,
-        {
-            source: any;
-            destination: any;
-            dropType: "combine";
-        }
-    >,
+    monitor: DropTargetMonitor<DragItem, DropResult>,
     {
         sourceItem,
         destinationItem,
@@ -34,17 +46,12 @@ export const handleHover = (
         threesholdIndex,
         setThreesholdIndex,
         horizontal,
-    }: {
-        sourceItem: DragItem;
-        destinationItem: DragItem;
-        ref: React.MutableRefObject<HTMLDivElement>;
-        threesholdIndex: number;
-        setThreesholdIndex: (index: number) => void;
-        horizontal?: boolean;
-    }
+    }: HandleHoverParams
 ) => {
     const isDropTarget = monitor.isOver({ shallow: true });
+
     if (!isDropTarget) return;
+
     if (!ref.current) {
         return;
     }
@@ -150,14 +157,14 @@ export const getTranslationStyle = ({
     domRect,
     margin,
 }: {
-    sourceItem: DragItem;
-    destinationItem: DragItem;
+    sourceItem: DragItemRaw;
+    destinationItem: DragItemRaw;
     isDragging: boolean;
     horizontal?: boolean;
     threesholdIndex: number;
     isParentActive: boolean;
-    domRect: DOMRect;
-    margin?: { left: number; right: number; top: number; bottom: number };
+    domRect?: DOMRect;
+    margin?: MarginType;
 }) => {
     const droppableSourceId = sourceItem?.droppableId;
     const itemSourceIndex = sourceItem?.index;
@@ -193,18 +200,18 @@ export const getTranslationStyle = ({
 
     const transform =
         translateSign && domRect
-            ? `translate${xyCoordinate.toUpperCase()}(${translateSign * (rectSize + delta)}px)`
+            ? `translate${xyCoordinate.toUpperCase()}(${translateSign * (rectSize || 0 + delta)}px)`
             : undefined;
 
     const pointerEventsProps = isDragging ? { pointerEvents: "none" } : {};
     const transformProps = transform ? { transform } : {};
     const transitionProps = hasDraggedItem ? { transition: "0.3s" } : { transition: "0s" };
 
-    const style: React.CSSProperties = {
+    const style = {
         ...transformProps,
         ...pointerEventsProps,
         ...transitionProps,
-    } as any;
+    } as unknown as React.CSSProperties;
 
     return { style };
 };

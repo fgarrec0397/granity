@@ -42,8 +42,6 @@ const EditorCustomDragLayer: FC = () => {
     );
 
     function renderItem() {
-        console.log({ item });
-
         switch (itemType) {
             case DraggableTypes.ListItem:
                 return <ListItemDragPreview dragItem={item} />;
