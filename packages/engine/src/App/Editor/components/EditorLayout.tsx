@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import EditorBottomPanel from "./EditorBottomPanel/EditorBottomPanel";
-import EditorCustomDragLayer from "./EditorCommon/EditorCustomDragLayer";
 import EditorHeader from "./EditorHeader/EditorHeader";
 import EditorRightPanel from "./EditorRightPanel/EditorRightPanel";
 import EditorWrapper from "./EditorWrapper";
@@ -16,7 +15,6 @@ const EditorUI: FC = () => {
                 <EditorRightPanel />
                 <EditorBottomPanel />
             </EditorWrapper>
-            <EditorCustomDragLayer />
         </>
     );
 };

@@ -32,6 +32,7 @@ const ListItemDragPreview: FC<BoxDragPreviewProps> = ({ dragItem }) => {
             additionalStyles={styles}
             itemPath={""}
             itemsDictionaryIds={[]}
+            isDragging={false}
         >
             {dragItem.children?.length ? (
                 <Box
@@ -39,7 +40,11 @@ const ListItemDragPreview: FC<BoxDragPreviewProps> = ({ dragItem }) => {
                         padding: pxToRem(0, 0, 0, 10),
                     }}
                 >
-                    <EditorItemsList itemsDictionaryIds={dragItem.children} noItemsText="" />
+                    <EditorItemsList
+                        itemsDictionaryIds={dragItem.children}
+                        noItemsText=""
+                        parentId=""
+                    />
                 </Box>
             ) : null}
         </EditorItemsListItem>

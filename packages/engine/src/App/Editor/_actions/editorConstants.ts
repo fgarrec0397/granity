@@ -14,3 +14,7 @@ export enum EditorStatus {
     IsUIPreview = "IsUIPreview",
     IsGame = "IsGame",
 }
+
+export enum DraggableTypes {
+    ListItem = "ListItem",
+}

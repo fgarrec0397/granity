@@ -1,7 +1,7 @@
-import { useDragLayer, XYCoord } from "@engine/../../draggable/src";
+import { useDragLayer, XYCoord } from "@granity/draggable";
 import type { CSSProperties, FC } from "react";
 
-import { ItemTypes } from "../EditorRightPanel/EditorItemsListItem";
+import { DraggableTypes } from "../../_actions/editorConstants";
 import ListItemDragPreview from "./ListItemDragPreview";
 
 const layerStyles: CSSProperties = {
@@ -43,7 +43,7 @@ const EditorCustomDragLayer: FC = () => {
 
     function renderItem() {
         switch (itemType) {
-            case ItemTypes.LIST_ITEM:
+            case DraggableTypes.ListItem:
                 return <ListItemDragPreview dragItem={item} />;
             default:
                 return null;
