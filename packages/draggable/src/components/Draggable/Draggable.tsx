@@ -89,12 +89,14 @@ const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
                     id: item.id,
                     droppableId: item.droppableId,
                     path: item.path,
+                    title: item.title,
                 },
                 destination: {
                     index: props.index,
                     id: props.id,
                     droppableId: props.droppableId,
                     path: props.path,
+                    title: props.title,
                 },
                 dropType: "combine",
                 sameSource: draggedItem.droppableId === props.droppableId,
@@ -115,6 +117,8 @@ const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
     const isDestination = isParentActive && threesholdIndex === props.index;
     const idMismatch = isDestination && threesholdId !== props.id;
     useEffect(() => {
+        console.log(idMismatch, "idMismatch");
+
         if (idMismatch) {
             setThreesholdId(props.id);
         }
@@ -124,6 +128,8 @@ const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
         isParentActive && threesholdIndex !== props.index && threesholdId === props.id;
 
     useEffect(() => {
+        console.log(indexMismatch, "indexMismatch");
+
         if (indexMismatch) {
             setThreesholdId(undefined as any);
         }

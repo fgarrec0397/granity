@@ -5,17 +5,20 @@ export const splitPath = (itemPath: string) => {
     return itemPath.split("/").map((x) => Number(x));
 };
 
-export const getChild = (itemsDictionaryIds: WidgetsIds, splitItemPath: number[]) => {
+export const getChild = (
+    itemsDictionaryIds: WidgetsIds,
+    splitSourcePath: number[]
+): RecursiveObjectWithChildren<{ id: string }> => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const clonedItems = clone(itemsDictionaryIds);
 
     let evalClonedItemsValue;
     let getNestedArrayValueString = "";
 
-    splitItemPath.forEach((x, index) => {
+    splitSourcePath.forEach((x, index) => {
         getNestedArrayValueString += `[${x}]`;
 
-        if (index < splitItemPath.length - 1) {
+        if (index < splitSourcePath.length - 1) {
             getNestedArrayValueString += `["children"]`;
         }
     });
@@ -31,7 +34,10 @@ export const getChild = (itemsDictionaryIds: WidgetsIds, splitItemPath: number[]
     return evalClonedItemsValue;
 };
 
-export const getParentIds = (itemsDictionaryIds: WidgetsIds, splitItemPath: number[]): string[] => {
+export const getParentIds = (
+    itemsDictionaryIds: WidgetsIds,
+    splitSourcePath: number[]
+): string[] => {
     const parentIds: string[] = [];
 
     const traverse = (items: WidgetsIds, itemPath: number[], currentIndex = 0) => {
@@ -52,7 +58,7 @@ export const getParentIds = (itemsDictionaryIds: WidgetsIds, splitItemPath: numb
         return currentId;
     };
 
-    traverse(itemsDictionaryIds, splitItemPath);
+    traverse(itemsDictionaryIds, splitSourcePath);
 
     parentIds.pop();
 
@@ -104,21 +110,21 @@ const updatePaths = (items: WidgetsIds, parentPath?: string): WidgetsIds => {
 
 export const reorderChildren = (
     children: WidgetsIds,
-    splitItemPath: number[],
-    splitDropZonePath: number[]
+    splitSourcePath: number[],
+    splitDestinationPath: number[]
 ) => {
-    if (splitDropZonePath.length === 1) {
-        const dropZoneIndex = Number(splitDropZonePath[0]);
-        const itemIndex = Number(splitItemPath[0]);
+    if (splitDestinationPath.length === 1) {
+        const dropZoneIndex = Number(splitDestinationPath[0]);
+        const itemIndex = Number(splitSourcePath[0]);
         return reorder(children, itemIndex, dropZoneIndex);
     }
 
     const updatedChildren = [...children];
 
-    const curIndex = Number(splitDropZonePath.slice(0, 1));
+    const curIndex = Number(splitDestinationPath.slice(0, 1));
 
-    const splitDropZoneChildrenPath = splitDropZonePath.slice(1);
-    const splitItemChildrenPath = splitItemPath.slice(1);
+    const splitDropZoneChildrenPath = splitDestinationPath.slice(1);
+    const splitItemChildrenPath = splitSourcePath.slice(1);
 
     const nodeChildren = updatedChildren[curIndex];
 
@@ -136,18 +142,18 @@ export const reorderChildren = (
     return updatedChildren;
 };
 
-export const removeChildFromChildren = (children: WidgetsIds, splitItemPath: number[]) => {
-    if (splitItemPath.length === 1) {
-        const itemIndex = Number(splitItemPath[0]);
+export const removeChildFromChildren = (children: WidgetsIds, splitSourcePath: number[]) => {
+    if (splitSourcePath.length === 1) {
+        const itemIndex = Number(splitSourcePath[0]);
         return remove(children, itemIndex);
     }
 
     const updatedChildren = [...children];
 
-    const curIndex = Number(splitItemPath.slice(0, 1));
+    const curIndex = Number(splitSourcePath.slice(0, 1));
 
     // Update the specific node's children
-    const splitItemChildrenPath = splitItemPath.slice(1);
+    const splitItemChildrenPath = splitSourcePath.slice(1);
     const nodeChildren = updatedChildren[curIndex];
     updatedChildren[curIndex] = {
         ...nodeChildren,
@@ -159,20 +165,20 @@ export const removeChildFromChildren = (children: WidgetsIds, splitItemPath: num
 
 export const addChildToChildren = (
     children: WidgetsIds,
-    splitDropZonePath: number[],
+    splitDestinationPath: number[],
     item: RecursiveObjectWithChildren<{ id: string }>
 ) => {
-    if (splitDropZonePath.length === 1) {
-        const dropZoneIndex = Number(splitDropZonePath[0]);
+    if (splitDestinationPath.length === 1) {
+        const dropZoneIndex = Number(splitDestinationPath[0]);
         return insert(children, dropZoneIndex, item);
     }
 
     const updatedChildren = [...children];
 
-    const currentDropZoneIndex = Number(splitDropZonePath.slice(0, 1));
+    const currentDropZoneIndex = Number(splitDestinationPath.slice(0, 1));
 
     // Update the specific node's children
-    const splitItemChildrenPath = splitDropZonePath.slice(1);
+    const splitItemChildrenPath = splitDestinationPath.slice(1);
     const nodeChildren = updatedChildren[currentDropZoneIndex];
 
     updatedChildren[currentDropZoneIndex] = {
@@ -185,37 +191,56 @@ export const addChildToChildren = (
 
 export const handleMoveWithinParent = (
     itemsDictionaryIds: WidgetsIds,
-    splitItemPath: number[],
-    splitDropZonePath: number[]
+    splitSourcePath: number[],
+    splitDestinationPath: number[]
 ) => {
-    if (splitDropZonePath.length !== splitItemPath.length) {
-        throw new Error("splitDropZonePath and splitItemPath must have the same length");
+    if (splitDestinationPath.length !== splitSourcePath.length) {
+        throw new Error("splitDestinationPath and splitSourcePath must have the same length");
     }
 
     // Instead of updating all paths each time, check to doing it directly in the function
-    return updatePaths(reorderChildren(itemsDictionaryIds, splitDropZonePath, splitItemPath));
+    return updatePaths(reorderChildren(itemsDictionaryIds, splitDestinationPath, splitSourcePath));
 };
 
 export const handleMoveToDifferentParent = (
     itemsDictionaryIds: WidgetsIds,
-    splitItemPath: number[],
-    splitDropZonePath: number[]
+    splitSourcePath: number[],
+    splitDestinationPath: number[]
 ) => {
-    const item = getChild(itemsDictionaryIds, splitItemPath);
+    const sourceItem = getChild(itemsDictionaryIds, splitSourcePath);
 
     let updatedItems = itemsDictionaryIds;
 
-    updatedItems = removeChildFromChildren(updatedItems, splitItemPath);
-    updatedItems = addChildToChildren(updatedItems, splitDropZonePath, item);
+    updatedItems = addChildToChildren(updatedItems, splitDestinationPath, sourceItem);
+    updatedItems = removeChildFromChildren(updatedItems, splitSourcePath);
 
     // Instead of updating all paths each time, check to doing it directly in the function
     return updatePaths(updatedItems);
 };
 
+export const handleNestItem = (
+    itemsDictionaryIds: WidgetsIds,
+    splitSourcePath: number[],
+    splitDestinationPath: number[]
+) => {
+    const destinationItem = getChild(itemsDictionaryIds, splitDestinationPath);
+    let newSplitDestinationPath = splitDestinationPath;
+
+    if (!destinationItem.children?.length) {
+        newSplitDestinationPath = [...newSplitDestinationPath, 0];
+    }
+
+    return handleMoveToDifferentParent(
+        itemsDictionaryIds,
+        splitSourcePath,
+        newSplitDestinationPath
+    );
+};
+
 export const handleRemoveItemFromList = (
     itemsDictionaryIds: WidgetsIds,
-    splitItemPath: number[]
+    splitSourcePath: number[]
 ) => {
     // Instead of updating all paths each time, check to doing it directly in the function
-    return updatePaths(removeChildFromChildren(itemsDictionaryIds, splitItemPath));
+    return updatePaths(removeChildFromChildren(itemsDictionaryIds, splitSourcePath));
 };

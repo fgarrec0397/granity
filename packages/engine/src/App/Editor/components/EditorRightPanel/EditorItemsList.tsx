@@ -8,6 +8,7 @@ import { DraggableTypes } from "../../_actions/editorConstants";
 import {
     handleMoveToDifferentParent,
     handleMoveWithinParent,
+    handleNestItem,
     splitPath,
 } from "../../_actions/utilities/dnd";
 import EditorCustomDragLayer from "../EditorCommon/EditorCustomDragLayer";
@@ -90,6 +91,7 @@ const EditorItemsList = ({
                             id={item.id}
                             index={index}
                             path={item.path}
+                            title={parentItemName || ""}
                             type={DraggableTypes.ListItem}
                         >
                             {(provided, snapshot) => {
@@ -118,7 +120,8 @@ const EditorItemsList = ({
                                     >
                                         <Droppable
                                             id={item.id}
-                                            path={item.path + "/0"}
+                                            path={item.path}
+                                            title={item.title}
                                             accept={[DraggableTypes.ListItem]}
                                         >
                                             {(providedStyle, _, placeholder) => {
@@ -129,6 +132,8 @@ const EditorItemsList = ({
                                                             padding: pxToRem(0, 0, 0, 10),
                                                         }}
                                                     >
+                                                        {placeholder}
+
                                                         {item.children?.length ? (
                                                             <EditorItemsList
                                                                 itemsDictionaryIds={item.children!}
@@ -154,8 +159,6 @@ const EditorItemsList = ({
                                                                 onNesting={onNesting}
                                                             />
                                                         ) : null}
-
-                                                        {placeholder}
                                                     </Box>
                                                 );
                                             }}
@@ -201,8 +204,8 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
         (itemDrag: EditorListDragItem, itemDrop: EditorListDragItem) => {
             const clonedItems = clone(items);
 
-            const splitItemPath = splitPath(itemDrag);
-            const splitDropZonePath = splitPath(itemDrop);
+            const splitItemPath = splitPath(itemDrag.path);
+            const splitDropZonePath = splitPath(itemDrop.path);
 
             let updatedItems = clonedItems;
 
@@ -227,8 +230,8 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
 
     const dropItem = useCallback(
         (isNesting: boolean, itemDrag: EditorListDragItem, itemDrop: EditorListDragItem) => {
-            const splitItemPath = splitPath(itemDrag);
-            const splitDropZonePath = [...splitPath(itemDrop), 0];
+            const splitItemPath = splitPath(itemDrag.path);
+            const splitDropZonePath = [...splitPath(itemDrop.path), 0];
 
             let updatedItems = { ...items };
 
@@ -255,9 +258,8 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
 
         if (dropType === "replace") {
             if (srcContainerId === destContainerId) {
-                console.log("same parent");
+                updatedItems = handleMoveWithinParent(clonedItems, splitSrcPath, splitDestPath);
             } else {
-                console.log("not same parent");
                 updatedItems = handleMoveToDifferentParent(
                     clonedItems,
                     splitSrcPath,
@@ -266,7 +268,15 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
             }
         }
 
-        setItems(updatedItems);
+        if (dropType === "combine") {
+            console.log({ splitSrcPath, splitDestPath });
+
+            updatedItems = handleNestItem(clonedItems, splitSrcPath, splitDestPath);
+            console.log(updatedItems, "updatedItems");
+        }
+
+        // setItems(updatedItems);
+        onDropItem?.(updatedItems);
 
         // your application logic goes here
         // setState(newState)
@@ -275,7 +285,12 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     return (
         <DndContextProvider onDrop={onDrop}>
             <EditorCustomDragLayer />
-            <Droppable id="container" accept={[DraggableTypes.ListItem]} path="root">
+            <Droppable
+                id="container"
+                title="container"
+                accept={[DraggableTypes.ListItem]}
+                path="root"
+            >
                 {(providedStyle, snapshot, placeholder) => {
                     return (
                         <div {...providedStyle}>

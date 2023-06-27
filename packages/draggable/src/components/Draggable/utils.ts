@@ -65,6 +65,8 @@ export const handleHover = (
         ? ({ first: "left", last: "right" } as const)
         : ({ first: "top", last: "bottom" } as const);
 
+    console.log(isSameSource, "isSameSource");
+
     if (isSameSource) {
         // Don't replace items with themselves
         if (dragIndex === hoverIndex && sourceItem.droppableId === destinationItem.droppableId) {

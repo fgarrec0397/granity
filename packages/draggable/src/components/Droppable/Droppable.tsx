@@ -71,18 +71,22 @@ export const Droppable: FC<DroppableProps> = (props) => {
 
             if (monitor.didDrop()) return;
 
+            console.log(props, "props drop droppable");
+
             return {
                 source: {
                     index: draggedItem.index,
                     id: draggedItem.id,
                     droppableId: draggedItem.droppableId,
                     path: draggedItem.path,
+                    title: draggedItem.title,
                 },
                 destination: {
                     index: threesholdIndex,
                     id: threesholdId,
                     droppableId: props.id,
                     path: props.path,
+                    title: props.title,
                 },
                 dropType: "replace",
                 sameSource: draggedItem.droppableId === props.id,
@@ -104,7 +108,7 @@ export const Droppable: FC<DroppableProps> = (props) => {
     const getAcceptTypes = useCallback(() => acceptRef.current, []);
 
     // create new context for the droppable zone
-    const [dropContext] = useState(() =>
+    const [DropContext] = useState(() =>
         createContext({
             setThreesholdIndex,
             threesholdIndex,
@@ -117,7 +121,7 @@ export const Droppable: FC<DroppableProps> = (props) => {
     );
 
     if (!droppablesDictionary[props.id]) {
-        droppablesDictionary[props.id] = { context: dropContext };
+        droppablesDictionary[props.id] = { context: DropContext };
     }
 
     useEffect(() => {
@@ -165,7 +169,7 @@ export const Droppable: FC<DroppableProps> = (props) => {
     };
 
     return (
-        <dropContext.Provider value={dropContextValue}>
+        <DropContext.Provider value={dropContextValue}>
             {props.children(
                 {
                     ref: innerRef,
@@ -176,6 +180,6 @@ export const Droppable: FC<DroppableProps> = (props) => {
                 { isDropTarget },
                 placeholder
             )}
-        </dropContext.Provider>
+        </DropContext.Provider>
     );
 };

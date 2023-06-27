@@ -7,6 +7,7 @@ export type DragItemRaw = {
     id: string;
     index: number;
     path: string;
+    title: string;
     type: string;
 };
 
@@ -61,6 +62,7 @@ export interface DroppableProps {
     accept: string[];
     horizontal?: boolean;
     path: string;
+    title: string;
     children: (
         props: DroppableChildrenProps,
         snapshot: DroppableSnapshot,
@@ -75,6 +77,7 @@ export interface DropResultItem {
     // splitItemPath: number[];
     path: string;
     id: string;
+    title: string;
     droppableId: string;
 }
 
