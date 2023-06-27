@@ -1,11 +1,42 @@
-import { createContext, FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+    createContext,
+    MouseEventHandler,
+    RefObject,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import { useDrop } from "react-dnd";
 
 import { droppablesDictionary } from "../Provider/DndContextProvider";
-import { DroppableProps, DropResult } from "../types";
+import { DragItem, DropResult } from "../types";
 
-const onMouseOver = (e: any) => {
-    e.stopPropagation();
+export type DroppableProps<RefType extends HTMLElement> = {
+    id: string;
+    parentId?: string;
+    index?: number;
+    accept: string[];
+    horizontal?: boolean;
+    path: string;
+    children: (
+        props: DroppableChildrenProps<RefType>,
+        snapshot: DroppableSnapshot,
+        placeholder: JSX.Element
+    ) => JSX.Element;
+};
+
+export type DroppableChildrenProps<RefType extends HTMLElement> = {
+    ref: RefObject<RefType>;
+    style: React.CSSProperties;
+    onMouseOver: MouseEventHandler<RefType>;
+    // true if the droppable element is the real target
+    "data-shallow-drop-target": boolean;
+};
+
+export type DroppableSnapshot = {
+    isDropTarget: boolean;
 };
 
 export type CollectedProps = {
@@ -18,20 +49,22 @@ export type CollectedProps = {
 
 const containerStyle = { transition: "height 0.3s" };
 
-export const Droppable: FC<DroppableProps> = (props) => {
+export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
+    props: DroppableProps<RefType>
+) => {
     const [threesholdIndex, setThreesholdIndex] = useState(-1);
     const [threesholdId, setThreesholdId] = useState("");
 
-    const ref = useRef();
+    const ref = useRef<RefType>(null);
 
     const [
         { isDropTarget, placeholderSize, hasDraggedItem, sameSource, isShallowDropTarget },
-        dropRef,
-    ] = useDrop<any, DropResult, CollectedProps>({
+        drop,
+    ] = useDrop<DragItem, DropResult, CollectedProps>({
         accept: props.accept,
         collect(monitor) {
             const isMonitorShallowDropTarget = monitor.isOver({ shallow: true });
-            const element = ref.current as any;
+            const element = ref.current;
 
             const nestedDropTarget = element?.querySelector(`[data-shallow-drop-target="true"]`);
 
@@ -40,7 +73,7 @@ export const Droppable: FC<DroppableProps> = (props) => {
 
             const draggedItem = monitor.getItem();
 
-            const isSameSource = draggedItem && draggedItem?.droppableId === props.id;
+            const isSameSource = draggedItem && draggedItem?.parentId === props.id;
 
             const rect = draggedItem?.__rect__ as DOMRect;
             const marginDeltaHeight = Math.max(draggedItem?.margin.top, draggedItem?.margin.bottom);
@@ -71,25 +104,21 @@ export const Droppable: FC<DroppableProps> = (props) => {
 
             if (monitor.didDrop()) return;
 
-            console.log(props, "props drop droppable");
-
             return {
                 source: {
                     index: draggedItem.index,
                     id: draggedItem.id,
-                    droppableId: draggedItem.droppableId,
+                    parentId: draggedItem.parentId,
                     path: draggedItem.path,
-                    title: draggedItem.title,
                 },
                 destination: {
-                    index: threesholdIndex,
-                    id: threesholdId,
-                    droppableId: props.id,
+                    index: props.index,
+                    id: props.id,
+                    parentId: props.parentId,
                     path: props.path,
-                    title: props.title,
                 },
                 dropType: "replace",
-                sameSource: draggedItem.droppableId === props.id,
+                sameSource: draggedItem.parentId === props.id,
             };
         },
     });
@@ -153,8 +182,8 @@ export const Droppable: FC<DroppableProps> = (props) => {
                 style={{
                     pointerEvents: "none",
                     width: props.horizontal ? placeholderSize : "100%",
-                    // height: props.horizontal ? "auto" : placeholderSize,
-                    height: "40px",
+                    height: props.horizontal ? "auto" : placeholderSize,
+                    // height: "40px",
                     transition: placeholderTransition,
                     border: "1px solid red",
                 }}
@@ -163,16 +192,17 @@ export const Droppable: FC<DroppableProps> = (props) => {
         [placeholderSize, props.horizontal, props.id, placeholderTransition]
     );
 
-    const innerRef = (element: any) => {
-        ref.current = element;
-        dropRef(element);
+    const onMouseOver: MouseEventHandler<RefType> = (event) => {
+        event.stopPropagation();
     };
+
+    drop(ref.current);
 
     return (
         <DropContext.Provider value={dropContextValue}>
             {props.children(
                 {
-                    ref: innerRef,
+                    ref,
                     style: containerStyle,
                     "data-shallow-drop-target": isShallowDropTarget,
                     onMouseOver,

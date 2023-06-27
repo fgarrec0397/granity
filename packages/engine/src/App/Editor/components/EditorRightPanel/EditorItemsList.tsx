@@ -1,5 +1,5 @@
 import { EditorListDragItem, useScenes, useWidgets } from "@engine/api";
-import { DndContextProvider, Draggable, Droppable, OnDrop } from "@granity/draggable";
+import { DndContextProvider, Draggable, Droppable, OnDrop, OnMove } from "@granity/draggable";
 import { clone, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { FC, ReactElement, useCallback, useEffect, useState } from "react";
@@ -85,9 +85,9 @@ const EditorItemsList = ({
                         : displaySceneName(item.id);
 
                     return (
-                        <Draggable
+                        <Draggable<HTMLLIElement>
                             key={item.id}
-                            droppableId={parentId}
+                            parentId={parentId}
                             id={item.id}
                             index={index}
                             path={item.path}
@@ -120,8 +120,9 @@ const EditorItemsList = ({
                                     >
                                         <Droppable
                                             id={item.id}
+                                            parentId={parentId}
+                                            index={index}
                                             path={item.path}
-                                            title={item.title}
                                             accept={[DraggableTypes.ListItem]}
                                         >
                                             {(providedStyle, _, placeholder) => {
@@ -200,30 +201,26 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
         setItems(itemsDictionaryIds);
     }, [itemsDictionaryIds]);
 
-    const moveItem = useCallback(
-        (itemDrag: EditorListDragItem, itemDrop: EditorListDragItem) => {
-            const clonedItems = clone(items);
-
-            const splitItemPath = splitPath(itemDrag.path);
-            const splitDropZonePath = splitPath(itemDrop.path);
-
-            let updatedItems = clonedItems;
-
-            if (splitItemPath.length === splitDropZonePath.length) {
-                updatedItems = handleMoveWithinParent(
-                    clonedItems,
-                    splitItemPath,
-                    splitDropZonePath
-                );
-            } else {
-                updatedItems = handleMoveToDifferentParent(
-                    clonedItems,
-                    splitItemPath,
-                    splitDropZonePath
-                );
-            }
-
-            setItems(updatedItems);
+    const moveItem: OnMove = useCallback(
+        (sourceItem, destinationItem) => {
+            // const clonedItems = clone(items);
+            // const splitItemPath = splitPath(sourceItem.path);
+            // const splitDropZonePath = splitPath(destinationItem.path);
+            // let updatedItems = clonedItems;
+            // if (splitItemPath.length === splitDropZonePath.length) {
+            //     updatedItems = handleMoveWithinParent(
+            //         clonedItems,
+            //         splitItemPath,
+            //         splitDropZonePath
+            //     );
+            // } else {
+            //     updatedItems = handleMoveToDifferentParent(
+            //         clonedItems,
+            //         splitItemPath,
+            //         splitDropZonePath
+            //     );
+            // }
+            // setItems(updatedItems);
         },
         [items]
     );
@@ -244,8 +241,12 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     );
 
     const onDrop: OnDrop = ({ source, destination, dropType, sameSource }) => {
-        const { index: srcIndex, droppableId: srcContainerId, path: srcPath } = source;
-        const { index: destIndex, droppableId: destContainerId, path: destPath } = destination;
+        if (source.id === destination.id) {
+            return;
+        }
+
+        const { index: srcIndex, parentId: srcContainerId, path: srcPath } = source;
+        const { index: destIndex, parentId: destContainerId, path: destPath } = destination;
 
         console.log({ source, destination, dropType, sameSource });
 
@@ -258,8 +259,11 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
 
         if (dropType === "replace") {
             if (srcContainerId === destContainerId) {
+                console.log("handleMoveWithinParent");
+
                 updatedItems = handleMoveWithinParent(clonedItems, splitSrcPath, splitDestPath);
             } else {
+                console.log("handleMoveToDifferentParent");
                 updatedItems = handleMoveToDifferentParent(
                     clonedItems,
                     splitSrcPath,
@@ -269,32 +273,23 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
         }
 
         if (dropType === "combine") {
-            console.log({ splitSrcPath, splitDestPath });
+            console.log({ splitSrcPath, splitDestPath }, "handleNestItem");
 
             updatedItems = handleNestItem(clonedItems, splitSrcPath, splitDestPath);
-            console.log(updatedItems, "updatedItems");
         }
 
-        // setItems(updatedItems);
         onDropItem?.(updatedItems);
-
-        // your application logic goes here
-        // setState(newState)
     };
 
     return (
-        <DndContextProvider onDrop={onDrop}>
+        <DndContextProvider onDrop={onDrop} onMove={moveItem}>
             <EditorCustomDragLayer />
-            <Droppable
-                id="container"
-                title="container"
-                accept={[DraggableTypes.ListItem]}
-                path="root"
-            >
+            <Droppable id="container" accept={[DraggableTypes.ListItem]} path="root">
                 {(providedStyle, snapshot, placeholder) => {
                     return (
-                        <div {...providedStyle}>
+                        <>
                             <EditorItemsList
+                                {...providedStyle}
                                 parentId="container"
                                 itemsDictionaryIds={items}
                                 noItemsText={noItemsText}
@@ -312,8 +307,8 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                                 moveItem={moveItem}
                                 onNesting={onNesting}
                             />
-                            {placeholder}
-                        </div>
+                            {/* {placeholder} */}
+                        </>
                     );
                 }}
             </Droppable>

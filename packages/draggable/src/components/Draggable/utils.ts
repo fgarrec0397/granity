@@ -3,7 +3,7 @@ import { DropTargetMonitor, XYCoord } from "react-dnd";
 
 import { DragItem, DragItemRaw, DropResult, MarginType } from "../types";
 
-export const getElementMargin = (element: HTMLDivElement | null) => {
+export const getElementMargin = <Element extends HTMLElement>(element: Element | null) => {
     if (!element) {
         return {
             left: 0,
@@ -28,16 +28,16 @@ export const getElementMargin = (element: HTMLDivElement | null) => {
     };
 };
 
-type HandleHoverParams = {
+type HandleHoverParams<RefType extends HTMLElement> = {
     sourceItem: DragItemRaw;
     destinationItem: DragItemRaw;
-    ref: RefObject<HTMLDivElement>;
+    ref: RefObject<RefType>;
     threesholdIndex: number;
     setThreesholdIndex: (index: number) => void;
     horizontal?: boolean;
 };
 
-export const handleHover = (
+export const handleHover = <RefType extends HTMLElement>(
     monitor: DropTargetMonitor<DragItem, DropResult>,
     {
         sourceItem,
@@ -46,7 +46,7 @@ export const handleHover = (
         threesholdIndex,
         setThreesholdIndex,
         horizontal,
-    }: HandleHoverParams
+    }: HandleHoverParams<RefType>
 ) => {
     const isDropTarget = monitor.isOver({ shallow: true });
 
@@ -56,7 +56,7 @@ export const handleHover = (
         return;
     }
 
-    const isSameSource = sourceItem.droppableId === destinationItem.droppableId;
+    const isSameSource = sourceItem.parentId === destinationItem.parentId;
     const dragIndex = sourceItem.index;
     const hoverIndex = destinationItem.index;
 
@@ -65,11 +65,9 @@ export const handleHover = (
         ? ({ first: "left", last: "right" } as const)
         : ({ first: "top", last: "bottom" } as const);
 
-    console.log(isSameSource, "isSameSource");
-
     if (isSameSource) {
         // Don't replace items with themselves
-        if (dragIndex === hoverIndex && sourceItem.droppableId === destinationItem.droppableId) {
+        if (dragIndex === hoverIndex && sourceItem.parentId === destinationItem.parentId) {
             return;
         }
 
@@ -168,10 +166,10 @@ export const getTranslationStyle = ({
     domRect?: DOMRect;
     margin?: MarginType;
 }) => {
-    const droppableSourceId = sourceItem?.droppableId;
+    const droppableSourceId = sourceItem?.parentId;
     const itemSourceIndex = sourceItem?.index;
 
-    const sameSource = destinationItem.droppableId === droppableSourceId;
+    const sameSource = destinationItem.parentId === droppableSourceId;
     let translateSign = 0;
 
     if (!isDragging && sourceItem && threesholdIndex !== -1) {

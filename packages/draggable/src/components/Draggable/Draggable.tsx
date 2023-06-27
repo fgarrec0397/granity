@@ -1,14 +1,26 @@
-import { FC, useEffect, useRef } from "react";
+import { CSSProperties, RefObject, useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 
-import { useDroppableContext, useOnDrop } from "../Provider/DndContextProvider";
-import { DragCollectProps, DraggableProps, DragItem, DropResult } from "../types";
+import { useDndContext, useDroppableContext } from "../Provider/DndContextProvider";
+import { DragCollectProps, DraggableSnapshot, DragItem, DragItemRaw, DropResult } from "../types";
 import { getElementMargin, getTranslationStyle, handleHover } from "./utils";
 
-const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const onDrop = useOnDrop();
+export type DraggableChildrenProp<RefType extends HTMLElement> = {
+    ref: RefObject<RefType>;
+    style: CSSProperties;
+};
+
+export type DraggableProps<RefType extends HTMLElement> = DragItemRaw & {
+    children: (props: DraggableChildrenProp<RefType>, snapshot: DraggableSnapshot) => JSX.Element;
+};
+
+const Draggable = <RefType extends HTMLElement>({
+    children,
+    ...props
+}: DraggableProps<RefType>) => {
+    const ref = useRef<RefType>(null);
+    const { onDrop } = useDndContext();
 
     const {
         threesholdIndex,
@@ -17,7 +29,7 @@ const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
         setThreesholdId,
         getAcceptTypes,
         isDropTarget: isParentActive,
-    } = useDroppableContext(props.droppableId);
+    } = useDroppableContext(props.parentId);
 
     const [{ isDragging, draggedItem, style }, drag, preview] = useDrag<
         DragItem,
@@ -87,38 +99,42 @@ const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
                 source: {
                     index: item.index,
                     id: item.id,
-                    droppableId: item.droppableId,
+                    parentId: item.parentId,
                     path: item.path,
                     title: item.title,
                 },
                 destination: {
                     index: props.index,
                     id: props.id,
-                    droppableId: props.droppableId,
+                    parentId: props.parentId,
                     path: props.path,
                     title: props.title,
                 },
                 dropType: "combine",
-                sameSource: draggedItem.droppableId === props.droppableId,
+                sameSource: draggedItem.parentId === props.parentId,
             };
         },
 
         hover(item, monitor) {
-            handleHover(monitor, {
-                sourceItem: item,
-                destinationItem: props,
-                ref,
-                setThreesholdIndex,
-                threesholdIndex,
-            });
+            const sourceItem = item;
+            const destinationItem = props;
+
+            console.log({ sourceItem, destinationItem });
+
+            // moveItem()
+            // handleHover(monitor, {
+            //     sourceItem: item,
+            //     destinationItem: props,
+            //     ref,
+            //     setThreesholdIndex,
+            //     threesholdIndex,
+            // });
         },
     });
 
     const isDestination = isParentActive && threesholdIndex === props.index;
     const idMismatch = isDestination && threesholdId !== props.id;
     useEffect(() => {
-        console.log(idMismatch, "idMismatch");
-
         if (idMismatch) {
             setThreesholdId(props.id);
         }
@@ -128,8 +144,6 @@ const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
         isParentActive && threesholdIndex !== props.index && threesholdId === props.id;
 
     useEffect(() => {
-        console.log(indexMismatch, "indexMismatch");
-
         if (indexMismatch) {
             setThreesholdId(undefined as any);
         }
@@ -138,7 +152,7 @@ const Draggable: FC<DraggableProps> = ({ children, ...props }) => {
     const isDraggingSrouce =
         isDragging &&
         draggedItem?.index === props.index &&
-        draggedItem?.droppableId === props.droppableId;
+        draggedItem?.parentId === props.parentId;
 
     useEffect(() => {
         if (isDraggingSrouce) {

@@ -2,14 +2,25 @@ import { Context, createContext, FC, ReactNode, useContext } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { OnDrop } from "../types";
+import { OnDrop, OnMove } from "../types";
 
 type ProviderProps = {
     onDrop: OnDrop;
+    onMove: OnMove;
     children?: ReactNode;
 };
 
-const DndContext = createContext<OnDrop>(() => {});
+type DndContextModel = {
+    onDrop: OnDrop;
+    onMove: OnMove;
+};
+
+const defaultValue: DndContextModel = {
+    onDrop: () => {},
+    onMove: () => {},
+};
+
+const DndContext = createContext<DndContextModel>(defaultValue);
 
 const droppablesDictionary = {} as {
     [id: string]: {
@@ -25,20 +36,25 @@ const droppablesDictionary = {} as {
     };
 };
 
-const useOnDrop = () => {
+const useDndContext = () => {
     return useContext(DndContext);
 };
 
-const useDroppableContext = (droppableId: string) => {
-    return useContext(droppablesDictionary[droppableId].context || {});
+const useDroppableContext = (parentId: string) => {
+    return useContext(droppablesDictionary[parentId].context || {});
 };
 
-const DndContextProvider: FC<ProviderProps> = (props) => {
+const DndContextProvider: FC<ProviderProps> = ({ onDrop, onMove, children }) => {
+    const providerValue: DndContextModel = {
+        onDrop,
+        onMove,
+    };
+
     return (
-        <DndContext.Provider value={props.onDrop}>
-            <DndProvider backend={HTML5Backend}>{props.children}</DndProvider>
+        <DndContext.Provider value={providerValue}>
+            <DndProvider backend={HTML5Backend}>{children}</DndProvider>
         </DndContext.Provider>
     );
 };
 
-export { DndContextProvider, droppablesDictionary, useDroppableContext, useOnDrop };
+export { DndContextProvider, droppablesDictionary, useDndContext, useDroppableContext };

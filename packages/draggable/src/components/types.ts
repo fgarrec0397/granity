@@ -1,9 +1,9 @@
-import { CSSProperties, RefObject } from "react";
+import { CSSProperties } from "react";
 
 // Draggable
 
 export type DragItemRaw = {
-    droppableId: string;
+    parentId: string;
     id: string;
     index: number;
     path: string;
@@ -23,19 +23,10 @@ export type DragItem = DragItemRaw & {
     __rect__?: DOMRect;
 };
 
-export interface DraggableChildrenProp {
-    ref: RefObject<HTMLDivElement>;
-    style: React.CSSProperties;
-}
-
-export interface DraggableSnapshot {
+export type DraggableSnapshot = {
     isDragging: boolean;
     isOver: boolean;
-}
-
-export interface DraggableProps extends DragItemRaw {
-    children: (props: DraggableChildrenProp, snapshot: DraggableSnapshot) => JSX.Element;
-}
+};
 
 export type DragCollectProps = {
     isDragging: boolean;
@@ -43,49 +34,24 @@ export type DragCollectProps = {
     style: CSSProperties;
 };
 
-// Droppable
-
-export interface DroppableChildrenProps {
-    ref: (element: any) => void;
-    style: React.CSSProperties;
-    onMouseOver: (element: any) => void;
-    // true if the droppable element is the real target
-    "data-shallow-drop-target": boolean;
-}
-
-export interface DroppableSnapshot {
-    isDropTarget: boolean;
-}
-
-export interface DroppableProps {
-    id: string;
-    accept: string[];
-    horizontal?: boolean;
-    path: string;
-    title: string;
-    children: (
-        props: DroppableChildrenProps,
-        snapshot: DroppableSnapshot,
-        placeholder: JSX.Element
-    ) => JSX.Element;
-}
-
 // Provider
 
-export interface DropResultItem {
-    index: number;
-    // splitItemPath: number[];
+export type DropResultItem = {
+    index?: number;
     path: string;
     id: string;
-    title: string;
-    droppableId: string;
-}
+    parentId?: string;
+};
 
-export interface DropResult {
+export type DropResult = {
     source: DropResultItem;
     destination: DropResultItem;
     dropType: "replace" | "combine";
     sameSource: boolean;
-}
+};
 
 export type OnDrop = (dropResult: DropResult) => void;
+
+export type OnMoveItemResult = Omit<DragItemRaw, "type" | "title">;
+
+export type OnMove = (sourceItem: OnMoveItemResult, destinationItem: OnMoveItemResult) => void;
