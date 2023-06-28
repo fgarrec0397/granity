@@ -6,18 +6,17 @@ import { OnDrop, OnMove } from "../types";
 
 type ProviderProps = {
     onDrop: OnDrop;
-    onMove: OnMove;
+    onMove?: OnMove;
     children?: ReactNode;
 };
 
 type DndContextModel = {
     onDrop: OnDrop;
-    onMove: OnMove;
+    onMove?: OnMove;
 };
 
 const defaultValue: DndContextModel = {
     onDrop: () => {},
-    onMove: () => {},
 };
 
 const DndContext = createContext<DndContextModel>(defaultValue);

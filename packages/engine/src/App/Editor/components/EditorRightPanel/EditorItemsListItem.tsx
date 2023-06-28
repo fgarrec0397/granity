@@ -19,7 +19,7 @@ export type EditorItemsListItemProps = HasChildren & {
     itemName?: string;
     itemChildren?: RecursiveArrayOfIds<string>;
     isDraggable?: boolean;
-    additionalStyles?: CSSProperties;
+    style?: CSSProperties;
     isDragging: boolean;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
     editModal?: (id: string) => ReactElement;
@@ -45,7 +45,7 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
         {
             id,
             itemName,
-            additionalStyles,
+            style,
             isDragging,
             editModal,
             handleVisibility,
@@ -63,6 +63,7 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
             <ListItem
                 ref={ref}
                 sx={(theme) => ({
+                    ...style,
                     display: "block",
                     opacity: isDragging ? 0 : 1,
                     maxWidth: pxToRem(250),
@@ -71,7 +72,6 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
                     ".MuiListItemSecondaryAction-root": {
                         top: pxToRem(18),
                     },
-                    ...additionalStyles,
                 })}
                 secondaryAction={
                     <>

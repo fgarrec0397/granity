@@ -20,7 +20,7 @@ const Draggable = <RefType extends HTMLElement>({
     ...props
 }: DraggableProps<RefType>) => {
     const ref = useRef<RefType>(null);
-    const { onDrop } = useDndContext();
+    const { onDrop, onMove } = useDndContext();
 
     const {
         threesholdIndex,
@@ -116,19 +116,17 @@ const Draggable = <RefType extends HTMLElement>({
         },
 
         hover(item, monitor) {
-            const sourceItem = item;
-            const destinationItem = props;
+            if (onMove) {
+                return onMove(item, props);
+            }
 
-            console.log({ sourceItem, destinationItem });
-
-            // moveItem()
-            // handleHover(monitor, {
-            //     sourceItem: item,
-            //     destinationItem: props,
-            //     ref,
-            //     setThreesholdIndex,
-            //     threesholdIndex,
-            // });
+            handleHover(monitor, {
+                sourceItem: item,
+                destinationItem: props,
+                ref,
+                setThreesholdIndex,
+                threesholdIndex,
+            });
         },
     });
 
@@ -167,7 +165,7 @@ const Draggable = <RefType extends HTMLElement>({
 
     drag(drop(ref.current));
 
-    return children({ ref, style }, { isDragging, isOver: isOver });
+    return children({ ref, style }, { isDragging, isOver });
 };
 
 export { Draggable };

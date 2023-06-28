@@ -1,7 +1,11 @@
 import { EditorListDragItem, WidgetsIds } from "@engine/api";
 import { clone, cloneDeep, RecursiveObjectWithChildren } from "@granity/helpers";
 
-export const splitPath = (itemPath: string) => {
+export const splitPath = (itemPath?: string) => {
+    if (!itemPath) {
+        return [];
+    }
+
     return itemPath.split("/").map((x) => Number(x));
 };
 
@@ -194,7 +198,7 @@ export const handleMoveWithinParent = (
     splitSourcePath: number[],
     splitDestinationPath: number[]
 ) => {
-    if (splitDestinationPath.length !== splitSourcePath.length) {
+    if (splitDestinationPath.length > 0 && splitDestinationPath.length !== splitSourcePath.length) {
         throw new Error("splitDestinationPath and splitSourcePath must have the same length");
     }
 

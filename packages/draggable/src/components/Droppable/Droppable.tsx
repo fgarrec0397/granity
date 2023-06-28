@@ -19,7 +19,7 @@ export type DroppableProps<RefType extends HTMLElement> = {
     index?: number;
     accept: string[];
     horizontal?: boolean;
-    path: string;
+    path?: string;
     children: (
         props: DroppableChildrenProps<RefType>,
         snapshot: DroppableSnapshot,
@@ -112,10 +112,10 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
                     path: draggedItem.path,
                 },
                 destination: {
-                    index: props.index,
+                    index: threesholdIndex,
                     id: props.id,
                     parentId: props.parentId,
-                    path: props.path,
+                    path: props.path || "root",
                 },
                 dropType: "replace",
                 sameSource: draggedItem.parentId === props.id,

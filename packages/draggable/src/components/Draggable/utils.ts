@@ -203,13 +203,11 @@ export const getTranslationStyle = ({
             ? `translate${xyCoordinate.toUpperCase()}(${translateSign * (rectSize || 0 + delta)}px)`
             : undefined;
 
-    const pointerEventsProps = isDragging ? { pointerEvents: "none" } : {};
     const transformProps = transform ? { transform } : {};
     const transitionProps = hasDraggedItem ? { transition: "0.3s" } : { transition: "0s" };
 
     const style = {
         ...transformProps,
-        ...pointerEventsProps,
         ...transitionProps,
     } as unknown as React.CSSProperties;
 
