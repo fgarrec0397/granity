@@ -95,6 +95,9 @@ const Draggable = <RefType extends HTMLElement>({
 
             if (!isDropTarget) return;
 
+            // nest
+            // unNest
+            // move
             return {
                 source: {
                     index: item.index,
@@ -110,7 +113,7 @@ const Draggable = <RefType extends HTMLElement>({
                     path: props.path,
                     title: props.title,
                 },
-                dropType: "combine",
+                dropType: "draggable",
                 sameSource: draggedItem.parentId === props.parentId,
             };
         },

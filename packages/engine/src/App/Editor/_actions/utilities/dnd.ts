@@ -76,6 +76,7 @@ export const isChildItem = (item: EditorListDragItem) => {
 // a little function to help us with reordering the result
 export const reorder = <ListType>(list: ListType[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
+
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed); // inserting task in new index
 
@@ -159,6 +160,7 @@ export const removeChildFromChildren = (children: WidgetsIds, splitSourcePath: n
     // Update the specific node's children
     const splitItemChildrenPath = splitSourcePath.slice(1);
     const nodeChildren = updatedChildren[curIndex];
+
     updatedChildren[curIndex] = {
         ...nodeChildren,
         children: removeChildFromChildren(nodeChildren.children!, splitItemChildrenPath),
@@ -203,7 +205,7 @@ export const handleMoveWithinParent = (
     }
 
     // Instead of updating all paths each time, check to doing it directly in the function
-    return updatePaths(reorderChildren(itemsDictionaryIds, splitDestinationPath, splitSourcePath));
+    return updatePaths(reorderChildren(itemsDictionaryIds, splitSourcePath, splitDestinationPath));
 };
 
 export const handleMoveToDifferentParent = (
@@ -217,6 +219,22 @@ export const handleMoveToDifferentParent = (
 
     updatedItems = addChildToChildren(updatedItems, splitDestinationPath, sourceItem);
     updatedItems = removeChildFromChildren(updatedItems, splitSourcePath);
+
+    // Instead of updating all paths each time, check to doing it directly in the function
+    return updatePaths(updatedItems);
+};
+
+export const handleUnNest = (
+    itemsDictionaryIds: WidgetsIds,
+    splitSourcePath: number[],
+    splitDestinationPath: number[]
+) => {
+    const sourceItem = getChild(itemsDictionaryIds, splitSourcePath);
+
+    let updatedItems = itemsDictionaryIds;
+
+    updatedItems = removeChildFromChildren(updatedItems, splitSourcePath);
+    updatedItems = addChildToChildren(updatedItems, splitDestinationPath, sourceItem);
 
     // Instead of updating all paths each time, check to doing it directly in the function
     return updatePaths(updatedItems);

@@ -117,7 +117,7 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
                     parentId: props.parentId,
                     path: props.path || "root",
                 },
-                dropType: "replace",
+                dropType: "droppable",
                 sameSource: draggedItem.parentId === props.id,
             };
         },
@@ -183,9 +183,7 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
                     pointerEvents: "none",
                     width: props.horizontal ? placeholderSize : "100%",
                     height: props.horizontal ? "auto" : placeholderSize,
-                    // height: "40px",
                     transition: placeholderTransition,
-                    border: "1px solid red",
                 }}
             />
         ),

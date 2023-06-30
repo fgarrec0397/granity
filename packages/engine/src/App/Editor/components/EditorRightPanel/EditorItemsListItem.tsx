@@ -19,6 +19,7 @@ export type EditorItemsListItemProps = HasChildren & {
     itemName?: string;
     itemChildren?: RecursiveArrayOfIds<string>;
     isDraggable?: boolean;
+    isOverWhileDragging?: boolean;
     style?: CSSProperties;
     isDragging: boolean;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
@@ -47,6 +48,7 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
             itemName,
             style,
             isDragging,
+            isOverWhileDragging,
             editModal,
             handleVisibility,
             isVisible,
@@ -63,15 +65,17 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
             <ListItem
                 ref={ref}
                 sx={(theme) => ({
-                    ...style,
                     display: "block",
                     opacity: isDragging ? 0 : 1,
                     maxWidth: pxToRem(250),
-                    backgroundColor: theme.palette.background.default,
+                    backgroundColor: isOverWhileDragging
+                        ? theme.palette.background.paperLight + "50"
+                        : theme.palette.background.default,
                     border: isItemNesting?.(id) ? "1px solid red" : "1px solid transparent",
                     ".MuiListItemSecondaryAction-root": {
                         top: pxToRem(18),
                     },
+                    ...style,
                 })}
                 secondaryAction={
                     <>

@@ -6,9 +6,11 @@ import { FC, ReactElement, useEffect, useState } from "react";
 
 import { DraggableTypes } from "../../_actions/editorConstants";
 import {
+    getChild,
     handleMoveToDifferentParent,
     handleMoveWithinParent,
     handleNestItem,
+    handleUnNest,
     splitPath,
 } from "../../_actions/utilities/dnd";
 import EditorCustomDragLayer from "../EditorCommon/EditorCustomDragLayer";
@@ -95,10 +97,6 @@ const EditorItemsList = ({
                             type={DraggableTypes.ListItem}
                         >
                             {(provided, snapshot) => {
-                                // console.log(provided.ref, parentItemName);
-
-                                // console.log(provided, "provided");
-
                                 return (
                                     <EditorItemsListItem
                                         {...provided}
@@ -121,6 +119,7 @@ const EditorItemsList = ({
                                         moveItem={moveItem}
                                         dropItem={dropItem}
                                         isDragging={snapshot.isDragging}
+                                        isOverWhileDragging={snapshot.isOver}
                                     >
                                         {item.children?.length ? (
                                             <Droppable
@@ -198,41 +197,126 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     const [items, setItems] = useState(itemsDictionaryIds);
 
     useEffect(() => {
+        // console.log(itemsDictionaryIds, "itemsDictionaryIds");
+
         setItems(itemsDictionaryIds);
     }, [itemsDictionaryIds]);
 
-    const onDrop: OnDrop = ({ source, destination, dropType }) => {
+    const onDrop: OnDrop = ({ source, destination, dropType, sameSource }) => {
+        console.log({ source, destination, dropType, sameSource });
+
         if (source.id === destination.id) {
             return;
         }
 
-        const { parentId: srcContainerId, path: srcPath } = source;
-        const { parentId: destContainerId, path: destPath } = destination;
-
         const clonedItems = clone(items);
 
-        const splitSrcPath = splitPath(srcPath);
+        const splitSrcPath = splitPath(source.path);
         const splitDestPath =
-            destPath === "root" ? splitPath(destination.index?.toString()) : splitPath(destPath);
+            destination.path === "root"
+                ? splitPath(destination.index?.toString())
+                : splitPath(destination.path);
 
         let updatedItems = clonedItems;
+        let newSplitDestPath = splitDestPath;
 
-        if (dropType === "replace") {
-            if (srcContainerId === destContainerId) {
-                updatedItems = handleMoveWithinParent(clonedItems, splitSrcPath, splitDestPath);
+        if (dropType === "droppable") {
+            if (sameSource) {
+                console.log("is same source");
+
+                if (destination.path === "root") {
+                    console.log("destination path is root");
+                    updatedItems = handleMoveWithinParent(
+                        clonedItems,
+                        splitSrcPath,
+                        newSplitDestPath
+                    );
+                }
+
+                if (destination.parentId === "container" && destination.path !== "root") {
+                    console.log(
+                        "destination path is not root and destination parentid is container"
+                    );
+                    newSplitDestPath = [...newSplitDestPath, destination.index || 0];
+                    updatedItems = handleMoveWithinParent(
+                        clonedItems,
+                        splitSrcPath,
+                        newSplitDestPath
+                    );
+                }
             } else {
+                console.log("is not same source");
+
+                if (destination.path === "root") {
+                    console.log("destination path is root");
+                    // here
+                    newSplitDestPath = [destination.index || 0];
+
+                    updatedItems = handleUnNest(clonedItems, splitSrcPath, newSplitDestPath);
+                }
+
+                if (destination.path !== "root") {
+                    console.log("destination path is not root");
+                    console.log({ splitSrcPath, newSplitDestPath });
+
+                    newSplitDestPath = [...newSplitDestPath, destination.index || 0];
+                    updatedItems = handleUnNest(clonedItems, splitSrcPath, newSplitDestPath);
+
+                    // updatedItems = handleMoveToDifferentParent(
+                    //     clonedItems,
+                    //     splitSrcPath,
+                    //     newSplitDestPath
+                    // );
+                }
+            }
+        }
+
+        if (dropType === "draggable") {
+            console.log("droptype draggable");
+            if (sameSource) {
+                console.log("draggable same source");
+
+                if (destination.path === "root") {
+                    updatedItems = handleMoveToDifferentParent(
+                        clonedItems,
+                        splitSrcPath,
+                        newSplitDestPath
+                    );
+                }
+
+                if (destination.path !== "root") {
+                    console.log({ splitSrcPath, splitDestPath });
+
+                    newSplitDestPath = [...newSplitDestPath, destination.index || 0];
+
+                    updatedItems = handleMoveToDifferentParent(
+                        clonedItems,
+                        splitSrcPath,
+                        newSplitDestPath
+                    );
+                }
+                // newSplitDestPath = [...newSplitDestPath, 0];
+
+                // updatedItems = handleMoveToDifferentParent(
+                //     clonedItems,
+                //     splitSrcPath,
+                //     newSplitDestPath
+                // );
+            } else {
+                console.log("draggable not same source");
+                newSplitDestPath = [...newSplitDestPath, destination.index || 0];
+
                 updatedItems = handleMoveToDifferentParent(
                     clonedItems,
                     splitSrcPath,
-                    splitDestPath
+                    newSplitDestPath
                 );
             }
         }
 
-        if (dropType === "combine") {
-            updatedItems = handleNestItem(clonedItems, splitSrcPath, splitDestPath);
-        }
+        console.log(updatedItems, "updatedItems");
 
+        setItems(updatedItems);
         onDropItem?.(updatedItems);
     };
 
