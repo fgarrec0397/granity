@@ -6,10 +6,8 @@ import { FC, ReactElement, useEffect, useState } from "react";
 
 import { DraggableTypes } from "../../_actions/editorConstants";
 import {
-    getChild,
     handleMoveToDifferentParent,
     handleMoveWithinParent,
-    handleNestItem,
     handleUnNest,
     splitPath,
 } from "../../_actions/utilities/dnd";
@@ -25,6 +23,7 @@ export type EditorItemsListProps = {
     parentId: string;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
     noItemsText: string;
+    isDragAndDropEnabled?: boolean;
     editModal?: (id: string) => ReactElement;
     isVisible?: (id: string) => boolean | undefined;
     isDefault?: (id: string) => boolean | undefined;
@@ -58,6 +57,7 @@ const EditorItemsList = ({
     parentId,
     itemsDictionaryIds,
     noItemsText,
+    isDragAndDropEnabled = true,
     editModal,
     isVisible,
     isDefault,
@@ -86,90 +86,150 @@ const EditorItemsList = ({
                         ? displayWidgetName(item.id)
                         : displaySceneName(item.id);
 
+                    if (isDragAndDropEnabled) {
+                        return (
+                            <Draggable<HTMLLIElement>
+                                key={item.id}
+                                dragItem={{
+                                    id: item.id,
+                                    parentId,
+                                    index,
+                                    path: item.path,
+                                    title: parentItemName || "",
+                                    type: DraggableTypes.ListItem,
+                                    children: item.children,
+                                }}
+                            >
+                                {(provided, snapshot) => {
+                                    return (
+                                        <EditorItemsListItem
+                                            {...provided}
+                                            id={item.id}
+                                            itemPath={item.path}
+                                            itemChildren={item.children}
+                                            itemsDictionaryIds={itemsDictionaryIds}
+                                            index={index}
+                                            itemName={parentItemName}
+                                            editModal={editModal}
+                                            isVisible={isVisible}
+                                            isDefault={isDefault}
+                                            handleVisibility={handleVisibility}
+                                            handleClickRow={handleClickRow}
+                                            handleClickRemove={handleClickRemove}
+                                            isActionRowSelected={isActionRowSelected}
+                                            isItemNesting={isItemNesting}
+                                            onIsNestingChange={onIsNestingChange}
+                                            onNesting={onNesting}
+                                            moveItem={moveItem}
+                                            dropItem={dropItem}
+                                            isDragging={snapshot.isDragging}
+                                            isOverWhileDragging={snapshot.isOver}
+                                        >
+                                            {item.children?.length ? (
+                                                <Droppable
+                                                    id={item.id}
+                                                    parentId={parentId}
+                                                    index={index}
+                                                    path={item.path}
+                                                    accept={[DraggableTypes.ListItem]}
+                                                >
+                                                    {(providedStyle, _, placeholder) => {
+                                                        return (
+                                                            <Box
+                                                                {...providedStyle}
+                                                                sx={{
+                                                                    padding: pxToRem(0, 0, 0, 10),
+                                                                }}
+                                                            >
+                                                                <EditorItemsList
+                                                                    itemsDictionaryIds={
+                                                                        item.children!
+                                                                    }
+                                                                    parentId={item.id}
+                                                                    noItemsText={noItemsText}
+                                                                    editModal={editModal}
+                                                                    isVisible={isVisible}
+                                                                    isDefault={isDefault}
+                                                                    handleVisibility={
+                                                                        handleVisibility
+                                                                    }
+                                                                    displayItemName={
+                                                                        displayItemName
+                                                                    }
+                                                                    handleClickRow={handleClickRow}
+                                                                    handleClickRemove={
+                                                                        handleClickRemove
+                                                                    }
+                                                                    isActionRowSelected={
+                                                                        isActionRowSelected
+                                                                    }
+                                                                    isItemNesting={isItemNesting}
+                                                                    onIsNestingChange={
+                                                                        onIsNestingChange
+                                                                    }
+                                                                    onDropItem={onDropItem}
+                                                                    onNesting={onNesting}
+                                                                    isDragAndDropEnabled={
+                                                                        !snapshot.isDragging
+                                                                    }
+                                                                />
+                                                                {!snapshot.isDragging &&
+                                                                    placeholder}
+                                                            </Box>
+                                                        );
+                                                    }}
+                                                </Droppable>
+                                            ) : null}
+                                        </EditorItemsListItem>
+                                    );
+                                }}
+                            </Draggable>
+                        );
+                    }
+
                     return (
-                        <Draggable<HTMLLIElement>
+                        <EditorItemsListItem
                             key={item.id}
-                            parentId={parentId}
                             id={item.id}
+                            itemPath={item.path}
+                            itemChildren={item.children}
+                            itemsDictionaryIds={itemsDictionaryIds}
                             index={index}
-                            path={item.path}
-                            title={parentItemName || ""}
-                            type={DraggableTypes.ListItem}
+                            itemName={parentItemName}
+                            editModal={editModal}
+                            isVisible={isVisible}
+                            isDefault={isDefault}
+                            handleVisibility={handleVisibility}
+                            handleClickRow={handleClickRow}
+                            handleClickRemove={handleClickRemove}
+                            isActionRowSelected={isActionRowSelected}
+                            isDragging={false}
                         >
-                            {(provided, snapshot) => {
-                                return (
-                                    <EditorItemsListItem
-                                        {...provided}
-                                        id={item.id}
-                                        itemPath={item.path}
-                                        itemChildren={item.children}
-                                        itemsDictionaryIds={itemsDictionaryIds}
-                                        index={index}
-                                        itemName={parentItemName}
-                                        editModal={editModal}
-                                        isVisible={isVisible}
-                                        isDefault={isDefault}
-                                        handleVisibility={handleVisibility}
-                                        handleClickRow={handleClickRow}
-                                        handleClickRemove={handleClickRemove}
-                                        isActionRowSelected={isActionRowSelected}
-                                        isItemNesting={isItemNesting}
-                                        onIsNestingChange={onIsNestingChange}
-                                        onNesting={onNesting}
-                                        moveItem={moveItem}
-                                        dropItem={dropItem}
-                                        isDragging={snapshot.isDragging}
-                                        isOverWhileDragging={snapshot.isOver}
-                                    >
-                                        {item.children?.length ? (
-                                            <Droppable
-                                                id={item.id}
-                                                parentId={parentId}
-                                                index={index}
-                                                path={item.path}
-                                                accept={[DraggableTypes.ListItem]}
-                                            >
-                                                {(providedStyle, _, placeholder) => {
-                                                    return (
-                                                        <Box
-                                                            {...providedStyle}
-                                                            sx={{
-                                                                padding: pxToRem(0, 0, 0, 10),
-                                                            }}
-                                                        >
-                                                            <EditorItemsList
-                                                                itemsDictionaryIds={item.children!}
-                                                                parentId={item.id}
-                                                                noItemsText={noItemsText}
-                                                                editModal={editModal}
-                                                                isVisible={isVisible}
-                                                                isDefault={isDefault}
-                                                                handleVisibility={handleVisibility}
-                                                                displayItemName={displayItemName}
-                                                                handleClickRow={handleClickRow}
-                                                                handleClickRemove={
-                                                                    handleClickRemove
-                                                                }
-                                                                isActionRowSelected={
-                                                                    isActionRowSelected
-                                                                }
-                                                                isItemNesting={isItemNesting}
-                                                                onIsNestingChange={
-                                                                    onIsNestingChange
-                                                                }
-                                                                onDropItem={onDropItem}
-                                                                onNesting={onNesting}
-                                                            />
-                                                            {placeholder}
-                                                        </Box>
-                                                    );
-                                                }}
-                                            </Droppable>
-                                        ) : null}
-                                    </EditorItemsListItem>
-                                );
-                            }}
-                        </Draggable>
+                            <Box
+                                sx={{
+                                    padding: pxToRem(0, 0, 0, 10),
+                                }}
+                            >
+                                <EditorItemsList
+                                    itemsDictionaryIds={item.children!}
+                                    parentId={item.id}
+                                    noItemsText={noItemsText}
+                                    editModal={editModal}
+                                    isVisible={isVisible}
+                                    isDefault={isDefault}
+                                    handleVisibility={handleVisibility}
+                                    displayItemName={displayItemName}
+                                    handleClickRow={handleClickRow}
+                                    handleClickRemove={handleClickRemove}
+                                    isActionRowSelected={isActionRowSelected}
+                                    isItemNesting={isItemNesting}
+                                    onIsNestingChange={onIsNestingChange}
+                                    onDropItem={onDropItem}
+                                    onNesting={onNesting}
+                                    isDragAndDropEnabled={isDragAndDropEnabled}
+                                />
+                            </Box>
+                        </EditorItemsListItem>
                     );
                 })
             ) : (
@@ -197,8 +257,6 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     const [items, setItems] = useState(itemsDictionaryIds);
 
     useEffect(() => {
-        // console.log(itemsDictionaryIds, "itemsDictionaryIds");
-
         setItems(itemsDictionaryIds);
     }, [itemsDictionaryIds]);
 
@@ -222,10 +280,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
 
         if (dropType === "droppable") {
             if (sameSource) {
-                console.log("is same source");
-
                 if (destination.path === "root") {
-                    console.log("destination path is root");
                     updatedItems = handleMoveWithinParent(
                         clonedItems,
                         splitSrcPath,
@@ -234,9 +289,6 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                 }
 
                 if (destination.parentId === "container" && destination.path !== "root") {
-                    console.log(
-                        "destination path is not root and destination parentid is container"
-                    );
                     newSplitDestPath = [...newSplitDestPath, destination.index || 0];
                     updatedItems = handleMoveWithinParent(
                         clonedItems,
@@ -245,36 +297,22 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                     );
                 }
             } else {
-                console.log("is not same source");
-
                 if (destination.path === "root") {
-                    console.log("destination path is root");
-                    // here
                     newSplitDestPath = [destination.index || 0];
 
                     updatedItems = handleUnNest(clonedItems, splitSrcPath, newSplitDestPath);
                 }
 
                 if (destination.path !== "root") {
-                    console.log("destination path is not root");
-                    console.log({ splitSrcPath, newSplitDestPath });
-
                     newSplitDestPath = [...newSplitDestPath, destination.index || 0];
                     updatedItems = handleUnNest(clonedItems, splitSrcPath, newSplitDestPath);
-
-                    // updatedItems = handleMoveToDifferentParent(
-                    //     clonedItems,
-                    //     splitSrcPath,
-                    //     newSplitDestPath
-                    // );
                 }
             }
         }
 
         if (dropType === "draggable") {
-            console.log("droptype draggable");
             if (sameSource) {
-                console.log("draggable same source");
+                console.log("sameSource");
 
                 if (destination.path === "root") {
                     updatedItems = handleMoveToDifferentParent(
@@ -285,8 +323,6 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                 }
 
                 if (destination.path !== "root") {
-                    console.log({ splitSrcPath, splitDestPath });
-
                     newSplitDestPath = [...newSplitDestPath, destination.index || 0];
 
                     updatedItems = handleMoveToDifferentParent(
@@ -295,15 +331,9 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                         newSplitDestPath
                     );
                 }
-                // newSplitDestPath = [...newSplitDestPath, 0];
-
-                // updatedItems = handleMoveToDifferentParent(
-                //     clonedItems,
-                //     splitSrcPath,
-                //     newSplitDestPath
-                // );
             } else {
-                console.log("draggable not same source");
+                console.log("not sameSource");
+
                 newSplitDestPath = [...newSplitDestPath, destination.index || 0];
 
                 updatedItems = handleMoveToDifferentParent(
@@ -313,8 +343,6 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                 );
             }
         }
-
-        console.log(updatedItems, "updatedItems");
 
         setItems(updatedItems);
         onDropItem?.(updatedItems);

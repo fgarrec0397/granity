@@ -1,3 +1,4 @@
+import { SxProps } from "@granity/ui";
 import { RefObject } from "react";
 import { DropTargetMonitor, XYCoord } from "react-dnd";
 
@@ -156,6 +157,7 @@ export const getTranslationStyle = ({
     isParentActive,
     domRect,
     margin,
+    isOver,
 }: {
     sourceItem: DragItemRaw;
     destinationItem: DragItemRaw;
@@ -165,51 +167,65 @@ export const getTranslationStyle = ({
     isParentActive: boolean;
     domRect?: DOMRect;
     margin?: MarginType;
+    isOver: boolean;
 }) => {
-    const droppableSourceId = sourceItem?.parentId;
-    const itemSourceIndex = sourceItem?.index;
+    const border: SxProps = {
+        "&::after": {
+            content: '""',
+            position: "absolute",
+            // top: `${isOver && translateSign * (rectSize || 0 + delta)}}px`,
+            // ...(translateSign > 0 ? { bottom: 0 } : { top: 0 }),
+            display: isOver ? "block" : "none",
+            height: "1px",
+            width: "100%",
+            backgroundColor: "red",
+        },
+    };
+    // const itemSourceId = sourceItem?.parentId;
+    // const itemSourceIndex = sourceItem?.index;
 
-    const sameSource = destinationItem.parentId === droppableSourceId;
-    let translateSign = 0;
+    // const sameSource = destinationItem.parentId === itemSourceId;
+    // let translateSign = 0;
 
-    if (!isDragging && sourceItem && threesholdIndex !== -1) {
-        if (sameSource) {
-            const sourceIsAfter = itemSourceIndex > destinationItem.index;
-            const sourceIsBefore = itemSourceIndex < destinationItem.index;
-            translateSign =
-                sourceIsAfter && threesholdIndex <= destinationItem.index
-                    ? 1
-                    : sourceIsBefore && threesholdIndex >= destinationItem.index
-                    ? -1
-                    : 0;
-        } else if (isParentActive) {
-            translateSign = threesholdIndex > destinationItem.index ? 0 : 1;
-        }
-    }
+    // if (!isDragging && sourceItem && threesholdIndex !== -1) {
+    //     if (sameSource) {
+    //         const sourceIsAfter = itemSourceIndex > destinationItem.index;
+    //         const sourceIsBefore = itemSourceIndex < destinationItem.index;
+    //         translateSign =
+    //             sourceIsAfter && threesholdIndex <= destinationItem.index
+    //                 ? 1
+    //                 : sourceIsBefore && threesholdIndex >= destinationItem.index
+    //                 ? -1
+    //                 : 0;
+    //     } else if (isParentActive) {
+    //         translateSign = threesholdIndex > destinationItem.index ? 0 : 1;
+    //     }
+    // }
 
-    const hasDraggedItem = !!sourceItem;
+    // const hasDraggedItem = !!sourceItem;
 
-    const marginKeys = horizontal
-        ? ({ first: "left", last: "right" } as const)
-        : ({ first: "top", last: "bottom" } as const);
+    // const marginKeys = horizontal
+    //     ? ({ first: "left", last: "right" } as const)
+    //     : ({ first: "top", last: "bottom" } as const);
 
-    const delta = Math.max(margin?.[marginKeys.first] || 0, margin?.[marginKeys.last] || 0);
-    const xyCoordinate = horizontal ? "x" : "y";
+    // const delta = Math.max(margin?.[marginKeys.first] || 0, margin?.[marginKeys.last] || 0);
+    // const xyCoordinate = horizontal ? "x" : "y";
 
-    const rectSize = horizontal ? domRect?.width : domRect?.height;
+    // const rectSize = horizontal ? domRect?.width : domRect?.height;
 
-    const transform =
-        translateSign && domRect
-            ? `translate${xyCoordinate.toUpperCase()}(${translateSign * (rectSize || 0 + delta)}px)`
-            : undefined;
+    // const transform =
+    //     translateSign && domRect
+    //         ? `translate${xyCoordinate.toUpperCase()}(${translateSign * (rectSize || 0 + delta)}px)`
+    //         : undefined;
 
-    const transformProps = transform ? { transform } : {};
-    const transitionProps = hasDraggedItem ? { transition: "0.3s" } : { transition: "0s" };
+    // const transformProps = transform ? { transform } : {};
+    // const transitionProps = hasDraggedItem ? { transition: "0.3s" } : { transition: "0s" };
 
     const style = {
-        ...transformProps,
-        ...transitionProps,
-    } as unknown as React.CSSProperties;
+        // ...transformProps,
+        // ...transitionProps,
+        ...border,
+    } as unknown as SxProps;
 
     return { style };
 };

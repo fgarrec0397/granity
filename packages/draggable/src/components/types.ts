@@ -1,4 +1,5 @@
-import { CSSProperties } from "react";
+import { RecursiveArrayOfIds } from "@granity/helpers";
+import { SxProps } from "@granity/ui";
 
 // Draggable
 
@@ -9,6 +10,7 @@ export type DragItemRaw = {
     path: string;
     title: string;
     type: string;
+    children?: RecursiveArrayOfIds<string>;
 };
 
 export type MarginType = { left: number; right: number; top: number; bottom: number };
@@ -31,7 +33,7 @@ export type DraggableSnapshot = {
 export type DragCollectProps = {
     isDragging: boolean;
     draggedItem: DragItem;
-    style: CSSProperties;
+    style: SxProps;
 };
 
 // Provider

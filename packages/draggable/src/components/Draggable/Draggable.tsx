@@ -1,4 +1,5 @@
-import { CSSProperties, RefObject, useEffect, useRef } from "react";
+import { SxProps } from "@granity/ui";
+import { RefObject, useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 
@@ -8,16 +9,17 @@ import { getElementMargin, getTranslationStyle, handleHover } from "./utils";
 
 export type DraggableChildrenProp<RefType extends HTMLElement> = {
     ref: RefObject<RefType>;
-    style: CSSProperties;
+    style: SxProps;
 };
 
-export type DraggableProps<RefType extends HTMLElement> = DragItemRaw & {
+export type DraggableProps<RefType extends HTMLElement> = {
+    dragItem: DragItemRaw;
     children: (props: DraggableChildrenProp<RefType>, snapshot: DraggableSnapshot) => JSX.Element;
 };
 
 const Draggable = <RefType extends HTMLElement>({
+    dragItem: currentItem,
     children,
-    ...props
 }: DraggableProps<RefType>) => {
     const ref = useRef<RefType>(null);
     const { onDrop, onMove } = useDndContext();
@@ -29,19 +31,71 @@ const Draggable = <RefType extends HTMLElement>({
         setThreesholdId,
         getAcceptTypes,
         isDropTarget: isParentActive,
-    } = useDroppableContext(props.parentId);
+    } = useDroppableContext(currentItem.parentId);
+
+    const [{ isOver }, drop] = useDrop<DragItem, DropResult, { isOver: boolean }>({
+        accept: getAcceptTypes(),
+        collect(monitor) {
+            return {
+                isOver: monitor.isOver(),
+            };
+        },
+
+        drop(_, monitor) {
+            const item = monitor.getItem();
+
+            if (!item) return;
+
+            const isDropTarget = monitor.isOver({ shallow: true });
+
+            if (!isDropTarget) return;
+
+            return {
+                source: {
+                    index: item.index,
+                    id: item.id,
+                    parentId: item.parentId,
+                    path: item.path,
+                    title: item.title,
+                },
+                destination: {
+                    index: currentItem.index,
+                    id: currentItem.id,
+                    parentId: currentItem.parentId,
+                    path: currentItem.path,
+                    title: currentItem.title,
+                },
+                dropType: "draggable",
+                sameSource: draggedItem.parentId === currentItem.parentId,
+            };
+        },
+
+        hover(item, monitor) {
+            if (onMove) {
+                return onMove(item, currentItem);
+            }
+
+            handleHover(monitor, {
+                sourceItem: item,
+                destinationItem: currentItem,
+                ref,
+                setThreesholdIndex,
+                threesholdIndex,
+            });
+        },
+    });
 
     const [{ isDragging, draggedItem, style }, drag, preview] = useDrag<
         DragItem,
         DropResult,
         DragCollectProps
     >({
-        type: props.type,
+        type: currentItem.type,
         item: () => {
             const element = ref.current;
             const rect = element?.getBoundingClientRect();
             return {
-                ...props,
+                ...currentItem,
                 __rect__: rect,
                 margin: getElementMargin(element),
             };
@@ -52,12 +106,13 @@ const Draggable = <RefType extends HTMLElement>({
 
             const { style: translationStyle } = getTranslationStyle({
                 sourceItem: sourceItem,
-                destinationItem: props,
+                destinationItem: currentItem,
                 threesholdIndex,
                 domRect: sourceItem?.__rect__,
                 isDragging: sourceIsDragging,
                 isParentActive,
                 margin: sourceItem?.margin,
+                isOver,
             });
 
             return {
@@ -78,89 +133,38 @@ const Draggable = <RefType extends HTMLElement>({
         },
     });
 
-    const [{ isOver }, drop] = useDrop<DragItem, DropResult, { isOver: boolean }>({
-        accept: getAcceptTypes(),
-        collect(monitor) {
-            return {
-                isOver: monitor.isOver(),
-            };
-        },
+    useEffect(() => {
+        console.log(threesholdIndex, "threesholdIndex");
+    }, [threesholdIndex]);
 
-        drop(_, monitor) {
-            const item = monitor.getItem();
-
-            if (!item) return;
-
-            const isDropTarget = monitor.isOver({ shallow: true });
-
-            if (!isDropTarget) return;
-
-            // nest
-            // unNest
-            // move
-            return {
-                source: {
-                    index: item.index,
-                    id: item.id,
-                    parentId: item.parentId,
-                    path: item.path,
-                    title: item.title,
-                },
-                destination: {
-                    index: props.index,
-                    id: props.id,
-                    parentId: props.parentId,
-                    path: props.path,
-                    title: props.title,
-                },
-                dropType: "draggable",
-                sameSource: draggedItem.parentId === props.parentId,
-            };
-        },
-
-        hover(item, monitor) {
-            if (onMove) {
-                return onMove(item, props);
-            }
-
-            handleHover(monitor, {
-                sourceItem: item,
-                destinationItem: props,
-                ref,
-                setThreesholdIndex,
-                threesholdIndex,
-            });
-        },
-    });
-
-    const isDestination = isParentActive && threesholdIndex === props.index;
-    const idMismatch = isDestination && threesholdId !== props.id;
+    const isDestination = isParentActive && threesholdIndex === currentItem.index;
+    const idMismatch = isDestination && threesholdId !== currentItem.id;
     useEffect(() => {
         if (idMismatch) {
-            setThreesholdId(props.id);
+            setThreesholdId(currentItem.id);
         }
-    }, [idMismatch, setThreesholdId, props.id]);
+    }, [idMismatch, setThreesholdId, currentItem.id]);
 
     const indexMismatch =
-        isParentActive && threesholdIndex !== props.index && threesholdId === props.id;
+        isParentActive && threesholdIndex !== currentItem.index && threesholdId === currentItem.id;
 
     useEffect(() => {
         if (indexMismatch) {
             setThreesholdId(undefined as any);
         }
-    }, [indexMismatch, setThreesholdId, props.id]);
+    }, [indexMismatch, setThreesholdId, currentItem.id]);
 
     const isDraggingSrouce =
         isDragging &&
-        draggedItem?.index === props.index &&
-        draggedItem?.parentId === props.parentId;
+        draggedItem?.index === currentItem.index &&
+        draggedItem?.parentId === currentItem.parentId;
 
     useEffect(() => {
         if (isDraggingSrouce) {
-            setThreesholdIndex(props.index);
-            setThreesholdId(props.id);
+            setThreesholdIndex(currentItem.index);
+            setThreesholdId(currentItem.id);
         }
-    }, [isDraggingSrouce, setThreesholdIndex, setThreesholdId, props.index, props.id]);
+    }, [isDraggingSrouce, setThreesholdIndex, setThreesholdId, currentItem.index, currentItem.id]);
 
     useEffect(() => {
         preview(getEmptyImage(), { captureDraggingState: true });
@@ -168,7 +172,11 @@ const Draggable = <RefType extends HTMLElement>({
 
     drag(drop(ref.current));
 
-    return children({ ref, style }, { isDragging, isOver });
+    return (
+        <div style={{ position: "relative" }}>
+            {children({ ref, style }, { isDragging, isOver })}
+        </div>
+    );
 };
 
 export { Draggable };

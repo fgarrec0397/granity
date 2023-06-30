@@ -3,8 +3,8 @@ import Delete from "@granity/icons/Delete";
 import Star from "@granity/icons/Star";
 import Visibility from "@granity/icons/Visibility";
 import VisibilityOff from "@granity/icons/VisibilityOff";
-import { IconButton, ListItem, ListItemButton, pxToRem } from "@granity/ui";
-import { CSSProperties, forwardRef, ReactElement } from "react";
+import { IconButton, ListItem, ListItemButton, pxToRem, SxProps } from "@granity/ui";
+import { forwardRef, ReactElement } from "react";
 
 import { EditorListDragItem } from "../../_actions/editorTypes";
 
@@ -20,7 +20,7 @@ export type EditorItemsListItemProps = HasChildren & {
     itemChildren?: RecursiveArrayOfIds<string>;
     isDraggable?: boolean;
     isOverWhileDragging?: boolean;
-    style?: CSSProperties;
+    style?: SxProps;
     isDragging: boolean;
     itemsDictionaryIds: RecursiveArrayOfIds<string>;
     editModal?: (id: string) => ReactElement;
@@ -71,11 +71,10 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
                     backgroundColor: isOverWhileDragging
                         ? theme.palette.background.paperLight + "50"
                         : theme.palette.background.default,
-                    border: isItemNesting?.(id) ? "1px solid red" : "1px solid transparent",
                     ".MuiListItemSecondaryAction-root": {
                         top: pxToRem(18),
                     },
-                    ...style,
+                    ...(style as any),
                 })}
                 secondaryAction={
                     <>

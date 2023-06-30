@@ -84,7 +84,8 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
 
             const displayPlaceholder = dropTarget && !isSameSource;
 
-            const placeholderItemSize = displayPlaceholder ? size + marginDelta : 0;
+            // const placeholderItemSize = displayPlaceholder ? size + marginDelta : 0;
+            const placeholderItemSize = displayPlaceholder ? 37 : 0;
 
             return {
                 isDropTarget: dropTarget,
@@ -182,7 +183,8 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
                 style={{
                     pointerEvents: "none",
                     width: props.horizontal ? placeholderSize : "100%",
-                    height: props.horizontal ? "auto" : placeholderSize,
+                    // height: props.horizontal ? "auto" : placeholderSize,
+                    // border: "1px solid red",
                     transition: placeholderTransition,
                 }}
             />

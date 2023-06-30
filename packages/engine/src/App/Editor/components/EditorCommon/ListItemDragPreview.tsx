@@ -44,6 +44,7 @@ const ListItemDragPreview: FC<BoxDragPreviewProps> = ({ dragItem }) => {
                         itemsDictionaryIds={dragItem.children}
                         noItemsText=""
                         parentId=""
+                        isDragAndDropEnabled={false}
                     />
                 </Box>
             ) : null}
