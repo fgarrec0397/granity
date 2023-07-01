@@ -5,11 +5,11 @@ import { getEmptyImage } from "react-dnd-html5-backend";
 
 import { useDndContext, useDroppableContext } from "../Provider/DndContextProvider";
 import { DragCollectProps, DraggableSnapshot, DragItem, DragItemRaw, DropResult } from "../types";
-import { getElementMargin, getTranslationStyle, handleHover } from "./utils";
+import { getElementMargin, handleHover, handleStyle } from "./utils";
 
 export type DraggableChildrenProp<RefType extends HTMLElement> = {
     ref: RefObject<RefType>;
-    style: SxProps;
+    style?: SxProps;
 };
 
 export type DraggableProps<RefType extends HTMLElement> = {
@@ -27,8 +27,12 @@ const Draggable = <RefType extends HTMLElement>({
     const {
         threesholdIndex,
         threesholdId,
+        dropType,
         setThreesholdIndex,
         setThreesholdId,
+        setDropType,
+        setDraggingStatus,
+        draggingStatus,
         getAcceptTypes,
         isDropTarget: isParentActive,
     } = useDroppableContext(currentItem.parentId);
@@ -59,13 +63,13 @@ const Draggable = <RefType extends HTMLElement>({
                     title: item.title,
                 },
                 destination: {
-                    index: currentItem.index,
+                    index: threesholdIndex,
                     id: currentItem.id,
                     parentId: currentItem.parentId,
                     path: currentItem.path,
                     title: currentItem.title,
                 },
-                dropType: "draggable",
+                dropType,
                 sameSource: draggedItem.parentId === currentItem.parentId,
             };
         },
@@ -81,6 +85,9 @@ const Draggable = <RefType extends HTMLElement>({
                 ref,
                 setThreesholdIndex,
                 threesholdIndex,
+                setDropType,
+                dropType,
+                setDraggingStatus,
             });
         },
     });
@@ -104,7 +111,7 @@ const Draggable = <RefType extends HTMLElement>({
             const sourceItem = monitor.getItem();
             const sourceIsDragging = monitor.isDragging();
 
-            const { style: translationStyle } = getTranslationStyle({
+            const itemStyle = handleStyle(monitor, {
                 sourceItem: sourceItem,
                 destinationItem: currentItem,
                 threesholdIndex,
@@ -113,12 +120,15 @@ const Draggable = <RefType extends HTMLElement>({
                 isParentActive,
                 margin: sourceItem?.margin,
                 isOver,
+                dropType,
+                ref,
+                draggingStatus,
             });
 
             return {
                 isDragging: sourceIsDragging,
                 draggedItem: sourceItem,
-                style: translationStyle,
+                style: itemStyle?.style,
             };
         },
 
@@ -132,10 +142,6 @@ const Draggable = <RefType extends HTMLElement>({
             }
         },
     });
-
-    useEffect(() => {
-        console.log(threesholdIndex, "threesholdIndex");
-    }, [threesholdIndex]);
 
     const isDestination = isParentActive && threesholdIndex === currentItem.index;
     const idMismatch = isDestination && threesholdId !== currentItem.id;

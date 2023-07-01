@@ -33,7 +33,7 @@ export type DraggableSnapshot = {
 export type DragCollectProps = {
     isDragging: boolean;
     draggedItem: DragItem;
-    style: SxProps;
+    style?: SxProps;
 };
 
 // Provider
@@ -48,7 +48,7 @@ export type DropResultItem = {
 export type DropResult = {
     source: DropResultItem;
     destination: DropResultItem;
-    dropType: "draggable" | "droppable";
+    dropType: "draggable" | "droppable" | "move" | "combine";
     sameSource: boolean;
 };
 

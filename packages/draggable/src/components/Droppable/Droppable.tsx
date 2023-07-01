@@ -54,6 +54,10 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
 ) => {
     const [threesholdIndex, setThreesholdIndex] = useState(-1);
     const [threesholdId, setThreesholdId] = useState("");
+    const [dropType, setDropType] = useState<"move" | "combine">("move");
+    const [draggingStatus, setDraggingStatus] = useState<
+        "canMoveNext" | "canMovePrev" | "canCombine"
+    >("canMoveNext");
 
     const ref = useRef<RefType>(null);
 
@@ -147,6 +151,10 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
             isDropTarget,
             id: props.id,
             getAcceptTypes,
+            dropType,
+            setDropType,
+            draggingStatus,
+            setDraggingStatus,
         })
     );
 
@@ -169,8 +177,20 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
             isDropTarget,
             id: props.id,
             getAcceptTypes,
+            dropType,
+            setDropType,
+            draggingStatus,
+            setDraggingStatus,
         };
-    }, [threesholdId, threesholdIndex, isDropTarget, props.id, getAcceptTypes]);
+    }, [
+        threesholdIndex,
+        threesholdId,
+        isDropTarget,
+        props.id,
+        getAcceptTypes,
+        dropType,
+        draggingStatus,
+    ]);
 
     const placeholderSizeType = props.horizontal ? "width" : "height";
     const placeholderTransition = hasDraggedItem
