@@ -173,8 +173,8 @@ const EditorItemsList = ({
                                                                         !snapshot.isDragging
                                                                     }
                                                                 />
-                                                                {!snapshot.isDragging &&
-                                                                    placeholder}
+                                                                {/* {!snapshot.isDragging &&
+                                                                    placeholder} */}
                                                             </Box>
                                                         );
                                                     }}
@@ -257,99 +257,116 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     const [items, setItems] = useState(itemsDictionaryIds);
 
     useEffect(() => {
+        console.log(itemsDictionaryIds, "itemsDictionaryIds");
+
         setItems(itemsDictionaryIds);
     }, [itemsDictionaryIds]);
 
     const onDrop: OnDrop = ({ source, destination, dropType, sameSource }) => {
         console.log({ source, destination, dropType, sameSource });
 
-        if (source.id === destination.id) {
+        if (source.id === destination?.id) {
             return;
         }
 
         const clonedItems = clone(items);
-
-        const splitSrcPath = splitPath(source.path);
-        const splitDestPath =
-            destination.path === "root"
-                ? splitPath(destination.index?.toString())
-                : splitPath(destination.path);
-
         let updatedItems = clonedItems;
-        let newSplitDestPath = splitDestPath;
+        const splitSrcPath = splitPath(source.path);
+        const splitDestPath = splitPath(destination?.path);
 
-        if (dropType === "droppable") {
+        if (dropType === "move") {
             if (sameSource) {
-                if (destination.path === "root") {
-                    updatedItems = handleMoveWithinParent(
-                        clonedItems,
-                        splitSrcPath,
-                        newSplitDestPath
-                    );
-                }
-
-                if (destination.parentId === "container" && destination.path !== "root") {
-                    newSplitDestPath = [...newSplitDestPath, destination.index || 0];
-                    updatedItems = handleMoveWithinParent(
-                        clonedItems,
-                        splitSrcPath,
-                        newSplitDestPath
-                    );
-                }
-            } else {
-                if (destination.path === "root") {
-                    newSplitDestPath = [destination.index || 0];
-
-                    updatedItems = handleUnNest(clonedItems, splitSrcPath, newSplitDestPath);
-                }
-
-                if (destination.path !== "root") {
-                    newSplitDestPath = [...newSplitDestPath, destination.index || 0];
-                    updatedItems = handleUnNest(clonedItems, splitSrcPath, newSplitDestPath);
-                }
-            }
-        }
-
-        if (dropType === "draggable") {
-            if (sameSource) {
-                console.log("sameSource");
-
-                if (destination.path === "root") {
-                    updatedItems = handleMoveToDifferentParent(
-                        clonedItems,
-                        splitSrcPath,
-                        newSplitDestPath
-                    );
-                }
-
-                if (destination.path !== "root") {
-                    newSplitDestPath = [...newSplitDestPath, destination.index || 0];
-
-                    updatedItems = handleMoveToDifferentParent(
-                        clonedItems,
-                        splitSrcPath,
-                        newSplitDestPath
-                    );
-                }
-            } else {
-                console.log("not sameSource");
-
-                newSplitDestPath = [...newSplitDestPath, destination.index || 0];
-
-                updatedItems = handleMoveToDifferentParent(
-                    clonedItems,
-                    splitSrcPath,
-                    newSplitDestPath
-                );
+                console.log("same source");
+                updatedItems = handleMoveWithinParent(clonedItems, splitSrcPath, splitDestPath);
             }
         }
 
         setItems(updatedItems);
         onDropItem?.(updatedItems);
+
+        // const clonedItems = clone(items);
+
+        // const splitSrcPath = splitPath(source.path);
+        // const splitDestPath =
+        //     destination.path === "root"
+        //         ? splitPath(destination.index?.toString())
+        //         : splitPath(destination.path);
+
+        // let updatedItems = clonedItems;
+        // let newSplitDestPath = splitDestPath;
+
+        // if (dropType === "droppable") {
+        //     if (sameSource) {
+        //         if (destination.path === "root") {
+        //             updatedItems = handleMoveWithinParent(
+        //                 clonedItems,
+        //                 splitSrcPath,
+        //                 newSplitDestPath
+        //             );
+        //         }
+
+        //         if (destination.parentId === "container" && destination.path !== "root") {
+        //             newSplitDestPath = [...newSplitDestPath, destination.index || 0];
+        //             updatedItems = handleMoveWithinParent(
+        //                 clonedItems,
+        //                 splitSrcPath,
+        //                 newSplitDestPath
+        //             );
+        //         }
+        //     } else {
+        //         if (destination.path === "root") {
+        //             newSplitDestPath = [destination.index || 0];
+
+        //             updatedItems = handleUnNest(clonedItems, splitSrcPath, newSplitDestPath);
+        //         }
+
+        //         if (destination.path !== "root") {
+        //             newSplitDestPath = [...newSplitDestPath, destination.index || 0];
+        //             updatedItems = handleUnNest(clonedItems, splitSrcPath, newSplitDestPath);
+        //         }
+        //     }
+        // }
+
+        // if (dropType === "draggable") {
+        //     if (sameSource) {
+        //         console.log("sameSource");
+
+        //         if (destination.path === "root") {
+        //             updatedItems = handleMoveToDifferentParent(
+        //                 clonedItems,
+        //                 splitSrcPath,
+        //                 newSplitDestPath
+        //             );
+        //         }
+
+        //         if (destination.path !== "root") {
+        //             newSplitDestPath = [...newSplitDestPath, destination.index || 0];
+
+        //             updatedItems = handleMoveToDifferentParent(
+        //                 clonedItems,
+        //                 splitSrcPath,
+        //                 newSplitDestPath
+        //             );
+        //         }
+        //     } else {
+        //         console.log("not sameSource");
+
+        //         newSplitDestPath = [...newSplitDestPath, destination.index || 0];
+
+        //         updatedItems = handleMoveToDifferentParent(
+        //             clonedItems,
+        //             splitSrcPath,
+        //             newSplitDestPath
+        //         );
+        //     }
+        // }
+
+        // setItems(updatedItems);
+        // onDropItem?.(updatedItems);
     };
 
     return (
-        <DndContextProvider onDrop={onDrop}>
+        <DndContextProvider onDrop={onDrop} itemsDictionaryIds={itemsDictionaryIds}>
             <EditorCustomDragLayer />
             <Droppable id="container" parentId="container" accept={[DraggableTypes.ListItem]}>
                 {(providedStyle, _, placeholder) => {

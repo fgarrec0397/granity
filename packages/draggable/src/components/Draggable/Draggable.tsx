@@ -22,7 +22,7 @@ const Draggable = <RefType extends HTMLElement>({
     children,
 }: DraggableProps<RefType>) => {
     const ref = useRef<RefType>(null);
-    const { onDrop, onMove } = useDndContext();
+    const { itemsDictionaryIds, onDrop, onMove } = useDndContext();
 
     const {
         threesholdIndex,
@@ -35,6 +35,8 @@ const Draggable = <RefType extends HTMLElement>({
         draggingStatus,
         getAcceptTypes,
         isDropTarget: isParentActive,
+        destinationItem,
+        setDestination,
     } = useDroppableContext(currentItem.parentId);
 
     const [{ isOver }, drop] = useDrop<DragItem, DropResult, { isOver: boolean }>({
@@ -62,13 +64,7 @@ const Draggable = <RefType extends HTMLElement>({
                     path: item.path,
                     title: item.title,
                 },
-                destination: {
-                    index: threesholdIndex,
-                    id: currentItem.id,
-                    parentId: currentItem.parentId,
-                    path: currentItem.path,
-                    title: currentItem.title,
-                },
+                destination: destinationItem,
                 dropType,
                 sameSource: draggedItem.parentId === currentItem.parentId,
             };
@@ -88,6 +84,8 @@ const Draggable = <RefType extends HTMLElement>({
                 setDropType,
                 dropType,
                 setDraggingStatus,
+                itemsDictionaryIds,
+                setDestination,
             });
         },
     });

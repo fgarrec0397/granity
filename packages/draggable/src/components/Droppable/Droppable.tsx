@@ -10,8 +10,8 @@ import {
 } from "react";
 import { useDrop } from "react-dnd";
 
-import { droppablesDictionary } from "../Provider/DndContextProvider";
-import { DragItem, DropResult } from "../types";
+import { DraggingStatus, droppablesDictionary } from "../Provider/DndContextProvider";
+import { DragItem, DropResult, DropResultItem } from "../types";
 
 export type DroppableProps<RefType extends HTMLElement> = {
     id: string;
@@ -55,9 +55,8 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
     const [threesholdIndex, setThreesholdIndex] = useState(-1);
     const [threesholdId, setThreesholdId] = useState("");
     const [dropType, setDropType] = useState<"move" | "combine">("move");
-    const [draggingStatus, setDraggingStatus] = useState<
-        "canMoveNext" | "canMovePrev" | "canCombine"
-    >("canMoveNext");
+    const [destinationItem, setDestination] = useState<DropResultItem>();
+    const [draggingStatus, setDraggingStatus] = useState<DraggingStatus>();
 
     const ref = useRef<RefType>(null);
 
@@ -155,6 +154,8 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
             setDropType,
             draggingStatus,
             setDraggingStatus,
+            destinationItem,
+            setDestination,
         })
     );
 
@@ -181,6 +182,8 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
             setDropType,
             draggingStatus,
             setDraggingStatus,
+            destinationItem,
+            setDestination,
         };
     }, [
         threesholdIndex,
@@ -190,6 +193,7 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
         getAcceptTypes,
         dropType,
         draggingStatus,
+        destinationItem,
     ]);
 
     const placeholderSizeType = props.horizontal ? "width" : "height";

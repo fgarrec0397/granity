@@ -47,7 +47,7 @@ export type DropResultItem = {
 
 export type DropResult = {
     source: DropResultItem;
-    destination: DropResultItem;
+    destination?: DropResultItem;
     dropType: "draggable" | "droppable" | "move" | "combine";
     sameSource: boolean;
 };
