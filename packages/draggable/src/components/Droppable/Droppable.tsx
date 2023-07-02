@@ -52,6 +52,7 @@ const containerStyle = { transition: "height 0.3s" };
 export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
     props: DroppableProps<RefType>
 ) => {
+    const [hasDropped, setHasDropped] = useState(true);
     const [threesholdIndex, setThreesholdIndex] = useState(-1);
     const [threesholdId, setThreesholdId] = useState("");
     const [dropType, setDropType] = useState<"move" | "combine">("move");
@@ -156,6 +157,8 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
             setDraggingStatus,
             destinationItem,
             setDestination,
+            hasDropped,
+            setHasDropped,
         })
     );
 
@@ -184,6 +187,8 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
             setDraggingStatus,
             destinationItem,
             setDestination,
+            hasDropped,
+            setHasDropped,
         };
     }, [
         threesholdIndex,
@@ -194,6 +199,7 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
         dropType,
         draggingStatus,
         destinationItem,
+        hasDropped,
     ]);
 
     const placeholderSizeType = props.horizontal ? "width" : "height";

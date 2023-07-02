@@ -10,6 +10,7 @@ import {
     handleMoveWithinParent,
     handleUnNest,
     splitPath,
+    updatePaths,
 } from "../../_actions/utilities/dnd";
 import EditorCustomDragLayer from "../EditorCommon/EditorCustomDragLayer";
 import EditorItemsListItem from "./EditorItemsListItem";
@@ -169,12 +170,7 @@ const EditorItemsList = ({
                                                                     }
                                                                     onDropItem={onDropItem}
                                                                     onNesting={onNesting}
-                                                                    isDragAndDropEnabled={
-                                                                        !snapshot.isDragging
-                                                                    }
                                                                 />
-                                                                {/* {!snapshot.isDragging &&
-                                                                    placeholder} */}
                                                             </Box>
                                                         );
                                                     }}
@@ -257,9 +253,9 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     const [items, setItems] = useState(itemsDictionaryIds);
 
     useEffect(() => {
-        console.log(itemsDictionaryIds, "itemsDictionaryIds");
+        console.log(updatePaths(itemsDictionaryIds), "itemsDictionaryIds");
 
-        setItems(itemsDictionaryIds);
+        setItems(updatePaths(itemsDictionaryIds));
     }, [itemsDictionaryIds]);
 
     const onDrop: OnDrop = ({ source, destination, dropType, sameSource }) => {
@@ -278,6 +274,15 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
             if (sameSource) {
                 console.log("same source");
                 updatedItems = handleMoveWithinParent(clonedItems, splitSrcPath, splitDestPath);
+            }
+        }
+
+        if (dropType === "combine") {
+            if (sameSource) {
+                console.log("same source");
+                const newDestPath = [...splitDestPath, 0];
+
+                updatedItems = handleMoveToDifferentParent(clonedItems, splitSrcPath, newDestPath);
             }
         }
 

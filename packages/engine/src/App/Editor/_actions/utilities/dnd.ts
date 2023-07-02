@@ -99,7 +99,7 @@ export const insert = <ArrayType, ItemType>(arr: ArrayType[], index: number, new
     ...arr.slice(index),
 ];
 
-const updatePaths = (items: WidgetsIds, parentPath?: string): WidgetsIds => {
+export const updatePaths = (items: WidgetsIds, parentPath?: string): WidgetsIds => {
     const newItems = cloneDeep(items).map((x, index) => {
         const path = parentPath ? parentPath.concat("/", index.toString()) : index.toString();
 

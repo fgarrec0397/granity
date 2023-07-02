@@ -37,8 +37,10 @@ const droppablesDictionary = {} as {
             setThreesholdIndex: React.Dispatch<React.SetStateAction<number>>;
             threesholdId: string;
             dropType: "combine" | "move";
+            hasDropped: boolean;
             draggingStatus: DraggingStatus | undefined;
             destinationItem: DropResultItem | undefined;
+            setHasDropped: React.Dispatch<React.SetStateAction<boolean>>;
             setDestination: React.Dispatch<React.SetStateAction<DropResultItem | undefined>>;
             setDropType: React.Dispatch<React.SetStateAction<"combine" | "move">>;
             setDraggingStatus: React.Dispatch<React.SetStateAction<DraggingStatus | undefined>>;

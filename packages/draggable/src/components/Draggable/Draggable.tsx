@@ -37,6 +37,8 @@ const Draggable = <RefType extends HTMLElement>({
         isDropTarget: isParentActive,
         destinationItem,
         setDestination,
+        hasDropped,
+        setHasDropped,
     } = useDroppableContext(currentItem.parentId);
 
     const [{ isOver }, drop] = useDrop<DragItem, DropResult, { isOver: boolean }>({
@@ -55,6 +57,8 @@ const Draggable = <RefType extends HTMLElement>({
             const isDropTarget = monitor.isOver({ shallow: true });
 
             if (!isDropTarget) return;
+
+            setHasDropped(true);
 
             return {
                 source: {
@@ -86,6 +90,8 @@ const Draggable = <RefType extends HTMLElement>({
                 setDraggingStatus,
                 itemsDictionaryIds,
                 setDestination,
+                hasDropped,
+                setHasDropped,
             });
         },
     });
@@ -121,6 +127,7 @@ const Draggable = <RefType extends HTMLElement>({
                 dropType,
                 ref,
                 draggingStatus,
+                hasDropped,
             });
 
             return {
