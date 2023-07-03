@@ -69,6 +69,7 @@ const Draggable = <RefType extends HTMLElement>({
                     title: item.title,
                 },
                 destination: destinationItem,
+                draggingStatus,
                 dropType,
                 sameSource: draggedItem.parentId === currentItem.parentId,
             };

@@ -215,10 +215,10 @@ export const handleMoveToDifferentParent = (
 ) => {
     const sourceItem = getChild(itemsDictionaryIds, splitSourcePath);
 
-    let updatedItems = itemsDictionaryIds;
+    let updatedItems = clone(itemsDictionaryIds);
 
-    updatedItems = addChildToChildren(updatedItems, splitDestinationPath, sourceItem);
     updatedItems = removeChildFromChildren(updatedItems, splitSourcePath);
+    updatedItems = addChildToChildren(updatedItems, splitDestinationPath, sourceItem);
 
     // Instead of updating all paths each time, check to doing it directly in the function
     return updatePaths(updatedItems);

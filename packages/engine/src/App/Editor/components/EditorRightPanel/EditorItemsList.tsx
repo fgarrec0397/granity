@@ -272,14 +272,26 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
 
         if (dropType === "move") {
             if (sameSource) {
-                console.log("same source");
                 updatedItems = handleMoveWithinParent(clonedItems, splitSrcPath, splitDestPath);
+            } else {
+                if (splitSrcPath.length < splitDestPath.length) {
+                    updatedItems = handleUnNest(clonedItems, splitSrcPath, splitDestPath);
+                } else {
+                    updatedItems = handleMoveToDifferentParent(
+                        clonedItems,
+                        splitSrcPath,
+                        splitDestPath
+                    );
+                }
             }
         }
 
         if (dropType === "combine") {
             if (sameSource) {
-                console.log("same source");
+                const newDestPath = [...splitDestPath, 0];
+
+                updatedItems = handleMoveToDifferentParent(clonedItems, splitSrcPath, newDestPath);
+            } else {
                 const newDestPath = [...splitDestPath, 0];
 
                 updatedItems = handleMoveToDifferentParent(clonedItems, splitSrcPath, newDestPath);

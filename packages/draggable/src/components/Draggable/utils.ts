@@ -127,6 +127,8 @@ export const handleHover = <RefType extends HTMLElement>(
     const hoverClientY =
         (clientOffset as XYCoord)[xyCoordinate] - hoverBoundingRect[marginKeys.first];
 
+    console.log({ hoverIndex, dragIndex });
+
     // Dragging downwards
     if (dragIndex < hoverIndex) {
         if (hoverClientY < 5) {
@@ -161,6 +163,8 @@ export const handleHover = <RefType extends HTMLElement>(
             return;
         }
 
+        setDestination(destinationItem);
+        console.log(parentChildren[hoverIndex], "combine downwards destinationItem");
         setThreesholdIndex(hoverIndex);
         setDropType("combine");
 
@@ -204,11 +208,14 @@ export const handleHover = <RefType extends HTMLElement>(
         }
 
         setThreesholdIndex(hoverIndex);
-        setDestination({
-            ...parentChildren[hoverIndex],
-            parentId: destinationItem.parentId,
-            index: destinationItem.index,
-        });
+        setDestination(destinationItem);
+        console.log(parentChildren[hoverIndex], "combine upwards destinationItem");
+
+        // setDestination({
+        //     ...parentChildren[hoverIndex],
+        //     parentId: destinationItem.parentId,
+        //     index: destinationItem.index,
+        // });
         setDropType("combine");
 
         return;
