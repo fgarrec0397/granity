@@ -48,7 +48,6 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
             itemName,
             style,
             isDragging,
-            isOverWhileDragging,
             editModal,
             handleVisibility,
             isVisible,
@@ -56,7 +55,6 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
             isDefault,
             handleClickRow,
             isActionRowSelected,
-            isItemNesting,
             children,
         }: EditorItemsListItemProps,
         ref
@@ -68,9 +66,7 @@ const EditorItemsListItem = forwardRef<HTMLLIElement, EditorItemsListItemProps>(
                     display: "block",
                     opacity: isDragging ? 0 : 1,
                     maxWidth: pxToRem(250),
-                    backgroundColor: isOverWhileDragging
-                        ? theme.palette.background.paperLight + "50"
-                        : theme.palette.background.default,
+                    backgroundColor: theme.palette.background.default,
                     ".MuiListItemSecondaryAction-root": {
                         top: pxToRem(18),
                     },

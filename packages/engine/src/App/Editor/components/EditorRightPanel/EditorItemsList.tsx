@@ -134,7 +134,7 @@ const EditorItemsList = ({
                                                     path={item.path}
                                                     accept={[DraggableTypes.ListItem]}
                                                 >
-                                                    {(providedStyle, _, placeholder) => {
+                                                    {(providedStyle) => {
                                                         return (
                                                             <Box
                                                                 {...providedStyle}
@@ -253,8 +253,6 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     const [items, setItems] = useState(itemsDictionaryIds);
 
     useEffect(() => {
-        console.log(updatePaths(itemsDictionaryIds), "itemsDictionaryIds");
-
         setItems(updatePaths(itemsDictionaryIds));
     }, [itemsDictionaryIds]);
 
@@ -272,11 +270,16 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
 
         if (dropType === "move") {
             if (sameSource) {
+                console.log("move same source");
+
                 updatedItems = handleMoveWithinParent(clonedItems, splitSrcPath, splitDestPath);
             } else {
+                console.log("move not same source");
                 if (splitSrcPath.length < splitDestPath.length) {
+                    console.log("unNest");
                     updatedItems = handleUnNest(clonedItems, splitSrcPath, splitDestPath);
                 } else {
+                    console.log("should nest or move to a different parent");
                     updatedItems = handleMoveToDifferentParent(
                         clonedItems,
                         splitSrcPath,

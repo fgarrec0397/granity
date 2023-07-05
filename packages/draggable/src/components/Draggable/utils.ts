@@ -96,8 +96,8 @@ export const handleHover = <RefType extends HTMLElement>(
     const parentChildren = parentDestinationItem.children || parentDestinationItem;
 
     const isSameSource = sourceItem.parentId === destinationItem.parentId;
-    const dragIndex = sourceItem.index;
-    const hoverIndex = destinationItem.index;
+    const sourceIndex = sourceItem.index;
+    const destinationIndex = destinationItem.index;
 
     const xyCoordinate = horizontal ? "x" : "y";
     const marginKeys = horizontal
@@ -106,7 +106,7 @@ export const handleHover = <RefType extends HTMLElement>(
 
     // if (isSameSource) {
     // Don't replace items with themselves
-    if (dragIndex === hoverIndex && sourceItem.parentId === destinationItem.parentId) {
+    if (sourceIndex === destinationIndex && sourceItem.parentId === destinationItem.parentId) {
         return;
     }
 
@@ -127,144 +127,75 @@ export const handleHover = <RefType extends HTMLElement>(
     const hoverClientY =
         (clientOffset as XYCoord)[xyCoordinate] - hoverBoundingRect[marginKeys.first];
 
-    console.log({ hoverIndex, dragIndex });
-
     // Dragging downwards
-    if (dragIndex < hoverIndex) {
-        if (hoverClientY < 5) {
-            setDraggingStatus({
-                draggingDirection: "downward",
-                draggingType: "canMovePrev",
-            });
-            setThreesholdIndex(hoverIndex - 1);
+    // if (sourceIndex < destinationIndex) {
+    if (hoverClientY < 5) {
+        console.log("canMovePrev");
+
+        console.log(
+            sourceItem.index,
+            destinationItem.index + 1,
+            "sourceItem.index, destinationItem.index + 1"
+        );
+
+        setDraggingStatus({
+            draggingDirection: "downward",
+            draggingType: "canMovePrev",
+        });
+
+        if (isSameSource && sourceItem.index + 1 === destinationItem.index) {
+            // console.log("is destination next to source ");
+
+            setThreesholdIndex(sourceItem.index);
             setDestination({
-                ...parentChildren[hoverIndex - 1],
-                parentId: destinationItem.parentId,
-                index: destinationItem.index - 1,
+                ...parentChildren[sourceItem.index],
+                parentId: sourceItem.parentId,
+                index: sourceItem.index,
             });
             setDropType("move");
 
             return;
         }
 
-        if (hoverClientY > hoverItemHeight - 5) {
-            setDraggingStatus({
-                draggingDirection: "downward",
-                draggingType: "canMoveNext",
-            });
-            setThreesholdIndex(hoverIndex);
-            setDestination({
-                ...parentChildren[hoverIndex],
-                parentId: destinationItem.parentId,
-                index: destinationItem.index,
-            });
-            setDropType("move");
-
-            return;
-        }
-
-        setDestination(destinationItem);
-        console.log(parentChildren[hoverIndex], "combine downwards destinationItem");
-        setThreesholdIndex(hoverIndex);
-        setDropType("combine");
+        setThreesholdIndex(destinationIndex);
+        setDestination({
+            ...parentChildren[destinationIndex],
+            parentId: destinationItem.parentId,
+            index: destinationItem.index,
+        });
+        setDropType("move");
 
         return;
     }
 
-    // Dragging upwards
-    if (dragIndex > hoverIndex) {
-        if (hoverClientY > hoverItemHeight - 5) {
-            setDraggingStatus({
-                draggingDirection: "upward",
-                draggingType: "canMoveNext",
-            });
+    if (hoverClientY > hoverItemHeight - 5) {
+        console.log("canMoveNext");
 
-            setThreesholdIndex(hoverIndex + 1);
-            setDestination({
-                ...parentChildren[hoverIndex + 1],
-                parentId: destinationItem.parentId,
-                index: destinationItem.index + 1,
-            });
-
-            setDropType("move");
-
-            return;
-        }
-
-        if (hoverClientY < 5) {
-            setDraggingStatus({
-                draggingDirection: "upward",
-                draggingType: "canMovePrev",
-            });
-            setThreesholdIndex(hoverIndex);
-            setDestination({
-                ...parentChildren[hoverIndex],
-                parentId: destinationItem.parentId,
-                index: destinationItem.index,
-            });
-            setDropType("move");
-
-            return;
-        }
-
-        setThreesholdIndex(hoverIndex);
-        setDestination(destinationItem);
-        console.log(parentChildren[hoverIndex], "combine upwards destinationItem");
-
-        // setDestination({
-        //     ...parentChildren[hoverIndex],
-        //     parentId: destinationItem.parentId,
-        //     index: destinationItem.index,
-        // });
-        setDropType("combine");
+        setDraggingStatus({
+            draggingDirection: "downward",
+            draggingType: "canMoveNext",
+        });
+        setThreesholdIndex(destinationIndex + 1);
+        setDestination({
+            ...parentChildren[destinationIndex + 1],
+            parentId: destinationItem.parentId,
+            index: destinationItem.index + 1,
+        });
+        setDropType("move");
 
         return;
     }
 
-    setThreesholdIndex(hoverIndex);
-    // } else {
-    //     // Determine rectangle on screen
-    //     const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
-    //     const hoverItemHeight = getElementHeight(ref);
-
-    //     // Get vertical middle
-    //     const hoverMiddleY =
-    //         (hoverBoundingRect[marginKeys.last] - hoverBoundingRect[marginKeys.first]) / 2;
-
-    //     // Determine mouse position
-    //     const clientOffset = monitor.getClientOffset();
-
-    //     // Get pixels to the top
-    //     const hoverClientY =
-    //         (clientOffset as XYCoord)[xyCoordinate] - hoverBoundingRect[marginKeys.first];
-
-    //     console.log(
-    //         { hoverClientY, hoverItemHeight, hoverIndex, threesholdIndex },
-    //         "is not same source"
-    //     );
-
-    //     if (threesholdIndex <= hoverIndex) {
-    //         if (hoverClientY > hoverMiddleY) {
-    //             console.log("hoverIndex + 1");
-    //             setThreesholdIndex(hoverIndex + 1);
-    //         }
-    //         return;
-    //     } else {
-    //         if (hoverClientY < hoverMiddleY) {
-    //             console.log("hoverIndex");
-    //             setThreesholdIndex(hoverIndex);
-    //         }
-    //     }
-    // }
+    setDestination(destinationItem);
+    setThreesholdIndex(destinationIndex);
+    setDropType("combine");
 };
 
 export const handleStyle = <RefType extends HTMLElement>(
-    monitor: DragSourceMonitor<DragItem, DropResult>,
+    monitor: DropTargetMonitor<DragItem, DropResult>,
     {
         sourceItem,
         destinationItem,
-        isDragging,
         threesholdIndex,
         dropType,
         ref,
@@ -273,7 +204,6 @@ export const handleStyle = <RefType extends HTMLElement>(
     }: {
         sourceItem: DragItemRaw;
         destinationItem: DragItemRaw;
-        isDragging: boolean;
         horizontal?: boolean;
         threesholdIndex: number;
         isParentActive: boolean;
@@ -286,101 +216,74 @@ export const handleStyle = <RefType extends HTMLElement>(
         hasDropped: boolean;
     }
 ) => {
+    const isDropTarget = monitor.isOver({ shallow: true });
+
+    if (!isDropTarget) {
+        return;
+    }
+
     if (!ref.current) {
         return;
     }
 
-    const isSameSource = sourceItem?.parentId === destinationItem.parentId;
+    console.log({ destinationIndex: destinationItem.index, threesholdIndex });
 
-    if (isSameSource) {
-        const backgroundColor: SxProps = {
-            backgroundColor:
-                !hasDropped && dropType === "combine" && threesholdIndex === destinationItem.index
-                    ? "#ffffff50"
-                    : "transparent",
-        };
+    const backgroundColor: SxProps = {
+        backgroundColor:
+            !hasDropped && dropType === "combine" && threesholdIndex === destinationItem.index
+                ? "#ffffff50"
+                : "transparent",
+    };
 
-        const displayTopBar =
-            (draggingStatus?.draggingType === "canMovePrev" &&
-                draggingStatus?.draggingDirection === "upward" &&
-                destinationItem.index === threesholdIndex) ||
-            (draggingStatus?.draggingType === "canMovePrev" &&
-                draggingStatus?.draggingDirection === "downward" &&
-                destinationItem.index === threesholdIndex + 1);
-        const displayBottomBar =
-            (draggingStatus?.draggingType === "canMoveNext" &&
-                draggingStatus?.draggingDirection === "upward" &&
-                destinationItem.index === threesholdIndex - 1) ||
-            (draggingStatus?.draggingType === "canMoveNext" &&
-                draggingStatus?.draggingDirection === "downward" &&
-                destinationItem.index === threesholdIndex);
+    const displayTopBar =
+        draggingStatus?.draggingType === "canMovePrev" &&
+        (threesholdIndex === 0 || destinationItem.index === threesholdIndex);
 
-        const displaymBar =
-            dropType === "move" && !hasDropped && (displayTopBar || displayBottomBar);
+    const displayBottomBar =
+        draggingStatus?.draggingType === "canMoveNext" && destinationItem.index === threesholdIndex;
 
-        const border: SxProps = {
-            "&::after": {
-                content: '""',
-                position: "absolute",
-                ...(displayBottomBar && { bottom: 0 }),
-                ...(displayTopBar && { top: 0 }),
-                display: displaymBar ? "block" : "none",
-                height: "3px",
-                width: "100%",
-                backgroundColor: "#ffffff50",
-            },
-        };
-        const style: SxProps = {
-            ...border,
-            ...backgroundColor,
-        };
+    const displayBar = dropType === "move" && !hasDropped && (displayTopBar || displayBottomBar);
 
-        return { style };
-    } else {
-        const backgroundColor: SxProps = {
-            backgroundColor:
-                !hasDropped && dropType === "combine" && threesholdIndex === destinationItem.index
-                    ? "#ffffff50"
-                    : "transparent",
-        };
+    const border: SxProps = {
+        "&::after": {
+            content: '""',
+            position: "absolute",
+            ...(displayBottomBar && { bottom: 0 }),
+            ...(displayTopBar && { top: 0 }),
+            display: displayBar ? "block" : "none",
+            height: "3px",
+            width: "100%",
+            backgroundColor: "#ffffff50",
+        },
+    };
+    const style: SxProps = {
+        ...border,
+        ...backgroundColor,
+    };
 
-        const displayTopBar =
-            (draggingStatus?.draggingType === "canMovePrev" &&
-                draggingStatus?.draggingDirection === "upward" &&
-                destinationItem.index === threesholdIndex) ||
-            (draggingStatus?.draggingType === "canMovePrev" &&
-                draggingStatus?.draggingDirection === "downward" &&
-                destinationItem.index === threesholdIndex + 1);
-        const displayBottomBar =
-            (draggingStatus?.draggingType === "canMoveNext" &&
-                draggingStatus?.draggingDirection === "upward" &&
-                destinationItem.index === threesholdIndex - 1) ||
-            (draggingStatus?.draggingType === "canMoveNext" &&
-                draggingStatus?.draggingDirection === "downward" &&
-                destinationItem.index === threesholdIndex);
+    return { style };
+};
 
-        const displaymBar =
-            dropType === "move" && !hasDropped && (displayTopBar || displayBottomBar);
+export const getRootParentIndex = (path: string) => {
+    const itemSplitPath = splitPath(path);
 
-        const border: SxProps = {
-            "&::after": {
-                content: '""',
-                position: "absolute",
-                ...(displayBottomBar && { bottom: 0 }),
-                ...(displayTopBar && { top: 0 }),
-                display: displaymBar ? "block" : "none",
-                height: "3px",
-                width: "100%",
-                backgroundColor: "#ffffff50",
-            },
-        };
-        const style: SxProps = {
-            ...border,
-            ...backgroundColor,
-        };
+    return itemSplitPath[0];
+};
 
-        return { style };
+export const incrementPath = (path: string) => {
+    const itemSplitPath = splitPath(path);
+
+    const index = itemSplitPath.pop();
+
+    if (index !== undefined) {
+        const newIndex = index + 1;
+
+        return itemSplitPath.join("/") + `/${newIndex}`;
     }
+};
+
+export const getIndexFromPath = (path: string) => {
+    return splitPath(path).pop();
 };
 
 export const splitPath = (itemPath?: string) => {

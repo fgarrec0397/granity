@@ -41,11 +41,32 @@ const Draggable = <RefType extends HTMLElement>({
         setHasDropped,
     } = useDroppableContext(currentItem.parentId);
 
-    const [{ isOver }, drop] = useDrop<DragItem, DropResult, { isOver: boolean }>({
+    const [{ isOver, style }, drop] = useDrop<
+        DragItem,
+        DropResult,
+        { isOver: boolean; style: { style: SxProps } | undefined }
+    >({
         accept: getAcceptTypes(),
         collect(monitor) {
+            const sourceItem = monitor.getItem();
+
+            const itemStyle = handleStyle(monitor, {
+                sourceItem: sourceItem,
+                destinationItem: currentItem,
+                threesholdIndex,
+                domRect: sourceItem?.__rect__,
+                isParentActive,
+                margin: sourceItem?.margin,
+                isOver: monitor.isOver(),
+                dropType,
+                ref,
+                draggingStatus,
+                hasDropped,
+            });
+
             return {
                 isOver: monitor.isOver(),
+                style: itemStyle?.style,
             };
         },
 
@@ -80,6 +101,8 @@ const Draggable = <RefType extends HTMLElement>({
                 return onMove(item, currentItem);
             }
 
+            // console.log({ draggingStatus });
+
             handleHover(monitor, {
                 sourceItem: item,
                 destinationItem: currentItem,
@@ -97,7 +120,7 @@ const Draggable = <RefType extends HTMLElement>({
         },
     });
 
-    const [{ isDragging, draggedItem, style }, drag, preview] = useDrag<
+    const [{ isDragging, draggedItem }, drag, preview] = useDrag<
         DragItem,
         DropResult,
         DragCollectProps
@@ -116,25 +139,24 @@ const Draggable = <RefType extends HTMLElement>({
             const sourceItem = monitor.getItem();
             const sourceIsDragging = monitor.isDragging();
 
-            const itemStyle = handleStyle(monitor, {
-                sourceItem: sourceItem,
-                destinationItem: currentItem,
-                threesholdIndex,
-                domRect: sourceItem?.__rect__,
-                isDragging: sourceIsDragging,
-                isParentActive,
-                margin: sourceItem?.margin,
-                isOver,
-                dropType,
-                ref,
-                draggingStatus,
-                hasDropped,
-            });
+            // const itemStyle = handleStyle(monitor, {
+            //     sourceItem: sourceItem,
+            //     destinationItem: currentItem,
+            //     threesholdIndex,
+            //     domRect: sourceItem?.__rect__,
+            //     isDragging: sourceIsDragging,
+            //     isParentActive,
+            //     margin: sourceItem?.margin,
+            //     isOver,
+            //     dropType,
+            //     ref,
+            //     draggingStatus,
+            //     hasDropped,
+            // });
 
             return {
                 isDragging: sourceIsDragging,
                 draggedItem: sourceItem,
-                style: itemStyle?.style,
             };
         },
 

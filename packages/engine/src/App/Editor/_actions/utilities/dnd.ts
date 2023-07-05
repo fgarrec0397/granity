@@ -174,6 +174,10 @@ export const addChildToChildren = (
     splitDestinationPath: number[],
     item: RecursiveObjectWithChildren<{ id: string }>
 ) => {
+    if (children.length === 0) {
+        return [];
+    }
+
     if (splitDestinationPath.length === 1) {
         const dropZoneIndex = Number(splitDestinationPath[0]);
         return insert(children, dropZoneIndex, item);
