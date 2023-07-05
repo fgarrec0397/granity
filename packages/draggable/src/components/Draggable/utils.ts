@@ -42,6 +42,7 @@ type HandleHoverParams<RefType extends HTMLElement> = {
     destinationItem: DragItemRaw;
     ref: RefObject<RefType>;
     threesholdIndex: number;
+    previousThreesholdIndex: number | undefined;
     setThreesholdIndex: (index: number) => void;
     setDestination: (item?: DropResultItem) => void;
     horizontal?: boolean;
@@ -70,6 +71,7 @@ export const handleHover = <RefType extends HTMLElement>(
         destinationItem,
         ref,
         threesholdIndex,
+        previousThreesholdIndex,
         setThreesholdIndex,
         horizontal,
         setDropType,
@@ -80,6 +82,7 @@ export const handleHover = <RefType extends HTMLElement>(
         setHasDropped,
     }: HandleHoverParams<RefType>
 ) => {
+    // TODO - add a prev index property to track if it is dragging down or up
     const isDropTarget = monitor.isOver({ shallow: true });
 
     if (hasDropped) {
@@ -110,6 +113,12 @@ export const handleHover = <RefType extends HTMLElement>(
         return;
     }
 
+    const updateThreesholdIndex = (newIndex: number) => {
+        if (newIndex !== threesholdIndex) {
+            setThreesholdIndex(newIndex);
+        }
+    };
+
     // Determine rectangle on screen
     const hoverBoundingRect = ref.current?.getBoundingClientRect();
 
@@ -126,69 +135,67 @@ export const handleHover = <RefType extends HTMLElement>(
     // Get pixels to the top
     const hoverClientY =
         (clientOffset as XYCoord)[xyCoordinate] - hoverBoundingRect[marginKeys.first];
+    console.log({ previousThreesholdIndex, threesholdIndex });
+
+    if (previousThreesholdIndex === undefined) {
+        return;
+    }
 
     // Dragging downwards
-    // if (sourceIndex < destinationIndex) {
-    if (hoverClientY < 5) {
-        console.log("canMovePrev");
+    if (threesholdIndex > previousThreesholdIndex) {
+        if (hoverClientY < 5) {
+            setDraggingStatus({
+                draggingDirection: "downward",
+                draggingType: "canMovePrev",
+            });
 
-        console.log(
-            sourceItem.index,
-            destinationItem.index + 1,
-            "sourceItem.index, destinationItem.index + 1"
-        );
+            if (isSameSource && sourceItem.index + 1 === destinationItem.index) {
+                // console.log("is destination next to source ");
 
-        setDraggingStatus({
-            draggingDirection: "downward",
-            draggingType: "canMovePrev",
-        });
+                updateThreesholdIndex(sourceItem.index);
+                setDestination({
+                    ...parentChildren[sourceItem.index],
+                    parentId: sourceItem.parentId,
+                    index: sourceItem.index,
+                });
+                setDropType("move");
 
-        if (isSameSource && sourceItem.index + 1 === destinationItem.index) {
-            // console.log("is destination next to source ");
+                return;
+            }
 
-            setThreesholdIndex(sourceItem.index);
+            updateThreesholdIndex(destinationIndex);
             setDestination({
-                ...parentChildren[sourceItem.index],
-                parentId: sourceItem.parentId,
-                index: sourceItem.index,
+                ...parentChildren[destinationIndex],
+                parentId: destinationItem.parentId,
+                index: destinationItem.index,
             });
             setDropType("move");
 
             return;
         }
 
-        setThreesholdIndex(destinationIndex);
-        setDestination({
-            ...parentChildren[destinationIndex],
-            parentId: destinationItem.parentId,
-            index: destinationItem.index,
-        });
-        setDropType("move");
+        if (hoverClientY > hoverItemHeight - 5) {
+            // console.log("canMoveNext");
 
-        return;
+            setDraggingStatus({
+                draggingDirection: "downward",
+                draggingType: "canMoveNext",
+            });
+            updateThreesholdIndex(destinationIndex + 1);
+            setDestination({
+                ...parentChildren[destinationIndex + 1],
+                parentId: destinationItem.parentId,
+                index: destinationItem.index + 1,
+            });
+            setDropType("move");
+
+            return;
+        }
+
+        setDestination(destinationItem);
+        updateThreesholdIndex(destinationIndex);
+        setDropType("combine");
     }
-
-    if (hoverClientY > hoverItemHeight - 5) {
-        console.log("canMoveNext");
-
-        setDraggingStatus({
-            draggingDirection: "downward",
-            draggingType: "canMoveNext",
-        });
-        setThreesholdIndex(destinationIndex + 1);
-        setDestination({
-            ...parentChildren[destinationIndex + 1],
-            parentId: destinationItem.parentId,
-            index: destinationItem.index + 1,
-        });
-        setDropType("move");
-
-        return;
-    }
-
-    setDestination(destinationItem);
-    setThreesholdIndex(destinationIndex);
-    setDropType("combine");
 };
 
 export const handleStyle = <RefType extends HTMLElement>(
@@ -225,8 +232,6 @@ export const handleStyle = <RefType extends HTMLElement>(
     if (!ref.current) {
         return;
     }
-
-    console.log({ destinationIndex: destinationItem.index, threesholdIndex });
 
     const backgroundColor: SxProps = {
         backgroundColor:

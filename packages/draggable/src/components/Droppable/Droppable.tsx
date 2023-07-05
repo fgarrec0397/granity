@@ -1,3 +1,4 @@
+import { usePrevious } from "@granity/helpers";
 import {
     createContext,
     MouseEventHandler,
@@ -54,6 +55,39 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
 ) => {
     const [hasDropped, setHasDropped] = useState(true);
     const [threesholdIndex, setThreesholdIndex] = useState(-1);
+    const tempPreviousIndex = usePrevious(threesholdIndex);
+    const previousThreesholdIndex = usePrevious(threesholdIndex, (ref) => {
+        if (ref.current === undefined) {
+            ref.current = threesholdIndex;
+        }
+
+        if (threesholdIndex - ref.current > 1) {
+            return threesholdIndex - 1;
+        }
+
+        if (threesholdIndex - ref.current < -1) {
+            return threesholdIndex + 1;
+        }
+
+        if (threesholdIndex - ref.current === 0) {
+            if (tempPreviousIndex === undefined) {
+                return;
+            }
+
+            if (tempPreviousIndex > threesholdIndex) {
+                return threesholdIndex + 1;
+            }
+
+            if (tempPreviousIndex < threesholdIndex) {
+                return threesholdIndex - 1;
+            }
+        }
+
+        return ref.current;
+    });
+
+    // console.log(previousThreesholdIndex, "previousThreesholdIndex");
+
     const [threesholdId, setThreesholdId] = useState("");
     const [dropType, setDropType] = useState<"move" | "combine">("move");
     const [destinationItem, setDestination] = useState<DropResultItem>();
@@ -146,6 +180,7 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
         createContext({
             setThreesholdIndex,
             threesholdIndex,
+            previousThreesholdIndex,
             setThreesholdId,
             threesholdId,
             isDropTarget,
@@ -176,6 +211,7 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
         return {
             setThreesholdIndex,
             threesholdIndex,
+            previousThreesholdIndex,
             setThreesholdId,
             threesholdId,
             isDropTarget,
@@ -192,6 +228,7 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
         };
     }, [
         threesholdIndex,
+        previousThreesholdIndex,
         threesholdId,
         isDropTarget,
         props.id,

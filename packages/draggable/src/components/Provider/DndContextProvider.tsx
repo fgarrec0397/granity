@@ -34,6 +34,7 @@ const droppablesDictionary = {} as {
     [id: string]: {
         context: Context<{
             threesholdIndex: number;
+            previousThreesholdIndex: number | undefined;
             setThreesholdIndex: React.Dispatch<React.SetStateAction<number>>;
             threesholdId: string;
             dropType: "combine" | "move";

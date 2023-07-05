@@ -26,6 +26,7 @@ const Draggable = <RefType extends HTMLElement>({
 
     const {
         threesholdIndex,
+        previousThreesholdIndex,
         threesholdId,
         dropType,
         setThreesholdIndex,
@@ -108,6 +109,7 @@ const Draggable = <RefType extends HTMLElement>({
                 destinationItem: currentItem,
                 ref,
                 setThreesholdIndex,
+                previousThreesholdIndex,
                 threesholdIndex,
                 setDropType,
                 dropType,
