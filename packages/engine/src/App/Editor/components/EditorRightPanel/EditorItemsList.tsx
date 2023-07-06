@@ -310,7 +310,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
         <DndContextProvider onDrop={onDrop} itemsDictionaryIds={itemsDictionaryIds}>
             <EditorCustomDragLayer />
             <Droppable id="container" parentId="container" accept={[DraggableTypes.ListItem]}>
-                {(providedStyle, _, placeholder) => {
+                {(providedStyle, _) => {
                     return (
                         <div {...providedStyle}>
                             <EditorItemsList
@@ -326,7 +326,6 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                                 handleClickRemove={handleClickRemove}
                                 isActionRowSelected={isActionRowSelected}
                             />
-                            {placeholder}
                         </div>
                     );
                 }}

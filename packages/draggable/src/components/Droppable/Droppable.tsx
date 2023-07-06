@@ -21,16 +21,11 @@ export type DroppableProps<RefType extends HTMLElement> = {
     accept: string[];
     horizontal?: boolean;
     path?: string;
-    children: (
-        props: DroppableChildrenProps<RefType>,
-        snapshot: DroppableSnapshot,
-        placeholder: JSX.Element
-    ) => JSX.Element;
+    children: (props: DroppableChildrenProps<RefType>, snapshot: DroppableSnapshot) => JSX.Element;
 };
 
 export type DroppableChildrenProps<RefType extends HTMLElement> = {
     ref: RefObject<RefType>;
-    style: React.CSSProperties;
     onMouseOver: MouseEventHandler<RefType>;
     // true if the droppable element is the real target
     "data-shallow-drop-target": boolean;
@@ -43,50 +38,51 @@ export type DroppableSnapshot = {
 export type CollectedProps = {
     isDropTarget: boolean;
     sameSource: boolean;
-    placeholderSize: number;
-    hasDraggedItem: boolean;
     isShallowDropTarget: boolean;
 };
-
-const containerStyle = { transition: "height 0.3s" };
 
 export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
     props: DroppableProps<RefType>
 ) => {
     const [hasDropped, setHasDropped] = useState(true);
     const [threesholdIndex, setThreesholdIndex] = useState(-1);
-    const tempPreviousIndex = usePrevious(threesholdIndex);
+    const tempPreviousThreesholdIndex = usePrevious(threesholdIndex);
     const previousThreesholdIndex = usePrevious(threesholdIndex, (ref) => {
         if (ref.current === undefined) {
             ref.current = threesholdIndex;
         }
 
-        if (threesholdIndex - ref.current > 1) {
+        const shouldUpdatePreviousValueWhileDraggingDown = threesholdIndex - ref.current > 1;
+        const shouldUpdatePreviousValueWhileDraggingUp = threesholdIndex - ref.current < -1;
+        const shouldUpdatePreviousValueWhileDraggingBack = threesholdIndex - ref.current === 0;
+
+        if (shouldUpdatePreviousValueWhileDraggingDown) {
             return threesholdIndex - 1;
         }
 
-        if (threesholdIndex - ref.current < -1) {
+        if (shouldUpdatePreviousValueWhileDraggingUp) {
             return threesholdIndex + 1;
         }
 
-        if (threesholdIndex - ref.current === 0) {
-            if (tempPreviousIndex === undefined) {
+        if (shouldUpdatePreviousValueWhileDraggingBack) {
+            if (tempPreviousThreesholdIndex === undefined) {
                 return;
             }
 
-            if (tempPreviousIndex > threesholdIndex) {
+            const hasDraggedBackFromDown = tempPreviousThreesholdIndex > threesholdIndex;
+            const hasDraggedBackFromUp = tempPreviousThreesholdIndex < threesholdIndex;
+
+            if (hasDraggedBackFromDown) {
                 return threesholdIndex + 1;
             }
 
-            if (tempPreviousIndex < threesholdIndex) {
+            if (hasDraggedBackFromUp) {
                 return threesholdIndex - 1;
             }
         }
 
         return ref.current;
     });
-
-    // console.log(previousThreesholdIndex, "previousThreesholdIndex");
 
     const [threesholdId, setThreesholdId] = useState("");
     const [dropType, setDropType] = useState<"move" | "combine">("move");
@@ -95,10 +91,11 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
 
     const ref = useRef<RefType>(null);
 
-    const [
-        { isDropTarget, placeholderSize, hasDraggedItem, sameSource, isShallowDropTarget },
-        drop,
-    ] = useDrop<DragItem, DropResult, CollectedProps>({
+    const [{ isDropTarget, sameSource, isShallowDropTarget }, drop] = useDrop<
+        DragItem,
+        DropResult,
+        CollectedProps
+    >({
         accept: props.accept,
         collect(monitor) {
             const isMonitorShallowDropTarget = monitor.isOver({ shallow: true });
@@ -113,16 +110,9 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
 
             const isSameSource = draggedItem && draggedItem?.parentId === props.id;
 
-            const displayPlaceholder = dropTarget && !isSameSource;
-
-            // const placeholderItemSize = displayPlaceholder ? size + marginDelta : 0;
-            const placeholderItemSize = displayPlaceholder ? 37 : 0;
-
             return {
                 isDropTarget: dropTarget,
                 sameSource: isSameSource,
-                placeholderSize: placeholderItemSize,
-                hasDraggedItem: !!draggedItem,
                 isShallowDropTarget: isMonitorShallowDropTarget,
             };
         },
@@ -232,26 +222,6 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
         hasDropped,
     ]);
 
-    const placeholderSizeType = props.horizontal ? "width" : "height";
-    const placeholderTransition = hasDraggedItem
-        ? `${placeholderSizeType} 0.3s`
-        : `${placeholderSizeType} 0.1ms`;
-    const placeholder = useMemo(
-        () => (
-            <div
-                className={`${props.id}-placeholder`}
-                style={{
-                    pointerEvents: "none",
-                    width: props.horizontal ? placeholderSize : "100%",
-                    // height: props.horizontal ? "auto" : placeholderSize,
-                    // border: "1px solid red",
-                    transition: placeholderTransition,
-                }}
-            />
-        ),
-        [placeholderSize, props.horizontal, props.id, placeholderTransition]
-    );
-
     const onMouseOver: MouseEventHandler<RefType> = (event) => {
         event.stopPropagation();
     };
@@ -263,12 +233,10 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
             {props.children(
                 {
                     ref,
-                    style: containerStyle,
                     "data-shallow-drop-target": isShallowDropTarget,
                     onMouseOver,
                 },
-                { isDropTarget },
-                placeholder
+                { isDropTarget }
             )}
         </DropContext.Provider>
     );
