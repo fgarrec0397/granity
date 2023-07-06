@@ -113,13 +113,6 @@ export const Droppable = <RefType extends HTMLElement = HTMLDivElement>(
 
             const isSameSource = draggedItem && draggedItem?.parentId === props.id;
 
-            const rect = draggedItem?.__rect__ as DOMRect;
-            const marginDeltaHeight = Math.max(draggedItem?.margin.top, draggedItem?.margin.bottom);
-            const marginDeltaWidth = Math.max(draggedItem?.margin.left, draggedItem?.margin.right);
-
-            const marginDelta = props.horizontal ? marginDeltaWidth : marginDeltaHeight;
-            const size = props.horizontal ? rect?.width : rect?.height;
-
             const displayPlaceholder = dropTarget && !isSameSource;
 
             // const placeholderItemSize = displayPlaceholder ? size + marginDelta : 0;

@@ -174,10 +174,6 @@ export const addChildToChildren = (
     splitDestinationPath: number[],
     item: RecursiveObjectWithChildren<{ id: string }>
 ) => {
-    if (children.length === 0) {
-        return [];
-    }
-
     if (splitDestinationPath.length === 1) {
         const dropZoneIndex = Number(splitDestinationPath[0]);
         return insert(children, dropZoneIndex, item);
@@ -221,8 +217,8 @@ export const handleMoveToDifferentParent = (
 
     let updatedItems = clone(itemsDictionaryIds);
 
-    updatedItems = removeChildFromChildren(updatedItems, splitSourcePath);
     updatedItems = addChildToChildren(updatedItems, splitDestinationPath, sourceItem);
+    updatedItems = removeChildFromChildren(updatedItems, splitSourcePath);
 
     // Instead of updating all paths each time, check to doing it directly in the function
     return updatePaths(updatedItems);
