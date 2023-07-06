@@ -17,6 +17,8 @@ export type DraggableProps<RefType extends HTMLElement> = {
     children: (props: DraggableChildrenProp<RefType>, snapshot: DraggableSnapshot) => JSX.Element;
 };
 
+export type CollectProps = { isOver: boolean; style: SxProps | undefined };
+
 const Draggable = <RefType extends HTMLElement>({
     dragItem: currentItem,
     children,
@@ -42,11 +44,7 @@ const Draggable = <RefType extends HTMLElement>({
         setHasDropped,
     } = useDroppableContext(currentItem.parentId);
 
-    const [{ isOver, style }, drop] = useDrop<
-        DragItem,
-        DropResult,
-        { isOver: boolean; style: { style: SxProps } | undefined }
-    >({
+    const [{ isOver, style }, drop] = useDrop<DragItem, DropResult, CollectProps>({
         accept: getAcceptTypes(),
         collect(monitor) {
             const sourceItem = monitor.getItem();
@@ -55,10 +53,6 @@ const Draggable = <RefType extends HTMLElement>({
                 sourceItem: sourceItem,
                 destinationItem: currentItem,
                 threesholdIndex,
-                domRect: sourceItem?.__rect__,
-                isParentActive,
-                margin: sourceItem?.margin,
-                isOver: monitor.isOver(),
                 dropType,
                 ref,
                 draggingStatus,
@@ -67,7 +61,7 @@ const Draggable = <RefType extends HTMLElement>({
 
             return {
                 isOver: monitor.isOver(),
-                style: itemStyle?.style,
+                style: itemStyle,
             };
         },
 
@@ -101,8 +95,6 @@ const Draggable = <RefType extends HTMLElement>({
             if (onMove) {
                 return onMove(item, currentItem);
             }
-
-            // console.log({ draggingStatus });
 
             handleHover(monitor, {
                 sourceItem: item,
@@ -141,21 +133,6 @@ const Draggable = <RefType extends HTMLElement>({
             const sourceItem = monitor.getItem();
             const sourceIsDragging = monitor.isDragging();
 
-            // const itemStyle = handleStyle(monitor, {
-            //     sourceItem: sourceItem,
-            //     destinationItem: currentItem,
-            //     threesholdIndex,
-            //     domRect: sourceItem?.__rect__,
-            //     isDragging: sourceIsDragging,
-            //     isParentActive,
-            //     margin: sourceItem?.margin,
-            //     isOver,
-            //     dropType,
-            //     ref,
-            //     draggingStatus,
-            //     hasDropped,
-            // });
-
             return {
                 isDragging: sourceIsDragging,
                 draggedItem: sourceItem,
@@ -175,25 +152,25 @@ const Draggable = <RefType extends HTMLElement>({
 
     const isDestination = isParentActive && threesholdIndex === currentItem.index;
     const idMismatch = isDestination && threesholdId !== currentItem.id;
+    const indexMismatch =
+        isParentActive && threesholdIndex !== currentItem.index && threesholdId === currentItem.id;
+
+    const isDraggingSrouce =
+        isDragging &&
+        draggedItem?.index === currentItem.index &&
+        draggedItem?.parentId === currentItem.parentId;
+
     useEffect(() => {
         if (idMismatch) {
             setThreesholdId(currentItem.id);
         }
     }, [idMismatch, setThreesholdId, currentItem.id]);
 
-    const indexMismatch =
-        isParentActive && threesholdIndex !== currentItem.index && threesholdId === currentItem.id;
-
     useEffect(() => {
         if (indexMismatch) {
             setThreesholdId(undefined as any);
         }
     }, [indexMismatch, setThreesholdId, currentItem.id]);
-
-    const isDraggingSrouce =
-        isDragging &&
-        draggedItem?.index === currentItem.index &&
-        draggedItem?.parentId === currentItem.parentId;
 
     useEffect(() => {
         if (isDraggingSrouce) {

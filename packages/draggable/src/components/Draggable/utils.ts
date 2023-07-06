@@ -2,6 +2,7 @@ import {
     clone,
     cloneDeep,
     RecursiveArrayOfIds,
+    RecursiveArrayOfObjects,
     RecursiveObjectWithChildren,
 } from "@granity/helpers";
 import { SxProps } from "@granity/ui";
@@ -96,7 +97,14 @@ export const handleHover = <RefType extends HTMLElement>(
     }
 
     const parentDestinationItem = getParent(itemsDictionaryIds, destinationItem.path);
-    const parentChildren = parentDestinationItem.children || parentDestinationItem;
+    const parentChildren =
+        parentDestinationItem !== undefined && "children" in parentDestinationItem
+            ? (parentDestinationItem?.children as RecursiveArrayOfObjects<{
+                  id: string;
+              }>)
+            : (parentDestinationItem as RecursiveArrayOfObjects<{
+                  id: string;
+              }>);
 
     const isSameSource = sourceItem.parentId === destinationItem.parentId;
     const sourceIndex = sourceItem.index;
@@ -140,14 +148,10 @@ export const handleHover = <RefType extends HTMLElement>(
         return;
     }
 
-    // console.log({ hoverClientY, hoverItemHeight });
-
     if (isSameSource) {
         // Dragging downwards
         if (sourceIndex < destinationIndex) {
             if (hoverClientY < 5) {
-                console.log("canMovePrev");
-
                 const index = destinationIndex - 1 < 0 ? 0 : destinationIndex - 1;
                 setDraggingStatus({
                     draggingDirection: "downward",
@@ -165,8 +169,6 @@ export const handleHover = <RefType extends HTMLElement>(
             }
 
             if (hoverClientY > hoverItemHeight - 5) {
-                console.log("canMoveNext");
-
                 setDraggingStatus({
                     draggingDirection: "downward",
                     draggingType: "canMoveNext",
@@ -271,7 +273,6 @@ export const handleHover = <RefType extends HTMLElement>(
 export const handleStyle = <RefType extends HTMLElement>(
     monitor: DropTargetMonitor<DragItem, DropResult>,
     {
-        sourceItem,
         destinationItem,
         threesholdIndex,
         dropType,
@@ -281,18 +282,13 @@ export const handleStyle = <RefType extends HTMLElement>(
     }: {
         sourceItem: DragItemRaw;
         destinationItem: DragItemRaw;
-        horizontal?: boolean;
         threesholdIndex: number;
-        isParentActive: boolean;
-        domRect?: DOMRect;
-        margin?: MarginType;
-        isOver: boolean;
         dropType: "combine" | "move";
         ref: RefObject<RefType>;
         draggingStatus?: DraggingStatus;
         hasDropped: boolean;
     }
-) => {
+): SxProps | undefined => {
     const isDropTarget = monitor.isOver({ shallow: true });
 
     if (!isDropTarget) {
@@ -339,12 +335,10 @@ export const handleStyle = <RefType extends HTMLElement>(
             backgroundColor: "#ffffff50",
         },
     };
-    const style: SxProps = {
+    return {
         ...border,
         ...backgroundColor,
     };
-
-    return { style };
 };
 
 export const getRootParentIndex = (path: string) => {
@@ -377,7 +371,15 @@ export const splitPath = (itemPath?: string) => {
     return itemPath.split("/").map((x) => Number(x));
 };
 
-export const getParent = (itemsDictionaryIds: RecursiveArrayOfIds<string>, itemPath?: string) => {
+export const getParent = (
+    itemsDictionaryIds: RecursiveArrayOfIds<string>,
+    itemPath?: string
+):
+    | RecursiveArrayOfObjects<{
+          id: string;
+      }>
+    | RecursiveArrayOfIds<string>
+    | undefined => {
     const itemSplitPath = splitPath(itemPath);
 
     itemSplitPath.pop();
@@ -388,11 +390,10 @@ export const getParent = (itemsDictionaryIds: RecursiveArrayOfIds<string>, itemP
 export const getChild = (
     itemsDictionaryIds: RecursiveArrayOfIds<string>,
     splitSourcePath: number[]
-): RecursiveObjectWithChildren<{ id: string }> => {
+) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const clonedItems = clone(itemsDictionaryIds);
 
-    let evalClonedItemsValue;
     let getNestedArrayValueString = "";
 
     splitSourcePath.forEach((x, index) => {
@@ -406,12 +407,16 @@ export const getChild = (
     const evalClonedItemsString = `clonedItems${getNestedArrayValueString}`;
 
     try {
-        evalClonedItemsValue = eval(evalClonedItemsString);
+        const evalClonedItemsValue:
+            | RecursiveArrayOfObjects<{
+                  id: string;
+              }>
+            | RecursiveArrayOfIds<string>
+            | undefined = eval(evalClonedItemsString);
+        return evalClonedItemsValue;
     } catch (error) {
         console.error(error);
     }
-
-    return evalClonedItemsValue;
 };
 
 export const getParentIds = (
