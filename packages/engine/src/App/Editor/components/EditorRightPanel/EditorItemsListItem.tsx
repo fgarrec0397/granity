@@ -15,7 +15,6 @@ export const ItemTypes = {
 export type EditorItemsListItemProps = HasChildren & {
     id: string;
     index: number;
-    itemPath: string;
     itemName?: string;
     itemChildren?: RecursiveArrayOfIds<string>;
     isDraggable?: boolean;

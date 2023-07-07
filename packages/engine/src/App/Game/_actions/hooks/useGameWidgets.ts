@@ -117,7 +117,7 @@ export default () => {
                             ...(x.children || []),
                             {
                                 id: draggingItemId,
-                                path: x.path.concat("/", index.toString()),
+                                path: x.path?.concat("/", index.toString()),
                             },
                         ],
                     };

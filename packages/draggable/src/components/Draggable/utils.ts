@@ -1,17 +1,10 @@
-import {
-    clone,
-    cloneDeep,
-    RecursiveArrayOfIds,
-    RecursiveArrayOfObjects,
-    RecursiveObjectWithChildren,
-} from "@granity/helpers";
+import { clone, cloneDeep, RecursiveArrayOfIds, RecursiveArrayOfIdsItem } from "@granity/helpers";
 import { SxProps } from "@granity/ui";
 import { RefObject } from "react";
 import { DropTargetMonitor, XYCoord } from "react-dnd";
 
-import { DragSourceMonitor } from "../..";
 import { DraggingStatus } from "../Provider/DndContextProvider";
-import { DragItem, DragItemRaw, DropResult, DropResultItem, MarginType } from "../types";
+import { DragItem, DragItemRaw, DropResult, DropResultItem } from "../types";
 
 export const getElementMargin = <Element extends HTMLElement>(element: Element | null) => {
     if (!element) {
@@ -99,12 +92,8 @@ export const handleHover = <RefType extends HTMLElement>(
     const parentDestinationItem = getParent(itemsDictionaryIds, destinationItem.path);
     const parentChildren =
         parentDestinationItem !== undefined && "children" in parentDestinationItem
-            ? (parentDestinationItem?.children as RecursiveArrayOfObjects<{
-                  id: string;
-              }>)
-            : (parentDestinationItem as RecursiveArrayOfObjects<{
-                  id: string;
-              }>);
+            ? (parentDestinationItem.children as RecursiveArrayOfIds<string>)
+            : (parentDestinationItem as RecursiveArrayOfIds<string>);
 
     const isSameSource = sourceItem.parentId === destinationItem.parentId;
     const sourceIndex = sourceItem.index;
@@ -374,12 +363,7 @@ export const splitPath = (itemPath?: string) => {
 export const getParent = (
     itemsDictionaryIds: RecursiveArrayOfIds<string>,
     itemPath?: string
-):
-    | RecursiveArrayOfObjects<{
-          id: string;
-      }>
-    | RecursiveArrayOfIds<string>
-    | undefined => {
+): RecursiveArrayOfIds<string> | RecursiveArrayOfIdsItem<string> | undefined => {
     const itemSplitPath = splitPath(itemPath);
 
     itemSplitPath.pop();
@@ -407,12 +391,7 @@ export const getChild = (
     const evalClonedItemsString = `clonedItems${getNestedArrayValueString}`;
 
     try {
-        const evalClonedItemsValue:
-            | RecursiveArrayOfObjects<{
-                  id: string;
-              }>
-            | RecursiveArrayOfIds<string>
-            | undefined = eval(evalClonedItemsString);
+        const evalClonedItemsValue = eval(evalClonedItemsString);
         return evalClonedItemsValue;
     } catch (error) {
         console.error(error);
@@ -449,10 +428,6 @@ export const getParentIds = (
 
     return parentIds;
 };
-
-// export const isChildItem = (item: EditorListDragItem) => {
-//     return item.path.match(/\//gm);
-// };
 
 // a little function to help us with reordering the result
 export const reorder = <ListType>(list: ListType[], startIndex: number, endIndex: number) => {
@@ -559,7 +534,7 @@ export const removeChildFromChildren = (
 export const addChildToChildren = (
     children: RecursiveArrayOfIds<string>,
     splitDestinationPath: number[],
-    item: RecursiveObjectWithChildren<{ id: string }>
+    item: RecursiveArrayOfIdsItem<string>
 ) => {
     if (splitDestinationPath.length === 1) {
         const dropZoneIndex = Number(splitDestinationPath[0]);
@@ -604,8 +579,10 @@ export const handleMoveToDifferentParent = (
 
     let updatedItems = itemsDictionaryIds;
 
-    updatedItems = addChildToChildren(updatedItems, splitDestinationPath, sourceItem);
-    updatedItems = removeChildFromChildren(updatedItems, splitSourcePath);
+    if (sourceItem) {
+        updatedItems = addChildToChildren(updatedItems, splitDestinationPath, sourceItem);
+        updatedItems = removeChildFromChildren(updatedItems, splitSourcePath);
+    }
 
     // Instead of updating all paths each time, check to doing it directly in the function
     return updatePaths(updatedItems);

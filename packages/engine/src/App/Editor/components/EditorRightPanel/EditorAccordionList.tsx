@@ -34,6 +34,7 @@ export type EditorAccordionListProps = {
     handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (id: string) => boolean;
     isItemNesting?: (id: string) => boolean;
+    isDragAndDropEnabled?: boolean;
     onIsNestingChange?: (id: string, isNesting: boolean) => void;
     onDropItem?: (newItems: RecursiveArrayOfIds<string>) => void;
     onNesting?: (hoveredItemId: string, draggingItemId: string) => void;
@@ -83,6 +84,7 @@ const EditorAccordionList = ({
     handleClickRemove,
     isActionRowSelected,
     isItemNesting,
+    isDragAndDropEnabled,
     onIsNestingChange,
     onDropItem,
     onNesting,
@@ -113,6 +115,7 @@ const EditorAccordionList = ({
                     onIsNestingChange={onIsNestingChange}
                     onDropItem={onDropItem}
                     onNesting={onNesting}
+                    isDragAndDropEnabled={isDragAndDropEnabled}
                 />
                 <Button onClick={handleOpen} fullWidth {...styles.addItemButton}>
                     {triggerButtonText}

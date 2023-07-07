@@ -7,7 +7,7 @@ export type DragItemRaw = {
     parentId: string;
     id: string;
     index: number;
-    path: string;
+    path?: string;
     title: string;
     type: string;
     children?: RecursiveArrayOfIds<string>;
@@ -40,7 +40,7 @@ export type DragCollectProps = {
 
 export type DropResultItem = {
     index?: number;
-    path: string;
+    path?: string;
     id: string;
     parentId?: string;
 };

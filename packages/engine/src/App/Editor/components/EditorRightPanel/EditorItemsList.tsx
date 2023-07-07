@@ -108,7 +108,6 @@ const EditorItemsList = ({
                                         <EditorItemsListItem
                                             {...provided}
                                             id={item.id}
-                                            itemPath={item.path}
                                             itemChildren={item.children}
                                             itemsDictionaryIds={itemsDictionaryIds}
                                             index={index}
@@ -189,7 +188,6 @@ const EditorItemsList = ({
                         <EditorItemsListItem
                             key={item.id}
                             id={item.id}
-                            itemPath={item.path}
                             itemChildren={item.children}
                             itemsDictionaryIds={itemsDictionaryIds}
                             index={index}
@@ -237,7 +235,10 @@ const EditorItemsList = ({
     );
 };
 
-type EditorItemsListContainerProps = Omit<EditorItemsListProps, "moveItem" | "dropItem">;
+type EditorItemsListContainerProps = Omit<
+    EditorItemsListProps,
+    "moveItem" | "dropItem" | "parentId"
+>;
 
 export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     itemsDictionaryIds,
@@ -251,6 +252,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     handleClickRemove,
     isActionRowSelected,
     onDropItem,
+    isDragAndDropEnabled,
 }) => {
     const [items, setItems] = useState(itemsDictionaryIds);
 
@@ -310,7 +312,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
         <DndContextProvider onDrop={onDrop} itemsDictionaryIds={itemsDictionaryIds}>
             <EditorCustomDragLayer />
             <Droppable id="container" parentId="container" accept={[DraggableTypes.ListItem]}>
-                {(providedStyle, _) => {
+                {(providedStyle) => {
                     return (
                         <div {...providedStyle}>
                             <EditorItemsList
@@ -325,6 +327,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                                 handleClickRow={handleClickRow}
                                 handleClickRemove={handleClickRemove}
                                 isActionRowSelected={isActionRowSelected}
+                                isDragAndDropEnabled={isDragAndDropEnabled}
                             />
                         </div>
                     );

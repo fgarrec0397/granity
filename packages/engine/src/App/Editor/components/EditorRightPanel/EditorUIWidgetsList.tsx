@@ -48,6 +48,7 @@ const EditorWidgetsUIList: FC = () => {
             cancelButton={{
                 text: "Cancel and close",
             }}
+            isDragAndDropEnabled={false}
         >
             {(state) => (
                 <Box {...styles.itemWrapper}>

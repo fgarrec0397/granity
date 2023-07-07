@@ -1,5 +1,5 @@
 import { EditorListDragItem, WidgetsIds } from "@engine/api";
-import { clone, cloneDeep, RecursiveObjectWithChildren } from "@granity/helpers";
+import { clone, cloneDeep, RecursiveArrayOfIdsItem } from "@granity/helpers";
 
 export const splitPath = (itemPath?: string) => {
     if (!itemPath) {
@@ -12,7 +12,7 @@ export const splitPath = (itemPath?: string) => {
 export const getChild = (
     itemsDictionaryIds: WidgetsIds,
     splitSourcePath: number[]
-): RecursiveObjectWithChildren<{ id: string }> => {
+): RecursiveArrayOfIdsItem<string> => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const clonedItems = clone(itemsDictionaryIds);
 
@@ -172,7 +172,7 @@ export const removeChildFromChildren = (children: WidgetsIds, splitSourcePath: n
 export const addChildToChildren = (
     children: WidgetsIds,
     splitDestinationPath: number[],
-    item: RecursiveObjectWithChildren<{ id: string }>
+    item: RecursiveArrayOfIdsItem<string>
 ) => {
     if (splitDestinationPath.length === 1) {
         const dropZoneIndex = Number(splitDestinationPath[0]);

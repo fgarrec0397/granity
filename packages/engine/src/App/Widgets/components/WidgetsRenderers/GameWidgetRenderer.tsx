@@ -10,7 +10,7 @@ import {
     ErrorBoundary,
     FallbackProps,
     HasChildren,
-    RecursiveObjectWithChildren,
+    RecursiveArrayOfIdsItem,
 } from "@granity/helpers";
 import { BoxHelper, Object3D } from "@granity/three";
 import { Html } from "@granity/three/drei";
@@ -30,9 +30,7 @@ import WidgetsGizmo from "../WidgetsCommon/WidgetsGizmo";
 
 type Props = HasChildren & {
     widget: GameWidgetDictionaryItem;
-    widgetId: RecursiveObjectWithChildren<{
-        id: string;
-    }>;
+    widgetId: RecursiveArrayOfIdsItem<string>;
 };
 
 type WidgetObjectRendererStyles = {

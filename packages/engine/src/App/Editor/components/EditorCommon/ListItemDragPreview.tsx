@@ -30,7 +30,6 @@ const ListItemDragPreview: FC<BoxDragPreviewProps> = ({ dragItem }) => {
             handleVisibility={() => {}}
             editModal={() => <EditWidgetModal />}
             style={styles}
-            itemPath={""}
             itemsDictionaryIds={[]}
             isDragging={false}
         >

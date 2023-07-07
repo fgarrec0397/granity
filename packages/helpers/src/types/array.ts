@@ -1,19 +1,10 @@
 export type ArrayElement<ArrayType extends readonly unknown[]> =
     ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
 
-export type RecursiveObjectWithChildren<Type> = Type & {
-    path: string;
-    children?: RecursiveArrayOfObjects<Type>;
-};
+export type RecursiveArrayOfIds<TValue> = Array<RecursiveArrayOfIdsItem<TValue>>;
 
-export type RecursiveArrayOfObjects<Type> = Array<RecursiveObjectWithChildren<Type>>;
-
-export type RecursiveArrayOfIds<TValue> = RecursiveArrayOfObjects<{
+export type RecursiveArrayOfIdsItem<TValue> = {
     id: TValue;
-    path: string;
+    path?: string;
     children?: RecursiveArrayOfIds<TValue>;
-}>;
-
-export type RecursiveArray<Type extends string | number> = Array<RecursiveArrayItem<Type>>;
-
-export type RecursiveArrayItem<Type extends string | number> = Type | [Type, RecursiveArray<Type>];
+};
