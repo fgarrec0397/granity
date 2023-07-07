@@ -264,7 +264,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     }
 
     const onDrop: OnDrop = ({ source, destination, dropType, sameSource }) => {
-        console.log({ source, destination });
+        console.log({ source, destination, dropType, sameSource });
 
         if (!destination) {
             return;
@@ -308,6 +308,14 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                     const newDestPath = [...splitDestPath, 0];
 
                     updatedItems = handleUnNest(clonedItems, splitSrcPath, newDestPath);
+                } else {
+                    const newDestPath = [...splitDestPath, 0];
+
+                    updatedItems = handleMoveToDifferentParent(
+                        clonedItems,
+                        splitSrcPath,
+                        newDestPath
+                    );
                 }
             }
         }

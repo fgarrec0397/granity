@@ -219,8 +219,6 @@ export const handleHover = <RefType extends HTMLElement>(
         }
     } else {
         if (hoverClientY > hoverItemHeight - 5) {
-            console.log("canMoveNext");
-
             setDraggingStatus({
                 draggingDirection: "upward",
                 draggingType: "canMoveNext",
@@ -231,6 +229,7 @@ export const handleHover = <RefType extends HTMLElement>(
                 ...parentChildren[destinationIndex + 1],
                 parentId: destinationItem.parentId,
                 index: destinationItem.index + 1,
+                path: incrementPath(destinationItem.path),
             });
 
             setDropType("move");
@@ -239,7 +238,6 @@ export const handleHover = <RefType extends HTMLElement>(
         }
 
         if (hoverClientY < 5) {
-            console.log("canMovePrev");
             setDraggingStatus({
                 draggingDirection: "upward",
                 draggingType: "canMovePrev",
@@ -339,7 +337,11 @@ export const getRootParentIndex = (path: string) => {
     return itemSplitPath[0];
 };
 
-export const incrementPath = (path: string) => {
+export const incrementPath = (path?: string) => {
+    if (!path) {
+        return path;
+    }
+
     const itemSplitPath = splitPath(path);
 
     const index = itemSplitPath.pop();
