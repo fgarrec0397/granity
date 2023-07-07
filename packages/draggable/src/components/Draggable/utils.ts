@@ -76,7 +76,6 @@ export const handleHover = <RefType extends HTMLElement>(
         setHasDropped,
     }: HandleHoverParams<RefType>
 ) => {
-    // TODO - add a prev index property to track if it is dragging down or up
     const isDropTarget = monitor.isOver({ shallow: true });
 
     if (hasDropped) {
@@ -220,6 +219,8 @@ export const handleHover = <RefType extends HTMLElement>(
         }
     } else {
         if (hoverClientY > hoverItemHeight - 5) {
+            console.log("canMoveNext");
+
             setDraggingStatus({
                 draggingDirection: "upward",
                 draggingType: "canMoveNext",
@@ -238,6 +239,7 @@ export const handleHover = <RefType extends HTMLElement>(
         }
 
         if (hoverClientY < 5) {
+            console.log("canMovePrev");
             setDraggingStatus({
                 draggingDirection: "upward",
                 draggingType: "canMovePrev",
@@ -247,6 +249,7 @@ export const handleHover = <RefType extends HTMLElement>(
                 ...parentChildren[destinationIndex],
                 parentId: destinationItem.parentId,
                 index: destinationItem.index,
+                path: destinationItem.path,
             });
             setDropType("move");
 

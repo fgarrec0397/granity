@@ -10,7 +10,6 @@ export default <T>(
         if (!callback) {
             ref.current = value;
         } else {
-            // update ref.current if value - ref.current > 1
             ref.current = callback(ref);
         }
     }, [callback, value]);

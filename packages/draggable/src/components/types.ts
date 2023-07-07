@@ -8,7 +8,7 @@ export type DragItemRaw = {
     id: string;
     index: number;
     path?: string;
-    title: string;
+    title?: string;
     type: string;
     children?: RecursiveArrayOfIds<string>;
 };

@@ -200,6 +200,10 @@ export const handleMoveWithinParent = (
     splitSourcePath: number[],
     splitDestinationPath: number[]
 ) => {
+    if (!splitSourcePath.length || !splitDestinationPath.length) {
+        return itemsDictionaryIds;
+    }
+
     if (splitDestinationPath.length > 0 && splitDestinationPath.length !== splitSourcePath.length) {
         throw new Error("splitDestinationPath and splitSourcePath must have the same length");
     }
@@ -213,6 +217,10 @@ export const handleMoveToDifferentParent = (
     splitSourcePath: number[],
     splitDestinationPath: number[]
 ) => {
+    if (!splitSourcePath.length || !splitDestinationPath.length) {
+        return itemsDictionaryIds;
+    }
+
     const sourceItem = getChild(itemsDictionaryIds, splitSourcePath);
 
     let updatedItems = clone(itemsDictionaryIds);
@@ -229,6 +237,10 @@ export const handleUnNest = (
     splitSourcePath: number[],
     splitDestinationPath: number[]
 ) => {
+    if (!splitSourcePath.length || !splitDestinationPath.length) {
+        return itemsDictionaryIds;
+    }
+
     const sourceItem = getChild(itemsDictionaryIds, splitSourcePath);
 
     let updatedItems = itemsDictionaryIds;

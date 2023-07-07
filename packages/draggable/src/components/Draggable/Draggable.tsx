@@ -1,10 +1,18 @@
+import { usePrevious } from "@granity/helpers";
 import { SxProps } from "@granity/ui";
-import { RefObject, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 
-import { useDndContext, useDroppableContext } from "../Provider/DndContextProvider";
-import { DragCollectProps, DraggableSnapshot, DragItem, DragItemRaw, DropResult } from "../types";
+import { DraggingStatus, useDndContext } from "../Provider/DndContextProvider";
+import {
+    DragCollectProps,
+    DraggableSnapshot,
+    DragItem,
+    DragItemRaw,
+    DropResult,
+    DropResultItem,
+} from "../types";
 import { getElementMargin, handleHover, handleStyle } from "./utils";
 
 export type DraggableChildrenProp<RefType extends HTMLElement> = {
@@ -14,40 +22,76 @@ export type DraggableChildrenProp<RefType extends HTMLElement> = {
 
 export type DraggableProps<RefType extends HTMLElement> = {
     dragItem: DragItemRaw;
+    accept: string[];
     children: (props: DraggableChildrenProp<RefType>, snapshot: DraggableSnapshot) => JSX.Element;
 };
 
-export type CollectProps = { isOver: boolean; style: SxProps | undefined };
+export type CollectProps = { isOver: boolean; style: SxProps | undefined; isDropTarget: boolean };
 
 const Draggable = <RefType extends HTMLElement>({
     dragItem: currentItem,
+    accept,
     children,
 }: DraggableProps<RefType>) => {
     const ref = useRef<RefType>(null);
     const { itemsDictionaryIds, onDrop, onMove } = useDndContext();
 
-    const {
-        threesholdIndex,
-        previousThreesholdIndex,
-        threesholdId,
-        dropType,
-        setThreesholdIndex,
-        setThreesholdId,
-        setDropType,
-        setDraggingStatus,
-        draggingStatus,
-        getAcceptTypes,
-        isDropTarget: isParentActive,
-        destinationItem,
-        setDestination,
-        hasDropped,
-        setHasDropped,
-    } = useDroppableContext(currentItem.parentId);
+    const [hasDropped, setHasDropped] = useState(true);
+    const [threesholdIndex, setThreesholdIndex] = useState(-1);
+    const tempPreviousThreesholdIndex = usePrevious(threesholdIndex);
+    const previousThreesholdIndex = usePrevious(threesholdIndex, (prevRef) => {
+        if (prevRef.current === undefined) {
+            prevRef.current = threesholdIndex;
+        }
 
-    const [{ isOver, style }, drop] = useDrop<DragItem, DropResult, CollectProps>({
-        accept: getAcceptTypes(),
+        const shouldUpdatePreviousValueWhileDraggingDown = threesholdIndex - prevRef.current > 1;
+        const shouldUpdatePreviousValueWhileDraggingUp = threesholdIndex - prevRef.current < -1;
+        const shouldUpdatePreviousValueWhileDraggingBack = threesholdIndex - prevRef.current === 0;
+
+        if (shouldUpdatePreviousValueWhileDraggingDown) {
+            return threesholdIndex - 1;
+        }
+
+        if (shouldUpdatePreviousValueWhileDraggingUp) {
+            return threesholdIndex + 1;
+        }
+
+        if (shouldUpdatePreviousValueWhileDraggingBack) {
+            if (tempPreviousThreesholdIndex === undefined) {
+                return;
+            }
+
+            const hasDraggedBackFromDown = tempPreviousThreesholdIndex > threesholdIndex;
+            const hasDraggedBackFromUp = tempPreviousThreesholdIndex < threesholdIndex;
+
+            if (hasDraggedBackFromDown) {
+                return threesholdIndex + 1;
+            }
+
+            if (hasDraggedBackFromUp) {
+                return threesholdIndex - 1;
+            }
+        }
+
+        return prevRef.current;
+    });
+
+    const [threesholdId, setThreesholdId] = useState("");
+    const [dropType, setDropType] = useState<"move" | "combine">("move");
+    const [destinationItem, setDestination] = useState<DropResultItem>();
+    const [draggingStatus, setDraggingStatus] = useState<DraggingStatus>();
+
+    const [{ isOver, style, isDropTarget }, drop] = useDrop<DragItem, DropResult, CollectProps>({
+        accept,
         collect(monitor) {
             const sourceItem = monitor.getItem();
+            const isMonitorShallowDropTarget = monitor.isOver({ shallow: true });
+            const element = ref.current;
+
+            const nestedDropTarget = element?.querySelector(`[data-shallow-drop-target="true"]`);
+
+            const dropTarget =
+                isMonitorShallowDropTarget || (!nestedDropTarget && monitor.isOver());
 
             const itemStyle = handleStyle(monitor, {
                 sourceItem: sourceItem,
@@ -62,6 +106,7 @@ const Draggable = <RefType extends HTMLElement>({
             return {
                 isOver: monitor.isOver(),
                 style: itemStyle,
+                isDropTarget: dropTarget,
             };
         },
 
@@ -70,9 +115,9 @@ const Draggable = <RefType extends HTMLElement>({
 
             if (!item) return;
 
-            const isDropTarget = monitor.isOver({ shallow: true });
+            const dropTarget = monitor.isOver({ shallow: true });
 
-            if (!isDropTarget) return;
+            if (!dropTarget) return;
 
             setHasDropped(true);
 
@@ -150,10 +195,10 @@ const Draggable = <RefType extends HTMLElement>({
         },
     });
 
-    const isDestination = isParentActive && threesholdIndex === currentItem.index;
+    const isDestination = isDropTarget && threesholdIndex === currentItem.index;
     const idMismatch = isDestination && threesholdId !== currentItem.id;
     const indexMismatch =
-        isParentActive && threesholdIndex !== currentItem.index && threesholdId === currentItem.id;
+        isDropTarget && threesholdIndex !== currentItem.index && threesholdId === currentItem.id;
 
     const isDraggingSrouce =
         isDragging &&

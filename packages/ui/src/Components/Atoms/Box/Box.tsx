@@ -3,7 +3,7 @@ import { FC, forwardRef } from "react";
 
 export type BoxProps = LibBoxProps;
 
-const Box: FC<BoxProps> = forwardRef<unknown, BoxProps>((props, ref) => {
+const Box: FC<BoxProps> = forwardRef<any, BoxProps>((props, ref) => {
     return <BoxLib ref={ref} {...props} />;
 });
 
