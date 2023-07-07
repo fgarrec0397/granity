@@ -1,6 +1,5 @@
-export { Draggable } from "./components/Draggable/Draggable";
-export { Droppable } from "./components/Droppable/Droppable";
-export { DndContextProvider } from "./components/Provider/DndContextProvider";
-export * from "./components/types";
+export { default as DndContextProvider } from "./DndContextProvider";
+export { default as DragAndDrop } from "./DragAndDrop";
+export * from "./types";
 export type { Identifier } from "dnd-core";
 export * from "react-dnd";

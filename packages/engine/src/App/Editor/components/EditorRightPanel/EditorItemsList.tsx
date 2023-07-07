@@ -1,6 +1,6 @@
 import useScenes from "@engine/App/Scenes/_actions/hooks/useScenes";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
-import { DndContextProvider, Draggable, Droppable, OnDrop } from "@granity/draggable";
+import { DndContextProvider, DragAndDrop, OnDrop } from "@granity/draggable";
 import { clone, RecursiveArrayOfIds } from "@granity/helpers";
 import { Box, List, pxToRem, Typography } from "@granity/ui";
 import { FC, ReactElement, useEffect, useState } from "react";
@@ -95,7 +95,7 @@ const EditorItemsList = ({
 
                     if (isDragAndDropEnabled) {
                         return (
-                            <Draggable<HTMLLIElement>
+                            <DragAndDrop<HTMLLIElement>
                                 key={item.id}
                                 dragItem={{
                                     id: item.id,
@@ -173,7 +173,7 @@ const EditorItemsList = ({
                                         </EditorItemsListItem>
                                     );
                                 }}
-                            </Draggable>
+                            </DragAndDrop>
                         );
                     }
 
@@ -327,7 +327,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
     return (
         <DndContextProvider onDrop={onDrop} itemsDictionaryIds={itemsDictionaryIds}>
             <EditorCustomDragLayer />
-            <Draggable<HTMLDivElement>
+            <DragAndDrop<HTMLDivElement>
                 dragItem={{
                     id: "container",
                     index: 0,
@@ -359,7 +359,7 @@ export const EditorItemsListContainer: FC<EditorItemsListContainerProps> = ({
                         </Box>
                     );
                 }}
-            </Draggable>
+            </DragAndDrop>
         </DndContextProvider>
     );
 };

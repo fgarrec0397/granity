@@ -3,8 +3,8 @@ import { SxProps } from "@granity/ui";
 import { RefObject } from "react";
 import { DropTargetMonitor, XYCoord } from "react-dnd";
 
-import { DraggingStatus } from "../Provider/DndContextProvider";
-import { DragItem, DragItemRaw, DropResult, DropResultItem } from "../types";
+import { DraggingStatus } from "./DndContextProvider";
+import { DragItem, DragItem, DropResult, DropResultItem } from "./types";
 
 export const getElementMargin = <Element extends HTMLElement>(element: Element | null) => {
     if (!element) {
@@ -32,8 +32,8 @@ export const getElementMargin = <Element extends HTMLElement>(element: Element |
 };
 
 type HandleHoverParams<RefType extends HTMLElement> = {
-    sourceItem: DragItemRaw;
-    destinationItem: DragItemRaw;
+    sourceItem: DragItem;
+    destinationItem: DragItem;
     ref: RefObject<RefType>;
     threesholdIndex: number;
     previousThreesholdIndex: number | undefined;
@@ -270,8 +270,8 @@ export const handleStyle = <RefType extends HTMLElement>(
         draggingStatus,
         hasDropped,
     }: {
-        sourceItem: DragItemRaw;
-        destinationItem: DragItemRaw;
+        sourceItem: DragItem;
+        destinationItem: DragItem;
         threesholdIndex: number;
         dropType: "combine" | "move";
         ref: RefObject<RefType>;

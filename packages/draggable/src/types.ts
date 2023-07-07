@@ -1,9 +1,7 @@
 import { RecursiveArrayOfIds } from "@granity/helpers";
 import { SxProps } from "@granity/ui";
 
-// Draggable
-
-export type DragItemRaw = {
+export type DragItem = {
     parentId: string;
     id: string;
     index: number;
@@ -13,19 +11,7 @@ export type DragItemRaw = {
     children?: RecursiveArrayOfIds<string>;
 };
 
-export type MarginType = { left: number; right: number; top: number; bottom: number };
-
-export type DragItem = DragItemRaw & {
-    margin: {
-        top: number;
-        right: number;
-        bottom: number;
-        left: number;
-    };
-    __rect__?: DOMRect;
-};
-
-export type DraggableSnapshot = {
+export type DragAndDropSnapshot = {
     isDragging: boolean;
     isOver: boolean;
 };
@@ -33,7 +19,12 @@ export type DraggableSnapshot = {
 export type DragCollectProps = {
     isDragging: boolean;
     draggedItem: DragItem;
-    style?: SxProps;
+};
+
+export type DropCollectProps = {
+    isOver: boolean;
+    style: SxProps | undefined;
+    isDropTarget: boolean;
 };
 
 // Provider
@@ -48,12 +39,12 @@ export type DropResultItem = {
 export type DropResult = {
     source: DropResultItem;
     destination?: DropResultItem;
-    dropType: "draggable" | "droppable" | "move" | "moveIn" | "moveOut" | "combine";
+    dropType: "move" | "combine";
     sameSource: boolean;
 };
 
 export type OnDrop = (dropResult: DropResult) => void;
 
-export type OnMoveItemResult = Omit<DragItemRaw, "type" | "title">;
+export type OnMoveItemResult = Omit<DragItem, "type" | "title">;
 
 export type OnMove = (sourceItem: OnMoveItemResult, destinationItem: OnMoveItemResult) => void;
