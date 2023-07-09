@@ -1,4 +1,4 @@
-import { WidgetsIds } from "@engine/api";
+import { WidgetId, WidgetsIds } from "@engine/api";
 import { GameWidgetDictionaryItem } from "@engine/App/Game/_actions/gameTypes";
 import useGameWidgets from "@engine/App/Game/_actions/hooks/useGameWidgets";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
@@ -28,7 +28,6 @@ const EditorGameWidgetsList: FC = () => {
     const { displayWidgetName, removeWidget, updateWidgetsOrder } = useWidgets();
     const {
         addGameWidget,
-        addGameWidgetChild,
         gameWidgets,
         gameWidgetsModules,
         gameWidgetsIds,
@@ -42,9 +41,9 @@ const EditorGameWidgetsList: FC = () => {
         addGameWidget(widget);
     };
 
-    const toggleVisibilityWidget = (id: string): void => {
-        if (id) {
-            updateGameWidgetInfo(id, { isVisible: !gameWidgetsInfo[id].isVisible });
+    const toggleVisibilityWidget = (item: WidgetId): void => {
+        if (item.id) {
+            updateGameWidgetInfo(item.id, { isVisible: !gameWidgetsInfo[item.id].isVisible });
         }
     };
 
@@ -53,16 +52,8 @@ const EditorGameWidgetsList: FC = () => {
         selectGameWidget([widget as GameWidgetDictionaryItem], true);
     };
 
-    const handleClickRemove = (widgetId: string) => {
+    const handleClickRemove = (widgetId: WidgetId) => {
         removeWidget(widgetId);
-    };
-
-    const onIsNestingChange = (widgetId: string, isNesting: boolean) => {
-        updateGameWidgetInfo(widgetId, { isNesting });
-    };
-
-    const onNesting = (hoveredItemId: string, draggingItemId: string) => {
-        addGameWidgetChild(hoveredItemId, draggingItemId);
     };
 
     const onDropItem = (newItems: WidgetsIds) => {
@@ -76,16 +67,13 @@ const EditorGameWidgetsList: FC = () => {
             noItemsText="No game widget on the scene."
             triggerButtonText="Add Game Widget"
             editModal={(id) => <EditWidgetModal widget={gameWidgets[id]} />}
-            isVisible={(id) => gameWidgetsInfo?.[id]?.isVisible}
+            isVisible={(item) => gameWidgetsInfo?.[item.id]?.isVisible}
             handleVisibility={toggleVisibilityWidget}
             displayItemName={displayWidgetName}
             handleClickRow={handleClickRow}
             handleClickRemove={handleClickRemove}
             isActionRowSelected={(id) => gameWidgets[id]?.id === selectedGameWidgets[0]?.id}
-            isItemNesting={(id) => gameWidgetsInfo[id]?.isNesting}
-            onIsNestingChange={onIsNestingChange}
             onDropItem={onDropItem}
-            onNesting={onNesting}
             cancelButton={{
                 text: "Cancel and close",
             }}

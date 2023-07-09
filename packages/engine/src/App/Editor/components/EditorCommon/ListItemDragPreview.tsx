@@ -18,12 +18,12 @@ const ListItemDragPreview: FC<BoxDragPreviewProps> = ({ dragItem }) => {
         transform: "rotate(7deg)",
         WebkitTransform: "rotate(7deg)",
         backgroundColor: theme.palette.action.selected,
-        opacity: 0.75,
+        opacity: 0.25,
     };
 
     return (
         <EditorItemsListItem
-            id={dragItem.id}
+            item={dragItem}
             index={0}
             itemName={dragItem.title}
             isDraggable={false}

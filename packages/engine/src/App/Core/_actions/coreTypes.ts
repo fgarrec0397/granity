@@ -1,6 +1,6 @@
 import { ScenesDictionary } from "@engine/App/Scenes/_actions/scenesTypes";
 import { WidgetModule } from "@engine/App/Widgets/_actions/widgetsTypes";
-import { Dictionary } from "@granity/helpers";
+import { Dictionary, RecursiveArrayOfIds, RecursiveArrayOfIdsItem } from "@granity/helpers";
 import { ReactNode } from "react";
 
 import inputsConfig from "../configs/inputsConfig";
@@ -162,3 +162,8 @@ export type FileItem = {
     name: string;
     type: string;
 };
+
+// --- Data --- //
+
+export type IdsArray = RecursiveArrayOfIds<string>;
+export type IdsArrayItem = RecursiveArrayOfIdsItem<string>;

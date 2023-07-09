@@ -1,3 +1,4 @@
+import { IdsArrayItem } from "@engine/api";
 import { useAccordionDefaultOpened } from "@engine/Theme/hooks/accordion";
 import { HasCallableChildren, RecursiveArrayOfIds } from "@granity/helpers";
 import {
@@ -23,21 +24,18 @@ export type EditorAccordionListProps = {
     title: string;
     noItemsText: string;
     triggerButtonText: string;
-    editModal?: (id: string) => ReactElement;
-    isVisible?: (id: string) => boolean | undefined;
-    isDefault?: (id: string) => boolean | undefined;
-    handleVisibility?: (id: string) => void;
     acceptButton?: EditorAccordionListButtonProps;
     cancelButton?: EditorAccordionListButtonProps;
+    isDragAndDropEnabled?: boolean;
+    editModal?: (id: string) => ReactElement;
+    isDefault?: (id: string) => boolean | undefined;
     displayItemName?: (id: string) => string | undefined;
     handleClickRow?: (id: string) => void;
-    handleClickRemove?: (id: string) => void;
     isActionRowSelected?: (id: string) => boolean;
-    isItemNesting?: (id: string) => boolean;
-    isDragAndDropEnabled?: boolean;
-    onIsNestingChange?: (id: string, isNesting: boolean) => void;
+    isVisible?: (id: IdsArrayItem) => boolean | undefined;
+    handleVisibility?: (id: IdsArrayItem) => void;
+    handleClickRemove?: (id: IdsArrayItem) => void;
     onDropItem?: (newItems: RecursiveArrayOfIds<string>) => void;
-    onNesting?: (hoveredItemId: string, draggingItemId: string) => void;
 } & HasCallableChildren<{
     handleClose: () => void;
     handleOpen: () => void;
@@ -83,11 +81,8 @@ const EditorAccordionList = ({
     handleClickRow,
     handleClickRemove,
     isActionRowSelected,
-    isItemNesting,
     isDragAndDropEnabled,
-    onIsNestingChange,
     onDropItem,
-    onNesting,
     children,
 }: EditorAccordionListProps) => {
     const openedAccordion = useAccordionDefaultOpened();
@@ -111,10 +106,7 @@ const EditorAccordionList = ({
                     handleClickRow={handleClickRow}
                     handleClickRemove={handleClickRemove}
                     isActionRowSelected={isActionRowSelected}
-                    isItemNesting={isItemNesting}
-                    onIsNestingChange={onIsNestingChange}
                     onDropItem={onDropItem}
-                    onNesting={onNesting}
                     isDragAndDropEnabled={isDragAndDropEnabled}
                 />
                 <Button onClick={handleOpen} fullWidth {...styles.addItemButton}>

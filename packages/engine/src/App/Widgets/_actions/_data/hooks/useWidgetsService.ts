@@ -1,10 +1,12 @@
-import { clone, pull, recursiveRemoveArrayOfObjects } from "@granity/helpers";
+import { IdsArray } from "@engine/App/Core/_actions/coreTypes";
+import { clone, pull, recursiveArrayRemoveitem } from "@granity/helpers";
 import { useCallback } from "react";
 
 import widgetsIdsMapper from "../../mappers/widgetsIdsMapper";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
+    WidgetId,
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
     WidgetInfoValueParameter,
@@ -14,6 +16,10 @@ import {
 import useWidgetDispatch from "./useWidgetDispatch";
 import useWidgetsContext from "./useWidgetsContext";
 import useWidgetsSelector from "./useWidgetsSelector";
+
+type RemoveBatchOptions = {
+    parentWidgetId?: string;
+};
 
 export default () => {
     const { widgetsInfoDictionary, widgetsObjectInfoIds } = useWidgetsSelector();
@@ -109,29 +115,49 @@ export default () => {
         select([]);
     }, [select]);
 
-    const remove = useCallback(
-        (widgetId: string) => {
-            removeSelection();
-            dispatchRemoveWidgetInfoDictionary(widgetId);
+    const flatRecursiveIds = useCallback(
+        <ArrayType extends IdsArray = IdsArray>(array?: ArrayType): string[] => {
+            if (!array?.length) {
+                return [];
+            }
 
-            delete widgets[widgetId];
+            return array.reduce<string[]>((previous, current) => {
+                const newArray = previous;
 
-            setWidgetsIds((prevWidgetsIds) => {
-                const newWidgetsIds = recursiveRemoveArrayOfObjects(prevWidgetsIds, widgetId);
-                return newWidgetsIds;
-            });
+                newArray.push(current.id, ...flatRecursiveIds(current.children));
+
+                return newArray;
+            }, []);
         },
-        [dispatchRemoveWidgetInfoDictionary, removeSelection, setWidgetsIds, widgets]
+        []
     );
 
     const removeBatch = useCallback(
-        (widgetsToDelete: WidgetDictionary) => {
-            const widgetsIdsToDelete = Object.keys(widgetsToDelete);
+        (widgetsToDelete: WidgetDictionary | string[], options?: RemoveBatchOptions) => {
+            let idsToRemove: string[];
+
+            if (Array.isArray(widgetsToDelete)) {
+                idsToRemove = widgetsToDelete;
+            } else {
+                idsToRemove = Object.keys(widgetsToDelete);
+            }
 
             removeSelection();
-            dispatchRemoveBatchWidgetInfoDictionary(widgetsIdsToDelete);
+            dispatchRemoveBatchWidgetInfoDictionary(idsToRemove);
 
-            Object.keys(widgetsToDelete).forEach((x) => delete widgets[x]);
+            idsToRemove.forEach((x) => delete widgets[x]);
+
+            if (options?.parentWidgetId) {
+                setWidgetsIds((prevWidgetsIds) => {
+                    const newWidgetsIds = recursiveArrayRemoveitem(
+                        prevWidgetsIds,
+                        options.parentWidgetId
+                    );
+                    return newWidgetsIds;
+                });
+
+                return;
+            }
 
             setWidgetsIds((prevIds) => {
                 const ids = pull(prevIds, ...widgetsIdsMapper(widgetsToDelete));
@@ -140,6 +166,38 @@ export default () => {
             });
         },
         [dispatchRemoveBatchWidgetInfoDictionary, removeSelection, setWidgetsIds, widgets]
+    );
+
+    const remove = useCallback(
+        (widgetId: WidgetId | string) => {
+            removeSelection();
+
+            if (typeof widgetId !== "string" && widgetId.children?.length) {
+                const idsToDelete = [widgetId.id, ...flatRecursiveIds(widgetId.children)];
+
+                return removeBatch(idsToDelete, {
+                    parentWidgetId: widgetId.id,
+                });
+            }
+
+            const widgetIdToDelete = widgetId as string;
+
+            dispatchRemoveWidgetInfoDictionary(widgetIdToDelete);
+            delete widgets[widgetIdToDelete];
+
+            setWidgetsIds((prevWidgetsIds) => {
+                const newWidgetsIds = recursiveArrayRemoveitem(prevWidgetsIds, widgetIdToDelete);
+                return newWidgetsIds;
+            });
+        },
+        [
+            dispatchRemoveWidgetInfoDictionary,
+            flatRecursiveIds,
+            removeBatch,
+            removeSelection,
+            setWidgetsIds,
+            widgets,
+        ]
     );
 
     const removeAll = useCallback(() => {

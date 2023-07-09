@@ -7,6 +7,7 @@ import { buildWidgetInfo } from "../utilities/buildWidgetInfoDictionary";
 import {
     WidgetDictionary,
     WidgetDictionaryItem,
+    WidgetId,
     WidgetInfoBuilder,
     WidgetInfoDictionary,
     WidgetInfoDictionaryItem,
@@ -182,7 +183,7 @@ export default () => {
     );
 
     const removeWidget = useCallback(
-        (widgetId: string) => {
+        (widgetId: WidgetId | string) => {
             remove(widgetId);
         },
         [remove]

@@ -1,4 +1,5 @@
-import { Dictionary, EmptyObject, RecursiveArrayOfIds, UnionOfProperties } from "@granity/helpers";
+import { IdsArray, IdsArrayItem } from "@engine/App/Core/_actions/coreTypes";
+import { Dictionary, EmptyObject, UnionOfProperties } from "@granity/helpers";
 import { Slice } from "@reduxjs/toolkit";
 import { FC, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from "react";
 
@@ -78,4 +79,5 @@ export type WidgetInfoBuilder<
 export type WidgetInfoValueParameter = Partial<Omit<WidgetInfoDictionaryItem, "id">>;
 export type WidgetValueParameter = Partial<Omit<WidgetDictionaryItem, "id">>;
 
-export type WidgetsIds = RecursiveArrayOfIds<string>;
+export type WidgetsIds = IdsArray;
+export type WidgetId = IdsArrayItem;

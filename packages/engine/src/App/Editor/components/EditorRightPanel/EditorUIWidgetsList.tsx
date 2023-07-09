@@ -2,6 +2,7 @@ import useUIWidgets from "@engine/App/UI/_actions/hooks/useUIWidgets";
 import { UIWidgetDictionaryItem } from "@engine/App/UI/_actions/uiTypes";
 import useWidgets from "@engine/App/Widgets/_actions/hooks/useWidgets";
 import mapWidgetModuleToWidgetDictionary from "@engine/App/Widgets/_actions/utilities/mapWidgetModuleToWidgetDictionary";
+import { WidgetId } from "@engine/App/Widgets/_actions/widgetsTypes";
 import { Box, BoxProps, pxToRem } from "@granity/ui";
 import { FC } from "react";
 
@@ -32,7 +33,7 @@ const EditorWidgetsUIList: FC = () => {
         addUIWidget(widget);
     };
 
-    const handleClickRemove = (widgetId: string) => {
+    const handleClickRemove = (widgetId: WidgetId) => {
         removeWidget(widgetId);
     };
 
