@@ -57,4 +57,4 @@ export type SceneData = {
 export type SaveSceneServiceParameter = ScenesDictionary;
 
 export type ScenesIds = IdsArray;
-export type ScenesIdsItem = IdsArrayItem;
+export type ScenesId = IdsArrayItem;

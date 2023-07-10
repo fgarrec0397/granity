@@ -86,7 +86,7 @@ export default () => {
             currentSceneId &&
             isEqual(
                 widgetsInfoDictionary,
-                app?.savedScenes?.scenes?.[currentSceneId].data.widgetsInfoDictionary
+                app?.savedScenes?.scenes?.[currentSceneId]?.data.widgetsInfoDictionary
             ),
         [
             app?.savedScenes?.scenes,
@@ -104,7 +104,7 @@ export default () => {
             currentSceneId &&
             isEqual(
                 widgetsInfoDictionary,
-                app?.publishedScenes?.scenes?.[currentSceneId].data.widgetsInfoDictionary
+                app?.publishedScenes?.scenes?.[currentSceneId]?.data.widgetsInfoDictionary
             ),
         [
             app?.publishedScenes?.scenes,

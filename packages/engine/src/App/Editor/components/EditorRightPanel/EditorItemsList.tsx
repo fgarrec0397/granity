@@ -117,7 +117,7 @@ const EditorItemsList = ({
                                                     }}
                                                 >
                                                     <EditorItemsList
-                                                        itemsDictionaryIds={item.children || []}
+                                                        itemsDictionaryIds={item.children}
                                                         parentId={item.id}
                                                         noItemsText={noItemsText}
                                                         editModal={editModal}
@@ -154,26 +154,28 @@ const EditorItemsList = ({
                             isActionRowSelected={isActionRowSelected}
                             isDragging={false}
                         >
-                            <Box
-                                sx={{
-                                    padding: pxToRem(0, 0, 0, 10),
-                                }}
-                            >
-                                <EditorItemsList
-                                    itemsDictionaryIds={item.children!}
-                                    parentId={item.id}
-                                    noItemsText={noItemsText}
-                                    editModal={editModal}
-                                    isVisible={isVisible}
-                                    isDefault={isDefault}
-                                    handleVisibility={handleVisibility}
-                                    displayItemName={displayItemName}
-                                    handleClickRow={handleClickRow}
-                                    handleClickRemove={handleClickRemove}
-                                    isActionRowSelected={isActionRowSelected}
-                                    isDragAndDropEnabled={isDragAndDropEnabled}
-                                />
-                            </Box>
+                            {item.children?.length ? (
+                                <Box
+                                    sx={{
+                                        padding: pxToRem(0, 0, 0, 10),
+                                    }}
+                                >
+                                    <EditorItemsList
+                                        itemsDictionaryIds={item.children!}
+                                        parentId={item.id}
+                                        noItemsText={noItemsText}
+                                        editModal={editModal}
+                                        isVisible={isVisible}
+                                        isDefault={isDefault}
+                                        handleVisibility={handleVisibility}
+                                        displayItemName={displayItemName}
+                                        handleClickRow={handleClickRow}
+                                        handleClickRemove={handleClickRemove}
+                                        isActionRowSelected={isActionRowSelected}
+                                        isDragAndDropEnabled={isDragAndDropEnabled}
+                                    />
+                                </Box>
+                            ) : null}
                         </EditorItemsListItem>
                     );
                 })

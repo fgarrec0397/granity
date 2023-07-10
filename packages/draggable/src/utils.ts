@@ -4,7 +4,7 @@ import { RefObject } from "react";
 import { DropTargetMonitor, XYCoord } from "react-dnd";
 
 import { DraggingStatus } from "./DndContextProvider";
-import { DragItem, DragItem, DropResult, DropResultItem } from "./types";
+import { DragItem, DropResult, DropResultItem } from "./types";
 
 export const getElementMargin = <Element extends HTMLElement>(element: Element | null) => {
     if (!element) {

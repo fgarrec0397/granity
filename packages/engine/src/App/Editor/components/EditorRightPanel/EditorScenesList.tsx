@@ -1,4 +1,5 @@
 import useScenes from "@engine/App/Scenes/_actions/hooks/useScenes";
+import { ScenesId } from "@engine/App/Scenes/_actions/scenesTypes";
 import { FC } from "react";
 
 import EditorCreateSceneModalContent from "../EditorCommon/EditorCreateSceneModalContent";
@@ -25,7 +26,7 @@ const EditorScenesList: FC = () => {
         }
     };
 
-    const handleClickRemove = (sceneId: string) => {
+    const handleClickRemove = (sceneId: ScenesId) => {
         removeScene(sceneId);
     };
 
@@ -39,7 +40,7 @@ const EditorScenesList: FC = () => {
         <EditorAccordionList
             itemsDictionaryIds={scenesIds}
             title="Scenes"
-            noItemsText="No UI widget on the scene."
+            noItemsText="No scenes created."
             triggerButtonText="Add Scene"
             handleClickRow={handleClickRow}
             displayItemName={displaySceneName}

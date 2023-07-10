@@ -9,7 +9,7 @@ import { useSnackbar } from "@granity/ui";
 import { useCallback, useEffect, useState } from "react";
 
 import useScenesService from "../_data/hooks/useScenesService";
-import { ScenesDictionary, ScenesDictionaryItem } from "../scenesTypes";
+import { ScenesDictionary, ScenesDictionaryItem, ScenesId } from "../scenesTypes";
 import getDefaultSceneId from "../utilities/getDefaultSceneId";
 import getFirstNonDefaultScene from "../utilities/getFirstNonDefaultScene";
 
@@ -256,8 +256,8 @@ export default () => {
     }, [enqueueSnackbar, getCurrentScene, scenes, widgets, widgetsIds, widgetsInfoDictionary]);
 
     const removeScene = useCallback(
-        (sceneId: string) => {
-            const sceneToRemove = getSceneById(sceneId);
+        (sceneId: ScenesId) => {
+            const sceneToRemove = getSceneById(sceneId.id);
 
             if (scenes) {
                 if (sceneToRemove && sceneToRemove.isDefault) {
@@ -268,7 +268,7 @@ export default () => {
                 }
             }
 
-            remove(sceneId);
+            remove(sceneId.id);
         },
         [getSceneById, scenes, remove, loadScene, changeDefaultScene]
     );
