@@ -2,6 +2,72 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/fgarrec0397/granity/compare/v0.6.1...v0.7.0) (2023-07-10)
+
+
+### Features
+
+* @granity/draggable init ([6ca1d2f](https://github.com/fgarrec0397/granity/commits/6ca1d2f656d84f6e20e61cb20842df5fcd82a3ea))
+
+
+### Bug Fixes
+
+* 3d object detached when the widgets rerenders ([befae6e](https://github.com/fgarrec0397/granity/commits/befae6e6b6ac56001a798cd554ffa7e6356c8c7a))
+* box helper for nested widgets ([6553ffc](https://github.com/fgarrec0397/granity/commits/6553ffc40c4143e955521b44a3a1ecfd3b776249))
+* build + adding scenes broken ([5c41bab](https://github.com/fgarrec0397/granity/commits/5c41bab853cf863ab727186202c9e6359ca3f326))
+* combine different source ([d6e69b3](https://github.com/fgarrec0397/granity/commits/d6e69b3ca047e31a2f85a8a00e3b7b18897d3649))
+* combine when unNesting ([7401e1f](https://github.com/fgarrec0397/granity/commits/7401e1f4ce898b2300d4734e5b300ed1ee4d1cd9))
+* customDrag Layer + Tree View added ([7994637](https://github.com/fgarrec0397/granity/commits/799463725424a7db1b9e558807176b73a3c0bf08))
+* delete nested widget ([645ac2a](https://github.com/fgarrec0397/granity/commits/645ac2a83591dc45089f1c2367058d73a278dfdb))
+* delete widget broken + update widget options ([54853c5](https://github.com/fgarrec0397/granity/commits/54853c5e504f91774f63fd2aadcce7cd4f4f6c0d))
+* drag and drop logic ([9969736](https://github.com/fgarrec0397/granity/commits/9969736d1eb811c7f72681a94e2ee55cde4bf128))
+* dragging element styles ([5d79bb0](https://github.com/fgarrec0397/granity/commits/5d79bb032f9247a3037331fd34e675072c659510))
+* dragging itemlists +  styles ([4d60c46](https://github.com/fgarrec0397/granity/commits/4d60c46e2bccf0b122dba9236d3dd94c064ff3f5))
+* editor history ([b695ab0](https://github.com/fgarrec0397/granity/commits/b695ab0c682909af71f33ac46f734d1582c75712))
+* first draft react-nested-dnd installed ([cea66e6](https://github.com/fgarrec0397/granity/commits/cea66e643d85033ed40e12a993eaa6813cafcaa7))
+* history infinite loop ([f5bf143](https://github.com/fgarrec0397/granity/commits/f5bf14303cdfea2c6f71b0b1ffab035968f7dd49))
+* hover styles when hovering root items ([6b46664](https://github.com/fgarrec0397/granity/commits/6b46664d86f2b1a78a93ed0d89341314c871f17a))
+* nested drag and drop ([52bae15](https://github.com/fgarrec0397/granity/commits/52bae157c365f42bc0ae69347967c8da2f95d191))
+* nested styling issue ([ec8ab7e](https://github.com/fgarrec0397/granity/commits/ec8ab7e0dba78ffc256b2af9fe207e1781c38aa0))
+* nesting + unesting ([dde987a](https://github.com/fgarrec0397/granity/commits/dde987a207b7232d5376663f29da15ba0ddcff8f))
+* nesting for the first time ([b53d3ad](https://github.com/fgarrec0397/granity/commits/b53d3ade6efdad8c0e4b04ff463b16e2ea08073d))
+* nesting widgets ([2b35b22](https://github.com/fgarrec0397/granity/commits/2b35b221689b08712a3b89cd42b24844b7b52f05))
+* nesting widgets + nesting widgets list ([ae2bc92](https://github.com/fgarrec0397/granity/commits/ae2bc92caa2ae87406de5fe319a1e4d764d42973))
+* ootb drag preview removed ([785d9e8](https://github.com/fgarrec0397/granity/commits/785d9e8a4eda0910a60c8c610d8d5b4f074d4c8d))
+* persist widgets order ([cfa74f0](https://github.com/fgarrec0397/granity/commits/cfa74f09efdbe9e35385be39077581a431b15911))
+* some bugs and cleaning code ([97ac56e](https://github.com/fgarrec0397/granity/commits/97ac56e2b926fac8d8e91bdfbda756e7a1d969e1))
+* style issue ([cd79ade](https://github.com/fgarrec0397/granity/commits/cd79adecc76353916cc03df22bd1aba8f9b39a16))
+* ui nested widgets ([a00121c](https://github.com/fgarrec0397/granity/commits/a00121c62d6f71d50032d3cce67afb1d0d61ef1f))
+* **WIP:** continuing debugging ([5ab180e](https://github.com/fgarrec0397/granity/commits/5ab180e99804d1274e2aa4dba2f16eb57bccfcee))
+* **WIP:** draggable nesting ([e7f9a6e](https://github.com/fgarrec0397/granity/commits/e7f9a6e70103c9c9073fc8772002ba83042318cc))
+* **WIP:** dragging direction tracking ([4d0f06d](https://github.com/fgarrec0397/granity/commits/4d0f06de77982a9bb5607587f45e73dc4ae0a0eb))
+* **WIP:** drop api ([3aa38eb](https://github.com/fgarrec0397/granity/commits/3aa38eb9bfb0098582d16798688758c25529d695))
+* **WIP:** handle move within parent ([9832c35](https://github.com/fgarrec0397/granity/commits/9832c359b8f09c98ea8d7cc10425dca053697edf))
+* **WIP:** infinite nesting via drag and drop ([c067c84](https://github.com/fgarrec0397/granity/commits/c067c849c64ca6c0f8b368f3402539b47cccdb81))
+* **WIP:** items dictionary api ([5bc0298](https://github.com/fgarrec0397/granity/commits/5bc0298065ff35d6a4e01568081c36bcb3c78441))
+* **WIP:** nesting widgets by drag and drop ([e2b2948](https://github.com/fgarrec0397/granity/commits/e2b29485ec545ae2a47aafefebce2c88d040d7c8))
+* **WIP:** remove translation style ([1c7adce](https://github.com/fgarrec0397/granity/commits/1c7adce6f46eacc0c515ca07aa6f127b18e27f7a))
+* **WIP:** testing some stuff for nesting widgets ([2cd523b](https://github.com/fgarrec0397/granity/commits/2cd523b21e5601a58a64d461d55a047108894725))
+
+
+### Refactor
+
+* clean code ([f4558b9](https://github.com/fgarrec0397/granity/commits/f4558b9b6e89222af5de92946f1d3818bfa4582e))
+* clean Draggable and utils ([fe6e5d4](https://github.com/fgarrec0397/granity/commits/fe6e5d4599275fbeb04d66250ee43e5583cf63b3))
+* clean Droppable + Draggable + utils ([eea8055](https://github.com/fgarrec0397/granity/commits/eea80558864a074874f5e42eff20a6726cdf370b))
+* cleaning draggable package ([ad10eb0](https://github.com/fgarrec0397/granity/commits/ad10eb04297934ad39ddda3932acf8e824258828))
+* cleaning types / fix: build ([2fb50f8](https://github.com/fgarrec0397/granity/commits/2fb50f83718646cf58a8b970281dd83271662a8a))
+* code clean up ([eb2dc4f](https://github.com/fgarrec0397/granity/commits/eb2dc4f47b256610b934aa94fad67b10531471f6))
+* code cleaning / fix: widgets were not deleting correctly ([b9ee874](https://github.com/fgarrec0397/granity/commits/b9ee874e1eb946a27bcf04b100627adaeafe9e35))
+* draggable to dragAndDrop ([986839a](https://github.com/fgarrec0397/granity/commits/986839a8cb348b1351e75ba65e9d0330a7ab0ee5))
+* dragging status ([d3103a1](https://github.com/fgarrec0397/granity/commits/d3103a130e902404e5348d9a9c52ddc0392beee3))
+* flattening widgets children ([7cfc74a](https://github.com/fgarrec0397/granity/commits/7cfc74aabe7d5b3ee2602b5c33e808ff18c75db8))
+* items list handle recursive ids list ([1f9125b](https://github.com/fgarrec0397/granity/commits/1f9125b97c3fff1dd685d495b12e5a227eeead2a))
+* nested widgets and widgetsIds ([a30a7bc](https://github.com/fgarrec0397/granity/commits/a30a7bc51fe76f776bcf806e4ee154fece1186f1))
+* recursive remove ([d28d2e1](https://github.com/fgarrec0397/granity/commits/d28d2e18c8c73b5cfa861db7fde6a1bf9135d6e3))
+* widgetsids mapper + drag item useState ([59080f4](https://github.com/fgarrec0397/granity/commits/59080f4a971497ef4fa79ebaabf17bb0b60ff797))
+* **wip:** useDraggableListItem configurable percentage height to trigger the moveItem function ([b49e680](https://github.com/fgarrec0397/granity/commits/b49e680d92115d3e3d7c3ce9dfa77bef063069a4))
+
 ### [0.6.1](https://github.com/fgarrec0397/granity/compare/v0.6.0...v0.6.1) (2023-06-12)
 
 
