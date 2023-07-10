@@ -62,25 +62,6 @@ export const widgetsInfoSlice = createSlice({
                 ...state.byId[widgetId],
                 ...value,
             };
-
-            // if (value.displayName) {
-            //     state.byId[widgetId].displayName = value.displayName;
-            // }
-
-            // if (value.properties) {
-            //     state.byId[widgetId].properties = value.properties;
-            // }
-
-            // if (value.options) {
-            //     state.byId[widgetId].options = {
-            //         ...state.byId[widgetId].options,
-            //         ...(value.options as WidgetOptionsValues<any>),
-            //     };
-            // }
-
-            // if (value.isVisible !== undefined) {
-            //     state.byId[widgetId].isVisible = value.isVisible;
-            // }
         },
         removeWidgetInfoDictionaryItem: (
             state: WidgetsInfoState,

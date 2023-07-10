@@ -166,10 +166,15 @@ export default () => {
             const currentWidget = selectedGameWidgets[0];
 
             updateWidgetInfo<GameWidgetValueParameter<TValue>>(currentWidget.id, {
-                options: widgetOptions,
+                ...gameWidgetsInfo[currentWidget.id],
+                options: {
+                    ...(gameWidgetsInfo[currentWidget.id]
+                        .options as GameWidgetOptionsValues<TValue>),
+                    ...widgetOptions,
+                },
             });
         },
-        [selectedGameWidgets, updateWidgetInfo]
+        [gameWidgetsInfo, selectedGameWidgets, updateWidgetInfo]
     );
 
     const selectGameWidget = useCallback(

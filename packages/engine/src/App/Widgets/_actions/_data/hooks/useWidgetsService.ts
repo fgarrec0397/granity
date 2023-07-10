@@ -180,7 +180,7 @@ export default () => {
                 });
             }
 
-            const widgetIdToDelete = widgetId as string;
+            const widgetIdToDelete = typeof widgetId === "string" ? widgetId : widgetId.id;
 
             dispatchRemoveWidgetInfoDictionary(widgetIdToDelete);
             delete widgets[widgetIdToDelete];
