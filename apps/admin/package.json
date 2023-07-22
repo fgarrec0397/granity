@@ -2,7 +2,7 @@
     "name": "admin",
     "version": "0.1.0",
     "private": true,
-    "proxy": "http://localhost:5000",
+    "proxy": "http://localhost:5001",
     "scripts": {
         "audit": "npm audit",
         "audit:fix": "npm audit fix",

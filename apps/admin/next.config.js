@@ -25,7 +25,7 @@ const nextConfig = {
         return [
             {
                 source: "/server/:path*",
-                destination: "http://localhost:5000/:path*",
+                destination: `http://localhost:${process.env.SERVER_PORT || 5001}/:path*`,
             },
         ];
     },
