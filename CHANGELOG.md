@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/fgarrec0397/granity/compare/v0.7.0...v0.8.0) (2023-08-20)
+
+
+### Bug Fixes
+
+* server port / revert: removed some vite config files ([90d80d8](https://github.com/fgarrec0397/granity/commits/90d80d8b5a879a1d64cc3ef0126281c7e82c733f))
+
 ## [0.7.0](https://github.com/fgarrec0397/granity/compare/v0.6.1...v0.7.0) (2023-07-10)
 
 
