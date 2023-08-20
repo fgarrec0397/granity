@@ -27,6 +27,7 @@ export const helpersTypes: HelpersTypes = {
     SkeletonHelper: "SkeletonHelper",
     SpotLightHelper: "SpotLightHelper",
     AmbientLightHelper: "PointLightHelper",
+    RectAreaLightHelper: "RectAreaLightHelper",
 };
 
 export const gameWidgetPrefix = "WidgetRenderer";

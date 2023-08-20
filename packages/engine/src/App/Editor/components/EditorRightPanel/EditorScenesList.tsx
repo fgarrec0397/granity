@@ -45,7 +45,7 @@ const EditorScenesList: FC = () => {
             handleClickRow={handleClickRow}
             displayItemName={displaySceneName}
             handleClickRemove={handleClickRemove}
-            isDefault={(id) => scenes[id].isDefault}
+            isDefault={(id) => scenes[id]?.isDefault}
             isActionRowSelected={(id) => currentSceneId === id}
             isDragAndDropEnabled={false}
             acceptButton={{

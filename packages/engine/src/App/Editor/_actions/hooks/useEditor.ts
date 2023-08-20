@@ -18,7 +18,6 @@ export default () => {
         updateDebugEnabled,
         isDebugEnabled,
     } = useEditorService();
-    const isEditor = useMemo(() => editorStatus === EditorStatus.IsEditor, [editorStatus]);
     const isGame = useMemo(() => editorStatus === EditorStatus.IsGame, [editorStatus]);
     const isPreview = useMemo(() => editorStatus === EditorStatus.IsPreview, [editorStatus]);
     const isGamePreview = useMemo(
@@ -26,6 +25,10 @@ export default () => {
         [editorStatus]
     );
     const isUIPreview = useMemo(() => editorStatus === EditorStatus.IsUIPreview, [editorStatus]);
+    const isEditor = useMemo(
+        () => editorStatus === EditorStatus.IsEditor || (!isGame && !isGamePreview && !isPreview),
+        [editorStatus, isGame, isGamePreview, isPreview]
+    );
 
     useEffect(() => {
         if (isEditing && !hasEdited) {

@@ -9,6 +9,7 @@
     "@granity/prettier-config": "*",
     "@granity/typescript-config": "*",
     "@react-three/rapier": "^0.15.1",
+    "@dimforge/rapier3d-compat": "^0.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

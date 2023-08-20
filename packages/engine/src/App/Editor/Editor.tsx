@@ -13,14 +13,14 @@ import EditorLayout from "./components/EditorLayout";
 
 const Editor: FC = () => {
     const { gameWidgetsIds, selectGameWidgetFromMeshArr } = useGameWidgets();
-    const { isDebugEnabled } = useEditor();
+    const { isDebugEnabled, isEditor, isPreview } = useEditor();
 
     useHandleLoadFiles();
     useEditorInputs();
     useHandleEditorStateChange();
 
     return (
-        <GamePhysics paused debug>
+        <GamePhysics paused={isEditor || !isPreview} debug>
             <Select multiple onChange={selectGameWidgetFromMeshArr}>
                 <SceneDefaultCamera />
                 <Widgets widgetsIds={gameWidgetsIds} />

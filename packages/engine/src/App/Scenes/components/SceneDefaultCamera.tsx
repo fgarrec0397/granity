@@ -46,11 +46,13 @@ const EditorCamera: FC = () => {
             <>
                 <PerspectiveCamera ref={cameraRef} />
                 <TransformControls />
-                <OrbitControls
-                    enablePan={!isEditing}
-                    enableZoom={!isEditing}
-                    enableRotate={!isEditing}
-                />
+                {isEditor && (
+                    <OrbitControls
+                        enablePan={!isEditing}
+                        enableZoom={!isEditing}
+                        enableRotate={!isEditing}
+                    />
+                )}
             </>
         );
     }

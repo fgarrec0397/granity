@@ -93,10 +93,12 @@ export default () => {
             setWidgets((prevWidgets) => {
                 const clonedPrevWidgets = clone(prevWidgets);
 
-                clonedPrevWidgets[widgetId] = {
-                    ...clonedPrevWidgets[widgetId],
-                    ...value,
-                };
+                if (clonedPrevWidgets[widgetId]) {
+                    clonedPrevWidgets[widgetId] = {
+                        ...clonedPrevWidgets[widgetId],
+                        ...value,
+                    };
+                }
 
                 return clonedPrevWidgets;
             });

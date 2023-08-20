@@ -7,12 +7,14 @@ import {
     RigidBodyProps as LibRigidBodyProps,
 } from "../lib/react-three-rapier";
 
+export type RigidBodyRefType = RapierRigidBody;
+
 export type RigidBodyProps = LibRigidBodyProps &
     HasChildren & {
         hasPhysic?: boolean;
     };
 
-const RigidBody = forwardRef<RapierRigidBody, LibRigidBodyProps>(
+const RigidBody = forwardRef<RigidBodyRefType, LibRigidBodyProps>(
     ({ children, ...RigidBodyProps }, ref) => {
         return (
             <LibRigidBody {...RigidBodyProps} ref={ref}>
@@ -21,8 +23,6 @@ const RigidBody = forwardRef<RapierRigidBody, LibRigidBodyProps>(
         );
     }
 );
-
-export type RigidBodyRef = RapierRigidBody;
 
 RigidBody.displayName = "RigidBody";
 

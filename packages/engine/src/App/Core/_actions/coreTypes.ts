@@ -62,6 +62,7 @@ export type BaseInputItem<EventType extends keyof WindowEventMap> = {
     ctrlKey: boolean;
     shiftKey: boolean;
     preventDefault: boolean;
+    isFire?: boolean;
 };
 
 /**
@@ -89,6 +90,7 @@ export type TriggerableInputsApp = InputsConfigApp<TriggerableInputs>;
 export type TriggerableInputs = {
     [key: (typeof inputsConfig.editor)[number]["name"]]: {
         value: boolean;
+        shouldResetValue?: boolean;
         trigger: (
             event: WindowEventMap[(typeof inputsConfig)[keyof typeof inputsConfig][number]["event"]]
         ) => boolean;

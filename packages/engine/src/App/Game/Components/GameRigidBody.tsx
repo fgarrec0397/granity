@@ -1,10 +1,8 @@
 import useConfig from "@engine/App/Core/_actions/hooks/useConfig";
-import { RigidBody, RigidBodyProps, RigidBodyRef } from "@granity/physics";
-import { FC, forwardRef } from "react";
+import { RigidBody, RigidBodyProps, RigidBodyRefType } from "@granity/physics";
+import { forwardRef } from "react";
 
-type Props = RigidBodyProps;
-
-const GameRigidBody: FC<Props> = forwardRef<RigidBodyRef, RigidBodyProps>(
+const GameRigidBody = forwardRef<RigidBodyRefType, RigidBodyProps>(
     ({ children, ...props }, ref) => {
         const { physicsEnabled } = useConfig();
 

@@ -1,5 +1,6 @@
 import { defaultInputs } from "@engine/App/Core/_actions/coreConstants";
 import useEditor from "@engine/App/Editor/_actions/hooks/useEditor";
+import { clone } from "@granity/helpers";
 import { DependencyList, useCallback, useEffect, useMemo, useState } from "react";
 
 import {
@@ -13,9 +14,10 @@ import useConfig from "./useConfig";
 const triggerAllMappedKeys = <EventType extends Event>(
     keyMapped: TriggerableInputsApp,
     keyboardType: InputsType,
-    event: EventType
+    event?: EventType
 ) => {
     const clientKeyMapped: AppsClientInput = {};
+    const eventsNameToReset: string[] = [];
 
     for (const key in keyMapped[keyboardType]) {
         keyMapped[keyboardType][key] = {
@@ -23,10 +25,14 @@ const triggerAllMappedKeys = <EventType extends Event>(
             value: event ? keyMapped[keyboardType][key].trigger(event as any) : false,
         };
 
+        if (keyMapped[keyboardType][key].value && keyMapped[keyboardType][key].shouldResetValue) {
+            eventsNameToReset.push(key);
+        }
+
         clientKeyMapped[key] = keyMapped[keyboardType][key].value;
     }
 
-    return clientKeyMapped;
+    return { clientKeyMapped, eventsNameToReset };
 };
 
 const useInputs = <HandlerType extends InputsMappingHandler>(
@@ -36,6 +42,7 @@ const useInputs = <HandlerType extends InputsMappingHandler>(
     const handlerCallback = useCallback(handler, [handler, ...dependencies]);
     const [keyboardType, setKeyboardType] = useState<InputsType>("editor");
     const [availableEvents, setAvailableEvents] = useState<(keyof WindowEventMap)[]>([]);
+    const [clientInput, setClientInput] = useState<AppsClientInput>();
     const { isEditor } = useEditor();
     const { inputsConfig } = useConfig();
 
@@ -61,6 +68,10 @@ const useInputs = <HandlerType extends InputsMappingHandler>(
                     const hasCtrlKey = x.ctrlKey ? event.ctrlKey : !event.ctrlKey;
                     const hasShifKey = x.shiftKey ? event.shiftKey : !event.shiftKey;
 
+                    if (event.type !== x.event) {
+                        return false;
+                    }
+
                     if ("code" in event && "code" in x) {
                         return hasCtrlKey && hasShifKey && event.code === x.code;
                     }
@@ -72,6 +83,7 @@ const useInputs = <HandlerType extends InputsMappingHandler>(
                     return false;
                 },
                 value: false,
+                shouldResetValue: x.isFire,
             };
         });
 
@@ -82,9 +94,37 @@ const useInputs = <HandlerType extends InputsMappingHandler>(
         return newMapping;
     }, [inputsConfig, keyboardType]);
 
+    const resetValues = useCallback(
+        (clientKeyMapped: AppsClientInput, eventsNameToReset: string[]) => {
+            if (!eventsNameToReset?.length) {
+                return clientKeyMapped;
+            }
+
+            // wait a frame
+            setTimeout(() => {
+                const clonedClientKeyMapped = clone(clientKeyMapped);
+
+                eventsNameToReset.forEach((x) => {
+                    clonedClientKeyMapped[x] = false;
+                });
+
+                handlerCallback(clonedClientKeyMapped);
+                setClientInput(clientKeyMapped);
+            }, 30);
+        },
+        [handlerCallback]
+    );
+
     useEffect(() => {
         const eventHandler = <EventType extends Event>(event: EventType) => {
-            handlerCallback(triggerAllMappedKeys(keysMapping, keyboardType, event));
+            const { clientKeyMapped, eventsNameToReset } = triggerAllMappedKeys(
+                keysMapping,
+                keyboardType,
+                event
+            );
+            handlerCallback(clientKeyMapped);
+            setClientInput(clientKeyMapped);
+            resetValues(clientKeyMapped, eventsNameToReset);
         };
 
         availableEvents.forEach((x) => {
@@ -96,7 +136,9 @@ const useInputs = <HandlerType extends InputsMappingHandler>(
                 window.removeEventListener(x, eventHandler);
             });
         };
-    }, [availableEvents, handlerCallback, keyboardType, keysMapping]);
+    }, [availableEvents, handlerCallback, keyboardType, keysMapping, resetValues]);
+
+    return clientInput;
 };
 
 export default useInputs;
