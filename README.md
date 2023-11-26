@@ -1,7 +1,6 @@
-> :warning: **UNDER HEAVY DEVELOPMENT** :warning: 
+> :warning: **DEVELOPMENT STOPPED** :warning:
 >
-> This application is not usable in its current version and is closed to any contribution until it is stable.
-> But feel free to star it if you love the concept :heart:
+> No more development will occure on this project
 
 <p>&nbsp;</p>
 
